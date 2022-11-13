@@ -1,11 +1,9 @@
 {
   "name": "@dataplug/tasenor-bookkeeper",
-  "version": "1.8.11",
+  "version": "1.8.12",
   "repository": "git+ssh://git@github.com:dataplugoy/tasenor-bookkeeper.git",
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "AGPL",
-  "scripts": {
-  },
-  "dependencies": {
-  }
+  "scripts": {},
+  "dependencies": {}
 }
