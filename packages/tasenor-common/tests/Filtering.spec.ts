@@ -1,3 +1,4 @@
+import { expect, test } from '@jest/globals'
 import { filter2function } from '../src'
 
 test('Filtering: no rule', async () => {

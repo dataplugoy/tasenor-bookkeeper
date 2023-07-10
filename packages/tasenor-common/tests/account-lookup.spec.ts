@@ -1,3 +1,4 @@
+import { expect, test } from '@jest/globals'
 import { address2sql, PluginCode, AccountAddress, Knowledge, LinkedTree, AssetCode, ExpenseSink, IncomeSource, emptyLinkedTree } from '../src'
 
 test('Convert account address to account default', async () => {

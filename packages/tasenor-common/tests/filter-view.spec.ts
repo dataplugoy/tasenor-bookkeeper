@@ -1,3 +1,4 @@
+import { expect, test } from '@jest/globals'
 import { filterView2rule, filterView2name, filterView2results } from '../src'
 
 test('Filter view to rule conversions', async () => {

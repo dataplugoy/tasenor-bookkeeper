@@ -1,3 +1,4 @@
+import { expect, test } from '@jest/globals'
 import { Bookkeeper } from '../src'
 
 test('Configuration creation', async () => {

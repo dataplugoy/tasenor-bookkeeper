@@ -1,3 +1,4 @@
+import { expect, test } from '@jest/globals'
 import { AssetCode, emptyLinkedTree, ExpenseSink, IncomeSource, Knowledge, LinkedTree, VATRange } from '../src'
 
 const expense: LinkedTree<ExpenseSink> = {

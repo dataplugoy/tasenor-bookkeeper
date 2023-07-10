@@ -1,3 +1,4 @@
+import { expect, test } from '@jest/globals'
 import { Tag, mergeTags } from '../src/types/bookkeeper/tags'
 
 test('Tags', () => {

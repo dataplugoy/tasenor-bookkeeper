@@ -1,3 +1,4 @@
+import { expect, test } from '@jest/globals'
 import { RulesEngine, RuleParsingError } from '../src'
 
 test('Rules: constants', () => {

@@ -1,3 +1,4 @@
+import { expect, test } from '@jest/globals'
 import { isValues } from '../src'
 
 test('atom values', () => {

@@ -1,3 +1,4 @@
+import { expect, test } from '@jest/globals'
 import { latestVersion, Version, versionCompare } from '../src'
 
 test('Version comparison', async () => {

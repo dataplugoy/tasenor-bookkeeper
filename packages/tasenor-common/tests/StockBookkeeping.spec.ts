@@ -1,3 +1,4 @@
+import { expect, test } from '@jest/globals'
 import { StockBookkeeping, CryptoCurrency, StockTicker } from '../src'
 
 test('StockBookkeeping basics', async () => {

@@ -1,3 +1,4 @@
+import { expect, test } from '@jest/globals'
 import { near, realPositive, realNegative } from '../src'
 
 test('near', () => {
