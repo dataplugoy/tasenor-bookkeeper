@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "esModuleInterop": true,
+    "module": "es2020",
+    "moduleResolution": "bundler",
+    "outDir": "./dist",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "target": "es2020",
+    "noEmit": true,
+    "resolveJsonModule": true
+  }
+}

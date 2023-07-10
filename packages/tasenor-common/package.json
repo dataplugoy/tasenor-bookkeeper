@@ -1,5 +1,5 @@
 {
-  "name": "tasenor-common",
+  "name": "@dataplug/tasenor-common",
   "version": "1.9.16",
   "description": "Common parts of Tasenor project",
   "main": "src/index.ts",
@@ -35,6 +35,7 @@
   "devDependencies": {
     "@types/jest": "^29.5.2",
     "eslint-config-tasenor": "workspace:*",
+    "tsconfig": "workspace:*",
     "jest": "^29.6.1",
     "ts-jest": "^29.1.1",
     "typescript": "^5.1.6"

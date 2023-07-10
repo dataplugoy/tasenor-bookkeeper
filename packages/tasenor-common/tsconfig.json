@@ -1,20 +1,9 @@
 {
-    "compilerOptions": {
-        "declaration": true,
-        "esModuleInterop": true,
-        "jsx": "react",
-        "module": "es2020",
-        "moduleResolution": "bundler",
-        "outDir": "./dist",
-        "skipLibCheck": true,
-        "sourceMap": true,
-        "strictNullChecks": true,
-        "target": "es2020"
-    },
-    "include": [
-        "src/**/*"
-    ],
-    "exclude": [
-        "node_modules"
-    ]
+  "extends": "tsconfig/base.json",
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "./node_modules"
+  ]
 }
