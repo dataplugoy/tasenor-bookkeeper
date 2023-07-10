@@ -101,6 +101,15 @@ importers:
       '@mui/material':
         specifier: 5.11.0
         version: 5.11.0(react-dom@17.0.2)(react@17.0.2)
+      axios:
+        specifier: 0.26.0
+        version: 0.26.0
+      base64-arraybuffer:
+        specifier: ^1.0.2
+        version: 1.0.2
+      clone:
+        specifier: ^2.1.2
+        version: 2.1.2
       get-value:
         specifier: ^3.0.1
         version: 3.0.1
@@ -1553,6 +1562,11 @@ packages:
 
   /balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+
+  /base64-arraybuffer@1.0.2:
+    resolution: {integrity: sha512-I3yl4r9QB5ZRY3XuJVEPfc2XhZO6YweFPI+UovAzn+8/hb3oJ6lnysaFcjVpkCPfVWFUDvoZ8kmVDP7WyRtYtQ==}
+    engines: {node: '>= 0.6.0'}
+    dev: false
 
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}

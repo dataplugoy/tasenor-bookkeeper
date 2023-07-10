@@ -1,5 +1,5 @@
 import React from 'react'
-import { RuleEditorElement, RenderingProps } from '@dataplug/tasenor-common'
+import { RuleEditorElement, RenderingProps, Value } from '@dataplug/tasenor-common'
 import { RuleEditor, RuleEditorContinueOption, RuleEditorValues } from '../bookkeeper'
 import { Renderer } from '../risp/RenderingEngine'
 
@@ -16,7 +16,7 @@ export const RuleEditorRenderer: Renderer = (props: RenderingProps<RuleEditorEle
     cashAccount={cashAccount}
     values={values[element.name] as Partial<RuleEditorValues>}
     onChange={(newValue) => {
-      element.triggerHandler && element.triggerHandler({ type: 'onChange', name: element.name, value: newValue }, props)
+      element.triggerHandler && element.triggerHandler({ type: 'onChange', name: element.name, value: newValue as unknown as Value }, props)
     }}
     onContinue={(option: RuleEditorContinueOption) => {
       const opts: RenderingProps<RuleEditorElement> = props
