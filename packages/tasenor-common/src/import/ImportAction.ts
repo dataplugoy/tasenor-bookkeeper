@@ -52,7 +52,7 @@ export type ImportRetryAction = {
   retry: true
 }
 export function isImportRetryAction(obj: unknown): obj is ImportRetryAction {
-  return (typeof obj === 'object' && obj !== null && obj.retry === true)
+  return (typeof obj === 'object' && obj !== null && ('retry' in obj) && obj.retry === true)
 }
 
 /**
@@ -62,7 +62,7 @@ export type ImportRollbackAction = {
   rollback: true
 }
 export function isImportRollbackAction(obj: unknown): obj is ImportRollbackAction {
-  return (typeof obj === 'object' && obj !== null && obj.rollback === true)
+  return (typeof obj === 'object' && obj !== null && ('rollback' in obj) && obj.rollback === true)
 }
 
 /**

@@ -14,6 +14,9 @@
     "lint": {
       "inputs": ["src/**"]
     },
+    "build": {
+      "inputs": ["src/**"]
+    },
     "fix": {
       "inputs": ["src/**", "test/**"]
     },

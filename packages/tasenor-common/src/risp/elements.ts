@@ -113,12 +113,18 @@ export interface CaseElement {
   defaultValue?: string
 }
 export function isCaseElement(object: unknown): object is CaseElement {
-  return (
-    typeof object === 'object' && object !== null && ('cases' in object) &&
-    ('type' in object) && object.type === 'case' &&
-    object.condition && object.cases &&
-    typeof object.cases === 'object' && object.cases !== null
-  )
+  if (typeof object !== 'object' || object === null) {
+    return false
+  }
+  if (!('cases' in object)) {
+    return false
+  }
+  if (!('condition' in object)) {
+    return false
+  }
+  return ('type' in object) && object.type === 'case' && !!object.condition && !!object.cases &&
+    typeof object.condition === 'object' && typeof object.cases === 'object' &&
+    object.condition !== null && object.cases !== null
 }
 
 /**

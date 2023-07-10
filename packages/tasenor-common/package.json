@@ -19,7 +19,8 @@
   "scripts": {
     "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
     "fix": "eslint --fix 'src/**/*.ts' 'tests/**/*.ts'",
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc"
   },
   "dependencies": {
     "axios": "0.26.0",
