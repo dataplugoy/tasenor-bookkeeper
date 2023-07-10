@@ -1,0 +1,37 @@
+{
+  "name": "@dataplug/tasenor-common",
+  "version": "1.9.16",
+  "description": "Common parts of Tasenor project",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "git@github.com:dataplugoy/tasenor-common.git",
+  "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
+  "license": "MIT",
+  "browser": {
+    "crypto": "crypto-browserify",
+    "os": "os-browserify",
+    "tty": "tty-browserify",
+    "http": "stream-http",
+    "https": "https-browserify",
+    "stream": "stream-browserify",
+    "zlib": "browserify-zlib"
+  },
+  "scripts": {
+    "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
+    "lint:fix": "eslint --fix 'src/**/*.ts' 'tests/**/*.ts'"
+  },
+  "dependencies": {
+    "axios": "0.26.0",
+    "clone": "^2.1.2",
+    "dayjs": "1.10.8",
+    "form-data": "^4.0.0",
+    "jwt-decode": "^3.1.2",
+    "mathjs": "^10.0.2",
+    "node-stdlib-browser": "^1.2.0",
+    "sprintf-js": "^1.1.2",
+    "ts-opaque": "^3.0.1"
+  },
+  "devDependencies": {
+    "eslint-config-tasenor": "workspace:*"
+  }
+}

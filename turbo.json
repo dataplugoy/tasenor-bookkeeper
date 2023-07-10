@@ -1,6 +1,15 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
+  "globalEnv": [
+    "DEBUG_STOCK",
+    "DEBUG_BALANCE",
+    "DEBUG_RULES",
+    "DEBUG_SEGMENTATION",
+    "DEBUG_CLASSIFICATION",
+    "DEBUG_ANALYSIS",
+    "DEBUG_EXECUTION"
+  ],
   "pipeline": {
     "lint": {}
   }
