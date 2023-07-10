@@ -11,6 +11,9 @@
     "DEBUG_EXECUTION"
   ],
   "pipeline": {
-    "lint": {}
+    "lint": {
+    },
+    "lint:fix": {
+    }
   }
 }

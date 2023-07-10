@@ -1,5 +1,5 @@
 {
-  "name": "@dataplug/tasenor-common",
+  "name": "tasenor-common",
   "version": "1.9.16",
   "description": "Common parts of Tasenor project",
   "main": "dist/index.js",
