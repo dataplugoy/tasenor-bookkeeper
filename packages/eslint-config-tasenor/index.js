@@ -6,6 +6,8 @@ module.exports = {
     "jest": true
   },
   plugins: [
+    "react",
+    "react-hooks",
     "@typescript-eslint",
   ],
   extends: [
