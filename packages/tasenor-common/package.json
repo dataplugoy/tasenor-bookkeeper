@@ -18,7 +18,7 @@
   },
   "scripts": {
     "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
-    "lint:fix": "eslint --fix 'src/**/*.ts' 'tests/**/*.ts'"
+    "fix": "eslint --fix 'src/**/*.ts' 'tests/**/*.ts'"
   },
   "dependencies": {
     "axios": "0.26.0",

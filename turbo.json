@@ -13,7 +13,7 @@
   "pipeline": {
     "lint": {
     },
-    "lint:fix": {
+    "fix": {
     }
   }
 }
