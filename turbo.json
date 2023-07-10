@@ -12,10 +12,13 @@
   ],
   "pipeline": {
     "lint": {
+      "inputs": ["src/**"]
     },
     "fix": {
+      "inputs": ["src/**", "test/**"]
     },
     "test": {
+      "inputs": ["src/**", "test/**"]
     }
   }
 }
