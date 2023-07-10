@@ -1,0 +1,7 @@
+{
+  "name": "jestconfig",
+  "main": "index.js",
+  "version": "0.0.0",
+  "dependencies": {
+  }
+}

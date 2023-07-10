@@ -35,6 +35,7 @@
   "devDependencies": {
     "@types/jest": "^29.5.2",
     "eslint-config-tasenor": "workspace:*",
+    "jestconfig": "workspace:*",
     "tsconfig": "workspace:*",
     "jest": "^29.6.1",
     "ts-jest": "^29.1.1",
