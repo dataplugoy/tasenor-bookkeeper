@@ -8,9 +8,8 @@
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint 'src/**/*.{ts,tsx}' 'tests/**/*.{ts,tsx}'",
-    "fix": "eslint --fix 'src/**/*.{ts,tsx}' 'tests/**/*.{ts,tsx}'",
-    "test": "jest",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "fix": "eslint --fix 'src/**/*.{ts,tsx}'",
     "build": "tsc"
   },
   "dependencies": {

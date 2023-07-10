@@ -1,4 +1,4 @@
-import { filterView2rule, filterView2name, filterView2results } from '@dataplug/tasenor-common'
+import { filterView2rule, filterView2name, filterView2results } from '../src'
 
 test('Filter view to rule conversions', async () => {
 
