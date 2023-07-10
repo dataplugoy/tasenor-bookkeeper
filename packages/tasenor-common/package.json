@@ -17,10 +17,12 @@
     "zlib": "browserify-zlib"
   },
   "scripts": {
-    "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
+    "ci": "pnpm run lint && pnpm run build && pnpm run test",
+    "build": "tsc",
     "fix": "eslint --fix 'src/**/*.ts' 'tests/**/*.ts'",
+    "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
     "test": "jest",
-    "build": "tsc"
+    "watch": "jest --onlyChanged --watch"
   },
   "dependencies": {
     "axios": "0.26.0",

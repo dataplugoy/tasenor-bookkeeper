@@ -8,9 +8,10 @@
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "ci": "pnpm run lint && pnpm run build",
+    "build": "tsc",
     "fix": "eslint --fix 'src/**/*.{ts,tsx}'",
-    "build": "tsc"
+    "lint": "eslint 'src/**/*.{ts,tsx}'"
   },
   "dependencies": {
     "@dataplug/tasenor-common": "workspace:*",
