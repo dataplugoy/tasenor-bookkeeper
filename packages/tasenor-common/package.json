@@ -2,8 +2,8 @@
   "name": "tasenor-common",
   "version": "1.9.16",
   "description": "Common parts of Tasenor project",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
   "repository": "git@github.com:dataplugoy/tasenor-common.git",
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "MIT",
@@ -18,7 +18,8 @@
   },
   "scripts": {
     "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
-    "fix": "eslint --fix 'src/**/*.ts' 'tests/**/*.ts'"
+    "fix": "eslint --fix 'src/**/*.ts' 'tests/**/*.ts'",
+    "test": "jest"
   },
   "dependencies": {
     "axios": "0.26.0",
@@ -32,6 +33,10 @@
     "ts-opaque": "^3.0.1"
   },
   "devDependencies": {
-    "eslint-config-tasenor": "workspace:*"
+    "@types/jest": "^29.5.2",
+    "eslint-config-tasenor": "workspace:*",
+    "jest": "^29.6.1",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.1.6"
   }
 }
