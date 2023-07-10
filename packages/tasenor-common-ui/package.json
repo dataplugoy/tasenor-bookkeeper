@@ -9,7 +9,9 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint 'src/**/*.{ts,tsx}' 'tests/**/*.{ts,tsx}'",
-    "fix": "eslint --fix 'src/**/*.{ts,tsx}' 'tests/**/*.{ts,tsx}'"
+    "fix": "eslint --fix 'src/**/*.{ts,tsx}' 'tests/**/*.{ts,tsx}'",
+    "test": "jest",
+    "build": "tsc"
   },
   "dependencies": {
     "@dataplug/tasenor-common": "workspace:*",
