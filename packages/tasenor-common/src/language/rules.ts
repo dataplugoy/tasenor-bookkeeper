@@ -224,7 +224,6 @@ export class RulesEngine {
     return result
   }
 
-
   /**
    * Access function for columns having spaces or other special characters in their name.
    * Also safe way to get variable that does not necessarily exist, when default value is provided.
@@ -482,7 +481,7 @@ export class RulesEngine {
    * ```
    */
   join(...args: unknown[]) {
-    return args.filter(a => a !== undefined && a !== null ).map(a => `${a}`.trim()).filter(a => a !== '').join(' ')
+    return args.filter(a => a !== undefined && a !== null).map(a => `${a}`.trim()).filter(a => a !== '').join(' ')
   }
 
   /**
@@ -491,7 +490,7 @@ export class RulesEngine {
    * @returns
    */
   d(...args: unknown[]) {
-    note(`[DEBUG]`, ...args)
+    note('[DEBUG]', ...args)
     return args.length ? args[args.length - 1] : undefined
   }
 
@@ -531,7 +530,7 @@ export class RulesEngine {
             if (!isNaN(add)) {
               total += add
             }
-          } catch(err) {}
+          } catch (err) {}
         }
       })
     } else {
@@ -542,7 +541,7 @@ export class RulesEngine {
             if (!isNaN(add)) {
               total += add
             }
-          } catch(err) {}
+          } catch (err) {}
         }
       })
     }

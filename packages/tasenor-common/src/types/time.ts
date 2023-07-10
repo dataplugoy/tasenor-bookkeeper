@@ -22,7 +22,6 @@ export const DAYS = HOURS * 24
 // Seconds in an year.
 export const YEARS = DAYS * 365
 
-
 /**
  * Convert short month text to long.
  * @param abbrev
@@ -40,7 +39,7 @@ export function month(abbrev: string): string | null {
     sep: 'September',
     oct: 'October',
     nov: 'November',
-    dec: 'December',
+    dec: 'December'
   }
 
   return months[abbrev.toLowerCase()] || null

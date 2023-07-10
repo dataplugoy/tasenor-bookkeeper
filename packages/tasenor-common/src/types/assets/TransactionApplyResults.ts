@@ -1,4 +1,4 @@
-import { AccountNumber, Transaction } from "../bookkeeper"
+import { AccountNumber, Transaction } from '../bookkeeper'
 
 /**
  * A resulting data from imported transaction execution.

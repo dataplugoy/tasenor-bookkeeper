@@ -24,7 +24,7 @@ export interface PatchAction {
   successMessage?: string
 }
 export function isPatchAction(obj: unknown): obj is PatchAction {
-  return typeof obj === 'object' && obj !== null && 'url' in obj && obj['type'] === 'patch'
+  return typeof obj === 'object' && obj !== null && 'url' in obj && 'type' in obj && obj.type === 'patch'
 }
 
 /**
@@ -38,7 +38,7 @@ export interface PostAction {
   successMessage?: string
 }
 export function isPostAction(obj: unknown): obj is PostAction {
-  return typeof obj === 'object' && obj !== null && 'url' in obj && obj['type'] === 'post'
+  return typeof obj === 'object' && obj !== null && 'url' in obj && 'type' in obj && obj.type === 'post'
 }
 
 /**
@@ -53,7 +53,7 @@ export interface SaveSettingsAction {
 /**
  * An action definition containing all Tasenor and RISP actions.
  */
- export type TasenorAction = DebugAction | PatchAction | PostAction | SaveSettingsAction
+export type TasenorAction = DebugAction | PatchAction | PostAction | SaveSettingsAction
 
 /**
  * An action definition collection.
@@ -61,11 +61,6 @@ export interface SaveSettingsAction {
 export interface Actions {
   [key: string]: TasenorAction | TasenorAction[]
 }
-
-/**
- * A result retuned by the action handler.
- */
-export type ActionResult = SuccessfulActionResult | FailedActionResult
 
 /**
  * A successful result retuned by the action handler.
@@ -82,6 +77,11 @@ export interface FailedActionResult {
   success: false
   message: string
 }
+
+/**
+ * A result retuned by the action handler.
+ */
+export type ActionResult = SuccessfulActionResult | FailedActionResult
 
 /**
  * A function processing an action.

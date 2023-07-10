@@ -1,4 +1,4 @@
-import { Expression } from "./rules"
+import { Expression } from './rules'
 
 /**
  * The mode for rule editor is using currently for editing components.
@@ -96,15 +96,15 @@ export function filterView2rule(view: RuleFilterView | RuleFilterView[]): Expres
   }
   const { op, field, text, value } = view
   const variable = field === undefined ? '' : (/^[a-zA-Z]\w*$/.test(field) ? field : '$(' + JSON.stringify(field) + ')')
-
+  let val, val2
   switch (op) {
     case 'setLiteral':
       return JSON.stringify(value) as Expression
     case 'copyInverseField':
-      const val = value === undefined ? '' : (/^[a-zA-Z]\w*$/.test(`${value}`) ? `${value}` : '$(' + JSON.stringify(value) + ')')
+      val = value === undefined ? '' : (/^[a-zA-Z]\w*$/.test(`${value}`) ? `${value}` : '$(' + JSON.stringify(value) + ')')
       return `(-${val})` as Expression
     case 'copyField':
-      const val2 = value === undefined ? '' : (/^[a-zA-Z]\w*$/.test(`${value}`) ? `${value}` : '$(' + JSON.stringify(value) + ')')
+      val2 = value === undefined ? '' : (/^[a-zA-Z]\w*$/.test(`${value}`) ? `${value}` : '$(' + JSON.stringify(value) + ')')
       return `${val2}` as Expression
     case 'caseInsensitiveFullMatch':
       return `(lower(${variable}) === ${JSON.stringify(text?.toLowerCase())})` as Expression
@@ -128,7 +128,7 @@ export function filterView2rule(view: RuleFilterView | RuleFilterView[]): Expres
  * @param view
  * @returns
  */
- export function filterView2name(view: RuleFilterView | RuleFilterView[]): string {
+export function filterView2name(view: RuleFilterView | RuleFilterView[]): string {
   if (view instanceof Array) {
     return view.map(v => filterView2name(v)).join(' and ')
   }
@@ -170,9 +170,9 @@ export function filterView2results(view: RuleResultView | RuleResultView[]) {
 
   const ret: object = {}
 
-  Object.entries(view).map(([k, v]) => {
+  Object.entries(view).forEach(([k, v]) => {
     if (typeof v === 'object' && v !== null) {
-      if ('op' in v && isRuleViewOp(v['op'])) {
+      if ('op' in v && isRuleViewOp(v.op)) {
         ret[k] = filterView2rule(v)
       } else {
         ret[k] = filterView2results(v as unknown as RuleResultView)

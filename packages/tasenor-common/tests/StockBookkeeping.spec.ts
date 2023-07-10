@@ -59,7 +59,7 @@ test('StockBookkeeping basics', async () => {
     value: 50.0
   })
 
-  expect(stock.totals()).toStrictEqual([ [ 'crypto', ETH, 0.5 ] ])
+  expect(stock.totals()).toStrictEqual([['crypto', ETH, 0.5]])
   expect(stock.total(ETH)).toBe(0.5)
   expect(stock.total('crypto', ETH)).toBe(0.5)
   expect(stock.total('other', ETH)).toBe(0)

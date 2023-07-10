@@ -7,16 +7,17 @@ import Opaque from 'ts-opaque'
 
 // Primitive values
 // ----------------
-export type Value = string | number | boolean | null | Value[] | Values | Values[]
+// eslint-disable-next-line no-use-before-define
+export type Value = string | number | boolean | null | Value[] | Record<string, Values> | Values[]
 export type Values = {
   [key: string]: Value
 }
 
 export function isValue(obj: unknown): obj is Value {
-  return typeof(obj) !== 'function'
+  return typeof (obj) !== 'function'
 }
 export function isValues(obj: unknown): obj is Values {
-  if (typeof(obj) !== 'object' || obj === null) {
+  if (typeof (obj) !== 'object' || obj === null) {
     return false
   }
   for (const k of Object.keys(obj)) {
@@ -81,7 +82,7 @@ export function latestVersion(versions: Array<Version>): Version | null {
     return null
   }
   let best
-  for(const version of versions) {
+  for (const version of versions) {
     if (!best || versionCompare(version, best) > 0) {
       best = version
     }

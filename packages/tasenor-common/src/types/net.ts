@@ -23,7 +23,6 @@ export function isLocalUrl(s: unknown): s is LocalUrl {
 // Access token handling
 // ---------------------
 
-
 // Default expiry time for token.
 export const TOKEN_EXPIRY_TIME = 30 * MINUTES
 // Default expiry time for refresh.
@@ -72,7 +71,7 @@ export interface NormalTokenPayload {
 /**
  * Payload for the refresh token.
  */
- export interface RefreshTokenPayload {
+export interface RefreshTokenPayload {
   owner: string
   feats: TokenFeats
   plugins: PluginCode[]

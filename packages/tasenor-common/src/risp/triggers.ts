@@ -3,13 +3,6 @@ import { ActionResult } from './actions'
 import { RenderingProps } from './rendering'
 
 /**
-* A trigger is a data packet initiated by some activity in the application.
-* For example user interaction on UI component. Triggers are mapped to the
-* action handlers when used in RISP.
-*/
-export type Trigger = OnChangeTrigger | OnClickTrigger | { readonly type: string }
-
-/**
  * This trigger is activated, when value of an input is changed.
  */
 export interface OnChangeTrigger {
@@ -24,6 +17,13 @@ export interface OnChangeTrigger {
 export interface OnClickTrigger {
   readonly type: 'onClick'
 }
+
+/**
+* A trigger is a data packet initiated by some activity in the application.
+* For example user interaction on UI component. Triggers are mapped to the
+* action handlers when used in RISP.
+*/
+export type Trigger = OnChangeTrigger | OnClickTrigger | { readonly type: string }
 
 /**
  * The handler function is a function converting the trigger data to the action result.

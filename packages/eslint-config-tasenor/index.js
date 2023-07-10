@@ -6,13 +6,16 @@ module.exports = {
     "jest": true
   },
   plugins: [
-    "@typescript-eslint"
+    "@typescript-eslint",
   ],
   extends: [
+    "semistandard",
     "turbo",
     "plugin:@typescript-eslint/recommended",
   ],
   rules: {
+    "space-before-function-paren": "off",
+    "padded-blocks": "off",
     "semi": [2, "never"]
   },
   parserOptions: {

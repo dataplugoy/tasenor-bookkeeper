@@ -39,7 +39,7 @@ test('Rules: objects', () => {
     }
   })
 
-  expect(e.eval('a')).toStrictEqual({b: { c: 1 }})
+  expect(e.eval('a')).toStrictEqual({ b: { c: 1 } })
   expect(e.eval('a.b')).toStrictEqual({ c: 1 })
   expect(e.eval('a.b.c')).toBe(1)
   expect(e.eval('null')).toBe(null)
@@ -50,7 +50,7 @@ test('Rules: objects', () => {
 test('Rules: deep eval', () => {
   const e = new RulesEngine()
   expect(e.eval(['1', '2', '3'])).toStrictEqual([1, 2, 3])
-  expect(e.eval({'a': '"x"'})).toStrictEqual({a: 'x'})
+  expect(e.eval({ a: '"x"' })).toStrictEqual({ a: 'x' })
 })
 
 test('Rules: basic math', () => {
@@ -88,16 +88,16 @@ test('Rules: strings', () => {
 
 test('Rules: arrays', () => {
   const e = new RulesEngine()
-  expect(e.eval("[]")).toStrictEqual([])
-  expect(e.eval("[1, 2]")).toStrictEqual([1, 2])
-  expect(e.eval("[[1, 2], [3, 4]]")).toStrictEqual([[1, 2], [3, 4]])
+  expect(e.eval('[]')).toStrictEqual([])
+  expect(e.eval('[1, 2]')).toStrictEqual([1, 2])
+  expect(e.eval('[[1, 2], [3, 4]]')).toStrictEqual([[1, 2], [3, 4]])
 })
 
 test('Rules: exceptions', () => {
   const e = new RulesEngine({}, true)
-  expect(() => e.eval("a+")).toThrow(RuleParsingError)
-  expect(() => e.eval("--")).toThrow(RuleParsingError)
-  expect(() => e.eval("notDefined")).toThrow(RuleParsingError)
+  expect(() => e.eval('a+')).toThrow(RuleParsingError)
+  expect(() => e.eval('--')).toThrow(RuleParsingError)
+  expect(() => e.eval('notDefined')).toThrow(RuleParsingError)
 })
 
 test('Rules: num()', () => {
@@ -122,7 +122,7 @@ test('Rules: isCurrency()', () => {
 
 test('Rules: rates()', () => {
   const e = new RulesEngine({}, true)
-  expect(e.eval("rates('a', '1,2', 'b', '0.11')")).toStrictEqual({"a": 1.2, "b": 0.11})
+  expect(e.eval("rates('a', '1,2', 'b', '0.11')")).toStrictEqual({ a: 1.2, b: 0.11 })
 })
 
 test('Rules: regex()', () => {
@@ -144,7 +144,7 @@ test('Rules: par()', () => {
   expect(e.eval("par('a', '  b', '  ', '  c')")).toBe(' (a, b, c)')
   expect(e.eval("par('  ', '')")).toBe('')
   expect(e.eval("par('  ', 1, null, false, '  ')")).toBe(' (1)')
-  expect(e.eval("par(0)")).toBe(' (0)')
+  expect(e.eval('par(0)')).toBe(' (0)')
 })
 
 test('Rules: chosen()', () => {
@@ -199,36 +199,36 @@ test('Rules: capitalize()', () => {
 
 test('Rules: capitalize()', () => {
   const e = new RulesEngine({}, true)
-  expect(e.eval("cents(0)")).toBe(0)
-  expect(e.eval("cents(100.001)")).toBe(10000)
-  expect(e.eval("cents(100.005)")).toBe(10001)
-  expect(e.eval("cents(-1)")).toBe(-100)
-  expect(e.eval("cents(-1.005)")).toBe(-100)
-  expect(e.eval("cents(-1.0051)")).toBe(-101)
-  expect(e.eval("cents(0.000632) > 0")).toBe(false)
+  expect(e.eval('cents(0)')).toBe(0)
+  expect(e.eval('cents(100.001)')).toBe(10000)
+  expect(e.eval('cents(100.005)')).toBe(10001)
+  expect(e.eval('cents(-1)')).toBe(-100)
+  expect(e.eval('cents(-1.005)')).toBe(-100)
+  expect(e.eval('cents(-1.0051)')).toBe(-101)
+  expect(e.eval('cents(0.000632) > 0')).toBe(false)
 })
 
 test('Rules: str()', () => {
   const e = new RulesEngine({}, true)
-  expect(e.eval("str(0)")).toBe("0")
-  expect(e.eval("str(undefined)")).toBe("undefined")
-  expect(e.eval("str(null)")).toBe("null")
-  expect(e.eval("str('')")).toBe("")
-  expect(e.eval("str(1 < 2)")).toBe("true")
-  expect(e.eval("str(1 > 2)")).toBe("false")
+  expect(e.eval('str(0)')).toBe('0')
+  expect(e.eval('str(undefined)')).toBe('undefined')
+  expect(e.eval('str(null)')).toBe('null')
+  expect(e.eval("str('')")).toBe('')
+  expect(e.eval('str(1 < 2)')).toBe('true')
+  expect(e.eval('str(1 > 2)')).toBe('false')
 })
 
 test('Rules: join()', () => {
   const e = new RulesEngine({}, true)
-  expect(e.eval("join(0)")).toBe("0")
-  expect(e.eval("join(undefined, 1, null, 'x')")).toBe("1 x")
-  expect(e.eval("join(' a ', ' b ')")).toBe("a b")
+  expect(e.eval('join(0)')).toBe('0')
+  expect(e.eval("join(undefined, 1, null, 'x')")).toBe('1 x')
+  expect(e.eval("join(' a ', ' b ')")).toBe('a b')
 })
 
 test('Rules: sum()', () => {
   const e = new RulesEngine({}, true)
-  expect(e.eval("sum([])")).toBe(0)
-  expect(e.eval("sum([1,2,3])")).toBe(6)
+  expect(e.eval('sum([])')).toBe(0)
+  expect(e.eval('sum([1,2,3])')).toBe(6)
   expect(e.eval("sum([1,null,'',3, 'xx'])")).toBe(4)
   expect(e.eval("sum([{a: 3}, {b: -4}, {a: 1, b: 5}], 'a')")).toBe(4)
   expect(e.eval("sum([{a: 3}, {b: -4}, {a: 1, b: 5}], 'b')")).toBe(1)
@@ -238,7 +238,7 @@ test('Rules: sum()', () => {
 
 test('Rules: concat()', () => {
   const e = new RulesEngine({}, true)
-  expect(e.eval("concat([])")).toBe('')
+  expect(e.eval('concat([])')).toBe('')
   expect(e.eval("concat(['a', null, 'b', undefined, ''])")).toBe('a\nb')
   expect(e.eval("concat(['a', null, 'b', undefined, ''], null, '+')")).toBe('a+b')
   expect(e.eval("concat([{a: 3}, {b: -4}, {a: 1, b: 5}], 'a')")).toBe('3\n1')
@@ -255,8 +255,8 @@ test('Rules: clean()', () => {
 
 test('Rules: ? :', () => {
   const e = new RulesEngine({}, true)
-  expect(e.eval("1 ? 200 : 300")).toBe(200)
-  expect(e.eval("0 ? 200 : 300")).toBe(300)
+  expect(e.eval('1 ? 200 : 300')).toBe(200)
+  expect(e.eval('0 ? 200 : 300')).toBe(300)
 })
 
 test('Rules: has()', () => {
@@ -264,8 +264,8 @@ test('Rules: has()', () => {
   expect(e.eval("has([1, null, 'x'], 1)")).toBe(true)
   expect(e.eval("has([1, null, 'x'], null)")).toBe(true)
   expect(e.eval("has([1, null, 'x'], 'x')")).toBe(true)
-  expect(e.eval("has([], 1)")).toBe(false)
-  expect(e.eval("has([], null)")).toBe(false)
+  expect(e.eval('has([], 1)')).toBe(false)
+  expect(e.eval('has([], null)')).toBe(false)
   expect(e.eval("has([], 'x')")).toBe(false)
   expect(e.eval("has([0, '', false], 1)")).toBe(false)
   expect(e.eval("has([0, '', false], null)")).toBe(false)

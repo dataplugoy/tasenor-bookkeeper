@@ -1,8 +1,8 @@
-import { AccountNumber, AccountType, Tag, TagType } from "."
-import { Asset, ShortDate, StockValueData, Url } from ".."
-import { ID, RealID } from "../../process_types"
-import { Currency, Language } from "../common"
-import { PluginCode } from "../plugins"
+import { AccountNumber, AccountType, Tag, TagType } from '.'
+import { Asset, ShortDate, StockValueData, Url } from '..'
+import { ID, RealID } from '../../process_types'
+import { Currency, Language } from '../common'
+import { PluginCode } from '../plugins'
 
 // These are simplified definitions of the actual Bookkeeper data.
 // Only functions needed by components are declared here so far.
@@ -40,6 +40,7 @@ export declare class AccountModel implements AccountModelData {
     plugin?: PluginCode
     currency?: Currency
   }
+
   currency: Currency | null
   language: Language | null
 
@@ -66,31 +67,6 @@ export declare class BalanceModel implements BalanceModelData {
   debit: number | null
   credit: number | null
   total: number | null
-}
-
-/**
- * Transaction data.
- */
-export interface DocumentModelData {
-  id?: ID
-  number?: number
-  period_id: ID
-  date: ShortDate
-  entries?: EntryModelData[]
-}
-
-/**
- * A transaction.
- */
-export declare class DocumentModel implements DocumentModelData {
-  id?: ID
-  number?: number
-  period_id: ID
-  date: ShortDate
-  entries?: EntryModel[]
-
-  save(): Promise<void>
-  delete(): Promise<void>
 }
 
 /**
@@ -136,6 +112,31 @@ export declare class EntryModel implements EntryModelData {
   row_number: number | null
   tagNames?: string[]
   data?: AdditionalEntryModelData
+
+  save(): Promise<void>
+  delete(): Promise<void>
+}
+
+/**
+ * Transaction data.
+ */
+export interface DocumentModelData {
+  id?: ID
+  number?: number
+  period_id: ID
+  date: ShortDate
+  entries?: EntryModelData[]
+}
+
+/**
+ * A transaction.
+ */
+export declare class DocumentModel implements DocumentModelData {
+  id?: ID
+  number?: number
+  period_id: ID
+  date: ShortDate
+  entries?: EntryModel[]
 
   save(): Promise<void>
   delete(): Promise<void>
@@ -189,34 +190,6 @@ export declare class HeadingModel implements HeadingModelData {
 }
 
 /**
- * A data for database model.
- */
-export interface DatabaseModelData {
-  name: null | string
-  periodsById: Record<RealID, PeriodModel>
-  accountsById: Record<RealID, AccountModel>
-  accountsByNumber: Record<AccountNumber, AccountModel>
-  tagsByTag: Record<Tag, TagModel>
-  headingsByNumber: Record<number, HeadingModel>
-}
-
-/**
- * A model for database.
- */
-export declare class DatabaseModel implements DatabaseModelData {
-  name: null | string
-  periodsById: Record<RealID, PeriodModel>
-  accountsById: Record<RealID, AccountModel>
-  accountsByNumber: Record<AccountNumber, AccountModel>
-  tagsByTag: Record<Tag, TagModel>
-  headingsByNumber: Record<number, HeadingModel>
-
-  getAccountByNumber(number: string): AccountModel
-  getTag(tag: Tag): TagModel
-  addTag(tag: Partial<TagModel>): Promise<TagModel>
-}
-
-/**
  * A tag data.
  */
 export interface TagModelData {
@@ -247,6 +220,34 @@ export declare class TagModel implements TagModelData {
   save(): Promise<void>
   delete(): Promise<void>
   delete(): Promise<void>
+}
+
+/**
+ * A data for database model.
+ */
+export interface DatabaseModelData {
+  name: null | string
+  periodsById: Record<RealID, PeriodModel>
+  accountsById: Record<RealID, AccountModel>
+  accountsByNumber: Record<AccountNumber, AccountModel>
+  tagsByTag: Record<Tag, TagModel>
+  headingsByNumber: Record<number, HeadingModel>
+}
+
+/**
+ * A model for database.
+ */
+export declare class DatabaseModel implements DatabaseModelData {
+  name: null | string
+  periodsById: Record<RealID, PeriodModel>
+  accountsById: Record<RealID, AccountModel>
+  accountsByNumber: Record<AccountNumber, AccountModel>
+  tagsByTag: Record<Tag, TagModel>
+  headingsByNumber: Record<number, HeadingModel>
+
+  getAccountByNumber(number: string): AccountModel
+  getTag(tag: Tag): TagModel
+  addTag(tag: Partial<TagModel>): Promise<TagModel>
 }
 
 /**

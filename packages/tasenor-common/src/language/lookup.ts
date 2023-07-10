@@ -1,6 +1,6 @@
-import { Knowledge } from "../bookkeeper"
-import { warning } from "../logging"
-import { AccountAddress, AccountType, Asset, AssetCode, Currency, ExpenseSink, IncomeSource, PluginCode, TaxType } from "../types"
+import { Knowledge } from '../bookkeeper'
+import { warning } from '../logging'
+import { AccountAddress, AccountType, Asset, AssetCode, Currency, ExpenseSink, IncomeSource, PluginCode, TaxType } from '../types'
 
 /**
  * A condition description to match accunts.

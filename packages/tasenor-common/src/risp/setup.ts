@@ -1,4 +1,4 @@
-import { Store } from "../types"
+import { Store } from '../types'
 
 /**
  * A setup for RISP used in Tasenor project.

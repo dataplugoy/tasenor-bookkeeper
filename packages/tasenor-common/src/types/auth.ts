@@ -7,7 +7,6 @@ import { Email } from './common'
 
 declare class Decimal {}
 
-
 /**
  * Plugin cost model.
  * * `COMPULSORY` - Always installed for free and cannot be removed.
@@ -16,8 +15,7 @@ declare class Decimal {}
  * * `MONTHLY` - Paid monthly fee.
  * * `SINGLE` - Once off payment for use.
  */
-export type PricingModel = "COMPULSORY" | "RECOMMENDED" | "FREE" | "MONTHLY" | "SINGLE"
-
+export type PricingModel = 'COMPULSORY' | 'RECOMMENDED' | 'FREE' | 'MONTHLY' | 'SINGLE'
 
 /**
  * A subscription information concerning one plugin.

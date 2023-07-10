@@ -1,23 +1,6 @@
-import Opaque from "ts-opaque"
-import { AccountNumber, PeriodModel } from "."
-import { Language, PK } from "../common"
-
-/**
- * Possible query parameters that can be given to the report generator.
- */
-export interface ReportQueryParams {
-  format?: ReportFormat,
-  periodId?: PK,
-  accountId?: PK,
-  lang?: Language,
-  quarter1?: boolean,
-  quarter2?: boolean,
-  quarter3?: boolean,
-  compact?: boolean,
-  byTags?: boolean,
-  csv?: boolean,
-  dropTitle?: boolean
-}
+import Opaque from 'ts-opaque'
+import { AccountNumber, PeriodModel } from '.'
+import { Language, PK } from '../common'
 
 /**
  * Rendering hints for alliwing selection of report options in UI.
@@ -136,4 +119,21 @@ export type Report = {
   columns: ReportColumnDefinition[]
   meta: Record<string, string>
   data: ReportItem[]
+}
+
+/**
+ * Possible query parameters that can be given to the report generator.
+ */
+export interface ReportQueryParams {
+  format?: ReportFormat,
+  periodId?: PK,
+  accountId?: PK,
+  lang?: Language,
+  quarter1?: boolean,
+  quarter2?: boolean,
+  quarter3?: boolean,
+  compact?: boolean,
+  byTags?: boolean,
+  csv?: boolean,
+  dropTitle?: boolean
 }

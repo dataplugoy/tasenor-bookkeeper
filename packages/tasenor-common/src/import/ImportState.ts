@@ -1,4 +1,4 @@
-import { ImportSegment, SegmentId, TextFileLine } from "./TextFileLine"
+import { ImportSegment, SegmentId, TextFileLine } from './TextFileLine'
 
 /**
  * Initial state of the text file import.
@@ -30,10 +30,10 @@ export function isImportState(obj: unknown): obj is ImportState {
   if (!('stage' in obj) || !('files' in obj)) {
     return false
   }
-  if (typeof obj['stage'] !== 'string') {
+  if (typeof obj.stage !== 'string') {
     return false
   }
-  if (!['initial', 'segmented', 'classified', 'analyzed', 'executed'].includes(obj['stage'])) {
+  if (!['initial', 'segmented', 'classified', 'analyzed', 'executed'].includes(obj.stage)) {
     return false
   }
   return true

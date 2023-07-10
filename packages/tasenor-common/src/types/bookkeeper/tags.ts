@@ -1,4 +1,4 @@
-import Opaque from "ts-opaque"
+import Opaque from 'ts-opaque'
 
 /**
  * An additional label that can be added to transaction entry.

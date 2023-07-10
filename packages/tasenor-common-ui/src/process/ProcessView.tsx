@@ -108,7 +108,7 @@ export const ProcessView = (props: ProcessViewProps): JSX.Element => {
     directions.type === 'ui'
   )
 
-  const wasConfigured: boolean = !!(
+  const wasConfigured = !!(
     currentStep !== undefined &&
     currentStep > 0 &&
     process.steps[currentStep - 1] &&

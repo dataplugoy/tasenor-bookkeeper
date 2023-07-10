@@ -89,12 +89,12 @@ export type PluginLanguages = { [Key: string]: { [Key: string]: string } }
 /**
  * A service name provided by service plugins.
  */
- export type PluginService = 'historical-currency-rate' | 'historical-crypto-rate'
+export type PluginService = 'historical-currency-rate' | 'historical-crypto-rate'
 
- /**
+/**
   * A response message content from the service.
   */
- export type PluginServiceResponse = {
+export type PluginServiceResponse = {
     status: number,
     data: unknown
  } | {
@@ -111,18 +111,18 @@ export declare type SchemeName = Opaque<string, 'SchemeName'>;
  * Definition of back end plugin classes.
  */
 export declare class BackendPlugin {
-    public id: ID
-    public code: PluginCode
-    public title: string
-    public version: Version | null
-    public releaseDate: Date | string | null
-    public use: PluginUse | 'unknown'
-    public type: PluginType | 'unknown'
-    public icon: string
-    public description: string
-    public path: string
-    public languages: Record<string, Record<string, string>>
-    private catalog?: BackendCatalog
+  public id: ID
+  public code: PluginCode
+  public title: string
+  public version: Version | null
+  public releaseDate: Date | string | null
+  public use: PluginUse | 'unknown'
+  public type: PluginType | 'unknown'
+  public icon: string
+  public description: string
+  public path: string
+  public languages: Record<string, Record<string, string>>
+  private catalog?: BackendCatalog
 }
 export declare class ServicePlugin extends BackendPlugin {}
 export declare class DataPlugin extends BackendPlugin {}

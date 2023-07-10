@@ -1,11 +1,11 @@
-import { AccountModel, AccountNumber, BalanceModel, DatabaseModel, EntryModel, ImporterModel, PeriodModel } from "."
-import { TasenorSetup } from "../../risp"
-import { Catalog } from "./catalog"
+import { AccountModel, AccountNumber, BalanceModel, DatabaseModel, EntryModel, ImporterModel, PeriodModel } from '.'
+import { TasenorSetup } from '../../risp'
+import { Catalog } from './catalog'
 
 /**
  * A Mobx store for keeping all currently loaded data in memory.
  */
- export declare class Store {
+export declare class Store {
   db: string
   accounts: AccountModel[]
   database: DatabaseModel

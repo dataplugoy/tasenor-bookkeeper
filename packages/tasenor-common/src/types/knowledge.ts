@@ -33,9 +33,9 @@ export interface LinkedTree<NodeType extends KnowledgeNodeType = string> {
  */
 export function emptyLinkedTree<T extends KnowledgeNodeType>(): LinkedTree<T> {
   return {
-    "root": null,
-    "children": {},
-    "parents": {}
+    root: null,
+    children: {},
+    parents: {}
   }
 }
 

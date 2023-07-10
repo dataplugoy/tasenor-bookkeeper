@@ -8,14 +8,14 @@ import { AccountNumber, TagType, Tag, TransactionImportOptions, Value } from '..
 /**
  * Generic interface for all elements that can define action handlers.
  */
- export interface ActiveElement {
+export interface ActiveElement {
   readonly type: string
   triggerHandler?: TriggerHandler
   actions: Actions
 }
 
 export function isActiveElement(object: unknown): object is ActiveElement {
-  return typeof object === "object" && object !== null && !!object['actions']
+  return typeof object === 'object' && object !== null && 'actions' in object && !!object.actions
 }
 
 /**
@@ -29,7 +29,7 @@ export interface NamedElement {
 }
 
 export function isNamedElement(object: unknown): object is NamedElement {
-  return typeof object === "object" && object !== null && 'name' in object
+  return typeof object === 'object' && object !== null && 'name' in object
 }
 
 /**
@@ -40,7 +40,7 @@ export interface BooleanElement extends ActiveElement, NamedElement {
 }
 
 export function isBooleanElement(object: unknown): object is BooleanElement {
-  return isActiveElement(object) && object['type'] === 'boolean'
+  return isActiveElement(object) && object.type === 'boolean'
 }
 
 /**
@@ -51,7 +51,7 @@ export interface YesNoElement extends ActiveElement, NamedElement {
 }
 
 export function isYesNoElement(object: unknown): object is YesNoElement {
-  return isActiveElement(object) && object['type'] === 'yesno'
+  return isActiveElement(object) && object.type === 'yesno'
 }
 
 /**
@@ -63,18 +63,18 @@ export interface NumberElement extends ActiveElement, NamedElement {
 }
 
 export function isNumberElement(object: unknown): object is NumberElement {
-  return isActiveElement(object) && object['type'] === 'number'
+  return isActiveElement(object) && object.type === 'number'
 }
 
 /**
  * A text editing element.
  */
- export interface TextElement extends ActiveElement, NamedElement {
+export interface TextElement extends ActiveElement, NamedElement {
   readonly type: 'text'
 }
 
 export function isTextElement(object: unknown): object is TextElement {
-  return isActiveElement(object) && object['type'] === 'text'
+  return isActiveElement(object) && object.type === 'text'
 }
 
 /**
@@ -87,18 +87,19 @@ export interface ButtonElement extends ActiveElement {
 }
 
 export function isButtonElement(object: unknown): object is ButtonElement {
-  return isActiveElement(object) && object['type'] === 'button'
+  return isActiveElement(object) && object.type === 'button'
 }
 
 /**
  * An elment that contains other elements.
  */
 export interface ContainerElement {
+  // eslint-disable-next-line no-use-before-define
   elements: TasenorElement[]
 }
 
 export function isContainerElement(object: unknown): object is ContainerElement {
-  return typeof object === "object" && object !== null && !!object['elements']
+  return typeof object === 'object' && object !== null && 'elements' in object && !!object.elements
 }
 
 /**
@@ -107,12 +108,16 @@ export function isContainerElement(object: unknown): object is ContainerElement 
 export interface CaseElement {
   readonly type: 'case'
   condition: string
+  // eslint-disable-next-line no-use-before-define
   cases: Record<string, TasenorElement>
   defaultValue?: string
 }
 export function isCaseElement(object: unknown): object is CaseElement {
-  return (typeof object === "object" && object !== null && object['condition'] && object['cases'] &&
-    typeof object['cases'] === 'object' && object['cases'] !== null
+  return (
+    typeof object === 'object' && object !== null && ('cases' in object) &&
+    ('type' in object) && object.type === 'case' &&
+    object.condition && object.cases &&
+    typeof object.cases === 'object' && object.cases !== null
   )
 }
 
@@ -124,7 +129,7 @@ export interface FlatElement extends ContainerElement {
 }
 
 export function isFlatElement(object: unknown): object is FlatElement {
-  return isContainerElement(object) && object['type'] === 'flat'
+  return isContainerElement(object) && ('type' in object) && object.type === 'flat'
 }
 
 /**
@@ -136,7 +141,7 @@ export interface BoxElement extends ContainerElement {
 }
 
 export function isBoxElement(object: unknown): object is BoxElement {
-  return isContainerElement(object) && object['type'] === 'box'
+  return isContainerElement(object) && ('type' in object) && object.type === 'box'
 }
 
 /**
@@ -155,8 +160,8 @@ export interface HtmlElement {
 }
 
 export function isHtmlElement(object: unknown): object is HtmlElement {
-  return (typeof object === "object" && object !== null && object['type'] === 'html'
-    && 'html' in object && typeof object['html'] === 'string'
+  return (typeof object === 'object' && object !== null && ('type' in object) && object.type === 'html' &&
+    'html' in object && typeof object.html === 'string'
   )
 }
 
@@ -170,10 +175,10 @@ export interface MessageElement {
 }
 
 export function isMessageElement(object: unknown): object is MessageElement {
-  return (typeof object === "object" && object !== null && object['type'] === 'message'
-    && 'severity' in object && typeof object['severity'] === 'string'
-    && ['info', 'warning', 'error', 'success'].includes(object['severity'])
-    && 'text' in object && typeof object['text'] === 'string'
+  return (typeof object === 'object' && object !== null && ('type' in object) && object.type === 'message' &&
+    'severity' in object && typeof object.severity === 'string' &&
+    ['info', 'warning', 'error', 'success'].includes(object.severity) &&
+    'text' in object && typeof object.text === 'string'
   )
 }
 
@@ -186,8 +191,8 @@ export interface TextFileLineElement {
 }
 
 export function isTextFileLineElement(object: unknown): object is TextFileLineElement {
-  return (typeof object === "object" && object !== null && object['type'] === 'textFileLine'
-    && 'line' in object && typeof object['line'] === 'object' && object['line'] !== null
+  return (typeof object === 'object' && object !== null && ('type' in object) && object.type === 'textFileLine' &&
+    'line' in object && typeof object.line === 'object' && object.line !== null
   )
 }
 
@@ -200,22 +205,22 @@ export interface RadioElement extends ActiveElement, NamedElement {
 }
 
 export function isRadioElement(object: unknown): object is RadioElement {
-  return (isActiveElement(object) && object['type'] === 'radio'
-    && 'options' in object && typeof object['options'] === 'object'
+  return (isActiveElement(object) && object.type === 'radio' &&
+    'options' in object && typeof object.options === 'object'
   )
 }
 
 /**
  * An element that allows one to select one of the accounts from dropdown.
  */
- export type AccountElement = ActiveElement & NamedElement & {
+export type AccountElement = ActiveElement & NamedElement & {
   readonly type: 'account'
   filter?: FilterRule
   preferred?: AccountNumber[]
 }
 
 export function isAccountElement(object: unknown): object is AccountElement {
-  return (isActiveElement(object) && isNamedElement(object) && object['type'] === 'account')
+  return (isActiveElement(object) && isNamedElement(object) && object.type === 'account')
 }
 
 /**
@@ -240,7 +245,7 @@ export type TagsElement = ActiveElement & NamedElement & {
 }
 
 export function isTagsElement(object: unknown): object is TagsElement {
-  return (isActiveElement(object) && isNamedElement(object) && object['type'] === 'tags')
+  return (isActiveElement(object) && isNamedElement(object) && object.type === 'tags')
 }
 
 /**
@@ -251,7 +256,7 @@ export type CurrencyElement = ActiveElement & NamedElement & {
 }
 
 export function isCurrencyElement(object: unknown): object is CurrencyElement {
-  return (isActiveElement(object) && isNamedElement(object) && object['type'] === 'currency')
+  return (isActiveElement(object) && isNamedElement(object) && object.type === 'currency')
 }
 
 /**
@@ -266,11 +271,11 @@ export type RuleEditorElement = ActiveElement & NamedElement & {
 }
 
 export function isRuleEditorElement(object: unknown): object is RuleEditorElement {
-  return (isActiveElement(object) && isNamedElement(object) && object['type'] === 'ruleEditor'
-    && 'config' in object && typeof object['config'] === 'object'
-    && 'options' in object && typeof object['options'] === 'object'
-    && 'lines' in object && typeof object['lines'] === 'object'
-    && 'cashAccount' in object
+  return (isActiveElement(object) && isNamedElement(object) && object.type === 'ruleEditor' &&
+    'config' in object && typeof object.config === 'object' &&
+    'options' in object && typeof object.options === 'object' &&
+    'lines' in object && typeof object.lines === 'object' &&
+    'cashAccount' in object
   )
 }
 
@@ -295,7 +300,7 @@ export type TasenorElement = AccountElement |
   RuleEditorElement
 
 export function isTasenorElement(object: unknown): object is TasenorElement {
-  return typeof object === "object" && (
+  return typeof object === 'object' && (
     isAccountElement(object) ||
     isTagsElement(object) ||
     isCurrencyElement(object) ||
