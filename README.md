@@ -1,2 +1,3 @@
-# tasenor-bookkeeper
-The bookkeeper application.
+# Tasenor Bookkeeper
+
+This is a monorepo for developing Tasenor Bookkeeper.

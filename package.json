@@ -5,5 +5,8 @@
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "AGPL",
   "scripts": {},
-  "dependencies": {}
+  "packageManager": "pnpm@8.6.6",
+  "devDependencies": {
+    "turbo": "^1.10.7"
+  }
 }
