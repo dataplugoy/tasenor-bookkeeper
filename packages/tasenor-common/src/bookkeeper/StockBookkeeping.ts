@@ -153,11 +153,13 @@ export class StockBookkeeping {
       i--
     }
 
-    return i < 0 ? {
-      time,
-      amount: 0.0,
-      value: 0.0
-    } : stock[i]
+    return i < 0
+      ? {
+          time,
+          amount: 0.0,
+          value: 0.0
+        }
+      : stock[i]
   }
 
   /**
@@ -248,7 +250,7 @@ export class StockBookkeeping {
    * @param asset
    * @returns
    */
-   total(type: AssetType | Asset, asset: Asset | undefined = undefined): number {
+  total(type: AssetType | Asset, asset: Asset | undefined = undefined): number {
     if (!asset) {
       asset = type as Asset
       type = this.getType(asset)
@@ -262,7 +264,7 @@ export class StockBookkeeping {
    * @param asset
    * @returns
    */
-   value(type: AssetType | Asset, asset: Asset | undefined = undefined): number {
+  value(type: AssetType | Asset, asset: Asset | undefined = undefined): number {
     if (!asset) {
       asset = type as Asset
       type = this.getType(asset)

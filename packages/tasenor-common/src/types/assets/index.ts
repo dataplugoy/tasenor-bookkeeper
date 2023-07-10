@@ -91,7 +91,7 @@ export function isAssetTransferReason(s: unknown): s is AssetTransferReason {
     'tax',
     'trade',
     'transfer',
-    'withdrawal',
+    'withdrawal'
   ].includes(s)
 }
 
@@ -131,7 +131,7 @@ export type StockChangeDelta = {
   }
 }
 export function isStockChangeDelta(o: unknown): o is StockChangeDelta {
-  return typeof o === 'object' && o !== null && ('stock' in o) && (typeof o['stock'] === 'object') && o['stock'] !== null && ('change' in o['stock'])
+  return typeof o === 'object' && o !== null && ('stock' in o) && (typeof o.stock === 'object') && o.stock !== null && ('change' in o.stock)
 }
 
 /**
@@ -143,7 +143,7 @@ export type StockChangeFixed = {
   }
 }
 export function isStockChangeFixed(o: unknown): o is StockChangeFixed {
-  return typeof o === 'object' && o !== null && ('stock' in o) && (typeof o['stock'] === 'object') && o['stock'] !== null && ('set' in o['stock'])
+  return typeof o === 'object' && o !== null && ('stock' in o) && (typeof o.stock === 'object') && o.stock !== null && ('set' in o.stock)
 }
 
 /**
@@ -165,6 +165,13 @@ export type AssetRates = Partial<Record<Asset, number>>
 export type AssetRatesData = {
   rates: AssetRates
 }
+
+/**
+ * Extra notes for transaction description.
+ *
+ * Can be also undefined and null. Those as well as empty strings are removed automatically.
+ */
+export type TransferNote = string | null | undefined
 
 /**
  * Additional optional information of the transfer. This data is passed to the transaction itself.
@@ -203,13 +210,6 @@ export type AdditionalTransferInfo = {
 }
 
 /**
- * Extra notes for transaction description.
- *
- * Can be also undefined and null. Those as well as empty strings are removed automatically.
- */
-export type TransferNote = string | null | undefined
-
-/**
  * An asset transfer decription used when analysing import data.
  *
  * For some combinations amount is not required, since it is automatically calculated.
@@ -229,8 +229,8 @@ export type AssetTransfer = {
   if?: Expression
 }
 export function isAssetTransfer(s: unknown): s is AssetTransfer {
-  return (typeof s === 'object' && s !== null && 'reason' in s && 'type' in s && 'asset' in s
-    && !!s['reason'] && !!s['type'] && !!s['asset'])
+  return (typeof s === 'object' && s !== null && 'reason' in s && 'type' in s && 'asset' in s &&
+    !!s.reason && !!s.type && !!s.asset)
 }
 
 /**

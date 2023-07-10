@@ -3,12 +3,12 @@ import { filter2function } from '../src'
 test('Filtering: no rule', async () => {
   expect(filter2function<unknown>(null)(null)).toBeTruthy()
   expect(filter2function<unknown>(null)(undefined)).toBeTruthy()
-  expect(filter2function<unknown>(null)({a: ''})).toBeTruthy()
+  expect(filter2function<unknown>(null)({ a: '' })).toBeTruthy()
   expect(filter2function<unknown>(null)({ a: 3 })).toBeTruthy()
 
   expect(filter2function<unknown>(undefined)(null)).toBeTruthy()
   expect(filter2function<unknown>(undefined)(undefined)).toBeTruthy()
-  expect(filter2function<unknown>(undefined)({a: ''})).toBeTruthy()
+  expect(filter2function<unknown>(undefined)({ a: '' })).toBeTruthy()
   expect(filter2function<unknown>(undefined)({ a: 3 })).toBeTruthy()
 })
 

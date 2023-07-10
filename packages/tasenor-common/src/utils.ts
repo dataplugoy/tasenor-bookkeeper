@@ -4,7 +4,7 @@
  * @module tasenor-common/src/utils
  */
 
-import { ZERO_CENTS } from "./constants"
+import { ZERO_CENTS } from './constants'
 import { isContainerElement, isNamedElement, TasenorElement } from './risp'
 
 /**

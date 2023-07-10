@@ -46,7 +46,7 @@ export type UIQueryOrRef<Type=unknown> = UIQuery<Type> | UIQueryRef
 
 export function isUIQuery(obj: unknown): obj is UIQuery {
   return (typeof obj === 'object' && obj !== null && (
-    typeof obj['ask'] === 'object' ||
-    (typeof obj['chooseTag'] === 'object' && obj['chooseTag'] instanceof Array)
+    typeof obj.ask === 'object' ||
+    (typeof obj.chooseTag === 'object' && obj.chooseTag instanceof Array)
   ))
 }

@@ -10,22 +10,22 @@ export class Knowledge {
   private data: KnowledgeBase
 
   constructor(init?: KnowledgeBase) {
-    if (init == undefined) {
+    if (init === undefined) {
       init = {
         income: {
           root: null,
           children: {},
-          parents: {},
+          parents: {}
         },
         expense: {
           root: null,
           children: {},
-          parents: {},
+          parents: {}
         },
         assetCodes: {
           root: null,
           children: {},
-          parents: {},
+          parents: {}
         },
         taxTypes: [],
         vat: [
@@ -91,7 +91,7 @@ export class Knowledge {
    */
   findVatRange(date?: Date | ShortDate): VATRange | null {
     if (!this.data.vat) {
-      throw new Error(`Cannot look for VAT since no VAT data loaded.`)
+      throw new Error('Cannot look for VAT since no VAT data loaded.')
     }
     if (!date) {
       date = new Date()
@@ -101,7 +101,7 @@ export class Knowledge {
     }
     for (let i = 0; i < this.data.vat.length; i++) {
       const { from, to } = this.data.vat[i]
-      if ( from <= date && ( to === null || date <= to)) {
+      if (from <= date && (to === null || date <= to)) {
         return this.data.vat[i]
       }
     }

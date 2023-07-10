@@ -4,7 +4,7 @@
   "description": "Common parts of Tasenor project",
   "main": "src/index.ts",
   "types": "src/index.ts",
-  "repository": "git@github.com:dataplugoy/tasenor-common.git",
+  "repository": "git@github.com:dataplugoy/tasenor-bookkeeper.git",
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "MIT",
   "browser": {

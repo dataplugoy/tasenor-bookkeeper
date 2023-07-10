@@ -1,5 +1,5 @@
-import { ImportAction } from "../import"
-import { TasenorElement } from "./elements"
+import { ImportAction } from '../import'
+import { TasenorElement } from './elements'
 
 /**
  * Definition of the how the direction plays out in interactive process.

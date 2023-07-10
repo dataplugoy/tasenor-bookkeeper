@@ -24,7 +24,7 @@ export interface ImportConfigureAction {
 export function isImportConfigureAction(obj: unknown): obj is ImportConfigureAction {
   if (typeof obj === 'object' && obj !== null) {
     if ('configure' in obj) {
-      return typeof obj['configure'] === 'object' && obj['configure'] !== null
+      return typeof obj.configure === 'object' && obj.configure !== null
     }
   }
   return false
@@ -39,7 +39,7 @@ export interface ImportAnswerAction {
 export function isImportAnswerAction(obj: unknown): obj is ImportAnswerAction {
   if (typeof obj === 'object' && obj !== null) {
     if ('answer' in obj) {
-      return typeof obj['answer'] === 'object' && obj['answer'] !== null
+      return typeof obj.answer === 'object' && obj.answer !== null
     }
   }
   return false
@@ -52,7 +52,7 @@ export type ImportRetryAction = {
   retry: true
 }
 export function isImportRetryAction(obj: unknown): obj is ImportRetryAction {
-  return (typeof obj === 'object' && obj !== null && obj['retry'] === true)
+  return (typeof obj === 'object' && obj !== null && obj.retry === true)
 }
 
 /**
@@ -62,7 +62,7 @@ export type ImportRollbackAction = {
   rollback: true
 }
 export function isImportRollbackAction(obj: unknown): obj is ImportRollbackAction {
-  return (typeof obj === 'object' && obj !== null && obj['rollback'] === true)
+  return (typeof obj === 'object' && obj !== null && obj.rollback === true)
 }
 
 /**

@@ -29,23 +29,25 @@ export type DebugChannel = 'STOCK' | 'BALANCE' | 'RULES' | 'SEGMENTATION' | 'CLA
 
 // Which channels are on?
 const debugChannels = (): Record<DebugChannel, boolean> => {
-  return isUi() ? {
-    STOCK: 'DEBUG_STOCK' in window && window['DEBUG_STOCK'] === 'yes',
-    BALANCE: 'DEBUG_BALANCE' in window && window['DEBUG_BALANCE'] === 'yes',
-    RULES: 'DEBUG_RULES' in window && window['DEBUG_RULES'] === 'yes',
-    SEGMENTATION: 'DEBUG_SEGMENTATION' in window && window['DEBUG_SEGMENTATION'] === 'yes',
-    CLASSIFICATION: 'DEBUG_CLASSIFICATION' in window && window['DEBUG_CLASSIFICATION'] === 'yes',
-    ANALYSIS: 'DEBUG_ANALYSIS' in window && window['DEBUG_ANALYSIS'] === 'yes',
-    EXECUTION: 'DEBUG_EXECUTION' in window && window['DEBUG_EXECUTION'] === 'yes'
-  } : {
-    STOCK: process.env.DEBUG_STOCK === 'yes' || false,
-    BALANCE: process.env.DEBUG_BALANCE === 'yes' || false,
-    RULES: process.env.DEBUG_RULES === 'yes' || false,
-    SEGMENTATION: process.env.DEBUG_SEGMENTATION === 'yes' || false,
-    CLASSIFICATION: process.env.DEBUG_CLASSIFICATION === 'yes' || false,
-    ANALYSIS: process.env.DEBUG_ANALYSIS === 'yes' || false,
-    EXECUTION: process.env.DEBUG_EXECUTION === 'yes' || false
-  }
+  return isUi()
+    ? {
+        STOCK: 'DEBUG_STOCK' in window && window.DEBUG_STOCK === 'yes',
+        BALANCE: 'DEBUG_BALANCE' in window && window.DEBUG_BALANCE === 'yes',
+        RULES: 'DEBUG_RULES' in window && window.DEBUG_RULES === 'yes',
+        SEGMENTATION: 'DEBUG_SEGMENTATION' in window && window.DEBUG_SEGMENTATION === 'yes',
+        CLASSIFICATION: 'DEBUG_CLASSIFICATION' in window && window.DEBUG_CLASSIFICATION === 'yes',
+        ANALYSIS: 'DEBUG_ANALYSIS' in window && window.DEBUG_ANALYSIS === 'yes',
+        EXECUTION: 'DEBUG_EXECUTION' in window && window.DEBUG_EXECUTION === 'yes'
+      }
+    : {
+        STOCK: process.env.DEBUG_STOCK === 'yes' || false,
+        BALANCE: process.env.DEBUG_BALANCE === 'yes' || false,
+        RULES: process.env.DEBUG_RULES === 'yes' || false,
+        SEGMENTATION: process.env.DEBUG_SEGMENTATION === 'yes' || false,
+        CLASSIFICATION: process.env.DEBUG_CLASSIFICATION === 'yes' || false,
+        ANALYSIS: process.env.DEBUG_ANALYSIS === 'yes' || false,
+        EXECUTION: process.env.DEBUG_EXECUTION === 'yes' || false
+      }
 }
 
 let channelsDisplayed = false

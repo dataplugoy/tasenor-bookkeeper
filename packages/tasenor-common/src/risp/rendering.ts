@@ -9,7 +9,7 @@ import { TasenorSetup } from './setup'
  * @property values A set of values to edit associated with the rendering process.
  * @property setup Global configuration for the rendering system.
  */
- export type RenderingProps<ElementType = TasenorElement> = {
+export type RenderingProps<ElementType = TasenorElement> = {
   element: ElementType,
   values: Values,
   setup: TasenorSetup

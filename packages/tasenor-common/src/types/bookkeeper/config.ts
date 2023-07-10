@@ -1,5 +1,5 @@
-import { AccountNumber, TagType } from "."
-import { Currency, Language, Version } from "../common"
+import { AccountNumber, TagType } from '.'
+import { Currency, Language, Version } from '../common'
 
 /**
  * Configuration definition for the bookkeeper.

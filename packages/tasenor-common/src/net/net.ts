@@ -12,9 +12,9 @@ export type HttpMethod = 'GET' | 'PUT' | 'POST' | 'DELETE' | 'PATCH' | 'HEAD'
 /**
  * Status codes used in the system.
  */
- export type SupportedSuccessStatus = 200 | 204
- export type SupportedFailStatus = 400 | 401 | 403 | 404 | 500
- export type SupportedStatus = SupportedSuccessStatus | SupportedFailStatus
+export type SupportedSuccessStatus = 200 | 204
+export type SupportedFailStatus = 400 | 401 | 403 | 404 | 500
+export type SupportedStatus = SupportedSuccessStatus | SupportedFailStatus
 
 /**
  * A response content format for successfull REST call.
@@ -25,7 +25,7 @@ export interface HttpSuccessResponse<T=Value> {
   data?: T
 }
 export function isHttpSuccessResponse(obj: unknown): obj is HttpSuccessResponse {
-  if (typeof(obj) === 'object' && obj !== null && obj.hasOwnProperty('success')) {
+  if (typeof (obj) === 'object' && obj !== null && 'success' in obj) {
     return (obj as { success: boolean }).success
   }
   return false
@@ -34,7 +34,7 @@ export function isHttpSuccessResponse(obj: unknown): obj is HttpSuccessResponse 
 /**
  * A response content format for unsuccessfull REST call.
  */
- export interface HttpFailureResponse {
+export interface HttpFailureResponse {
   status: SupportedFailStatus,
   success: false,
   message: string
@@ -152,7 +152,7 @@ async function refreshToken(url: Url): Promise<boolean | Error> {
     const refreshUrl = `${new URL(url).origin}${getConf(url, 'refreshUrl')}` as Url
     log(`Refreshing token from ${refreshUrl}.`)
     const headers = {
-      Authorization: `Bearer ${getConf(url, 'refreshToken')}`,
+      Authorization: `Bearer ${getConf(url, 'refreshToken')}`
     }
     if (getConf(url, 'uuid')) {
       headers['X-UUID'] = getConf(url, 'uuid')
@@ -180,9 +180,9 @@ async function refreshToken(url: Url): Promise<boolean | Error> {
     }
     const logout = getConf(url, 'logout') as () => void
     if (logout) {
-        logout()
-        return false
-      }
+      logout()
+      return false
+    }
     error('Invalid response:', refreshed)
     return new Error('Unable to understand token response.')
   }
@@ -267,12 +267,16 @@ function createRequestHandler(method: HttpMethod): HttpRequestFunction {
           }
         case 400:
           defaultMessage = 'Bad Request'
+        // eslint-disable-next-line no-fallthrough
         case 401:
           defaultMessage = defaultMessage || 'Unauthorized'
+        // eslint-disable-next-line no-fallthrough
         case 403:
           defaultMessage = defaultMessage || 'Forbidden'
+        // eslint-disable-next-line no-fallthrough
         case 404:
           defaultMessage = defaultMessage || 'Not Found'
+        // eslint-disable-next-line no-fallthrough
         case 500:
           defaultMessage = defaultMessage || 'Internal Server Error'
           error(`A call ${method} ${url} failed with ${resp.status}. Data:`)
@@ -289,32 +293,34 @@ function createRequestHandler(method: HttpMethod): HttpRequestFunction {
     }
 
     // Helper to process error situation.
-    async function handleError( err ): Promise<HttpResponse> {
+    async function handleError(err): Promise<HttpResponse> {
       let status: SupportedFailStatus = 500
       // Let us see what we can do for the error.
-      if (err.response) switch (err.response.status) {
-        case 401:
-        case 403:
-          status = err.response.status
-          if (getConf(url, 'refreshToken') && getConf(url, 'refreshUrl')) {
-            warning(`Request ${method} ${url} gave ${err.response.status} but trying to refresh the token.`)
-            err = await refreshToken(url)
-            if (err === true) {
-              let success = true
-              const retried = await doRequest({ method, url, data }).catch(newErr => {
-                warning(`We got token but retrying ${method} ${url} failed as well. Error was:`)
-                error(newErr)
-                err = newErr
-                status = 500
-                success = false
-              })
-              if (success) {
-                log(`Retrying ${method} ${url} successful.`)
-                return retried as HttpResponse
+      if (err.response) {
+        switch (err.response.status) {
+          case 401:
+          case 403:
+            status = err.response.status
+            if (getConf(url, 'refreshToken') && getConf(url, 'refreshUrl')) {
+              warning(`Request ${method} ${url} gave ${err.response.status} but trying to refresh the token.`)
+              err = await refreshToken(url)
+              if (err === true) {
+                let success = true
+                const retried = await doRequest({ method, url, data }).catch(newErr => {
+                  warning(`We got token but retrying ${method} ${url} failed as well. Error was:`)
+                  error(newErr)
+                  err = newErr
+                  status = 500
+                  success = false
+                })
+                if (success) {
+                  log(`Retrying ${method} ${url} successful.`)
+                  return retried as HttpResponse
+                }
               }
             }
-          }
-          break
+            break
+        }
       }
       // Nothing to do. Give up.
       let reason = ''

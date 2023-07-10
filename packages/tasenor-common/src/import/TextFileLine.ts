@@ -8,7 +8,7 @@ export type FileName = string
  */
 export type LineNumber = number
 
- /**
+/**
   * A importer specifc construct of unique segment identifier used in file data segmentation.
   */
 export type SegmentId = string
@@ -18,7 +18,7 @@ export type SegmentId = string
  */
 export const NO_SEGMENT = Symbol('NO_SEGMENT')
 
- /**
+/**
   * One line in a text file data on the import process.
   *
   * Contains line numbering starting from 0 and the text content of the line.

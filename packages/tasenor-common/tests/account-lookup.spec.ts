@@ -183,31 +183,31 @@ test('Convert account address to account default', async () => {
 
 test('Use knowledge to have multiple codes matching', async () => {
   const assetCodes: LinkedTree<AssetCode> = {
-    "root": "ASSETS",
-    "children": {
-      "ASSETS": [
-        "CURRENT_ASSETS",
+    root: 'ASSETS',
+    children: {
+      ASSETS: [
+        'CURRENT_ASSETS'
       ],
-      "CURRENT_ASSETS": [
-        "CASH"
+      CURRENT_ASSETS: [
+        'CASH'
       ],
-      "CASH": [
-        "CASH_IN_HAND",
-        "CASH_AT_BANK",
-        "CASH_AT_STOCK_BROKER",
-        "CASH_AT_CRYPTO_BROKER",
-        "CASH_AT_P2P"
-      ],
+      CASH: [
+        'CASH_IN_HAND',
+        'CASH_AT_BANK',
+        'CASH_AT_STOCK_BROKER',
+        'CASH_AT_CRYPTO_BROKER',
+        'CASH_AT_P2P'
+      ]
     },
-    "parents": {
-      "ASSETS": null,
-      "CURRENT_ASSETS": "ASSETS",
-      "CASH": "CURRENT_ASSETS",
-      "CASH_IN_HAND": "CASH",
-      "CASH_AT_BANK": "CASH",
-      "CASH_AT_STOCK_BROKER": "CASH",
-      "CASH_AT_CRYPTO_BROKER": "CASH",
-      "CASH_AT_P2P": "CASH",
+    parents: {
+      ASSETS: null,
+      CURRENT_ASSETS: 'ASSETS',
+      CASH: 'CURRENT_ASSETS',
+      CASH_IN_HAND: 'CASH',
+      CASH_AT_BANK: 'CASH',
+      CASH_AT_STOCK_BROKER: 'CASH',
+      CASH_AT_CRYPTO_BROKER: 'CASH',
+      CASH_AT_P2P: 'CASH'
     }
   }
 

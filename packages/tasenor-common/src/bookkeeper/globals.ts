@@ -3,12 +3,12 @@
  * Accessors for Bookkeeper global components and info.
  * @module
  */
-import { Cursor } from "../types/bookkeeper/cursor"
-import { Catalog } from "../types/bookkeeper/catalog"
-import { Store } from "../types/bookkeeper/store"
-import { Settings } from "../types/bookkeeper/settings"
-import { Knowledge } from "./Knowledge"
-import { DirectoryPath } from "../types"
+import { Cursor } from '../types/bookkeeper/cursor'
+import { Catalog } from '../types/bookkeeper/catalog'
+import { Store } from '../types/bookkeeper/store'
+import { Settings } from '../types/bookkeeper/settings'
+import { Knowledge } from './Knowledge'
+import { DirectoryPath } from '../types'
 
 declare global {
   var _serverRoot: DirectoryPath

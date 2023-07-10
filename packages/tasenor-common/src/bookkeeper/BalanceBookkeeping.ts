@@ -25,7 +25,7 @@ export class BalanceBookkeeping {
   constructor() {
     this.balance = {}
     this.number = {}
-    debug('BALANCE', `Created new balance bookkeeper.`)
+    debug('BALANCE', 'Created new balance bookkeeper.')
   }
 
   /**
@@ -96,7 +96,7 @@ export class BalanceBookkeeping {
   summary() {
     const summary: BalanceSummaryEntry[] = []
     Object.keys(this.number).forEach((addr: AccountAddress) => {
-      const [ reason, type, asset] = addr.split('.')
+      const [reason, type, asset] = addr.split('.')
 
       summary.push({
         account: this.number[addr],
@@ -126,7 +126,7 @@ export class BalanceBookkeeping {
    * @param addr
    */
   debtAddress(addr: AccountAddress): AccountAddress {
-    const [ , type, asset] = addr.split('.')
+    const [, type, asset] = addr.split('.')
     return `debt.${type}.${asset}` as AccountAddress
   }
 }
