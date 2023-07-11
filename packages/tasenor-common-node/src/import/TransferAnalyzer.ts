@@ -1177,6 +1177,7 @@ export class TransferAnalyzer {
    * @param segment
    * @param config
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async postProcessTags(tx: TransactionLine, transfer: AssetTransfer, segment: ImportSegment): Promise<TransactionLine> {
     // Find out tags.
     let tags

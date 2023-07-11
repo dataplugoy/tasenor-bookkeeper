@@ -40,7 +40,7 @@ class ReportCommand extends Command {
 
   print(data: Record<string, unknown> | Report) {
     if ('options' in data) {
-      Object.keys(data.options as Object).forEach((opt) => console.log(opt))
+      Object.keys(data.options as Record<string, unknown>).forEach((opt) => console.log(opt))
       return
     }
     if ('data' in data) {
@@ -53,7 +53,7 @@ class ReportCommand extends Command {
 
       // Meta data.
       if ('meta' in data) {
-        Object.keys(report.meta as Object).forEach((meta) => console.log(`${meta}: ${(report.meta as Object)[meta]}`))
+        Object.keys(report.meta as Record<string, unknown>).forEach((meta) => console.log(`${meta}: ${(report.meta as Record<string, unknown>)[meta]}`))
         console.log()
       }
 

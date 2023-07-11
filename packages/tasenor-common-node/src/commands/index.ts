@@ -28,7 +28,7 @@ export type CommandEntryData = {
   number?: AccountNumber
   amount: number
   description: string
-  data?: Record<string, any>
+  data?: Record<string, unknown>
 }
 
 /**
@@ -59,7 +59,9 @@ export class Command {
    * Add command specific arguments.
    * @param parser
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   addArguments(parser: ArgumentParser): void {
+    // Command subclass implements.
   }
 
   /**
@@ -74,7 +76,8 @@ export class Command {
    * Default output.
    * @param data
    */
-  print(data: any): void {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  print(data: unknown): void {
     throw new Error(`Class ${this.constructor.name} does not implement print().`)
   }
 
@@ -97,7 +100,7 @@ export class Command {
           }
         }
       }
-      const print = (prefix: string, obj: any): void => {
+      const print = (prefix: string, obj: unknown): void => {
         if (typeof obj === 'object') {
           if (obj === null) {
             console.log(`${prefix} = null`)
@@ -182,7 +185,7 @@ export class Command {
    * Call the DELETE API.
    * @param api
    */
-  async deleteUi<T>(api: string, args: Record<string, any> | undefined = undefined): Promise<T> {
+  async deleteUi<T>(api: string, args: Record<string, unknown> | undefined = undefined): Promise<T> {
     await this.cli.login()
     const resp: HttpResponse = await this.cli.requestUi('DELETE', api, args)
     if (!resp.success) {
@@ -195,7 +198,7 @@ export class Command {
    * Call the PATCH API.
    * @param api
    */
-  async patch<T>(api: string, data: FormData | Record<string, any>): Promise<T> {
+  async patch<T>(api: string, data: FormData | Record<string, unknown>): Promise<T> {
     await this.cli.login()
     const resp: HttpResponse = await this.cli.request('PATCH', api, data)
     if (!resp.success) {
@@ -208,7 +211,7 @@ export class Command {
    * Call the POST API.
    * @param api
    */
-  async post<T>(api: string, data: FormData | Record<string, any>): Promise<T> {
+  async post<T>(api: string, data: FormData | Record<string, unknown>): Promise<T> {
     await this.cli.login()
     const resp: HttpResponse = await this.cli.request('POST', api, data)
     if (!resp.success) {
@@ -221,7 +224,7 @@ export class Command {
    * Call the POST UI API.
    * @param api
    */
-  async postUi<T>(api: string, data: FormData | Record<string, any>): Promise<T> {
+  async postUi<T>(api: string, data: FormData | Record<string, unknown>): Promise<T> {
     await this.cli.login()
     const resp: HttpResponse = await this.cli.requestUi('POST', api, data)
     if (!resp.success) {

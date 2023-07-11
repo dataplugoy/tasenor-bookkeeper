@@ -1,4 +1,4 @@
-import { Crypto, DatabaseName, Hostname, isDatabaseName, log, Secret, Url } from '@dataplug/tasenor-common'
+import { Crypto, DatabaseName, Hostname, ID, isDatabaseName, log, Secret, Url } from '@dataplug/tasenor-common'
 import { randomString, vault } from '..'
 import knex, { Knex } from 'knex'
 import { types } from 'pg'
@@ -11,7 +11,9 @@ types.setTypeParser(builtins.TIMESTAMPTZ, parseDate)
 types.setTypeParser(builtins.TIMESTAMP, parseDate)
 types.setTypeParser(builtins.DATE, parseDate)
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type KnexDatabase = Knex<any, any[]>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type KnexConfig = Record<string, any>
 export type KnexConnectionInfo = {
   host: string,
@@ -190,7 +192,7 @@ const isValidName = (name: string): boolean => {
  * @param migrations Path of the migrations file.
  * @returns ID
  */
-const create = async (masterDb: KnexDatabase, name: DatabaseName, host: Hostname, port: number, migrations: string | null = null, hostOverride: null | Hostname = null): Promise<any> => {
+const create = async (masterDb: KnexDatabase, name: DatabaseName, host: Hostname, port: number, migrations: string | null = null, hostOverride: null | Hostname = null): Promise<ID> => {
   if (await exists(masterDb, name)) {
     throw new Error(`Database '${name}' exist.`)
   }
@@ -228,7 +230,7 @@ const create = async (masterDb: KnexDatabase, name: DatabaseName, host: Hostname
  * @param migrations
  * @param hostOverride
  */
-const migrate = async (masterDb: KnexDatabase, name: DatabaseName, migrations: string, hostOverride: null | Hostname = null): Promise<any> => {
+const migrate = async (masterDb: KnexDatabase, name: DatabaseName, migrations: string, hostOverride: null | Hostname = null): Promise<void> => {
   const conf = await getConfig(masterDb, name, hostOverride)
   conf.migrations = { directory: migrations }
   const db = knex(conf)
@@ -244,7 +246,7 @@ const migrate = async (masterDb: KnexDatabase, name: DatabaseName, migrations: s
  * @param migrations
  * @param hostOverride
  */
-const rollback = async (masterDb: KnexDatabase, name: DatabaseName, migrations: string, hostOverride: null | Hostname = null): Promise<any> => {
+const rollback = async (masterDb: KnexDatabase, name: DatabaseName, migrations: string, hostOverride: null | Hostname = null): Promise<void> => {
   const conf = await getConfig(masterDb, name, hostOverride)
   conf.migrations = { directory: migrations }
   const db = knex(conf)

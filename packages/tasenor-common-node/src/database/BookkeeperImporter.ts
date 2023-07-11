@@ -24,7 +24,7 @@ export class BookkeeperImporter {
     const lines = content.split('\n').map(s => s.split('\t'))
     const headers = lines[0]
     headers[0] = headers[0].replace(/^#\s+/, '')
-    const objects: any[] = []
+    const objects: Record<string, string>[] = []
     for (let i = 1; i < lines.length; i++) {
       const obj = {}
       for (let j = 0; j < headers.length; j++) {
@@ -48,15 +48,15 @@ export class BookkeeperImporter {
    * Read the account information from the tsv file.
    * @param file A tsv file to read.
    */
-  async readAccountTsv(file: TsvFilePath): Promise<any[]> {
+  async readAccountTsv(file: TsvFilePath): Promise<Record<string, unknown>[]> {
     const match = /([a-z][a-z])-([A-Z][A-Z][A-Z])\.tsv$/.exec(file)
     if (!match) {
       throw new Error(`File name ${file} has not correct format.`)
     }
-    const entries: any[] = []
+    const entries: Record<string, unknown>[] = []
     const [, language, currency] = match
     const accounts = await this.readTsv(file)
-    let headings: any[] = []
+    let headings: Record<string, unknown>[] = []
     for (const account of accounts) {
 
       if (account.text !== '') {
@@ -66,7 +66,7 @@ export class BookkeeperImporter {
               // Allow numeric VAT as well.
               /^\d+(\.\d+)$/.test(account.code) ? account.code : account.code.replace(/^_+/, '')
             ))
-        let data: Record<string, any>
+        let data: Record<string, unknown>
         try {
           data = account.data === undefined || account.data === '' ? {} : JSON.parse(account.data)
         } catch (err) {
