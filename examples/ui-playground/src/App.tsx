@@ -2,12 +2,12 @@ import React from 'react'
 import { Button, Paper } from '@mui/material'
 import { observer } from 'mobx-react'
 import PageCurrency from './PageCurrency'
-// import PageDialog from './PageDialog'
-// import PageTagGroup from './PageTagGroup'
+import PageDialog from './PageDialog'
+import PageTagGroup from './PageTagGroup'
 import { useNavigation } from '@dataplug/tasenor-common-ui'
-// import PageTabs from './PageTabs'
-// import PageRuleEditor from './PageRuleEditor'
-// import PageJsonEditor from './PageJsonEditor'
+import PageTabs from './PageTabs'
+import PageRuleEditor from './PageRuleEditor'
+import PageJsonEditor from './PageJsonEditor'
 
 /**
  * Playground for stuff.
@@ -26,11 +26,11 @@ const App = observer(() => {
       {JSON.stringify(nav)}
       <hr/>
       { nav.side === 'currency' && <PageCurrency/> }
-      { /* nav.side === 'dialog' && <PageDialog/> */}
-      { /* nav.side === 'tagGroup' && <PageTagGroup/> */}
-      { /* nav.side === 'tabs' && <PageTabs/> */}
-      { /* nav.side === 'ruleEditorSingle' && <PageRuleEditor/> */}
-      { /* nav.side === 'jsonEditor' && <PageJsonEditor/> */}
+      { nav.side === 'dialog' && <PageDialog/> }
+      { nav.side === 'tagGroup' && <PageTagGroup/> }
+      { nav.side === 'tabs' && <PageTabs/> }
+      { nav.side === 'ruleEditorSingle' && <PageRuleEditor/> }
+      { nav.side === 'jsonEditor' && <PageJsonEditor/> }
     </Paper>
   )
 })
