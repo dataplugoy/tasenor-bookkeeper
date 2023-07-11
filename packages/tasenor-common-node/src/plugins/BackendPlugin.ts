@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { TasenorElement, BackendCatalog, Constructor, DirectoryPath, FilePath, Language, PluginCode, PluginType, PluginUse, Version, ID, getServerRoot } from '@dataplug/tasenor-common'
-import path from 'path'
-import fs from 'fs'
+import * as path from 'path'
+import * as fs from 'fs'
 import { KnexDatabase } from '..'
 
 /**
@@ -42,18 +43,21 @@ export class BackendPlugin {
    * Hook to be executed once during installing.
    */
   async install(): Promise<void> {
+    // Do nothing by default.
   }
 
   /**
    * Hook to be executed one during uninstalling.
    */
   async uninstall(): Promise<void> {
+    // Do nothing by default.
   }
 
   /**
    * Hook to register hooks when launching backend.
    */
   load(catalog: BackendCatalog) {
+    // Do nothing by default.
   }
 
   /**
@@ -61,6 +65,7 @@ export class BackendPlugin {
    * @param db Knex instance of the database.
    */
   async installToDb(db: KnexDatabase): Promise<void> {
+    // Do nothing by default.
   }
 
   /**
@@ -68,6 +73,7 @@ export class BackendPlugin {
    * @param db Knex instance of the database.
    */
   async uninstallFromDb(db: KnexDatabase): Promise<void> {
+    // Do nothing by default.
   }
 
   /**
@@ -141,12 +147,14 @@ export class BackendPlugin {
    * A scheduled function that is ran once an hour. The hour number is in server time.
    */
   async hourly(hour: number) {
+    // Do nothing by default.
   }
 
   /**
    * A scheduled function that is ran once a day during night time on server time.
    */
   async nightly(db: KnexDatabase) {
+    // Do nothing by default.
   }
 
   /**

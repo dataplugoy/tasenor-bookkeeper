@@ -1,4 +1,4 @@
-import csvParse from 'csv-parse'
+import * as csvParse from 'csv-parse'
 import { BadState, NotImplemented } from '../error'
 import { ProcessFile } from '../process/ProcessFile'
 import { ProcessHandler } from '../process/ProcessHandler'
@@ -261,9 +261,9 @@ export class TextFileProcessHandler extends ProcessHandler {
    */
   async parseCsvLine(line: string, options: ImportCSVOptions = {}): Promise<string[]> {
     return new Promise((resolve, reject) => {
-      csvParse(line, {
+      csvParse.parse(line, {
         delimiter: options.columnSeparator || ',',
-        skip_lines_with_error: !!options.skipErrors
+        skip_records_with_error: !!options.skipErrors
       }, function (err, out) {
         if (err) {
           reject(err)

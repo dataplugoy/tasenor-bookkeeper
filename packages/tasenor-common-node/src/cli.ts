@@ -4,8 +4,8 @@
  *
  * @module tasenor-common-node/src/cli
  */
-import readline from 'readline'
-import FormData from 'form-data'
+import * as readline from 'readline'
+import * as FormData from 'form-data'
 import { ArgumentParser } from 'argparse'
 import { HttpMethod, net, Url, Value, TokenPair, Token, log, HttpResponse, mute, waitPromise, note } from '@dataplug/tasenor-common'
 import clone from 'clone'
@@ -125,13 +125,13 @@ export class CLIRunner {
     if (this.token) return
 
     log(`Logging in to ${this.api} as ${this.user}`)
-    const resp = await this.request('POST', '/auth', { user: this.user, password: this.password })
+    const resp = await this.request('POST', '/auth', { user: this.user, password: this.password } as unknown as Value)
     if (resp.success && resp.data && resp.data instanceof Object) {
       if ('token' in resp.data && 'refresh' in resp.data) {
-        const { token, refresh } = resp.data
-        this.configureApi(this.api, { token: token as Token, refresh: refresh as Token })
-        this.configureApi(this.uiApi, { token: token as Token, refresh: refresh as Token })
-        this.token = token as Token
+        const { token, refresh } = resp.data as unknown as { token: Token, refresh: Token }
+        this.configureApi(this.api, { token, refresh })
+        this.configureApi(this.uiApi, { token, refresh })
+        this.token = token
       }
     }
   }

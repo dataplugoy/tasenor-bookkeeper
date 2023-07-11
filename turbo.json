@@ -8,7 +8,11 @@
     "DEBUG_SEGMENTATION",
     "DEBUG_CLASSIFICATION",
     "DEBUG_ANALYSIS",
-    "DEBUG_EXECUTION"
+    "DEBUG_EXECUTION",
+    "VAULT_URL",
+    "SECRET",
+    "NODE_ENV",
+    "DATABASE_URL"
   ],
   "pipeline": {
     "lint": {
