@@ -33,7 +33,7 @@ export class Password {
  * Generate a random string of the given length.
  * @param len
  */
-export function randomString(len: number = 32): string {
+export function randomString(len = 32): string {
   const buf = crypto.randomBytes(len / 2)
   return buf.toString('hex')
 }

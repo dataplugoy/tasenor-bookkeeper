@@ -138,7 +138,7 @@ export class GitRepo {
   /**
    * Ensure repo is downloaded and return repo instance.
    */
-  static async get(repoUrl: Url, parentDir: DirectoryPath, runYarnInstall: boolean = false): Promise<GitRepo | undefined> {
+  static async get(repoUrl: Url, parentDir: DirectoryPath, runYarnInstall = false): Promise<GitRepo | undefined> {
     const repo = new GitRepo(repoUrl, parentDir)
     const fetched = await repo.fetch()
 

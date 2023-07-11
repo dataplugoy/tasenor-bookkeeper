@@ -24,7 +24,7 @@ export class TransactionUI {
    * @param config
    * @param variable
    */
-  async getConfigOrAsk(config: ProcessConfig, variable: string, element: TasenorElement, allowNull: boolean = true): Promise<unknown> {
+  async getConfigOrAsk(config: ProcessConfig, variable: string, element: TasenorElement, allowNull = true): Promise<unknown> {
     if (variable in config && config[variable] !== null) {
       return config[variable]
     }

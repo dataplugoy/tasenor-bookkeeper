@@ -23,7 +23,7 @@ function get(request): Token | undefined {
  * @param expires
  * @returns A JSON web token.
  */
-async function sign(payload: TokenPayload, audience: TokenAudience, expires: number = 0): Promise<Token> {
+async function sign(payload: TokenPayload, audience: TokenAudience, expires = 0): Promise<Token> {
   const secret = audience === 'refresh' ? await vault.get('SECRET') as Secret : vault.getPrivateSecret()
   if (!secret) {
     throw new Error('Cannot fins secret to sign token.')
@@ -47,7 +47,7 @@ async function sign(payload: TokenPayload, audience: TokenAudience, expires: num
  * @param audience
  * @param expires
  */
-async function sign2(payload: TokenPayload, audience: TokenAudience, expires: number = 0): Promise<TokenPair> {
+async function sign2(payload: TokenPayload, audience: TokenAudience, expires = 0): Promise<TokenPair> {
   const token = await sign(payload, audience, expires)
   const refresh = await sign({ audience, owner: payload.owner, feats: payload.feats, plugins: payload.plugins }, 'refresh', expires * 2)
   return { token, refresh }
@@ -60,7 +60,7 @@ async function sign2(payload: TokenPayload, audience: TokenAudience, expires: nu
  * @param quiet If set, do not trigger errors.
  * @returns Token payload if valid.
  */
-function verify(token: Token, secret: Secret, audience: TokenAudience | TokenAudience[], quiet: boolean = false): TokenPayload | null {
+function verify(token: Token, secret: Secret, audience: TokenAudience | TokenAudience[], quiet = false): TokenPayload | null {
   if (!secret) throw new Error('Cannot verify token since no secret given.')
   if (!audience) throw new Error('Cannot verify token since no audience given.')
 
@@ -118,7 +118,7 @@ function parse(token: Token): { [key: string]: any; } | null {
  * @param audience
  * @param quiet If set, do not trigger errors.
  */
-async function check(token: Token, audience: TokenAudience, quiet: boolean = false): Promise<boolean> {
+async function check(token: Token, audience: TokenAudience, quiet = false): Promise<boolean> {
   if (!token) {
     return false
   }

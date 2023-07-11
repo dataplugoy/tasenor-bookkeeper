@@ -853,7 +853,7 @@ export class TransferAnalyzer {
     const accounts: Record<string, AccountNumber> = await this.collectAccounts(segment, transfers) as Record<string, AccountNumber>
 
     // Tune fees, if we have some and total needs adjustments.
-    let feeIsMissingFromTotal: boolean = false
+    let feeIsMissingFromTotal = false
     const hasFees = transfers.transfers.filter(t => t.reason === 'fee').length > 0
     if (hasFees) {
       const nonFees = new Set(transfers.transfers.filter(t => t.reason !== 'fee' && !(t.reason === 'income' && t.asset.indexOf('PROFIT') >= 0) && !(t.reason === 'expense' && t.asset.indexOf('LOSS') >= 0)).map(t => t.reason))

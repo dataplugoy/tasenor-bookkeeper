@@ -14,7 +14,7 @@ export class Exporter {
   /**
    * Version number of the file format produced by this exporter.
    */
-  VERSION: number = 2
+  VERSION = 2
 
   /**
    * Read all accounts from the database and generate TSV-data.
