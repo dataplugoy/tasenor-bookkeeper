@@ -1,4 +1,4 @@
-import { useLocation, useHistory, Location, History } from 'react-router-dom'
+import { useLocation, useNavigate, Location, History } from 'react-router-dom'
 import { DatabaseName, isDatabaseName, ID } from '@dataplug/tasenor-common'
 
 // TODO: This could belong to bookkeeper repo. In future generic base could be here.
@@ -116,6 +116,6 @@ export class MenuState {
 
 export const useNavigation = (): MenuState => {
   const loc = useLocation()
-  const his = useHistory()
-  return new MenuState(loc, his)
+  const his = useNavigate()
+  return new MenuState(loc, his) // TODO: Rename history member. Fix navigation.
 }
