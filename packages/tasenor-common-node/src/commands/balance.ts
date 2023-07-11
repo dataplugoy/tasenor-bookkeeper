@@ -114,7 +114,7 @@ class BalanceCommand extends Command {
         delete stockArg[destAccount]
       }
       // Add data if known.
-      const out: EntryModelData = await this.post(`/db/${db}/entry`, entry)
+      const out: EntryModelData = await this.post(`/db/${db}/entry`, entry as unknown as Record<string, unknown>)
       log(`Created an entry #${out.id} for ${destAccount} ${description} ${sprintf('%.2f', dataArg[account] / 100)}${entry.data ? ' ' + JSON.stringify(entry.data) : ''}.`)
     }
 
