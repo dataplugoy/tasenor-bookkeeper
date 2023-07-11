@@ -1,0 +1,25 @@
+{
+  "name": "@dataplug/tasenor-testing",
+  "version": "1.9.16",
+  "description": "Testing tools for Tasenor project",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "repository": "git@github.com:dataplugoy/tasenor-bookkeeper.git",
+  "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "fix": "eslint --fix 'src/**/*.ts' 'tests/**/*.ts'",
+    "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'"
+  },
+  "dependencies": {
+    "@dataplug/tasenor-common": "workspace:*",
+    "dayjs": "1.10.8",
+    "sprintf-js": "^1.1.2"
+  },
+  "devDependencies": {
+    "eslint-config-tasenor": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.1.6"
+  }
+}

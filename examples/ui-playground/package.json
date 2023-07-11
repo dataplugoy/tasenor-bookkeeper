@@ -12,6 +12,7 @@
   "dependencies": {
     "@dataplug/tasenor-common": "workspace:*",
     "@dataplug/tasenor-common-ui": "workspace:*",
+    "@dataplug/tasenor-testing": "workspace:*",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.13.7",
     "@types/react": "^17",

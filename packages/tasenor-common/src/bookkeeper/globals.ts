@@ -28,11 +28,11 @@ declare global {
  * @param knowledge
  */
 export function setGlobalComponents(store: Store, catalog: Catalog, cursor: Cursor, settings: Settings, knowledge: Knowledge): void {
-  _store = store
-  _catalog = catalog
-  _cursor = cursor
-  _settings = settings
-  _knowledge = knowledge
+  global._store = store
+  global._catalog = catalog
+  global._cursor = cursor
+  global._settings = settings
+  global._knowledge = knowledge
 }
 
 /**
