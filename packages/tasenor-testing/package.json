@@ -9,8 +9,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "fix": "eslint --fix 'src/**/*.ts' 'tests/**/*.ts'",
-    "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'"
+    "fix": "eslint --fix 'src/**/*.ts'",
+    "lint": "eslint 'src/**/*.ts'"
   },
   "dependencies": {
     "@dataplug/tasenor-common": "workspace:*",
