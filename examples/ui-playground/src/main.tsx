@@ -4,7 +4,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { RISPProvider } from '@dataplug/tasenor-common-ui'
-// import App from './App'
+import App from './App'
 // import { CursorMock, MockCatalog, MockStore, SettingsMock } from './mocks'
 import theme from './theme'
 
@@ -20,7 +20,7 @@ ReactDOM.render(
   <BrowserRouter>
     <RISPProvider>
       <ThemeProvider theme={theme}>
-        APP
+        <App/>
       </ThemeProvider>
     </RISPProvider>
   </BrowserRouter>,

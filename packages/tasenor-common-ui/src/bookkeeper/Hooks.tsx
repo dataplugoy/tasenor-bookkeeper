@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, Location, History } from 'react-router-dom'
+import { useLocation, useNavigate, Location } from 'react-router-dom'
 import { DatabaseName, isDatabaseName, ID } from '@dataplug/tasenor-common'
 
 // TODO: This could belong to bookkeeper repo. In future generic base could be here.
@@ -15,9 +15,9 @@ export class MenuState {
   attrs: Record<string, string>
   indirectPath: boolean
 
-  history: History
+  navigator: (url: string) => void
 
-  constructor(loc: Location, history: History) {
+  constructor(loc: Location, navigator) {
     this.db = '' as DatabaseName
     this.main = ''
     this.periodId = null
@@ -26,7 +26,7 @@ export class MenuState {
     this.attrs = {}
     this.indirectPath = false
 
-    this.history = history
+    this.navigator = navigator
 
     if (loc) {
       if (loc.search.startsWith('?path=')) {
@@ -78,7 +78,7 @@ export class MenuState {
 
   go(to: Record<string, string | null>): void {
     this.parse(to)
-    this.history.push(this.url)
+    this.navigator(this.url)
   }
 
   get(variable: string) {
@@ -114,8 +114,9 @@ export class MenuState {
   }
 }
 
+// TODO: Rename. Overlaps with react-router.
 export const useNavigation = (): MenuState => {
   const loc = useLocation()
-  const his = useNavigate()
-  return new MenuState(loc, his) // TODO: Rename history member. Fix navigation.
+  const nav = useNavigate()
+  return new MenuState(loc, nav)
 }
