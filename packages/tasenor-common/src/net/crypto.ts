@@ -4,6 +4,9 @@ import { error } from '../logging'
 import { Secret } from '../types'
 global.Buffer = global.Buffer || buffer.Buffer
 
+// TODO: This needs re-implementation. Maybe SubtleCrypto.
+// https://davidmyers.dev/blog/a-practical-guide-to-the-web-cryptography-api
+
 /**
  * Utility to encrypt and decrypt passwords.
  */

@@ -7,15 +7,6 @@
   "repository": "git@github.com:dataplugoy/tasenor-bookkeeper.git",
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "MIT",
-  "browser": {
-    "crypto": "crypto-browserify",
-    "os": "os-browserify",
-    "tty": "tty-browserify",
-    "http": "stream-http",
-    "https": "https-browserify",
-    "stream": "stream-browserify",
-    "zlib": "browserify-zlib"
-  },
   "scripts": {
     "ci": "pnpm run lint && pnpm run build && pnpm run test",
     "build": "tsc",
@@ -26,6 +17,7 @@
   },
   "dependencies": {
     "axios": "0.26.0",
+    "buffer": "^6.0.3",
     "clone": "^2.1.2",
     "dayjs": "1.10.8",
     "form-data": "^4.0.0",

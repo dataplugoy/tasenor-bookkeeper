@@ -8,7 +8,7 @@ export default defineConfig(({ command, mode }) => {
     plugins: [react()],
     base: '/app/',
     define: {
-      global: 'window'
+      global: 'globalThis'
     },
   }
 })
