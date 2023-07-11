@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Paper } from '@mui/material'
 import { observer } from 'mobx-react'
-// import PageCurrency from './PageCurrency'
+import PageCurrency from './PageCurrency'
 // import PageDialog from './PageDialog'
 // import PageTagGroup from './PageTagGroup'
 import { useNavigation } from '@dataplug/tasenor-common-ui'
@@ -25,7 +25,7 @@ const App = observer(() => {
       <hr/>
       {JSON.stringify(nav)}
       <hr/>
-      { /* nav.side === 'currency' && <PageCurrency/> */}
+      { nav.side === 'currency' && <PageCurrency/> }
       { /* nav.side === 'dialog' && <PageDialog/> */}
       { /* nav.side === 'tagGroup' && <PageTagGroup/> */}
       { /* nav.side === 'tabs' && <PageTabs/> */}
