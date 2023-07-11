@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import fs from 'fs'
 import { data2csv } from '..'
 import dayjs from 'dayjs'

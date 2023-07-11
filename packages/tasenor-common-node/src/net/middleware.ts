@@ -4,6 +4,7 @@ import { error, log, MAX_UPLOAD_SIZE, Secret, Token, TokenAudience, Url } from '
 import { tokens } from './tokens'
 import { vault } from './vault'
 import helmet from 'helmet'
+import { JwtPayload } from 'jsonwebtoken'
 
 /**
  * Hide tokens from URL.
@@ -28,17 +29,18 @@ export function tasenorInitialStack(args: InitialMiddlewareStackDefinition): Req
   const stack : RequestHandler[] = []
 
   // Add logger.
-  stack.push((req: Request, res: Response, next: Function) => {
+  stack.push((req: Request, res: Response, next: (arg?: Error) => unknown) => {
     if (req.method !== 'OPTIONS') {
       let owner
       const token = tokens.get(req)
       if (token) {
-        const payload = tokens.parse(token)
-        if (payload && payload.payload && payload.payload.data) {
-          owner = payload.payload.data.owner
-          let aud = payload.payload.aud
-          if (payload.payload.aud === 'refresh') {
-            aud = payload.payload.data.audience
+        const parsed = tokens.parse(token)
+        if (parsed && parsed.payload) {
+          const payload = parsed.payload as JwtPayload
+          owner = payload.data.owner
+          let aud = payload.aud
+          if (payload.aud === 'refresh') {
+            aud = payload.data.audience
           }
           switch (aud) {
             case 'sites':
@@ -89,7 +91,7 @@ export function tasenorFinalStack(): (ErrorRequestHandler | RequestHandler)[] {
   const stack : (ErrorRequestHandler | RequestHandler)[] = []
 
   // Add error catcher.
-  stack.push((err: Error, req: Request, res: Response, next: Function) => {
+  stack.push((err: Error, req: Request, res: Response, next: (arg?: Error) => unknown) => {
     error('Internal error:', err)
     if (res.headersSent) {
       return next(err)
@@ -179,7 +181,7 @@ export function tasenorStack({ url, json, user, uuid, admin, superuser, audience
 
   // Find the token.
   if (token) {
-    stack.push(async (req: Request, res: Response, next: Function) => {
+    stack.push(async (req: Request, res: Response, next: (arg?: Error) => unknown) => {
       res.locals.token = tokens.get(req)
       next()
     })
@@ -187,7 +189,7 @@ export function tasenorStack({ url, json, user, uuid, admin, superuser, audience
 
   // Set the UUID and owner.
   if (uuid) {
-    stack.push(async (req: Request, res: Response, next: Function) => {
+    stack.push(async (req: Request, res: Response, next: (arg?: Error) => unknown) => {
       if (!res.locals.token) {
         error('There is no token in the request and we are looking for UUID.')
         return res.status(403).send({ message: 'Forbidden.' })
@@ -197,12 +199,13 @@ export function tasenorStack({ url, json, user, uuid, admin, superuser, audience
         error('Cannot find UUID from the request.')
         return res.status(403).send({ message: 'Forbidden.' })
       }
-      const payload = tokens.parse(res.locals.token)
-      if (!payload) {
+      const parsed = tokens.parse(res.locals.token)
+      if (!parsed) {
         error(`Cannot parse payload from the token ${res.locals.token}`)
         return res.status(403).send({ message: 'Forbidden.' })
       }
-      const audience = payload.payload.aud
+      const payload: JwtPayload = parsed.payload as JwtPayload
+      const audience = payload.aud as TokenAudience
       const secret = vault.getPrivateSecret()
       const ok = tokens.verify(res.locals.token, secret, audience)
       if (!ok) {
@@ -217,7 +220,7 @@ export function tasenorStack({ url, json, user, uuid, admin, superuser, audience
 
   // Add token check middleware.
   if (audience) {
-    stack.push(async (req: Request, res: Response, next: Function) => {
+    stack.push(async (req: Request, res: Response, next: (arg?: Error) => unknown) => {
       const token: Token = res.locals.token
       if (!token) {
         error(`Request ${req.method} ${cleanUrl(req.originalUrl)} from ${req.ip} has no token.`)

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ID } from '@dataplug/tasenor-common'
 
 /**

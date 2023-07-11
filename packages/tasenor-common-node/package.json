@@ -49,6 +49,7 @@
   "devDependencies": {
     "@jest/globals": "^29.6.1",
     "@types/jest": "^29.5.2",
+    "@types/jsonwebtoken": "^9.0.2",
     "eslint-config-tasenor": "workspace:*",
     "jest": "^29.6.1",
     "jestconfig": "workspace:*",

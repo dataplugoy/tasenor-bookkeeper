@@ -80,6 +80,7 @@ export class ProcessHandler {
    * See if it is possible rollback a process.
    * @param step
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async rollback(process: Process, state: ImportState): Promise<ImportState> {
     throw new NotImplemented(`A handler '${this.name}' does not implement rollback()`)
   }

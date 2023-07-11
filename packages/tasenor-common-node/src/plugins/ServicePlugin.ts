@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import axios from 'axios'
 import { log, note, error, PluginService, PluginServiceResponse, waitPromise } from '@dataplug/tasenor-common'
 import { BackendPlugin } from './BackendPlugin'

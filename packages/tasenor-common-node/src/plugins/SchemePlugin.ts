@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Currency, Language, SchemeName, TsvFilePath } from '@dataplug/tasenor-common'
 import { BackendPlugin } from './BackendPlugin'
 

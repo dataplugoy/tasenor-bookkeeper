@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { KnexDatabase } from '../database'
 import { BackendPlugin } from './BackendPlugin'
 

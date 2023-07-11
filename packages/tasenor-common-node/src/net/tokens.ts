@@ -1,5 +1,5 @@
 import { error, TokenPayload, Secret, TokenAudience, Token, RefreshTokenPayload, TokenPair, NormalTokenPayload, REFRESH_TOKEN_EXPIRY_TIME, TOKEN_EXPIRY_TIME, TOKEN_ISSUER } from '@dataplug/tasenor-common'
-import jwt from 'jsonwebtoken'
+import jwt, { Jwt } from 'jsonwebtoken'
 import { create } from 'ts-opaque'
 import { vault } from './vault'
 
@@ -107,7 +107,7 @@ function verify(token: Token, secret: Secret, audience: TokenAudience | TokenAud
  * Parse the payload of the token without verifying.
  * @param token
  */
-function parse(token: Token): { [key: string]: any; } | null {
+function parse(token: Token): Jwt | null {
   const decoded = jwt.decode(token, { json: true, complete: true })
   return decoded
 }
