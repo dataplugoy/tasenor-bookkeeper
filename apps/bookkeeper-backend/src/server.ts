@@ -7,6 +7,7 @@ import server from './lib/server'
 import catalog from './lib/catalog'
 import cron from './lib/cron'
 import pkg from '../package.json'
+import routes from './routes'
 
 // List of plugin URLs to install by default.
 const INITIAL_PLUGIN_REPOS = process.env.INITIAL_PLUGIN_REPOS ? process.env.INITIAL_PLUGIN_REPOS.split(' ') : []
@@ -20,8 +21,7 @@ async function main() {
   await server.initialize()
   app.use(tasenorInitialStack({ origin: process.env.UI_ORIGIN_URL as Url }))
   app.use(express.static('doc'))
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  app.use('/', require('./routes/index').default)
+  app.use('/', routes)
   app.use(tasenorFinalStack())
 
   const listener = app.listen(config.PORT, async function () {

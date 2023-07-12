@@ -1,5 +1,6 @@
 import { DatabaseName, Hostname, log } from '@dataplug/tasenor-common'
 import { DB, KnexConfig, KnexDatabase, nodeEnv } from '@dataplug/tasenor-common-node'
+import knexfileMaster from '../knexfile-master'
 
 /**
  * Get the list of all database names.
@@ -55,10 +56,10 @@ function masterDb(): KnexDatabase {
   if (masterDbCache) {
     return masterDbCache
   }
+  const masterConf = knexfileMaster[nodeEnv()]
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const knex = require('knex')
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const masterConf = require('../knexfile-master')[nodeEnv()]
+
   masterDbCache = knex(masterConf)
   return masterDbCache
 }
