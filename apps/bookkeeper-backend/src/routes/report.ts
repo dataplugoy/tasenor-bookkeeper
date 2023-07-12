@@ -11,7 +11,7 @@ const router = express.Router()
  * Get a list of available report option specifications.
  */
 router.get('/',
-  async (req, res, next) => {
+  async (req, res) => {
     const db: KnexDatabase = await knex.db(res.locals.user, res.locals.db)
     const scheme = await db('settings').select('value').where({ name: 'scheme' }).pluck('value')
     const options: ReportOptions = {}
@@ -23,7 +23,7 @@ router.get('/',
 )
 
 router.get('/:format/:period',
-  async (req, res, next) => {
+  async (req, res) => {
     const format = req.params.format as ReportID
     const periodId: PK = parseInt(req.params.period) as PK
     const plugin = catalog.getReportPlgugin(format)
@@ -69,7 +69,7 @@ router.get('/:format/:period',
   })
 
 router.get('/:format/:period/:account',
-  async (req, res, next) => {
+  async (req, res) => {
     const format = req.params.format as ReportID
     const periodId: PK = parseInt(req.params.period) as PK
     const accountId: PK = parseInt(req.params.account) as PK

@@ -27,7 +27,7 @@ router.get('/current-user',
 
 router.get('/:user',
   ...tasenor({ admin: true }),
-  async (req, res, next) => {
+  async (req, res) => {
     const user: UserDataModel | null = await users.getOne(req.params.user)
     if (!user) {
       return res.status(404).send({ message: 'No such user.' })
@@ -38,7 +38,7 @@ router.get('/:user',
 
 router.get('/:user/databases',
   ...tasenor({ admin: true }),
-  async (req, res, next) => {
+  async (req, res) => {
     const databases = await users.databases(req.params.user)
     res.send(databases)
   }
@@ -46,7 +46,7 @@ router.get('/:user/databases',
 
 router.post('/:user/databases',
   ...tasenor({ admin: true }),
-  async (req, res, next) => {
+  async (req, res) => {
     const user: UserDataModel | null = await users.getOne(req.params.user)
     if (!user) {
       return res.status(404).send({ message: 'No such user.' })
@@ -92,7 +92,7 @@ router.post('/',
 
 router.delete('/:email',
   ...tasenor({ admin: true }),
-  async (req, res, next) => {
+  async (req, res) => {
     await users.deleteOne(req.params.email)
       .then(() => res.sendStatus(204))
       .catch(() => res.status(404).send({ message: 'No such user.' }))

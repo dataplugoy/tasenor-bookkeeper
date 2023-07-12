@@ -11,7 +11,7 @@ const router = express.Router()
  * Get all importers.
  */
 router.get('/',
-  async (req, res, next) => {
+  async (req, res) => {
     const db = await knex.db(res.locals.user, res.locals.db)
     const importers = await db('importers').orderBy('id')
     res.send(importers)
@@ -22,7 +22,7 @@ router.get('/',
  * Create new importer.
  */
 router.post('/',
-  async (req, res, next) => {
+  async (req, res) => {
     const { name, config } = req.body
     if (!name) {
       return res.status(400).send({ message: 'Name is missing.' })
@@ -56,7 +56,7 @@ router.post('/',
  * Get one importer.
  */
 router.get('/:id',
-  async (req, res, next) => {
+  async (req, res) => {
     const db = await knex.db(res.locals.user, res.locals.db)
     const importer = await db('importers').where({ id: parseInt(req.params.id) }).first()
     res.send(importer)
@@ -67,7 +67,7 @@ router.get('/:id',
  * Update one importer.
  */
 router.patch('/:id',
-  async (req, res, next) => {
+  async (req, res) => {
     const db = await knex.db(res.locals.user, res.locals.db)
     const id = parseInt(req.params.id)
     const update: Record<string, unknown> = {}
@@ -88,7 +88,7 @@ router.patch('/:id',
  * Start import process using the specific importer.
  */
 router.post('/:id',
-  async (req, res, next) => {
+  async (req, res) => {
     const { files, firstDate, lastDate }: { files: ProcessFileData[], firstDate: string, lastDate: string } = req.body
     const importerId = req.params.id
     const db = await knex.db(res.locals.user, res.locals.db)

@@ -145,7 +145,7 @@ async function getAll(): Promise<UserDataModel[]> {
  * Get one user data.
  */
 async function getOne(user): Promise<UserDataModel | null> {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const db = knex.masterDb()
     db('users').select(ALLOWED_USER_FIELDS).where({ email: user }).first().then(data => {
       if (!data) {

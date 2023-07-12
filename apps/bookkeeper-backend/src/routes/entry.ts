@@ -7,7 +7,7 @@ import { create, update } from '../lib/entry'
 const router = express.Router()
 
 router.get('/',
-  async (req, res, next) => {
+  async (req, res) => {
     const db = await knex.db(res.locals.user, res.locals.db)
     let q = db('entry').select('entry.*', 'document.date').join('document', 'document.id', '=', 'entry.document_id').where(true)
     if (req.query.text) {
@@ -25,7 +25,7 @@ router.get('/',
   })
 
 router.post('/',
-  async (req, res, next) => {
+  async (req, res) => {
     const message: HttpResponse = await create(await knex.db(res.locals.user, res.locals.db), req.body)
     return isHttpSuccessResponse(message) ? res.status(message.status).send(message.data) : res.status(message.status).send({ messae: message.message })
   })
@@ -43,7 +43,7 @@ router.get('/:id',
   })
 
 router.patch('/:id',
-  async (req, res, next) => {
+  async (req, res) => {
     const entry = await data.getOne(await knex.db(res.locals.user, res.locals.db), 'entry', parseInt(req.params.id))
     if (!entry) {
       return res.status(404).send({ message: 'Entry not found.' })

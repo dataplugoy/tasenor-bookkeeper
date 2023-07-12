@@ -41,7 +41,7 @@ router.patch('/:id',
 router.post('/',
   async (req, res, next) => {
     const obj = req.body
-    const conf: Record<string, any> = await knex.dbSettings(res.locals.user, res.locals.db).catch(next) as KnexConfig
+    const conf: Record<string, unknown> = await knex.dbSettings(res.locals.user, res.locals.db).catch(next) as KnexConfig
     if (!obj.currency) {
       obj.currency = conf.currency
     }
@@ -61,7 +61,7 @@ router.post('/',
 )
 
 router.delete('/:id',
-  async (req, res, next) => {
+  async (req, res) => {
     const id = parseInt(req.params.id)
     const periods = await data.getAccountTransactionCountByPeriod(await knex.db(res.locals.user, res.locals.db), id)
     let locked = false

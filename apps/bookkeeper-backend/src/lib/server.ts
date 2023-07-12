@@ -1,4 +1,5 @@
 import { log, net, error, REFRESH_TOKEN_EXPIRY_TIME, MINUTES, YEARS, UUID, Token, Url, LocalUrl, NormalTokenPayload } from '@dataplug/tasenor-common'
+import { JwtPayload } from 'jsonwebtoken'
 import { DB, tokens, vault, createUuid, isDevelopment } from '@dataplug/tasenor-common-node'
 import killable from 'killable'
 import path from 'path'
@@ -41,9 +42,9 @@ async function initialize() {
 
   // Check token.
   const token: Token = vault.get('ERP_SITE_TOKEN', '') as Token
-  let parsed: Record<string, any> | undefined
+  let parsed: JwtPayload | null
   if (token) {
-    parsed = tokens.parse(process.env.ERP_SITE_TOKEN as Token)
+    parsed = tokens.parse(process.env.ERP_SITE_TOKEN as Token) as JwtPayload
     if (!parsed) {
       throw new Error('Cannot parse ERP_SITE_TOKEN.')
     }

@@ -355,6 +355,7 @@ export class Catalog {
    * @param transfer
    * @param currency
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getVAT(time: Date, transfer: AssetTransfer, currency: Currency): Promise<null | number> {
     const knowledge = new Knowledge(await this.getKnowledge() as KnowledgeBase)
     return knowledge.vat(transfer.asset as VATTarget, time) || null

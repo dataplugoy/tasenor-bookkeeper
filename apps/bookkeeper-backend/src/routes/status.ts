@@ -9,7 +9,7 @@ const router = express.Router()
  * Get the readiness status of the application.
  */
 router.get('/',
-  async (req, res, next) => {
+  async (req, res) => {
     const status = sysinfo[nodeEnv()]
     status.hasAdminUser = await users.hasAdminUser()
     status.version = pck.version

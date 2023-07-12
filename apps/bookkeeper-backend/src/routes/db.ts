@@ -15,7 +15,7 @@ const DB_REGEX = /^[0-9a-z-_]+$/
 
 router.get('/',
   ...tasenor({ json: true, user: true }),
-  async (req, res, next) => {
+  async (req, res) => {
     const dbs = await knex.dbs(res.locals.user)
     res.send(dbs.map(db => {
       return { name: db }
@@ -83,7 +83,7 @@ router.post('/',
 
 router.delete('/:name',
   ...tasenor({ json: true, user: true }),
-  async (req, res, next) => {
+  async (req, res) => {
     const { name } = req.params
     if (!DB.isValidName(name)) {
       error(`Invalid database name ${name}.`)
@@ -107,7 +107,7 @@ router.delete('/:name',
 
 router.post('/upload',
   ...tasenor({ url: true, user: true, upload: true }),
-  async (req, res, next) => {
+  async (req, res) => {
     const PATH = fs.mkdtempSync('/tmp/bookkeeper-upload-')
     const out = fs.mkdtempSync('/tmp/bookkeeper-upload-extract-')
     const upload = multer({ dest: PATH })
@@ -134,7 +134,7 @@ router.post('/upload',
 
 router.get('/:name/download',
   ...tasenor({ url: true, user: true, upload: true }),
-  async (req, res, next) => {
+  async (req, res) => {
     let db
     try {
       db = await knex.db(res.locals.user, req.params.name)

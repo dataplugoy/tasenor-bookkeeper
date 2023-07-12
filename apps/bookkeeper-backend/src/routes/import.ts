@@ -13,7 +13,7 @@ const router = express.Router()
  * Get all processes created by an importer.
  */
 router.get('/:id',
-  async (req, res, next) => {
+  async (req, res) => {
     const ownerId = req.params.id
     const db = await knex.db(res.locals.user, res.locals.db)
     const processes = await db('processes').select('*').where({ ownerId }).orderBy('created', 'desc')
@@ -33,7 +33,7 @@ router.get('/:id',
  * Get the process with basic information of steps.
  */
 router.get('/:id/process/:processId',
-  async (req, res, next) => {
+  async (req, res) => {
     const processId = parseInt(req.params.processId)
     if (!processId) {
       return res.status(400).send({ message: 'Invalid process ID.' })
@@ -58,7 +58,7 @@ router.get('/:id/process/:processId',
  * Receive new configuration settings or UI query answers and continue processing.
  */
 router.post('/:id/process/:processId',
-  async (req, res, next) => {
+  async (req, res) => {
     let keepRepeating = false
     const processId = parseInt(req.params.processId)
     if (!processId) {
@@ -206,7 +206,7 @@ router.get('/:id/process/:processId/step/:number',
  * Create new rule for the importer and continue classification.
  */
 router.post('/:id/process/:processId/rule',
-  async (req, res, next) => {
+  async (req, res) => {
     // Validate and update importer rules.
     const importerId = parseInt(req.params.id)
     const processId = parseInt(req.params.processId)
@@ -245,7 +245,7 @@ router.post('/:id/process/:processId/rule',
  * Remove results from the database created by import.
  */
 router.post('/:id/process/:processId/rollback',
-  async (req, res, next) => {
+  async (req, res) => {
     // Validate and update importer rules.
     const importerId = parseInt(req.params.id)
     const processId = parseInt(req.params.processId)

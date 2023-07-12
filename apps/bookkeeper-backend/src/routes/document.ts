@@ -41,14 +41,14 @@ router.get('/:id',
 )
 
 router.post('/',
-  async (req, res, next) => {
+  async (req, res) => {
     const message: HttpResponse = await create(await knex.db(res.locals.user, res.locals.db), req.body)
     return isHttpSuccessResponse(message) ? res.status(message.status).send(message.data) : res.status(message.status).send({ messae: message.message })
   }
 )
 
 router.patch('/:id',
-  async (req, res, next) => {
+  async (req, res) => {
     const message: HttpResponse = await update(await knex.db(res.locals.user, res.locals.db), req.body)
     return isHttpSuccessResponse(message) ? res.status(message.status).send(message.data) : res.status(message.status).send({ messae: message.message })
   }

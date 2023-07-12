@@ -93,6 +93,9 @@ importers:
       '@types/express-serve-static-core':
         specifier: ^4.17.35
         version: 4.17.35
+      '@types/jsonwebtoken':
+        specifier: ^9.0.2
+        version: 9.0.2
       '@types/multer':
         specifier: ^1.4.7
         version: 1.4.7

@@ -9,7 +9,7 @@ const router = express.Router()
 
 router.get('/',
   ...tasenor({ superuser: true, audience: ['bookkeeping', 'ui'] }),
-  async (req, res, next) => {
+  async (req, res) => {
     let plugins = await loadPluginIndex()
     if (plugins.length === 0) {
       await updatePluginList()
@@ -21,7 +21,7 @@ router.get('/',
 
 router.get('/rebuild',
   ...tasenor({ superuser: true, audience: ['bookkeeping', 'ui'] }),
-  async (req, res, next) => {
+  async (req, res) => {
     await updatePluginList()
     res.status(204).send()
   }
@@ -29,7 +29,7 @@ router.get('/rebuild',
 
 router.get('/reset',
   ...tasenor({ superuser: true, audience: ['bookkeeping', 'ui'] }),
-  async (req, res, next) => {
+  async (req, res) => {
     await reset()
     res.status(204).send()
   }
@@ -37,7 +37,7 @@ router.get('/reset',
 
 router.get('/auth',
   ...tasenor({ superuser: true, audience: ['bookkeeping', 'ui'] }),
-  async (req, res, next) => {
+  async (req, res) => {
     res.status(204).send()
   }
 )
