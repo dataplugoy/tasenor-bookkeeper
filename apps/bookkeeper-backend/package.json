@@ -4,6 +4,8 @@
   "description": "Tasenor bookkeeper API.",
   "main": "src/server.ts",
   "scripts": {
+    "ci": "pnpm run lint && pnpm run build-test",
+    "build-test": "tsc --noEmit",
     "fix": "eslint --fix 'src/**/*.ts'",
     "lint": "eslint 'src/**/*.ts'"
   },
