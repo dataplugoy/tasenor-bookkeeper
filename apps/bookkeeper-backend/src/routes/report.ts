@@ -48,11 +48,11 @@ router.get('/:format/:period',
       csv: 'csv' in req.query
     }
 
-    if (!languages.includes(params.lang)) {
+    if (!languages.includes(params.lang as Language)) {
       warning(`Request for language '${params.lang}' for report '${plugin.code}', which is not supported.`)
       params.lang = 'en'
     }
-    if (!languages.includes(params.lang)) {
+    if (!languages.includes(params.lang as Language)) {
       warning(`Request for language '${params.lang}' for report '${plugin.code}', which is not supported.`)
       params.lang = languages[0]
     }

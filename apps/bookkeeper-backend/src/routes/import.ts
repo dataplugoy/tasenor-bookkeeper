@@ -158,10 +158,11 @@ router.post('/:id/process/:processId',
 
       // If repeat allowed and waiting for rule editor, skip it automatically.
       input = undefined
-      if (keepRepeating && process.status === 'WAITING') {
+      if (keepRepeating && process.status === 'WAITING' && process.currentStep) {
         const { directions } = process.steps[process.currentStep]
-        if (directions.type === 'ui' && isRuleEditorElement(directions.element)) {
+        if (directions && directions.type === 'ui' && isRuleEditorElement(directions.element)) {
           const segmentId = directions.element.lines[0].segmentId
+          if (!segmentId) throw new Error(`Failed to find segment ID from ${JSON.stringify(directions.element)}.`)
           input = {
             answer: {
               [segmentId]: {

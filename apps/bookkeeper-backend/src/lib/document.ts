@@ -29,7 +29,7 @@ async function check(db: KnexDatabase, doc: DocumentModelData): Promise<HttpResp
  * Create new document.
  * @param doc
  */
-export async function create(db: KnexDatabase, doc: DocumentModelData): Promise<HttpResponse | null> {
+export async function create(db: KnexDatabase, doc: DocumentModelData): Promise<HttpResponse> {
 
   const bad = await check(db, doc)
   if (bad) {
@@ -60,7 +60,7 @@ export async function create(db: KnexDatabase, doc: DocumentModelData): Promise<
  * Update existing document.
  * @param doc
  */
-export async function update(db: KnexDatabase, doc: DocumentModelData): Promise<HttpResponse | null> {
+export async function update(db: KnexDatabase, doc: DocumentModelData): Promise<HttpResponse> {
 
   const bad = await check(db, doc)
   if (bad) {
