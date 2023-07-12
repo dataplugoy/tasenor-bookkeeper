@@ -20,6 +20,7 @@ async function main() {
   await server.initialize()
   app.use(tasenorInitialStack({ origin: process.env.UI_ORIGIN_URL as Url }))
   app.use(express.static('doc'))
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   app.use('/', require('./routes/index').default)
   app.use(tasenorFinalStack())
 

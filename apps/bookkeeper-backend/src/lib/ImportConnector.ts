@@ -169,9 +169,11 @@ export class ImportConnector implements TransactionImportConnector {
   }
 
   async waiting(): Promise<void> {
+    // No action.
   }
 
   async fail(): Promise<void> {
+    // No action.
   }
 
   async initializeBalances(time: Date, balances: BalanceBookkeeping, config: ProcessConfig): Promise<void> {

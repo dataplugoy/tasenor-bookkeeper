@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
+    "@types/express-serve-static-core": "^4.17.35",
     "@types/multer": "^1.4.7",
     "@types/node": "^20.4.1",
     "eslint-config-tasenor": "workspace:*",

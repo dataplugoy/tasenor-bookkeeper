@@ -28,7 +28,7 @@ router.get('/current-user',
 router.get('/:user',
   ...tasenor({ admin: true }),
   async (req, res, next) => {
-    const user: Object | null = await users.getOne(req.params.user)
+    const user: UserDataModel | null = await users.getOne(req.params.user)
     if (!user) {
       return res.status(404).send({ message: 'No such user.' })
     }

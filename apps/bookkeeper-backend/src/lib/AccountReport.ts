@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ReportColumnDefinition } from '@dataplug/tasenor-common'
-const { ReportPlugin } = require('@dataplug/tasenor-common-node')
-const dayjs = require('dayjs')
+import { ReportPlugin } from '@dataplug/tasenor-common-node'
+import dayjs from 'dayjs'
 
 /**
  * Report of account transactions on the given period.

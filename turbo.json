@@ -2,17 +2,24 @@
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
   "globalEnv": [
-    "DEBUG_STOCK",
+    "DATABASE_URL",
+    "DB_HOST_OVERRIDE",
+    "DEBUG_ANALYSIS",
     "DEBUG_BALANCE",
+    "DEBUG_CLASSIFICATION",
+    "DEBUG_EXECUTION",
     "DEBUG_RULES",
     "DEBUG_SEGMENTATION",
-    "DEBUG_CLASSIFICATION",
-    "DEBUG_ANALYSIS",
-    "DEBUG_EXECUTION",
-    "VAULT_URL",
-    "SECRET",
+    "DEBUG_STOCK",
+    "ERP_SITE_TOKEN",
+    "INITIAL_PLUGIN_REPOS",
     "NODE_ENV",
-    "DATABASE_URL"
+    "PORT",
+    "SECRET",
+    "TASENOR_API_URL",
+    "TASENOR_API_URL",
+    "UI_ORIGIN_URL",
+    "VAULT_URL"
   ],
   "pipeline": {
     "lint": {

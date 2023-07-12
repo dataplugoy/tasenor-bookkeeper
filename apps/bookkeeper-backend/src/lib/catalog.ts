@@ -78,6 +78,7 @@ export class Catalog {
       throw new Error(`Cannot load plugin '${plugin.code}' with '${plugin.use}'-usage on backend.`)
     }
     log(`Loading ${plugin.title} v${plugin.version}`)
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const imported = require(path.join(plugin.path, 'backend', 'index.ts'))
     const Class = imported.default || imported
     const instance = BackendPlugin.create(Class, plugin.id, plugin.path, this)
@@ -124,7 +125,7 @@ export class Catalog {
    * Find a plugin instance if it is installed.
    * @param code
    */
-  find(code: PluginCode): BackendPlugin {
+  find(code: PluginCode): BackendPlugin | undefined {
     return this.plugins.find(p => p.code === code)
   }
 
@@ -132,7 +133,7 @@ export class Catalog {
    * Find a plugin data if known.
    * @param code
    */
-  findAvailable(code: PluginCode): TasenorPlugin {
+  findAvailable(code: PluginCode): TasenorPlugin | undefined {
     return this.available.find(p => p.code === code)
   }
 
@@ -221,7 +222,7 @@ export class Catalog {
    * Find the plugin providing the accounting scheme.
    * @param code
    */
-  getSchemePlugin(code: PluginCode): SchemePlugin {
+  getSchemePlugin(code: PluginCode): SchemePlugin | undefined {
     for (const plugin of this.schemePlugins) {
       if (plugin.hasScheme(code)) {
         return plugin
