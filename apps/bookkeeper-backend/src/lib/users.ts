@@ -1,6 +1,6 @@
 import knex from './knex'
 import { Password, vault, tokens, isDevelopment } from '@dataplug/tasenor-common-node'
-import { DAYS, NormalTokenPayload, TokenPair, Url, UserDataModel, net } from '@dataplug/tasenor-common'
+import { DAYS, NormalTokenPayload, TokenPair, Url, UserDataModel, isHttpSuccessResponse, net } from '@dataplug/tasenor-common'
 import catalog from './catalog'
 
 const ALLOWED_USER_FIELDS = ['id', 'name', 'email', 'disabled', 'config']
@@ -39,7 +39,7 @@ async function registerUser({ name, email, password, admin, superuser }) {
   if (success) {
     const hasTasenorApi = !!process.env.TASENOR_API_URL
     const res = hasTasenorApi && await net.POST(`${vault.get('TASENOR_API_URL')}/users` as Url, { name, email })
-    if (!hasTasenorApi || res.success) {
+    if (!hasTasenorApi || isHttpSuccessResponse(res)) {
       await db('users').insert({ name, email, password: hash, config: { admin: !!admin, superuser: !!superuser } })
       return await db('users').where({ email }).first()
     }

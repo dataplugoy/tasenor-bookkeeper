@@ -33,6 +33,11 @@ router.post('/',
     }
     const schemePlugin = catalog.getSchemePlugin(scheme)
 
+    if (!schemePlugin) {
+      error(`Cannot find the sheme plugin for scheme ${scheme}.`)
+      return res.status(400).send({ message: 'Cannot find the plugin.' })
+    }
+
     if (!DB_REGEX.test(databaseName)) {
       error(`Invalid database name ${databaseName}.`)
       return res.status(400).send({ message: 'Invalid database name.' })
@@ -57,7 +62,7 @@ router.post('/',
       return res.status(400).send({ message: 'The currency is not supported by the scheme.' })
     }
 
-    const schemePaths: TsvFilePath[] = catalog.getSchemePaths(scheme, settings.language)
+    const schemePaths: TsvFilePath[] | null = catalog.getSchemePaths(scheme, settings.language)
     if (!schemePaths) {
       error(`Scheme '${scheme}' not supported.`)
       return res.status(400).send({ message: 'Scheme not supported.' })
@@ -94,7 +99,7 @@ router.delete('/:name',
     }
     const masterDb = knex.masterDb()
     const conf = await knex.dbSettings(res.locals.user, name)
-    if (!conf.isCreator) {
+    if (!conf || !conf.isCreator) {
       return res.status(403).send({ message: 'You are not allowed to delete this database.' })
     }
     const message = await DB.destroy(masterDb, name as DatabaseName, process.env.DB_HOST_OVERRIDE as Hostname)

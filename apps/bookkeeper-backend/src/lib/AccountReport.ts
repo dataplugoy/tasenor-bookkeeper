@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ReportColumnDefinition } from '@dataplug/tasenor-common'
+import { ReportColumnDefinition, ReportItem } from '@dataplug/tasenor-common'
 import { ReportPlugin } from '@dataplug/tasenor-common-node'
 import dayjs from 'dayjs'
 
@@ -37,7 +37,7 @@ export class AccountReport extends ReportPlugin {
   }
 
   preProcess(id, entries, options, settings, columns) {
-    const data = []
+    const data: Record<string, unknown>[] = []
     let total = 0
     entries.forEach((entry) => {
       total += entry.amount

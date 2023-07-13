@@ -7,9 +7,14 @@ import Opaque from 'ts-opaque'
 
 // Primitive values
 // ----------------
-// TODO: This is bad idea and should get rid of with correct definitions everywhere.
-// eslint-disable-next-line no-use-before-define
-export type Value = string | number | boolean | null | Value[] | Record<string, Values> | Values[]
+// TODO: This is bad idea and should get rid of with more accurate definitions everywhere where it is used.
+export type Value =
+  | null
+  | string
+  | number
+  | boolean
+  | { [x: string]: Value }
+  | Array<Value>
 export type Values = {
   [key: string]: Value
 }

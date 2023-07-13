@@ -22,7 +22,7 @@ export type PricingModel = 'COMPULSORY' | 'RECOMMENDED' | 'FREE' | 'MONTHLY' | '
  */
 export interface LoginSubscriptionData {
   model: PricingModel,
-  price: Decimal,
+  price: Decimal | null,
   billable: Date,
   expires: Date,
   pluginId: number
@@ -34,7 +34,7 @@ export interface LoginSubscriptionData {
 export interface LoginPriceData {
   pluginId: number,
   model: PricingModel,
-  price: Decimal
+  price: Decimal | null
 }
 
 /**

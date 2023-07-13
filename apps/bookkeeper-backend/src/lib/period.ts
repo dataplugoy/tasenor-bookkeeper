@@ -69,7 +69,7 @@ export async function create(db: KnexDatabase, period: PeriodModelData, initText
     assets = await collectAssets(db, last.id)
 
     const accounts = await db('account').whereIn('id', balances.balances.map(balance => balance.id))
-    const accountsById: Record<ID, AccountModel> = {}
+    const accountsById: Record<number, AccountModel> = {}
     accounts.forEach(acc => (accountsById[acc.id] = acc))
 
     // Summarize profits.

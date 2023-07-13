@@ -91,7 +91,7 @@ async function listAll(db: KnexDatabase, className: string, where: Record<string
  * @param {String} joinClass
  * @param {String[]} joinClassOrder
  */
-async function getOne(db, className, id, joinClass = null, joinClassOrder = null) {
+async function getOne(db, className, id, joinClass: string | null = null, joinClassOrder: string[] | null = null) {
   let ret: Record<string, unknown> | null = null
   return db.select('*').from(className).where({ id })
     .then(entries => {
@@ -101,6 +101,9 @@ async function getOne(db, className, id, joinClass = null, joinClassOrder = null
         where[className + '_id'] = id
         return listAll(db, joinClass, where, joinClassOrder)
           .then(entries => {
+            if (!ret) {
+              ret = {}
+            }
             ret[plural[joinClass]] = entries
             return ret
           })
@@ -364,7 +367,7 @@ async function getAccountsById(db) {
     .from('account')
     .then((data) => {
       accountsById = {}
-      data.forEach((account) => (accountsById[account.id] = account.number))
+      data.forEach((account) => ((accountsById as Record<number, string>)[account.id] = account.number))
       return accountsById
     })
 }
@@ -382,7 +385,7 @@ async function getAccountsByNumber(db) {
     .from('account')
     .then((data) => {
       accountsByNumber = {}
-      data.forEach((account) => (accountsByNumber[account.number] = account.id))
+      data.forEach((account) => ((accountsByNumber as Record<number, string>)[account.number] = account.id))
       return accountsByNumber
     })
 }
@@ -400,7 +403,7 @@ async function getAccountNamesByNumber(db) {
     .from('account')
     .then((data) => {
       accountNamesByNumber = {}
-      data.forEach((account) => (accountNamesByNumber[account.number] = account.name))
+      data.forEach((account) => ((accountNamesByNumber as Record<number, string>)[account.number] = account.name))
       return accountNamesByNumber
     })
 }

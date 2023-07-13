@@ -42,7 +42,7 @@ async function initialize() {
 
   // Check token.
   const token: Token = vault.get('ERP_SITE_TOKEN', '') as Token
-  let parsed: JwtPayload | null
+  let parsed: JwtPayload | null = null
   if (token) {
     parsed = tokens.parse(process.env.ERP_SITE_TOKEN as Token) as JwtPayload
     if (!parsed) {

@@ -8,7 +8,7 @@ const router = express.Router()
 
 router.get('/',
   async (req, res, next) => {
-    let where = null
+    let where: Record<string, unknown> | null = null
     let order = ['number']
     if (req.query.period) {
       if ('entries' in req.query) {
