@@ -22,6 +22,10 @@
     "VAULT_URL"
   ],
   "pipeline": {
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
     "lint": {
       "inputs": ["src/**"]
     },
