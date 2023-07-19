@@ -25,6 +25,10 @@
       "cache": false,
       "persistent": true
     },
+    "demo": {
+      "cache": false,
+      "persistent": true
+    },
     "lint": {
       "inputs": ["src/**"]
     },
