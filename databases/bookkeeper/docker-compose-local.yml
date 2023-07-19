@@ -1,0 +1,19 @@
+version: '3'
+
+volumes:
+  tasenor_bookkeeper_db:
+
+services:
+  tasenor-bookkeeper-database:
+    container_name: tasenor-bookkeeper-database
+    build:
+      context: .
+    volumes:
+      - tasenor_bookkeeper_db:/var/lib/postgresql/data
+    ports:
+      - 7202:7202
+    environment:
+      POSTGRES_MULTIPLE_DATABASES: bookkeeper,bookkeeper,Biure80s2rt832:test,test,8ydsyTa63298:demo,demo,oiuewHqw3d
+      POSTGRES_PASSWORD: Jow92eygdGYwe3edsoy2
+      POSTGRES_USER: root
+    command: -p 7202
