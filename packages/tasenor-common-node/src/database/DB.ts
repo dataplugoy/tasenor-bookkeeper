@@ -1,9 +1,12 @@
-import { Crypto, DatabaseName, Hostname, ID, isDatabaseName, log, Secret, Url } from '@dataplug/tasenor-common'
+import { Crypto, DatabaseName, error, Hostname, ID, isDatabaseName, log, Secret, Url } from '@dataplug/tasenor-common'
 import { randomString, vault } from '..'
 import knex, { Knex } from 'knex'
 import { types } from 'pg'
 import { builtins } from 'pg-types'
 import { create as opaque } from 'ts-opaque'
+
+// How many times to retry migration before giving up.
+const MIGRATION_RETRY = 20
 
 // Fix Knex messing around with the date values and timezones.
 const parseDate = (val) => val
@@ -231,10 +234,40 @@ const create = async (masterDb: KnexDatabase, name: DatabaseName, host: Hostname
  * @param hostOverride
  */
 const migrate = async (masterDb: KnexDatabase, name: DatabaseName, migrations: string, hostOverride: null | Hostname = null): Promise<void> => {
+  log(`Migrating database '${name}'.`)
   const conf = await getConfig(masterDb, name, hostOverride)
   conf.migrations = { directory: migrations }
   const db = knex(conf)
   await db.migrate.latest()
+  // Do not leave hanging connections.
+  await db.destroy()
+}
+
+/**
+ * Apply migrations to the master database.
+ */
+const migrateMaster = async (migrations: string): Promise<void> => {
+  function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time))
+  }
+
+  log('Migrating master database.')
+
+  const conf = await getMasterConfig()
+  conf.migrations = { directory: migrations }
+  const db = knex(conf)
+  for (let i = 0; i < MIGRATION_RETRY; i++) {
+    try {
+      await db.migrate.latest()
+      log('Migrating master database successful.')
+      break
+    } catch (err) {
+      if (i < MIGRATION_RETRY - 1) {
+        error('Migration failed. Retrying...')
+        await delay(1000)
+      }
+    }
+  }
   // Do not leave hanging connections.
   await db.destroy()
 }
@@ -360,5 +393,6 @@ export const DB = {
   getRootConfig,
   isValidName,
   migrate,
+  migrateMaster,
   rollback
 }

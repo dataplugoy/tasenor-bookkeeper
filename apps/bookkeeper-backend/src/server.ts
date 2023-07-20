@@ -3,6 +3,7 @@ import express from 'express'
 import config from './config'
 import { log, Url, DirectoryPath, setServerRoot } from '@dataplug/tasenor-common'
 import { vault, tasenorInitialStack, tasenorFinalStack, plugins, GitRepo } from '@dataplug/tasenor-common-node'
+import db from './lib/db'
 import server from './lib/server'
 import catalog from './lib/catalog'
 import cron from './lib/cron'
@@ -18,6 +19,7 @@ async function main() {
   log(`Starting server v${pkg.version}`)
   setServerRoot(path.join(__dirname, '..'))
   await vault.initialize()
+  await db.migrate()
   await server.initialize()
   app.use(tasenorInitialStack({ origin: process.env.UI_ORIGIN_URL as Url }))
   app.use(express.static('doc'))

@@ -2,7 +2,7 @@ import path from 'path'
 import knex from '../lib/knex'
 import { DB, BookkeeperImporter } from '@dataplug/tasenor-common-node'
 import catalog from '../lib/catalog'
-import { error } from '@dataplug/tasenor-common'
+import { DatabaseName, error } from '@dataplug/tasenor-common'
 
 /**
  * Helper to create new database for a customer.
@@ -79,7 +79,22 @@ export async function initializeSettings(name, email, settings) {
   }
 }
 
+/**
+ * Upgrgade all databases.
+ */
+async function migrate(): Promise<void> {
+  const masterMigrations = path.join(__dirname, '..', 'migrations-master')
+  await DB.migrateMaster(masterMigrations)
+  const all = await DB.customerDbs()
+  const master = await DB.getMaster()
+  const migrations = path.join(__dirname, '..', 'migrations-bookkeeping')
+  for (const db of all) {
+    await DB.migrate(master, db.database as DatabaseName, migrations)
+  }
+}
+
 export default {
+  migrate,
   createNewDatabase,
   initializeNewDatabase,
   initializeSettings

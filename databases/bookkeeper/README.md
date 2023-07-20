@@ -4,7 +4,7 @@ Few sample databases for easier local development and testing setup.
 
 ## Bookkeeper database
 
-For local bookkeeper
+For local bookkeeper master database
 ```
 psql postgresql://bookkeeper:Biure80s2rt832@localhost:7202/bookkeeper
 ```
