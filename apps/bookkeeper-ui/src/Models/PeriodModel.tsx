@@ -29,12 +29,12 @@ class PeriodModel extends Model {
       // Final date of the period as a string "YYYY-MM-DD".
       end_date: null,
       // If set, the period is locked and cannot be changed.
-      locked: false,
+      locked: false
     }, {
       documentsByAccountId: {},
       balances: {},
       documents: {},
-      reportsByFormat: {},
+      reportsByFormat: {}
     }, init)
   }
 

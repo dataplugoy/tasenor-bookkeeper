@@ -5,6 +5,7 @@ import { ID } from '@dataplug/tasenor-common'
 class Model {
 
   id: ID
+  // eslint-disable-next-line no-use-before-define
   parent: Model
   store: Store
   variables: string[]

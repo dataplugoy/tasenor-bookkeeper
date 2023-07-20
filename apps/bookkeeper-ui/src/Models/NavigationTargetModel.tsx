@@ -17,7 +17,7 @@ class NavigationTargetModel extends Model {
       selected: false,
       edit: false,
       column: null,
-      askForDelete: false,
+      askForDelete: false
     }, init, actions)
   }
 

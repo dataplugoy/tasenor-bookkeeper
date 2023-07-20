@@ -32,7 +32,7 @@ class DatabaseModel extends Model {
       accountsById: {},
       accountsByNumber: {},
       tagsByTag: {},
-      headingsByNumber: {},
+      headingsByNumber: {}
     }, init)
   }
 
@@ -165,7 +165,7 @@ class DatabaseModel extends Model {
   async createNewPeriod(startDate, endDate, initText) {
     const period = new PeriodModel(this, {
       start_date: startDate,
-      end_date: endDate,
+      end_date: endDate
     })
     await period.save(initText)
   }

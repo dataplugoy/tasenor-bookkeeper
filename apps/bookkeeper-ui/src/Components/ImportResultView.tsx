@@ -34,7 +34,7 @@ export const ReasonChip = (props: ReasonChipProps): JSX.Element => {
     trade: cyan[600],
     transfer: grey[200],
     unknown: grey[900],
-    withdrawal: blue[600],
+    withdrawal: blue[600]
   }
 
   const text = {
@@ -50,7 +50,7 @@ export const ReasonChip = (props: ReasonChipProps): JSX.Element => {
     trade: grey[900],
     transfer: grey[600],
     unknown: grey[700],
-    withdrawal: red[50],
+    withdrawal: red[50]
   }
 
   const Icon = {
@@ -72,7 +72,7 @@ export const ReasonChip = (props: ReasonChipProps): JSX.Element => {
     size="medium"
     style={{
       color: text[reason] || text.unknown,
-      backgroundColor: colors[reason] || colors.unknown,
+      backgroundColor: colors[reason] || colors.unknown
     }}
   />
 }

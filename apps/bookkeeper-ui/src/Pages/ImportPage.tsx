@@ -185,6 +185,7 @@ export const ImportTabs = (props: ImportTabsProps): JSX.Element => {
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ImportProps {
 }
 

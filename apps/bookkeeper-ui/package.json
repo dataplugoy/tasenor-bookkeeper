@@ -7,10 +7,20 @@
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "AGPL",
   "scripts": {
+    "fix": "eslint --fix 'src/**/*.ts{,x}'",
+    "lint": "eslint 'src/**/*.ts{,x}'"
   },
   "dependencies": {
     "@dataplug/tasenor-common": "workspace:*",
-    "@dataplug/tasenor-common-ui": "workspace:*"
+    "@dataplug/tasenor-common-ui": "workspace:*",
+    "@mui/icons-material": "^5.14.1",
+    "@mui/material": "^5.13.7",
+    "mobx": "^6.9.0",
+    "mobx-react": "^7.6.0",
+    "react": "^17.0.2",
+    "react-dom": "^17",
+    "react-i18next": "^13.0.2",
+    "react-router-dom": "^6.14.1"
   },
   "devDependencies": {
     "eslint-config-tasenor": "workspace:*",
