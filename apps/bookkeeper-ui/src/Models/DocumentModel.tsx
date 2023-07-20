@@ -1,0 +1,248 @@
+import { runInAction } from 'mobx'
+import NavigationTargetModel from './NavigationTargetModel'
+import EntryModel from './EntryModel'
+import PeriodModel from './PeriodModel'
+import DatabaseModel from './DatabaseModel'
+import { ID, ImportExecutionResult } from '@dataplug/tasenor-common'
+
+class DocumentModel extends NavigationTargetModel {
+
+  id: ID
+  number: null | number
+  period_id: ID
+  date: null | string
+  entries: EntryModel[]
+  executionResult: null | ImportExecutionResult
+  open: boolean
+
+  constructor(parent, init = {}) {
+    super(parent, {
+      id: null,
+      // Document order number.
+      number: null,
+      // ID of the period this document belongs to.
+      period_id: null,
+      // Transaction date as a string "YYYY-MM-DD".
+      date: null,
+      // A list of entries of this document.
+      entries: []
+    }, {
+      executionResult: null,
+      open: false
+    }, init, ['addEntry', 'toggleOpen'])
+  }
+
+  toJSON() {
+    const ret = super.toJSON()
+    delete ret.entries
+    return ret
+  }
+
+  getSortKey() {
+    return [this.date, this.number, this.id]
+  }
+
+  getId() {
+    return 'Document' + (this.id || 'New')
+  }
+
+  getObjectType() {
+    return 'Document'
+  }
+
+  async save() {
+    return this.store.request('/db/' + this.db + '/document/' + (this.id ? this.id : ''), this.id ? 'PATCH' : 'POST', this.toJSON())
+      .then((res) => {
+        runInAction(() => {
+          if (!this.id) {
+            this.id = res.id
+          }
+          if (!this.number) {
+            this.number = res.number
+          }
+          this.store.invalidateReport()
+        })
+      })
+  }
+
+  async delete() {
+    const path = '/db/' + this.db + '/document/' + this.id
+    return this.store.request(path, 'DELETE')
+      .then(() => {
+        runInAction(() => {
+          this.period.deleteDocument(this)
+        })
+        this.store.invalidateReport()
+        return this.store.fetchBalances(this.db, this.period_id)
+      })
+  }
+
+  /**
+   * This is editable if period not locked.
+   */
+  canEdit() {
+    return !this.period.locked
+  }
+
+  /**
+   * Change the opened state.
+   */
+  toggleOpen() {
+    this.open = !this.open
+  }
+
+  /**
+   * Use localized date.
+   */
+  ['get.date']() {
+    return this.catalog.date2str(this.date)
+  }
+
+  ['validate.date'](value) {
+    if (!this.catalog.str2date(value, this.store.lastDate)) {
+      return 'Date is incorrect.'
+    }
+    if (this.period) {
+      value = this.catalog.str2date(value, this.store.lastDate)
+      if (value < this.period.start_date) {
+        return 'Date is before the current period starts.'
+      }
+      if (value > this.period.end_date) {
+        return 'Date is after the current period ends.'
+      }
+    }
+    return null
+  }
+
+  ['change.date'](value) {
+    this.date = this.catalog.str2date(value, this.store.lastDate)
+    this.store.lastDate = this.date
+  }
+
+  /**
+   * Instantiate entries.
+   * @param {Object} data
+   */
+  initialize(data) {
+    return { ...data, entries: (data.entries || []).map((e, idx) => new EntryModel(this, { row_number: idx + 1, ...e })) }
+  }
+
+  /**
+   * Remove an entry from this document.
+   * @param {EntryModel} entry
+   */
+  deleteEntry(entry) {
+    this.entries = this.entries.filter((e) => e.id !== entry.id)
+  }
+
+  /**
+   * Create an entry based on JSON-data.
+   * @param {Object} data
+   * Data format is
+   * ```
+   * {
+   *   id: 123, /* For account ID. Alternatively `number` for account number.
+   *   amount: 1000,
+   *   description: "[Tag1][Tag2] This is text."
+   * }
+   * ```
+   */
+  async createEntry(data) {
+    if (data.number) {
+      data.id = this.database.getAccountByNumber(data.number).id
+    }
+    const init = {
+      account_id: data.id,
+      amount: Math.abs(data.amount),
+      debit: data.amount > 0 ? 1 : 0,
+      row_number: this.entries.length + 1,
+      description: data.description,
+      data: data.data
+    }
+
+    const entry = new EntryModel(this, init)
+    this.addEntry(entry)
+    await entry.save()
+    this.period.addEntry(entry)
+
+    return entry
+  }
+
+  /**
+   * Add an entry to this document.
+   * @param {EntryModel} entry
+   */
+  addEntry(entry) {
+    entry.document_id = this.id
+    entry.parent = this
+    this.entries.push(entry)
+  }
+
+  /**
+  * Calculate difference of entry balances.
+  */
+  imbalance() {
+    let debit = 0
+    let credit = 0
+    this.entries.forEach((entry, idx) => {
+      if (entry.debit) {
+        debit += entry.amount
+      } else {
+        credit += entry.amount
+      }
+    })
+    const smaller = Math.min(debit, credit)
+    debit -= smaller
+    credit -= smaller
+    return debit - credit
+  }
+
+  /**
+  * Get the period this document belongs to.
+  */
+  get period(): PeriodModel {
+    return this.parent as unknown as PeriodModel
+  }
+
+  /**
+  * Get the database this document belongs to.
+  */
+  get database(): DatabaseModel {
+    return this.period.database
+  }
+
+  /**
+   * Construct a document from import data.
+   * @param store
+   * @param data
+   */
+  static fromImport(store, data) {
+    // Find period.
+    const period = store.database.getOrCreatePeriod(data.date)
+    // Verify accounts.
+    const accountIds = {}
+    for (const entry of data.entries) {
+      const acc = period.database.getAccountByNumber(entry.account)
+      if (!acc) {
+        console.error(`An account ${entry.account} found from imported data does not exist.`)
+      } else {
+        accountIds[entry.account] = acc.id
+      }
+    }
+    // Construct document.
+    const tx = {
+      ...data,
+      entries: data.entries.map(entry => ({
+        ...entry,
+        account_id: accountIds[entry.account],
+        debit: entry.amount >= 0,
+        amount: Math.abs(entry.amount)
+      }))
+    }
+    const doc = new DocumentModel(period, tx)
+    doc.executionResult = data.executionResult
+    return doc
+  }
+}
+
+export default DocumentModel

@@ -115,6 +115,27 @@ importers:
         specifier: ^5.1.6
         version: 5.1.6
 
+  apps/bookkeeper-ui:
+    dependencies:
+      '@dataplug/tasenor-common':
+        specifier: workspace:*
+        version: link:../../packages/tasenor-common
+      '@dataplug/tasenor-common-ui':
+        specifier: workspace:*
+        version: link:../../packages/tasenor-common-ui
+    devDependencies:
+      eslint-config-tasenor:
+        specifier: workspace:*
+        version: link:../../packages/eslint-config-tasenor
+      tsconfig:
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
+      typescript:
+        specifier: ^5.1.6
+        version: 5.1.6
+
+  databases/bookkeeper: {}
+
   examples/ui-playground:
     dependencies:
       '@dataplug/tasenor-common':
