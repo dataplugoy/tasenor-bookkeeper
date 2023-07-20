@@ -125,7 +125,7 @@ importers:
         version: link:../../packages/tasenor-common-ui
       '@mui/icons-material':
         specifier: ^5.14.1
-        version: 5.14.1(@mui/material@5.13.7)(react@17.0.2)
+        version: 5.14.1(@mui/material@5.13.7)(@types/react@17.0.62)(react@17.0.2)
       '@mui/material':
         specifier: ^5.13.7
         version: 5.13.7(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@17.0.62)(react-dom@17.0.2)(react@17.0.2)
@@ -154,6 +154,9 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2
     devDependencies:
+      '@types/react':
+        specifier: ^17
+        version: 17.0.62
       eslint-config-tasenor:
         specifier: workspace:*
         version: link:../../packages/eslint-config-tasenor
@@ -1843,7 +1846,7 @@ packages:
       react: 17.0.2
     dev: false
 
-  /@mui/icons-material@5.14.1(@mui/material@5.13.7)(react@17.0.2):
+  /@mui/icons-material@5.14.1(@mui/material@5.13.7)(@types/react@17.0.62)(react@17.0.2):
     resolution: {integrity: sha512-xV/f26muQqtWzerzOIdGPrXoxp/OKaE2G2Wp9gnmG47mHua5Slup/tMc3fA4ZYUreGGrK6+tT81TEvt1Wsng8Q==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -1856,6 +1859,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.6
       '@mui/material': 5.13.7(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@17.0.62)(react-dom@17.0.2)(react@17.0.2)
+      '@types/react': 17.0.62
       react: 17.0.2
     dev: false
 
@@ -2331,7 +2335,6 @@ packages:
 
   /@types/prop-types@15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
-    dev: false
 
   /@types/qs@6.9.7:
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
@@ -2380,11 +2383,9 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
       csstype: 3.1.2
-    dev: false
 
   /@types/scheduler@0.16.3:
     resolution: {integrity: sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==}
-    dev: false
 
   /@types/semver@7.5.0:
     resolution: {integrity: sha512-G8hZ6XJiHnuhQKR7ZmysCeJWE08o8T0AXtk5darsCaTVsYZhhgUrq53jizaR2FvsoeCwJhlmwTjkXBY5Pn/ZHw==}
@@ -3496,7 +3497,6 @@ packages:
 
   /csstype@3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
-    dev: false
 
   /csv-parse@5.4.0:
     resolution: {integrity: sha512-JiQosUWiOFgp4hQn0an+SBoV9IKdqzhROM0iiN4LB7UpfJBlsSJlWl9nq4zGgxgMAzHJ6V4t29VAVD+3+2NJAg==}

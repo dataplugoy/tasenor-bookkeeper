@@ -27,6 +27,7 @@
     "sprintf-js": "^1.1.2"
   },
   "devDependencies": {
+    "@types/react": "^17",
     "eslint-config-tasenor": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^5.1.6"
