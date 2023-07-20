@@ -155,8 +155,11 @@ importers:
         version: 1.1.2
     devDependencies:
       '@types/react':
-        specifier: ^17
+        specifier: ^17.0.62
         version: 17.0.62
+      '@types/react-dom':
+        specifier: ^17
+        version: 17.0.20
       eslint-config-tasenor:
         specifier: workspace:*
         version: link:../../packages/eslint-config-tasenor
@@ -2348,7 +2351,6 @@ packages:
     resolution: {integrity: sha512-4pzIjSxDueZZ90F52mU3aPoogkHIoSIDG+oQ+wQK7Cy2B9S+MvOqY0uEA/qawKz381qrEDkvpwyt8Bm31I8sbA==}
     dependencies:
       '@types/react': 17.0.62
-    dev: false
 
   /@types/react-is@18.2.1:
     resolution: {integrity: sha512-wyUkmaaSZEzFZivD8F2ftSyAfk6L+DfFliVj/mYdOXbVjRcS87fQJLTnhk6dRZPuJjI+9g6RZJO4PNCngUrmyw==}
