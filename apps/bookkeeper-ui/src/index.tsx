@@ -18,7 +18,8 @@ import Settings from './Stores/Settings'
 
 const settings = new Settings()
 const store = new Store(settings)
-// const cursor = new Cursor(store)
+const cursor = new Cursor(store)
+console.log(cursor);
 // const catalog = new Catalog(store)
 // store.setCatalog(catalog)
 // const knowledge = new Knowledge()

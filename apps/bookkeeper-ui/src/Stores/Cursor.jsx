@@ -10,19 +10,19 @@ const KEY_DEBUG = false
  */
 class Cursor {
   // The name of the current page.
-  @observable page = 'None'
-  @observable componentX = null
-  @observable componentY = null
-  @observable index = null
-  @observable column = null
-  @observable row = null
+  page = 'None'
+  componentX = null
+  componentY = null
+  index = null
+  column = null
+  row = null
 
   // List of modals on the page.
-  @observable activeModal = []
+  activeModal = []
   // When editing is active, this points to the model edited.
-  @observable editTarget = null
+  editTarget = null
   // If set, key handler is disabled.
-  @observable disabled = false
+  disabled = false
 
   // Storage for cursor locations for inactive components.
   savedComponents = {}
@@ -61,13 +61,41 @@ class Cursor {
         event.preventDefault()
       }
     })
-    makeObservable(this)
+    makeObservable(this, {
+      page: observable,
+      componentX: observable,
+      componentY: observable,
+      index: observable,
+      column: observable,
+      row: observable,
+      activeModal: observable,
+      editTarget: observable,
+      disabled: observable,
+      addModal: action,
+      removeModal: action,
+      disableHandler: action,
+      handle: action.bound,
+      selectPage: action.bound,
+      setTopology: action,
+      leavePage: action,
+      enterPage: action,
+      leaveComponent: action,
+      enterComponent: action,
+      setComponent: action,
+      saveCursor: action,
+      loadCursor: action,
+      setIndex: action,
+      changeIndexBy: action,
+      setCell: action,
+      changeBoxBy: action,
+      resetSelected: action.bound,
+      boxUpdate: action,
+    })
   }
 
   /**
    * Select the current modal by providing possibly custom key handler hooks as an object.
    */
-  @action
   addModal(name, modal = {}) {
     const n = this.activeModal.length - 1
     if (n >= 0 && this.activeModal[n].name === name) {
@@ -79,7 +107,6 @@ class Cursor {
   /**
    * Turn the topmmost modal off.
    */
-  @action
   removeModal(name) {
     const n = this.activeModal.length - 1
     if (n >= 0 && this.activeModal[n].name === name) {
@@ -90,7 +117,6 @@ class Cursor {
   /**
   * Turn off handler.
   */
-  @action
   disableHandler() {
     this.disabled = true
   }
@@ -107,7 +133,6 @@ class Cursor {
    * @param {String} key
    * @return {Object}
    */
-  @action.bound
   handle(key) {
     let result
     const keyName = (key.length === 1 ? 'Text' : key)
@@ -206,7 +231,6 @@ class Cursor {
    * @param {String} name
    * @param {Component} component
    */
-  @action.bound
   selectPage(page, component) {
 
     this.currentPageComponent = component
@@ -291,7 +315,6 @@ class Cursor {
    * @param {String} page
    * @param {() => Object[][]} topology
    */
-  @action
   setTopology(page, topology) {
     if (this.page === page) {
       return
@@ -307,7 +330,6 @@ class Cursor {
   /**
   * Save current component for the page.
   */
-  @action
   leavePage() {
     const { componentX, componentY } = this
     this.savedPages[this.page] = { componentX, componentY }
@@ -316,7 +338,6 @@ class Cursor {
   /**
   * Restore current component for the page.
   */
-  @action
   enterPage() {
     if (this.savedPages[this.page]) {
       const { componentX, componentY } = this.savedPages[this.page]
@@ -332,7 +353,6 @@ class Cursor {
   /**
   * Hook that is called when we are leaving the current component.
   */
-  @action
   leaveComponent() {
     const component = this.getComponent()
     if (component) {
@@ -348,7 +368,6 @@ class Cursor {
   /**
   * Hook that is called when we have just entered the current component.
   */
-  @action
   enterComponent() {
     this.topologyComponent = null
     const component = this.getComponent()
@@ -414,7 +433,6 @@ class Cursor {
   * Switch directly to another topological component.
   * @param {String} name
   */
-  @action
   setComponent(name) {
     const component = this.getComponent()
     if (component.name === name) {
@@ -598,7 +616,6 @@ class Cursor {
   * @param {TopologyComponent} component
   * @return {Boolean}
   */
-  @action
   saveCursor(component) {
     if (!component) {
       return false
@@ -623,7 +640,6 @@ class Cursor {
   * Load the current cursor position for the component.
   * @param {TopologyComponent} component
   */
-  @action
   loadCursor(component) {
     if (!component) {
       return
@@ -652,7 +668,6 @@ class Cursor {
   * @param {Number|null|undefined} index
   * @param {Boolean} options.noScroll
   */
-  @action
   setIndex(index, options = {}) {
     const component = this.getComponent()
     const oldIndex = this.index
@@ -679,7 +694,6 @@ class Cursor {
   * Adjust the current index by the given amount, if the component is vertical.
   * @param {Number|null} delta
   */
-  @action
   changeIndexBy(delta) {
     const component = this.getComponent()
     if (component && component.vertical) {
@@ -733,7 +747,6 @@ class Cursor {
   * @param {Number} column
   * @param {Number} row
   */
-  @action
   setCell(column, row) {
     const model = this.getModel()
     if (model) {
@@ -757,7 +770,6 @@ class Cursor {
   * @param {Number|null} dx
   * @param {Number|null} dy
   */
-  @action
   changeBoxBy(dx, dy) {
     const component = this.getComponent()
     const { subitemExitUp, subitemExitDown, entryColumn, subitemUpStopOnNull } = component || {}
@@ -794,7 +806,6 @@ class Cursor {
   /**
    * Reset all selections.
    */
-  @action.bound
   resetSelected() {
     this.setCell(null, null)
     this.setIndex(null)
@@ -843,7 +854,6 @@ class Cursor {
    * @param {Boolean} [options.subitemExitDown]
    * @param {Number} [options.entryColumn]
    */
-  @action
   boxUpdate(N, M, dx, dy, options) {
     if (N && M) {
       if (dx === null && dy === null) {
