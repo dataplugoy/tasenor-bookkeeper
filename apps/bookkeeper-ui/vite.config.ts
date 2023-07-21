@@ -19,7 +19,8 @@ export default defineConfig(({ command, mode }) => {
     ],
     base: '/',
     define: {
-      global: 'globalThis'
+      UI_API_URL: JSON.stringify(env.UI_API_URL || 'http://localhost:7204/'),
+      global: 'globalThis',
     },
     server: {
       port: parseInt(env.PORT || '7204')

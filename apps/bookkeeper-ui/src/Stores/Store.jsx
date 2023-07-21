@@ -83,22 +83,22 @@ const debug = (...args) => DEBUG && console.log.apply(console, args)
  */
 export class Store {
 
-  @observable db = null
-  @observable loading = false
-  @observable messages = []
-  @observable periodId = null
-  @observable accountId = null
-  @observable changed = false
-  @observable dbsByName = null
-  @observable lastDate = null
-  @observable report = null
-  @observable token = null
-  @observable isAdmin = false
-  @observable isSuperuser = false
-  @observable tools = { tagDisabled: {}, accounts: {} }
-  @observable users = []
-  @observable user = {}
-  @observable motd = null
+  db = null
+  loading = false
+  messages = []
+  periodId = null
+  accountId = null
+  changed = false
+  dbsByName = null
+  lastDate = null
+  report = null
+  token = null
+  isAdmin = false
+  isSuperuser = false
+  tools = { tagDisabled: {}, accounts: {} }
+  users = []
+  user = {}
+  motd = null
 
   // Cache for account descriptions list.
   entryDescriptions = {}
@@ -108,7 +108,66 @@ export class Store {
   constructor(settings) {
     this.settings = settings
     this.catalog = null
-    makeObservable(this)
+    makeObservable(this, {
+      db: observable,
+      loading: observable,
+      messages: observable,
+      periodId: observable,
+      accountId: observable,
+      changed: observable,
+      dbsByName: observable,
+      lastDate: observable,
+      report: observable,
+      token: observable,
+      isAdmin: observable,
+      isSuperuser: observable,
+      tools: observable,
+      users: observable,
+      user: observable,
+      motd: observable,
+      setTokens: action,
+      request: action,
+      fetchDatabases: action,
+      setDb: action,
+      setPeriod: action,
+      setAccount: action,
+      clearDb: action,
+      clearPeriod: action,
+      clearAccount: action,
+      fetchSettings: action,
+      fetchPeriods: action,
+      fetchPeriodData: action,
+      fetchTags: action,
+      fetchAccounts: action,
+      fetchEntryProposals: action,
+      fetchHeadings: action,
+      fetchImporters: action,
+      fetchImporter: action,
+      fetchReports: action,
+      fetchReport: action,
+      fetchBalances: action,
+      fetchDocuments: action,
+      fetchRawDocument: action,
+      login: action,
+      logout: action,
+      createDatabase: action,
+      invalidateReport: action,
+      uploadImportFiles: action,
+      fetchCurrentUser: action,
+      filteredTransactions: computed,
+      transactions: computed,
+      dbs: computed,
+      database: computed,
+      period: computed,
+      periods: computed,
+      balances: computed,
+      account: computed,
+      accounts: computed,
+      headings: computed,
+      reports: computed,
+      documents: computed,
+    })
+
     this.setTokens(null, localStorage.getItem('token'))
     net.configure({
       baseUrl: Configuration.UI_API_URL,
@@ -147,7 +206,6 @@ export class Store {
    * @param clear If set, clear tokens.
    * @returns
    */
-  @action
   setTokens(token, refresh, clear = false) {
     runInAction(() => {
       this.token = null
@@ -237,7 +295,6 @@ export class Store {
    * @param {File} file
    * @param {Boolean} noDimming
    */
-  @action
   async request(path, method = 'GET', data = null, file = null, noDimming = false) {
     while (this.busy) {
       await waitPromise(100)
@@ -304,7 +361,6 @@ export class Store {
   /**
    * Get the list of available databases.
    */
-  @action
   async fetchDatabases(force = false) {
     if (!this.token) {
       return
@@ -335,7 +391,6 @@ export class Store {
   * @param {String} db
   * @return {Promise}
   */
-  @action
   async setDb(db) {
     db = db || null
     if (this.db === db) {
@@ -369,7 +424,6 @@ export class Store {
   * @param {Number} periodId
   * @return {Promise}
   */
-  @action
   async setPeriod(db, periodId) {
     periodId = parseInt(periodId) || null
     if (this.db === db && this.periodId === periodId) {
@@ -402,7 +456,6 @@ export class Store {
   * @param {Number} periodId
   * @return {Promise}
   */
-  @action
   async setAccount(db, periodId, accountId) {
     if (accountId === '') {
       return
@@ -428,7 +481,6 @@ export class Store {
   /**
   * Clear DB data.
   */
-  @action
   clearDb() {
 
     this.db = null
@@ -440,7 +492,6 @@ export class Store {
   /**
   * Clear period data.
   */
-  @action
   clearPeriod() {
 
     this.periodId = null
@@ -451,7 +502,6 @@ export class Store {
   /**
   * Clear period data.
   */
-  @action
   clearAccount() {
 
     this.accountId = null
@@ -466,7 +516,6 @@ export class Store {
   /**
   * Get the settings from the system and possibly current DB.
   */
-  @action
   async fetchSettings(db = null) {
     const settings = db && this.token ? await this.request('/db/' + db + '/settings') : {}
     const system = await this.request('/system/settings')
@@ -508,7 +557,6 @@ export class Store {
   /**
   * Get the list of periods available for the current DB.
   */
-  @action
   async fetchPeriods(db) {
     if (!this.token) {
       return
@@ -526,7 +574,6 @@ export class Store {
   /**
   * Get the period data inclding stock data for the period.
   */
-  @action
   async fetchPeriodData(db, periodId) {
     if (!this.token) {
       return
@@ -537,7 +584,6 @@ export class Store {
   /**
   * Get the tag definitions from the current database.
   */
-  @action
   async fetchTags(db) {
     if (!this.token) {
       return
@@ -555,7 +601,6 @@ export class Store {
   /**
   * Collect all accounts.
   */
-  @action
   async fetchAccounts(db) {
     if (!this.token) {
       return
@@ -578,7 +623,6 @@ export class Store {
   * @param {Number} accountId
   * @return {String[]}
   */
-  @action
   async fetchEntryProposals(db, accountId) {
     if (!this.token) {
       return
@@ -604,7 +648,6 @@ export class Store {
   /**
   * Collect all account headings.
   */
-  @action
   async fetchHeadings(db) {
     if (!this.token) {
       return
@@ -624,7 +667,6 @@ export class Store {
    * @param db
    * @returns
    */
-  @action
   async fetchImporters(db) {
     if (!this.token) {
       return
@@ -637,7 +679,6 @@ export class Store {
    * @param db
    * @returns
    */
-  @action
   async fetchImporter(db, importerId) {
     if (!this.token) {
       return
@@ -649,7 +690,6 @@ export class Store {
   /**
   * Get the list of report formats available for the current DB.
   */
-  @action
   async fetchReports(db) {
     if (!this.token) {
       return
@@ -668,7 +708,6 @@ export class Store {
   /**
   * Get the report data.
   */
-  @action
   async fetchReport(db, periodId, format) {
     await this.setPeriod(db, periodId)
     if (!this.period || !format) {
@@ -696,7 +735,6 @@ export class Store {
   /**
   * Get the summary of balances for all accounts in the given period.
   */
-  @action
   async fetchBalances(db = null, periodId = null) {
     if (!this.token) {
       return
@@ -725,7 +763,6 @@ export class Store {
   /**
   * Get the documents with entries for the given period.
   */
-  @action
   async fetchDocuments(db = null, periodId = null) {
     if (!this.token) {
       return
@@ -754,7 +791,6 @@ export class Store {
   /**
   * Get a single document raw data without caching.
   */
-  @action
   async fetchRawDocument(documentId) {
     if (!this.token) {
       return
@@ -767,7 +803,6 @@ export class Store {
   * @param {String} user
   * @param {String} password
   */
-  @action
   async login(user, password) {
     this.token = null
     const resp = await this.request('/auth', 'POST', { user, password })
@@ -791,7 +826,6 @@ export class Store {
   /**
   * Log out the current user.
   */
-  @action
   logout() {
     this.setTokens(null, null, true)
     this.setClientData(null, null)
@@ -821,7 +855,6 @@ export class Store {
   * @param info.companyCode
   * @param info.scheme
   */
-  @action
   createDatabase(info) {
     info.language = i18n.language
     return this.request('/db', 'POST', info)
@@ -835,7 +868,6 @@ export class Store {
   /**
   * Remove the report, since it may not be valid anymore.
   */
-  @action
   invalidateReport() {
     if (this.report) {
       this.report = null
@@ -846,7 +878,6 @@ export class Store {
    * Upload files to the import end point.
    * @param files
    */
-  @action
   async uploadImportFiles(importerId, args) {
     return this.request('/db/' + this.db + '/importer/' + importerId, 'POST', args)
   }
@@ -854,7 +885,6 @@ export class Store {
   /**
   * Computed property to collect only transactions matching the current filter.
   */
-  @computed
   get filteredTransactions() {
     const visible = (tx) => {
       const allEnabled = Object.values(this.tools.tagDisabled).filter((v) => v).length === 0
@@ -955,7 +985,6 @@ export class Store {
   /**
    * Get a list of all entries for the currently selected account of the current period.
    */
-  @computed
   get transactions() {
     if (this.periodId && this.accountId && this.period) {
       let ret = []
@@ -972,7 +1001,6 @@ export class Store {
   /**
    * Get a list of dbs.
    */
-  @computed
   get dbs() {
     return this.dbsByName ? Object.values(this.dbsByName).sort(DatabaseModel.sorter(true)) : []
   }
@@ -980,7 +1008,6 @@ export class Store {
   /**
    * Get the current database.
    */
-  @computed
   get database() {
     return this.dbsByName ? this.dbsByName[this.db] || null : null
   }
@@ -988,7 +1015,6 @@ export class Store {
   /**
    * Get the current period.
    */
-  @computed
   get period() {
     if (!this.database || !this.periodId) {
       return null
@@ -999,7 +1025,6 @@ export class Store {
   /**
    * Get a list of periods sorted by their starting date.
    */
-  @computed
   get periods() {
     if (!this.database) {
       return []
@@ -1010,7 +1035,6 @@ export class Store {
   /**
    * Get a list of balances for the current period.
    */
-  @computed
   get balances() {
     if (this.periodId && this.period) {
       return Object.values(this.period.balances).sort(BalanceModel.sorter())
@@ -1021,7 +1045,6 @@ export class Store {
   /**
    * Get the currently selected account if any.
    */
-  @computed
   get account() {
     if (this.accountId && this.database) {
       return this.database.accountsById[this.accountId] || null
@@ -1032,7 +1055,6 @@ export class Store {
   /**
    * Get a list of available accounts sorted by their number.
    */
-  @computed
   get accounts() {
     if (!this.database) {
       return []
@@ -1053,7 +1075,6 @@ export class Store {
   /**
    * Get headings data from database
    */
-  @computed
   get headings() {
     return this.database ? this.database.headings : {}
   }
@@ -1061,7 +1082,6 @@ export class Store {
   /**
    * Get reports for the current period.
    */
-  @computed
   get reports() {
     return this.period ? this.period.reports : []
   }
@@ -1069,7 +1089,6 @@ export class Store {
   /**
    * Get all documents for the current period.
    */
-  @computed
   get documents() {
     return this.period ? this.period.getDocuments() : []
   }
@@ -1084,7 +1103,6 @@ export class Store {
   /**
    * Get the user information from the DB.
    */
-  @action
   async fetchCurrentUser() {
     if (!this.token) {
       return

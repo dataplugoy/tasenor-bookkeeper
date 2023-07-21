@@ -31,7 +31,7 @@ export class MenuState {
     if (loc) {
       if (loc.search.startsWith('?path=')) {
         this.indirectPath = true
-        const search = loc.search.substr(1).split('&').map(s => s.split('=')).reduce((prev, cur) => ({ [cur[0]]: cur[1], ...prev }), {})
+        const search: Record<string, string> = loc.search.substr(1).split('&').map(s => s.split('=')).reduce((prev, cur) => ({ [cur[0]]: cur[1], ...prev }), {})
         const [, db, main, periodId, accountId, side] = search.path.split('/')
         this.parse({ db, main, periodId, accountId, side, ...search })
         delete this.attrs.path

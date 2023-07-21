@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom'
 // import { Provider } from 'mobx-react'
 // import App from './App'
 // import { BrowserRouter, withRouter } from 'react-router-dom'
-// import Store from './Stores/Store'
-// import Cursor from './Stores/Cursor'
+import Store from './Stores/Store'
+import Cursor from './Stores/Cursor'
 import Settings from './Stores/Settings'
 // import i18n, { initializeI18n } from './i18n'
 // import { CircularProgress, ThemeProvider } from '@mui/material'
@@ -17,7 +17,7 @@ import Settings from './Stores/Settings'
 // import { Box } from '@mui/system'
 
 const settings = new Settings()
-// const store = new Store(settings)
+const store = new Store(settings)
 // const cursor = new Cursor(store)
 // const catalog = new Catalog(store)
 // store.setCatalog(catalog)
