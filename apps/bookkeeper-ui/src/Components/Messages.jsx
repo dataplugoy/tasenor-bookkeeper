@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Snackbar, IconButton, Alert } from '@mui/material'
 import { Close } from '@mui/icons-material'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { PropTypes } from 'prop-types'
 import Store from '../Stores/Store'
 import Loading from './Loading'

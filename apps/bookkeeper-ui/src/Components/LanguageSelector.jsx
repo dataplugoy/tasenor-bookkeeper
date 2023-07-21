@@ -4,8 +4,9 @@ import Flag from 'react-world-flags'
 import i18n from '../i18n'
 import Catalog from '../Stores/Catalog'
 import PropTypes from 'prop-types'
+import withCatalog from '../Hooks/withCatalog'
 
-@inject('catalog')
+@withCatalog
 class LanguageSelector extends Component {
 
   setLanguage(lang) {

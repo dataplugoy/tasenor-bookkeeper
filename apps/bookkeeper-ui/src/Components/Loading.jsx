@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import Store from '../Stores/Store'
 import { Backdrop, CircularProgress } from '@mui/material'
 import theme from '../theme'

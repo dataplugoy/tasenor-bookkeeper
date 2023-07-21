@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { Trans, withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
 import { Localize } from '@dataplug/tasenor-common-ui'
@@ -16,12 +16,13 @@ import { AccountCircle, CalendarToday, NavigateBefore, NavigateNext, Storage } f
 import { action } from 'mobx'
 import Configuration from '../Configuration'
 import { haveCursor } from '@dataplug/tasenor-common'
+import withStore from '../Hooks/withStore'
 
 // TODO: This should be converted to function component.
 // TODO: Once function component, use useNavigation from tasenor-common-ui.
 
 @withTranslation('translations')
-@inject('store')
+@withStore
 @observer
 class Menu extends Component {
 

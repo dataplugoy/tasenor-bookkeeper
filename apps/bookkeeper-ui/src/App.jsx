@@ -2,7 +2,7 @@ import './App.css'
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Route } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { observer } from 'mobx-react'
 import { Alert, Paper } from '@mui/material'
 // import Account from './Components/Account'
@@ -20,7 +20,7 @@ import Configuration from './Configuration'
 // import ImportToolPanel from './Components/ImportToolPanel'
 // import LoginPage from './Pages/LoginPage'
 // import LoginSidePanel from './Components/LoginSidePanel'
-// import Menu from './Components/Menu'
+import Menu from './Components/Menu'
 import Messages from './Components/Messages'
 // import ReportPage from './Pages/ReportPage'
 // import ReportsList from './Components/ReportsList'
@@ -28,7 +28,6 @@ import Messages from './Components/Messages'
 // import SettingsList from './Components/SettingsList'
 // import SettingsPage from './Pages/SettingsPage'
 // import ShopPage from './Pages/ShopPage'
-import Store from './Stores/Store'
 import { haveStore } from '@dataplug/tasenor-common'
 // import Subscriptions from './Components/Subscriptions'
 // import ToolsList from './Components/ToolsList'
@@ -42,15 +41,24 @@ class App extends Component {
 
   render() {
     const store = haveStore()
-    console.log(store)
+
     return (
       <div className="App">
         <Messages />
         <div className="TopPanel Panel">
+          <Routes>
+            <Route exact path="/" component={<Menu/>}/>
+          </Routes>
         </div>
         <div className="Page">
+          <Paper className="SidePanel Panel" elevation={4}>
+          </Paper>
         </div>
         <div className="MainArea">
+          <Paper className="MainTopPanel Panel" elevation={4}>
+          </Paper>
+          <Paper className="MainPanel Panel" elevation={4}>
+          </Paper>
           <div className={`Version ${store.isLoggedIn() ? 'logged-in' : 'not-logged-in'}`} style={{ color: 'rgb(0,0,0,0.5)', fontSize: '0.6rem', position: 'absolute', right: '2px', bottom: '2px' }}>v{Configuration.VERSION}</div>
         </div>
       </div>
