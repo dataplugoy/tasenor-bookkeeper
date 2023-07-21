@@ -1,4 +1,3 @@
-import { inject } from 'mobx-react'
 import React, { Component } from 'react'
 import Flag from 'react-world-flags'
 import i18n from '../i18n'

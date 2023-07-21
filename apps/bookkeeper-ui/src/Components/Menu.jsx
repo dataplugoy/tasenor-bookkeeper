@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import ReactRouterPropTypes from 'react-router-prop-types'
 import { observer } from 'mobx-react'
 import { Trans, withTranslation } from 'react-i18next'
-import Store from '../Stores/Store'
 import { Localize } from '@dataplug/tasenor-common-ui'
 import LanguageSelector from './LanguageSelector'
 import './Menu.css'
@@ -17,12 +14,14 @@ import { action } from 'mobx'
 import Configuration from '../Configuration'
 import { haveCursor } from '@dataplug/tasenor-common'
 import withStore from '../Hooks/withStore'
+import withRouter from '../Hooks/withRouter'
 
 // TODO: This should be converted to function component.
 // TODO: Once function component, use useNavigation from tasenor-common-ui.
 
 @withTranslation('translations')
 @withStore
+@withRouter
 @observer
 class Menu extends Component {
 
@@ -122,11 +121,11 @@ class Menu extends Component {
     cursor.registerMenu(this)
     this.props.store.fetchDatabases()
     this.props.store.fetchCurrentUser()
-    this.update(this.props.match.params)
+    this.update(this.props.params)
   }
 
   componentDidUpdate() {
-    this.update(this.props.match.params)
+    this.update(this.props.params)
   }
 
   keyCommand0() {
@@ -279,7 +278,8 @@ class Menu extends Component {
   }
 
   render() {
-    const [, , tool] = this.props.history.location.pathname.split('/')
+    const [, , tool] = this.props.location.pathname.split('/')
+
     return (
       <div className="Menu">
         <AppBar position="static">
@@ -332,13 +332,6 @@ class Menu extends Component {
       </div>
     )
   }
-}
-
-Menu.propTypes = {
-  store: PropTypes.instanceOf(Store),
-  match: PropTypes.object,
-  history: ReactRouterPropTypes.history.isRequired,
-  t: PropTypes.any
 }
 
 export default Menu

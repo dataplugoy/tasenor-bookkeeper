@@ -47,7 +47,7 @@ class App extends Component {
         <Messages />
         <div className="TopPanel Panel">
           <Routes>
-            <Route exact path="/" component={<Menu/>}/>
+            <Route path="/" element={<Menu/>}/>
           </Routes>
         </div>
         <div className="Page">

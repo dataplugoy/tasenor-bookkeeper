@@ -5,7 +5,7 @@ function withCatalog(Component) {
   function ComponentWithCatalogProp(props) {
     const catalog = haveCatalog()
     return (
-      <Component {...props} store={catalog}/>
+      <Component {...props} catalog={catalog}/>
     )
   }
 
