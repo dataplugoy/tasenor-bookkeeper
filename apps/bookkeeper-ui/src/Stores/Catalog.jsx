@@ -326,6 +326,7 @@ class Catalog extends Component {
    * @param {History} history
    * @param {Cursor} cursor
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   keyPress(context, key, history, cursor) {
     switch (context) {
       case 'tool':
