@@ -24,9 +24,9 @@ debugPlugins('Index JSON file:', indexJson)
  */
 class Catalog extends Component {
 
-  @observable available = []
-  @observable index = []
-  @observable subscriptionData = {}
+  available = []
+  index = []
+  subscriptionData = {}
 
   constructor(store) {
     super({})
@@ -55,7 +55,12 @@ class Catalog extends Component {
       this.available.push(item)
     })
 
-    makeObservable(this)
+    makeObservable(this, {
+      available: observable,
+      index: observable,
+      subscriptionData: observable,
+    })
+
     this.refreshPluginList()
   }
 

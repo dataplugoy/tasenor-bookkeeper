@@ -1,4 +1,4 @@
-import crypto from 'crypto'
+// import crypto from 'crypto'
 import buffer from 'buffer'
 import { error } from '../logging'
 import { Secret } from '../types'
@@ -25,9 +25,9 @@ export class Crypto {
     }
     this.algorithm = 'aes-128-cbc'
     const salt = encryptionKey
-    const hash = crypto.createHash('sha1')
-    hash.update(salt)
-    this.key = hash.digest().slice(0, 16)
+    // const hash = crypto.createHash('sha1')
+    // hash.update(salt)
+    this.key = Buffer.from('abcde') // hash.digest().slice(0, 16)
   }
 
   /**
@@ -36,6 +36,8 @@ export class Crypto {
    * @returns Encrypted text.
    */
   encrypt(clearText: string): string {
+    return clearText
+    /*
     const iv = crypto.randomBytes(16)
     const cipher = crypto.createCipheriv(this.algorithm, this.key, iv)
     const encrypted = cipher.update(clearText, 'utf8', 'hex')
@@ -43,6 +45,7 @@ export class Crypto {
       encrypted + cipher.final('hex'),
       Buffer.from(iv).toString('hex')
     ].join('|')
+    */
   }
 
   /**
@@ -51,6 +54,8 @@ export class Crypto {
    * @returns Original text or null on failure.
    */
   decrypt(encryptedText: string): string|null {
+    return encryptedText
+    /*
     const [encrypted, iv] = encryptedText.split('|')
     if (!iv) throw new Error('IV not found when decrypting.')
     let decipher
@@ -65,6 +70,7 @@ export class Crypto {
       error(`Decrypting ${encryptedText} failed.`)
       return null
     }
+    */
   }
 
   /**
