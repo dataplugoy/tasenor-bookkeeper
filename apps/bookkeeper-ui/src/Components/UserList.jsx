@@ -6,7 +6,7 @@ import { withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
 import Cursor from '../Stores/Cursor'
 import { List, ListItem, ListItemText } from '@mui/material'
-import { withRouter } from 'react-router-dom'
+import withRouter from '../Hooks/withRouter'
 
 @withRouter
 @withTranslation('translations')

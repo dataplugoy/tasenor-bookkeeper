@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import { withRouter } from 'react-router-dom'
 import Plugin from './Plugin'
 import { Trans } from 'react-i18next'
 import { inject } from 'mobx-react'
 import Catalog from '../Stores/Catalog'
 import { Button } from '@mui/material'
 import Store from '../Stores/Store'
+import withRouter from '../Hooks/withRouter'
 
 @withRouter
 @inject('catalog')

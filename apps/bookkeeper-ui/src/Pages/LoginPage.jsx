@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { inject, observer } from 'mobx-react'
@@ -11,6 +10,7 @@ import RegisterForm from '../Components/RegisterForm'
 import { Title } from '@dataplug/tasenor-common-ui'
 import Panel from '../Components/Panel'
 import { Box, Typography } from '@mui/material'
+import withRouter from '../Hooks/withRouter'
 
 @withRouter
 @withTranslation('translations')

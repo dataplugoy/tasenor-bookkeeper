@@ -7,11 +7,11 @@ import { Dialog, IconSpacer, IconButton, Title, FileUploader } from '@dataplug/t
 import ImporterConfigEditor from './ImporterConfigEditor'
 import { TextField, MenuItem, FormControl } from '@mui/material'
 import ImporterModel from '../Models/ImporterModel'
-import { withRouter } from 'react-router'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import Catalog from '../Stores/Catalog'
 import { haveCursor, haveSettings } from '@dataplug/tasenor-common'
 import i18n from '../i18n'
+import withRouter from '../Hooks/withRouter'
 
 @withRouter
 @withTranslation('translations')

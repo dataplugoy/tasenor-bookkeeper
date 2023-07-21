@@ -4,8 +4,9 @@ import { inject, observer } from 'mobx-react'
 import Store from '../Stores/Store'
 import { Backdrop, CircularProgress } from '@mui/material'
 import theme from '../theme'
+import withStore from '../Hooks/withStore'
 
-@inject('store')
+@withStore
 @observer
 class Loading extends Component {
 

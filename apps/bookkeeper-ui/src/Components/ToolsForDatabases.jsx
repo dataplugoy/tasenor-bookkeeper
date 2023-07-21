@@ -7,11 +7,11 @@ import { net } from '@dataplug/tasenor-common'
 import { Dialog, downloadUrl, Title, Note } from '@dataplug/tasenor-common-ui'
 import { Card, CardActions, CardContent, Button, CardHeader, TextField } from '@mui/material'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import { withRouter } from 'react-router-dom'
 import { Storage } from '@mui/icons-material'
 import Catalog from '../Stores/Catalog'
 import Configuration from '../Configuration'
 import Panel from './Panel'
+import withRouter from '../Hooks/withRouter'
 
 @withRouter
 @withTranslation('translations')

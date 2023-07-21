@@ -5,8 +5,9 @@ import { inject, observer } from 'mobx-react'
 import { PropTypes } from 'prop-types'
 import Store from '../Stores/Store'
 import Loading from './Loading'
+import withStore from '../Hooks/withStore'
 
-@inject('store')
+@withStore
 @observer
 class Messages extends Component {
 

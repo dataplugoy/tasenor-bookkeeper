@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { I18nextProvider } from 'react-i18next'
 import { Provider } from 'mobx-react'
-// import App from './App'
+import App from './App'
 import { BrowserRouter, NavigateFunction } from 'react-router-dom'
 import Store from './Stores/Store'
 import Cursor from './Stores/Cursor'
@@ -11,7 +11,6 @@ import Catalog from './Stores/Catalog'
 import i18n, { initializeI18n } from './i18n'
 import { CircularProgress, Box, ThemeProvider } from '@mui/material'
 import theme from './theme'
-// import ReactRouterPropTypes from 'react-router-prop-types'
 import { RISPProvider } from '@dataplug/tasenor-common-ui'
 import { setGlobalComponents, Knowledge } from '@dataplug/tasenor-common'
 import withRouter from './Hooks/withRouter'
@@ -51,8 +50,7 @@ class AppRenderer extends Component<{ navigate?: NavigateFunction }> {
         </Box>
       )
     }
-    return <I18nextProvider i18n={ i18n }><div>TODO: APP HERE</div></I18nextProvider>
-    // return <I18nextProvider i18n={ i18n }><App /></I18nextProvider>
+    return <I18nextProvider i18n={ i18n }><App /></I18nextProvider>
   }
 }
 

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { withTranslation } from 'react-i18next'
 import AccountModel from '../Models/AccountModel'
 import { Link, Typography } from '@mui/material'
-import { withRouter } from 'react-router-dom'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { StarRate } from '@mui/icons-material'
+import withRouter from '../Hooks/withRouter'
 
 @withRouter
 @withTranslation('translations')

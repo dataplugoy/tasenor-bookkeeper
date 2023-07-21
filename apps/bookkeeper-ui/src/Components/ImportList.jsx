@@ -4,11 +4,11 @@ import ReactRouterPropTypes from 'react-router-prop-types'
 import { inject, observer } from 'mobx-react'
 import { Trans, withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
-import { withRouter } from 'react-router-dom'
 import Catalog from '../Stores/Catalog'
 import ListComponent from './ListComponent'
 import { Title, Note } from '@dataplug/tasenor-common-ui'
 import { haveCursor } from '@dataplug/tasenor-common'
+import withRouter from '../Hooks/withRouter'
 
 @withRouter
 @withTranslation('translations')

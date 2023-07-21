@@ -3,45 +3,59 @@ import './App.css'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Route } from 'react-router-dom'
-import { inject } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { Alert, Paper } from '@mui/material'
-import Account from './Components/Account'
-import AccountsPage from './Pages/AccountsPage'
-import AccountsToolPanel from './Components/AccountsToolPanel'
-import AdminPage from './Pages/AdminPage'
-import AdminToolPanel from './Components/AdminToolPanel'
-import AdminToolsList from './Components/AdminToolsList'
-import Balances from './Components/Balances'
+// import Account from './Components/Account'
+// import AccountsPage from './Pages/AccountsPage'
+// import AccountsToolPanel from './Components/AccountsToolPanel'
+// import AdminPage from './Pages/AdminPage'
+// import AdminToolPanel from './Components/AdminToolPanel'
+// import AdminToolsList from './Components/AdminToolsList'
+// import Balances from './Components/Balances'
 import Configuration from './Configuration'
-import DashboardPage from './Pages/DashboardPage'
-import DatabaseList from './Components/DatabaseList'
-import ImportList from './Components/ImportList'
-import ImportPage from './Pages/ImportPage'
-import ImportToolPanel from './Components/ImportToolPanel'
-import LoginPage from './Pages/LoginPage'
-import LoginSidePanel from './Components/LoginSidePanel'
-import Menu from './Components/Menu'
+// import DashboardPage from './Pages/DashboardPage'
+// import DatabaseList from './Components/DatabaseList'
+// import ImportList from './Components/ImportList'
+// import ImportPage from './Pages/ImportPage'
+// import ImportToolPanel from './Components/ImportToolPanel'
+// import LoginPage from './Pages/LoginPage'
+// import LoginSidePanel from './Components/LoginSidePanel'
+// import Menu from './Components/Menu'
 import Messages from './Components/Messages'
-import ReportPage from './Pages/ReportPage'
-import ReportsList from './Components/ReportsList'
-import ReportToolPanel from './Components/ReportToolPanel'
-import SettingsList from './Components/SettingsList'
-import SettingsPage from './Pages/SettingsPage'
-import ShopPage from './Pages/ShopPage'
+// import ReportPage from './Pages/ReportPage'
+// import ReportsList from './Components/ReportsList'
+// import ReportToolPanel from './Components/ReportToolPanel'
+// import SettingsList from './Components/SettingsList'
+// import SettingsPage from './Pages/SettingsPage'
+// import ShopPage from './Pages/ShopPage'
 import Store from './Stores/Store'
-import Subscriptions from './Components/Subscriptions'
-import ToolsList from './Components/ToolsList'
-import ToolsPage from './Pages/ToolsPage'
-import ToolsToolPanel from './Components/ToolsToolPanel'
-import TransactionsPage from './Pages/TransactionsPage'
-import TransactionToolPanel from './Components/TransactionToolPanel'
+import { haveStore } from '@dataplug/tasenor-common'
+// import Subscriptions from './Components/Subscriptions'
+// import ToolsList from './Components/ToolsList'
+// import ToolsPage from './Pages/ToolsPage'
+// import ToolsToolPanel from './Components/ToolsToolPanel'
+// import TransactionsPage from './Pages/TransactionsPage'
+// import TransactionToolPanel from './Components/TransactionToolPanel'
 
-@inject('store')
+@observer
 class App extends Component {
 
   render() {
-    const { store } = this.props
-
+    const store = haveStore()
+    console.log(store)
+    return (
+      <div className="App">
+        <Messages />
+        <div className="TopPanel Panel">
+        </div>
+        <div className="Page">
+        </div>
+        <div className="MainArea">
+          <div className={`Version ${store.isLoggedIn() ? 'logged-in' : 'not-logged-in'}`} style={{ color: 'rgb(0,0,0,0.5)', fontSize: '0.6rem', position: 'absolute', right: '2px', bottom: '2px' }}>v{Configuration.VERSION}</div>
+        </div>
+      </div>
+    )
+    /*
     return (
       <div className="App">
         <Messages />
@@ -193,11 +207,8 @@ class App extends Component {
         </div>
       </div>
     )
+    */
   }
-}
-
-App.propTypes = {
-  store: PropTypes.instanceOf(Store)
 }
 
 export default App

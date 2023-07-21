@@ -11,10 +11,10 @@ import { TransactionStock } from './TransactionStock'
 import Store from '../Stores/Store'
 import EntryModel from '../Models/EntryModel'
 import DocumentModel from '../Models/DocumentModel'
-import { withRouter } from 'react-router-dom'
 import { TableContainer, Table, TableHead, TableCell, TableRow, TableBody, Typography, TextField, MenuItem } from '@mui/material'
 import { runInAction } from 'mobx'
 import { haveCursor, haveSettings, StockBookkeeping } from '@dataplug/tasenor-common'
+import withRouter from '../Hooks/withRouter'
 
 @withTranslation('translations')
 @withRouter

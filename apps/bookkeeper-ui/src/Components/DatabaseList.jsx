@@ -5,8 +5,8 @@ import { withTranslation, Trans } from 'react-i18next'
 import Store from '../Stores/Store'
 import { Title, Note } from '@dataplug/tasenor-common-ui'
 import { Avatar, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
-import { withRouter } from 'react-router-dom'
 import ReactRouterPropTypes from 'react-router-prop-types'
+import withRouter from '../Hooks/withRouter'
 
 @withRouter
 @withTranslation('translations')

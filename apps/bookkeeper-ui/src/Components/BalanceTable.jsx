@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { observer, inject } from 'mobx-react'
 import BalanceModel from '../Models/BalanceModel'
-import { withRouter } from 'react-router-dom'
 import Cursor from '../Stores/Cursor'
 import { Money } from '@dataplug/tasenor-common-ui'
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material'
 import { Trans, withTranslation } from 'react-i18next'
+import withRouter from '../Hooks/withRouter'
 import ReactRouterPropTypes from 'react-router-prop-types'
 
 const BalanceLine = withRouter(inject('cursor')(observer(

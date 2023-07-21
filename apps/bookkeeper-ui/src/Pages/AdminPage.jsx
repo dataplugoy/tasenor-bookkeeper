@@ -7,8 +7,8 @@ import Store from '../Stores/Store'
 import Cursor from '../Stores/Cursor'
 import UserList from '../Components/UserList'
 import { Title } from '@dataplug/tasenor-common-ui'
-import { withRouter } from 'react-router-dom'
 import PluginList from '../Components/PluginList'
+import withRouter from '../Hooks/withRouter'
 
 @withRouter
 @withTranslation('translations')

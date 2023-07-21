@@ -4,13 +4,13 @@ import { inject, observer } from 'mobx-react'
 import { withTranslation, Trans } from 'react-i18next'
 import { haveSettings } from '@dataplug/tasenor-common'
 import { Card, CardActions, CardContent, Button, CardHeader, Chip } from '@mui/material'
-import { withRouter } from 'react-router-dom'
 import PluginIcon from './PluginIcon'
 import { purple, brown, cyan, orange, pink, lime, green, yellow, blue, grey } from '@mui/material/colors'
 import { AllInclusive, Build, Flag, FormatPaint, HelpOutline, LibraryBooks, PieChart, TrendingUp, Computer, Money, Dns, Storage } from '@mui/icons-material'
 import Catalog from '../Stores/Catalog'
 import PluginPrice from './PluginPrice'
 import Store from '../Stores/Store'
+import withRouter from '../Hooks/withRouter'
 
 const PluginUse = ({ use }) => {
   const colors = {

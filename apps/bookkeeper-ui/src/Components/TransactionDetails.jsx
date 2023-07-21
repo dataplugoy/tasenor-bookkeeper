@@ -6,9 +6,9 @@ import TextEdit from './TextEdit'
 import Store from '../Stores/Store'
 import EntryModel from '../Models/EntryModel'
 import DocumentModel from '../Models/DocumentModel'
-import { withRouter } from 'react-router-dom'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { haveCursor } from '@dataplug/tasenor-common'
+import withRouter from '../Hooks/withRouter'
 
 @withRouter
 @withTranslation('translations')

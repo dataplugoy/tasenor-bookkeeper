@@ -3,9 +3,9 @@ import { inject, observer } from 'mobx-react'
 import { withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
 import ListComponent from './ListComponent'
-import { withRouter } from 'react-router-dom'
 import Catalog from '../Stores/Catalog'
 import { haveCursor, haveSettings } from '@dataplug/tasenor-common'
+import withRouter from '../Hooks/withRouter'
 
 @withTranslation('translations')
 @withRouter

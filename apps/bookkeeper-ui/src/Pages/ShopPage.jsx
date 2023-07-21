@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import Catalog from '../Stores/Catalog'
-import { withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
 import Plugin from '../Components/Plugin'
 import { Title } from '@dataplug/tasenor-common-ui'
 import { Trans } from 'react-i18next'
+import withRouter from '../Hooks/withRouter'
 
 @withRouter
 @inject('catalog')

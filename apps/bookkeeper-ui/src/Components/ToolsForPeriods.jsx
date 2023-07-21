@@ -6,7 +6,7 @@ import Store from '../Stores/Store'
 import { IconButton, Localize } from '@dataplug/tasenor-common-ui'
 import { Table, TableContainer, TableBody, TableCell, TableRow, TableHead, Chip, Button } from '@mui/material'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import { withRouter } from 'react-router-dom'
+import withRouter from '../Hooks/withRouter'
 
 const Locked = ({ lock }) => lock
   ? <Chip color="primary" label={<Trans>Locked</Trans>} />

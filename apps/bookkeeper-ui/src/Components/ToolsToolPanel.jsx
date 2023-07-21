@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { action } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import { Trans, withTranslation } from 'react-i18next'
-import { withRouter } from 'react-router-dom'
 import Store from '../Stores/Store'
 import { Dialog, IconButton, Title } from '@dataplug/tasenor-common-ui'
 import dayjs from 'dayjs'
@@ -11,6 +10,7 @@ import { MenuItem, TextField } from '@mui/material'
 import Catalog from '../Stores/Catalog'
 import { haveCursor, haveSettings } from '@dataplug/tasenor-common'
 import i18n from '../i18n'
+import withRouter from '../Hooks/withRouter'
 
 @withRouter
 @withTranslation('translations')
