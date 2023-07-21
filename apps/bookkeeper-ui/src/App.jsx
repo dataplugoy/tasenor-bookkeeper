@@ -17,8 +17,8 @@ import Configuration from './Configuration'
 // import ImportList from './Components/ImportList'
 // import ImportPage from './Pages/ImportPage'
 // import ImportToolPanel from './Components/ImportToolPanel'
-// import LoginPage from './Pages/LoginPage'
-// import LoginSidePanel from './Components/LoginSidePanel'
+import LoginPage from './Pages/LoginPage'
+import LoginSidePanel from './Components/LoginSidePanel'
 import Menu from './Components/Menu'
 import Messages from './Components/Messages'
 // import ReportPage from './Pages/ReportPage'
@@ -51,11 +51,18 @@ class App extends Component {
         </div>
         <div className="Page">
           <Paper className="SidePanel Panel" elevation={4}>
+            <Routes>
+              <Route exact path="/" element={<>{ !store.isLoggedIn() && <LoginSidePanel/>}</>}/>
+            </Routes>
           </Paper>
           <div className="MainArea">
             <Paper className="MainTopPanel Panel" elevation={4}>
+              {store.motd && <Alert variant="filled" severity="error"><b>{store.motd}</b></Alert>}
             </Paper>
             <Paper className="MainPanel Panel" elevation={4}>
+              <Routes>
+                <Route exact path="/" element={<LoginPage/>}/>
+              </Routes>
             </Paper>
             <div className={`Version ${store.isLoggedIn() ? 'logged-in' : 'not-logged-in'}`} style={{ color: 'rgb(0,0,0,0.5)', fontSize: '0.6rem', position: 'absolute', right: '2px', bottom: '2px' }}>v{Configuration.VERSION}</div>
           </div>
@@ -105,7 +112,6 @@ class App extends Component {
         </div>
         <div className="Page">
           <Paper className="SidePanel Panel" elevation={4}>
-            <Route exact path="/" render={() => store.isLoggedIn() ? '' : <LoginSidePanel/>}/>
             <Route exact path="/" component={DatabaseList}/>
             <Route exact path="/:db/admin/:periodId/:accountId/:tool" component={AdminToolsList}/>
             <Route exact path="/:db/admin/:periodId/:accountId" component={AdminToolsList}/>
@@ -142,7 +148,6 @@ class App extends Component {
           </Paper>
           <div className="MainArea">
             <Paper className="MainTopPanel Panel" elevation={4}>
-              {store.motd && <Alert variant="filled" severity="error"><b>{store.motd}</b></Alert>}
               <Route exact path="/:db/admin/:periodId/:accountId/:tool" component={AdminToolPanel}/>
               <Route exact path="/:db/admin/:periodId/:accountId" component={AdminToolPanel}/>
               <Route exact path="/:db/admin//:accountId/:tool" component={AdminToolPanel}/>
@@ -171,7 +176,6 @@ class App extends Component {
               <Route exact path="/:db/settings///:section?" component={() => ''}/>
             </Paper>
             <Paper className="MainPanel Panel" elevation={4}>
-              <Route exact path="/" component={LoginPage}/>
               <Route exact path="/" component={DashboardPage}/>
               <Route exact path="/:db/admin/:periodId/:accountId/:tool" component={AdminPage}/>
               <Route exact path="/:db/admin/:periodId/:accountId" component={AdminPage}/>

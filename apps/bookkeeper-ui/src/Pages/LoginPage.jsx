@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { Trans, withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
 import Catalog from '../Stores/Catalog'
@@ -11,11 +11,13 @@ import { Title } from '@dataplug/tasenor-common-ui'
 import Panel from '../Components/Panel'
 import { Box, Typography } from '@mui/material'
 import withRouter from '../Hooks/withRouter'
+import withStore from '../Hooks/withStore'
+import withCatalog from '../Hooks/withCatalog'
 
 @withRouter
 @withTranslation('translations')
-@inject('store')
-@inject('catalog')
+@withStore
+@withCatalog
 @observer
 class LoginPage extends Component {
 

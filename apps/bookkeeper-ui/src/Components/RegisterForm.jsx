@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { Trans, withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
 import { TextField, Button } from '@mui/material'
 import { haveCursor } from '@dataplug/tasenor-common'
+import withStore from '../Hooks/withStore'
 
-@inject('store')
+@withStore
 @withTranslation('translations')
 @observer
 class RegisterForm extends Component {

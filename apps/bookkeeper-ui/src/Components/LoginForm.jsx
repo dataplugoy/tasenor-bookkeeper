@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Trans, withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
-import { inject } from 'mobx-react'
 import Panel from './Panel'
 import { TextField, Button, Typography } from '@mui/material'
 import RegisterForm from './RegisterForm'
 import SubTitle from './SubTitle'
 import { haveCursor, haveSettings } from '@dataplug/tasenor-common'
+import withStore from '../Hooks/withStore'
 
-@inject('store')
+@withStore
 @withTranslation('translations')
 class LoginForm extends Component {
 
