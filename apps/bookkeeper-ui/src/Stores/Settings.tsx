@@ -1,3 +1,4 @@
+import { UiPlugin } from '@dataplug/tasenor-common-ui'
 import { makeObservable, observable, runInAction } from 'mobx'
 
 /**
@@ -5,12 +6,16 @@ import { makeObservable, observable, runInAction } from 'mobx'
  */
 class Settings {
 
-  @observable settings = {}
-  @observable system = {}
-  @observable plugins = {}
+  settings = {}
+  system = {}
+  plugins = {}
 
   constructor() {
-    makeObservable(this)
+    makeObservable(this, {
+      settings: observable,
+      system: observable,
+      plugins: observable,
+    })
   }
 
   /**
@@ -41,7 +46,8 @@ class Settings {
   updatePlugins(values) {
     runInAction(() => {
       Object.assign(this.plugins, values)
-      for (const plugin of Object.values(values)) {
+      for (const p of Object.values(values)) {
+        const plugin: UiPlugin = p as UiPlugin
         for (const variable of Object.keys(plugin.settings)) {
           this.settings[`${plugin.code}.${variable}`] = plugin.settings[variable]
         }

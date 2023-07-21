@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom'
 // import { BrowserRouter, withRouter } from 'react-router-dom'
 // import Store from './Stores/Store'
 // import Cursor from './Stores/Cursor'
-// import Settings from './Stores/Settings'
+import Settings from './Stores/Settings'
 // import i18n, { initializeI18n } from './i18n'
 // import { CircularProgress, ThemeProvider } from '@mui/material'
 // import theme from './theme'
@@ -16,7 +16,7 @@ import ReactDOM from 'react-dom'
 // import { setGlobalComponents, Knowledge } from '@dataplug/tasenor-common'
 // import { Box } from '@mui/system'
 
-// const settings = new Settings()
+const settings = new Settings()
 // const store = new Store(settings)
 // const cursor = new Cursor(store)
 // const catalog = new Catalog(store)
@@ -25,7 +25,8 @@ import ReactDOM from 'react-dom'
 //
 // setGlobalComponents(store, catalog, cursor, settings, knowledge)
 
-// @withRouter
+/*
+@withRouter
 class AppRenderer extends Component {
   state = {
     loading: true
@@ -54,11 +55,10 @@ class AppRenderer extends Component {
     return <I18nextProvider i18n={ i18n }><App /></I18nextProvider>
   }
 }
-// AppRenderer.propTypes = {
-//   history: ReactRouterPropTypes.history
-// }
+AppRenderer.propTypes = {
+  history: ReactRouterPropTypes.history
+}
 
-/*
 ReactDOM.render(
   <RISPProvider
     onBlur={() => cursor.enableHandler()}

@@ -5,7 +5,18 @@ import react from '@vitejs/plugin-react'
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
-    plugins: [react()],
+    plugins: [
+      react({
+        babel: {
+          plugins: [
+            [
+              '@babel/plugin-proposal-decorators',
+              { loose: true, version: '2022-03' },
+            ],
+          ]
+        }
+      }),
+    ],
     base: '/',
     define: {
       global: 'globalThis'

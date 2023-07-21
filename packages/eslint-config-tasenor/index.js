@@ -18,6 +18,7 @@ module.exports = {
   rules: {
     "space-before-function-paren": "off",
     "padded-blocks": "off",
+    "comma-dangle": "off",
     "semi": [2, "never"]
   },
   parserOptions: {

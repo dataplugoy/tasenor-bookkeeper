@@ -2,6 +2,8 @@
   "extends": "tsconfig/tsx.json",
   "compilerOptions": {
     "outDir": "dist",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
   },
   "include": [
     "./src/**/*"

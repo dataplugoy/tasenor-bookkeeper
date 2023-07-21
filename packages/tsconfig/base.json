@@ -2,12 +2,12 @@
   "compilerOptions": {
     "declaration": true,
     "esModuleInterop": true,
-    "module": "es2020",
+    "module": "esnext",
     "moduleResolution": "bundler",
     "skipLibCheck": true,
     "sourceMap": true,
     "strictNullChecks": true,
-    "target": "es2020",
+    "target": "esnext",
     "noEmit": false,
     "resolveJsonModule": true
   }
