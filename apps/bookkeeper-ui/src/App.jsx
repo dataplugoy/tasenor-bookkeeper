@@ -1,7 +1,6 @@
 import './App.css'
 
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { Route, Routes } from 'react-router-dom'
 import { observer } from 'mobx-react'
 import { Alert, Paper } from '@mui/material'
@@ -47,28 +46,26 @@ class App extends Component {
         <Messages />
         <div className="TopPanel Panel">
           <Routes>
-            <Route path="/" element={<Menu/>}/>
+            <Route exact path="/" element={<Menu/>}/>
           </Routes>
         </div>
         <div className="Page">
           <Paper className="SidePanel Panel" elevation={4}>
           </Paper>
-        </div>
-        <div className="MainArea">
-          <Paper className="MainTopPanel Panel" elevation={4}>
-          </Paper>
-          <Paper className="MainPanel Panel" elevation={4}>
-          </Paper>
-          <div className={`Version ${store.isLoggedIn() ? 'logged-in' : 'not-logged-in'}`} style={{ color: 'rgb(0,0,0,0.5)', fontSize: '0.6rem', position: 'absolute', right: '2px', bottom: '2px' }}>v{Configuration.VERSION}</div>
+          <div className="MainArea">
+            <Paper className="MainTopPanel Panel" elevation={4}>
+            </Paper>
+            <Paper className="MainPanel Panel" elevation={4}>
+            </Paper>
+            <div className={`Version ${store.isLoggedIn() ? 'logged-in' : 'not-logged-in'}`} style={{ color: 'rgb(0,0,0,0.5)', fontSize: '0.6rem', position: 'absolute', right: '2px', bottom: '2px' }}>v{Configuration.VERSION}</div>
+          </div>
         </div>
       </div>
     )
     /*
     return (
       <div className="App">
-        <Messages />
         <div className="TopPanel Panel">
-          <Route exact path="/" component={Menu}/>
           <Route exact path="/:db/admin/:periodId/:accountId/:tool" component={Menu}/>
           <Route exact path="/:db/admin/:periodId/:accountId" component={Menu}/>
           <Route exact path="/:db/admin//:accountId/:tool" component={Menu}/>
@@ -210,7 +207,6 @@ class App extends Component {
               <Route exact path="/:db/shop/:periodId?//:plugin?" component={ShopPage}/>
               <Route exact path="/:db/shop///:plugin?" component={ShopPage}/>
             </Paper>
-            <div className={`Version ${store.isLoggedIn() ? 'logged-in' : 'not-logged-in'}`} style={{ color: 'rgb(0,0,0,0.5)', fontSize: '0.6rem', position: 'absolute', right: '2px', bottom: '2px' }}>v{Configuration.VERSION}</div>
           </div>
         </div>
       </div>
