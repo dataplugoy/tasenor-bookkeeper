@@ -30,7 +30,7 @@ class ToolsList extends ListComponent {
       this.props.history.push(this.url('tools', 'periods'))
       return { preventDefault: true }
     }
-    if (catalog.keyPress('tool', key, this.props.history, cursor)) {
+    if (catalog.keyPress('tool', key)) {
       return { preventDefault: true }
     }
   }

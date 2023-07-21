@@ -30,7 +30,7 @@ class Catalog extends Component {
 
   constructor(store) {
     super({})
-    this.history = null
+    this.navigate = null
     this.store = store
     this.index = []
     this.plugins = []
@@ -323,11 +323,9 @@ class Catalog extends Component {
    * Check if key press can be handled by some plugin.
    * @param {String} context
    * @param {String} key
-   * @param {History} history
-   * @param {Cursor} cursor
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  keyPress(context, key, history, cursor) {
+  keyPress(context, key) {
     switch (context) {
       case 'tool':
         for (const menu of this.getToolMenu()) {
@@ -335,7 +333,7 @@ class Catalog extends Component {
             if (menu.disabled) {
               return
             }
-            history.push(this.url('tools', menu.code))
+            this.navigate(this.url('tools', menu.code))
           }
         }
         break
@@ -444,7 +442,7 @@ class Catalog extends Component {
    * @param {Object} props
    */
   connectProps(props) {
-    this.history = props.history
+    this.navigate = props.navigate
   }
 
   /**

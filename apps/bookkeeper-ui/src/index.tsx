@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { I18nextProvider } from 'react-i18next'
 import { Provider } from 'mobx-react'
 // import App from './App'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, NavigateFunction } from 'react-router-dom'
 import Store from './Stores/Store'
 import Cursor from './Stores/Cursor'
 import Settings from './Stores/Settings'
@@ -26,7 +26,7 @@ const knowledge = new Knowledge()
 setGlobalComponents(store, catalog, cursor, settings, knowledge)
 
 @withRouter
-class AppRenderer extends Component {
+class AppRenderer extends Component<{ navigate?: NavigateFunction }> {
   state = {
     loading: true
   }
@@ -39,7 +39,7 @@ class AppRenderer extends Component {
     const data = await store.request('/knowledge')
     knowledge.update(data)
 
-    catalog.connectProps({ history: this.props.history })
+    catalog.connectProps({ navigate: this.props.navigate })
     this.setState({ loading: false })
   }
 
