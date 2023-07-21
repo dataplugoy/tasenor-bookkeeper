@@ -160,6 +160,9 @@ importers:
       '@types/react-dom':
         specifier: ^17
         version: 17.0.20
+      '@vitejs/plugin-react':
+        specifier: ^4.0.3
+        version: 4.0.3(vite@4.4.2)
       eslint-config-tasenor:
         specifier: workspace:*
         version: link:../../packages/eslint-config-tasenor
@@ -169,6 +172,9 @@ importers:
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
+      vite:
+        specifier: ^4.4.2
+        version: 4.4.2
 
   databases/bookkeeper: {}
 
@@ -189,15 +195,6 @@ importers:
       '@mui/material':
         specifier: ^5.13.7
         version: 5.13.7(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@17.0.62)(react-dom@17.0.2)(react@17.0.2)
-      '@types/react':
-        specifier: ^17
-        version: 17.0.62
-      '@types/react-dom':
-        specifier: ^17
-        version: 17.0.20
-      '@types/react-router-dom':
-        specifier: ^5.3.3
-        version: 5.3.3
       mobx:
         specifier: ^6.9.0
         version: 6.9.0
@@ -214,6 +211,15 @@ importers:
         specifier: ^6.14.1
         version: 6.14.1(react-dom@17.0.2)(react@17.0.2)
     devDependencies:
+      '@types/react':
+        specifier: ^17
+        version: 17.0.62
+      '@types/react-dom':
+        specifier: ^17
+        version: 17.0.20
+      '@types/react-router-dom':
+        specifier: ^5.3.3
+        version: 5.3.3
       '@vitejs/plugin-react':
         specifier: ^4.0.3
         version: 4.0.3(vite@4.4.2)
@@ -2260,7 +2266,7 @@ packages:
 
   /@types/history@4.7.11:
     resolution: {integrity: sha512-qjDJRrmvBMiTx+jyLxvLfJU7UznFuokDv4f3WRuriHKERccVpFU+8XMQUAbDzoiJCsmexxRExQeMwwCdamSKDA==}
-    dev: false
+    dev: true
 
   /@types/http-errors@2.0.1:
     resolution: {integrity: sha512-/K3ds8TRAfBvi5vfjuz8y6+GiAYBZ0x4tXv1Av6CWBWn0IlADc+ZX9pMq7oU0fNQPnBwIZl3rmeLp6SBApbxSQ==}
@@ -2351,6 +2357,7 @@ packages:
     resolution: {integrity: sha512-4pzIjSxDueZZ90F52mU3aPoogkHIoSIDG+oQ+wQK7Cy2B9S+MvOqY0uEA/qawKz381qrEDkvpwyt8Bm31I8sbA==}
     dependencies:
       '@types/react': 17.0.62
+    dev: true
 
   /@types/react-is@18.2.1:
     resolution: {integrity: sha512-wyUkmaaSZEzFZivD8F2ftSyAfk6L+DfFliVj/mYdOXbVjRcS87fQJLTnhk6dRZPuJjI+9g6RZJO4PNCngUrmyw==}
@@ -2364,14 +2371,14 @@ packages:
       '@types/history': 4.7.11
       '@types/react': 17.0.62
       '@types/react-router': 5.1.20
-    dev: false
+    dev: true
 
   /@types/react-router@5.1.20:
     resolution: {integrity: sha512-jGjmu/ZqS7FjSH6owMcD5qpq19+1RS9DeVRqfl1FeBMxTDQAGwlMWOcs52NDoXaNKyG3d1cYQFMs9rCrb88o9Q==}
     dependencies:
       '@types/history': 4.7.11
       '@types/react': 17.0.62
-    dev: false
+    dev: true
 
   /@types/react-transition-group@4.4.6:
     resolution: {integrity: sha512-VnCdSxfcm08KjsJVQcfBmhEQAPnLB8G08hAxn39azX1qYBQ/5RVQuoHuKIcfKOdncuaUvEpFKFzEvbtIMsfVew==}
