@@ -9,6 +9,9 @@ export default defineConfig(({ command, mode }) => {
     base: '/',
     define: {
       global: 'globalThis'
+    },
+    server: {
+      port: parseInt(env.PORT || '7204')
     }
   }
 })
