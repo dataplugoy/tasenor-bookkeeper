@@ -44,9 +44,8 @@ const exists = async (master: KnexDatabase, name: DatabaseName): Promise<boolean
  * @returns
  */
 const getConfig = async (master: KnexDatabase, name: DatabaseName, hostOverride: null | Hostname = null): Promise<KnexConfig> => {
-  const coder = new Crypto(vault.get('SECRET') as Secret)
   const userDb = await master('databases').select('*').where({ name }).first()
-  const password = coder.decrypt(userDb.password)
+  const password = await Crypto.decrypt(vault.get('SECRET') as Secret, userDb.password)
   if (!password) {
     throw new Error('Failed to get password.')
   }
@@ -205,13 +204,12 @@ const create = async (masterDb: KnexDatabase, name: DatabaseName, host: Hostname
   const rootDb = getRoot()
   const user = 'user' + randomString(20)
   const password = randomString(64)
-  const crypto = new Crypto(vault.get('SECRET') as Secret)
   const entry = {
     name,
     host,
     port,
     user,
-    password: crypto.encrypt(password),
+    password: await Crypto.encrypt(vault.get('SECRET') as Secret, password),
     config: {}
   }
   await rootDb.raw(`CREATE USER "${user}" WITH PASSWORD '${password}'`)

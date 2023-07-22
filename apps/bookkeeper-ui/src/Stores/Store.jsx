@@ -284,7 +284,9 @@ export class Store {
     if (!key) {
       return null
     }
-    return JSON.parse(new Crypto(key).decrypt(data))
+    // TODO: Async.
+    console.error('ASYNC NOT IMPLEMENTED')
+    return JSON.parse(Crypto.decrypt(key, data))
   }
 
   /**
