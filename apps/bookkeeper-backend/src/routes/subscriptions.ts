@@ -22,7 +22,7 @@ router.post('/',
     const out = await catalog.subscribe(res.locals.user, req.body.code)
     if (out) {
       log(`Subscribing plugin '${plugin.code}' from '${res.locals.user}'.`)
-      return res.send({ data: encryptdata(out) })
+      return res.send({ data: await encryptdata(out) })
     }
 
     // Call ERP if available.
@@ -30,7 +30,7 @@ router.post('/',
       const erp = await net.POST(`${vault.get('TASENOR_API_URL')}/subscriptions` as Url, { email: res.locals.user, code: req.body.code })
       if (erp.success) {
         const { plugins, prices, subscriptions } = erp.data as unknown as LoginData
-        return res.send({ data: encryptdata({ plugins, prices, subscriptions }) })
+        return res.send({ data: await encryptdata({ plugins, prices, subscriptions }) })
       }
     }
 
@@ -45,7 +45,7 @@ router.post('/',
       user.config.subscriptions.push(plugin.id)
       await db('users').update({ config: user.config }).where({ email: res.locals.user })
       const secret = defaultLoginData(user.config.subscriptions, catalog.getInstalledPluginsIDs())
-      return res.send({ data: encryptdata(secret) })
+      return res.send({ data: await encryptdata(secret) })
     }
 
     res.status(400).send({ message: 'Subscription failed.' })
@@ -67,7 +67,7 @@ router.delete('/:code',
     const out = await catalog.unsubscribe(res.locals.user, req.params.code as PluginCode)
     if (out) {
       log(`Unsubscribing plugin '${plugin.code}' from '${res.locals.user}'.`)
-      return res.send({ data: encryptdata(out) })
+      return res.send({ data: await encryptdata(out) })
     }
 
     // Call ERP if available.
@@ -75,7 +75,7 @@ router.delete('/:code',
       const erp = await net.DELETE(`${vault.get('TASENOR_API_URL')}/subscriptions/${req.params.code}/${res.locals.user}` as Url)
       if (erp.success) {
         const { plugins, prices, subscriptions } = erp.data as unknown as LoginData
-        return res.send({ data: encryptdata({ plugins, prices, subscriptions }) })
+        return res.send({ data: await encryptdata({ plugins, prices, subscriptions }) })
       }
     }
 
@@ -88,7 +88,7 @@ router.delete('/:code',
       user.config.subscriptions = user.config.subscriptions.filter(id => id !== plugin.id)
       await db('users').update({ config: user.config }).where({ email: res.locals.user })
       const secret = defaultLoginData(user.config.subscriptions, catalog.getInstalledPluginsIDs())
-      return res.send({ data: encryptdata(secret) })
+      return res.send({ data: await encryptdata(secret) })
     }
 
     res.status(400).send({ message: 'Unsubscription failed.' })

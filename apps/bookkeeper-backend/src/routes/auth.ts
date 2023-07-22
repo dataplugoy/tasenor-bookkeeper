@@ -36,8 +36,7 @@ router.post('/',
         const ids = data.config.subscriptions || []
         const all = catalog.getInstalledPluginsIDs()
         const secret = defaultLoginData(ids, all)
-
-        Object.assign(out, encryptdata(secret))
+        Object.assign(out, await encryptdata(secret))
       }
       res.send(out)
     } else {
