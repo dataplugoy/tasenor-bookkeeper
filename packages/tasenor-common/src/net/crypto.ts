@@ -1,98 +1,92 @@
 import buffer from 'buffer'
-import { error } from '../logging'
 import { Secret } from '../types'
 global.Buffer = global.Buffer || buffer.Buffer
 
-let subtle
+let crypto
 
 try {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const crypto = require('crypto')
-  subtle = crypto.subtle
+  crypto = require('crypto')
 } catch (err) {
-  subtle = crypto.subtle
+  crypto = window.crypto
 }
 
 export class Crypto {
 
+  /**
+   * Convert array buffer to hex encoded string.
+   */
+  static buf2hex(buf: ArrayBuffer): string {
+    return Buffer.from(buf).toString('hex')
+  }
+
+  /**
+   * Convert hex encoded string to array buffer.
+   */
+  static hex2buf(hex: string): ArrayBuffer {
+    return Buffer.from(hex, 'hex')
+  }
+
+  /**
+   * Create an encryption key as a hex string.
+   */
   static async generateKey(): Promise<Secret> {
-    const key = await subtle.generateKey({
+    const key = await crypto.subtle.generateKey({
       name: 'AES-GCM',
       length: 256,
     }, true, ['encrypt', 'decrypt'])
-    const buf = await subtle.exportKey('raw', key)
-    return [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2, '0')).join('') as Secret
-  }
 
-  static async encrypt(key: Secret, clearText: string): Promise<string> {
-    return ''
-  }
-}
+    const buf = await crypto.subtle.exportKey('raw', key)
 
-/**
- * Utility to encrypt and decrypt passwords.
- */
-export class OldCrypto {
-
-  algorithm: string
-  key: Buffer
-
-  /**
-   * Create new encrypt/decrypt helper with the given secret.
-   * @param encryptionKey The secret.
-   */
-  constructor(encryptionKey: Secret) {
-    if (!encryptionKey || encryptionKey.length < 32) {
-      throw new Error('Encryption key is too short or does not exist.')
-    }
-    this.algorithm = 'aes-128-cbc'
-    const salt = encryptionKey
-    // const hash = crypto.createHash('sha1')
-    // hash.update(salt)
-    this.key = Buffer.from('abcde') // hash.digest().slice(0, 16)
-    console.log(this.key)
+    return Crypto.buf2hex(buf) as Secret
   }
 
   /**
-   * Encrypt a text.
-   * @param clearText Original text.
-   * @returns Encrypted text.
+   * Helper to generate IV for encryption.
    */
-  encrypt(clearText: string): string {
-    return clearText
-    /*
-    const iv = crypto.randomBytes(16)
-    const cipher = crypto.createCipheriv(this.algorithm, this.key, iv)
-    const encrypted = cipher.update(clearText, 'utf8', 'hex')
-    return [
-      encrypted + cipher.final('hex'),
-      Buffer.from(iv).toString('hex')
-    ].join('|')
-    */
+  static generateIv() {
+    return crypto.getRandomValues(new Uint8Array(12))
   }
 
   /**
-   * Decrypt a text.
-   * @param encryptedText Encrypted text.
-   * @returns Original text or null on failure.
+   * Encrypt the given string with the key.
    */
-  decrypt(encryptedText: string): string|null {
-    return encryptedText
-    /*
-    const [encrypted, iv] = encryptedText.split('|')
-    if (!iv) throw new Error('IV not found when decrypting.')
-    let decipher
-    try {
-      decipher = crypto.createDecipheriv(
-        this.algorithm,
-        this.key,
-        Buffer.from(iv, 'hex')
-      )
-      return decipher.update(encrypted, 'hex', 'utf8') + decipher.final('utf8')
-    } catch (err) {
-      error(`Decrypting ${encryptedText} failed.`)
-      return null
-    }
-    */
+  static async encrypt(secret: Secret, clearText: string): Promise<string> {
+    const encoder = new TextEncoder()
+    const encoded = encoder.encode(clearText)
+    const iv = Crypto.generateIv()
+    const key = await crypto.subtle.importKey('raw', Crypto.hex2buf(secret), {
+      name: 'AES-GCM',
+      length: 256,
+    }, true, ['encrypt', 'decrypt'])
+
+    const cipher = await crypto.subtle.encrypt({
+      name: 'AES-GCM',
+      iv,
+    }, key, encoded)
+
+    return Crypto.buf2hex(cipher) + '|' + Crypto.buf2hex(iv)
+  }
+
+  /**
+   * Decrypt the given cipher text with the key.
+   */
+  static async decrypt(secret: Secret, cipherText: string): Promise<string> {
+    const [cipher, ivText] = cipherText.split('|')
+    if (!ivText) throw new Error('IV not found when decrypting.')
+    const iv = Crypto.hex2buf(ivText)
+    const text = Crypto.hex2buf(cipher)
+    const key = await crypto.subtle.importKey('raw', Crypto.hex2buf(secret), {
+      name: 'AES-GCM',
+      length: 256,
+    }, true, ['encrypt', 'decrypt'])
+
+    const decoded = await crypto.subtle.decrypt({
+      name: 'AES-GCM',
+      iv,
+    }, key, text)
+
+    const decoder = new TextDecoder()
+    return decoder.decode(decoded)
   }
 }
