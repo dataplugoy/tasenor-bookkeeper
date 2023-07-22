@@ -47,6 +47,42 @@ class App extends Component {
         <div className="TopPanel Panel">
           <Routes>
             <Route exact path="/" element={<Menu/>}/>
+            <Route exact path="/:db/admin/:periodId/:accountId/:tool" element={<Menu/>}/>
+            <Route exact path="/:db/admin/:periodId/:accountId" element={<Menu/>}/>
+            <Route exact path="/:db/admin//:accountId/:tool" element={<Menu/>}/>
+            <Route exact path="/:db/admin/:periodId//:tool" element={<Menu/>}/>
+            <Route exact path="/:db/admin/:periodId" element={<Menu/>}/>
+            <Route exact path="/:db/admin///:tool" element={<Menu/>}/>
+            <Route exact path="/:db/admin" element={<Menu/>}/>
+            <Route exact path="/:db" element={<Menu/>}/>
+            <Route exact path="/:db/dashboard" element={<Menu/>}/>
+            <Route exact path="/:db/dashboard/:periodId" element={<Menu/>}/>
+            <Route exact path="/:db/dashboard/:periodId/:accountId" element={<Menu/>}/>
+            <Route exact path="/:db/txs/:periodId" element={<Menu/>}/>
+            <Route exact path="/:db/txs/:periodId/:accountId" element={<Menu/>}/>
+            <Route exact path="/:db/account" element={<Menu/>}/>
+            <Route exact path="/:db/account/:periodId" element={<Menu/>}/>
+            <Route exact path="/:db/account/:periodId/:accountId" element={<Menu/>}/>
+            <Route exact path="/:db/report/:periodId" element={<Menu/>}/>
+            <Route exact path="/:db/report/:periodId/:accountId" element={<Menu/>}/>
+            <Route exact path="/:db/report/:periodId//:format" element={<Menu/>}/>
+            <Route exact path="/:db/report/:periodId/:accountId/:format" element={<Menu/>}/>
+            <Route exact path="/:db/tools/:periodId?/:accountId?/:tool?" element={<Menu/>}/>
+            <Route exact path="/:db/tools/:periodId//:tool?" element={<Menu/>}/>
+            <Route exact path="/:db/tools//:accountId/:tool?" element={<Menu/>}/>
+            <Route exact path="/:db/tools///:tool?" element={<Menu/>}/>
+            <Route exact path="/:db/data" element={<Menu/>}/>
+            <Route exact path="/:db/data/:periodId" element={<Menu/>}/>
+            <Route exact path="/:db/data/:periodId/:accountId" element={<Menu/>}/>
+            <Route exact path="/:db/data/:periodId//:importerId" element={<Menu/>}/>
+            <Route exact path="/:db/data///:importerId" element={<Menu/>}/>
+            <Route exact path="/:db/data/:periodId/:accountId/:importerId" element={<Menu/>}/>
+            <Route exact path="/:db/settings/:periodId?/:accountId?/:section?" element={<Menu/>}/>
+            <Route exact path="/:db/settings/:periodId?//:section?" element={<Menu/>}/>
+            <Route exact path="/:db/settings///:section?" element={<Menu/>}/>
+            <Route exact path="/:db/shop/:periodId?/:accountId?/:plugin?" element={<Menu/>}/>
+            <Route exact path="/:db/shop/:periodId?//:plugin?" element={<Menu/>}/>
+            <Route exact path="/:db/shop///:plugin?" element={<Menu/>}/>
           </Routes>
         </div>
         <div className="Page">
@@ -73,42 +109,6 @@ class App extends Component {
     return (
       <div className="App">
         <div className="TopPanel Panel">
-          <Route exact path="/:db/admin/:periodId/:accountId/:tool" component={Menu}/>
-          <Route exact path="/:db/admin/:periodId/:accountId" component={Menu}/>
-          <Route exact path="/:db/admin//:accountId/:tool" component={Menu}/>
-          <Route exact path="/:db/admin/:periodId//:tool" component={Menu}/>
-          <Route exact path="/:db/admin/:periodId" component={Menu}/>
-          <Route exact path="/:db/admin///:tool" component={Menu}/>
-          <Route exact path="/:db/admin" component={Menu}/>
-          <Route exact path="/:db" component={Menu}/>
-          <Route exact path="/:db/dashboard" component={Menu}/>
-          <Route exact path="/:db/dashboard/:periodId" component={Menu}/>
-          <Route exact path="/:db/dashboard/:periodId/:accountId" component={Menu}/>
-          <Route exact path="/:db/txs/:periodId" component={Menu}/>
-          <Route exact path="/:db/txs/:periodId/:accountId" component={Menu}/>
-          <Route exact path="/:db/account" component={Menu}/>
-          <Route exact path="/:db/account/:periodId" component={Menu}/>
-          <Route exact path="/:db/account/:periodId/:accountId" component={Menu}/>
-          <Route exact path="/:db/report/:periodId" component={Menu}/>
-          <Route exact path="/:db/report/:periodId/:accountId" component={Menu}/>
-          <Route exact path="/:db/report/:periodId//:format" component={Menu}/>
-          <Route exact path="/:db/report/:periodId/:accountId/:format" component={Menu}/>
-          <Route exact path="/:db/tools/:periodId?/:accountId?/:tool?" component={Menu}/>
-          <Route exact path="/:db/tools/:periodId//:tool?" component={Menu}/>
-          <Route exact path="/:db/tools//:accountId/:tool?" component={Menu}/>
-          <Route exact path="/:db/tools///:tool?" component={Menu}/>
-          <Route exact path="/:db/data" component={Menu}/>
-          <Route exact path="/:db/data/:periodId" component={Menu}/>
-          <Route exact path="/:db/data/:periodId/:accountId" component={Menu}/>
-          <Route exact path="/:db/data/:periodId//:importerId" component={Menu}/>
-          <Route exact path="/:db/data///:importerId" component={Menu}/>
-          <Route exact path="/:db/data/:periodId/:accountId/:importerId" component={Menu}/>
-          <Route exact path="/:db/settings/:periodId?/:accountId?/:section?" component={Menu}/>
-          <Route exact path="/:db/settings/:periodId?//:section?" component={Menu}/>
-          <Route exact path="/:db/settings///:section?" component={Menu}/>
-          <Route exact path="/:db/shop/:periodId?/:accountId?/:plugin?" component={Menu}/>
-          <Route exact path="/:db/shop/:periodId?//:plugin?" component={Menu}/>
-          <Route exact path="/:db/shop///:plugin?" component={Menu}/>
         </div>
         <div className="Page">
           <Paper className="SidePanel Panel" elevation={4}>
