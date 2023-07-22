@@ -278,15 +278,13 @@ export class Store {
   /**
    * Get the persistent client data.
    */
-  getClientData() {
+  async getClientData() {
     const key = window.localStorage.getItem('key')
     const data = window.localStorage.getItem('data')
     if (!key) {
       return null
     }
-    // TODO: Async.
-    console.error('ASYNC NOT IMPLEMENTED')
-    return JSON.parse(Crypto.decrypt(key, data))
+    return JSON.parse(await Crypto.decrypt(key, data))
   }
 
   /**

@@ -181,16 +181,16 @@ class Menu extends Component {
   }
 
   handleSelect(key) {
-    const { store, history } = this.props
+    const { store, navigate } = this.props
     const cursor = haveCursor()
 
     const periods = store.periods
     let url
-    const [, db, tool, periodId, accountId, extras] = this.props.history.location.pathname.split('/')
+    const [, db, tool, periodId, accountId, extras] = this.props.location.pathname.split('/')
     switch (key) {
       case 'logout':
         store.logout()
-        history.push('/')
+        navigate('/')
         break
       case 'admin':
       case 'dashboard':
@@ -209,7 +209,7 @@ class Menu extends Component {
           url += '/' + accountId
         }
         cursor.resetSelected()
-        history.push(url)
+        navigate(url)
         break
       case 'next-period':
       case 'previous-period':
@@ -236,7 +236,7 @@ class Menu extends Component {
             url += '/' + extras
           }
           cursor.resetSelected()
-          history.push(url)
+          navigate(url)
         }
         break
       default:

@@ -61,12 +61,12 @@ class LoginPage extends Component {
       const success = await store.login(user, password)
       if (success) {
         if (store.isAdmin) {
-          this.props.history.push('/_/admin')
+          this.props.navigate('/_/admin')
         } else {
           if (store.dbs.length) {
-            this.props.history.push(`/${store.dbs[0].name}`)
+            this.props.navigate(`/${store.dbs[0].name}`)
           } else {
-            this.props.history.push('/_/tools///databases')
+            this.props.navigate('/_/tools///databases')
           }
         }
         if (message) {
@@ -80,7 +80,7 @@ class LoginPage extends Component {
         .then(() => {
           store.login(email, password)
             .then(() => {
-              this.props.history.push('/_/admin')
+              this.props.navigate('/_/admin')
             })
         })
     }

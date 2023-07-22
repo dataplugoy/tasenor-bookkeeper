@@ -67,10 +67,10 @@ class Catalog extends Component {
   /**
    * Reconstruct available plugin info based on the credentials.
    */
-  refreshPluginList() {
+  async refreshPluginList() {
 
     debugPlugins('--- Plugin refresh ---')
-    const data = this.store.getClientData()
+    const data = await this.store.getClientData()
     const allowed = data ? new Set(data.plugins) : new Set()
     debugPlugins('Explicitly allowed plugins', allowed)
     const allowAll = this.store.isAdmin || this.store.isSuperuser
