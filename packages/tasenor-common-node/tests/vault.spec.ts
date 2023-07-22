@@ -1,3 +1,4 @@
+import { expect, test } from '@jest/globals'
 import { vault } from '../src'
 
 test('Test simple environment vault', async () => {

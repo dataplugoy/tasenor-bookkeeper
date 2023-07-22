@@ -1,3 +1,4 @@
+import { expect, test } from '@jest/globals'
 import { Password } from '../src'
 
 test('Password', async () => {
