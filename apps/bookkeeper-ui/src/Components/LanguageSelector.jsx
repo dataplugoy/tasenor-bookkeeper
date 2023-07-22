@@ -9,7 +9,7 @@ import withCatalog from '../Hooks/withCatalog'
 class LanguageSelector extends Component {
 
   setLanguage(lang) {
-    localStorage.setItem('language', lang)
+    window.localStorage.setItem('language', lang)
   }
 
   onChangeLanguage() {

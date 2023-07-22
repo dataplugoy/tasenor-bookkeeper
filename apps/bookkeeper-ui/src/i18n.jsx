@@ -13,10 +13,10 @@ export async function initializeI18n(catalog, store) {
     }
   }
 
-  let language = localStorage.getItem('language')
+  let language = window.localStorage.getItem('language')
 
   if (!language) {
-    localStorage.setItem('language', 'en')
+    window.localStorage.setItem('language', 'en')
     language = 'en'
   }
 
@@ -50,6 +50,6 @@ export async function initializeI18n(catalog, store) {
     }
   })
 
-  i18n.changeLanguage(localStorage.getItem('language'))
+  i18n.changeLanguage(window.localStorage.getItem('language'))
 }
 export default i18n

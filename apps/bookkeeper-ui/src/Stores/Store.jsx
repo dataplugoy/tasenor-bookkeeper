@@ -168,7 +168,7 @@ export class Store {
       documents: computed,
     })
 
-    this.setTokens(null, localStorage.getItem('token'))
+    this.setTokens(null, window.localStorage.getItem('token'))
     net.configure({
       baseUrl: Configuration.UI_API_URL,
     })
@@ -238,14 +238,14 @@ export class Store {
 
     if (refresh) {
       backendConf.refreshToken = refresh
-      localStorage.setItem('token', refresh)
+      window.localStorage.setItem('token', refresh)
     }
 
     if (clear) {
       backendConf.token = null
       uiConf.token = null
       backendConf.refreshToken = null
-      localStorage.removeItem('token')
+      window.localStorage.removeItem('token')
     }
     // Configure backend.
     net.configure({
@@ -267,11 +267,11 @@ export class Store {
    */
   setClientData(key, data) {
     if (key) {
-      localStorage.setItem('key', key)
-      localStorage.setItem('data', data)
+      window.localStorage.setItem('key', key)
+      window.localStorage.setItem('data', data)
     } else {
-      localStorage.removeItem('key')
-      localStorage.removeItem('data')
+      window.localStorage.removeItem('key')
+      window.localStorage.removeItem('data')
     }
   }
 
@@ -279,8 +279,8 @@ export class Store {
    * Get the persistent client data.
    */
   getClientData() {
-    const key = localStorage.getItem('key')
-    const data = localStorage.getItem('data')
+    const key = window.localStorage.getItem('key')
+    const data = window.localStorage.getItem('data')
     if (!key) {
       return null
     }
@@ -845,7 +845,7 @@ export class Store {
    * Check if user is logged in.
    */
   isLoggedIn() {
-    return !!localStorage.getItem('token')
+    return !!window.localStorage.getItem('token')
   }
 
   /**
