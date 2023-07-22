@@ -13,6 +13,7 @@ import { Box, Typography } from '@mui/material'
 import withRouter from '../Hooks/withRouter'
 import withStore from '../Hooks/withStore'
 import withCatalog from '../Hooks/withCatalog'
+import { Crypto } from '@dataplug/tasenor-common'
 
 @withRouter
 @withTranslation('translations')

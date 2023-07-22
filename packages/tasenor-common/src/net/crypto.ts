@@ -1,16 +1,38 @@
-// import crypto from 'crypto'
 import buffer from 'buffer'
 import { error } from '../logging'
 import { Secret } from '../types'
 global.Buffer = global.Buffer || buffer.Buffer
 
-// TODO: This needs re-implementation. Maybe SubtleCrypto.
-// https://davidmyers.dev/blog/a-practical-guide-to-the-web-cryptography-api
+let subtle
+
+try {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const crypto = require('crypto')
+  subtle = crypto.subtle
+} catch (err) {
+  subtle = crypto.subtle
+}
+
+export class Crypto {
+
+  static async generateKey(): Promise<Secret> {
+    const key = await subtle.generateKey({
+      name: 'AES-GCM',
+      length: 256,
+    }, true, ['encrypt', 'decrypt'])
+    const buf = await subtle.exportKey('raw', key)
+    return [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2, '0')).join('') as Secret
+  }
+
+  static async encrypt(key: Secret, clearText: string): Promise<string> {
+    return ''
+  }
+}
 
 /**
  * Utility to encrypt and decrypt passwords.
  */
-export class Crypto {
+export class OldCrypto {
 
   algorithm: string
   key: Buffer
@@ -28,6 +50,7 @@ export class Crypto {
     // const hash = crypto.createHash('sha1')
     // hash.update(salt)
     this.key = Buffer.from('abcde') // hash.digest().slice(0, 16)
+    console.log(this.key)
   }
 
   /**
