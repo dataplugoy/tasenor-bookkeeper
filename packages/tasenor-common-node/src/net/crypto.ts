@@ -56,7 +56,7 @@ export function createUuid(): UUID {
  */
 export function encryptdata({ plugins, prices, subscriptions }: LoginPluginData): EncryptedUserData {
   const result = {
-    key: Crypto.hash(16),
+    key: crypto.randomBytes(15).toString('hex'),
     data: ''
   }
   const data = {

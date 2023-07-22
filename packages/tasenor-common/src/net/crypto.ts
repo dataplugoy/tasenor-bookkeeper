@@ -72,13 +72,4 @@ export class Crypto {
     }
     */
   }
-
-  /**
-   * Construct a random hash as a hex encoded string.
-   * @param len
-   * @returns
-   */
-  static hash(len: number): string {
-    return crypto.randomBytes(len).toString('hex')
-  }
 }
