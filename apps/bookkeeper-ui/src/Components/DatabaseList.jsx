@@ -1,21 +1,21 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { withTranslation, Trans } from 'react-i18next'
 import Store from '../Stores/Store'
 import { Title, Note } from '@dataplug/tasenor-common-ui'
 import { Avatar, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
-import ReactRouterPropTypes from 'react-router-prop-types'
 import withRouter from '../Hooks/withRouter'
+import withStore from '../Hooks/withStore'
 
 @withRouter
 @withTranslation('translations')
-@inject('store')
+@withStore
 @observer
 class DatabaseList extends Component {
 
   render() {
-    const { store } = this.props
+    const { store, navigate } = this.props
     if (!store.isLoggedIn()) {
       return ''
     }
@@ -29,7 +29,7 @@ class DatabaseList extends Component {
         <List className="DatabaseList">
           {store.dbs.map((db, index) => {
             return (
-              <ListItem id={index + 1} key={db.name} button selected={current === db.name} onClick={() => this.props.history.push(`/${db.name}`)}>
+              <ListItem id={index + 1} key={db.name} button selected={current === db.name} onClick={() => navigate(`/${db.name}`)}>
                 <ListItemAvatar color="primary">
                   <Avatar>{index + 1}</Avatar>
                 </ListItemAvatar>
@@ -48,7 +48,6 @@ class DatabaseList extends Component {
 
 DatabaseList.propTypes = {
   store: PropTypes.instanceOf(Store),
-  history: ReactRouterPropTypes.history,
 }
 
 export default DatabaseList

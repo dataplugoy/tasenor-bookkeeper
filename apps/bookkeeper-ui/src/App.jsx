@@ -12,8 +12,8 @@ import AdminToolPanel from './Components/AdminToolPanel'
 import AdminToolsList from './Components/AdminToolsList'
 // import Balances from './Components/Balances'
 import Configuration from './Configuration'
-// import DashboardPage from './Pages/DashboardPage'
-// import DatabaseList from './Components/DatabaseList'
+import DashboardPage from './Pages/DashboardPage'
+import DatabaseList from './Components/DatabaseList'
 // import ImportList from './Components/ImportList'
 // import ImportPage from './Pages/ImportPage'
 // import ImportToolPanel from './Components/ImportToolPanel'
@@ -96,12 +96,17 @@ class App extends Component {
               <Route exact path="/:db/admin/:periodId" element={<AdminToolsList/>}/>
               <Route exact path="/:db/admin///:tool" element={<AdminToolsList/>}/>
               <Route exact path="/:db/admin" element={<AdminToolsList/>}/>
+              <Route exact path="/" element={<DatabaseList/>}/>
+              <Route exact path="/:db" element={<DatabaseList/>}/>
+              <Route exact path="/:db/dashboard/:periodId?" element={<DatabaseList/>}/>
+              <Route exact path="/:db/dashboard/:periodId/:accountId" element={<DatabaseList/>}/>
             </Routes>
           </Paper>
           <div className="MainArea">
             <Paper className="MainTopPanel Panel" elevation={4}>
               {store.motd && <Alert variant="filled" severity="error"><b>{store.motd}</b></Alert>}
               <Routes>
+                <Route exact path="/" element={<></>}/>
                 <Route exact path="/:db/admin/:periodId/:accountId/:tool" element={<AdminToolPanel/>}/>
                 <Route exact path="/:db/admin/:periodId/:accountId" element={<AdminToolPanel/>}/>
                 <Route exact path="/:db/admin//:accountId/:tool" element={<AdminToolPanel/>}/>
@@ -109,6 +114,7 @@ class App extends Component {
                 <Route exact path="/:db/admin/:periodId" element={<AdminToolPanel/>}/>
                 <Route exact path="/:db/admin///:tool" element={<AdminToolPanel/>}/>
                 <Route exact path="/:db/admin" element={<AdminToolPanel/>}/>
+                <Route exact path="/:db/dashboard" element={<></>}/>
               </Routes>
             </Paper>
             <Paper className="MainPanel Panel" elevation={4}>
@@ -121,6 +127,11 @@ class App extends Component {
                 <Route exact path="/:db/admin/:periodId" element={<AdminPage/>}/>
                 <Route exact path="/:db/admin///:tool" element={<AdminPage/>}/>
                 <Route exact path="/:db/admin" element={<AdminPage/>}/>
+                <Route exact path="/" element={<DashboardPage/>}/>
+                <Route exact path="/:db" element={<DashboardPage/>}/>
+                <Route exact path="/:db/dashboard" element={<DashboardPage/>}/>
+                <Route exact path="/:db/dashboard/:periodId" element={<DashboardPage/>}/>
+                <Route exact path="/:db/dashboard/:periodId/:accountId" element={<DashboardPage/>}/>
               </Routes>
             </Paper>
             <div className={`Version ${store.isLoggedIn() ? 'logged-in' : 'not-logged-in'}`} style={{ color: 'rgb(0,0,0,0.5)', fontSize: '0.6rem', position: 'absolute', right: '2px', bottom: '2px' }}>v{Configuration.VERSION}</div>
@@ -135,83 +146,74 @@ class App extends Component {
         </div>
         <div className="Page">
           <Paper className="SidePanel Panel" elevation={4}>
-            <Route exact path="/" component={DatabaseList}/>
-            <Route exact path="/:db" component={DatabaseList}/>
-            <Route exact path="/:db/dashboard/:periodId?" component={DatabaseList}/>
-            <Route exact path="/:db/dashboard/:periodId/:accountId" component={DatabaseList}/>
-            <Route path="/:db/txs/:periodId" component={Balances}/>
-            <Route exact path="/:db/report/:periodId" component={ReportsList}/>
-            <Route exact path="/:db/report/:periodId/:accountId" component={ReportsList}/>
-            <Route exact path="/:db/report/:periodId/:accountId/:format" component={ReportsList}/>
-            <Route exact path="/:db/report/:periodId//:format" component={ReportsList}/>
-            <Route path="/:db/account/:periodId?/:accountId?" component={Account}/>
-            <Route exact path="/:db/data" component={ImportList}/>
-            <Route exact path="/:db/data/:periodId" component={ImportList}/>
-            <Route exact path="/:db/data/:periodId/:accountId" component={ImportList}/>
-            <Route exact path="/:db/data/:periodId//:importerId" component={ImportList}/>
-            <Route exact path="/:db/data///:importerId" component={ImportList}/>
-            <Route exact path="/:db/data/:periodId/:accountId/:importerId" component={ImportList}/>
-            <Route exact path="/:db/tools/:periodId?/:accountId?/:tool?" component={ToolsList}/>
-            <Route exact path="/:db/tools/:periodId//:tool?" component={ToolsList}/>
-            <Route exact path="/:db/tools//:accountId/:tool?" component={ToolsList}/>
-            <Route exact path="/:db/tools///:tool?" component={ToolsList}/>
-            <Route exact path="/:db/settings/:periodId?/:accountId?/:section?" component={SettingsList}/>
-            <Route exact path="/:db/settings/:periodId?//:section?" component={SettingsList}/>
-            <Route exact path="/:db/settings///:section?" component={SettingsList}/>
-            <Route exact path="/:db/shop/:periodId?/:accountId?/:plugin?" component={Subscriptions}/>
-            <Route exact path="/:db/shop/:periodId?//:plugin?" component={Subscriptions}/>
-            <Route exact path="/:db/shop///:plugin?" component={Subscriptions}/>
+            <Route path="/:db/txs/:periodId" element={<Balances/>}/>
+            <Route exact path="/:db/report/:periodId" element={<ReportsList/>}/>
+            <Route exact path="/:db/report/:periodId/:accountId" element={<ReportsList/>}/>
+            <Route exact path="/:db/report/:periodId/:accountId/:format" element={<ReportsList/>}/>
+            <Route exact path="/:db/report/:periodId//:format" element={<ReportsList/>}/>
+            <Route path="/:db/account/:periodId?/:accountId?" element={<Account/>}/>
+            <Route exact path="/:db/data" element={<ImportList/>}/>
+            <Route exact path="/:db/data/:periodId" element={<ImportList/>}/>
+            <Route exact path="/:db/data/:periodId/:accountId" element={<ImportList/>}/>
+            <Route exact path="/:db/data/:periodId//:importerId" element={<ImportList/>}/>
+            <Route exact path="/:db/data///:importerId" element={<ImportList/>}/>
+            <Route exact path="/:db/data/:periodId/:accountId/:importerId" element={<ImportList/>}/>
+            <Route exact path="/:db/tools/:periodId?/:accountId?/:tool?" element={<ToolsList/>}/>
+            <Route exact path="/:db/tools/:periodId//:tool?" element={<ToolsList/>}/>
+            <Route exact path="/:db/tools//:accountId/:tool?" element={<ToolsList/>}/>
+            <Route exact path="/:db/tools///:tool?" element={<ToolsList/>}/>
+            <Route exact path="/:db/settings/:periodId?/:accountId?/:section?" element={<SettingsList/>}/>
+            <Route exact path="/:db/settings/:periodId?//:section?" element={<SettingsList/>}/>
+            <Route exact path="/:db/settings///:section?" element={<SettingsList/>}/>
+            <Route exact path="/:db/shop/:periodId?/:accountId?/:plugin?" element={<Subscriptions/>}/>
+            <Route exact path="/:db/shop/:periodId?//:plugin?" element={<Subscriptions/>}/>
+            <Route exact path="/:db/shop///:plugin?" element={<Subscriptions/>}/>
           </Paper>
           <div className="MainArea">
             <Paper className="MainTopPanel Panel" elevation={4}>
-              <Route path="/:db/txs/:periodId/:accountId?" component={TransactionToolPanel}/>
-              <Route exact path="/:db/report/:periodId" component={ReportToolPanel}/>
-              <Route exact path="/:db/report/:periodId/:accountId" component={ReportToolPanel}/>
-              <Route exact path="/:db/report/:periodId/:accountId/:format" component={ReportToolPanel}/>
-              <Route exact path="/:db/report/:periodId//:format" component={ReportToolPanel}/>
-              <Route path="/:db/account/:periodId?" component={AccountsToolPanel}/>
-              <Route exact path="/:db/data" component={ImportToolPanel}/>
-              <Route exact path="/:db/data/:periodId" component={ImportToolPanel}/>
-              <Route exact path="/:db/data/:periodId/:accountId" component={ImportToolPanel}/>
-              <Route exact path="/:db/data/:periodId//:importerId" component={ImportToolPanel}/>
-              <Route exact path="/:db/data///:importerId" component={ImportToolPanel}/>
-              <Route exact path="/:db/data/:periodId/:accountId/:importerId" component={ImportToolPanel}/>
-              <Route exact path="/:db/tools/:periodId?/:accountId?/:tool?" component={ToolsToolPanel}/>
-              <Route exact path="/:db/tools/:periodId//:tool?" component={ToolsToolPanel}/>
-              <Route exact path="/:db/tools//:accountId/:tool?" component={ToolsToolPanel}/>
-              <Route exact path="/:db/tools///:tool?" component={ToolsToolPanel}/>
-              <Route exact path="/:db/settings/:periodId?/:accountId?/:section?" component={() => ''}/>
-              <Route exact path="/:db/settings/:periodId?//:section?" component={() => ''}/>
-              <Route exact path="/:db/settings///:section?" component={() => ''}/>
+              <Route path="/:db/txs/:periodId/:accountId?" element={<TransactionToolPanel/>}/>
+              <Route exact path="/:db/report/:periodId" element={<ReportToolPanel/>}/>
+              <Route exact path="/:db/report/:periodId/:accountId" element={<ReportToolPanel/>}/>
+              <Route exact path="/:db/report/:periodId/:accountId/:format" element={<ReportToolPanel/>}/>
+              <Route exact path="/:db/report/:periodId//:format" element={<ReportToolPanel/>}/>
+              <Route path="/:db/account/:periodId?" element={<AccountsToolPanel/>}/>
+              <Route exact path="/:db/data" element={<ImportToolPanel/>}/>
+              <Route exact path="/:db/data/:periodId" element={<ImportToolPanel/>}/>
+              <Route exact path="/:db/data/:periodId/:accountId" element={<ImportToolPanel/>}/>
+              <Route exact path="/:db/data/:periodId//:importerId" element={<ImportToolPanel/>}/>
+              <Route exact path="/:db/data///:importerId" element={<ImportToolPanel/>}/>
+              <Route exact path="/:db/data/:periodId/:accountId/:importerId" element={<ImportToolPanel/>}/>
+              <Route exact path="/:db/tools/:periodId?/:accountId?/:tool?" element={<ToolsToolPanel/>}/>
+              <Route exact path="/:db/tools/:periodId//:tool?" element={<ToolsToolPanel/>}/>
+              <Route exact path="/:db/tools//:accountId/:tool?" element={<ToolsToolPanel/>}/>
+              <Route exact path="/:db/tools///:tool?" element={<ToolsToolPanel/>}/>
+              <Route exact path="/:db/settings/:periodId?/:accountId?/:section?" element={<()/> => ''}/>
+              <Route exact path="/:db/settings/:periodId?//:section?" element={<()/> => ''}/>
+              <Route exact path="/:db/settings///:section?" element={<()/> => ''}/>
             </Paper>
             <Paper className="MainPanel Panel" elevation={4}>
-              <Route exact path="/" component={DashboardPage}/>
-              <Route exact path="/:db" component={DashboardPage}/>
-              <Route exact path="/:db/dashboard" component={DashboardPage}/>
-              <Route exact path="/:db/dashboard/:periodId" component={DashboardPage}/>
-              <Route exact path="/:db/dashboard/:periodId/:accountId" component={DashboardPage}/>
-              <Route path="/:db/txs/:periodId/:accountId?" component={TransactionsPage}/>
-              <Route exact path="/:db/report/:periodId" component={ReportPage}/>
-              <Route exact path="/:db/report/:periodId/:accountId" component={ReportPage}/>
-              <Route exact path="/:db/report/:periodId/:accountId/:format" component={ReportPage}/>
-              <Route exact path="/:db/report/:periodId//:format" component={ReportPage}/>
-              <Route exact path="/:db/tools/:periodId?/:accountId?/:tool?" component={ToolsPage}/>
-              <Route exact path="/:db/tools/:periodId//:tool?" component={ToolsPage}/>
-              <Route exact path="/:db/tools//:accountId/:tool?" component={ToolsPage}/>
-              <Route exact path="/:db/tools///:tool?" component={ToolsPage}/>
-              <Route path="/:db/account/:periodId?" component={AccountsPage}/>
-              <Route exact path="/:db/data" component={ImportPage}/>
-              <Route exact path="/:db/data/:periodId" component={ImportPage}/>
-              <Route exact path="/:db/data/:periodId/:accountId" component={ImportPage}/>
-              <Route exact path="/:db/data/:periodId//:importerId" component={ImportPage}/>
-              <Route exact path="/:db/data///:importerId" component={ImportPage}/>
-              <Route exact path="/:db/data/:periodId/:accountId/:importerId" component={ImportPage}/>
-              <Route exact path="/:db/settings/:periodId?/:accountId?/:section?" component={SettingsPage}/>
-              <Route exact path="/:db/settings/:periodId?//:section?" component={SettingsPage}/>
-              <Route exact path="/:db/settings///:section?" component={SettingsPage}/>
-              <Route exact path="/:db/shop/:periodId?/:accountId?/:plugin?" component={ShopPage}/>
-              <Route exact path="/:db/shop/:periodId?//:plugin?" component={ShopPage}/>
-              <Route exact path="/:db/shop///:plugin?" component={ShopPage}/>
+              <Route path="/:db/txs/:periodId/:accountId?" element={<TransactionsPage/>}/>
+              <Route exact path="/:db/report/:periodId" element={<ReportPage/>}/>
+              <Route exact path="/:db/report/:periodId/:accountId" element={<ReportPage/>}/>
+              <Route exact path="/:db/report/:periodId/:accountId/:format" element={<ReportPage/>}/>
+              <Route exact path="/:db/report/:periodId//:format" element={<ReportPage/>}/>
+              <Route exact path="/:db/tools/:periodId?/:accountId?/:tool?" element={<ToolsPage/>}/>
+              <Route exact path="/:db/tools/:periodId//:tool?" element={<ToolsPage/>}/>
+              <Route exact path="/:db/tools//:accountId/:tool?" element={<ToolsPage/>}/>
+              <Route exact path="/:db/tools///:tool?" element={<ToolsPage/>}/>
+              <Route path="/:db/account/:periodId?" element={<AccountsPage/>}/>
+              <Route exact path="/:db/data" element={<ImportPage/>}/>
+              <Route exact path="/:db/data/:periodId" element={<ImportPage/>}/>
+              <Route exact path="/:db/data/:periodId/:accountId" element={<ImportPage/>}/>
+              <Route exact path="/:db/data/:periodId//:importerId" element={<ImportPage/>}/>
+              <Route exact path="/:db/data///:importerId" element={<ImportPage/>}/>
+              <Route exact path="/:db/data/:periodId/:accountId/:importerId" element={<ImportPage/>}/>
+              <Route exact path="/:db/settings/:periodId?/:accountId?/:section?" element={<SettingsPage/>}/>
+              <Route exact path="/:db/settings/:periodId?//:section?" element={<SettingsPage/>}/>
+              <Route exact path="/:db/settings///:section?" element={<SettingsPage/>}/>
+              <Route exact path="/:db/shop/:periodId?/:accountId?/:plugin?" element={<ShopPage/>}/>
+              <Route exact path="/:db/shop/:periodId?//:plugin?" element={<ShopPage/>}/>
+              <Route exact path="/:db/shop///:plugin?" element={<ShopPage/>}/>
             </Paper>
           </div>
         </div>

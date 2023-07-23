@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import ReactRouterPropTypes from 'react-router-prop-types'
 import { Localize, Title } from '@dataplug/tasenor-common-ui'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { withTranslation, Trans } from 'react-i18next'
 import Store from '../Stores/Store'
 import { Button, Typography, Avatar, List, ListItem } from '@mui/material'
 import Panel from '../Components/Panel'
 import { action } from 'mobx'
 import { haveCursor } from '@dataplug/tasenor-common'
+import withStore from '../Hooks/withStore'
 
 @withTranslation('translations')
-@inject('store')
+@withStore
 @observer
 class DashboardPage extends Component {
 
@@ -19,8 +19,8 @@ class DashboardPage extends Component {
     if (!this.props.store.database) {
       return
     }
-    if (this.props.store.database.name !== this.props.match.params.db) {
-      this.props.store.setDb(this.props.match.params.db)
+    if (this.props.store.database.name !== this.match.params.db) {
+      this.props.store.setDb(this.match.params.db)
     }
   }
 
@@ -34,7 +34,7 @@ class DashboardPage extends Component {
     const { dbs } = this.props.store
     num--
     if (num < dbs.length) {
-      this.props.history.push(`/${dbs[num].name}`)
+      this.props.navigate(`/${dbs[num].name}`)
     }
   }
 
@@ -75,7 +75,7 @@ class DashboardPage extends Component {
         <Title><Trans>No Database Selected</Trans></Title>
       </>
     }
-    const { periodId } = this.props.match.params
+    const { periodId } = this.props.params
 
     return (
       <div className="Dashboard">
@@ -109,7 +109,6 @@ class DashboardPage extends Component {
 
 DashboardPage.propTypes = {
   match: PropTypes.object,
-  history: ReactRouterPropTypes.history.isRequired,
   store: PropTypes.instanceOf(Store),
 }
 
