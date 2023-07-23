@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { withTranslation, Trans } from 'react-i18next'
 import { haveSettings } from '@dataplug/tasenor-common'
 import { Card, CardActions, CardContent, Button, CardHeader, Chip } from '@mui/material'
@@ -11,6 +11,8 @@ import Catalog from '../Stores/Catalog'
 import PluginPrice from './PluginPrice'
 import Store from '../Stores/Store'
 import withRouter from '../Hooks/withRouter'
+import withCatalog from '../Hooks/withCatalog'
+import withStore from '../Hooks/withStore'
 
 const PluginUse = ({ use }) => {
   const colors = {
@@ -67,8 +69,8 @@ PluginType.propTypes = {
 
 @withRouter
 @withTranslation('translations')
-@inject('catalog')
-@inject('store')
+@withCatalog
+@withStore
 @observer
 class Plugin extends Component {
 

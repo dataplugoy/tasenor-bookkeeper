@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { withTranslation, Trans } from 'react-i18next'
 import Store from '../Stores/Store'
 import Cursor from '../Stores/Cursor'
@@ -9,22 +9,23 @@ import UserList from '../Components/UserList'
 import { Title } from '@dataplug/tasenor-common-ui'
 import PluginList from '../Components/PluginList'
 import withRouter from '../Hooks/withRouter'
+import withStore from '../Hooks/withStore'
 
 @withRouter
 @withTranslation('translations')
-@inject('store')
+@withStore
 @observer
 class AdminPage extends Component {
 
   render() {
-    const { store, match } = this.props
+    const { store, params } = this.props
 
     if (!store.isLoggedIn()) {
       return ''
     }
 
     const defaultTool = store.isSuperuser ? 'plugins' : 'users'
-    const tool = match.params && match.params.tool ? match.params.tool : defaultTool
+    const tool = params && params.tool ? params.tool : defaultTool
 
     if (tool === 'users') {
       return (

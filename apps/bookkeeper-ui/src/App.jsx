@@ -7,9 +7,9 @@ import { Alert, Paper } from '@mui/material'
 // import Account from './Components/Account'
 // import AccountsPage from './Pages/AccountsPage'
 // import AccountsToolPanel from './Components/AccountsToolPanel'
-// import AdminPage from './Pages/AdminPage'
-// import AdminToolPanel from './Components/AdminToolPanel'
-// import AdminToolsList from './Components/AdminToolsList'
+import AdminPage from './Pages/AdminPage'
+import AdminToolPanel from './Components/AdminToolPanel'
+import AdminToolsList from './Components/AdminToolsList'
 // import Balances from './Components/Balances'
 import Configuration from './Configuration'
 // import DashboardPage from './Pages/DashboardPage'
@@ -89,15 +89,38 @@ class App extends Component {
           <Paper className="SidePanel Panel" elevation={4}>
             <Routes>
               <Route exact path="/" element={<>{ !store.isLoggedIn() && <LoginSidePanel/>}</>}/>
+              <Route exact path="/:db/admin/:periodId/:accountId/:tool" element={<AdminToolsList/>}/>
+              <Route exact path="/:db/admin/:periodId/:accountId" element={<AdminToolsList/>}/>
+              <Route exact path="/:db/admin//:accountId/:tool" element={<AdminToolsList/>}/>
+              <Route exact path="/:db/admin/:periodId//:tool" element={<AdminToolsList/>}/>
+              <Route exact path="/:db/admin/:periodId" element={<AdminToolsList/>}/>
+              <Route exact path="/:db/admin///:tool" element={<AdminToolsList/>}/>
+              <Route exact path="/:db/admin" element={<AdminToolsList/>}/>
             </Routes>
           </Paper>
           <div className="MainArea">
             <Paper className="MainTopPanel Panel" elevation={4}>
               {store.motd && <Alert variant="filled" severity="error"><b>{store.motd}</b></Alert>}
+              <Routes>
+                <Route exact path="/:db/admin/:periodId/:accountId/:tool" element={<AdminToolPanel/>}/>
+                <Route exact path="/:db/admin/:periodId/:accountId" element={<AdminToolPanel/>}/>
+                <Route exact path="/:db/admin//:accountId/:tool" element={<AdminToolPanel/>}/>
+                <Route exact path="/:db/admin/:periodId//:tool" element={<AdminToolPanel/>}/>
+                <Route exact path="/:db/admin/:periodId" element={<AdminToolPanel/>}/>
+                <Route exact path="/:db/admin///:tool" element={<AdminToolPanel/>}/>
+                <Route exact path="/:db/admin" element={<AdminToolPanel/>}/>
+              </Routes>
             </Paper>
             <Paper className="MainPanel Panel" elevation={4}>
               <Routes>
                 <Route exact path="/" element={<LoginPage/>}/>
+                <Route exact path="/:db/admin/:periodId/:accountId/:tool" element={<AdminPage/>}/>
+                <Route exact path="/:db/admin/:periodId/:accountId" element={<AdminPage/>}/>
+                <Route exact path="/:db/admin//:accountId/:tool" element={<AdminPage/>}/>
+                <Route exact path="/:db/admin/:periodId//:tool" element={<AdminPage/>}/>
+                <Route exact path="/:db/admin/:periodId" element={<AdminPage/>}/>
+                <Route exact path="/:db/admin///:tool" element={<AdminPage/>}/>
+                <Route exact path="/:db/admin" element={<AdminPage/>}/>
               </Routes>
             </Paper>
             <div className={`Version ${store.isLoggedIn() ? 'logged-in' : 'not-logged-in'}`} style={{ color: 'rgb(0,0,0,0.5)', fontSize: '0.6rem', position: 'absolute', right: '2px', bottom: '2px' }}>v{Configuration.VERSION}</div>
@@ -113,13 +136,6 @@ class App extends Component {
         <div className="Page">
           <Paper className="SidePanel Panel" elevation={4}>
             <Route exact path="/" component={DatabaseList}/>
-            <Route exact path="/:db/admin/:periodId/:accountId/:tool" component={AdminToolsList}/>
-            <Route exact path="/:db/admin/:periodId/:accountId" component={AdminToolsList}/>
-            <Route exact path="/:db/admin//:accountId/:tool" component={AdminToolsList}/>
-            <Route exact path="/:db/admin/:periodId//:tool" component={AdminToolsList}/>
-            <Route exact path="/:db/admin/:periodId" component={AdminToolsList}/>
-            <Route exact path="/:db/admin///:tool" component={AdminToolsList}/>
-            <Route exact path="/:db/admin" component={AdminToolsList}/>
             <Route exact path="/:db" component={DatabaseList}/>
             <Route exact path="/:db/dashboard/:periodId?" component={DatabaseList}/>
             <Route exact path="/:db/dashboard/:periodId/:accountId" component={DatabaseList}/>
@@ -148,13 +164,6 @@ class App extends Component {
           </Paper>
           <div className="MainArea">
             <Paper className="MainTopPanel Panel" elevation={4}>
-              <Route exact path="/:db/admin/:periodId/:accountId/:tool" component={AdminToolPanel}/>
-              <Route exact path="/:db/admin/:periodId/:accountId" component={AdminToolPanel}/>
-              <Route exact path="/:db/admin//:accountId/:tool" component={AdminToolPanel}/>
-              <Route exact path="/:db/admin/:periodId//:tool" component={AdminToolPanel}/>
-              <Route exact path="/:db/admin/:periodId" component={AdminToolPanel}/>
-              <Route exact path="/:db/admin///:tool" component={AdminToolPanel}/>
-              <Route exact path="/:db/admin" component={AdminToolPanel}/>
               <Route path="/:db/txs/:periodId/:accountId?" component={TransactionToolPanel}/>
               <Route exact path="/:db/report/:periodId" component={ReportToolPanel}/>
               <Route exact path="/:db/report/:periodId/:accountId" component={ReportToolPanel}/>
@@ -177,13 +186,6 @@ class App extends Component {
             </Paper>
             <Paper className="MainPanel Panel" elevation={4}>
               <Route exact path="/" component={DashboardPage}/>
-              <Route exact path="/:db/admin/:periodId/:accountId/:tool" component={AdminPage}/>
-              <Route exact path="/:db/admin/:periodId/:accountId" component={AdminPage}/>
-              <Route exact path="/:db/admin//:accountId/:tool" component={AdminPage}/>
-              <Route exact path="/:db/admin/:periodId//:tool" component={AdminPage}/>
-              <Route exact path="/:db/admin/:periodId" component={AdminPage}/>
-              <Route exact path="/:db/admin///:tool" component={AdminPage}/>
-              <Route exact path="/:db/admin" component={AdminPage}/>
               <Route exact path="/:db" component={DashboardPage}/>
               <Route exact path="/:db/dashboard" component={DashboardPage}/>
               <Route exact path="/:db/dashboard/:periodId" component={DashboardPage}/>

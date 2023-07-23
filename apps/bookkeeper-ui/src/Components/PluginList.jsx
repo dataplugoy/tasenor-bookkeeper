@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import ReactRouterPropTypes from 'react-router-prop-types'
 import Catalog from '../Stores/Catalog'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import Plugin from './Plugin'
 import withRouter from '../Hooks/withRouter'
+import withCatalog from '../Hooks/withCatalog'
 
 @withRouter
-@inject('catalog')
+@withCatalog
 @observer
 class PluginList extends Component {
 
@@ -22,8 +22,7 @@ class PluginList extends Component {
 
 PluginList.propTypes = {
   catalog: PropTypes.instanceOf(Catalog),
-  location: PropTypes.object,
-  history: ReactRouterPropTypes.history
+  location: PropTypes.object
 }
 
 export default PluginList

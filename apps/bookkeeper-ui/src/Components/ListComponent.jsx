@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
-import ReactRouterPropTypes from 'react-router-prop-types'
 import { List, ListItem, Avatar, ListItemAvatar, ListItemText } from '@mui/material'
 import { Trans } from 'react-i18next'
 import Store from '../Stores/Store'
@@ -10,13 +9,13 @@ import { Title } from '@dataplug/tasenor-common-ui'
 class ListComponent extends Component {
 
   url(comp, page) {
-    const { db, periodId, accountId } = this.props.match.params
+    const { db, periodId, accountId } = this.props.params
     return '/' + (db || '_') + '/' + comp + '/' + (periodId || '') + '/' + ((accountId) || '') + '/' + page
   }
 
   keyText(cursor, key) {
     const menu = this.getMenu()
-    const { history } = this.props
+    const { navigate } = this.props
     if (key >= '0' && key <= '9') {
       const index = key === '0' ? 10 : parseInt(key)
       let idx = 0
@@ -25,7 +24,7 @@ class ListComponent extends Component {
         idx++
         if (idx === index) {
           if (!menu[i].disabled()) {
-            history.push(this.url(menu[i].page, menu[i].id))
+            navigate(this.url(menu[i].page, menu[i].id))
             break
           }
         }
@@ -35,7 +34,7 @@ class ListComponent extends Component {
   }
 
   renderMenu(title, matchVar) {
-    const { store, match, history } = this.props
+    const { store, params, navigate } = this.props
     if (!store.isLoggedIn()) {
       return ''
     }
@@ -57,9 +56,9 @@ class ListComponent extends Component {
                   id={menu.cssId ? menu.cssId : (idx <= 10 ? `${idx % 10}` : '')}
                   key={menu.id}
                   button
-                  selected={match.params[matchVar] === `${menu.id}` || (!match.params[matchVar] && menu.default)}
+                  selected={params[matchVar] === `${menu.id}` || (!params[matchVar] && menu.default)}
                   disabled={menu.disabled()}
-                  onClick={() => history.push(this.url(menu.page, menu.id))}
+                  onClick={() => navigate(this.url(menu.page, menu.id))}
                 >
                   <ListItemAvatar color="primary">
                     <Avatar>{idx <= 10 ? idx % 10 : ''}</Avatar>
@@ -76,7 +75,6 @@ class ListComponent extends Component {
 
 ListComponent.propTypes = {
   match: PropTypes.object,
-  history: ReactRouterPropTypes.history.isRequired,
   store: PropTypes.instanceOf(Store),
 }
 

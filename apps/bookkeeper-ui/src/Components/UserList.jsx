@@ -1,21 +1,22 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
 import Cursor from '../Stores/Cursor'
 import { List, ListItem, ListItemText } from '@mui/material'
 import withRouter from '../Hooks/withRouter'
+import withStore from '../Hooks/withStore'
 
 @withRouter
 @withTranslation('translations')
-@inject('store')
+@withStore
 @observer
 class UserList extends Component {
 
   onClickUser(user) {
-    this.props.history.push(`/_/admin///users?user=${user.email}`)
+    this.props.navigate(`/_/admin///users?user=${user.email}`)
   }
 
   render() {

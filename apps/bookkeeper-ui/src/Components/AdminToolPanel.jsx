@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { withTranslation, Trans } from 'react-i18next'
 import { Dialog, IconButton, Title } from '@dataplug/tasenor-common-ui'
 import Store from '../Stores/Store'
@@ -8,10 +8,14 @@ import Catalog from '../Stores/Catalog'
 import RegisterForm from './RegisterForm'
 import { TextField } from '@mui/material'
 import { haveCursor } from '@dataplug/tasenor-common'
+import withStore from '../Hooks/withStore'
+import withCatalog from '../Hooks/withCatalog'
+import withRouter from '../Hooks/withRouter'
 
 @withTranslation('translations')
-@inject('store')
-@inject('catalog')
+@withStore
+@withCatalog
+@withRouter
 @observer
 class AdminToolPanel extends Component {
 
@@ -70,14 +74,14 @@ class AdminToolPanel extends Component {
   }
 
   render() {
-    const { store, match } = this.props
+    const { store, params } = this.props
 
     if (!store.isLoggedIn()) {
       return ''
     }
 
     const defaultTool = store.isSuperuser ? 'plugins' : 'users'
-    const tool = match.params && match.params.tool ? match.params.tool : defaultTool
+    const tool = params && params.tool ? params.tool : defaultTool
 
     if (tool === 'users') {
 
