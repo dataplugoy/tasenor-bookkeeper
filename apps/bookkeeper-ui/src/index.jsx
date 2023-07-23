@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { I18nextProvider } from 'react-i18next'
 import { Provider } from 'mobx-react'
 import App from './App'
-import { BrowserRouter, NavigateFunction } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import Store from './Stores/Store'
 import Cursor from './Stores/Cursor'
 import Settings from './Stores/Settings'
@@ -25,7 +25,7 @@ const knowledge = new Knowledge()
 setGlobalComponents(store, catalog, cursor, settings, knowledge)
 
 @withRouter
-class AppRenderer extends Component<{ navigate?: NavigateFunction }> {
+class AppRenderer extends Component {
   state = {
     loading: true
   }
