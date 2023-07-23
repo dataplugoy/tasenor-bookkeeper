@@ -2,14 +2,15 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import Catalog from '../Stores/Catalog'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { Title } from '@dataplug/tasenor-common-ui'
 import { Trans } from 'react-i18next'
 import Subscription from './Subscription'
 import withRouter from '../Hooks/withRouter'
+import withCatalog from '../Hooks/withCatalog'
 
 @withRouter
-@inject('catalog')
+@withCatalog
 @observer
 class Subscriptions extends Component {
 

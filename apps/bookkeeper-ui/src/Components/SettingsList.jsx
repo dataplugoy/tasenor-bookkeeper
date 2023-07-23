@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
 import ListComponent from './ListComponent'
@@ -7,11 +7,12 @@ import Catalog from '../Stores/Catalog'
 import { haveCursor, haveSettings } from '@dataplug/tasenor-common'
 import withRouter from '../Hooks/withRouter'
 import withStore from '../Hooks/withStore'
+import withCatalog from '../Hooks/withCatalog'
 
 @withTranslation('translations')
 @withRouter
 @withStore
-@inject('catalog')
+@withCatalog
 @observer
 class SettingsList extends ListComponent {
 

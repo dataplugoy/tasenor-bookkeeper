@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { withTranslation, Trans } from 'react-i18next'
 import Store from '../Stores/Store'
 import { Dialog, IconSpacer, IconButton, Title, FileUploader } from '@dataplug/tasenor-common-ui'
@@ -13,11 +13,12 @@ import { haveCursor, haveSettings } from '@dataplug/tasenor-common'
 import i18n from '../i18n'
 import withRouter from '../Hooks/withRouter'
 import withStore from '../Hooks/withStore'
+import withCatalog from '../Hooks/withCatalog'
 
 @withRouter
 @withTranslation('translations')
 @withStore
-@inject('catalog')
+@withCatalog
 @observer
 class ImportToolPanel extends Component {
 

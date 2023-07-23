@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { withTranslation, Trans } from 'react-i18next'
 import Store from '../Stores/Store'
 import { net } from '@dataplug/tasenor-common'
@@ -13,10 +13,11 @@ import Configuration from '../Configuration'
 import Panel from './Panel'
 import withRouter from '../Hooks/withRouter'
 import withStore from '../Hooks/withStore'
+import withCatalog from '../Hooks/withCatalog'
 
 @withRouter
 @withTranslation('translations')
-@inject('catalog')
+@withCatalog
 @withStore
 @observer
 class ToolsForDatabases extends Component {

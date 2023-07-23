@@ -1,16 +1,17 @@
 import { elementNames, haveSettings } from '@dataplug/tasenor-common'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import Store from '../Stores/Store'
 import { Title, SubPanel, RISP } from '@dataplug/tasenor-common-ui'
 import Panel from './Panel'
 import { Trans } from 'react-i18next'
 import Catalog from '../Stores/Catalog'
 import withStore from '../Hooks/withStore'
+import withCatalog from '../Hooks/withCatalog'
 
 @withStore
-@inject('catalog')
+@withCatalog
 @observer
 class PluginSettings extends Component {
 

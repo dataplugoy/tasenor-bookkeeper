@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
 import ToolsForPeriods from '../Components/ToolsForPeriods'
 import ToolsForDatabases from '../Components/ToolsForDatabases'
 import Catalog from '../Stores/Catalog'
 import withStore from '../Hooks/withStore'
+import withCatalog from '../Hooks/withCatalog'
 
 @withTranslation('translations')
 @withStore
-@inject('catalog')
+@withCatalog
 @observer
 class ToolsPage extends Component {
 

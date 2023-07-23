@@ -3,15 +3,15 @@ import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import Plugin from './Plugin'
 import { Trans } from 'react-i18next'
-import { inject } from 'mobx-react'
 import Catalog from '../Stores/Catalog'
 import { Button } from '@mui/material'
 import Store from '../Stores/Store'
 import withRouter from '../Hooks/withRouter'
 import withStore from '../Hooks/withStore'
+import withCatalog from '../Hooks/withCatalog'
 
 @withRouter
-@inject('catalog')
+@withCatalog
 @withStore
 class Subscription extends Component {
 

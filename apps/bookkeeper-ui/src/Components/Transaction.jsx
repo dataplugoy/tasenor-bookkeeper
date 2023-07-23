@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { action } from 'mobx'
 import { withTranslation, Trans } from 'react-i18next'
 import { Dialog, Money } from '@dataplug/tasenor-common-ui'
@@ -13,10 +13,11 @@ import { Error } from '@mui/icons-material'
 import Catalog from '../Stores/Catalog'
 import { haveCursor, haveSettings } from '@dataplug/tasenor-common'
 import withStore from '../Hooks/withStore'
+import withCatalog from '../Hooks/withCatalog'
 
 @withTranslation('translations')
 @withStore
-@inject('catalog')
+@withCatalog
 @observer
 class Transaction extends Component {
 

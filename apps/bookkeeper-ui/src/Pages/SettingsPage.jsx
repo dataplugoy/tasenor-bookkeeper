@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
 import Catalog from '../Stores/Catalog'
@@ -9,10 +9,11 @@ import PluginSettings from '../Components/PluginSettings'
 import SystemSettings from '../Components/SystemSettings'
 import DatabaseSettings from '../Components/DatabaseSettings'
 import withStore from '../Hooks/withStore'
+import withCatalog from '../Hooks/withCatalog'
 
 @withTranslation('translations')
 @withStore
-@inject('catalog')
+@withCatalog
 @observer
 class SettingsPage extends Component {
 
