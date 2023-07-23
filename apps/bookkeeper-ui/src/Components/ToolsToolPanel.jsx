@@ -11,10 +11,11 @@ import Catalog from '../Stores/Catalog'
 import { haveCursor, haveSettings } from '@dataplug/tasenor-common'
 import i18n from '../i18n'
 import withRouter from '../Hooks/withRouter'
+import withStore from '../Hooks/withStore'
 
 @withRouter
 @withTranslation('translations')
-@inject('store')
+@withStore
 @inject('catalog')
 @observer
 class ToolsToolPanel extends Component {

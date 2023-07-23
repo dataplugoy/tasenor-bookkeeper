@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import Store from '../Stores/Store'
 import TagModel from '../Models/TagModel'
 import { Avatar } from '@mui/material'
+import withStore from '../Hooks/withStore'
 
-@inject('store')
+@withStore
 @observer
 class Tags extends Component {
 

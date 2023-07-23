@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { Trans, withTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
 import { sprintf } from 'sprintf-js'
@@ -15,10 +15,11 @@ import { TableContainer, Table, TableHead, TableCell, TableRow, TableBody, Typog
 import { runInAction } from 'mobx'
 import { haveCursor, haveSettings, StockBookkeeping } from '@dataplug/tasenor-common'
 import withRouter from '../Hooks/withRouter'
+import withStore from '../Hooks/withStore'
 
 @withTranslation('translations')
 @withRouter
-@inject('store')
+@withStore
 @observer
 class TransactionTable extends Component {
 

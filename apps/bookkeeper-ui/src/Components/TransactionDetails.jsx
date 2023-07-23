@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { withTranslation } from 'react-i18next'
 import TextEdit from './TextEdit'
 import Store from '../Stores/Store'
@@ -9,10 +9,11 @@ import DocumentModel from '../Models/DocumentModel'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { haveCursor } from '@dataplug/tasenor-common'
 import withRouter from '../Hooks/withRouter'
+import withStore from '../Hooks/withStore'
 
 @withRouter
 @withTranslation('translations')
-@inject('store')
+@withStore
 @observer
 class TransactionDetails extends Component {
 

@@ -12,9 +12,10 @@ import { TableRow, TableCell, Typography } from '@mui/material'
 import { Error } from '@mui/icons-material'
 import Catalog from '../Stores/Catalog'
 import { haveCursor, haveSettings } from '@dataplug/tasenor-common'
+import withStore from '../Hooks/withStore'
 
 @withTranslation('translations')
-@inject('store')
+@withStore
 @inject('catalog')
 @observer
 class Transaction extends Component {

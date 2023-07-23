@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { withTranslation, Trans } from 'react-i18next'
 import Store from '../Stores/Store'
 import { IconButton, Localize } from '@dataplug/tasenor-common-ui'
 import { Table, TableContainer, TableBody, TableCell, TableRow, TableHead, Chip, Button } from '@mui/material'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import withRouter from '../Hooks/withRouter'
+import withStore from '../Hooks/withStore'
 
 const Locked = ({ lock }) => lock
   ? <Chip color="primary" label={<Trans>Locked</Trans>} />
@@ -18,7 +19,7 @@ Locked.propTypes = {
 
 @withRouter
 @withTranslation('translations')
-@inject('store')
+@withStore
 @observer
 class ToolsForPeriods extends Component {
 

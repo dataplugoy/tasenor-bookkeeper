@@ -8,10 +8,11 @@ import Catalog from '../Stores/Catalog'
 import { Button } from '@mui/material'
 import Store from '../Stores/Store'
 import withRouter from '../Hooks/withRouter'
+import withStore from '../Hooks/withStore'
 
 @withRouter
 @inject('catalog')
-@inject('store')
+@withStore
 class Subscription extends Component {
 
   render() {

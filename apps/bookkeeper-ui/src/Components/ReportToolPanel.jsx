@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { runInAction } from 'mobx'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { withTranslation, Trans } from 'react-i18next'
 import Store from '../Stores/Store'
 import { IconSpacer, IconButton, Title, downloadUrl } from '@dataplug/tasenor-common-ui'
 import Configuration from '../Configuration'
-import i18n from '../i18n'
 import { haveCursor } from '@dataplug/tasenor-common'
+import withStore from '../Hooks/withStore'
 
 const ICONS = {
   'option-compact': 'compact',
@@ -19,7 +19,7 @@ const ICONS = {
 }
 
 @withTranslation('translations')
-@inject('store')
+@withStore
 @observer
 class ReportToolPanel extends Component {
 

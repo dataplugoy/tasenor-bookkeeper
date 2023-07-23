@@ -1,15 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { Trans, withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
 import ListComponent from './ListComponent'
 import { haveCursor } from '@dataplug/tasenor-common'
 import { Note } from '@dataplug/tasenor-common-ui'
+import withStore from '../Hooks/withStore'
 
 @withTranslation('translations')
-@inject('store')
+@withStore
 @observer
 class ReportsList extends ListComponent {
 

@@ -7,8 +7,9 @@ import { Title, SubPanel, RISP } from '@dataplug/tasenor-common-ui'
 import Panel from './Panel'
 import { Trans } from 'react-i18next'
 import Catalog from '../Stores/Catalog'
+import withStore from '../Hooks/withStore'
 
-@inject('store')
+@withStore
 @inject('catalog')
 @observer
 class PluginSettings extends Component {

@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { withTranslation, Trans } from 'react-i18next'
 import BalanceTable from '../Components/BalanceTable'
 import Store from '../Stores/Store'
 import { Title } from '@dataplug/tasenor-common-ui'
+import withStore from '../Hooks/withStore'
 
 @withTranslation('translations')
-@inject('store')
+@withStore
 @observer
 class Balances extends Component {
 

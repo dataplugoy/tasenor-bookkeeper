@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import AccountLink from '../Components/AccountLink'
 import Store from '../Stores/Store'
 import AccountModel from '../Models/AccountModel'
 import './AccountTable.css'
 import { Table, TableBody, TableContainer, TableRow, TableCell } from '@mui/material'
+import withStore from '../Hooks/withStore'
 
-@inject('store')
+@withStore
 @observer
 class AccountTable extends Component {
 

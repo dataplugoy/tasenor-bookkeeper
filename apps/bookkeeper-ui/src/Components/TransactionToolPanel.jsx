@@ -3,13 +3,14 @@ import { TagChip, IconButton, Title } from '@dataplug/tasenor-common-ui'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Configuration from '../Configuration'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import Store from '../Stores/Store'
 import { Trans } from 'react-i18next'
 import i18n from '../i18n'
 import { action, runInAction } from 'mobx'
+import withStore from '../Hooks/withStore'
 
-@inject('store')
+@withStore
 @observer
 class TransactionToolPanel extends Component {
 

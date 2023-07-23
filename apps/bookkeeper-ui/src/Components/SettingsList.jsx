@@ -6,10 +6,11 @@ import ListComponent from './ListComponent'
 import Catalog from '../Stores/Catalog'
 import { haveCursor, haveSettings } from '@dataplug/tasenor-common'
 import withRouter from '../Hooks/withRouter'
+import withStore from '../Hooks/withStore'
 
 @withTranslation('translations')
 @withRouter
-@inject('store')
+@withStore
 @inject('catalog')
 @observer
 class SettingsList extends ListComponent {

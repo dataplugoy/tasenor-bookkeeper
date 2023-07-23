@@ -6,9 +6,10 @@ import Store from '../Stores/Store'
 import ToolsForPeriods from '../Components/ToolsForPeriods'
 import ToolsForDatabases from '../Components/ToolsForDatabases'
 import Catalog from '../Stores/Catalog'
+import withStore from '../Hooks/withStore'
 
 @withTranslation('translations')
-@inject('store')
+@withStore
 @inject('catalog')
 @observer
 class ToolsPage extends Component {

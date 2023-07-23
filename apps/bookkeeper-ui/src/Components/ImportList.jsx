@@ -9,10 +9,11 @@ import ListComponent from './ListComponent'
 import { Title, Note } from '@dataplug/tasenor-common-ui'
 import { haveCursor } from '@dataplug/tasenor-common'
 import withRouter from '../Hooks/withRouter'
+import withStore from '../Hooks/withStore'
 
 @withRouter
 @withTranslation('translations')
-@inject('store')
+@withStore
 @inject('catalog')
 @observer
 class ToolsList extends ListComponent {

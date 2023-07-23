@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { action, runInAction } from 'mobx'
 import { Trans, withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
@@ -11,9 +11,10 @@ import Labeled from './Labeled'
 import SubTitle from './SubTitle'
 import { Lock, LockOpen } from '@mui/icons-material'
 import { haveKnowledge } from '@dataplug/tasenor-common'
+import withStore from '../Hooks/withStore'
 
 @withTranslation('translations')
-@inject('store')
+@withStore
 @observer
 class Account extends Component {
 
@@ -29,7 +30,7 @@ class Account extends Component {
   }
 
   componentDidMount() {
-    const { db, periodId, accountId } = this.props.match.params
+    const { db, periodId, accountId } = this.props.params
     if (accountId) {
       this.props.store.setAccount(db, periodId, accountId)
     } else if (periodId) {
@@ -71,7 +72,7 @@ class Account extends Component {
 
   @action.bound
   onDeleteAccount() {
-    const { db, periodId } = this.props.match.params
+    const { db, periodId } = this.props.params
     this.props.store.account.delete()
       .then(() => this.props.history.push(`/${db}/account/${periodId || ''}`))
   }

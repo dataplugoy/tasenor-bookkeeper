@@ -8,9 +8,10 @@ import Profile from '../Components/Profile'
 import PluginSettings from '../Components/PluginSettings'
 import SystemSettings from '../Components/SystemSettings'
 import DatabaseSettings from '../Components/DatabaseSettings'
+import withStore from '../Hooks/withStore'
 
 @withTranslation('translations')
-@inject('store')
+@withStore
 @inject('catalog')
 @observer
 class SettingsPage extends Component {

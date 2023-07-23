@@ -12,11 +12,12 @@ import Catalog from '../Stores/Catalog'
 import Configuration from '../Configuration'
 import Panel from './Panel'
 import withRouter from '../Hooks/withRouter'
+import withStore from '../Hooks/withStore'
 
 @withRouter
 @withTranslation('translations')
 @inject('catalog')
-@inject('store')
+@withStore
 @observer
 class ToolsForDatabases extends Component {
 

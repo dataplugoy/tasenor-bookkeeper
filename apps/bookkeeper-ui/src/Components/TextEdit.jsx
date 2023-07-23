@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import { withTranslation } from 'react-i18next'
 import Model from '../Models/Model'
 import { TextField, List, ListItem, Popper, Paper } from '@mui/material'
-import { inject } from 'mobx-react'
 import Store from '../Stores/Store'
 import { haveCursor } from '@dataplug/tasenor-common'
+import withStore from '../Hooks/withStore'
 
-@inject('store')
+@withStore
 @withTranslation('translations')
 class TextEdit extends Component {
 
