@@ -50,7 +50,7 @@ class ImportToolPanel extends Component {
   }
 
   keyIconS() {
-    const { importerId } = this.props.match.params
+    const { importerId } = this.props.params
     if (importerId) {
       this.setState({ showEdiSettingstDialog: !this.state.showEdiSettingstDialog })
     }
@@ -59,7 +59,7 @@ class ImportToolPanel extends Component {
 
   async onUpload(files) {
     const { store, t } = this.props
-    const { importerId } = this.props.match.params
+    const { importerId } = this.props.params
     if (!importerId) {
       store.addError('Arbitrary file upload not yet implemented. Please create and select an importer.')
       return
@@ -95,7 +95,7 @@ class ImportToolPanel extends Component {
 
     store.addMessage(t('New importer created.'))
 
-    const { db, periodId, accountId } = this.props.match.params
+    const { db, periodId, accountId } = this.props.params
     const url = '/' + (db || '_') + '/data/' + (periodId || '') + '/' + ((accountId) || '') + '/' + importer.id
     this.props.history.push(url)
   }
@@ -107,7 +107,7 @@ class ImportToolPanel extends Component {
 
   render() {
     const { store, t, catalog } = this.props
-    const { importerId } = this.props.match.params
+    const { importerId } = this.props.params
     const canImport = Object.keys(catalog.getImportOptions()).length > 0
 
     if (!store.isLoggedIn()) {
@@ -169,7 +169,7 @@ class ImportToolPanel extends Component {
 
 ImportToolPanel.propTypes = {
   t: PropTypes.func,
-  match: PropTypes.object,
+  params: PropTypes.object,
   history: ReactRouterPropTypes.history,
   store: PropTypes.instanceOf(Store),
   catalog: PropTypes.instanceOf(Catalog)

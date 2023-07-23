@@ -10,7 +10,7 @@ import withStore from '../Hooks/withStore'
 class TransactionsPage extends Component {
 
   componentDidMount() {
-    const { db, periodId, accountId } = this.props.match.params
+    const { db, periodId, accountId } = this.props.params
     if (accountId) {
       this.props.store.setAccount(db, periodId, accountId)
     } else {
@@ -19,7 +19,7 @@ class TransactionsPage extends Component {
   }
 
   componentDidUpdate() {
-    const { db, periodId, accountId } = this.props.match.params
+    const { db, periodId, accountId } = this.props.params
     if (accountId) {
       this.props.store.setAccount(db, periodId, accountId)
     } else {
@@ -40,7 +40,7 @@ class TransactionsPage extends Component {
 }
 
 TransactionsPage.propTypes = {
-  match: PropTypes.object,
+  params: PropTypes.object,
   store: PropTypes.instanceOf(Store)
 }
 

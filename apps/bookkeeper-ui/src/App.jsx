@@ -31,7 +31,7 @@ import { haveStore } from '@dataplug/tasenor-common'
 // import Subscriptions from './Components/Subscriptions'
 // import ToolsList from './Components/ToolsList'
 // import ToolsPage from './Pages/ToolsPage'
-// import ToolsToolPanel from './Components/ToolsToolPanel'
+import ToolsToolPanel from './Components/ToolsToolPanel'
 // import TransactionsPage from './Pages/TransactionsPage'
 // import TransactionToolPanel from './Components/TransactionToolPanel'
 
@@ -115,6 +115,10 @@ class App extends Component {
                 <Route exact path="/:db/admin///:tool" element={<AdminToolPanel/>}/>
                 <Route exact path="/:db/admin" element={<AdminToolPanel/>}/>
                 <Route exact path="/:db/dashboard" element={<></>}/>
+                <Route exact path="/:db/tools/:periodId?/:accountId?/:tool?" element={<ToolsToolPanel/>}/>
+                <Route exact path="/:db/tools/:periodId//:tool?" element={<ToolsToolPanel/>}/>
+                <Route exact path="/:db/tools//:accountId/:tool?" element={<ToolsToolPanel/>}/>
+                <Route exact path="/:db/tools///:tool?" element={<ToolsToolPanel/>}/>
               </Routes>
             </Paper>
             <Paper className="MainPanel Panel" elevation={4}>
@@ -142,8 +146,6 @@ class App extends Component {
     /*
     return (
       <div className="App">
-        <div className="TopPanel Panel">
-        </div>
         <div className="Page">
           <Paper className="SidePanel Panel" elevation={4}>
             <Route path="/:db/txs/:periodId" element={<Balances/>}/>
@@ -183,10 +185,6 @@ class App extends Component {
               <Route exact path="/:db/data/:periodId//:importerId" element={<ImportToolPanel/>}/>
               <Route exact path="/:db/data///:importerId" element={<ImportToolPanel/>}/>
               <Route exact path="/:db/data/:periodId/:accountId/:importerId" element={<ImportToolPanel/>}/>
-              <Route exact path="/:db/tools/:periodId?/:accountId?/:tool?" element={<ToolsToolPanel/>}/>
-              <Route exact path="/:db/tools/:periodId//:tool?" element={<ToolsToolPanel/>}/>
-              <Route exact path="/:db/tools//:accountId/:tool?" element={<ToolsToolPanel/>}/>
-              <Route exact path="/:db/tools///:tool?" element={<ToolsToolPanel/>}/>
               <Route exact path="/:db/settings/:periodId?/:accountId?/:section?" element={<()/> => ''}/>
               <Route exact path="/:db/settings/:periodId?//:section?" element={<()/> => ''}/>
               <Route exact path="/:db/settings///:section?" element={<()/> => ''}/>

@@ -48,7 +48,7 @@ class ToolsToolPanel extends Component {
   }
 
   keyIconA() {
-    const tool = this.props.match.params.tool
+    const tool = this.props.params.tool
     if (!tool || tool === 'databases') {
       this.setState({ askNew: true })
       return { preventDefault: true }
@@ -56,7 +56,7 @@ class ToolsToolPanel extends Component {
   }
 
   keyIconU() {
-    const tool = this.props.match.params.tool
+    const tool = this.props.params.tool
     if (!tool || tool === 'databases') {
       this.setState({ askUpload: true })
       return { preventDefault: true }
@@ -136,7 +136,7 @@ class ToolsToolPanel extends Component {
 
   render() {
     const { t, store, catalog } = this.props
-    const tool = this.props.match.params.tool
+    const tool = this.props.params.tool
 
     if (!store.isLoggedIn()) {
       return ''
@@ -305,7 +305,7 @@ class ToolsToolPanel extends Component {
 ToolsToolPanel.propTypes = {
   t: PropTypes.func,
   history: PropTypes.any,
-  match: PropTypes.object,
+  params: PropTypes.object,
   store: PropTypes.instanceOf(Store),
   catalog: PropTypes.instanceOf(Catalog),
 }

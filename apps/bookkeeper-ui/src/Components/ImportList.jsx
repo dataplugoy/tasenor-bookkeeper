@@ -30,14 +30,14 @@ class ToolsList extends ListComponent {
   }
 
   componentDidUpdate(oldProps) {
-    if (oldProps.match.params.importerId !== this.props.match.params.importerId) {
+    if (oldProps.params.importerId !== this.props.params.importerId) {
       this.update()
     }
   }
 
   update() {
-    const { store, match } = this.props
-    store.fetchImporters(match.params.db).then(importers => this.setState({ importers }))
+    const { store, params } = this.props
+    store.fetchImporters(params.db).then(importers => this.setState({ importers }))
   }
 
   getMenu() {

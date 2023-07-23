@@ -10,12 +10,12 @@ import withStore from '../Hooks/withStore'
 class ReportPage extends Component {
 
   componentDidMount() {
-    const { db, periodId, format } = this.props.match.params
+    const { db, periodId, format } = this.props.params
     this.props.store.fetchReport(db, periodId, format)
   }
 
   componentDidUpdate() {
-    const { db, periodId, format } = this.props.match.params
+    const { db, periodId, format } = this.props.params
     this.props.store.fetchReport(db, periodId, format)
   }
 
@@ -34,7 +34,7 @@ class ReportPage extends Component {
 }
 
 ReportPage.propTypes = {
-  match: PropTypes.object,
+  params: PropTypes.object,
   store: PropTypes.instanceOf(Store)
 }
 export default ReportPage

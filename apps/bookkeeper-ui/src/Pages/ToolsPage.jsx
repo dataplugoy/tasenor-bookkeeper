@@ -20,7 +20,7 @@ class ToolsPage extends Component {
     if (!this.props.store.isLoggedIn()) {
       return ''
     }
-    const { db, tool } = this.props.match.params
+    const { db, tool } = this.props.params
 
     const pluginPanel = this.props.catalog.renderToolMainPanel(tool)
     if (pluginPanel) {
@@ -36,7 +36,7 @@ class ToolsPage extends Component {
 }
 
 ToolsPage.propTypes = {
-  match: PropTypes.object,
+  params: PropTypes.object,
   store: PropTypes.instanceOf(Store),
   catalog: PropTypes.instanceOf(Catalog)
 }
