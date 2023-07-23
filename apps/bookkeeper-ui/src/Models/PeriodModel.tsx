@@ -1,4 +1,3 @@
-import { ID } from '@dataplug/tasenor-common'
 import { runInAction } from 'mobx'
 import ReportModel from './ReportModel'
 import DocumentModel from './DocumentModel'
@@ -7,7 +6,6 @@ import DatabaseModel from './DatabaseModel'
 
 class PeriodModel extends Model {
 
-  id: ID
   start_date: string
   end_date: string
   locked: boolean

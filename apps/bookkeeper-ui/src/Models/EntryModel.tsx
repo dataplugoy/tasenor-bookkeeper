@@ -14,7 +14,6 @@ import PeriodModel from './PeriodModel'
 
 class EntryModel extends NavigationTargetModel {
 
-  id: ID
   account_id: ID | null
   amount: number
   debit: 0 | 1

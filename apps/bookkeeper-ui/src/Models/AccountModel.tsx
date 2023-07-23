@@ -1,4 +1,4 @@
-import { Currency, Language, ID } from '@dataplug/tasenor-common'
+import { Currency, Language } from '@dataplug/tasenor-common'
 import { runInAction } from 'mobx'
 import DatabaseModel from './DatabaseModel'
 import Model from './Model'
@@ -6,7 +6,6 @@ import TagModel from './TagModel'
 
 class AccountModel extends Model {
 
-  id: ID
   number: null | string
   name: null | string
   type: 'ASSET' | 'LIABILITY' | 'EQUITY' | 'REVENUE' | 'EXPENSE' | 'PROFIT_PREV' | 'PROFIT'

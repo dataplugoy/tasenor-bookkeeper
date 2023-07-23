@@ -5,7 +5,6 @@ import DatabaseModel from './DatabaseModel'
 
 class BalanceModel extends NavigationTargetModel {
 
-  id: ID
   account_id: ID
   debit: null | number
   credit: null | number
@@ -13,6 +12,7 @@ class BalanceModel extends NavigationTargetModel {
 
   constructor(parent, init = {}) {
     super(parent, {
+      id: null,
       // The linked account this entry is affecting.
       account_id: null,
       // Sum of debits in cents.

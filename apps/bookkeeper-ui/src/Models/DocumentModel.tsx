@@ -7,7 +7,6 @@ import { ID, ImportExecutionResult } from '@dataplug/tasenor-common'
 
 class DocumentModel extends NavigationTargetModel {
 
-  id: ID
   number: null | number
   period_id: ID
   date: null | string
