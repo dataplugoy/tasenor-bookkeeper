@@ -2,6 +2,8 @@
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
   "globalEnv": [
+    "API_URL",
+    "API_SITE_TOKEN",
     "DATABASE_URL",
     "DB_HOST_OVERRIDE",
     "DEBUG_ANALYSIS",
