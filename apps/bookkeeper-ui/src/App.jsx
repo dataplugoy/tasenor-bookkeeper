@@ -26,9 +26,9 @@ import Messages from './Components/Messages'
 // import ReportToolPanel from './Components/ReportToolPanel'
 import SettingsList from './Components/SettingsList'
 import SettingsPage from './Pages/SettingsPage'
-// import ShopPage from './Pages/ShopPage'
+import ShopPage from './Pages/ShopPage'
 import { haveStore } from '@dataplug/tasenor-common'
-// import Subscriptions from './Components/Subscriptions'
+import Subscriptions from './Components/Subscriptions'
 import ToolsList from './Components/ToolsList'
 import ToolsPage from './Pages/ToolsPage'
 import ToolsToolPanel from './Components/ToolsToolPanel'
@@ -107,6 +107,9 @@ class App extends Component {
               <Route exact path="/:db/tools/:periodId//:tool?" element={<ToolsList/>}/>
               <Route exact path="/:db/tools//:accountId/:tool?" element={<ToolsList/>}/>
               <Route exact path="/:db/tools///:tool?" element={<ToolsList/>}/>
+              <Route exact path="/:db/shop/:periodId?/:accountId?/:plugin?" element={<Subscriptions/>}/>
+              <Route exact path="/:db/shop/:periodId?//:plugin?" element={<Subscriptions/>}/>
+              <Route exact path="/:db/shop///:plugin?" element={<Subscriptions/>}/>
             </Routes>
           </Paper>
           <div className="MainArea">
@@ -129,6 +132,9 @@ class App extends Component {
                 <Route exact path="/:db/settings/:periodId?/:accountId?/:section?" element={<></>}/>
                 <Route exact path="/:db/settings/:periodId?//:section?" element={<></>}/>
                 <Route exact path="/:db/settings///:section?" element={<></>}/>
+                <Route exact path="/:db/shop/:periodId?/:accountId?/:plugin?" element={<></>}/>
+                <Route exact path="/:db/shop/:periodId?//:plugin?" element={<></>}/>
+                <Route exact path="/:db/shop///:plugin?" element={<></>}/>
               </Routes>
             </Paper>
             <Paper className="MainPanel Panel" elevation={4}>
@@ -153,6 +159,9 @@ class App extends Component {
                 <Route exact path="/:db/settings/:periodId?/:accountId?/:section?" element={<SettingsPage/>}/>
                 <Route exact path="/:db/settings/:periodId?//:section?" element={<SettingsPage/>}/>
                 <Route exact path="/:db/settings///:section?" element={<SettingsPage/>}/>
+                <Route exact path="/:db/shop/:periodId?/:accountId?/:plugin?" element={<ShopPage/>}/>
+                <Route exact path="/:db/shop/:periodId?//:plugin?" element={<ShopPage/>}/>
+                <Route exact path="/:db/shop///:plugin?" element={<ShopPage/>}/>
               </Routes>
             </Paper>
             <div className={`Version ${store.isLoggedIn() ? 'logged-in' : 'not-logged-in'}`} style={{ color: 'rgb(0,0,0,0.5)', fontSize: '0.6rem', position: 'absolute', right: '2px', bottom: '2px' }}>v{Configuration.VERSION}</div>
@@ -177,9 +186,6 @@ class App extends Component {
             <Route exact path="/:db/data/:periodId//:importerId" element={<ImportList/>}/>
             <Route exact path="/:db/data///:importerId" element={<ImportList/>}/>
             <Route exact path="/:db/data/:periodId/:accountId/:importerId" element={<ImportList/>}/>
-            <Route exact path="/:db/shop/:periodId?/:accountId?/:plugin?" element={<Subscriptions/>}/>
-            <Route exact path="/:db/shop/:periodId?//:plugin?" element={<Subscriptions/>}/>
-            <Route exact path="/:db/shop///:plugin?" element={<Subscriptions/>}/>
           </Paper>
           <div className="MainArea">
             <Paper className="MainTopPanel Panel" elevation={4}>
@@ -209,9 +215,6 @@ class App extends Component {
               <Route exact path="/:db/data/:periodId//:importerId" element={<ImportPage/>}/>
               <Route exact path="/:db/data///:importerId" element={<ImportPage/>}/>
               <Route exact path="/:db/data/:periodId/:accountId/:importerId" element={<ImportPage/>}/>
-              <Route exact path="/:db/shop/:periodId?/:accountId?/:plugin?" element={<ShopPage/>}/>
-              <Route exact path="/:db/shop/:periodId?//:plugin?" element={<ShopPage/>}/>
-              <Route exact path="/:db/shop///:plugin?" element={<ShopPage/>}/>
             </Paper>
           </div>
         </div>
