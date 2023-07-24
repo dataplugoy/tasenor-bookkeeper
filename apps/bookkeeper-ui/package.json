@@ -9,12 +9,13 @@
   "scripts": {
     "build-test": "tsc --noEmit",
     "ci": "pnpm run lint && pnpm run build-test",
-    "dev": "DOTENV_CONFIG_PATH=`pwd`/.env.local vite",
+    "dev": "DOTENV_CONFIG_PATH=`pwd`/.env.local ts-node -r dotenv/config bin/initialize-plugins.mjs && vite",
     "fix": "eslint --fix 'src/**/*.ts{,x}'",
     "lint": "eslint 'src/**/*.ts{,x}'"
   },
   "dependencies": {
     "@dataplug/tasenor-common": "workspace:*",
+    "@dataplug/tasenor-common-node": "workspace:*",
     "@dataplug/tasenor-common-ui": "workspace:*",
     "@mui/icons-material": "^5.14.1",
     "@mui/material": "^5.13.7",
@@ -34,7 +35,8 @@
     "react-router-prop-types": "^1.0.5",
     "react-world-flags": "^1.5.1",
     "safer-eval": "^1.3.6",
-    "sprintf-js": "^1.1.2"
+    "sprintf-js": "^1.1.2",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.22.7",
