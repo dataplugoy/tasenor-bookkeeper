@@ -7,15 +7,14 @@ import { Money } from '@dataplug/tasenor-common-ui'
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material'
 import { Trans, withTranslation } from 'react-i18next'
 import withRouter from '../Hooks/withRouter'
-import ReactRouterPropTypes from 'react-router-prop-types'
 
 const BalanceLine = withRouter(inject('cursor')(observer(
-  ({ history, cursor, balance, index }) => {
+  ({ navigate, cursor, balance, index }) => {
 
     const onClick = (idx, url) => {
       cursor.setComponent('Balances.balances')
       cursor.setIndex(idx, { noScroll: true })
-      history.push(url)
+      navigate(url)
     }
 
     return (
@@ -44,7 +43,6 @@ const BalanceLine = withRouter(inject('cursor')(observer(
 BalanceLine.propTypes = {
   balance: PropTypes.instanceOf(BalanceModel),
   cursor: PropTypes.instanceOf(Cursor),
-  history: ReactRouterPropTypes.history,
   index: PropTypes.number,
 }
 

@@ -18,7 +18,7 @@ import withRouter from '../Hooks/withRouter'
 class DashboardPage extends Component {
 
   componentDidUpdate() {
-    if (!this.props.store.database) {
+    if (!this.params || !this.props.store.database) {
       return
     }
     if (this.props.store.database.name !== this.params.db) {

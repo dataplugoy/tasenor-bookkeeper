@@ -4,7 +4,9 @@ import { observer } from 'mobx-react'
 import TransactionTable from '../Components/TransactionTable'
 import Store from '../Stores/Store'
 import withStore from '../Hooks/withStore'
+import withRouter from '../Hooks/withRouter'
 
+@withRouter
 @withStore
 @observer
 class TransactionsPage extends Component {

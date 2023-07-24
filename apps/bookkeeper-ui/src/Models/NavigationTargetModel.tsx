@@ -3,13 +3,13 @@ import Model from './Model'
 class NavigationTargetModel extends Model {
 
   // If set, this object is currently selected.
-  selected: boolean
+  declare selected: boolean
   // If set, then this object is now in editing mode (if applicable).
-  edit: boolean
+  declare edit: boolean
   // If set, the named sub-item column is currently selected.
-  column: null | string
+  declare column: null | string
   // If set, this model is marked for deletion.
-  askForDelete: boolean
+  declare askForDelete: boolean
 
   constructor(parent: Model, variables: Record<string, unknown>, extras: Record<string, unknown>, init: Record<string, unknown>, actions: string[] = []) {
     super(parent, variables, {
@@ -53,7 +53,7 @@ class NavigationTargetModel extends Model {
   /**
    * Cursor has left the sub-item of this model.
    */
-  leaveSub(columnNumber) {
+  leaveSub() {
     this.column = null
   }
 
