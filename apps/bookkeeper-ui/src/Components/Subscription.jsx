@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import ReactRouterPropTypes from 'react-router-prop-types'
 import Plugin from './Plugin'
 import { Trans } from 'react-i18next'
 import Catalog from '../Stores/Catalog'
@@ -58,7 +57,6 @@ Subscription.propTypes = {
   store: PropTypes.instanceOf(Store),
   plugin: PropTypes.object,
   subscription: PropTypes.object,
-  history: ReactRouterPropTypes.history
 }
 
 export default Subscription

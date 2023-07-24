@@ -4,7 +4,9 @@ import { observer } from 'mobx-react'
 import Store from '../Stores/Store'
 import ReportDisplay from '../Components/ReportDisplay'
 import withStore from '../Hooks/withStore'
+import withRouter from '../Hooks/withRouter'
 
+@withRouter
 @withStore
 @observer
 class ReportPage extends Component {

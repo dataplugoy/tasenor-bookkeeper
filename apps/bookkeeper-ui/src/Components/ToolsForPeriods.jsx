@@ -5,7 +5,6 @@ import { withTranslation, Trans } from 'react-i18next'
 import Store from '../Stores/Store'
 import { IconButton, Localize } from '@dataplug/tasenor-common-ui'
 import { Table, TableContainer, TableBody, TableCell, TableRow, TableHead, Chip, Button } from '@mui/material'
-import ReactRouterPropTypes from 'react-router-prop-types'
 import withRouter from '../Hooks/withRouter'
 import withStore from '../Hooks/withStore'
 
@@ -83,6 +82,5 @@ class ToolsForPeriods extends Component {
 ToolsForPeriods.propTypes = {
   db: PropTypes.string,
   store: PropTypes.instanceOf(Store),
-  history: ReactRouterPropTypes.history,
 }
 export default ToolsForPeriods

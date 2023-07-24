@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import ReactRouterPropTypes from 'react-router-prop-types'
 import Catalog from '../Stores/Catalog'
 import { observer } from 'mobx-react'
 import { Title } from '@dataplug/tasenor-common-ui'
@@ -39,7 +38,6 @@ class Subscriptions extends Component {
 Subscriptions.propTypes = {
   catalog: PropTypes.instanceOf(Catalog),
   location: PropTypes.object,
-  history: ReactRouterPropTypes.history
 }
 
 export default Subscriptions

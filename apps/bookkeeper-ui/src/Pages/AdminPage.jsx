@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import ReactRouterPropTypes from 'react-router-prop-types'
 import { observer } from 'mobx-react'
 import { withTranslation, Trans } from 'react-i18next'
 import Store from '../Stores/Store'
@@ -49,7 +48,6 @@ class AdminPage extends Component {
 
 AdminPage.propTypes = {
   cursor: PropTypes.instanceOf(Cursor),
-  history: ReactRouterPropTypes.history,
   params: PropTypes.object,
   store: PropTypes.instanceOf(Store),
   t: PropTypes.func

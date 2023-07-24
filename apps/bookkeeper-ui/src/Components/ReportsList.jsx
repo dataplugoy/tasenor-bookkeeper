@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactRouterPropTypes from 'react-router-prop-types'
 import { observer } from 'mobx-react'
 import { Trans, withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
@@ -40,7 +39,6 @@ class ReportsList extends ListComponent {
 }
 
 ReportsList.propTypes = {
-  history: ReactRouterPropTypes.history.isRequired,
   params: PropTypes.object,
   store: PropTypes.instanceOf(Store),
   t: PropTypes.func,

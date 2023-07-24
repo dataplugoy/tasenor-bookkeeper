@@ -21,9 +21,9 @@ import LoginPage from './Pages/LoginPage'
 import LoginSidePanel from './Components/LoginSidePanel'
 import Menu from './Components/Menu'
 import Messages from './Components/Messages'
-// import ReportPage from './Pages/ReportPage'
-// import ReportsList from './Components/ReportsList'
-// import ReportToolPanel from './Components/ReportToolPanel'
+import ReportPage from './Pages/ReportPage'
+import ReportsList from './Components/ReportsList'
+import ReportToolPanel from './Components/ReportToolPanel'
 import SettingsList from './Components/SettingsList'
 import SettingsPage from './Pages/SettingsPage'
 import ShopPage from './Pages/ShopPage'
@@ -101,6 +101,10 @@ class App extends Component {
               <Route exact path="/:db" element={<DatabaseList/>}/>
               <Route exact path="/:db/dashboard/:periodId?" element={<DatabaseList/>}/>
               <Route exact path="/:db/dashboard/:periodId/:accountId" element={<DatabaseList/>}/>
+              <Route exact path="/:db/report/:periodId" element={<ReportsList/>}/>
+              <Route exact path="/:db/report/:periodId/:accountId" element={<ReportsList/>}/>
+              <Route exact path="/:db/report/:periodId/:accountId/:format" element={<ReportsList/>}/>
+              <Route exact path="/:db/report/:periodId//:format" element={<ReportsList/>}/>
               <Route exact path="/:db/settings/:periodId?/:accountId?/:section?" element={<SettingsList/>}/>
               <Route exact path="/:db/settings/:periodId?//:section?" element={<SettingsList/>}/>
               <Route exact path="/:db/settings///:section?" element={<SettingsList/>}/>
@@ -128,6 +132,10 @@ class App extends Component {
                 <Route exact path="/:db/admin" element={<AdminToolPanel/>}/>
                 <Route exact path="/:db" element={<></>}/>
                 <Route exact path="/:db/dashboard" element={<></>}/>
+                <Route exact path="/:db/report/:periodId" element={<ReportToolPanel/>}/>
+                <Route exact path="/:db/report/:periodId/:accountId" element={<ReportToolPanel/>}/>
+                <Route exact path="/:db/report/:periodId/:accountId/:format" element={<ReportToolPanel/>}/>
+                <Route exact path="/:db/report/:periodId//:format" element={<ReportToolPanel/>}/>
                 <Route exact path="/:db/tools/:periodId?/:accountId?/:tool?" element={<ToolsToolPanel/>}/>
                 <Route exact path="/:db/tools/:periodId//:tool?" element={<ToolsToolPanel/>}/>
                 <Route exact path="/:db/tools//:accountId/:tool?" element={<ToolsToolPanel/>}/>
@@ -155,6 +163,10 @@ class App extends Component {
                 <Route exact path="/:db/dashboard" element={<DashboardPage/>}/>
                 <Route exact path="/:db/dashboard/:periodId" element={<DashboardPage/>}/>
                 <Route exact path="/:db/dashboard/:periodId/:accountId" element={<DashboardPage/>}/>
+                <Route exact path="/:db/report/:periodId" element={<ReportPage/>}/>
+                <Route exact path="/:db/report/:periodId/:accountId" element={<ReportPage/>}/>
+                <Route exact path="/:db/report/:periodId/:accountId/:format" element={<ReportPage/>}/>
+                <Route exact path="/:db/report/:periodId//:format" element={<ReportPage/>}/>
                 <Route exact path="/:db/tools/:periodId?/:accountId?/:tool?" element={<ToolsPage/>}/>
                 <Route exact path="/:db/tools/:periodId//:tool?" element={<ToolsPage/>}/>
                 <Route exact path="/:db/tools//:accountId/:tool?" element={<ToolsPage/>}/>
@@ -177,10 +189,6 @@ class App extends Component {
       <div className="App">
         <div className="Page">
           <Paper className="SidePanel Panel" elevation={4}>
-            <Route exact path="/:db/report/:periodId" element={<ReportsList/>}/>
-            <Route exact path="/:db/report/:periodId/:accountId" element={<ReportsList/>}/>
-            <Route exact path="/:db/report/:periodId/:accountId/:format" element={<ReportsList/>}/>
-            <Route exact path="/:db/report/:periodId//:format" element={<ReportsList/>}/>
             <Route path="/:db/account/:periodId?/:accountId?" element={<Account/>}/>
             <Route exact path="/:db/data" element={<ImportList/>}/>
             <Route exact path="/:db/data/:periodId" element={<ImportList/>}/>
@@ -191,10 +199,6 @@ class App extends Component {
           </Paper>
           <div className="MainArea">
             <Paper className="MainTopPanel Panel" elevation={4}>
-              <Route exact path="/:db/report/:periodId" element={<ReportToolPanel/>}/>
-              <Route exact path="/:db/report/:periodId/:accountId" element={<ReportToolPanel/>}/>
-              <Route exact path="/:db/report/:periodId/:accountId/:format" element={<ReportToolPanel/>}/>
-              <Route exact path="/:db/report/:periodId//:format" element={<ReportToolPanel/>}/>
               <Route path="/:db/account/:periodId?" element={<AccountsToolPanel/>}/>
               <Route exact path="/:db/data" element={<ImportToolPanel/>}/>
               <Route exact path="/:db/data/:periodId" element={<ImportToolPanel/>}/>
@@ -204,10 +208,6 @@ class App extends Component {
               <Route exact path="/:db/data/:periodId/:accountId/:importerId" element={<ImportToolPanel/>}/>
             </Paper>
             <Paper className="MainPanel Panel" elevation={4}>
-              <Route exact path="/:db/report/:periodId" element={<ReportPage/>}/>
-              <Route exact path="/:db/report/:periodId/:accountId" element={<ReportPage/>}/>
-              <Route exact path="/:db/report/:periodId/:accountId/:format" element={<ReportPage/>}/>
-              <Route exact path="/:db/report/:periodId//:format" element={<ReportPage/>}/>
               <Route path="/:db/account/:periodId?" element={<AccountsPage/>}/>
               <Route exact path="/:db/data" element={<ImportPage/>}/>
               <Route exact path="/:db/data/:periodId" element={<ImportPage/>}/>

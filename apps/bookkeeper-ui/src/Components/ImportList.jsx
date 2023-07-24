@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactRouterPropTypes from 'react-router-prop-types'
 import { observer } from 'mobx-react'
 import { Trans, withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
@@ -65,7 +64,6 @@ class ToolsList extends ListComponent {
 
 ToolsList.propTypes = {
   params: PropTypes.object,
-  history: ReactRouterPropTypes.history.isRequired,
   store: PropTypes.instanceOf(Store),
   catalog: PropTypes.instanceOf(Catalog)
 }

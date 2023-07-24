@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import ReactRouterPropTypes from 'react-router-prop-types'
 import Catalog from '../Stores/Catalog'
 import { observer } from 'mobx-react'
 import Plugin from '../Components/Plugin'
@@ -38,7 +37,6 @@ class ShopPage extends Component {
 ShopPage.propTypes = {
   catalog: PropTypes.instanceOf(Catalog),
   location: PropTypes.object,
-  history: ReactRouterPropTypes.history
 }
 
 export default ShopPage

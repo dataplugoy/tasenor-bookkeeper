@@ -6,7 +6,6 @@ import TextEdit from './TextEdit'
 import Store from '../Stores/Store'
 import EntryModel from '../Models/EntryModel'
 import DocumentModel from '../Models/DocumentModel'
-import ReactRouterPropTypes from 'react-router-prop-types'
 import { haveCursor } from '@dataplug/tasenor-common'
 import withRouter from '../Hooks/withRouter'
 import withStore from '../Hooks/withStore'
@@ -64,7 +63,6 @@ TransactionDetails.propTypes = {
   entry: PropTypes.instanceOf(EntryModel),
   error: PropTypes.bool,
   field: PropTypes.string,
-  history: ReactRouterPropTypes.history,
   index: PropTypes.number,
   onComplete: PropTypes.func,
   store: PropTypes.instanceOf(Store),

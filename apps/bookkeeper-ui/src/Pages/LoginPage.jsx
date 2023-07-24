@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import ReactRouterPropTypes from 'react-router-prop-types'
 import { observer } from 'mobx-react'
 import { Trans, withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
@@ -121,7 +120,6 @@ class LoginPage extends Component {
 LoginPage.propTypes = {
   store: PropTypes.instanceOf(Store),
   catalog: PropTypes.instanceOf(Catalog),
-  history: ReactRouterPropTypes.history,
   t: PropTypes.func
 }
 
