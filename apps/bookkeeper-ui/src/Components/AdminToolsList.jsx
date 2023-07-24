@@ -40,7 +40,7 @@ class AdminToolsList extends ListComponent {
 }
 
 AdminToolsList.propTypes = {
-  match: PropTypes.object,
+  params: PropTypes.object,
   store: PropTypes.instanceOf(Store)
 }
 

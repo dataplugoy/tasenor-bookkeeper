@@ -41,7 +41,7 @@ class ReportsList extends ListComponent {
 
 ReportsList.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
-  match: PropTypes.object,
+  params: PropTypes.object,
   store: PropTypes.instanceOf(Store),
   t: PropTypes.func,
 }

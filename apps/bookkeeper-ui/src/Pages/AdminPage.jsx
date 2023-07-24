@@ -50,7 +50,7 @@ class AdminPage extends Component {
 AdminPage.propTypes = {
   cursor: PropTypes.instanceOf(Cursor),
   history: ReactRouterPropTypes.history,
-  match: PropTypes.object,
+  params: PropTypes.object,
   store: PropTypes.instanceOf(Store),
   t: PropTypes.func
 }

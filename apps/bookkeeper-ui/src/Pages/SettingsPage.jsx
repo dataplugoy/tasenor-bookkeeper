@@ -10,7 +10,9 @@ import SystemSettings from '../Components/SystemSettings'
 import DatabaseSettings from '../Components/DatabaseSettings'
 import withStore from '../Hooks/withStore'
 import withCatalog from '../Hooks/withCatalog'
+import withRouter from '../Hooks/withRouter'
 
+@withRouter
 @withTranslation('translations')
 @withStore
 @withCatalog
@@ -18,12 +20,12 @@ import withCatalog from '../Hooks/withCatalog'
 class SettingsPage extends Component {
 
   render() {
-    const { store, match } = this.props
+    const { store, params } = this.props
 
     if (!store.isLoggedIn()) {
       return ''
     }
-    const { section } = match.params
+    const { section } = params
 
     if (!section || section === 'personal') {
       return <Profile />
@@ -38,7 +40,7 @@ class SettingsPage extends Component {
 }
 
 SettingsPage.propTypes = {
-  match: PropTypes.object,
+  params: PropTypes.object,
   store: PropTypes.instanceOf(Store),
   catalog: PropTypes.instanceOf(Catalog)
 }

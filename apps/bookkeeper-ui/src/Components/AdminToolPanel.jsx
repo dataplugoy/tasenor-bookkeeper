@@ -163,7 +163,7 @@ class AdminToolPanel extends Component {
 AdminToolPanel.propTypes = {
   catalog: PropTypes.instanceOf(Catalog),
   location: PropTypes.object,
-  match: PropTypes.object,
+  params: PropTypes.object,
   store: PropTypes.instanceOf(Store),
   t: PropTypes.func
 }

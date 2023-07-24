@@ -74,7 +74,7 @@ class ListComponent extends Component {
 }
 
 ListComponent.propTypes = {
-  match: PropTypes.object,
+  params: PropTypes.object,
   store: PropTypes.instanceOf(Store),
 }
 

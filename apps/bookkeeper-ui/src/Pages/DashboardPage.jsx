@@ -19,8 +19,8 @@ class DashboardPage extends Component {
     if (!this.props.store.database) {
       return
     }
-    if (this.props.store.database.name !== this.match.params.db) {
-      this.props.store.setDb(this.match.params.db)
+    if (this.props.store.database.name !== this.params.db) {
+      this.props.store.setDb(this.params.db)
     }
   }
 
@@ -108,7 +108,7 @@ class DashboardPage extends Component {
 }
 
 DashboardPage.propTypes = {
-  match: PropTypes.object,
+  params: PropTypes.object,
   store: PropTypes.instanceOf(Store),
 }
 

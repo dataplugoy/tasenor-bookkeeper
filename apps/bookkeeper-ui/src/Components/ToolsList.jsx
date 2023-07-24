@@ -64,7 +64,7 @@ class ToolsList extends ListComponent {
 }
 
 ToolsList.propTypes = {
-  match: PropTypes.object,
+  params: PropTypes.object,
   store: PropTypes.instanceOf(Store),
   catalog: PropTypes.instanceOf(Catalog)
 }

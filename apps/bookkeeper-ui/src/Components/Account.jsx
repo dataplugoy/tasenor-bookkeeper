@@ -291,7 +291,7 @@ class Account extends Component {
 
 Account.propTypes = {
   t: PropTypes.func,
-  match: PropTypes.object,
+  params: PropTypes.object,
   store: PropTypes.instanceOf(Store)
 }
 
