@@ -1,26 +1,24 @@
-import { AccountNumber, ID } from '@dataplug/tasenor-common'
 import AccountModel from './AccountModel'
 import Model from './Model'
 import PeriodModel from './PeriodModel'
 import TagModel from './TagModel'
-import BalanceModel from './BalanceModel'
 
 class DatabaseModel extends Model {
 
-  name: string
+  declare name: string
 
   // All periods of this database.
-  periodsById: Record<string, PeriodModel> = {}
+  declare periodsById: Record<string, PeriodModel>
 
   // All accounts of this database.
-  accountsById: Record<string, AccountModel> = {}
-  accountsByNumber: Record<string, AccountModel> = {}
+  declare accountsById: Record<string, AccountModel>
+  declare accountsByNumber: Record<string, AccountModel>
 
   // All tags of this database.
-  tagsByTag: Record<string, TagModel> = {}
+  declare tagsByTag: Record<string, TagModel>
 
   // All headings of this database.
-  headingsByNumber = {}
+  declare headingsByNumber
 
   constructor(parent, init = {}) {
     super(parent, {

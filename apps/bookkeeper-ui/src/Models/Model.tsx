@@ -60,7 +60,7 @@ class Model {
   /**
    * If sortable model, get the value to be used for sorting (default: use `id`).
    */
-  getSortKey(): any {
+  getSortKey(): string | number | null | (string | number | null)[] {
     return this.id
   }
 

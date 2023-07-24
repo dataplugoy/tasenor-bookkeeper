@@ -6,17 +6,17 @@ import TagModel from './TagModel'
 
 class AccountModel extends Model {
 
-  number: null | string
-  name: null | string
-  type: 'ASSET' | 'LIABILITY' | 'EQUITY' | 'REVENUE' | 'EXPENSE' | 'PROFIT_PREV' | 'PROFIT'
-  currency: undefined | Currency
-  language: undefined | Language
-  data: Record<string, any>
+  declare number: null | string
+  declare name: null | string
+  declare type: 'ASSET' | 'LIABILITY' | 'EQUITY' | 'REVENUE' | 'EXPENSE' | 'PROFIT_PREV' | 'PROFIT'
+  declare currency: undefined | Currency
+  declare language: undefined | Language
+  declare data: Record<string, unknown>
 
   // Tags found from transactions of this account.
-  tagsByTag = {}
+  declare tagsByTag
   // Period statistics for this account (if loaded).
-  periods = []
+  declare periods
 
   constructor(parent, init = {}) {
     super(parent, {

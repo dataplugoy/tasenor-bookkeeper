@@ -6,18 +6,18 @@ import DatabaseModel from './DatabaseModel'
 
 class PeriodModel extends Model {
 
-  start_date: string
-  end_date: string
-  locked: boolean
+  declare start_date: string
+  declare end_date: string
+  declare locked: boolean
 
   // All documents of this period.
-  documentsByAccountId = {}
+  declare documentsByAccountId
   // All known account balances of the period.
-  balances = {}
+  declare balances
   // All known documents of the period.
-  documents = {}
+  declare documents
   // All reports for the period.
-  reportsByFormat = {}
+  declare reportsByFormat
 
   constructor(parent, init = {}) {
     super(parent, {

@@ -5,10 +5,10 @@ import DatabaseModel from './DatabaseModel'
 
 class BalanceModel extends NavigationTargetModel {
 
-  account_id: ID
-  debit: null | number
-  credit: null | number
-  total: null | number
+  declare account_id: ID
+  declare debit: null | number
+  declare credit: null | number
+  declare total: null | number
 
   constructor(parent, init = {}) {
     super(parent, {

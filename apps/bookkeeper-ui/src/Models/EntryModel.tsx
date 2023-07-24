@@ -14,14 +14,14 @@ import PeriodModel from './PeriodModel'
 
 class EntryModel extends NavigationTargetModel {
 
-  account_id: ID | null
-  amount: number
-  debit: 0 | 1
-  description: string
-  document_id: ID | null
-  data: Record<string, any>
-  row_number: number
-  tagNames: string[]
+  declare account_id: ID | null
+  declare amount: number
+  declare debit: 0 | 1
+  declare description: string
+  declare document_id: ID | null
+  declare data: Record<string, unknown>
+  declare row_number: number
+  declare tagNames: string[]
 
   constructor(parent, init = {}) {
     super(parent, {

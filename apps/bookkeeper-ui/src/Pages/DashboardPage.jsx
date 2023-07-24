@@ -9,7 +9,9 @@ import Panel from '../Components/Panel'
 import { action } from 'mobx'
 import { haveCursor } from '@dataplug/tasenor-common'
 import withStore from '../Hooks/withStore'
+import withRouter from '../Hooks/withRouter'
 
+@withRouter
 @withTranslation('translations')
 @withStore
 @observer

@@ -7,12 +7,12 @@ import { ID, ImportExecutionResult } from '@dataplug/tasenor-common'
 
 class DocumentModel extends NavigationTargetModel {
 
-  number: null | number
-  period_id: ID
-  date: null | string
-  entries: EntryModel[]
-  executionResult: null | ImportExecutionResult
-  open: boolean
+  declare number: null | number
+  declare period_id: ID
+  declare date: null | string
+  declare entries: EntryModel[]
+  declare executionResult: null | ImportExecutionResult
+  declare open: boolean
 
   constructor(parent, init = {}) {
     super(parent, {
