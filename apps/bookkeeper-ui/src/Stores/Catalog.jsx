@@ -92,7 +92,8 @@ class Catalog extends Component {
     this.dataPlugins = []
 
     // Set up plugin index.
-    this.index.replace([])
+    runInAction(() => this.index.replace([]))
+
     this.available.forEach(item => {
       debugPlugins('Checking if usable', item.code)
       this.index.push(item)
@@ -167,7 +168,8 @@ class Catalog extends Component {
         }
       }
     }
-    Object.assign(this.subscriptionData, subdata)
+
+    runInAction(() => Object.assign(this.subscriptionData, subdata))
   }
 
   /**
