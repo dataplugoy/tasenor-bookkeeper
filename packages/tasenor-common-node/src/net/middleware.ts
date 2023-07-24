@@ -68,18 +68,17 @@ export function tasenorInitialStack(args: InitialMiddlewareStackDefinition): Req
     const apiOrigin = new URL(args.api).origin
     contentSecurityPolicy = {
       useDefaults: true,
+      crossOriginResourcePolicy: { policy: 'same-site' },
       directives: {
         defaultSrc: ["'self'", apiOrigin],
         imgSrc: ["'self'", 'data:', apiOrigin],
         scriptSrc: ["'self'", "'unsafe-eval'"]
       }
     }
-  } else {
-    contentSecurityPolicy = false
+    stack.push(helmet({
+      contentSecurityPolicy
+    }))
   }
-  stack.push(helmet({
-    contentSecurityPolicy
-  }))
 
   return stack
 }
