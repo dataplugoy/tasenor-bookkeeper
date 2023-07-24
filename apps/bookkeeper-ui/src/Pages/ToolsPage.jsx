@@ -8,7 +8,9 @@ import ToolsForDatabases from '../Components/ToolsForDatabases'
 import Catalog from '../Stores/Catalog'
 import withStore from '../Hooks/withStore'
 import withCatalog from '../Hooks/withCatalog'
+import withRouter from '../Hooks/withRouter'
 
+@withRouter
 @withTranslation('translations')
 @withStore
 @withCatalog

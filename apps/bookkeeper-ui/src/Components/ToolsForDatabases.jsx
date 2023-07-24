@@ -6,7 +6,6 @@ import Store from '../Stores/Store'
 import { net } from '@dataplug/tasenor-common'
 import { Dialog, downloadUrl, Title, Note } from '@dataplug/tasenor-common-ui'
 import { Card, CardActions, CardContent, Button, CardHeader, TextField } from '@mui/material'
-import ReactRouterPropTypes from 'react-router-prop-types'
 import { Storage } from '@mui/icons-material'
 import Catalog from '../Stores/Catalog'
 import Configuration from '../Configuration'
@@ -41,7 +40,7 @@ class ToolsForDatabases extends Component {
         store.addMessage(this.props.t('Database deleted permanently.'))
         if (deletingCurrent) {
           store.setDb(null)
-          this.props.history.push('/_/tools///databases')
+          this.props.navigate('/_/tools///databases')
         }
       }
     }
@@ -56,7 +55,7 @@ class ToolsForDatabases extends Component {
     }
 
     const goto = (db) => {
-      this.props.history.push(`/${db.name}`)
+      this.props.navigate(`/${db.name}`)
     }
 
     const download = (db) => {
@@ -126,7 +125,6 @@ ToolsForDatabases.propTypes = {
   db: PropTypes.string,
   t: PropTypes.func,
   periodId: PropTypes.string,
-  history: ReactRouterPropTypes.history,
   catalog: PropTypes.instanceOf(Catalog),
   store: PropTypes.instanceOf(Store)
 }

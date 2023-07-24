@@ -74,7 +74,7 @@ class Account extends Component {
   onDeleteAccount() {
     const { db, periodId } = this.props.params
     this.props.store.account.delete()
-      .then(() => this.props.history.push(`/${db}/account/${periodId || ''}`))
+      .then(() => this.props.navigate(`/${db}/account/${periodId || ''}`))
   }
 
   renderDeleteDialog() {
@@ -270,7 +270,7 @@ class Account extends Component {
                     &nbsp;
                       {period.locked ? <Lock/> : <LockOpen/>}
                     </>}>
-                      <Link color="inherit" onClick={() => this.props.history.push(`/${db}/txs/${period.id}/${account.id}`)}>
+                      <Link color="inherit" onClick={() => this.props.navigate(`/${db}/txs/${period.id}/${account.id}`)}>
                         {
                           period.entries === 0
                             ? this.props.t('no transactions', { num: period.entries })
@@ -291,7 +291,6 @@ class Account extends Component {
 
 Account.propTypes = {
   t: PropTypes.func,
-  history: PropTypes.object.isRequired,
   match: PropTypes.object,
   store: PropTypes.instanceOf(Store)
 }

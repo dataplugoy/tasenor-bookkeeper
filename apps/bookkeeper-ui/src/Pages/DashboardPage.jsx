@@ -51,7 +51,7 @@ class DashboardPage extends Component {
       period = num
     }
     if (period) {
-      this.props.history.push(`/${this.props.store.db}/txs/${period.id}`)
+      this.props.navigate(`/${this.props.store.db}/txs/${period.id}`)
     }
   }
 

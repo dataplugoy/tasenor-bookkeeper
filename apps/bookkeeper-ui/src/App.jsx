@@ -29,8 +29,8 @@ import Messages from './Components/Messages'
 // import ShopPage from './Pages/ShopPage'
 import { haveStore } from '@dataplug/tasenor-common'
 // import Subscriptions from './Components/Subscriptions'
-// import ToolsList from './Components/ToolsList'
-// import ToolsPage from './Pages/ToolsPage'
+import ToolsList from './Components/ToolsList'
+import ToolsPage from './Pages/ToolsPage'
 import ToolsToolPanel from './Components/ToolsToolPanel'
 // import TransactionsPage from './Pages/TransactionsPage'
 // import TransactionToolPanel from './Components/TransactionToolPanel'
@@ -100,6 +100,10 @@ class App extends Component {
               <Route exact path="/:db" element={<DatabaseList/>}/>
               <Route exact path="/:db/dashboard/:periodId?" element={<DatabaseList/>}/>
               <Route exact path="/:db/dashboard/:periodId/:accountId" element={<DatabaseList/>}/>
+              <Route exact path="/:db/tools/:periodId?/:accountId?/:tool?" element={<ToolsList/>}/>
+              <Route exact path="/:db/tools/:periodId//:tool?" element={<ToolsList/>}/>
+              <Route exact path="/:db/tools//:accountId/:tool?" element={<ToolsList/>}/>
+              <Route exact path="/:db/tools///:tool?" element={<ToolsList/>}/>
             </Routes>
           </Paper>
           <div className="MainArea">
@@ -136,6 +140,10 @@ class App extends Component {
                 <Route exact path="/:db/dashboard" element={<DashboardPage/>}/>
                 <Route exact path="/:db/dashboard/:periodId" element={<DashboardPage/>}/>
                 <Route exact path="/:db/dashboard/:periodId/:accountId" element={<DashboardPage/>}/>
+                <Route exact path="/:db/tools/:periodId?/:accountId?/:tool?" element={<ToolsPage/>}/>
+                <Route exact path="/:db/tools/:periodId//:tool?" element={<ToolsPage/>}/>
+                <Route exact path="/:db/tools//:accountId/:tool?" element={<ToolsPage/>}/>
+                <Route exact path="/:db/tools///:tool?" element={<ToolsPage/>}/>
               </Routes>
             </Paper>
             <div className={`Version ${store.isLoggedIn() ? 'logged-in' : 'not-logged-in'}`} style={{ color: 'rgb(0,0,0,0.5)', fontSize: '0.6rem', position: 'absolute', right: '2px', bottom: '2px' }}>v{Configuration.VERSION}</div>
@@ -160,10 +168,6 @@ class App extends Component {
             <Route exact path="/:db/data/:periodId//:importerId" element={<ImportList/>}/>
             <Route exact path="/:db/data///:importerId" element={<ImportList/>}/>
             <Route exact path="/:db/data/:periodId/:accountId/:importerId" element={<ImportList/>}/>
-            <Route exact path="/:db/tools/:periodId?/:accountId?/:tool?" element={<ToolsList/>}/>
-            <Route exact path="/:db/tools/:periodId//:tool?" element={<ToolsList/>}/>
-            <Route exact path="/:db/tools//:accountId/:tool?" element={<ToolsList/>}/>
-            <Route exact path="/:db/tools///:tool?" element={<ToolsList/>}/>
             <Route exact path="/:db/settings/:periodId?/:accountId?/:section?" element={<SettingsList/>}/>
             <Route exact path="/:db/settings/:periodId?//:section?" element={<SettingsList/>}/>
             <Route exact path="/:db/settings///:section?" element={<SettingsList/>}/>
@@ -195,10 +199,6 @@ class App extends Component {
               <Route exact path="/:db/report/:periodId/:accountId" element={<ReportPage/>}/>
               <Route exact path="/:db/report/:periodId/:accountId/:format" element={<ReportPage/>}/>
               <Route exact path="/:db/report/:periodId//:format" element={<ReportPage/>}/>
-              <Route exact path="/:db/tools/:periodId?/:accountId?/:tool?" element={<ToolsPage/>}/>
-              <Route exact path="/:db/tools/:periodId//:tool?" element={<ToolsPage/>}/>
-              <Route exact path="/:db/tools//:accountId/:tool?" element={<ToolsPage/>}/>
-              <Route exact path="/:db/tools///:tool?" element={<ToolsPage/>}/>
               <Route path="/:db/account/:periodId?" element={<AccountsPage/>}/>
               <Route exact path="/:db/data" element={<ImportPage/>}/>
               <Route exact path="/:db/data/:periodId" element={<ImportPage/>}/>

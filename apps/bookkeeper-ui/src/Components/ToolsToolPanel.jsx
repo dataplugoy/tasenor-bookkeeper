@@ -119,7 +119,7 @@ class ToolsToolPanel extends Component {
           if (res) {
             const dbName = this.state.databaseName
             this.setState({ askNew: false, databaseName: '', companyName: '', companyCode: '' })
-            this.props.history.push(`/${dbName}/tools///periods`)
+            this.props.navigate(`/${dbName}/tools///periods`)
           }
         })
     }
@@ -304,7 +304,6 @@ class ToolsToolPanel extends Component {
 
 ToolsToolPanel.propTypes = {
   t: PropTypes.func,
-  history: PropTypes.any,
   params: PropTypes.object,
   store: PropTypes.instanceOf(Store),
   catalog: PropTypes.instanceOf(Catalog),

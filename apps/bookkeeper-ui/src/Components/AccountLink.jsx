@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { withTranslation } from 'react-i18next'
 import AccountModel from '../Models/AccountModel'
 import { Link, Typography } from '@mui/material'
-import ReactRouterPropTypes from 'react-router-prop-types'
 import { StarRate } from '@mui/icons-material'
 import withRouter from '../Hooks/withRouter'
 
@@ -29,7 +28,7 @@ class AccountLink extends Component {
       <div
         onMouseEnter={() => this.setState({ showStar: true })}
         onMouseLeave={() => this.setState({ showStar: false })}>
-        <Link id={`Account${account.number}`} onClick={() => this.props.history.push(dst)}>
+        <Link id={`Account${account.number}`} onClick={() => this.props.navigate(dst)}>
           <Typography display="inline" color={account.FAVOURITE ? 'secondary' : 'primary'}>
             {account.toString()}
           </Typography>
@@ -49,7 +48,6 @@ AccountLink.propTypes = {
   account: PropTypes.instanceOf(AccountModel),
   db: PropTypes.string,
   period: PropTypes.number,
-  history: ReactRouterPropTypes.history,
   t: PropTypes.any
 }
 

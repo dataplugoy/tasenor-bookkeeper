@@ -7,7 +7,6 @@ import { Dialog, IconSpacer, IconButton, Title, FileUploader } from '@dataplug/t
 import ImporterConfigEditor from './ImporterConfigEditor'
 import { TextField, MenuItem, FormControl } from '@mui/material'
 import ImporterModel from '../Models/ImporterModel'
-import ReactRouterPropTypes from 'react-router-prop-types'
 import Catalog from '../Stores/Catalog'
 import { haveCursor, haveSettings } from '@dataplug/tasenor-common'
 import i18n from '../i18n'
@@ -73,7 +72,7 @@ class ImportToolPanel extends Component {
       if (data.step) {
         url += `&step=${data.step}`
       }
-      this.props.history.push(url)
+      this.props.navigate(url)
     } else {
       store.addError(t('Importing a file failed.'))
     }
@@ -97,7 +96,7 @@ class ImportToolPanel extends Component {
 
     const { db, periodId, accountId } = this.props.params
     const url = '/' + (db || '_') + '/data/' + (periodId || '') + '/' + ((accountId) || '') + '/' + importer.id
-    this.props.history.push(url)
+    this.props.navigate(url)
   }
 
   async onFinishEdit() {
@@ -170,7 +169,6 @@ class ImportToolPanel extends Component {
 ImportToolPanel.propTypes = {
   t: PropTypes.func,
   params: PropTypes.object,
-  history: ReactRouterPropTypes.history,
   store: PropTypes.instanceOf(Store),
   catalog: PropTypes.instanceOf(Catalog)
 }

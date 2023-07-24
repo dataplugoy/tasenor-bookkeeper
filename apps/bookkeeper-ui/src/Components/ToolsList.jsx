@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import ReactRouterPropTypes from 'react-router-prop-types'
 import { observer } from 'mobx-react'
 import { withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
@@ -25,11 +24,11 @@ class ToolsList extends ListComponent {
   keyText(cursor, key) {
     const { store, catalog } = this.props
     if (key === '1') {
-      this.props.history.push(this.url('tools', 'databases'))
+      this.props.navigate(this.url('tools', 'databases'))
       return { preventDefault: true }
     }
     if (key === '2' && store.db) {
-      this.props.history.push(this.url('tools', 'periods'))
+      this.props.navigate(this.url('tools', 'periods'))
       return { preventDefault: true }
     }
     if (catalog.keyPress('tool', key)) {
@@ -66,7 +65,6 @@ class ToolsList extends ListComponent {
 
 ToolsList.propTypes = {
   match: PropTypes.object,
-  history: ReactRouterPropTypes.history.isRequired,
   store: PropTypes.instanceOf(Store),
   catalog: PropTypes.instanceOf(Catalog)
 }

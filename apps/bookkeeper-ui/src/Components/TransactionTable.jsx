@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import ReactRouterPropTypes from 'react-router-prop-types'
 import { observer } from 'mobx-react'
 import { Trans, withTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
@@ -36,13 +35,13 @@ class TransactionTable extends Component {
     cursor.selectPage('Balances', this)
   }
 
-  componentDidUpdate(oldProps) {
+  componentDidUpdate() {
     const cursor = haveCursor()
     const eid = new URLSearchParams(this.props.location.search).get('entry')
     if (eid) {
       cursor.setIndex(null)
       this.closeAll()
-      this.props.history.push(this.props.location.pathname)
+      this.props.navigate(this.props.location.pathname)
     }
   }
 
@@ -486,7 +485,6 @@ class TransactionTable extends Component {
 
 TransactionTable.propTypes = {
   location: PropTypes.object,
-  history: ReactRouterPropTypes.history,
   store: PropTypes.instanceOf(Store),
   t: PropTypes.func
 }
