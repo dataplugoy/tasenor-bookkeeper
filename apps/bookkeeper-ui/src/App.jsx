@@ -4,9 +4,9 @@ import React, { Component } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { observer } from 'mobx-react'
 import { Alert, Paper } from '@mui/material'
-// import Account from './Components/Account'
-// import AccountsPage from './Pages/AccountsPage'
-// import AccountsToolPanel from './Components/AccountsToolPanel'
+import Account from './Components/Account'
+import AccountsPage from './Pages/AccountsPage'
+import AccountsToolPanel from './Components/AccountsToolPanel'
 import AdminPage from './Pages/AdminPage'
 import AdminToolPanel from './Components/AdminToolPanel'
 import AdminToolsList from './Components/AdminToolsList'
@@ -89,6 +89,7 @@ class App extends Component {
           <Paper className="SidePanel Panel" elevation={4}>
             <Routes>
               <Route exact path="/" element={<>{ !store.isLoggedIn() && <LoginSidePanel/>}</>}/>
+              <Route path="/:db/account/:periodId?/:accountId?" element={<Account/>}/>
               <Route path="/:db/txs/:periodId/:accountId?" element={<Balances/>}/>
               <Route exact path="/:db/admin/:periodId/:accountId/:tool" element={<AdminToolsList/>}/>
               <Route exact path="/:db/admin/:periodId/:accountId" element={<AdminToolsList/>}/>
@@ -123,6 +124,7 @@ class App extends Component {
               <Routes>
                 <Route exact path="/" element={<></>}/>
                 <Route path="/:db/txs/:periodId/:accountId?" element={<TransactionToolPanel/>}/>
+                <Route path="/:db/account/:periodId?/:accountId?" element={<AccountsToolPanel/>}/>
                 <Route exact path="/:db/admin/:periodId/:accountId/:tool" element={<AdminToolPanel/>}/>
                 <Route exact path="/:db/admin/:periodId/:accountId" element={<AdminToolPanel/>}/>
                 <Route exact path="/:db/admin//:accountId/:tool" element={<AdminToolPanel/>}/>
@@ -152,6 +154,7 @@ class App extends Component {
               <Routes>
                 <Route exact path="/" element={<LoginPage/>}/>
                 <Route path="/:db/txs/:periodId/:accountId?" element={<TransactionsPage/>}/>
+                <Route path="/:db/account/:periodId?/:accountId?" element={<AccountsPage/>}/>
                 <Route exact path="/:db/admin/:periodId/:accountId/:tool" element={<AdminPage/>}/>
                 <Route exact path="/:db/admin/:periodId/:accountId" element={<AdminPage/>}/>
                 <Route exact path="/:db/admin//:accountId/:tool" element={<AdminPage/>}/>
@@ -189,7 +192,6 @@ class App extends Component {
       <div className="App">
         <div className="Page">
           <Paper className="SidePanel Panel" elevation={4}>
-            <Route path="/:db/account/:periodId?/:accountId?" element={<Account/>}/>
             <Route exact path="/:db/data" element={<ImportList/>}/>
             <Route exact path="/:db/data/:periodId" element={<ImportList/>}/>
             <Route exact path="/:db/data/:periodId/:accountId" element={<ImportList/>}/>
@@ -199,7 +201,6 @@ class App extends Component {
           </Paper>
           <div className="MainArea">
             <Paper className="MainTopPanel Panel" elevation={4}>
-              <Route path="/:db/account/:periodId?" element={<AccountsToolPanel/>}/>
               <Route exact path="/:db/data" element={<ImportToolPanel/>}/>
               <Route exact path="/:db/data/:periodId" element={<ImportToolPanel/>}/>
               <Route exact path="/:db/data/:periodId/:accountId" element={<ImportToolPanel/>}/>
@@ -208,7 +209,6 @@ class App extends Component {
               <Route exact path="/:db/data/:periodId/:accountId/:importerId" element={<ImportToolPanel/>}/>
             </Paper>
             <Paper className="MainPanel Panel" elevation={4}>
-              <Route path="/:db/account/:periodId?" element={<AccountsPage/>}/>
               <Route exact path="/:db/data" element={<ImportPage/>}/>
               <Route exact path="/:db/data/:periodId" element={<ImportPage/>}/>
               <Route exact path="/:db/data/:periodId/:accountId" element={<ImportPage/>}/>

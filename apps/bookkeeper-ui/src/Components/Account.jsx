@@ -12,7 +12,9 @@ import SubTitle from './SubTitle'
 import { Lock, LockOpen } from '@mui/icons-material'
 import { haveKnowledge } from '@dataplug/tasenor-common'
 import withStore from '../Hooks/withStore'
+import withRouter from '../Hooks/withRouter'
 
+@withRouter
 @withTranslation('translations')
 @withStore
 @observer
