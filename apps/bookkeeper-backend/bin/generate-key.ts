@@ -1,3 +1,6 @@
+/**
+ * Run with `pnpm run generate-key`
+ */
 import { Crypto } from '@dataplug/tasenor-common'
 
 async function main() {
