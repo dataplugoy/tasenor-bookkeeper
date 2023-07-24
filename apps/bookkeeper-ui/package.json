@@ -9,7 +9,9 @@
   "scripts": {
     "build-test": "tsc --noEmit",
     "ci": "pnpm run lint && pnpm run build-test",
-    "dev": "DOTENV_CONFIG_PATH=`pwd`/.env.local ts-node -r dotenv/config bin/initialize-plugins.mjs && vite",
+    "dev-initialize-plugins": "DOTENV_CONFIG_PATH=`pwd`/.env.local ts-node -r dotenv/config bin/initialize-plugins.mjs",
+    "dev-vite": "DOTENV_CONFIG_PATH=`pwd`/.env.local vite",
+    "dev": "pnpm run dev-initialize-plugins && pnpm run dev-vite",
     "fix": "eslint --fix 'src/**/*.ts{,x}'",
     "lint": "eslint 'src/**/*.ts{,x}'"
   },
