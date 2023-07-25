@@ -50,7 +50,7 @@ async function initialize() {
  * @returns Object[]
  */
 async function updateLocalPluginList() {
-  let current = {}
+  const current: Record<string, Partial<TasenorPlugin>> = {}
   let localId = -1
 
   // Start from the backend list.
@@ -58,9 +58,9 @@ async function updateLocalPluginList() {
   if (!plugins.success) {
     warning('Failed to fetch plugin update from backend.')
   } else {
-    for (const plugin of plugins.data) {
-      current[plugin.code] = plugin
-      localId = Math.min(localId, plugin.id - 1)
+    for (const plugin of plugins.data as unknown as Partial<TasenorPlugin>[]) {
+      current[plugin.code || ''] = plugin
+      localId = Math.min(localId, (plugin.id || 0) - 1)
     }
   }
 
@@ -91,7 +91,7 @@ async function updateLocalPluginList() {
 
   // Avoid dev server unnecessary restart.
   const oldIndex = loadPluginIndex()
-  const scanned: TasenorPlugin[] = Object.values(current)
+  const scanned: TasenorPlugin[] = Object.values(current) as TasenorPlugin[]
   if (!samePlugins(oldIndex, scanned)) {
     savePluginIndex(scanned)
     savePluginIndexJsx(current)
@@ -196,10 +196,30 @@ async function uninstall(auth, code, ignoreError = false) {
   // Mark uninstall to UI.
   savePluginState(plugin, { ...loadPluginState(plugin), installed: false })
 
-  plugin.installedVersion = null
+  plugin.installedVersion = undefined
   savePluginIndexJsx(updatePluginIndex(plugin, index))
 
   return plugin
+}
+
+/**
+ * Rebuild client.
+ */
+async function rebuild() {
+  await systemPiped('pnpm build')
+}
+
+/**
+ * Remove all plugins and start from the scratch.
+ */
+async function reset(auth) {
+  await net.GET(`${process.env.API_URL}/plugins/reset` as Url, null, { Authorization: auth })
+  for (const plugin of await loadPluginIndex()) {
+    if (isInstalled(plugin)) {
+      await uninstall(auth, plugin.code, true)
+    }
+  }
+  await updateLocalPluginList()
 }
 
 /**
@@ -239,6 +259,24 @@ async function middleware(req, res, next) {
       log(`Uninstalling ${req.body.code}.`)
       const data = await uninstall(auth, req.body.code).catch(next)
       return respond(res, data)
+    } else {
+      return res.status(405).send({ message: 'Method not allowed.' })
+    }
+  } else if (req.path === '/reset') {
+    if (req.method === 'GET') {
+      log('Full plugin reset requested.')
+      await reset(auth).catch(next)
+      return res.status(200).send({ message: 'Reset successful.' })
+    } else {
+      return res.status(405).send({ message: 'Method not allowed.' })
+    }
+  } else if (req.path === '/rebuild') {
+    if (req.method === 'GET') {
+      log('Plugin rebuild requested.')
+      net.GET(`${process.env.API_URL}/plugins/rebuild` as Url, null, { Authorization: auth }) // No await. Run parallel.
+      await rebuild().catch(next)
+      const plugins = await updateLocalPluginList().catch(next)
+      res.send(plugins)
     } else {
       return res.status(405).send({ message: 'Method not allowed.' })
     }

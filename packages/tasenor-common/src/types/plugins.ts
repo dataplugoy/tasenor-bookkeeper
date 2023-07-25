@@ -16,22 +16,22 @@ export type PluginCode = Opaque<string, 'PluginCode'>
 /**
  * Usage of the plugin either in the backend, ui or both.
  */
-export type PluginUse = 'ui' | 'backend' | 'both'
+export type PluginUse = 'ui' | 'backend' | 'both' | 'unknown'
 
 /**
  * Types for plugins usabable in UI.
  */
-export type PluginTypeUI = 'language' | 'tool' | 'currency'
+export type PluginTypeUI = 'language' | 'tool' | 'currency' | 'unknown'
 
 /**
  * Types for plugins usabable in backend.
  */
-export type PluginTypeBackend = 'import' | 'report' | 'service' | 'scheme' | 'data'
+export type PluginTypeBackend = 'import' | 'report' | 'service' | 'scheme' | 'data' | 'unknown'
 
 /**
  * Types for plugins usabable in both UI and backend.
  */
-export type PluginTypeBoth = 'report'
+export type PluginTypeBoth = 'report' | 'unknown'
 
 /**
  * All plugin types.
@@ -42,32 +42,17 @@ export type PluginType = PluginTypeUI | PluginTypeBackend | PluginTypeBoth
  * Description of a plugin.
  */
 export interface TasenorPlugin {
-    id: number,
-    code: PluginCode
-    title: string
-    description: string
-    icon: string
-    version: Version
-    releaseDate: Date
-    use: PluginUse
-    type: PluginType
-    availableVersion?: Version
-    installedVersion?: Version
-    path: string
-}
-
-/**
- * Partial plugin information used during the building etc.
- */
-export interface IncompleteTasenorPlugin {
+    id?: number,
     code: PluginCode
     title: string
     description: string
     icon: string
     version: Version
     releaseDate: Date | null
-    use: PluginUse | 'unknown'
-    type: PluginType | 'unknown'
+    use: PluginUse
+    type: PluginType
+    availableVersion?: Version
+    installedVersion?: Version
     path: string
 }
 

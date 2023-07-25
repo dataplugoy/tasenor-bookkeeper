@@ -1,7 +1,7 @@
 import fs from 'fs'
 import glob from 'fast-glob'
 import path from 'path'
-import { TasenorPlugin, IncompleteTasenorPlugin, PluginCatalog, FilePath, net, Url, note, log } from '@dataplug/tasenor-common'
+import { TasenorPlugin, PluginCatalog, FilePath, net, Url, note, log } from '@dataplug/tasenor-common'
 import { create } from 'ts-opaque'
 import { vault } from '../net'
 
@@ -145,7 +145,7 @@ async function fetchOfficialPluginList(): Promise<TasenorPlugin[]> {
 /**
  * Scan all plugins from the plugin directory based on index files found.
  */
-function scanPlugins(): IncompleteTasenorPlugin[] {
+function scanPlugins(): TasenorPlugin[] {
   const rootPath = path.resolve(getConfig('PLUGIN_PATH'))
   log(`Scanning plugins from ${rootPath}.`)
   let uiFiles: FilePath[] = []
@@ -176,7 +176,7 @@ function scanPlugins(): IncompleteTasenorPlugin[] {
 /**
  * Read data from the plugin's index file(s) found from the given path.
  */
-function scanPlugin(pluginPath: FilePath): IncompleteTasenorPlugin {
+function scanPlugin(pluginPath: FilePath): TasenorPlugin {
   const uiPath: FilePath = path.join(pluginPath, 'ui', 'index.tsx') as FilePath
   const ui = fs.existsSync(uiPath) ? readUIPlugin(uiPath) : null
   const backendPath: FilePath = path.join(pluginPath, 'backend', 'index.ts') as FilePath
@@ -192,16 +192,16 @@ function scanPlugin(pluginPath: FilePath): IncompleteTasenorPlugin {
     throw new Error(`Cannot find any plugins in '${pluginPath}'.`)
   }
 
-  return ui || backend as IncompleteTasenorPlugin
+  return ui || backend as TasenorPlugin
 }
 
 /**
  * Read UI plugin data from the given index file.
  */
-function readUIPlugin(indexPath: FilePath): IncompleteTasenorPlugin {
+function readUIPlugin(indexPath: FilePath): TasenorPlugin {
   const regex = new RegExp(`^\\s*static\\s+(${PLUGIN_FIELDS.join('|')})\\s*=\\s*(?:'([^']*)'|"([^"]*)")`)
 
-  const data: IncompleteTasenorPlugin = {
+  const data: TasenorPlugin = {
     code: create('Unknown'),
     title: 'Unknown Development Plugin',
     icon: 'HelpOutline',
@@ -223,10 +223,10 @@ function readUIPlugin(indexPath: FilePath): IncompleteTasenorPlugin {
   return data
 }
 
-function readBackendPlugin(indexPath: FilePath): IncompleteTasenorPlugin {
+function readBackendPlugin(indexPath: FilePath): TasenorPlugin {
   const regex = new RegExp(`^\\s*this\\.(${PLUGIN_FIELDS.join('|')})\\s*=\\s*(?:'([^']*)'|"([^"]*)")`)
 
-  const data: IncompleteTasenorPlugin = {
+  const data: TasenorPlugin = {
     code: create('Unknown'),
     title: 'Unknown Development Plugin',
     icon: 'HelpOutline',
@@ -251,7 +251,7 @@ function readBackendPlugin(indexPath: FilePath): IncompleteTasenorPlugin {
 /**
  * Read the local plugin state.
  */
-function loadPluginState(plugin: IncompleteTasenorPlugin): PluginState {
+function loadPluginState(plugin: TasenorPlugin): PluginState {
   const stateFile = plugin.path && path.join(plugin.path, '.state')
   if (stateFile && fs.existsSync(stateFile)) {
     return JSON.parse(fs.readFileSync(stateFile).toString('utf-8'))
@@ -264,7 +264,7 @@ function loadPluginState(plugin: IncompleteTasenorPlugin): PluginState {
 /**
  * Save local plugin state.
  */
-function savePluginState(plugin: IncompleteTasenorPlugin, state: PluginState): void {
+function savePluginState(plugin: TasenorPlugin, state: PluginState): void {
   const stateFile = path.join(plugin.path, '.state')
   fs.writeFileSync(stateFile, JSON.stringify(state, null, 2) + '\n')
 }
@@ -272,7 +272,7 @@ function savePluginState(plugin: IncompleteTasenorPlugin, state: PluginState): v
 /**
  * Check if plugin is marked as installed.
  */
-function isInstalled(plugin: IncompleteTasenorPlugin): boolean {
+function isInstalled(plugin: TasenorPlugin): boolean {
   return loadPluginState(plugin).installed
 }
 
