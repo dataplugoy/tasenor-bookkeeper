@@ -11,6 +11,7 @@
     "ci": "pnpm run lint && pnpm run build-test",
     "dev-initialize-plugins": "DOTENV_CONFIG_PATH=`pwd`/.env.local ts-node -r dotenv/config bin/initialize-plugins.mjs",
     "dev-vite": "DOTENV_CONFIG_PATH=`pwd`/.env.local vite",
+    "dev-ui-plugin-server": "DOTENV_CONFIG_PATH=`pwd`/.env.local tsx watch -r dotenv/config ../bookkeeper-ui/src/plugin-server/ui-plugin-server.ts",
     "dev": "pnpm run dev-initialize-plugins && pnpm run dev-vite",
     "fix": "eslint --fix 'src/**/*.ts{,x}'",
     "lint": "eslint 'src/**/*.ts{,x}'"
@@ -25,6 +26,7 @@
     "dayjs": "1.10.8",
     "detect-browser": "^5.3.0",
     "dotenv": "^16.3.1",
+    "express": "^4.18.2",
     "i18next": "^23.2.11",
     "jwt-decode": "^3.1.2",
     "mobx": "^6.9.0",
@@ -48,6 +50,7 @@
     "@vitejs/plugin-react": "^4.0.3",
     "eslint-config-tasenor": "workspace:*",
     "tsconfig": "workspace:*",
+    "tsx": "^3.12.7",
     "typescript": "^5.1.6",
     "vite": "^4.4.2"
   }
