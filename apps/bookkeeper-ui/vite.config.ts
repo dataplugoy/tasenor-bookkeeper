@@ -27,7 +27,13 @@ export default defineConfig(async ({ mode }) => {
       global: 'globalThis',
     },
     server: {
-      port: parseInt(env.PORT || '7204')
+      port: parseInt(env.PORT || '7204'),
+      proxy: {
+        '/internal/plugins': {
+          target: 'http://localhost:' + (parseInt(env.PORT || '7204') + 2),
+          secure: false,
+        }
+      }
     }
   }
 })

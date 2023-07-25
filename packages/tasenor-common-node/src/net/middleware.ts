@@ -148,9 +148,11 @@ export function tasenorStack({ url, json, user, uuid, admin, superuser, audience
   // Set automatic up implications.
   if (superuser) {
     admin = true
+    token = true
   }
   if (admin) {
     user = true
+    token = true
   }
   if (user && !audience) {
     audience = 'bookkeeping'

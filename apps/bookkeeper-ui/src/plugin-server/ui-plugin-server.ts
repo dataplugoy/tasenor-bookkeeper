@@ -121,12 +121,67 @@ export default index
   fs.writeFileSync(path.join(getConfig('PLUGIN_PATH'), 'index.jsx'), js)
 }
 
+/**
+ * Helper to pass either error message if string response, 200 on object or 204 status if no message.
+ * @param {Response} res
+ * @param {String|null} message
+ */
+function respond(res, message) {
+  if (typeof (message) === 'string') {
+    res.status(400).send({ message })
+  } else if (typeof (message) === 'object') {
+    res.setHeader('Content-Type', 'application/json')
+    res.send(message)
+  } else {
+    res.sendStatus(204)
+  }
+}
+
+/**
+ * A middleware handling plugin end-point for UI server.
+ * @param {Request} req
+ * @param {Response} res
+ * @param {Function} next
+ */
+async function middleware(req, res, next) {
+  log(req.method + ' ' + req.originalUrl)
+  const auth = req.headers.authorization
+  if (!auth) {
+    // return res.status(401).send({ message: 'Authentication token missing.' })
+  }
+  // Check something from backend API and see if authorization works as a superuser.
+  const testDrive = await net.GET(`${process.env.API_URL}/plugins/auth` as Url, null, { Authorization: auth }).catch(next)
+  if (!testDrive) {
+    return res.status(403).send({ message: 'Call to the backend failed.' })
+  }
+  if (!testDrive.success) {
+    return res.status(403).send({ message: 'This end point is usable only by superuser.' })
+  }
+  // Handle request.
+  if (req.path === '/') {
+    if (req.method === 'GET') {
+      let plugins = loadPluginIndex()
+      if (plugins.length === 0) {
+        await updateLocalPluginList()
+        plugins = loadPluginIndex()
+      }
+      return respond(res, plugins)
+    }
+  }
+  return res.status(404).send({ message: 'Path not found.' })
+}
+
 async function main() {
   log(`Starting UI plugin server v${pkg.version}`)
 
-  const app = express()
-
   await initialize()
+
+  const app = express()
+  app.use('/internal/plugins', middleware)
+
+  const port = parseInt(process.env.PORT || '7204') + 2
+  log(`UI plugin server listening on port ${port}`)
+  await app.listen(port)
 }
 
-main().then(() => process.exit()).catch(err => { console.log(err); process.exit(-1) })
+main().catch(err => { console.error(err); process.exit(-1) })
