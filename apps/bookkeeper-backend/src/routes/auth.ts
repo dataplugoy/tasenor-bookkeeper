@@ -20,7 +20,6 @@ router.post('/',
       const tokens = await users.signToken(user, [])
       const out = await catalog.afterLogin(user, tokens)
 
-      // ERP perhaps?
       if (!out.data && process.env.TASENOR_API_URL) {
         const res = await net.POST(`${vault.get('TASENOR_API_URL')}/auth/site/login` as Url, { user })
         if (res.success) {

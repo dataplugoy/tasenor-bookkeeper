@@ -128,7 +128,7 @@ function findPluginFromIndex(code: string, plugins: TasenorPlugin[] | undefined 
 }
 
 /**
- * Get the current plugin list maintained by ERP.
+ * Get the current plugin list maintained by some master API.
  * @returns The latest list.
  */
 async function fetchOfficialPluginList(): Promise<TasenorPlugin[]> {

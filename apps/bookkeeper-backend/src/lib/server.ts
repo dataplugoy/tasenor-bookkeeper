@@ -130,7 +130,7 @@ async function refreshTokens(): Promise<void> {
   }
   if (!refreshing) {
     refreshing = true
-    log('Regular token refresh for ERP API.')
+    log('Regular token refresh for Tasenor API.')
     await net.refresh(process.env.TASENOR_API_URL as Url)
     refreshing = false
   }

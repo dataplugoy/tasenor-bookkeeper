@@ -25,7 +25,7 @@ router.post('/',
       return res.send({ data: await encryptdata(out) })
     }
 
-    // Call ERP if available.
+    // Call API if available.
     if (process.env.TASENOR_API_URL) {
       const erp = await net.POST(`${vault.get('TASENOR_API_URL')}/subscriptions` as Url, { email: res.locals.user, code: req.body.code })
       if (erp.success) {
@@ -70,7 +70,7 @@ router.delete('/:code',
       return res.send({ data: await encryptdata(out) })
     }
 
-    // Call ERP if available.
+    // Call API if available.
     if (process.env.TASENOR_API_URL) {
       const erp = await net.DELETE(`${vault.get('TASENOR_API_URL')}/subscriptions/${req.params.code}/${res.locals.user}` as Url)
       if (erp.success) {
