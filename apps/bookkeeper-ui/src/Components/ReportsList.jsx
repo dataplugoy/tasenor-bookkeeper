@@ -7,7 +7,9 @@ import ListComponent from './ListComponent'
 import { haveCursor } from '@dataplug/tasenor-common'
 import { Note } from '@dataplug/tasenor-common-ui'
 import withStore from '../Hooks/withStore'
+import withRouter from '../Hooks/withRouter'
 
+@withRouter
 @withTranslation('translations')
 @withStore
 @observer
