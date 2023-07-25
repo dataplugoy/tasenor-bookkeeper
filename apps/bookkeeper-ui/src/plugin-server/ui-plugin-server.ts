@@ -138,6 +138,71 @@ function respond(res, message) {
 }
 
 /**
+ * Install the given version of the plugin.
+ * @param {String} auth Authorization header to use.
+ * @param {String} code
+ * @param {String} version
+ */
+async function install(auth, code, version) {
+  const index = loadPluginIndex()
+  const plugin = findPluginFromIndex(code, index)
+  if (!plugin) {
+    return 'Cannot find plugin with the given code.'
+  }
+  if (!plugin.path) {
+    return 'Cannot install plugin that has no copy in UI server.'
+  }
+  if (plugin.availableVersion !== version) {
+    return 'The given version of the plugin is not available.'
+  }
+
+  // Mark install to UI.
+  savePluginState(plugin, { ...loadPluginState(plugin), installed: true })
+
+  // Mark install to backend.
+  const res = await net.POST(`${process.env.API_URL}/plugins` as Url, { code, version }, { Authorization: auth })
+  if (!res.success) {
+    return 'Installing plugin on backend failed.'
+  }
+
+  plugin.installedVersion = version
+  savePluginIndexJsx(updatePluginIndex(plugin, index))
+
+  return plugin
+}
+
+/**
+ * Ininstall the given plugin.
+ * @param {String} auth Authorization header to use.
+ * @param {String} code
+ * @param {Boolean} ignoreError If set, ignore backend failure.
+ */
+async function uninstall(auth, code, ignoreError = false) {
+  const index = loadPluginIndex()
+  const plugin = findPluginFromIndex(code, index)
+  if (!plugin) {
+    return 'Cannot find plugin with the given code.'
+  }
+  if (!plugin.installedVersion) {
+    return 'Plugin is not installed.'
+  }
+
+  // Mark uninstall to backend.
+  const res = await net.DELETE(`${process.env.API_URL}/plugins` as Url, { code }, { Authorization: auth })
+  if (!res.success && !ignoreError) {
+    return 'Uninstalling plugin on backend failed.'
+  }
+
+  // Mark uninstall to UI.
+  savePluginState(plugin, { ...loadPluginState(plugin), installed: false })
+
+  plugin.installedVersion = null
+  savePluginIndexJsx(updatePluginIndex(plugin, index))
+
+  return plugin
+}
+
+/**
  * A middleware handling plugin end-point for UI server.
  * @param {Request} req
  * @param {Response} res
@@ -147,7 +212,7 @@ async function middleware(req, res, next) {
   log(req.method + ' ' + req.originalUrl)
   const auth = req.headers.authorization
   if (!auth) {
-    // return res.status(401).send({ message: 'Authentication token missing.' })
+    return res.status(401).send({ message: 'Authentication token missing.' })
   }
   // Check something from backend API and see if authorization works as a superuser.
   const testDrive = await net.GET(`${process.env.API_URL}/plugins/auth` as Url, null, { Authorization: auth }).catch(next)
@@ -166,6 +231,16 @@ async function middleware(req, res, next) {
         plugins = loadPluginIndex()
       }
       return respond(res, plugins)
+    } else if (req.method === 'POST') {
+      log(`Installing ${req.body.code} version ${req.body.version}.`)
+      const data = await install(auth, req.body.code, req.body.version).catch(next)
+      return respond(res, data)
+    } else if (req.method === 'DELETE') {
+      log(`Uninstalling ${req.body.code}.`)
+      const data = await uninstall(auth, req.body.code).catch(next)
+      return respond(res, data)
+    } else {
+      return res.status(405).send({ message: 'Method not allowed.' })
     }
   }
   return res.status(404).send({ message: 'Path not found.' })
@@ -177,6 +252,7 @@ async function main() {
   await initialize()
 
   const app = express()
+  app.use(express.json())
   app.use('/internal/plugins', middleware)
 
   const port = parseInt(process.env.PORT || '7204') + 2
