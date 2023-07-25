@@ -1,0 +1,24 @@
+{
+  "name": "@dataplug/tasenor-common-plugins",
+  "version": "1.9.16",
+  "description": "Shared common plugins of Tasenor project",
+  "repository": "git@github.com:dataplugoy/tasenor-bookkeeper.git",
+  "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "ci": "pnpm run lint && pnpm run build",
+    "build": "tsc",
+    "fix": "eslint --fix 'src/**/*.{ts,tsx}'",
+    "lint": "eslint 'src/**/*.{ts,tsx}'"
+  },
+  "dependencies": {
+    "@dataplug/tasenor-common": "workspace:*",
+    "@dataplug/tasenor-common-node": "workspace:*",
+    "@dataplug/tasenor-common-ui": "workspace:*"
+  },
+  "devDependencies": {
+    "eslint-config-tasenor": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.1.6"
+  }
+}

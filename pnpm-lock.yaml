@@ -483,6 +483,28 @@ importers:
         specifier: ^5.1.6
         version: 5.1.6
 
+  packages/tasenor-common-plugins:
+    dependencies:
+      '@dataplug/tasenor-common':
+        specifier: workspace:*
+        version: link:../tasenor-common
+      '@dataplug/tasenor-common-node':
+        specifier: workspace:*
+        version: link:../tasenor-common-node
+      '@dataplug/tasenor-common-ui':
+        specifier: workspace:*
+        version: link:../tasenor-common-ui
+    devDependencies:
+      eslint-config-tasenor:
+        specifier: workspace:*
+        version: link:../eslint-config-tasenor
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ^5.1.6
+        version: 5.1.6
+
   packages/tasenor-common-ui:
     dependencies:
       '@dataplug/tasenor-common':
