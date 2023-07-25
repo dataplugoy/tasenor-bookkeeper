@@ -1,0 +1,52 @@
+{
+  "rules": [
+    {
+      "name": "Trade",
+      "filter": "type == 'trade'",
+      "result": [
+        {
+          "reason": "'trade'",
+          "type": "isCurrency(ticker) ? 'currency' : 'crypto'",
+          "asset": "ticker",
+          "amount": "amount"
+        },
+        {
+          "reason": "'fee'",
+          "type": "isCurrency(ticker) ? 'currency' : 'crypto'",
+          "asset": "ticker",
+          "amount": "fee",
+          "data": {
+            "feeAmount": "fee",
+            "feeCurrency": "ticker"
+          },
+          "if": "fee"
+        }
+      ]
+    },
+    {
+      "name": "Withdrawal",
+      "filter": "type == 'withdrawal'",
+      "result": [
+        {
+          "reason": "'withdrawal'",
+          "type": "isCurrency(ticker) ? 'currency' : 'crypto'",
+          "asset": "ticker",
+          "amount": "amount"
+        },
+        {
+          "reason": "'fee'",
+          "type": "isCurrency(ticker) ? 'currency' : 'crypto'",
+          "asset": "ticker",
+          "amount": "fee",
+          "if": "fee"
+        },
+        {
+          "reason": "'withdrawal'",
+          "type": "'external'",
+          "asset": "ticker",
+          "amount": "amount"
+        }
+      ]
+    }
+  ]
+}

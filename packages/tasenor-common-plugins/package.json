@@ -18,7 +18,15 @@
   },
   "devDependencies": {
     "eslint-config-tasenor": "workspace:*",
+    "mobx": "^6.9.0",
+    "react": "^17.0.2",
+    "react-i18next": "^13.0.2",
     "tsconfig": "workspace:*",
     "typescript": "^5.1.6"
+  },
+  "peerDependencies": {
+    "mobx": "^6.9.0",
+    "react": "^17.0.2",
+    "react-i18next": "^13.0.2"
   }
 }

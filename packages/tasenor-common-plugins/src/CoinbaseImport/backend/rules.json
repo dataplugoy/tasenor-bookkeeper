@@ -1,0 +1,64 @@
+{
+  "rules": [
+    {
+      "name": "Coinbase withdrawal",
+      "filter": "type == 'withdrawal'",
+      "result": [
+        {
+          "reason": "type",
+          "type": "'external'",
+          "asset": "$('amount/balance unit')",
+          "amount": "-amount"
+        },
+        {
+          "reason": "type",
+          "type": "isCurrency($('amount/balance unit')) ? 'currency' : 'crypto'",
+          "asset": "$('amount/balance unit')",
+          "amount": "amount"
+        }
+      ]
+    },
+    {
+      "name": "Coinbase deposit",
+      "filter": "type == 'deposit'",
+      "result": [
+        {
+          "reason": "type",
+          "type": "'external'",
+          "asset": "$('amount/balance unit')",
+          "amount": "-amount"
+        },
+        {
+          "reason": "type",
+          "type": "isCurrency($('amount/balance unit')) ? 'currency' : 'crypto'",
+          "asset": "$('amount/balance unit')",
+          "amount": "amount"
+        }
+      ]
+    },
+    {
+      "name": "Trade",
+      "filter": "type == 'match'",
+      "result": [
+        {
+          "reason": "'trade'",
+          "type": "isCurrency($('amount/balance unit')) ? 'currency' : 'crypto'",
+          "asset": "$('amount/balance unit')",
+          "amount": "amount"
+        }
+      ]
+    },
+    {
+      "name": "Trading fee",
+      "filter": "type == 'fee'",
+      "result": [
+        {
+          "reason": "'fee'",
+          "type": "isCurrency($('amount/balance unit')) ? 'currency' : 'crypto'",
+          "asset": "$('amount/balance unit')",
+          "amount": "-amount"
+        }
+      ]
+    }
+  ]
+}

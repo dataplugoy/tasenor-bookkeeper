@@ -1,0 +1,412 @@
+{
+  "rules": [
+    {
+      "name": "Deposit Correction",
+      "filter": "Type == 'Deposits & Withdrawals' and Subtype == 'Adjustment' and Amount >= 0",
+      "result": [
+        {
+          "reason": "'correction'",
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "Amount",
+          "data": {
+            "text": "Description"
+          }
+        },
+        {
+          "reason": "'correction'",
+          "type": "'statement'",
+          "asset": "'INCOME_CORRECTION_DEPOSIT'",
+          "amount": "-Amount",
+          "data": {
+            "text": "Description"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Withdrawal Correction",
+      "filter": "Type == 'Deposits & Withdrawals' and Subtype == 'Adjustment' and Amount < 0",
+      "result": [
+        {
+          "reason": "'correction'",
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "Amount",
+          "data": {
+            "text": "Description"
+          }
+        },
+        {
+          "reason": "'correction'",
+          "type": "'statement'",
+          "asset": "'EXPENSE_CORRECTION_WITHDRAWAL'",
+          "amount": "-Amount",
+          "data": {
+            "text": "Description"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Deposit",
+      "filter": "Type == 'Deposits & Withdrawals' and Amount > 0",
+      "result": [
+        {
+          "reason": "'deposit'",
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "Amount",
+          "data": {
+            "text": "Description"
+          }
+        },
+        {
+          "reason": "'deposit'",
+          "type": "'external'",
+          "asset": "Currency",
+          "amount": "-Amount",
+          "data": {
+            "text": "Description"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Withdrawal",
+      "filter": "Type == 'Deposits & Withdrawals' and Amount < 0",
+      "result": [
+        {
+          "reason": "'withdrawal'",
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "Amount",
+          "data": {
+            "text": "Description"
+          }
+        },
+        {
+          "reason": "'withdrawal'",
+          "type": "'external'",
+          "asset": "Currency",
+          "amount": "-Amount",
+          "data": {
+            "text": "Description"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Interest Expenses",
+      "filter": "Type == 'Interest'",
+      "result": [
+        {
+          "reason": "'expense'",
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "Amount",
+          "data": {
+            "text": "Description",
+            "notes": ["Currency", "Month", "Year"]
+          }
+        },
+        {
+          "reason": "'expense'",
+          "type": "'statement'",
+          "asset": "'INTEREST_EXPENSE'",
+          "amount": "-Amount",
+          "data": {
+            "text": "Description",
+            "notes": ["Currency", "Month", "Year"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Forex",
+      "filter": "Type == 'Trades' and str($('Asset Category')) == 'Forex'",
+      "result": [
+        {
+          "reason": "'forex'",
+          "type": "'currency'",
+          "asset": "config.currency",
+          "amount": "Quantity",
+          "data": {
+            "rates": "rates(Currency, 1 / $('T. Price'))",
+            "notes": ["join(config.currency, '⟷', round(1 / $('T. Price'), 3), 'x', Currency)"]
+          }
+        },
+        {
+          "reason": "'forex'",
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "null",
+          "data": {
+            "rates": "rates(Currency, 1 / $('T. Price'))",
+            "notes": ["join(config.currency, '⟷', round(1 / $('T. Price'), 3), 'x', Currency)"]
+          }
+        },
+        {
+          "reason": "'fee'",
+          "type": "'currency'",
+          "asset": "config.currency",
+          "amount": "-$('Comm in Currency')",
+          "data": {
+            "rates": "rates(Currency, 1 / $('T. Price'))",
+            "notes": ["join(config.currency, '⟷', round(1 / $('T. Price'), 3), 'x', Currency)"]
+          }
+        },
+        {
+          "if": "cents($('MTM in Currency')) > 0",
+          "reason": "'income'",
+          "type": "'statement'",
+          "asset": "'TRADE_PROFIT_CURRENCY'",
+          "data": {
+            "currency": "config.currency",
+            "currencyValue": "-$('MTM in Currency') * 100",
+            "rates": "rates(Currency, 1 / $('T. Price'))",
+            "notes": ["join(config.currency, '⟷', round(1 / $('T. Price'), 3), 'x', Currency)"]
+          }
+        },
+        {
+          "if": "cents($('MTM in Currency')) < 0",
+          "reason": "'expense'",
+          "type": "'statement'",
+          "asset": "'TRADE_LOSS_CURRENCY'",
+          "data": {
+            "currency": "config.currency",
+            "currencyValue": "-$('MTM in Currency') * 100",
+            "rates": "rates(Currency, 1 / $('T. Price'))"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Stock Buy",
+      "filter": "Type == 'Trades' and str($('Asset Category')) == 'Stocks' and Quantity > 0",
+      "result": [
+        {
+          "reason": "'trade'",
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "Proceeds"
+        },
+        {
+          "reason": "'trade'",
+          "type": "'stock'",
+          "asset": "Symbol",
+          "amount": "Quantity"
+        },
+        {
+          "if": "cents($('Comm/Fee'))",
+          "reason": "'fee'",
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "-$('Comm/Fee')"
+        }
+      ]
+    },
+    {
+      "name": "Stock Sell",
+      "filter": "Type == 'Trades' and str($('Asset Category')) == 'Stocks' and Quantity <= 0",
+      "result": [
+        {
+          "reason": "'trade'",
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "Proceeds"
+        },
+        {
+          "reason": "'trade'",
+          "type": "'stock'",
+          "asset": "Symbol",
+          "amount": "Quantity"
+        },
+        {
+          "if": "cents($('Comm/Fee'))",
+          "reason": "'fee'",
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "-$('Comm/Fee')"
+        }
+      ]
+    },
+    {
+      "name": "Withholding Tax Correction",
+      "filter": "Type == 'Withholding Tax' and Subtype == 'Adjustment'",
+      "result": [
+        {
+          "reason": "'tax'",
+          "type": "'statement'",
+          "asset": "'WITHHOLDING_TAX'",
+          "data": {
+            "text": "Description",
+            "currency": "Currency",
+            "currencyValue": "-Amount * 100",
+            "notes": ["Ticker", "Date"]
+          }
+        },
+        {
+          "reason": "'correction'",
+          "type": "'statement'",
+          "asset": "'INCOME_CORRECTION_WITHHOLDING_TAX'",
+          "data": {
+            "text": "Description",
+            "currency": "Currency",
+            "currencyValue": "Amount * 100",
+            "notes": ["Ticker", "Date"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Withholding Tax",
+      "filter": "Type == 'Withholding Tax'",
+      "result": [
+        {
+          "reason": "'tax'",
+          "type": "'statement'",
+          "asset": "'WITHHOLDING_TAX'",
+          "data": {
+            "text": "Description",
+            "currency": "Currency",
+            "currencyValue": "-Amount * 100"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dividend",
+      "filter": "Type == 'Dividends'",
+      "result": [
+        {
+          "reason": "'dividend'",
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "null",
+          "data": {
+            "notes": ["PerAsset ? times(round(Amount / PerAsset), PerAsset) : ''"],
+            "text": "Description"
+          }
+        },
+        {
+          "reason": "'income'",
+          "type": "'statement'",
+          "asset": "'LISTED_CASH_DIVIDEND'",
+          "data": {
+            "notes": ["PerAsset ? times(round(Amount / PerAsset), PerAsset) : ''"],
+            "text": "Description",
+            "currency": "Currency",
+            "currencyValue": "-Amount * 100",
+            "asset": "Ticker"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Splits",
+      "filter": "Type == 'Corporate Actions' and Action == 'Split'",
+      "result": [
+        {
+          "reason": "'trade'",
+          "type": "'stock'",
+          "asset": "Ticker",
+          "amount": "Quantity",
+          "value": "Value * 100",
+          "data": {
+            "text": "Description",
+            "notes": ["'split'"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Renamings",
+      "filter": "Type == 'Corporate Actions' and Action == 'Renaming'",
+      "result": [
+        {
+          "reason": "'trade'",
+          "type": "'stock'",
+          "asset": "Quantity < 0 ? Ticker : TickerInText",
+          "amount": "Quantity",
+          "value": "Value * 100",
+          "data": {
+            "text": "Description",
+            "notes": ["'renaming'"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Spinoffs",
+      "filter": "Type == 'Corporate Actions' and Action == 'Spinoff'",
+      "result": [
+        {
+          "reason": "'trade'",
+          "type": "'stock'",
+          "asset": "Ticker",
+          "amount": "0",
+          "value": "0",
+          "data": {
+            "text": "Description",
+            "currency": "Currency",
+            "notes": ["'spinoff'"]
+          }
+        },
+        {
+          "reason": "'trade'",
+          "type": "'stock'",
+          "asset": "TickerInText",
+          "amount": "Quantity",
+          "value": "Value",
+          "data": {
+            "text": "Description",
+            "currency": "Currency",
+            "notes": ["'spinoff'"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Merge actions",
+      "filter": "Type == 'Corporate Actions' and Action == 'Merged'",
+      "result": [
+        {
+          "reason": "'trade'",
+          "type": "'stock'",
+          "asset": "TickerInText",
+          "amount": "Quantity",
+          "value": "Value * 100",
+          "data": {
+            "text": "Description",
+            "notes": ["'converted'"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Inactivity Fees",
+      "filter": "Type == 'Fees'",
+      "result": [
+        {
+          "reason": "'expense'",
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "Amount",
+          "data": {
+            "text": "ucfirst(lower(Description))"
+          }
+        },
+        {
+          "reason": "'expense'",
+          "type": "'statement'",
+          "asset": "'STOCK_BROKER_INACTIVITY_FEE'",
+          "amount": "null",
+          "data": {
+            "text": "ucfirst(lower(Description))"
+          }
+        }
+      ]
+    }
+  ]
+}

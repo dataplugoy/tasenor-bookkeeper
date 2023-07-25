@@ -1,0 +1,118 @@
+# accounts	title	flags
+3000-3600	LIIKEVAIHTO	DETAILS
+		BREAK
+3000-3600	LIIKEVAIHTO	REQUIRED BOLD
+		BREAK
+3600-3630	Valmiiden ja keskeneräisten tuotteiden varastojen muutos	HIDE_TOTAL BOLD
+3600-3630	_Valmiiden ja keskeneräisten tuotteiden varastojen muutos	DETAILS
+3600-3630	Tuotteiden varastojen muutos yhteensä	BOLD
+		BREAK
+3630-3650	Valmistus omaan käyttöön	HIDE_TOTAL BOLD
+3630-3650	_Valmistus omaan käyttöön	DETAILS
+3630-3650	Valmistus omaan käyttöön yhteensä	BOLD
+		BREAK
+3650-4000	Liiketoiminnan muut tuotot	HIDE_TOTAL BOLD
+3650-4000	_Liiketoiminnan muut tuotot	DETAILS
+3650-4000	Liiketoiminnan muut tuotot yhteensä	BOLD
+		BREAK
+4000-5000	Materiaalit ja palvelut	HIDE_TOTAL BOLD
+4000-4450	_Aineet, tarvikkeet ja tavarat	HIDE_TOTAL BOLD
+4000-4400	__Ostot tilikauden aikana	HIDE_TOTAL BOLD
+4000-4400	___Ostot tilikauden aikana	DETAILS
+4000-4400	__Ostot tilikauden aikana yhteensä	BOLD
+4400-4450	__Varastojen muutos	HIDE_TOTAL BOLD
+4400-4450	___Varastojen muutos	DETAILS
+4400-4450	__Varastojen muutos yhteensä	BOLD
+4000-4450	_Aineet, tarvikkeet ja tavarat yhteensä	BOLD
+4450-5000	_Ulkopuoliset palvelut	HIDE_TOTAL BOLD
+4450-5000	__Ulkopuoliset palvelut	DETAILS
+4450-5000	_Ulkopuoliset palvelut yhteensä	BOLD
+4000-5000	Materiaalit ja palvelut yhteensä	BOLD
+		BREAK
+5000-6800	Henkilöstökulut	HIDE_TOTAL BOLD
+5000-6000	_Palkat ja palkkiot	HIDE_TOTAL BOLD
+5000-6000	__Palkat ja palkkiot	DETAILS
+5000-6000	_Palkat ja palkkiot yhteensä	BOLD
+6000-6800	_Henkilösivukulut	HIDE_TOTAL BOLD
+6000-6300	__Eläkekulut	HIDE_TOTAL BOLD
+6000-6300	___Eläkekulut	DETAILS
+6000-6300	__Eläkekulut yhteensä	BOLD
+6300-6800	__Muut henkilösivukulut	HIDE_TOTAL BOLD
+6300-6800	___Muut henkilösivukulut	DETAILS
+6300-6800	__Muut henkilösivukulut yhteensä	BOLD
+6000-6800	_Henkilösivukulut yhteensä	BOLD
+5000-6800	Henkilöstökulut yhteensä	BOLD
+		BREAK
+6800-7000	Poistot ja arvonalentumiset	HIDE_TOTAL BOLD
+6800-6900	_Suunnitelman mukaiset poistot	HIDE_TOTAL BOLD
+6800-6900	__Suunnitelman mukaiset poistot	DETAILS
+6800-6900	_Suunnitelman mukaiset poistot yhteensä	BOLD
+6900-6990	_Arvonalentumiset pysyvien vastaavien hyödykkeistä	HIDE_TOTAL BOLD
+6900-6990	__Arvonalentumiset pysyvien vastaavien hyödykkeistä	DETAILS
+6900-6990	_Arvonalentumiset pysyvien vastaavien hyödykkeistä yht.	BOLD
+6990-7000	_Vaihtuvien vastaavien poikkeukselliset arvonalentumiset	HIDE_TOTAL BOLD
+6990-7000	__Vaihtuvien vastaavien poikkeukselliset arvonalentumiset	DETAILS
+6990-7000	_Vaihtuvien vastaavien poik. arvonalentumiset yht.	BOLD
+6800-7000	Poistot ja arvonalentumiset yhteensä	BOLD
+		BREAK
+7000-8990	Liiketoiminnan muut kulut	HIDE_TOTAL BOLD
+7000-8990	_Liiketoiminnan muut kulut	DETAILS
+7000-8990	Liiketoiminnan muut kulut yhteensä	BOLD
+		BREAK
+3000-9000	LIIKEVOITTO (-TAPPIO)	REQUIRED BOLD
+		BREAK
+9000-9700	Rahoitustuotot ja -kulut	HIDE_TOTAL BOLD
+9000-9040	_Tuotot osuuksista saman konsernin yrityksissä	HIDE_TOTAL BOLD
+9000-9040	__Tuotot osuuksista saman konsernin yrityksissä	DETAILS
+9000-9040	_Tuotot osuuksista saman konsernin yrityksissä yht.	BOLD
+9040-9070	_Tuotot osuuksista omistusyhteysyrityksissä	HIDE_TOTAL BOLD
+9040-9070	__Tuotot osuuksista omistusyhteysyrityksissä	DETAILS
+9040-9070	_Tuotot osuuksista omistusyhteysyrityksissä yhteensä	BOLD
+9080-9150	_Tuotot muista pysyvien vastaavien sijoituksista	HIDE_TOTAL BOLD
+9080-9150	__Tuotot muista pysyvien vastaavien sijoituksista	DETAILS
+9080-9150	_Tuotot muista pysyvien vastaavien sijoituksista yht.	BOLD
+9150-9300	_Muut korko- ja rahoitustuotot	HIDE_TOTAL BOLD
+9150-9300	__Muut korko- ja rahoitustuotot	DETAILS
+9150-9300	_Muut korko- ja rahoitustuotot yhteensä	BOLD
+9300-9370	_Arvonalentumiset pysyvien vastaavien sijoituksista	HIDE_TOTAL BOLD
+9300-9370	__Arvonalentumiset pysyvien vastaavien sijoituksista	DETAILS
+9300-9370	_Arvonalentumiset pys. vastaavien sijoituksista yht.	BOLD
+9370-9420	_Arvonalentumiset vaihtuvien vastaavien rahoitusarvopapereista	HIDE_TOTAL BOLD
+9370-9420	__Arvonalentumiset vaihtuvien vastaavien rahoitusarvopapereista	DETAILS
+9370-9420	_Arvonalentumiset vaiht. vast. rahoitusarvopap. yht.	BOLD
+9420-9700	_Korkokulut ja muut rahoituskulut	HIDE_TOTAL BOLD
+9420-9700	__Korkokulut ja muut rahoituskulut	DETAILS
+9420-9700	_Korkokulut ja muut rahoituskulut yhteensä	BOLD
+9000-9700	Rahoitustuotot ja -kulut yhteensä	BOLD
+		BREAK
+3000-9700	VOITTO (TAPPIO) ENNEN SATUNNAISIA ERIÄ	REQUIRED BOLD
+		BREAK
+9700-9800	Satunnaiset erät	HIDE_TOTAL BOLD
+9700-9740	_Satunnaiset tuotot	HIDE_TOTAL BOLD
+9700-9740	__Satunnaiset tuotot	DETAILS
+9700-9740	_Satunnaiset tuotot yhteensä	BOLD
+9740-9780	_Satunnaiset kulut	HIDE_TOTAL BOLD
+9740-9780	__Satunnaiset kulut	DETAILS
+9740-9780	_Satunnaiset kulut yhteensä	BOLD
+9700-9800	Satunnaiset erät yhteensä	BOLD
+		BREAK
+3000-9800	VOITTO (TAPPIO) ENNEN TILINPÄÄTÖSSIIRTOJA JA VEROJA	REQUIRED BOLD
+		BREAK
+9800-9900	Tilinpäätössiirrot	HIDE_TOTAL BOLD
+9800-9840	_Poistoeron muutos	HIDE_TOTAL BOLD
+9800-9840	__Poistoeron muutos	DETAILS
+9800-9840	_Poistoeron muutos yhteensä	BOLD
+9840-9900	_Vapaaehtoisten varausten muutos	HIDE_TOTAL BOLD
+9840-9900	__Vapaaehtoisten varausten muutos	DETAILS
+9840-9900	_Vapaaehtoisten varausten muutos yhteensä	BOLD
+9800-9900	Tilinpäätössiirrot	BOLD
+		BREAK
+9900-9980	Tuloverot	HIDE_TOTAL BOLD
+9900-9980	_Tuloverot	DETAILS
+9900-9980	Tuloverot yhteensä	BOLD
+		BREAK
+9980-9990	Muut välittömät verot	HIDE_TOTAL BOLD
+9980-9990	_Muut välittömät verot	DETAILS
+9980-9990	Muut välittömät verot yhteensä	BOLD
+		BREAK
+3000-9999	TILIKAUDEN VOITTO (TAPPIO)	REQUIRED BOLD

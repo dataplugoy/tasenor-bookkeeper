@@ -1,0 +1,23 @@
+# accounts	title	flags
+3000-3600	NET TURNOVER	REQUIRED BOLD
+3650-4000	Other Operating Income	
+4000-5000	Materials and Services	HIDE_TOTAL
+4000-4450	_Raw Materials and Services	HIDE_TOTAL
+4000-4400	__Purchases during financial year	
+4400-4450	__Variation in stocks	
+4450-5000	_External services	
+4000-5000	Total materials and services 	
+5000-6800	Social security expenses	HIDE_TOTAL
+5000-6000	_Wages and salaries	
+6000-6800	_Social security expenses	HIDE_TOTAL
+6000-6300	__Pension expenses	
+6300-6800	__Other social security expenses	
+5000-6800	Total social security expenses	
+6800-7000	Total depreciation and ammortization	
+7000-8990	Other operating expenses	
+3000-9000	NET TURNOVER (-LOSS)	REQUIRED BOLD
+3000-9700	PROFIT (LOSS) BEFORE EXCEPTIONAL ITEMS	REQUIRED BOLD
+3000-9800	PROFIT (LOSS) BEFORE ACCOUNTING & TAXES	REQUIRED BOLD
+9900-9980	Taxes on income	
+9980-9990	Other direct taxes	
+3000-9999	PROFIT (LOSS) FOR THE PERIOD	REQUIRED BOLD

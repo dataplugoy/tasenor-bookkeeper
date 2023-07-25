@@ -1,0 +1,97 @@
+# number / title	text	type	code	data
+ASSETS				
+__Current Assets				
+___Short-term Receivables				
+_____Trade Receivables				
+1701	Trade Receivables 1	ASSET		
+_____Other Current Assets				
+1761	Tax Receivables	ASSET		
+1763	VAT Receivables	ASSET		
+_____Accrued Income				
+1849	Other Accrued Income 	ASSET		
+___Cash & Bank Balance				
+____Cash				
+1900	Cash Asset	ASSET		
+____Bank Balances				
+1910	Bank Account 1	ASSET		
+1920	Bank Account 2	ASSET		
+CAPITAL, RESERVES & LIABILITIES				
+__Equity				
+___Share Capital				
+2001	Share Capital	EQUITY		
+___Retained Earning/Loss 				
+2251	Retained Earning/Loss	PROFIT_PREV		
+__Creditors				
+___Long-term Debt				
+____Loans				
+2621	Long-term Loan 1	LIABILITY		
+___Short-term Debt 				
+____Loans (credit institutions) 				
+2825	Short-term Loan 1	LIABILITY		
+____Unearned Income				
+2861	Unearned Income	LIABILITY		
+____Account Payables				
+2871	Account Payables 1	LIABILITY		
+____Other Debts				
+2921	Withholding Tax Liability	LIABILITY		
+2931	TyEL Contribution (employment pension insurance)	LIABILITY		
+2939	VAT Liability	LIABILITY		
+29391	VAT on Sales	LIABILITY		
+29392	VAT on Purchases	LIABILITY		
+29393	VAT payable on EU purchases	LIABILITY		
+29394	VAT deductible from EU purchases	LIABILITY		
+29395	VAT payable on Construction Services	LIABILITY		
+29396	VAT deductible from Construction Services	LIABILITY		
+____Accrued Expenses				
+2979	Other Accrued Expenses	LIABILITY		
+INCOME STATEMENT 				
+_Revenue from Sales				
+__General Sales Account				
+3000	Sales	REVENUE	____FINLAND_SALES	
+_Other Operating Income				
+3800	Grants Received	REVENUE		
+3990	Other Operating Income	REVENUE	__OTHER_OPERATING_INCOME	
+_Materials & Services				
+__Materials, supplies & goods				
+___Purchases				
+____Purchases of goods & services				
+4000	Purchases	EXPENSE	24	
+4080	Purchases, buyer taxpayer	EXPENSE	24	
+____Import of Goods				
+4110	Intercompany Acquisitions	EXPENSE	24	
+4140	Duties, Taxes & Custom Clearance Charges	EXPENSE		
+___Increase/Decrease in Stocks				
+4400	Changes in stock of materials & supplies	EXPENSE		
+__External Services				
+4450	Subcontracting 1	EXPENSE	24	
+4470	Purchase of Construction services (reversible tax liability)	EXPENSE	24	
+4475	Purchase of Services (EU-countries)	EXPENSE	24	
+_Staffing Costs				
+__Wages & Salaries				
+___Employees' Salaries & Wages				
+____ [Normal] Wages & Salaries				
+5000	Employees' Salaries	EXPENSE		
+____Remuneration/Commission				
+5200	remuneration/commission	EXPENSE		
+__Social Security Contributions				
+___Pension Expenses				
+____Pension Contributions				
+6100	YEL (Pension Payment for the Self-Employed)	EXPENSE		
+6130	TyEL (Employees' Pension Contributions)	EXPENSE		
+____Accruals during the financial year				
+6290	Accruals during the financial year	EXPENSE		
+___Other Social Security Expenses				
+____Social Security Contributions				
+6300	Social Security Contributions	EXPENSE		
+____Compulsory Insurance Premiums				
+6400	Accident Insurance Contributions	EXPENSE		
+6410	Unemployment Insurance Contributions	EXPENSE		
+_Other Operating Expenses				
+__Voluntary Social Security Contributions				
+7170	Other Social Security Expenses	EXPENSE	24	
+__Administrative Services				
+8440	Government Fees	EXPENSE	24	
+_Income Tax				
+__For the financial year & earlier				
+9900	Anticipatory Tax	EXPENSE		
+9950	Tax Refund / Residual Tax	EXPENSE		

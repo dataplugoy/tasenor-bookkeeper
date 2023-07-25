@@ -1,0 +1,21 @@
+# accounts	title	flags
+1000-2000	VASTAAVAA	HIDE_TOTAL REQUIRED BOLD
+1500-2000	_VAIHTUVAT VASTAAVAT	HIDE_TOTAL REQUIRED BOLD
+1600-1860	__Saamiset	HIDE_TOTAL
+1600-1630 1700-1730	___Myyntisaamiset	
+1660-1670 1760-1780	___Muut saamiset	
+1680-1690 1800-1850	___Siirtosaamiset	
+1600-1860	__Saamiset yhteensä	BOLD
+1900-2000	__Rahat ja pankkisaamiset	
+1500-2000	_Vaihtuvat vastaavat yhteensä	BOLD
+1000-2000	Vastaavaa yhteensä	REQUIRED BOLD
+		NEW_PAGE
+2000-9999	VASTATTAVAA	HIDE_TOTAL REQUIRED BOLD
+2000-2400	_OMA PÄÄOMA	HIDE_TOTAL REQUIRED BOLD
+2250-2330	__Edellisten tilikausien voitto (tappio)	
+3000-9999	__Tilikauden voitto (tappio)	
+2000-2400 3000-9999	_Oma pääoma yhteensä	BOLD
+2600-3000	_VIERAS PÄÄOMA	HIDE_TOTAL REQUIRED BOLD
+2670-2690 2870-2890	__Ostovelat	
+2600-3000	_Vieras pääoma yhteensä	BOLD
+2000-9999	Vastattavaa yhteensä	REQUIRED BOLD
