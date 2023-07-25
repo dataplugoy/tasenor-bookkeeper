@@ -41,15 +41,15 @@ async function initialize() {
   }
 
   // Check token.
-  const token: Token = vault.get('ERP_SITE_TOKEN', '') as Token
+  const token: Token = vault.get('TASENOR_SITE_TOKEN', '') as Token
   let parsed: JwtPayload | null = null
   if (token) {
-    parsed = tokens.parse(process.env.ERP_SITE_TOKEN as Token) as JwtPayload
+    parsed = tokens.parse(process.env.TASENOR_SITE_TOKEN as Token) as JwtPayload
     if (!parsed) {
-      throw new Error('Cannot parse ERP_SITE_TOKEN.')
+      throw new Error('Cannot parse TASENOR_SITE_TOKEN.')
     }
     if (parsed.payload.exp - new Date().getTime() / 1000 < 0) {
-      throw new Error(`The ERP_SITE_TOKEN has been expired ${new Date(parsed.payload.exp * 1000)}.`)
+      throw new Error(`The TASENOR_SITE_TOKEN has been expired ${new Date(parsed.payload.exp * 1000)}.`)
     }
   }
 

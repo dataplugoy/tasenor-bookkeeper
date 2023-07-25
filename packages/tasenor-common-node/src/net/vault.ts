@@ -8,7 +8,7 @@ export const ALLOWED_VAULT_VARIABLES = [
   'DATABASE_ROOT_USER',
   'DATABASE_URL',
   'SECRET',
-  'ERP_SITE_TOKEN'
+  'TASENOR_SITE_TOKEN'
 ]
 const validVariables = new Set(ALLOWED_VAULT_VARIABLES)
 
