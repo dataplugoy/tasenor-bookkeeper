@@ -153,7 +153,7 @@ export class LynxHandler extends TransactionImportHandler {
           values.Ticker = match[1].trim()
           values.ISIN = match[2]
           let text = values.Description.replace(TICKER_ISIN_REGEX, '').trim()
-          if (text.startsWith('CUSIP\/ISIN Change to ')) {
+          if (text.startsWith('CUSIP/ISIN Change to ')) {
             values.Action = 'Renaming'
             text = text.substring(21)
           } else {

@@ -58,6 +58,7 @@ export class TITOHandler extends TransactionImportHandler {
 
           const code = s.substring(1, 3)
           let columns
+          let extras
 
           switch (code) {
 
@@ -141,7 +142,7 @@ export class TITOHandler extends TransactionImportHandler {
               if (ref) {
                 columns['Edellinen Arkistointitunnus'] = ref
               }
-              const extras = columns['Lisätieto']
+              extras = columns['Lisätieto']
               switch (columns['Lisätiedon tyyppi']) {
                 case '00':
                   Object.assign(columns, {
