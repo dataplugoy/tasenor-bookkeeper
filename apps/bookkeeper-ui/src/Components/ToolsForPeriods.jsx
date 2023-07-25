@@ -23,7 +23,7 @@ Locked.propTypes = {
 class ToolsForPeriods extends Component {
 
   render() {
-    const { store, history } = this.props
+    const { store, navigate } = this.props
     if (!store.isLoggedIn()) {
       return ''
     }
@@ -31,7 +31,7 @@ class ToolsForPeriods extends Component {
       return ''
     }
     const goto = (period) => {
-      history.push(`/${store.database.name}/txs/${period.id}`)
+      navigate(`/${store.database.name}/txs/${period.id}`)
     }
 
     const periods = store.database.periods

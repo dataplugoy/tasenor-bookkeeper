@@ -1094,10 +1094,10 @@ export class Store {
   }
 
   /**
-     * Get the history access from catalog.
+     * Get the navigate access from catalog.
      */
-  get history() {
-    return this.catalog.history
+  get navigate() {
+    return this.catalog.navigate
   }
 
   /**

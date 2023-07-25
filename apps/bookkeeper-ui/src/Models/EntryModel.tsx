@@ -534,7 +534,7 @@ class EntryModel extends NavigationTargetModel {
     }
     let url = '/' + this.database.name + '/txs/' + this.period.id + '/' + this.account_id
     if (this.id) url += '?entry=' + this.id
-    return <Link color="inherit" onClick={() => this.store.history.push(url)}>{this.account.toString()}</Link>
+    return <Link color="inherit" onClick={() => this.store.navigate(url)}>{this.account.toString()}</Link>
   }
 
   ['get.edit.account']() {
