@@ -31,7 +31,7 @@ class PluginCommand extends Command {
   }
 
   print(data: TasenorPlugin[]) {
-    for (const plugin of data.sort((a, b) => a.id - b.id)) {
+    for (const plugin of data.sort((a, b) => parseInt(a.id + '' || '0') - parseInt(b.id + '' || '0'))) {
       const { id, code, installedVersion, use, type } = plugin
       console.log(`#${id} ${code} ${use} ${type} ${installedVersion ? '[v' + installedVersion + ']' : ''}`)
     }

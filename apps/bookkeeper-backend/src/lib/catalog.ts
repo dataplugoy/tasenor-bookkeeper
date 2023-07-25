@@ -306,14 +306,14 @@ export class Catalog {
    * Collect a list of all plugins IDs.
    */
   getPluginsIDs(): number[] {
-    return this.available.map(plugin => plugin.id)
+    return this.available.map(plugin => plugin.id || 0)
   }
 
   /**
    * Collect a list of all plugins IDs.
    */
   getInstalledPluginsIDs(): number[] {
-    return this.available.filter(plugin => plugin.installedVersion).map(plugin => plugin.id)
+    return this.available.filter(plugin => plugin.installedVersion).map(plugin => plugin.id || 0)
   }
 
   /**
