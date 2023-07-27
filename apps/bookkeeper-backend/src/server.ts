@@ -1,8 +1,9 @@
+import fs from 'fs'
 import path from 'path'
 import express from 'express'
 import config from './config'
-import { log, Url, DirectoryPath, setServerRoot } from '@dataplug/tasenor-common'
-import { vault, tasenorInitialStack, tasenorFinalStack, plugins, GitRepo } from '@dataplug/tasenor-common-node'
+import { log, Url, DirectoryPath, setServerRoot, error } from '@dataplug/tasenor-common'
+import { vault, tasenorInitialStack, tasenorFinalStack, plugins, GitRepo, system } from '@dataplug/tasenor-common-node'
 import db from './lib/db'
 import server from './lib/server'
 import catalog from './lib/catalog'
@@ -31,7 +32,20 @@ async function main() {
     log('Checking default plugin repos...')
     for (const repo of INITIAL_PLUGIN_REPOS) {
       log(`Checking plugin repo ${repo}.`)
-      await GitRepo.get(repo as Url, plugins.getConfig('PLUGIN_PATH') as DirectoryPath)
+      if (repo.startsWith('file://')) {
+        const src = path.join(__dirname, '..', '..', '..', repo.substring(7))
+        const dst = path.join(plugins.getConfig('PLUGIN_PATH'), path.basename(repo))
+        if (fs.existsSync(src)) {
+          if (!fs.existsSync(dst)) {
+            const cmd = `ln -sf "${src}" "${dst}"`
+            await system(cmd)
+          }
+        } else {
+          error(`A plugin repository ${repo} not found.`)
+        }
+      } else {
+        await GitRepo.get(repo as Url, plugins.getConfig('PLUGIN_PATH') as DirectoryPath)
+      }
     }
     await catalog.reload()
     cron.initialize()
