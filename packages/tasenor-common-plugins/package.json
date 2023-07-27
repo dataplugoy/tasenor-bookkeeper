@@ -14,18 +14,27 @@
   "dependencies": {
     "@dataplug/tasenor-common": "workspace:*",
     "@dataplug/tasenor-common-node": "workspace:*",
-    "@dataplug/tasenor-common-ui": "workspace:*"
+    "@dataplug/tasenor-common-ui": "workspace:*",
+    "clone": "^2.1.2",
+    "dayjs": "1.10.8",
+    "sprintf-js": "^1.1.2"
   },
   "devDependencies": {
+    "@mui/icons-material": "^5.14.1",
+    "@mui/material": "^5.13.7",
     "eslint-config-tasenor": "workspace:*",
     "mobx": "^6.9.0",
+    "mobx-react": "^7.6.0",
     "react": "^17.0.2",
     "react-i18next": "^13.0.2",
     "tsconfig": "workspace:*",
     "typescript": "^5.1.6"
   },
   "peerDependencies": {
+    "@mui/icons-material": "^5.14.1",
+    "@mui/material": "^5.13.7",
     "mobx": "^6.9.0",
+    "mobx-react": "^7.6.0",
     "react": "^17.0.2",
     "react-i18next": "^13.0.2"
   }

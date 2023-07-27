@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-use-before-define
 import React from 'react'
 import { Title, Localize, SubPanel, IconButton, ToolPlugin } from '@dataplug/tasenor-common-ui'
-import { runInAction, computed } from 'mobx'
+import { runInAction, computed, makeObservable } from 'mobx'
 import { Trans } from 'react-i18next'
 import { Typography } from '@mui/material'
 import { DocumentModel, ShortDate, ID } from '@dataplug/tasenor-common'
@@ -29,6 +29,10 @@ class DocumentCleaner extends ToolPlugin {
         'No empty documents.': 'Ei tyhjiä tositteita',
       }
     }
+    makeObservable(this, {
+      emptyDocuments: computed,
+      incorrectlyNumberedDocuments: computed,
+    })
   }
 
   toolMenu() {
@@ -42,7 +46,6 @@ class DocumentCleaner extends ToolPlugin {
   /**
    * Gather a list of documents having no entries.
    */
-  @computed
   emptyDocuments(period) {
     return Object.values(period.documents).filter((doc: DocumentModel) => doc.entries && doc.entries.length === 0 && doc.number)
   }
@@ -50,7 +53,6 @@ class DocumentCleaner extends ToolPlugin {
   /**
    * Gather change proposals for incorrectly numbered documents.
    */
-  @computed
   incorrectlyNumberedDocuments(period) {
     let next = 0
     const changed: { id?: ID, date: ShortDate, number?: number, newNumber: number}[] = []
