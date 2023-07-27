@@ -52,14 +52,27 @@ function check(fileName, content) {
 }
 
 async function repos() {
+  // TODO: DRY: Almost the same code than in backend.
   for (const repo of INITIAL_PLUGIN_REPOS) {
-    const dst = path.join(SRC_PATH, repo.replace(/.*\//, '').replace('.git', ''))
-    if (fs.existsSync(dst)) {
-      console.log(`Plugin repo ${repo} already downloaded.`)
+    console.log(`Checking plugin repo ${repo}.`)
+    if (repo.startsWith('file://')) {
+      const src = path.join(__dirname, '..', '..', '..', repo.substring(7))
+      const dst = path.join(SRC_PATH, path.basename(repo))
+      if (fs.existsSync(src)) {
+        if (!fs.existsSync(dst)) {
+          const cmd = `ln -sf "${src}" "${dst}"`
+          await systemPiped(cmd)
+        }
+      } else {
+        console.error(`A plugin repository ${repo} not found.`)
+      }
     } else {
-      console.log(`Fetching plugin repo ${repo} to ${SRC_PATH}.`)
-      const cmd = `cd ${SRC_PATH} && git clone "${repo}"`
-      await systemPiped(cmd)
+      const dst = path.join(SRC_PATH, repo.replace(/.*\//, '').replace('.git', ''))
+      if (!fs.existsSync(dst)) {
+        console.log(`Fetching plugin repo ${repo} to ${SRC_PATH}.`)
+        const cmd = `cd ${SRC_PATH} && git clone "${repo}"`
+        await systemPiped(cmd)
+      }
     }
   }
 }
