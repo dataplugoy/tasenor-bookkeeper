@@ -29,7 +29,9 @@ async function main() {
 
   const listener = app.listen(config.PORT, async function () {
     server.register()
+
     log('Checking default plugin repos...')
+    let changes = false
     for (const repo of INITIAL_PLUGIN_REPOS) {
       log(`Checking plugin repo ${repo}.`)
       if (repo.startsWith('file://')) {
@@ -39,14 +41,25 @@ async function main() {
           if (!fs.existsSync(dst)) {
             const cmd = `ln -sf "${src}" "${dst}"`
             await system(cmd)
+            changes = true
           }
         } else {
           error(`A plugin repository ${repo} not found.`)
         }
       } else {
-        await GitRepo.get(repo as Url, plugins.getConfig('PLUGIN_PATH') as DirectoryPath)
+        const dst = path.join(plugins.getConfig('PLUGIN_PATH'), path.basename(repo).replace(/\.git$/, ''))
+        if (!fs.existsSync(dst)) {
+          await GitRepo.get(repo as Url, plugins.getConfig('PLUGIN_PATH') as DirectoryPath)
+          changes = true
+        }
       }
     }
+
+    // Rebuild plugin index if changes.
+    if (changes) {
+      await plugins.updatePluginList()
+    }
+
     await catalog.reload()
     cron.initialize()
     log('Bookkeeper back-end server listening on port ' + config.PORT)
