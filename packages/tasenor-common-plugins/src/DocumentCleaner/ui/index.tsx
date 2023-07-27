@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-use-before-define
 import React from 'react'
 import { Title, Localize, SubPanel, IconButton, ToolPlugin } from '@dataplug/tasenor-common-ui'
-import { runInAction, computed, makeObservable } from 'mobx'
+import { runInAction } from 'mobx'
 import { Trans } from 'react-i18next'
 import { Typography } from '@mui/material'
 import { DocumentModel, ShortDate, ID } from '@dataplug/tasenor-common'
@@ -29,10 +29,6 @@ class DocumentCleaner extends ToolPlugin {
         'No empty documents.': 'Ei tyhjiä tositteita',
       }
     }
-    makeObservable(this, {
-      emptyDocuments: computed,
-      incorrectlyNumberedDocuments: computed,
-    })
   }
 
   toolMenu() {
