@@ -1,0 +1,11 @@
+#!/bin/bash
+
+FILE=`dirname "${BASH_SOURCE[0]}"`/../..
+ROOT=`readlink -f "$FILE"`
+
+for script in "$ROOT/data/"*.mjs; do
+  echo
+  echo Running $script
+  echo
+  $script
+done

@@ -1,0 +1,60 @@
+# id	en	fi
+INCOME	Income	Tulot
+_INVEST	Capital Investments	Pääomasijoitukset
+__NREQ	Non-Restricted Equity Capital	SVOP sijoitus
+__SHARE_ISSUED	Issue New Shares	Uusien osakkeiden liikkeellelasku
+		
+_CAPITAL_INCOME	Capital Income	Pääomatulot
+__DIVIDEND	Dividends	Osingot
+___LISTED_DIVIDEND	Dividends from Listed Companies	Osingot listatuista yhtiöistä
+____LISTED_CASH_DIVIDEND	Cash Dividends from Listed Companies	Käteisosingot listatuista yhtiöistä
+____LISTED_STOCK_DIVIDEND	Stock Dividends from Listed Companies	Osakeosingot listatuista yhtiöistä
+___NON_LISTED_DIVIDEND	Dividends from Non-Listed Companies	Osingot listaamattomista yhtiöistä
+		
+__INTEREST	Interest Income	Korkotulot
+___P2P_INTEREST	Interest Income from P2P Loaning	Korkotulot P2P lainaamisesta
+		
+_CAPITAL_RELATED_TRANSFERS_IN	Capital Related Transfers	Pääomaliikkeisiin liittyvät tilisiirrot
+__SHAREHOLDER_BORROWING	Loan from a Shareholder	Osakaslainan nosto
+__FX_IN	Foreign Exchange	Valuutanvaihto
+__PAID_SHARES	Payment Received from Company Shares	Osakeannista saadut maksut
+___TAX_RELATED_TRANSFERS_IN	Tax Related Transfers	Veroihin liittyvät tilisiirrot
+____VAT_REFUND	VAT Refund	ALV alarajahuojennus
+____CORPORATE_TAX_REFUND	Corporate Tax Refund	Yhteisöveron palautus
+____VAT_DELAYED_REFUND	VAT Refund (from previous period)	ALV alarajahuojennus (siirretty)
+		
+		
+		
+		
+__CAPITAL_GAIN	Capital Gains	Myyntivoitot
+___TRADE_PROFIT	Trade Profits	Myyntivoitot vaihto-omaisuuden kaupankäynnistä
+___TRADE_PROFIT_CRYPTO	Trade Profits from Cryptocurrencies	Myyntivoitot kryptovaluutoista
+___TRADE_PROFIT_CURRENCY	Trade Profits from Currencies	Myyntivoitot valuutoista
+___TRADE_PROFIT_STOCK	Trade Profits from Stocks	Myyntivoitot osakkeista
+___TRADE_PROFIT_SHORT	Trade Profits from Short Contracts	Myyntivoitot lyhyeksimyynnistä
+		
+_SALES	Sales	Myynti
+__EU_SALES	Sales to EU Area	Myynti euroopan yhteisön alueelle
+___EURO_AREA_SALES	Sales to Euro Area	Myynti euroalueelle
+____FINLAND_SALES	Sales to Finland	Myynti Suomeen
+___NON_EURO_AREA_SALES	Sales to Non-Euro EU Area	Myynti euroopan yhteisön euroalueen ulkopuolelle
+__NON_EU_SALES	Sales to Outside EU Area	Myynti euroopan yhteisön ulkopuolelle
+		
+		
+		
+		
+_OTHER_INCOME	Other Income	Muut tulot
+__OTHER_OPERATING_INCOME	Other operating income	Muut liiketoiminnan tuotot
+		
+__MISC_INCOME	Miscellaneous Income	Satunnaiset tulot
+		
+		
+_SPECIAL_INCOME_CASES	Cases That Need Special Handling	Erityiskäsittelyä vaativat tapaukset
+__NEEDS_MANUAL_INSPECTION_IN	Needs Manual Inspection	Tutkittava tarkemmin käsin
+__ERROR_INCOME	Error in Income	Virheellinen tulo
+		
+		
+		
+_INCOME_CORRECTIONS	Corrections in income	Korjaukset tulotietoihin
+__INCOME_CORRECTION_WITHHOLDING_TAX	Corrections in Withholding Tax	Korjaukset ennakonpidätyksiin
+__INCOME_CORRECTION_DEPOSIT	Corrections in Deposit	Korjaukset talletuksiin

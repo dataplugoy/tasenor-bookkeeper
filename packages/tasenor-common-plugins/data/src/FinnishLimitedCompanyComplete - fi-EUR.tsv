@@ -1,0 +1,1086 @@
+# number / title	text	type	code	data
+Vastaavaa				
+__Pysyvät vastaavat				
+___Aineettomat hyödykkeet				
+____Perustamismenot				
+1001	Perustamismenot	ASSET		
+____Tutkimusmenot				
+1011	Tutkimusmenot	ASSET		
+____Kehittämismenot				
+1021	Kehittämismenot	ASSET		
+____Aineettomat oikeudet				
+1031	Patentit	ASSET		
+1033	Tekijänoikeudet	ASSET		
+1035	Tavaramerkkioikeudet	ASSET		
+1037	Lisenssimaksut	ASSET		
+1039	Toimilupaoikeudet	ASSET		
+1041	Atk-ohjelmien lisenssimaksut	ASSET		
+1043	Puhelinliittymät	ASSET		
+1045	Hälytysliittymät	ASSET		
+1049	Muut aineettomat oikeudet	ASSET		
+____Liikearvo				
+1051	Liikearvo	ASSET		
+1055	Fuusiotili	ASSET		
+1057	Fuusioaktiiva	ASSET		
+____Konserniliikearvo				
+1061	Konserniliikearvo	ASSET		
+____Muut pitkävaikutteiset menot				
+1071	Mainos- ja markkinatutkimusmenot	ASSET		
+1073	Osakehuoneiston perusparannusmenot	ASSET		
+1075	Vuokrahuoneiston perusparannusmenot	ASSET	EXPENSE	
+1081	Atk-ohjelmat	ASSET	EXPENSE	
+1089	Muut pitkävaikutteiset menot	ASSET		
+____Ennakkomaksut				
+1091	Ennakkomaksut aineettomista hyödykkeistä	ASSET		
+___Aineelliset hyödykkeet				
+____Maa- ja vesialueet				
+_____Omistuskiinteistöt				
+1101	Maa- ja vesialueet	ASSET		
+1105	Liittymismaksut	ASSET		
+1109	Arvonkorotukset maa- ja vesialueista	ASSET		
+_____Kiinteistöjen vuokraoikeudet				
+1111	Maanvuokraoikeudet	ASSET		
+1113	Liittymismaksut vuokrakiinteistöistä	ASSET		
+____Rakennukset ja rakennelmat				
+_____Omistusrakennukset ja -rakennelmat				
+1121	Rakennukset 7% menojäännöspoisto	ASSET		
+1125	Rakennukset 4% menojäännöspoisto	ASSET		
+1131	Rakennusten tekniset laitteet  25% menojäännöspoisto	ASSET		
+1135	Väestönsuojat ym. max. 25% tasapoisto	ASSET		
+1141	Rakennelmat 20% menojäännöspoisto	ASSET		
+1143	Muut rakennukset ja rakennelmat	ASSET		
+1145	Arvonkorotukset (vanhat rakennuksista tehdyt)	ASSET		
+_____Rakennusten ja rakennelmien vuokraoikeudet				
+1151	Rakennusten vuokraoikeudet	ASSET		
+____Koneet ja kalusto				
+1161	Koneet ja laitteet	ASSET	EXPENSE	
+1165	Tuotannon koneet ja laitteet	ASSET		
+1171	Kuorma- ja pakettiautot	ASSET		
+1173	Henkilöautot	ASSET		
+1175	Ammattiautot	ASSET		
+1179	Muut ajoneuvot ja alukset	ASSET		
+1201	Kalusto ja muu irtain	ASSET		
+1209	Vuokrattava kalusto	ASSET		
+1211	Vapaa-ajan asuntojen kalusto ja muu irtaimisto	ASSET		
+1213	Työsuhdeasuntojen kalusto ja muu irtaimisto	ASSET		
+1241	Käyttöönottamattomat koneet ja kalusto	ASSET		
+1249	Muut koneet ja kalusto	ASSET		
+____Muut aineelliset hyödykkeet				
+1301	Maa-ainesten ottopaikat	ASSET		
+1303	Maa- ja vesirakennukset	ASSET		
+1305	Piha-asfaltit	ASSET		
+1315	Elävä käyttöomaisuus	ASSET		
+1329	Muut poistokelpoiset aineelliset hyödykkeet	ASSET		
+1331	Taide-esineet	ASSET		
+1335	Keräilyhyödykkeet	ASSET		
+1339	Muut aineelliset hyödykkeet (ei poistokelpoiset)	ASSET		
+____Ennakkomaksut ja keskeneräiset hankinnat				
+1381	Ennakkomaksut aineellisista hyödykkeistä	ASSET		
+1391	Keskeneräiset käyttöomaisuushankinnat	ASSET		
+___Sijoitukset				
+____Osuudet saman konsernin yrityksissä				
+1401	Tytäryritysten osakkeet	ASSET		
+1403	Emoyrityksen osakkeet	ASSET		
+1405	Sisaryritysten osakkeet	ASSET		
+1407	Muut konserniosuudet	ASSET		
+1409	Arvonkorotus konserniosuuksista	ASSET		
+____Saamiset saman konsernin yrityksiltä				
+1411	Pitkäaikaiset saamiset saman konsernin yrityksiltä	ASSET		
+1413	Konserniyrityksille annetut pääomalainat	ASSET		
+____Osuudet omistusyhteysyrityksissä				
+1421	Osakkuusyritysten osakkeet	ASSET		
+1423	Osakkuusyritysosuudet	ASSET		
+1425	Muut omistusyhteysyritysosakkeet	ASSET		
+1427	Muut omistusyhteysyritysosuudet	ASSET		
+1429	Arvonkorotus omistusyhteysyritysosuuksista	ASSET		
+____Saamiset omistusyhteysyrityksiltä				
+1431	Pitkäaikaiset saamiset omistusyhteysyrityksiltä	ASSET		
+____Muut osakkeet ja osuudet				
+1441	Huoneisto-osakkeet	ASSET		
+1447	Pörssiosakkeet	ASSET		
+1453	Muut osakkeet	ASSET		
+1457	Pankkiosuudet	ASSET		
+1461	Sijoitusrahasto-osuudet	ASSET		
+1465	Puhelinosuudet	ASSET		
+1467	Muut osuudet	ASSET		
+1469	Arvonkorotus muista  osakkeista ja osuuksista	ASSET		
+____Muut saamiset				
+1471	Pitkäaikaiset lainasaamiset	ASSET		
+1473	Pitkäaikaiset joukkovelkakirjalainat	ASSET		
+1475	Pitkäaikaiset saamistodistukset	ASSET		
+1477	Pitkäaikaiset optiolainat	ASSET		
+1479	Pitkäaikaiset vaihtovelkakirjalainat	ASSET		
+1481	Pitkäaikaiset nollakorkolainat	ASSET		
+1483	Liittymismaksusaamiset	ASSET		
+1489	Muut pitkäaikaiset saamiset	ASSET		
+____Omat osakkeet / osuudet				
+1491	OYJ:n (pörssinoteerattu) omat osakkeet	ASSET		
+__Vaihtuvat vastaavat				
+___Vaihto-omaisuus				
+____Aineet ja tarvikkeet				
+1501	Aineet ja tarvikkeet	ASSET		
+____Keskeneräiset tuotteet				
+1511	Keskeneräiset tuotteet	ASSET		
+____Valmiit tuotteet				
+1521	Valmiit tuotteet	ASSET		
+____Tavarat				
+1531	Tavarat	ASSET		
+1533	Matkalla olevat tavarat	ASSET		
+____Muu vaihto-omaisuus				
+1541	Kiinteistöt	ASSET		
+1543	Arvopaperit	ASSET		
+1549	Muu vaihto-omaisuus	ASSET		
+____Ennakkomaksut				
+1551	Ennakkomaksut vaihto-omaisuudesta	ASSET		
+___Pitkäaikaiset saamiset				
+_____Myyntisaamiset				
+1601	Pitkäaikaiset myyntisaamiset	ASSET		
+1621	Pitkäaikaiset valuuttamääräiset myyntisaamiset	ASSET		
+1623	Pitkäaikaiset osamaksusaamiset	ASSET		
+_____Saamiset saman konsernin yrityksiltä				
+1631	Pitkäaikaiset konsernimyyntisaamiset	ASSET		
+1633	Pitkäaikaiset konsernisiirtosaamiset	ASSET		
+1635	Pitkäaikaiset konsernilainasaamiset	ASSET		
+1639	Pitkäaikaiset muut konsernisaamiset	ASSET		
+_____Saamiset omistusyhteysyrityksiltä				
+1641	Pitkäaikaiset omistusyhteysyritysmyyntisaamiset	ASSET		
+1643	Pitkäaikaiset omistusyhteysyrityssiirtosaamiset	ASSET		
+1645	Pitkäaikaiset omistusyhteysyrityslainasaamiset	ASSET		
+1649	Pitkäaikaiset muut omistusyhteysyrityssaamiset	ASSET		
+_____Lainasaamiset				
+1651	Pitkäaikaiset saamiset työntekijöiltä	ASSET		
+1653	Pitkäaikaiset saamiset johdolta	ASSET		
+1655	Pitkäaikaiset saamiset osakkailta ja omaisilta	ASSET		
+1656	Pitkäaikaiset saamiset osakkailta ja omaisilta (veronalaiset)	ASSET		
+1657	Pitkäaikaiset muut lähipiirilainat	ASSET		
+1659	Pitkäaikaiset muut lainasaamiset	ASSET		
+_____Muut saamiset				
+1665	Pitkäaikaiset vakuustalletukset	ASSET		
+1667	Pitkäaikaiset maksetut vuokravakuudet	ASSET		
+1669	Pitkäaikaiset muut saamiset	ASSET		
+_____Maksamattomat osakkeet/osuudet				
+1671	Pitkäaikaiset maksamattomat osakkeet / osuudet	ASSET		
+_____Siirtosaamiset				
+1681	Pitkäaikaiset siirtosaamiset	ASSET		
+_____Laskennalliset verosaamiset				
+1691	Pitkäaikaiset laskennalliset verosaamiset	ASSET		
+___Lyhytaikaiset saamiset				
+_____Myyntisaamiset				
+1701	Myyntisaamiset 1	ASSET		
+1702	Myyntisaamiset 2	ASSET		
+1703	Myyntisaamiset 3	ASSET		
+1705	Myymäläsaamiset	ASSET		
+1707	Provisiosaamiset	ASSET		
+1711	Luottokorttisaamiset	ASSET		
+1713	Pankkikorttisaamiset	ASSET		
+1715	Myyntisaamiset ennakkolaskuista	ASSET		
+1717	Factoring-myyntisaamiset matkalla	ASSET		
+1718	Factoring-myyntisaamiset laskutili	ASSET		
+1719	Factoring-osamaksusaamiset	ASSET		
+1721	Myyntisaamiset, valuuttamääräiset	ASSET		
+1723	Osamaksusaamiset	ASSET		
+1727	Siirtyvät myyntisaamiset/selvittelytili	ASSET		
+1729	Muut myyntisaamiset	ASSET		
+_____Saamiset saman konsernin yrityksiltä				
+1731	Konsernimyyntisaamiset	ASSET		
+1733	Konsernisiirtosaamiset	ASSET		
+1735	Konsernilainasaamiset	ASSET		
+1739	Muut konsernisaamiset	ASSET		
+_____Saamiset omistusyhteysyrityksiltä				
+1741	Omistusyhteysyritysmyyntisaamiset	ASSET		
+1743	Omistusyhteysyrityssiirtosaamiset	ASSET		
+1745	Omistusyhteysyrityslainasaamiset	ASSET		
+1749	Muut omistusyhteysyrityssaamiset	ASSET		
+_____Lainasaamiset				
+1751	Saamiset työntekijöiltä	ASSET		
+1753	Saamiset johdolta	ASSET		
+1755	Saamiset osakkailta ja omaisilta	ASSET		
+1756	Saamiset osakkailta ja omaisilta (veronalaiset)	ASSET		
+1757	Muut lähipiirilainat	ASSET		
+1759	Muut lainasaamiset	ASSET		
+_____Muut saamiset				
+1761	Verosaamiset	ASSET		
+1763	Arvonlisäverosaamiset	ASSET	VAT_RECEIVABLE	
+1764	Anotut arvonlisäveropalautukset	ASSET		
+1765	Vakuustalletukset	ASSET		
+1767	Maksetut vuokravakuudet	ASSET		
+1769	Kuluennakot työntekijöille	ASSET		
+1771	Vahingonkorvaussaamiset	ASSET		
+1777	Selvittelytili	ASSET		
+1779	Muut saamiset	ASSET		
+_____Maksamattomat osakkeet/osuudet				
+1781	Osakemerkintäsaamiset	ASSET		
+1783	Maksamattomat osuudet	ASSET		
+_____Siirtosaamiset				
+1801	Palkkamenot (siirtosaamiset)	ASSET		
+1803	Eläkevakuutusmaksut (siirtosaamiset)	ASSET		
+1804	Sosiaaliturvamaksut (siirtosaamiset)	ASSET		
+1805	Työnantajan pakolliset vakuutusmaksut (siirtosaamiset)	ASSET		
+1809	Vuokramenot (siirtosaamiset)	ASSET		
+1811	Korkomenot (siirtosaamiset)	ASSET		
+1813	Tuloverot (siirtosaamiset)	ASSET		
+1819	Muut menoennakot (siirtosaamiset)	ASSET		
+1831	Vuokratulot (siirtosaamiset)	ASSET		
+1833	Korkotulot (siirtosaamiset)	ASSET		
+1837	Valmistusasteen mukaiset tulot (siirtosaamiset)	ASSET		
+1839	Muut tulojäämät (siirtosaamiset)	ASSET		
+1841	Ostojen alennukset (siirtosaamiset)	ASSET		
+1843	Laskennalliset kurssitappiot (siirtosaamiset)	ASSET		
+1845	Arvonlisäverosaamiset ennakkomaksuista (siirtosaamiset)	ASSET	VAT_DELAYED_RECEIVABLE	
+1847	Veronhyvityssaamiset (siirtosaamiset)	ASSET		
+1849	Muut siirtosaamiset	ASSET		
+_____Laskennalliset verosaamiset				
+1851	Laskennalliset verosaamiset	ASSET		
+___Rahoitusarvopaperit				
+____Osuudet saman konsernin yrityksissä				
+1861	Tytäryritysten osakkeet (rahoitusomaisuus)	ASSET		
+1863	Emoyrityksen osakkeet (rahoitusomaisuus)	ASSET		
+1865	Sisaryritysten osakkeet (rahoitusomaisuus)	ASSET		
+1867	Muut konserniosuudet (rahoitusomaisuus)	ASSET		
+____Omat osakkeet				
+1871	OYJ:n (pörssinoteerattu) omat osakkeet (rahoitusomaisuus)	ASSET		
+____Muut osakkeet ja osuudet				
+1881	Muut osakkeet ja osuudet (rahoitusomaisuus)	ASSET		
+____Muut arvopaperit				
+1891	Muut rahoitusarvopaperit	ASSET		
+___Rahat ja pankkisaamiset				
+____Rahat				
+1900	Käteisvarat	ASSET		
+1905	Valuuttakassat	ASSET		
+____Pankkisaamiset				
+1910	Pankkitili 1	ASSET		
+1919	Pankkitili 1 shekkitililimiitti	ASSET		
+1920	Pankkitili 2	ASSET		
+1929	Pankkitili 2 shekkitililimiitti	ASSET		
+1930	Pankkitili 3	ASSET		
+1940	Pankkitili 4	ASSET		
+1950	Pankkitili 5	ASSET		
+1960	Lyhytaikaiset talletukset	ASSET		
+1961	Lyhytaikaiset lähdeveronalaiset talletukset	ASSET		
+1970	Sijoitustili	ASSET		
+1984	Valuuttatili	ASSET		
+1986	Valuuttatalletukset	ASSET		
+____Rahansiirrot ja täsmäytykset				
+1991	Täsmäytykset	ASSET		
+1995	Rahansiirrot matkalla	ASSET		
+1996	Virhemaksut	ASSET		
+Vastattavaa				
+__Oma pääoma				
+___Osakepääoma				
+2001	Osakepääoma	EQUITY		
+2011	Osakeanti	EQUITY		
+2021	Ylikurssirahasto	EQUITY		
+2031	Arvonkorotusrahasto	EQUITY		
+___Muut rahastot				
+2051	Vararahasto	EQUITY		
+2061	Yhtiöjärjestyksen mukainen rahasto	EQUITY		
+2071	Muut rahastot	EQUITY		
+___Osuuspääoma				
+2101	Osuuspääoma	EQUITY		
+2103	Lisäosuuspääoma	EQUITY		
+___Pääomapanokset				
+2151	Pääomapanos, yhtiömies A	EQUITY		
+2153	Pääomapanos, yhtiömies B	EQUITY		
+2181	Äänettömän yhtiömiehen C panos	EQUITY		
+2183	Äänettömän yhtiömiehen D panos	EQUITY		
+___Peruspääoma (tmi)				
+2201	Peruspääoma (tmi)	EQUITY		
+___Edellisten tilikausien voitto (tappio)				
+2251	Edellisten tilikausien voitto/tappio	PROFIT_PREV		
+2261	Osingonjako	EQUITY		
+2265	Omista osakkeista maksettu määrä	EQUITY		
+2271	Osuuskorot	EQUITY		
+2291	Voitto-osuus yhtiömies A	EQUITY		
+2293	Voitto-osuus yhtiömies B	EQUITY		
+2311	Voitto-osuus vastuunalainen yhtiömies A	EQUITY		
+2313	Voitto-osuus vastuunalainen yhtiömies B	EQUITY		
+2321	Voitto-osuus äänetön yhtiömies C	EQUITY		
+2323	Voitto-osuus äänetön yhtiömies D	EQUITY		
+___Pääomavajaus				
+2331	Pääomavajaus	EQUITY		
+___Yksityistilit tilikaudella				
+2341	Yksityissijoitukset rahana yhtiömies A	EQUITY		
+2343	Muut yksityissijoitukset yhtiömies A	EQUITY		
+2345	Yksityissijoitukset rahana yhtiömies B	EQUITY		
+2347	Muut yksityissijoitukset  yhtiömies B	EQUITY		
+2351	Yksityisnostot rahana yhtiömies A	EQUITY		
+2353	Muut yksityisnostot yhtiömies A	EQUITY		
+2355	Yksityisnostot rahana yhtiömies B	EQUITY		
+2357	Muut yksityisnostot  yhtiömies B	EQUITY		
+2361	Yksityissijoitukset rahana	EQUITY		
+2363	Muut yksityissijoitukset	EQUITY		
+2365	Yksityisnostot rahana	EQUITY		
+2367	Muut yksityisnostot	EQUITY		
+___Pääomalainat				
+2381	Pääomalaina	LIABILITY		
+__Tilinpäätössiirtojen kertymä				
+___Poistoero				
+2401	Perustamismenojen poistoero	LIABILITY		
+2403	Tutkimusmenojen poistoero	LIABILITY		
+2405	Kehittämismenojen poistoero	LIABILITY		
+2407	Aineettomien oikeuksien poistoero	LIABILITY		
+2411	Liikearvon poistoero	LIABILITY		
+2421	Muiden pitkävaikutteisten menojen poistoero	LIABILITY		
+2431	Rakennusten poistoero	LIABILITY		
+2441	Koneiden ja kaluston poistoero	LIABILITY		
+2449	Muiden aineellisten hyödykkeiden poistoero	LIABILITY		
+___Vapaaehtoiset varaukset				
+2451	Käyttöomaisuuden jälleenhankintavaraus	LIABILITY		
+2453	Toimitilan jälleenhankintavaraus	LIABILITY		
+2461	Luottotappiovaraus	LIABILITY		
+2471	Takuuvaraus	LIABILITY		
+2481	Toimintavaraus	LIABILITY		
+2491	Hankintamenon muutosvaraus	LIABILITY		
+2493	Asuintalovaraus	LIABILITY		
+2499	Muut vapaaehtoiset varaukset	LIABILITY		
+__Pakolliset varaukset				
+___Eläkevaraukset				
+2501	Eläkevaraukset	LIABILITY		
+___Verovaraukset				
+2531	Verovaraukset	LIABILITY		
+___Muut pakolliset varaukset				
+2551	Oikeudenkäyntivaraus	LIABILITY		
+2561	Hinnanlaskuvaraus	LIABILITY		
+2571	Pitkäaikaishankkeiden pakolliset varaukset	LIABILITY		
+2581	Muut pakolliset varaukset	LIABILITY		
+__Konsernireservi				
+2591	Konsernireservi	LIABILITY		
+__Vieras pääoma				
+___Pitkäaikainen vieras pääoma				
+____Joukkovelkakirjalainat				
+2601	Pitkäaikaiset joukkovelkakirjalainat	LIABILITY		
+2603	Pitkäaikaiset obligaatiolainat	LIABILITY		
+2605	Pitkäaikaiset debentuurilainat	LIABILITY		
+2609	Muut joukkovelkakirjalainat	LIABILITY		
+____Vaihtovelkakirjalainat				
+2611	Pitkäaikaiset vaihtovelkakirjalainat	LIABILITY		
+____Lainat  rahoituslaitoksilta				
+2621	Pitkäaikainen rahoituslaitoslaina 1	LIABILITY		
+2622	Pitkäaikainen rahoituslaitoslaina 2	LIABILITY		
+2623	Pitkäaikainen rahoituslaitoslaina 3	LIABILITY		
+2631	Pitkäaikainen rahoitusyhtiölaina 1	LIABILITY		
+2632	Pitkäaikainen rahoitusyhtiölaina 2	LIABILITY		
+2633	Pitkäaikainen rahoitusyhtiölaina 3	LIABILITY		
+2639	Pitkäaikainen factoringluottotili	LIABILITY		
+2641	Pankki 1 shekkitililimiitti	LIABILITY		
+2642	Pankki 2 shekkitililimiitti	LIABILITY		
+2649	Muut pitkäaikaiset lainat rahoituslaitoksilta	LIABILITY		
+____Eläkelainat				
+2651	Pitkäaikaiset eläkelainat	LIABILITY		
+____Saadut ennakot				
+2661	Pitkäaikaiset saadut ennakot	LIABILITY		
+____Ostovelat				
+2671	Pitkäaikaiset ostovelat	LIABILITY		
+2681	Pitkäaikaiset osamaksuvelat	LIABILITY		
+____Rahoitusvekselit				
+2691	Pitkäaikaiset rahoitusvekselit	LIABILITY		
+____Velat saman konsernin yrityksille				
+2701	Pitkäaikaiset saadut ennakot konserniyrityksiltä	LIABILITY		
+2703	Pitkäaikaiset ostovelat konserniyrityksille	LIABILITY		
+2705	Pitkäaikaiset rahoitusvekselit konserniyrityksiltä	LIABILITY		
+2707	Pitkäaikaiset muut velat konserniyrityksille	LIABILITY		
+2709	Pitkäaikaiset siirtovelat konserniyrityksille	LIABILITY		
+____Velat omistusyhteysyrityksille				
+2711	Pitkäaikaiset saadut ennakot omistusyhteysyrityksiltä	LIABILITY		
+2713	Pitkäaikaiset ostovelat omistusyhteysyrityksiltä	LIABILITY		
+2715	Pitkäaikaiset rahoitusvekselit omistusyhteysyrityksiltä	LIABILITY		
+2717	Pitkäaikaiset muut velat omistusyhteysyrityksiltä	LIABILITY		
+2719	Pitkäaikaiset siirtovelat omistusyhteysyrityksiltä	LIABILITY		
+____Muut velat				
+2721	Pitkäaikaiset velat työntekijöille	LIABILITY		
+2723	Pitkäaikaiset velat johdolle	LIABILITY		
+2725	Pitkäaikaiset velat osakkaille	LIABILITY		
+2731	Pitkäaikaiset optiolainat	LIABILITY		
+2741	Pitkäaikaiset saadut vuokravakuudet	LIABILITY		
+2749	Pitkäaikaiset muut velat	LIABILITY		
+____Siirtovelat				
+2751	Pitkäaikaiset siirtovelat	LIABILITY		
+____Laskennalliset verovelat				
+2771	Pitkäaikaiset laskennalliset verovelat	LIABILITY		
+___Lyhytaikainen vieras pääoma				
+____Joukkovelkakirjalainat				
+2801	Joukkovelkakirjalainat	LIABILITY		
+2803	Obligaatiolainat	LIABILITY		
+2805	Debentuurilainat	LIABILITY		
+2809	Muut joukkovelkakirjalainat	LIABILITY		
+____Vaihtovelkakirjalainat				
+2811	Vaihtovelkakirjalainat	LIABILITY		
+____Lainat rahoituslaitoksilta				
+2821	Pitkäaikaisen rahoituslaitoslainan 1 lyhennyserät	LIABILITY		
+2822	Pitkäaikaisen rahoituslaitoslainan 2 lyhennyserät	LIABILITY		
+2823	Pitkäaikaisen rahoituslaitoslainan 3 lyhennyserät	LIABILITY		
+2825	Lyhytaikainen rahoituslaitoslaina 1	LIABILITY		
+2826	Lyhytaikainen rahoituslaitoslaina 2	LIABILITY		
+2827	Lyhytaikainen rahoituslaitoslaina 3	LIABILITY		
+2831	Pitkäaikaisen rahoitusyhtiölainan 1 lyhennyserät	LIABILITY		
+2832	Pitkäaikaisen rahoitusyhtiölainan 2 lyhennyserät	LIABILITY		
+2833	Pitkäaikaisen rahoitusyhtiölainan 3 lyhennyserät	LIABILITY		
+2835	Lyhytaikainen rahoitusyhtiölaina 1	LIABILITY		
+2836	Lyhytaikainen rahoitusyhtiölaina 2	LIABILITY		
+2837	Lyhytaikainen rahoitusyhtiölaina 3	LIABILITY		
+2841	Factoring-luottotili	LIABILITY		
+2849	Muut lyhytaikaiset lainat rahoituslaitoksilta	LIABILITY		
+____Eläkelainat				
+2851	Lyhytaikaiset eläkelainat	LIABILITY		
+____Saadut ennakot				
+2861	Saadut ennakot	LIABILITY		
+____Ostovelat				
+2871	Ostovelat 1	LIABILITY		
+2872	Ostovelat 2	LIABILITY		
+2873	Ostovelat 3	LIABILITY		
+2877	Ostovelat investoinneista	LIABILITY		
+2879	Ostovelat ennakkolaskuista	LIABILITY		
+2881	Osamaksuvelat	LIABILITY		
+2888	Maksuliikennetili	LIABILITY		
+2889	Muut ostovelat	LIABILITY		
+____Rahoitusvekselit				
+2891	Rahoitusvekselit	LIABILITY		
+____Velat saman konsernin yrityksille				
+2901	Saadut ennakot konserniyrityksiltä	LIABILITY		
+2903	Ostovelat konserniyrityksille	LIABILITY		
+2905	Rahoitusvekselit konserniyrityksiltä	LIABILITY		
+2907	Muut velat konserniyrityksille	LIABILITY		
+2909	Siirtovelat konserniyrityksille	LIABILITY		
+____Velat omistusyhteysyrityksille				
+2911	Saadut ennakot omistusyhteysyrityksiltä	LIABILITY		
+2913	Ostovelat omistusyhteysyrityksille	LIABILITY		
+2915	Rahoitusvekselit omistusyhteysyrityksiltä	LIABILITY		
+2917	Muut velat omistusyhteysyrityksille	LIABILITY		
+2919	Siirtovelat omistusyhteysyrityksille	LIABILITY		
+____Muut velat				
+2921	Ennakonpidätysvelka	LIABILITY		
+2923	Sosiaaliturvamaksuvelka	LIABILITY		
+2925	Jäsenmaksutilitysvelka 1	LIABILITY		
+2926	Jäsenmaksutilitysvelka 2	LIABILITY		
+2927	Jäsenmaksutilitysvelka 3	LIABILITY		
+2931	TyEL-velka	LIABILITY		
+2933	Ulosottotilitysvelka	LIABILITY		
+2935	Tilitysvelat	LIABILITY		
+2937	Maksuunpantu verovelka	LIABILITY		
+2938	Maksuunpantu ennakkoverovelka	LIABILITY		
+2939	Arvonlisäverovelka	LIABILITY	VAT_PAYABLE	
+29391	Alv myynnistä	LIABILITY	VAT_FROM_SALES	
+29392	Alv ostoista	LIABILITY	VAT_FROM_PURCHASES	
+29393	Alv suoritettava EU-ostoista	LIABILITY		
+29394	Alv vähennettävä EU-ostoista	LIABILITY		
+29395	Alv suoritettava rak.palveluista	LIABILITY		
+29396	Alv vähennettävä rak.palveluista	LIABILITY		
+2940	Velat työntekijöille	LIABILITY		
+2941	Velat osakkaille	LIABILITY		
+2942	Velat johdolle	LIABILITY		
+2943	Voitonjakovelat	LIABILITY		
+2944	Optiolainat	LIABILITY		
+2945	Saadut vuokravakuudet	LIABILITY		
+2947	Selvittelytili	LIABILITY		
+2949	Muut lyhytaikaiset velat	LIABILITY		
+____Siirtovelat				
+2951	Vuokratulot (siirtovelat)	LIABILITY		
+2953	Korkotulot (siirtovelat)	LIABILITY		
+2955	Jaksotetut investointiavustukset (siirtovelat)	LIABILITY		
+2959	Muut tuloennakot (siirtovelat)	LIABILITY		
+2961	Palkkamenot (siirtovelat)	LIABILITY		
+2962	Lomapalkkamenot (siirtovelat)	LIABILITY		
+2963	Eläkevakuutusmaksut (siirtovelat)	LIABILITY		
+2964	Sosiaaliturvamaksut (siirtovelat)	LIABILITY		
+2965	Työnantajan pakolliset vakuutusmaksut (siirtovelat)	LIABILITY		
+2966	Vuokramenot (siirtovelat)	LIABILITY		
+2967	Korkomenot (siirtovelat)	LIABILITY		
+2968	Tuloverot (siirtovelat)	LIABILITY		
+2969	Muut menojäämät (siirtovelat)	LIABILITY		
+2971	Myynnin alennukset (siirtovelat)	LIABILITY		
+2973	Vastaiset menot ja menetykset (siirtovelat)	LIABILITY		
+2975	Laskennalliset kurssivoitot (siirtovelat)	LIABILITY		
+2977	Arvonlisäverovelat ennakkomaksuista (siirtovelat)	LIABILITY	VAT_DELAYED_PAYABLE	
+2979	Muut siirtovelat	LIABILITY		
+____Laskennalliset verovelat				
+2981	Laskennalliset verovelat	LIABILITY		
+Tuloslaskelma				
+_Myyntituotot				
+__Yleiset myyntitilit				
+3000	Myynti	REVENUE	_SALES	
+3010	Myynti 2	REVENUE	_SALES	
+3020	Myynti 3	REVENUE	_SALES	
+3030	Myynti 4	REVENUE	_SALES	
+3040	Myynti 5	REVENUE	_SALES	
+3050	Myynti 6	REVENUE	_SALES	
+3060	Myynti 7	REVENUE	_SALES	
+3070	Myynti 8	REVENUE	_SALES	
+3080	Myynti 9	REVENUE	_SALES	
+3090	Myynti 10	REVENUE	_SALES	
+3110	Rakentamispalveluiden myynti (käänn. verovelv.)	REVENUE	_SALES	
+__Oheispalvelut				
+3200	Puhelintuotot	REVENUE	_OTHER_INCOME	
+3210	Veikkaustuotot	REVENUE	_OTHER_INCOME	
+3220	Automaattituotot	REVENUE	_OTHER_INCOME	
+3230	Muut oheispalvelutuotot	REVENUE	_OTHER_INCOME	
+__Toimitusveloitukset ja osamaksulisät				
+3250	Laskutuslisät	REVENUE	_OTHER_INCOME	
+3260	Kuljetusvakuutukset	REVENUE	_OTHER_INCOME	
+3270	Kuljetusveloitukset	REVENUE	_OTHER_INCOME	
+3280	Muut toimitusveloitukset	REVENUE	_OTHER_INCOME	
+3290	Osamaksulisät	REVENUE	_OTHER_INCOME	
+__Komissiokauppa ja agentuuri				
+3300	Komissiomyynti	REVENUE		
+3310	Komissio-ostot	REVENUE		
+3320	Välityspalvelutuotot	REVENUE		
+__Tavaravienti				
+3330	Tavaramyynti Ahvenanmaalle	REVENUE		
+3350	Yhteisömyynti EMU-maat	REVENUE	___EURO_AREA_SALES	
+3360	Yhteisömyynti muut EU-maat	REVENUE	___NON_EURO_AREA_SALES	
+3370	Kolmikantamyynti	REVENUE		
+3380	Myynti yhteisön ulkopuolelle	REVENUE	__NON_EU_SALES	
+3390	Palveluiden myynti EU-maihin	REVENUE	__EU_SALES	
+__Myynti, käytetyt tavarat ja taide-, keräily- ja antiikkiesineet				
+3400	Myynti käytetyt tavarat	REVENUE		
+3410	Myynti käytetyt tavarat marginaalimenettely	REVENUE		
+3420	Myynti taide-, keräily- ja antiikkiesineet	REVENUE		
+3430	Myynti taide-, keräily-ja antiikkiesineet marginaalimenettely	REVENUE		
+__Myynti, arvopaperit ja kiinteistöt				
+3440	Kiinteistöjen myynti	REVENUE		
+3450	Vuokratuotot	REVENUE		
+3460	Arvopapereiden myynti	REVENUE		
+3470	Osinkotuotot	REVENUE		
+3480	Korkotuotot	REVENUE		
+3490	Muut kiinteistö-  ja arvopaperituotot	REVENUE		
+__Myynnin oikaisuerät				
+3500	Myynnin alennukset	EXPENSE	_SALES	
+3510	Yhteisömyynnin alennukset EMU-maat	EXPENSE	___EURO_AREA_SALES	
+3520	Yhteisömyynnin alennukset muut EU-maat	EXPENSE	___NON_EURO_AREA_SALES	
+3550	Apteekkimaksu	EXPENSE		
+3560	Muut välilliset verot	EXPENSE		
+3570	Maksut asiakkaan puolesta	EXPENSE		
+3580	Myynnin valuuttakurssierot	EXPENSE		
+3590	Muut myynnin oikaisuerät	EXPENSE		
+_Valmiiden ja keskeneräisten tuotteiden varastojen lisäys tai vähennys				
+3600	Valmiiden tuotteiden varaston muutos	REVENUE		
+3610	Keskeneräisten tuotteiden varaston muutos	REVENUE		
+3620	Valmiiden ja keskeneräisten tuotteiden varastojen arvonalennus	REVENUE		
+_Valmistus omaan käyttöön				
+3630	Valmistus omaan käyttöön, aineettomat hyödykkeet	REVENUE		
+3640	Valmistus omaan käyttöön, aineelliset hyödykkeet	REVENUE		
+_Liiketoiminnan muut tuotot				
+3650	Käyttöomaisuuden myyntivoitot	REVENUE	INCOME	
+3660	Myyntivoitto liiketoimintakaupoista	REVENUE		
+3700	Leasinghyvitykset	REVENUE	INCOME	
+3710	Keskeytysvakuutuskorvaukset	REVENUE		
+3720	Vakuutusten takaisinostoarvot	REVENUE		
+3730	Saadut vahingonkorvaukset	REVENUE		
+3750	Vuokratuotot kiinteistöistä	REVENUE		
+3760	Vuokratuotot huoneistoista	REVENUE		
+3770	Vuokratuotot henkilöstön virkistystiloista	REVENUE		
+3780	Vuokratuotot koneista ja kalustosta	REVENUE	INCOME	
+3790	Muut vuokratuotot	REVENUE		
+3800	Saadut avustukset	REVENUE		
+3810	Saadut työllistämiskorvaukset	REVENUE		
+3820	Saadut oppisopimuskorvaukset	REVENUE		
+3840	Saadut tuet	REVENUE		
+3850	Työvoiman vuokraustuotot	REVENUE	INCOME	
+3860	Kuljetuspalvelutuotot	REVENUE	INCOME	
+3870	Toimistopalvelutuotot	REVENUE	INCOME	
+3880	Tietoliikennepalvelutuotot	REVENUE	INCOME	
+3890	Muut palvelutuotot	REVENUE	INCOME	
+3900	Rojaltit	REVENUE	INCOME	
+3910	Provisiot	REVENUE	INCOME	
+3920	Lisenssimaksut	REVENUE	INCOME	
+3930	Asiamiespalkkiot	REVENUE	INCOME	
+3950	Muut palkkiot ja korvaukset	REVENUE	INCOME	
+3980	Fuusiovoitto	REVENUE		
+3990	Muut liiketoiminnan muut tuotot	REVENUE	INCOME	
+_Materiaalit ja palvelut				
+__Aineet, tarvikkeet ja tavarat				
+___Ostot tilikauden aikana				
+____Aine-, tarvike- ja tavaraostot				
+4000	Ostot	EXPENSE	EXPENSE	
+4010	Ostot 2	EXPENSE	EXPENSE	
+4020	Ostot 3	EXPENSE	EXPENSE	
+4030	Ostot 4	EXPENSE	EXPENSE	
+4040	Ostot 5	EXPENSE	EXPENSE	
+4050	Ostot 6	EXPENSE	EXPENSE	
+4060	Ostot 7	EXPENSE	EXPENSE	
+4070	Ostot välitysmyynti	EXPENSE	EXPENSE	
+4080	Ostot, ostaja verovelvollinen	EXPENSE	EXPENSE	
+____Tavaratuonti				
+4090	Tavaraostot Ahvenanmaalta	EXPENSE		
+4100	Verot ja muut maksut Ahvenanmaan maahantuonnissa	EXPENSE		
+4110	Yhteisöhankinnat	EXPENSE	EXPENSE	
+4120	Välittäjän kolmikantaosto	EXPENSE		
+4130	Ostot tuonti	EXPENSE		
+4140	Tullit, verot ja muut maksut tullattaessa	EXPENSE		
+____Ostot, käytetyt tavarat ja taide- keräily- ja antiikkiesineet				
+4150	Ostot käytetyt tavarat	EXPENSE		
+4160	Ostot käytetyt tavarat marginaalimenettely	EXPENSE		
+4170	Ostot taide, keräily- ja antiikkiesineet	EXPENSE		
+4180	Ostot taide, keräily- ja antiikkiesineet marginaalimenettely	EXPENSE		
+____Ostot, arvopaperit ja kiinteistöt				
+4200	Kiinteistöostot	EXPENSE		
+4210	Arvopapereiden ostot	EXPENSE		
+4220	Muut vaihto-omaisuusosakkeiden kulut	EXPENSE		
+____Ostojen oikaisuerät				
+4230	Ostojen alennukset	REVENUE	EXPENSE	
+4240	Yhteisöhankintojen alennukset	REVENUE	EXPENSE	
+4260	Palautetut tavarat ja päällykset	REVENUE	EXPENSE	
+4270	Saadut vahingonkorvaukset	REVENUE		
+4280	Saadut avustukset materiaalihankintoihin	REVENUE		
+4290	Ostorahdit	EXPENSE	EXPENSE	
+4300	Yhteisökuljetus	EXPENSE	EXPENSE	
+4310	Ostojen kuljetusvakuutusmaksut	EXPENSE		
+4320	Tuontihuolinta	EXPENSE	EXPENSE	
+4330	Muut hankintakulut	EXPENSE	EXPENSE	
+4340	Yksityiskäyttö	REVENUE		
+4350	Liikkeen käyttö	REVENUE		
+4360	Myynti henkilökunnalle	REVENUE	EXPENSE	
+4370	Ostojen valuuttakurssierot	EXPENSE		
+4380	Rakentamispalvelun oman käytön arvonlisävero	EXPENSE		
+4390	Muut ostojen oikaisuerät	EXPENSE	EXPENSE	
+___Varastojen lisäys tai vähennys				
+4400	Aine- ja tarvikevaraston muutos	EXPENSE		
+4410	Tavaravaraston muutos	EXPENSE		
+4420	Muun vaihto-omaisuusvaraston muutos	EXPENSE		
+4440	Aine-, tarvike-, tavara- ja muiden vaihto-omaisuusvarast. arvonalennus	EXPENSE		
+__Ulkopuoliset palvelut				
+4450	Alihankinta 1	EXPENSE	EXPENSE	
+4460	Alihankinta 2	EXPENSE	EXPENSE	
+4470	Rakentamispalveluiden osto (käänn. verovelv.)	EXPENSE	EXPENSE	
+4475	Palveluiden osto EU-maista	EXPENSE	EXPENSE	
+4480	Vuokrattu työvoima	EXPENSE	EXPENSE	
+4490	Muut ulkopuoliset palvelut	EXPENSE	EXPENSE	
+_Henkilöstökulut				
+__Palkat ja palkkiot				
+___Työntekijöiden palkat ja palkkiot				
+____Työssäoloajan normaalipalkat				
+5000	Työntekijäpalkat	EXPENSE		
+5010	Kuukausipalkat	EXPENSE		
+5020	Tuntipalkat	EXPENSE		
+5050	Ulkomaan työskentelyn palkat	EXPENSE		
+5060	Palkat, lähdeveronalaiset	EXPENSE		
+5090	Palkkojen jaksotus	EXPENSE		
+____Lisät ja korvaukset				
+5100	Ylityönlisät	EXPENSE		
+5110	Muut palkanlisät	EXPENSE		
+5120	Ennakonpidätyksen alaiset päivärahat	EXPENSE		
+5130	Muut ennakonpidätyksen alaiset korvaukset	EXPENSE		
+5170	Osapalkkiot	EXPENSE		
+5180	Kannustuspalkkiot	EXPENSE		
+5190	Lisien, korvausten ja palkkioiden jaksotus	EXPENSE		
+____Palkkiot				
+5200	Palkkiot	EXPENSE		
+5290	Palkkioiden jaksotus	EXPENSE		
+____Loma-ajan ja sosiaalipalkat				
+5300	Vuosilomapalkat	EXPENSE		
+5310	Vuosilomakorvaukset	EXPENSE		
+5320	Lomaltapaluurahat	EXPENSE		
+5330	Lomapalkkojen jaksotus	EXPENSE		
+5340	Sairausajan ja vanhempainvapaan palkat	EXPENSE		
+5350	Muut sosiaalipalkat	EXPENSE		
+5390	Sosiaalipalkkojen jaksotus	EXPENSE		
+____Luontoisedut				
+5400	Asuntoedut	EXPENSE		
+5410	Ravintoedut	EXPENSE		
+5420	Autoedut	EXPENSE		
+5430	Puhelinedut	EXPENSE		
+5440	Muut luontoisedut	EXPENSE		
+____Saadut korvaukset palkoista				
+5470	Saadut sairausvakuutuskorvaukset	REVENUE		
+5480	Saadut tapaturmavakuutuskorvaukset	REVENUE		
+5490	Korvausten jaksotus	EXPENSE		
+___Johdon palkat				
+____Johdon palkat ja palkkiot				
+5600	Johdon palkat	EXPENSE		
+5610	Johdon osapalkkiot	EXPENSE		
+5620	Johdon vuosilomapalkat	EXPENSE		
+5630	Johdon vuosilomakorvaukset	EXPENSE		
+5640	Johdon lomaltapaluurahat	EXPENSE		
+5690	Johdon palkkojen jaksotus	EXPENSE		
+____Johdon luontoisedut				
+5700	Johdon asuntoedut	EXPENSE		
+5710	Johdon ravintoedut	EXPENSE		
+5720	Johdon autoedut	EXPENSE		
+5730	Johdon puhelinedut	EXPENSE		
+5740	Johdon muut luontoisedut	EXPENSE		
+____Saadut korvaukset johdon palkoista				
+5770	Saadut sairausvakuutuskorvaukset	REVENUE		
+5780	Saadut tapaturmavakuutuskorvaukset	REVENUE		
+5790	Korvausten jaksotus	EXPENSE		
+___Osakkaiden ja omaisten palkat				
+____Osakkaiden ja omaisten palkat ja palkkiot				
+5800	Osakkaiden/omaisten palkat	EXPENSE		
+5810	Osakkaiden/omaisten osapalkkiot	EXPENSE		
+5820	Osakkaiden/omaisten vuosilomapalkat	EXPENSE		
+5830	Osakkaiden/omaisten vuosilomakorvaukset	EXPENSE		
+5840	Osakkaiden/omaisten lomaltapaluurahat	EXPENSE		
+5890	Osakkaiden/omaisten palkkojen jaksotus	EXPENSE		
+____Osakkaiden ja omaisten luontoisedut				
+5900	Osakkaiden/omaisten asuntoedut	EXPENSE		
+5910	Osakkaiden/omaisten ravintoedut	EXPENSE		
+5920	Osakkaiden/omaisten autoedut	EXPENSE		
+5930	Osakkaiden/omaisten puhelinedut	EXPENSE		
+5940	Osakkaiden/omaisten muut luontoisedut	EXPENSE		
+____Saadut korvaukset osakkaiden ja omaisten palkoista				
+5960	Saadut sairausvakuutuskorvaukset	REVENUE		
+5970	Saadut tapaturmavakuutuskorvaukset	REVENUE		
+5980	Korvausten jaksotus	EXPENSE		
+___Luontoisetujen vastatili				
+5990	Luontoisetujen vastatili	REVENUE		
+__Henkilösivukulut				
+___Eläkekulut				
+____Maksetut eläkkeet				
+6000	Maksetut eläkkeet	EXPENSE		
+6090	Eläkkeiden jaksotus	EXPENSE		
+____Eläkevakuutusmaksut				
+6100	YEL-maksut	EXPENSE		
+6110	YEL-maksujen jaksotus	EXPENSE		
+6130	TyEL-maksut	EXPENSE		
+6140	Työntekijäin TyEL-maksut	EXPENSE		
+6150	TyEL-maksujen jaksotus	EXPENSE		
+6240	Vapaaehtoiset eläkevakuutusmaksut	EXPENSE		
+6250	Vapaaehtoisten eläkevakuutusmaksujen jaksotus	EXPENSE		
+6270	Muut pakolliset eläkevakuutusmaksut	EXPENSE		
+6280	Muiden pakollisten eläkevakuutusmaksujen jaksotus	EXPENSE		
+____Tilikauden aikainen jaksotus				
+6290	Tilikauden aikainen jaksotus	EXPENSE		
+___Muut henkilösivukulut				
+____Sosiaaliturvamaksut				
+6300	Sosiaaliturvamaksut	EXPENSE		
+6390	Sosiaaliturvamaksujen jaksotus	EXPENSE		
+____Pakolliset vakuutusmaksut				
+6400	Tapaturmavakuutusmaksut	EXPENSE		
+6410	Työttömyysvakuutusmaksut	EXPENSE		
+6420	Työntekijöiden työttömyysvakuutusmaksut	EXPENSE		
+6430	Ryhmähenkivakuutusmaksut	EXPENSE		
+6480	Muut pakolliset vakuutusmaksut	EXPENSE		
+6490	Pakollisten vakuutusmaksujen jaksotus	EXPENSE		
+____Muut henkilöstön vakuutusmaksut				
+6500	Henkilövakuutusmaksut (vapaaehtoiset)	EXPENSE		
+6590	Henkilövakuutusmaksujen jaksotus	EXPENSE		
+____Tilikauden aikainen jaksotus				
+6690	Tilikauden aikainen jaksotus	EXPENSE		
+_Poistot ja arvonalentumiset				
+__Suunnitelman mukaiset poistot				
+6800	Poisto perustamismenoista	EXPENSE		
+6810	Poisto tutkimusmenoista	EXPENSE		
+6820	Poisto kehittämismenoista	EXPENSE		
+6830	Poisto aineettomista oikeuksista	EXPENSE		
+6840	Poisto liikearvosta	EXPENSE		
+6850	Poisto muista pitkävaikutteisista menoista	EXPENSE		
+6860	Poisto rakennuksista ja rakennelmista	EXPENSE		
+6870	Poisto koneista ja kalustosta	EXPENSE		
+6890	Poisto muista aineellisista hyödykkeistä	EXPENSE		
+__Konserniliikearvon poisto ja konsernireservin vähennys				
+6930	Poisto konserniaktiivasta	EXPENSE		
+6940	Konsernireservin vähennys	EXPENSE		
+__Arvonalentumiset pysyvien vastaavien hyödykkeistä				
+6950	Arvonalentumiset maa- ja vesialueista	EXPENSE		
+6960	Arvonalentumiset sumu-poistettavista pysyvistä vastaavista	EXPENSE		
+6970	Arvonalentumiset ennakkomaksuista	EXPENSE		
+6980	Arvonalennusten palautukset	EXPENSE		
+__Vaihtuvien vastaavien poikkeukselliset arvonalentumiset				
+6990	Vaihtuvien vastaavien poikkeukselliset arvonalentumiset	EXPENSE		
+_Liiketoiminnan muut kulut				
+__Vapaaehtoiset henkilösivukulut				
+7000	Henkilökunnan koulutus	EXPENSE	EXPENSE	
+7010	Sisäiset palaverit ja henkilökuntajuhlat	EXPENSE	EXPENSE	
+7020	Virkistys- ja harrastustoiminta	EXPENSE	EXPENSE	
+7040	Loma-asuntojen hoitokulut	EXPENSE	EXPENSE	
+7050	Työterveyshuolto	EXPENSE		
+7060	Saadut Kela-korvaukset	REVENUE		
+7070	Henkilökunnan ruokailu / lounassetelit	EXPENSE	EXPENSE	
+7080	Henkilökunnan ruokalan kulut	EXPENSE	__PERSONEL_MEALS	
+7090	Ruokatarjoilun omaan käyttöön ottamisen arvonlisävero	EXPENSE		
+7100	Saadut ruokakorvaukset	REVENUE		
+7110	Kahvitarvikkeet	EXPENSE	__PERSONEL_MEALS	
+7120	Työvaatteet	EXPENSE	EXPENSE	
+7130	Suojavälineet	EXPENSE	EXPENSE	
+7140	Henkilöstön hankintakulut	EXPENSE	EXPENSE	
+7150	Työpaikkailmoitukset	EXPENSE	EXPENSE	
+7160	Lahjat henkilökunnalle	EXPENSE	EXPENSE	
+7170	Muut henkilösivukulut	EXPENSE	EXPENSE	
+__Toimitilakulut				
+7200	Maa-aluevuokrat	EXPENSE		
+7210	Kiinteistöjen vuokrat	EXPENSE		
+7220	Toimitilavastikkeet	EXPENSE		
+7230	Toimitilavuokrat	EXPENSE		
+7240	Varastovastikkeet	EXPENSE		
+7250	Varastovuokrat	EXPENSE		
+7260	Autotallivastikkeet	EXPENSE		
+7270	Autotalli- ja autopaikkavuokrat	EXPENSE		
+7280	Henkilöstöasuntojen vastikkeet	EXPENSE		
+7290	Henkilöstöasuntojen vuokrat	EXPENSE		
+7300	Asuinhuoneistojen vastikkeet	EXPENSE		
+7310	Muut vuokrat ja vastikkeet	EXPENSE		
+7320	Energian erityisvähennys	EXPENSE		
+7330	Hallinto	EXPENSE	EXPENSE	
+7340	Käyttö ja huolto	EXPENSE	EXPENSE	
+7350	Ulkoalueiden hoito	EXPENSE	EXPENSE	
+7360	Siivous ja puhtaanapito	EXPENSE	EXPENSE	
+7370	Lämmitys	EXPENSE	EXPENSE	
+7380	Vesi ja jätevesi	EXPENSE	EXPENSE	
+7390	Sähkö ja kaasu	EXPENSE	EXPENSE	
+7400	Jätehuolto	EXPENSE	EXPENSE	
+7410	Vahinkovakuutukset	EXPENSE		
+7420	Kiinteistövero	EXPENSE		
+7430	Korjaukset	EXPENSE	EXPENSE	
+7440	Saadut vakuutuskorvaukset	REVENUE		
+7450	Muut toimitilojen hoitokulut	EXPENSE	EXPENSE	
+7460	Vartiointi- ja turvallisuuskulut	EXPENSE	EXPENSE	
+7470	Muut toimitilakulut	EXPENSE	EXPENSE	
+__Ajoneuvokulut				
+7500	Ajoneuvoleasing	EXPENSE	EXPENSE	
+7510	Leasinghyvitykset	REVENUE	EXPENSE	
+7520	Ajoneuvovuokrat	EXPENSE	EXPENSE	
+7530	Ajoneuvojen polttoaine	EXPENSE	EXPENSE	
+7540	Ajoneuvojen huolto ja korjaus	EXPENSE	EXPENSE	
+7550	Renkaat ja autotarvikkeet	EXPENSE	EXPENSE	
+7560	Ajoneuvojen julkiset maksut	EXPENSE	EXPENSE	
+7570	Ajoneuvovakuutukset	EXPENSE		
+7580	Kolarivahingot	EXPENSE	EXPENSE	
+7590	Maksetut vahingonkorvaukset	EXPENSE		
+7600	Maksetut ajoneuvokorvaukset	EXPENSE		
+7610	Muut ajoneuvokulut	EXPENSE	EXPENSE	
+__Atk-laite ja -ohjelmistokulut				
+7640	Atk-laite- ja ohjelmistoleasing	EXPENSE	EXPENSE	
+7650	Atk-laite- ja ohjelmistovuokrat	EXPENSE	EXPENSE	
+7660	Atk-ohjelmistot, päivitykset ja ylläpito	EXPENSE	EXPENSE	
+7670	Atk-laitehuollot, korjaukset ja asennukset	EXPENSE	EXPENSE	
+7680	Atk-laitehankinnat (< 3v. kalusto)	EXPENSE	EXPENSE	
+7690	Atk-laitteiden pienhankinnat	EXPENSE	EXPENSE	
+7700	Muut atk-laite- ja -ohjelmistokulut	EXPENSE	EXPENSE	
+__Muut kone- ja kalustokulut				
+7710	Kone- ja kalustoleasing	EXPENSE	EXPENSE	
+7720	Kone- ja kalustovuokrat	EXPENSE	EXPENSE	
+7730	Kone- ja kalustohuolto ja korjaus	EXPENSE	EXPENSE	
+7740	Kone- ja kalustohankinnat (< 3v. kalusto)	EXPENSE	EXPENSE	
+7750	Koneiden ja kaluston pienhankinnat	EXPENSE	EXPENSE	
+7760	Maksetut työkalukorvaukset	EXPENSE		
+7770	Muut kone- ja kalustokulut	EXPENSE	EXPENSE	
+__Matkakulut				
+7800	Matkaliput	EXPENSE	__TICKET	
+7810	Taksikulut	EXPENSE	___TAXI	
+7820	Hotelli- ym. majoitus	EXPENSE	___HOTEL	
+7830	Ruokailut matkalla	EXPENSE	EXPENSE	
+7840	Matkavakuutukset	EXPENSE		
+7850	Paikoituskulut	EXPENSE	EXPENSE	
+7860	Muut matkakulut	EXPENSE	EXPENSE	
+7870	Kilometrikorvaukset	EXPENSE		
+7880	Päivärahat	EXPENSE		
+7890	Ulkomaan päivärahat	EXPENSE		
+7900	Yömatkarahat	EXPENSE		
+7910	Ateriakorvaukset	EXPENSE		
+__Edustuskulut				
+7950	Edustustilaisuudet	EXPENSE		
+7960	Edustuslahjat	EXPENSE		
+7970	Edustusmatkat	EXPENSE		
+7980	Edustustilat	EXPENSE		
+7990	Muut edustuskulut	EXPENSE		
+__Myyntikulut				
+8000	Maksetut myyntiprovisiot	EXPENSE	EXPENSE	
+8010	Luottokorttiprovisiot	EXPENSE	EXPENSE	
+8020	Myyntirahdit	EXPENSE	EXPENSE	
+8030	Myyntihuolinta	EXPENSE	EXPENSE	
+8040	Muut myyntikulut	EXPENSE	EXPENSE	
+__Markkinointikulut				
+8050	Mainostoimistopalvelut	EXPENSE	EXPENSE	
+8060	Suoramainonta	EXPENSE	EXPENSE	
+8070	Ilmoitusmainonta	EXPENSE	EXPENSE	
+8080	TV- ja radiomainonta	EXPENSE	EXPENSE	
+8090	Internetmainonta	EXPENSE	EXPENSE	
+8100	Mainosteippaukset	EXPENSE	EXPENSE	
+8110	Ulkomainonta	EXPENSE	EXPENSE	
+8120	Mainosmateriaali ja tarvikkeet	EXPENSE	EXPENSE	
+8130	Mainoslahjat ja palkinnot	EXPENSE	EXPENSE	
+8140	Muut mainoskulut	EXPENSE	EXPENSE	
+8150	Markkinointitilaisuudet	EXPENSE	EXPENSE	
+8160	Markkinatutkimukset	EXPENSE	EXPENSE	
+8170	Messut ja näyttelyt	EXPENSE	EXPENSE	
+8180	Asiakaslehdet	EXPENSE	EXPENSE	
+8190	Asiakasviihde	EXPENSE	EXPENSE	
+8200	Somisteet, kukat	EXPENSE	EXPENSE	
+8210	Tavaranäytteet	EXPENSE	EXPENSE	
+8220	Maksettu markkinointituki	EXPENSE	EXPENSE	
+8230	Muut myynnin edistämiskulut	EXPENSE	EXPENSE	
+8250	Suhdetoimintakulut	EXPENSE	EXPENSE	
+8260	Kannatusilmoitukset ja -maksut	EXPENSE	EXPENSE	
+8270	Huomionosoitukset	EXPENSE	EXPENSE	
+8280	Lahjoitukset	EXPENSE	EXPENSE	
+__Tutkimus- ja kehityskulut				
+8300	Tuotekehityspalvelut	EXPENSE	EXPENSE	
+8310	Patentit, mallisuoja ja tavaramerkit	EXPENSE	EXPENSE	
+8320	Laaduntarkkailu	EXPENSE	EXPENSE	
+8330	Sertifiointi ja laatutodistukset	EXPENSE	EXPENSE	
+8340	Koulutus	EXPENSE	EXPENSE	
+8350	Muut tutkimus- ja kehityskulut	EXPENSE	EXPENSE	
+__Hallintopalvelut				
+8370	Vuokratyövoima	EXPENSE	EXPENSE	
+8380	Taloushallintopalvelut	EXPENSE	EXPENSE	
+8390	Tilintarkastuspalvelut	EXPENSE	EXPENSE	
+8410	Laki ja konsultointipalvelut	EXPENSE	EXPENSE	
+8420	Perintä- ja luottotietopalvelut	EXPENSE	EXPENSE	
+8430	Muut hallintopalvelut	EXPENSE	EXPENSE	
+8440	Viranomaismaksut	EXPENSE	EXPENSE	
+__Muut hallintokulut				
+8450	Kirjat	EXPENSE	___BOOK	
+8460	Lehdet	EXPENSE	EXPENSE	
+8470	Tietopalvelut	EXPENSE	EXPENSE	
+8480	Jäsenmaksut	EXPENSE	EXPENSE	
+8490	Muu tiedonhankinta	EXPENSE	EXPENSE	
+8500	Puhelinkulut	EXPENSE	EXPENSE	
+8510	Matkapuhelinkulut	EXPENSE	EXPENSE	
+8520	Telefaxkulut	EXPENSE	EXPENSE	
+8530	Datasiirtokulut	EXPENSE	EXPENSE	
+8540	Posti- ja lähettikulut	EXPENSE	EXPENSE	
+8550	Arvo-osuuksien hoitokulut	EXPENSE	EXPENSE	
+8560	Rahaliikenteen kulut	EXPENSE	EXPENSE	
+8570	Pyöristyserot	EXPENSE		
+8580	Vastuuvakuutukset	EXPENSE		
+8590	Esinevakuutukset	EXPENSE		
+8600	Muut vakuutukset	EXPENSE		
+8610	Maksetut vahingonkorvaukset	REVENUE		
+8620	Toimistotarvikkeet	EXPENSE	EXPENSE	
+8630	Lomakkeet ja painatuskulut	EXPENSE	EXPENSE	
+8640	Valokopiot	EXPENSE	EXPENSE	
+8650	Kokous- ja neuvottelukulut	EXPENSE	EXPENSE	
+8680	Muut hallintokulut	EXPENSE	EXPENSE	
+__Muut liikekulut				
+8700	Myynnin luottotappiot	EXPENSE		
+8710	Yhteisömyynnin luottotappiot	EXPENSE		
+8720	Marginaaliverotusmyynnin luottotappiot	EXPENSE		
+8730	Palautuneet luottotappiot	EXPENSE		
+8750	Veronkorotukset, vähennyskelpoiset	EXPENSE		
+8760	Muut vähennyskelpoiset liikekulut	EXPENSE	EXPENSE	
+8770	Veronkorotukset, vähennyskelvottomat	EXPENSE		
+8780	Sakot, pysäköintivirhemaksut ja muut rangaistusmaksut	EXPENSE		
+8790	Fuusiotappio	EXPENSE		
+8800	Muut vähennyskelvottomat liikekulut	EXPENSE		
+8850	Käyttöomaisuuden luovutustappiot	EXPENSE		
+__Täsmäytyserot				
+8890	Täsmäytyserot	EXPENSE		
+_Osuus osakkuusyritysten voitosta (tappiosta)				
+8990	Osuus osakkuusyritysten tuloksesta	REVENUE		
+_Rahoitustuotot ja -kulut				
+___Tuotot osuuksista saman konsernin yrityksissä				
+9000	Osinkotuotot konserniyrityksiltä	REVENUE		
+9010	Osuuskorot konserniyrityksiltä	REVENUE		
+9020	Muut tuotot konserniyrityksiltä	REVENUE		
+___Osuus osakkuusyritysten voitosta (tappiosta)				
+9030	Osuus osakkuusyritysten tuloksesta	REVENUE		
+___Tuotot osuuksista omistusyhteysyrityksissä				
+9040	Osinkotuotot omistusyhteysyrityksiltä	REVENUE		
+9050	Osuuskorot omistusyhteysyrityksiltä	REVENUE		
+9060	Muut tuotot omistysyhteysyrityksiltä	REVENUE		
+___Tuotot osuuksista muissa omistusyhteysyrityksissä				
+9070	Tuotot osuuksista muissa omistusyhteysyrityksissä	REVENUE		
+___Tuotot muista pysyvien vastaavien sijoituksista				
+____Saman konsernin yrityksiltä				
+9080	Sijoitustuotot muista pysyvien vastaavien sijoituksista konserniin	REVENUE		
+____Muilta				
+9090	Osinkotuotot	REVENUE		
+9100	Osuuskorot	REVENUE		
+9110	Yhtiöveronhyvitystuotot	REVENUE		
+9120	Voitto-osuus yhtymistä	REVENUE		
+9130	Luovutusvoitot osuuksista	REVENUE		
+9140	Muut tuotot pysyvien vastaavien sijoituksista	REVENUE		
+___Muut korko- ja rahoitustuotot				
+____Saman konsernin yrityksiltä				
+9150	Korko- ja rahoitustuotot konsernisaamisista	REVENUE		
+____Muilta				
+9160	Korkotuotot omistusyhteysyrityssaamisista	REVENUE		
+9170	Korkotuotot myyntisaamisista	REVENUE		
+9180	Korkotuotot osamaksusaamisista	REVENUE		
+9190	Korkotuotot lainasaamisista	REVENUE		
+9200	Korkotuotot henkilökuntasaamisista	REVENUE		
+9210	Korkotuotot osakaslainasaamisista	REVENUE		
+9220	Korkotuotot pankkisaamisista	REVENUE		
+9230	Korkotuotot talletuksista	REVENUE		
+9240	Palautettava yhteisökorko/palautuskorko	REVENUE		
+9250	Muut korkotuotot	REVENUE		
+9260	Valuuttakurssivoitot	REVENUE		
+9270	Osinkotuotot rahoitusarvopapereista	REVENUE		
+9280	Muut tuotot rahoitusarvopapereista	REVENUE		
+9290	Muut rahoitustuotot	REVENUE		
+___Arvonalentumiset pysyvien vastaavien sijoituksista				
+9300	Konserniosuuksien arvonalentumiset	EXPENSE		
+9310	Konsernisaamisten  arvonalentumiset	EXPENSE		
+9320	Omistusyhteysyritysosuuksien arvonalentumiset	EXPENSE		
+9330	Omistusyhteysyrityssaamisten arvonalentumiset	EXPENSE		
+9340	Osakkeiden ja osuuksien arvonalentumiset	EXPENSE		
+9350	Saamisten arvonalentumiset	EXPENSE		
+9360	Arvonalentumisten palautukset	REVENUE		
+___Arvonalentumiset vaihtuvien vastaavien rahoitusarvopapereista				
+9370	Konserniosuuksien arvonalentumiset	EXPENSE		
+9380	Omistusyhteysyritysosuuksien arvonalentumiset	EXPENSE		
+9390	Osakkeiden ja osuuksien arvonalentumiset	EXPENSE		
+9400	Muiden rahoitusarvopapereiden arvonalentumiset	EXPENSE		
+9410	Arvonalentumisten palautukset	REVENUE		
+___Korkokulut ja muut rahoituskulut				
+____Saman konsernin yrityksille				
+9420	Korkokulut veloista konserniyrityksille	EXPENSE		
+9430	Muut rahoituskulut konserniyrityksille	EXPENSE		
+____Muille				
+9440	Korkokulut joukkovelkakirjalainoista	EXPENSE		
+9450	Korkokulut vaihtovelkakirjalainoista	EXPENSE		
+9460	Korkokulut rahoituslaitoslainoista	EXPENSE		
+9470	Korkokulut rahoitusyhtiölainoista	EXPENSE		
+9480	Korkokulut eläkelainoista	EXPENSE		
+9490	Korkokulut ostoveloista	EXPENSE		
+9500	Korkokulut rahoitusvekseleistä	EXPENSE		
+9510	Korkokulut omistusyhteysyrityslainoista	EXPENSE		
+9520	Korkokulut osakaslainoista	EXPENSE		
+9530	Maksettava yhteisökorko / jäännösveron korko	EXPENSE		
+9540	Verojen viivästysseuraamukset	EXPENSE		
+9550	Muut korkokulut	EXPENSE		
+9560	Lainojen hoitokulut	EXPENSE		
+9570	Limiittipalkkiot	EXPENSE		
+9580	Takausprovisiot	EXPENSE		
+9590	Luottovakuutukset	EXPENSE		
+9600	Kiinnityskulut	EXPENSE	EXPENSE	
+9610	Perimiskulut	EXPENSE	EXPENSE	
+9620	Kurssitappiot	EXPENSE		
+9640	Factoring-kulut	EXPENSE		
+9650	Terminointikulut	EXPENSE		
+9660	Saamisten luottotappiot	EXPENSE		
+9670	Muut kulut rahoitusarvopapereista	EXPENSE		
+9690	Muut rahoituskulut	EXPENSE		
+_Satunnaiset erät				
+__Satunnaiset tuotot				
+9700	Satunnaiset tuotot	REVENUE	EXPENSE	
+9710	Satunnaiset käyttöomaisuuden myyntivoitot	REVENUE	EXPENSE	
+9720	Saadut konserniavustukset	REVENUE		
+9730	Satunnainen fuusiovoitto	REVENUE		
+__Satunnaiset kulut				
+9740	Satunnaiset kulut	EXPENSE	EXPENSE	
+9750	Satunnaiset käyttöomaisuuden myyntitappiot	EXPENSE	EXPENSE	
+9760	Annetut konserniavustukset	EXPENSE		
+9770	Satunnainen fuusiotappio	EXPENSE		
+__Osuus osakkuusyritysten voitosta (tappiosta)				
+9780	Osuus osakkuusyritysten tuloksesta	EXPENSE		
+__Satunnaisten erien tuloverot				
+9790	Satunnaisten erien tuloverot	EXPENSE		
+_Tilinpäätössiirrot				
+__Poistoeron lisäys (-) tai vähennys (+)				
+9800	Aineettomien hyödykkeiden poistoeron muutos	EXPENSE		
+9810	Rakennusten poistoeron muutos	EXPENSE		
+9820	Koneiden ja kaluston poistoeron muutos	EXPENSE		
+9830	Muiden aineellisten hyödykkeiden poistoeron muutos	EXPENSE		
+__Vapaaehtoisten varausten lisäys (-) tai vähennys (+)				
+9840	Käyttöomaisuuden jälleenhankintavarauksen muutos	EXPENSE		
+9850	Toimitilan jälleenhankintavarauksen muutos	EXPENSE		
+9860	Takuuvarauksen muutos	EXPENSE		
+9870	Toimintavarauksen muutos	EXPENSE		
+9880	Hankintamenon muutosvarauksen muutos	EXPENSE		
+9890	Muiden vapaaehtoisten varausten muutos	EXPENSE		
+_Tuloverot				
+__Tilikauden ja aikaisempien tilikausien verot				
+9900	Ennakkoverot	EXPENSE		
+9910	Ennakonpidätys työkorvauksista	EXPENSE		
+9920	Veronhyvitys osingoista	EXPENSE		
+9930	Lähdeverot	EXPENSE		
+9940	Tilikauden verojaksotus	EXPENSE		
+9950	Veronpalautukset / jäännösverot	EXPENSE		
+9960	Muut tuloverot	EXPENSE		
+__Laskennalliset verot				
+9970	Laskennalliset verot	EXPENSE		
+_Muut välittömät verot				
+9980	Varallisuusvero	EXPENSE		
+_Vähemmistöosuudet				
+9990	Vähemmistöosuudet	EXPENSE		
+_Erikoistilit				
+9999	Selvittelyä vaativat tapahtumat	EXPENSE	SUSPENSE_ACCOUNT	

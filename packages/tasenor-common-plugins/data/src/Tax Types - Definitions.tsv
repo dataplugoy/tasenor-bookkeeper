@@ -1,0 +1,11 @@
+# id	en	fi
+VAT_FROM_SALES	VAT from Sales	ALV myynnistä
+VAT_FROM_PURCHASES	VAT from Purchases	ALV ostoista
+VAT_PAYABLE	VAT Payable	ALV velat
+VAT_RECEIVABLE	VAT Receivable	ALV saatavat
+VAT_DELAYED_PAYABLE	Delayed VAT Payable	ALV siirtosaatavat
+VAT_DELAYED_RECEIVABLE	Delayed VAT Receivable	ALV siirtovelat
+CORPORATE_TAX	Corporate Tax	Yhteisövero
+TAX_AT_SOURCE	Tax at Source	Lähdevero
+WITHHOLDING_TAX	Withholding Tax	Ennakonpidätys
+PENALTY_OF_DELAY	Penalty of Delayed Payment	Veromaksun myöhästymissakko

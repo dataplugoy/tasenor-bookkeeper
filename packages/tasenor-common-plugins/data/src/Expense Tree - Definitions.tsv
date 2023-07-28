@@ -1,0 +1,99 @@
+# id	en	fi
+EXPENSE	Expenses	Kulut
+_CAPITAL	Capital	Pääoma
+__CAPITAL_RELATED_TRANSFERS_OUT	Capital Related Transfers	Pääomaliikkeisiin liittyvät tilisiirrot
+___SHAREHOLDER_LOAN_PAYMENT	Shareholder Loan Payment	Osakaslainan takaisinmaksu
+___DIVIDEND_PAYMENT	Dividend Payment	Osingonmaksu
+___FX_OUT	Foreign Exchange	Valuutanvaihto
+		
+__CAPITAL_EXPENSES	Capital Expenses	Pääomakulut
+___INTEREST_EXPENSE	Interest Expense	Korkokulu
+___TAX_RELATED_TRANSFERS	Tax Related Transfers	Veroihin liittyvät tilisiirrot
+____VAT_PAYMENT	VAT Payment	ALV maksu
+____CORPORATE-TAX_PAYMENT	Corporate Tax Payment	Yhteisöveron maksu
+____DIVIDEND_WITHHOLDING	Dividend Payment Witholding Tax	Osingonmaksun ennakonpidätys
+		
+__CAPITAL_LOSS	Capital Losses	Myyntitappiot
+___TRADE_LOSS	Trading Losses	Myyntitappiot vaihto-omaisuuden kaupankäynnistä
+____TRADE_LOSS_CRYPTO	Trading Losses from Cryptocurrencies	Myyntitappiot kryptovaluutoista
+____TRADE_LOSS_CURRENCY	Trading Losses from Currencies	Myyntitappiot valuutoista
+____TRADE_LOSS_STOCK	Trading Losses from Stocks	Myyntitappiot osakkeista
+____TRADE_LOSS_SHORT	Trading Losses from Short Contracts	Myyntitappiot lyhyeksimyynneistä
+		
+		
+_EQUIPMENT	Equipment	Koneet ja kalusteet
+__MACHINERY	Machinery	Koneet
+__FURNITURE	Furniture	Kalusteet
+__COMPUTING	Computing	Tietotekniikka
+___HARDWARE	Hardware	Tietotekninen laitteisto
+____COMPUTER	Computers	Tietokoneet
+_____DESKTOP	Desktop Computers	Pöytätietokoneet
+_____LAPTOP	Laptop Computers	Kannettavat tietokoneet
+____COMPUTER_ACCESSORIES	Computer Accessories	Tietokoneen lisälaitteet
+_____PRINTER	Printers	Tulostimet
+___SOFTWARE	Software	Ohjelmistot
+___INTERNET	Internet Expenses	Internetkulut
+		
+		
+		
+		
+_TRAVEL	Travelling Expenses	Matkakulut
+__TICKET	Travelling Ticket Expenses	Matkalippukulut
+___BUS_TICKET	Bus Tickets	Bussiliput
+___TRAIN_TICKET	Train Tickets	Junaliput
+___PLANE_TICKET	Airplane Tickets	Lentoliput
+___TAXI	Taxi	Taksikulut
+___ACCOMMODATION	Accommodation	Majoitus
+____HOTEL	Hotel	Hotellimajoitus
+		
+_MEETINGS	Meetings	Tapaamiset
+__INTERNAL_MEETING	Internal meeting	Kokous- ja palaverikulut
+		
+		
+		
+		
+		
+		
+_ADMIN	Administration	Hallintokulut
+__ADMIN_OTHER	Other Adminstration	Muut hallintokulut
+___BOOK	Books	Kirjat
+___INFORMATION	Information Services	Tietopalvelut
+___POSTAGE	Postage	Postikulut
+____POSTAGE_STAMPS	Postage Stamps	Postimerkit
+___BANKING_FEE	Banking Fees	Rahaliikenteen kulut
+____STOCK_BROKER_INACTIVITY_FEE	Stock Broker Inactivity Fee	Osakevälittäjän epäaktiivisuusmaksu
+____STOCK_BROKER_SERVICE_FEE	Stock Broker Service Fee	Osakevälittäjän palvelumaksu
+___ROUNDING_ERROR	Rounding Errors	Pyöristysvirheet
+___PHONE	Phone Expenses	Puhelinkulut
+___OFFICIAL_FEES	Official Fees	Viranomaismaksut
+___FINANCIAL_MANAGEMENT	Financial Management	Taloushallinnon kulu
+___NEWSPAPERS	Newspapers	Sanomalehdet
+		
+		
+		
+		
+		
+		
+_PERSONNEL	Personnel Expenses	Henkilöstökulut
+_OPTIONAL_PERSONNEL_EXPENSE	Optional Personnel Expenses	Vapaaehtoiset henkilöstökulut
+__PERSONNEL_MEALS	Meals for Personnel	Henkilöstön ateriointi
+		
+		
+_OTHER_EXPENSES	Other Expenses	Muut kulut
+__ENTERTAINMENT	Entertainment Expenses	Edustuskulut
+___SOCIAL_RECEPTIONS	Social Receptions	Edustustapahtumat
+__MISC_EXPENSES	Miscellaneous Expenses	Satunnaiset kulut
+__VEHICLES	Vehicles	Ajoneuvot
+		
+		
+		
+		
+_SPECIAL_EXPENSE_CASES	Cases That Need Special Handling	Erityiskäsittelyä vaativat tapaukset
+__NEEDS_MANUAL_INSPECTION	Needs Manual Inspection	Tutkittava tarkemmin käsin
+__ERROR_EXPENSE	Error in Expenses	Virheellinen kulu
+		
+		
+		
+		
+_EXPENSE_CORRECTIONS	Corrections in Expenses	Korjaukset kulutietoihin
+__EXPENSE_CORRECTION_WITHHOLDING_TAX	Corrections in Withholding Tax	Korjaukset ennakonpidätyksiin

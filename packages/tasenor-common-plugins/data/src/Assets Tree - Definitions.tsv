@@ -1,0 +1,101 @@
+# id	en	fi
+ASSETS	Assets	Vastaavaa
+_NON_CURRENT_ASSETS	Non-current assets	Pysyvät vastaavat
+__INTANGLIBLE_ASSETS	Intanglible assets	Aineettomat hyödykkeet
+		
+		
+		
+__TANGLIBLE_ASSETS	Intanglible assets	Aineelliset hyödykkeet
+		
+		
+		
+		
+		
+__INVESTMENTS	Investments	Sijoitukset
+		
+		
+		
+		
+		
+		
+_CURRENT_ASSETS	Current assets	Vaihtuvat vastaavat
+		
+__CURRENT_STOCKS	Stocks	Vaihto-omaisuus
+___CURRENT_PUBLIC_STOCK_SHARES	Publicly listed shares	Pörssinoteeratut osakkeet
+___CURRENT_PRIVATE_STOCK_SHARES	Unlisted shares	Listaamattomat osakkeet
+__CURRENT_CRYPTOCURRENCIES	Cryptocurrencies	Kryptovaluutat
+		
+		
+		
+__CURRENT_DEBTORS	Debtors	Saamiset
+___TRADE_DEBTORS	Trade debtors	Myyntisaamiset
+____EU_SALES_RECEIVABLES	Sales receivables from EU	Myyntisaamiset EU-alueelta
+_____EURO_AREA_SALES_RECEIVABLES	Sales receivables from Euro Zone	Myyntisaamiset euroalueelta
+______FINLAND_SALES_RECEIVABLES	Sales receivables from Finland	Myyntisaamiset Suomesta
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+___OWNED_BY_GROUP	Amounts owned by group undertakings	Saamiset saman konsernin yrityksiltä
+___OWNED_BY_PARTICIPATING	Amounts owned by participating interest undertakings	Saamiset omistusyhteysyrityksiltä
+___LOANS_RECEIVABLE	Loans receivable	Lainasaamiset
+____P2P_LOANS_RECEIVABLE	Peer to peer loans receivable	Vertaislainasaamiset
+___OTHER_DEBTORS	Other debtors	Muut saamiset
+___SUBSRIBED_CAPITAL_UNPAID	Subscribed capital unpaid	Maksamattomat osakkeet/osuudet
+___ACCRUED_INCOME	Prepayments and accrued income	Siirtosaamiset
+		
+__CURRENT_INVESTMENTS	Investments	Rahoitusarvopaperit
+___GROUP_UNDERTAKINGS_HOLDINGS	Holdings in group undertakings	Osuudet saman konsernin yrityksissä
+___OTHER_SHARES	Other shares and similar ownerships	Muut osakkeet ja osuudet
+		
+		
+		
+___OTHER_INVESTMENTS	Other investments	Muut arvopaperit
+		
+		
+		
+		
+		
+__CASH	Cash at bank and in hand	Rahat ja pankkisaamiset
+___CASH_IN_HAND	Cash in hand	Käteinen
+___CASH_AT_BANK	Cash at bank	Pankkisaamiset
+___CASH_AT_STOCK_BROKER	Cash at stock broker account	Pankkisaamiset osakevälittäjillä
+___CASH_AT_CRYPTO_BROKER	Cash at cryptocurrency broker account	Pankkisaamiset kryptovälittäjillä
+___CASH_AT_P2P	Cash at peer-to-peer lender	Pankkisaamiset vertaislainavälittäjällä
+		
+		
+		
+		
+		
+_CAPITAL_RESERVERS_AND_LIABILITIES	Capital, reserves and liabilities	Vastattavaa
+__CAPITAL_RESERVERS	Capital and reserves	Oma pääoma
+___SUBSCRIBED_CAPITAL	Subscribed capital	Osake-, osuus- tai muu vastaava pääoma
+		
+		
+		
+		
+__APPROPRIATIONS	Appropriations	Tilinpäätössiirtojen kertymä
+		
+__PROVISIONS	Provisions	Pakolliset varaukset
+		
+__CREDITORS	Creditors	Vieras pääoma
+___BONDS	Bonds	Joukkovelkakirjalainat
+___CONVERTIBLE_BONDS	Convertible bonds	Vaihtovelkakirjalainat
+___LIABILITITES_TO_CREDIT_INSTITUTIONS	Liabilities to credit institutions	Lainat rahoituslaitoksilta
+		
+		
+		
+___OTHER_CREDITORS	Other creditors	Muut velat
+____SHORT_SELLING_STOCKS	Short-selling stocks	Osakkeiden lyhyeksimyynti
+____STOCK_BROKER_LOANS	Stock-broker loans	Lainat osakevälittäjiltä
+____UNPAID_PROFIT_DISTRIBUTIONS	Unpaid profit distributions	Voitonjakovelat

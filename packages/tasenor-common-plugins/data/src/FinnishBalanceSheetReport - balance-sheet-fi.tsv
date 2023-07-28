@@ -1,0 +1,93 @@
+# accounts	title	flags
+1000-2000	VASTAAVAA	HIDE_TOTAL REQUIRED BOLD
+1000-1500	_PYSYVÄT VASTAAVAT	HIDE_TOTAL REQUIRED BOLD
+1000-1100	__Aineettomat hyödykkeet	HIDE_TOTAL
+1020-1030	___Kehittämismenot	
+1030-1050	___Aineettomat oikeudet	
+1050-1070	___Liikearvo	
+1070-1090	___Muut pitkävaikutteiset menot	
+1090-1100	___Ennakkomaksut	
+1000-1100	__Aineettomat hyödykkeet yhteensä	BOLD
+1100-1400	__Aineelliset hyödykkeet	HIDE_TOTAL
+1100-1120	___Maa- ja vesialueet	
+1120-1160	___Rakennukset ja rakennelmat	
+1160-1300	___Koneet ja kalusto	
+1300-1380	___Muut aineelliset hyödykkeet	
+1380-1400	___Ennakkomaksut ja keskeneräiset hankinnat	
+1100-1400	__Aineelliset hyödykkeet yhteensä	BOLD
+1400-1500	__Sijoitukset	HIDE_TOTAL
+1400-1410	___Osuudet saman konsernin yrityksissä	
+1410-1420	___Saamiset saman konsernin yrityksiltä	
+1420-1430	___Osuudet omistusyhteysyrityksissä	
+1430-1440	___Saamiset omistusyhteysyrityksiltä	
+1440-1470	___Muut osakkeet ja osuudet	
+1470-1500	___Muut saamiset	
+1400-1500	__Sijoitukset yhteensä	BOLD
+1000-1500	_Pysyvät vastaavat yhteensä	BOLD
+1500-2000	_VAIHTUVAT VASTAAVAT	HIDE_TOTAL REQUIRED BOLD
+1500-1600	__Vaihto-omaisuus	HIDE_TOTAL
+1500-1510	___Aineet ja tarvikkeet	
+1510-1520	___Keskeneräiset tuotteet	
+1520-1540	___Valmiit tuotteet/tavarat	
+1540-1550	___Muu vaihto-omaisuus	
+1550-1560	___Ennakkomaksut	
+1500-1600	__Vaihto-omaisuus yhteensä	BOLD
+1600-1860	__Saamiset	HIDE_TOTAL
+1600-1630 1700-1730	___Myyntisaamiset	
+1630-1640 1730-1740	___Saamiset saman konsernin yrityksiltä	
+1640-1650 1740-1750	___Saamiset omistusyhteysyrityksiltä	
+1650-1660 1750-1760	___Lainasaamiset	
+1660-1670 1760-1780	___Muut saamiset	
+1670-1680 1780-1800	___Maksamattomat osakkeet/osuudet	
+1680-1690 1800-1850	___Siirtosaamiset	
+1600-1860	__Saamiset yhteensä	BOLD
+1860-1900	__Rahoitusarvopaperit	HIDE_TOTAL
+1860-1870	___Osuudet saman konsernin yrityksissä	
+1880-1890	___Muut osakkeet ja osuudet	
+1890-1900	___Muut arvopaperit	
+1860-1900	__Rahoitusarvopaperit yhteensä	
+1900-2000	__Rahat ja pankkisaamiset	
+1500-2000	_Vaihtuvat vastaavat yhteensä	BOLD
+1000-2000	Vastaavaa yhteensä	REQUIRED BOLD
+		NEW_PAGE
+2000-9999	VASTATTAVAA	HIDE_TOTAL REQUIRED BOLD
+2000-2400	_OMA PÄÄOMA	HIDE_TOTAL REQUIRED BOLD
+2000-2020	__Osakepääoma	
+2100-2110	__Osuuspääoma	
+2150-2160 2180-2190 2340-2360	__Pääomapanokset	
+2200-2210 2360-2370	__Peruspääoma	
+2020-2030	__Ylikurssirahasto	
+2030-2040 2110-2120	__Arvonkorotusrahasto	
+2050-2100	__Muut rahastot	HIDE_TOTAL
+2050-2060	___Vararahasto	
+2060-2070	___Yhtiöjärjestyksen tai sääntöjen mukaiset rahastot	
+2070-2100	___Muut rahastot	
+2050-2100	__Muut rahastot yhteensä	
+2250-2330	__Edellisten tilikausien voitto (tappio)	
+2330-2340	__Pääomavajaus	
+3000-9999	__Tilikauden voitto (tappio)	
+2380-2390	__Pääomalainat	
+2000-2400 3000-9999	_Oma pääoma yhteensä	BOLD
+2400-2500	_TILINPÄÄTÖSSIIRTOJEN KERTYMÄ	HIDE_TOTAL BOLD
+2400-2450	__Poistoero	
+2450-2500	__Vapaaehtoiset varaukset	
+2400-2500	_Tilinpäätössiirtojen kertymä yhteensä	BOLD
+2500-2600	_PAKOLLISET VARAUKSET	HIDE_TOTAL BOLD
+2500-2530	__Eläkevaraukset	
+2530-2550	__Verovaraukset	
+2550-2590	__Muut pakolliset varaukset	
+2500-2600	_Pakolliset varaukset yhteensä	BOLD
+2600-3000	_VIERAS PÄÄOMA	HIDE_TOTAL REQUIRED BOLD
+2600-2610 2800-2810	__Joukkovelkakirjalainat	
+2610-2620 2810-2820	__Vaihtovelkakirjalainat	
+2620-2650 2820-2850	__Lainat rahoituslaitoksilta	
+2650-2660 2850-2860	__Eläkelainat	
+2660-2670 2860-2870	__Saadut ennakot	
+2670-2690 2870-2890	__Ostovelat	
+2690-2700 2890-2900	__Rahoitusvekselit	
+2700-2710 2900-2910	__Velat saman konsernin yrityksille	
+2710-2720 2910-2920	__Velat omistusyhteysyrityksille	
+2720-2750 2920-2950	__Muut velat	
+2750-2800 2950-3000	__Siirtovelat	
+2600-3000	_Vieras pääoma yhteensä	BOLD
+2000-9999	Vastattavaa yhteensä	REQUIRED BOLD

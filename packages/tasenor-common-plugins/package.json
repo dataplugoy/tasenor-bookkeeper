@@ -9,7 +9,8 @@
     "ci": "pnpm run lint && pnpm run build",
     "build": "tsc",
     "fix": "eslint --fix 'src/**/*.{ts,tsx}'",
-    "lint": "eslint 'src/**/*.{ts,tsx}'"
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "tsv": "data/bin/build_all"
   },
   "dependencies": {
     "@dataplug/tasenor-common": "workspace:*",

@@ -1,0 +1,99 @@
+# number / title	text	type	code	data
+Vastaavaa				
+__Vaihtuvat vastaavat				
+___Lyhytaikaiset saamiset				
+_____Myyntisaamiset				
+1701	Myyntisaamiset 1	ASSET		
+_____Muut saamiset				
+1761	Verosaamiset	ASSET		
+1763	Arvonlisäverosaamiset	ASSET		
+_____Siirtosaamiset				
+1849	Muut siirtosaamiset	ASSET		
+___Rahat ja pankkisaamiset				
+____Rahat				
+1900	Käteisvarat	ASSET		
+____Pankkisaamiset				
+1910	Pankkitili 1	ASSET		
+1920	Pankkitili 2	ASSET		
+Vastattavaa				
+__Oma pääoma				
+___Osakepääoma				
+2001	Osakepääoma	EQUITY		
+___Edellisten tilikausien voitto (tappio)				
+2251	Edellisten tilikausien voitto/tappio	PROFIT_PREV		
+__Vieras pääoma				
+___Pitkäaikainen vieras pääoma				
+____Lainat  rahoituslaitoksilta				
+2621	Pitkäaikainen rahoituslaitoslaina 1	LIABILITY		
+___Lyhytaikainen vieras pääoma				
+____Lainat rahoituslaitoksilta				
+2825	Lyhytaikainen rahoituslaitoslaina 1	LIABILITY		
+____Saadut ennakot				
+2861	Saadut ennakot	LIABILITY		
+____Ostovelat				
+2871	Ostovelat 1	LIABILITY		
+____Muut velat				
+2921	Ennakonpidätysvelka	LIABILITY		
+2931	TyEL-velka	LIABILITY		
+2939	Arvonlisäverovelka	LIABILITY		
+29391	Alv myynnistä	LIABILITY		
+29392	Alv ostoista	LIABILITY		
+29393	Alv suoritettava EU-ostoista	LIABILITY		
+29394	Alv vähennettävä EU-ostoista	LIABILITY		
+29395	Alv suoritettava rak.palveluista	LIABILITY		
+29396	Alv vähennettävä rak.palveluista	LIABILITY		
+____Siirtovelat				
+2979	Muut siirtovelat	LIABILITY		
+Tuloslaskelma				
+_Myyntituotot				
+__Yleiset myyntitilit				
+3000	Myynti	REVENUE	____FINLAND_SALES	
+_Liiketoiminnan muut tuotot				
+3800	Saadut avustukset	REVENUE		
+3990	Muut liiketoiminnan tuotot	REVENUE	__OTHER_OPERATING_INCOME	
+_Materiaalit ja palvelut				
+__Aineet, tarvikkeet ja tavarat				
+___Ostot tilikauden aikana				
+____Aine-, tarvike- ja tavaraostot				
+4000	Ostot	EXPENSE	24	
+4080	Ostot, ostaja verovelvollinen	EXPENSE	24	
+____Tavaratuonti				
+4110	Yhteisöhankinnat	EXPENSE	24	
+4140	Tullit, verot ja muut maksut tullattaessa	EXPENSE		
+___Varastojen lisäys tai vähennys				
+4400	Aine- ja tarvikevaraston muutos	EXPENSE		
+__Ulkopuoliset palvelut				
+4450	Alihankinta 1	EXPENSE	24	
+4470	Rakentamispalveluiden osto (käänn. verovelv.)	EXPENSE	24	
+4475	Palveluiden osto EU-maista	EXPENSE	24	
+_Henkilöstökulut				
+__Palkat ja palkkiot				
+___Työntekijöiden palkat ja palkkiot				
+____Työssäoloajan normaalipalkat				
+5000	Työntekijäpalkat	EXPENSE		
+____Palkkiot				
+5200	Palkkiot	EXPENSE		
+__Henkilösivukulut				
+___Eläkekulut				
+____Eläkevakuutusmaksut				
+6100	YEL-maksut	EXPENSE		
+6130	TyEL-maksut	EXPENSE		
+____Tilikauden aikainen jaksotus				
+6290	Tilikauden aikainen jaksotus	EXPENSE		
+___Muut henkilösivukulut				
+____Sosiaaliturvamaksut				
+6300	Sosiaaliturvamaksut	EXPENSE		
+____Pakolliset vakuutusmaksut				
+6400	Tapaturmavakuutusmaksut	EXPENSE		
+6410	Työttömyysvakuutusmaksut	EXPENSE		
+_Liiketoiminnan muut kulut				
+__Vapaaehtoiset henkilösivukulut				
+7170	Muut henkilösivukulut	EXPENSE	24	
+__Hallintopalvelut				
+8440	Viranomaismaksut	EXPENSE	24	
+_Tuloverot				
+__Tilikauden ja aikaisempien tilikausien verot				
+9900	Ennakkoverot	EXPENSE		
+9950	Veronpalautukset / jäännösverot	EXPENSE		
+_Erikoistilit				
+9999	Selvittelyä vaativat tapahtumat	EXPENSE	SUSPENSE_ACCOUNT	

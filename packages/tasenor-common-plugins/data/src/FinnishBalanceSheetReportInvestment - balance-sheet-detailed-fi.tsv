@@ -1,0 +1,100 @@
+# accounts	title	flags
+1000-4000	VASTAAVAA	HIDE_TOTAL REQUIRED BOLD
+1000-1100	_PYSYVÄT VASTAAVAT	HIDE_TOTAL REQUIRED BOLD
+1000-1040	__Aineettomat hyödykkeet	HIDE_TOTAL BOLD
+1020-1030	___Kehittämismenot	HIDE_TOTAL BOLD
+1020-1030	____Kehittämismenot	DETAILS
+1020-1030	___Kehittämismenot yhteensä	BOLD
+1030-1040	___Aineettomat oikeudet	HIDE_TOTAL BOLD
+1030-1040	____Aineettomat oikeudet	DETAILS
+1030-1040	___Aineettomat oikeudet yhteensä	BOLD
+1000-1040	__Aineettomat hyödykkeet yhteensä	BOLD
+1040-1049	___Maa- ja vesialueet	HIDE_TOTAL BOLD
+1040-1049	____Maa- ja vesialueet	DETAILS
+1040-1049	___Maa- ja vesialueet yhteensä	BOLD
+1049-1090	___Rakennukset ja rakennelmat	HIDE_TOTAL BOLD
+1049-1090	____Rakennukset ja rakennelmat	DETAILS
+1049-1090	___Rakennukset ja rakennelmat yhteensä	BOLD
+1000-1100	_Pysyvät vastaavat yhteensä	REQUIRED BOLD
+		BREAK
+1100-4000	_VAIHTUVAT VASTAAVAT	HIDE_TOTAL REQUIRED BOLD
+1100-1600	__Vaihto-omaisuus	HIDE_TOTAL BOLD
+1100-1499	___Arvopaperit	HIDE_TOTAL BOLD
+1100-1499	____Arvopaperit	DETAILS
+1100-1499	___Arvopaperit yhteensä	BOLD
+1500-1589	___Kryptovaluutat	HIDE_TOTAL BOLD
+1500-1589	____Kryptovaluutat	DETAILS
+1500-1589	___Kryptovaluutat yhteensä	BOLD
+1590-1598	___Muu vaihto-omaisuus	HIDE_TOTAL BOLD
+1590-1598	____Muu vaihto-omaisuus	DETAILS
+1590-1598	___Muu vaihto-omaisuus yhteensä	BOLD
+1100-1600	__Vaihto-omaisuus yhteensä	BOLD
+1600-2920	__Saamiset	HIDE_TOTAL BOLD
+1600-1650 2749-2759	___Myyntisaamiset	HIDE_TOTAL BOLD
+1600-1650 2749-2759	____Myyntisaamiset	DETAILS
+1600-1650 2749-2759	___Myyntisaamiset yhteensä	BOLD
+1650-1660 2760-2779	___Lainasaamiset	HIDE_TOTAL BOLD
+1650-1660 2760-2779	____Lainasaamiset	DETAILS
+1650-1660 2760-2779	___Lainasaamiset yhteensä	BOLD
+1700-2699	___Vertaislainasaamiset	HIDE_TOTAL BOLD
+1700-2699	____Vertaislainasaamiset	DETAILS
+1700-2699	___Vertaislainasaamiset yhteensä	BOLD
+2700-2719 2779-2829	___Muut saamiset	HIDE_TOTAL BOLD HIDE_TOTAL BOLD
+2700-2719 2779-2829	____Muut saamiset	DETAILS DETAILS
+2700-2719 2779-2829	___Muut saamiset yhteensä	BOLD BOLD
+2719-2729 2829-2839	___Maksamattomat osakkeet/osuudet	HIDE_TOTAL BOLD
+2719-2729 2829-2839	____Maksamattomat osakkeet/osuudet	DETAILS
+2719-2729 2829-2839	___Maksamattomat osakkeet/osuudet yhteensä	BOLD
+2729-2739 2839-2919	___Siirtosaamiset	HIDE_TOTAL BOLD
+2729-2739 2839-2919	____Siirtosaamiset	DETAILS
+2729-2739 2839-2919	___Siirtosaamiset yhteensä	BOLD
+1600-2920	__Saamiset yhteensä	BOLD
+2920-3000	__Rahoitusarvopaperit	HIDE_TOTAL BOLD
+2920-3000	__Rahoitusarvopaperit yhteensä	BOLD
+3000-4000	__Rahat ja pankkisaamiset	HIDE_TOTAL BOLD
+3000-3009	___Rahat	HIDE_TOTAL BOLD
+3000-3009	____Rahat	DETAILS
+3000-3009	___Rahat yhteensä	BOLD
+3010-3049	___Pankkitilit	HIDE_TOTAL BOLD
+3010-3049	____Pankkitilit	DETAILS
+3010-3049	___Pankkitilit yhteensä	BOLD
+3050-3299	___Osakevälittäjien valuuttatilit	HIDE_TOTAL BOLD
+3050-3299	____Osakevälittäjien valuuttatilit	DETAILS
+3050-3299	___Osakevälittäjien valuuttatilit yhteensä	BOLD
+3300-3599	___Kryptovälittäjien valuuttatilit	HIDE_TOTAL BOLD
+3300-3599	____Kryptovälittäjien valuuttatilit	DETAILS
+3300-3599	___Kryptovälittäjien valuuttatilit yhteensä	BOLD
+3600-3899	___Vertaislainavälittäjien valuuttatilit	HIDE_TOTAL BOLD
+3600-3899	____Vertaislainavälittäjien valuuttatilit	DETAILS
+3600-3899	___Vertaislainavälittäjien valuuttatilit yhteensä	BOLD
+3000-4000	__Rahat ja pankkisaamiset yhteensä	BOLD
+1100-4000	_Vaihtuvat vastaavat yhteensä	REQUIRED BOLD
+1000-4000	Vastaavaa yhteensä	REQUIRED BOLD
+		NEW_PAGE
+4000-9999	VASTATTAVAA	HIDE_TOTAL REQUIRED BOLD
+4000-4079	_OMA PÄÄOMA	HIDE_TOTAL REQUIRED BOLD
+4000-4020	__Osakepääoma	HIDE_TOTAL BOLD
+4000-4020	___Osakepääoma	DETAILS
+4000-4020	__Osakepääoma yhteensä	BOLD
+4030-4039	__Muut rahastot	HIDE_TOTAL BOLD
+4030-4039	___Muut rahastot	DETAILS
+4030-4039	__Muut rahastot yhteensä	BOLD
+4040-4059	__Edellisten tilikausien voitto (tappio)	BOLD
+5000-9999	__Tilikauden voitto (tappio)	BOLD
+4000-4079 5000-9999	_Oma pääoma yhteensä	REQUIRED BOLD
+		BREAK
+4190-5000	_VIERAS PÄÄOMA	HIDE_TOTAL REQUIRED BOLD
+4225-4239 4630-4690	__Lainat rahoituslaitoksilta	HIDE_TOTAL BOLD
+4225-4239 4630-4690	___Lainat rahoituslaitoksilta	DETAILS
+4225-4239 4630-4690	__Lainat rahoituslaitoksilta yhteensä	BOLD
+4250-4499	__Lainat osakevälittäjiltä	HIDE_TOTAL BOLD
+4250-4499	___Lainat osakevälittäjiltä	DETAILS
+4250-4499	__Lainat osakevälittäjiltä yhteensä	BOLD
+4530-4559 4760-4839	__Muut velat	HIDE_TOTAL BOLD
+4530-4559 4760-4839	___Muut velat	DETAILS
+4530-4559 4760-4839	__Muut velat yhteensä	BOLD
+4559-4599 4839-4999	__Siirtovelat	HIDE_TOTAL BOLD
+4559-4599 4839-4999	___Siirtovelat	DETAILS
+4559-4599 4839-4999	__Siirtovelat yhteensä	BOLD
+4190-5000	_Vieras pääoma yhteensä	REQUIRED BOLD
+4000-9999	Vastattavaa yhteensä	REQUIRED BOLD
