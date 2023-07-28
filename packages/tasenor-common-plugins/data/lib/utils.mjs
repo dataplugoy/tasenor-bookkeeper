@@ -265,14 +265,14 @@ export function trimId(value) {
  * @param data
  */
 export function trimIds(data, idField = 'id') {
-  return data.map(line => ({ ...line, [idField]: trimId(line.id)}))
+  return data.map(line => ({ ...line, [idField]: trimId(line.id) }))
 }
 
 /**
  * Strip extras away and convert numeric string to proper number.
  * @param data
  */
- export function fixNumber(data) {
+export function fixNumber(data) {
   return parseFloat(data.replace(/[^0-9.]/g, ''))
 }
 
@@ -310,5 +310,5 @@ export function cleanFlagDuplicates(tsv) {
   const rempoveDuplicates = (s) => {
     return [...new Set(s.split(' '))].join(' ').trim()
   }
-  return tsv.split("\n").map(line => line.split("\t")).map(([a, b, c]) => [a, b, rempoveDuplicates(c)]).map(a => a.join("\t")).join("\n")
+  return tsv.split('\n').map(line => line.split('\t')).map(([a, b, c]) => [a, b, rempoveDuplicates(c)]).map(a => a.join('\t')).join('\n')
 }

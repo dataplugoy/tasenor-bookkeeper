@@ -30,7 +30,7 @@ insertToFile(
 // Write income definition.
 const incomes = Object.keys(income.parents).sort()
 const commentsIn = incomes.map(code => ` * * \`${code}\` - ${all.en['income-' + code]}`)
-const incomeFile =`/**
+const incomeFile = `/**
  * An income source.
  *
 ${commentsIn.join('\n')}
@@ -42,7 +42,7 @@ saveFile('@tasenor-common', 'src/types/income.ts', incomeFile)
 // Write expense definition.
 const expenses = Object.keys(expense.parents).sort()
 const commentsExp = expenses.map(code => ` * * \`${code}\` - ${all.en['expense-' + code]}`)
-const expenseFile =`/**
+const expenseFile = `/**
  * A cause of expense.
  *
 ${commentsExp.join('\n')}
@@ -54,7 +54,7 @@ saveFile('@tasenor-common', 'src/types/expense.ts', expenseFile)
 // Write assetType definition.
 const assetCodes = Object.keys(assets.parents).sort()
 const assetsExp = assetCodes.map(code => ` * * \`${code}\` - ${all.en['assets-' + code]}`)
-const assetsFile =`/**
+const assetsFile = `/**
  * An asset type
  *
 ${assetsExp.join('\n')}

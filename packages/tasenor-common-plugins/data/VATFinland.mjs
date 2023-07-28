@@ -9,7 +9,7 @@ for (let column = 1; column < tsv[0].length; column++) {
   const to = tsv[1][column] || null
 
   const percentage = {}
-  for (let line = 2; line < tsv.length; line ++) {
+  for (let line = 2; line < tsv.length; line++) {
     const id = trimId(tsv[line][0])
     const value = tsv[line][column]
     if (value !== undefined) {
