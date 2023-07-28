@@ -4,7 +4,8 @@
     "outDir": "dist",
   },
   "include": [
-    "./src/**/*"
+    "./src/**/*",
+    "./tests/specs/*"
   ],
   "exclude": [
     "./node_modules"
