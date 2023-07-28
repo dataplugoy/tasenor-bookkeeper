@@ -33,8 +33,8 @@ class AppRenderer extends Component {
   async componentDidMount() {
     const el = document.getElementById('tasenor-loading')
     if (el) el.remove()
-    await initializeI18n(catalog, store)
     await store.fetchSettings()
+    await initializeI18n(catalog, store)
     const data = await store.request('/knowledge')
     knowledge.update(data)
 
