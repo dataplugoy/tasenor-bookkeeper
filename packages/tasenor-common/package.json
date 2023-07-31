@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "ci": "pnpm run lint && pnpm run build && pnpm run test",
-    "build": "tsc",
+    "build": "rm -fr dist && tsc",
     "fix": "eslint --fix 'src/**/*.ts' 'tests/**/*.ts'",
     "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
     "test": "jest",

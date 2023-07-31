@@ -8,7 +8,7 @@
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build": "rm -fr dist && tsc",
     "fix": "eslint --fix 'src/**/*.ts'",
     "lint": "eslint 'src/**/*.ts'",
     "version": "jq .version < package.json"
