@@ -224,6 +224,7 @@ export class UnitTester {
         entries
       }))
 
+      const { expect } = await import('@jest/globals')
       expect(result).toStrictEqual(out.result[id][0].transactions)
     }
   }
