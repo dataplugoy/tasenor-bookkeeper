@@ -6,6 +6,9 @@ This is a monorepo for developing Tasenor Bookkeeper.
 
 ### Applications
 
+* [Bookkeeper Backend](./apps/bookkeeper-backend/README.md) API and backend for Bookkeeper.
+* [Bookkeeper UI](./apps/bookkeeper-ui/README.md) UI for Bookkeeper.
+
 ### Demos
 
 * [Bookkeeper Component Works](./examples/ui-playground/README.md) An example app to test and develop UI components.
