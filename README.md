@@ -25,3 +25,13 @@ This is a monorepo for developing Tasenor Bookkeeper.
 * [Jest](./packages/jestconfig/README.md)
 * [Typescript](./packages/tsconfig/README.md)
 * [Eslint](./packages/eslint-config-tasenor/README.md)
+
+### Turbo Commands
+
+* `turbo build` Build all buildable packages.
+* `turbo demo` Launch local demo servers.
+* `turbo dev` Launch local development environment.
+* `turbo fix` Fix all fixable syntax checks.
+* `turbo lint` Syntax check all.
+* `turbo test` Run all tests.
+* `turbo version` List all versions from published packages.

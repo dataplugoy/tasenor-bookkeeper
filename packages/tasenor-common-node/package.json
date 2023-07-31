@@ -13,7 +13,8 @@
     "fix": "eslint --fix 'src/**/*.ts' 'tests/**/*.ts'",
     "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
     "test": "jest",
-    "watch": "jest --onlyChanged --watch"
+    "watch": "jest --onlyChanged --watch",
+    "version": "jq .version < package.json"
   },
   "dependencies": {
     "@dataplug/tasenor-common": "workspace:*",

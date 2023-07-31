@@ -10,7 +10,8 @@
   "scripts": {
     "build": "tsc",
     "fix": "eslint --fix 'src/**/*.ts'",
-    "lint": "eslint 'src/**/*.ts'"
+    "lint": "eslint 'src/**/*.ts'",
+    "version": "jq .version < package.json"
   },
   "dependencies": {
     "@dataplug/tasenor-common": "workspace:*",

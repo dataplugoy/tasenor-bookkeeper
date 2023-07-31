@@ -9,7 +9,8 @@
     "dev": "DOTENV_CONFIG_PATH=`pwd`/.env.local tsx watch -r dotenv/config src/server.ts",
     "fix": "eslint --fix 'src/**/*.ts'",
     "generate-key": "tsx bin/generate-key.ts",
-    "lint": "eslint 'src/**/*.ts'"
+    "lint": "eslint 'src/**/*.ts'",
+    "version": "jq .version < package.json"
   },
   "keywords": [],
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
