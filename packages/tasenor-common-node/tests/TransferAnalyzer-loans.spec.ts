@@ -1,4 +1,4 @@
-import { UnitTester } from '@dataplug/tasenor-testing'
+import { UnitTester } from '../src/testing'
 
 test('Use partly debt to buy assets', async () => {
 

@@ -631,9 +631,6 @@ importers:
       '@dataplug/tasenor-common':
         specifier: workspace:*
         version: link:../tasenor-common
-      '@dataplug/tasenor-common-node':
-        specifier: workspace:*
-        version: link:../tasenor-common-node
       dayjs:
         specifier: 1.10.8
         version: 1.10.8

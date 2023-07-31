@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { AccountAddress, AccountNumber, Asset, AssetExchange, AssetTransfer, AssetType, BalanceBookkeeping, Currency, Language, StockValueData, TradeableAsset, ImportState, ProcessConfig, Directions, ID } from '@dataplug/tasenor-common'
-import { ImportPlugin, TransactionImportConnector, TransactionImportHandler, ISPDemoServer } from '@dataplug/tasenor-common-node'
-import { CoinbaseHandler } from '../../tasenor-common-plugins/src/CoinbaseImport/backend/CoinbaseHandler'
-import IncomeAndExpenses from '../../tasenor-common-plugins/src/IncomeAndExpenses/backend'
+import { ImportPlugin, TransactionImportConnector, TransactionImportHandler, ISPDemoServer } from '..'
+import { CoinbaseHandler } from '../../../tasenor-common-plugins/src/CoinbaseImport/backend/CoinbaseHandler'
+import IncomeAndExpenses from '../../../tasenor-common-plugins/src/IncomeAndExpenses/backend'
 
 /**
  * A connector mock for unit testing.

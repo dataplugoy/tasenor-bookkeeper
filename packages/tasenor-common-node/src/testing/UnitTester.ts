@@ -1,6 +1,6 @@
 import { expect } from '@jest/globals'
 import { AccountAddress, AccountNumber, AdditionalTransferInfo, AssetTransfer, StockValueData, Transaction, TransactionDescription, TransactionLine, ImportStateText, ImportConfig } from '@dataplug/tasenor-common'
-import { TransactionImportHandler, AskUI, Process } from '@dataplug/tasenor-common-node'
+import { TransactionImportHandler, AskUI, Process } from '..'
 import { getTestHandler } from './test-handlers'
 import { SystemMock } from './ProcessingSystemMock'
 import { sprintf } from 'sprintf-js'

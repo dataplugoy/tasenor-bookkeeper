@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@dataplug/tasenor-common": "workspace:*",
-    "@dataplug/tasenor-common-node": "workspace:*",
     "dayjs": "1.10.8",
     "sprintf-js": "^1.1.2"
   },

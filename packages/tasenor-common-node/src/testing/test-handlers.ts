@@ -1,11 +1,11 @@
 import path from 'path'
-import { TransactionImportHandler } from '@dataplug/tasenor-common-node'
-import { CoinbaseHandler } from '../../tasenor-common-plugins/src/CoinbaseImport/backend/CoinbaseHandler'
-import { KrakenHandler } from '../../tasenor-common-plugins/src/KrakenImport/backend/KrakenHandler'
-import { LynxHandler } from '../../tasenor-common-plugins/src/LynxImport/backend/LynxHandler'
-import { NordeaHandler } from '../../tasenor-common-plugins/src/NordeaImport/backend/NordeaHandler'
-import { NordnetHandler } from '../../tasenor-common-plugins/src/NordnetImport/backend/NordnetHandler'
-import { TITOHandler } from '../../tasenor-common-plugins/src/TITOImport/backend/TITOHandler'
+import { CoinbaseHandler } from '../../../tasenor-common-plugins/src/CoinbaseImport/backend/CoinbaseHandler'
+import { KrakenHandler } from '../../../tasenor-common-plugins/src/KrakenImport/backend/KrakenHandler'
+import { LynxHandler } from '../../../tasenor-common-plugins/src/LynxImport/backend/LynxHandler'
+import { NordeaHandler } from '../../../tasenor-common-plugins/src/NordeaImport/backend/NordeaHandler'
+import { NordnetHandler } from '../../../tasenor-common-plugins/src/NordnetImport/backend/NordnetHandler'
+import { TITOHandler } from '../../../tasenor-common-plugins/src/TITOImport/backend/TITOHandler'
+import { TransactionImportHandler } from '..'
 
 /**
  * Mapping from handler class names to instances.
