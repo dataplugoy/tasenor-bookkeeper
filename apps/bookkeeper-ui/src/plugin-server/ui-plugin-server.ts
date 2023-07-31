@@ -74,7 +74,9 @@ async function updateLocalPluginList() {
         delete current[plugin.code]
         continue
       }
-      if (plugin.version !== current[plugin.code].version) {
+      if (!current[plugin.code]) {
+        warning(`A plugin '${plugin.code}' not found from API listing.`)
+      } else if (plugin.version !== current[plugin.code].version) {
         warning(`Conflicting versions for ${plugin.code} in backend ${current[plugin.code].version} and UI ${plugin.version}.`)
       }
     }
