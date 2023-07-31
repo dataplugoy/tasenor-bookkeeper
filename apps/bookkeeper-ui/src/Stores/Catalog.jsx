@@ -92,84 +92,86 @@ class Catalog extends Component {
     this.dataPlugins = []
 
     // Set up plugin index.
-    runInAction(() => this.index.replace([]))
+    runInAction(() => {
+      this.index.replace([])
 
-    this.available.forEach(item => {
-      debugPlugins('Checking if usable', item.code)
-      this.index.push(item)
-      // Language plugins must be available always for login screen.
-      if (item.installedVersion && (allowAll || allowed.has(item.id) || item.type === 'language')) {
-        this.pluginCodes.add(item.code)
-        debugPlugins('  OK')
-      }
-      // Collect data for usable backend plugins.
-      if (item.use === 'backend' && (allowAll || allowed.has(item.id))) {
-        if (!this[`${item.type}Plugins`]) {
-          throw new Error(`Invalid backend plugin type '${item.type}' in the plugin catalog.`)
+      this.available.forEach(item => {
+        debugPlugins('Checking if usable', item.code)
+        this.index.push(item)
+        // Language plugins must be available always for login screen.
+        if (item.installedVersion && (allowAll || allowed.has(item.id) || item.type === 'language')) {
+          this.pluginCodes.add(item.code)
+          debugPlugins('  OK')
         }
-        this[`${item.type}Plugins`].push(item)
-        debugPlugins('  OK')
-      }
-    })
+        // Collect data for usable backend plugins.
+        if (item.use === 'backend' && (allowAll || allowed.has(item.id))) {
+          if (!this[`${item.type}Plugins`]) {
+            throw new Error(`Invalid backend plugin type '${item.type}' in the plugin catalog.`)
+          }
+          this[`${item.type}Plugins`].push(item)
+          debugPlugins('  OK')
+        }
+      })
 
-    index.forEach(Class => {
+      index.forEach(Class => {
       // Instantiate allowed plugins and add them to the plugin collection.
-      const plugin = UiPlugin.create(Class, this, this.store)
+        const plugin = UiPlugin.create(Class, this, this.store)
 
-      // Get all translations even from non-allowed plugins.
-      if (plugin.languages) {
-        Object.keys(plugin.languages).forEach(lang => {
-          this.translations[lang] = this.translations[lang] || {}
-          Object.assign(this.translations[lang], plugin.languages[lang])
-        })
-      }
+        // Get all translations even from non-allowed plugins.
+        if (plugin.languages) {
+          Object.keys(plugin.languages).forEach(lang => {
+            this.translations[lang] = this.translations[lang] || {}
+            Object.assign(this.translations[lang], plugin.languages[lang])
+          })
+        }
 
-      if (!this.pluginCodes.has(plugin.code)) {
-        debugPlugins('Code', plugin.code, 'not allowed. Removing.')
-        return
-      }
+        if (!this.pluginCodes.has(plugin.code)) {
+          debugPlugins('Code', plugin.code, 'not allowed. Removing.')
+          return
+        }
 
-      plugin.init(this)
-      this.plugins.push(plugin)
-      debugPlugins('Adding', plugin.code)
-      // Handle some special plugins.
-      if (plugin.type === 'currency') {
-        this.currencyPlugin[plugin.getCurrencyCode()] = plugin
-        return
-      }
+        plugin.init(this)
+        this.plugins.push(plugin)
+        debugPlugins('Adding', plugin.code)
+        // Handle some special plugins.
+        if (plugin.type === 'currency') {
+          this.currencyPlugin[plugin.getCurrencyCode()] = plugin
+          return
+        }
 
-      // Add to type specific collection.
-      if (!this[`${plugin.type}Plugins`]) {
-        throw new Error(`Invalid plugin type '${plugin.type}' in the plugin catalog.`)
-      }
-      this[`${plugin.type}Plugins`].push(plugin)
-    })
+        // Add to type specific collection.
+        if (!this[`${plugin.type}Plugins`]) {
+          throw new Error(`Invalid plugin type '${plugin.type}' in the plugin catalog.`)
+        }
+        this[`${plugin.type}Plugins`].push(plugin)
+      })
 
-    // Map languages.
-    this.languagePlugins.forEach(plugin => {
-      for (const lang of plugin.getLanguages()) {
-        this.pluginForLanguage[lang] = plugin
-      }
-    })
+      // Map languages.
+      this.languagePlugins.forEach(plugin => {
+        for (const lang of plugin.getLanguages()) {
+          this.pluginForLanguage[lang] = plugin
+        }
+      })
 
-    // Construct subscription data.
-    const subdata = {}
-    if (data) {
-      if (data.subscriptions) {
-        for (const sub of data.subscriptions) {
-          subdata[sub.pluginId] = subdata[sub.pluginId] || {}
-          subdata[sub.pluginId].subscription = sub
+      // Construct subscription data.
+      const subdata = {}
+      if (data) {
+        if (data.subscriptions) {
+          for (const sub of data.subscriptions) {
+            subdata[sub.pluginId] = subdata[sub.pluginId] || {}
+            subdata[sub.pluginId].subscription = sub
+          }
+        }
+        if (data.prices) {
+          for (const price of data.prices) {
+            subdata[price.pluginId] = subdata[price.pluginId] || {}
+            subdata[price.pluginId].price = price
+          }
         }
       }
-      if (data.prices) {
-        for (const price of data.prices) {
-          subdata[price.pluginId] = subdata[price.pluginId] || {}
-          subdata[price.pluginId].price = price
-        }
-      }
-    }
 
-    runInAction(() => Object.assign(this.subscriptionData, subdata))
+      Object.assign(this.subscriptionData, subdata)
+    })
   }
 
   /**
