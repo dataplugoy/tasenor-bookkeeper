@@ -458,6 +458,9 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
     devDependencies:
+      '@dataplug/tasenor-testing':
+        specifier: workspace:*
+        version: link:../tasenor-testing
       '@jest/globals':
         specifier: ^29.6.1
         version: 29.6.1
@@ -628,6 +631,9 @@ importers:
       '@dataplug/tasenor-common':
         specifier: workspace:*
         version: link:../tasenor-common
+      '@dataplug/tasenor-common-node':
+        specifier: workspace:*
+        version: link:../tasenor-common-node
       dayjs:
         specifier: 1.10.8
         version: 1.10.8
@@ -635,6 +641,12 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2
     devDependencies:
+      '@jest/globals':
+        specifier: ^29.6.1
+        version: 29.6.1
+      '@types/jest':
+        specifier: ^29.5.2
+        version: 29.5.2
       eslint-config-tasenor:
         specifier: workspace:*
         version: link:../eslint-config-tasenor

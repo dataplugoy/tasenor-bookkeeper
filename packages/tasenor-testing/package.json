@@ -14,10 +14,13 @@
   },
   "dependencies": {
     "@dataplug/tasenor-common": "workspace:*",
+    "@dataplug/tasenor-common-node": "workspace:*",
     "dayjs": "1.10.8",
     "sprintf-js": "^1.1.2"
   },
   "devDependencies": {
+    "@jest/globals": "^29.6.1",
+    "@types/jest": "^29.5.2",
     "eslint-config-tasenor": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^5.1.6"
