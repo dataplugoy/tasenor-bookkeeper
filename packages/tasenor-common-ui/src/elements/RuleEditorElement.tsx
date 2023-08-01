@@ -1,5 +1,5 @@
 import React from 'react'
-import { RuleEditorElement, RenderingProps, Value } from '@dataplug/tasenor-common'
+import { RuleEditorElement, RenderingProps, Value } from '@tasenor/common'
 import { RuleEditor, RuleEditorContinueOption, RuleEditorValues } from '../bookkeeper'
 import { Renderer } from '../risp/RenderingEngine'
 

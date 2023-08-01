@@ -1,4 +1,4 @@
-import { haveCatalog } from '@dataplug/tasenor-common'
+import { haveCatalog } from '@tasenor/common'
 import React from 'react'
 
 function withCatalog(Component) {

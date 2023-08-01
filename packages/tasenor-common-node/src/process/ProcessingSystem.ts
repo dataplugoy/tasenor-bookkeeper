@@ -3,7 +3,7 @@ import { ProcessFile, ProcessFileData } from './ProcessFile'
 import { ProcessStep } from './ProcessStep'
 import { ProcessHandler, ProcessHandlerMap } from './ProcessHandler'
 import { ProcessConnector } from './ProcessConnector'
-import { ProcessName, ProcessConfig, ID } from '@dataplug/tasenor-common'
+import { ProcessName, ProcessConfig, ID } from '@tasenor/common'
 import { InvalidArgument } from '../error'
 import { KnexDatabase } from '../database'
 

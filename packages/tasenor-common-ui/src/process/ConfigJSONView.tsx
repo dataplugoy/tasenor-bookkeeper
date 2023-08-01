@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material'
 import { Trans } from 'react-i18next'
 
 import { IGNORE_FIELDS } from './ConfigView'
-import { ProcessConfig } from '@dataplug/tasenor-common'
+import { ProcessConfig } from '@tasenor/common'
 
 export type ConfigJSONViewProps = {
   title?: string

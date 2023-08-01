@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography } from '@mui/material'
-import { RenderingProps } from '@dataplug/tasenor-common'
+import { RenderingProps } from '@tasenor/common'
 
 /**
  * Readability helper to specify that a string is being used as a renderer name.

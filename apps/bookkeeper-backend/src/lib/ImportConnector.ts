@@ -1,5 +1,5 @@
-import { AccountNumber, Asset, AssetExchange, AssetTransfer, AssetType, CryptoCurrency, Currency, Language, log, StockBookkeeping, StockValueData, TradeableAsset, TransactionDescription, Importer, TransactionApplyResults, BalanceBookkeeping, AccountAddress, Transaction, address2sql, PluginCode, Knowledge, KnowledgeBase, ID, ProcessConfig, setIntersect } from '@dataplug/tasenor-common'
-import { TransactionImportHandler, ImportPlugin, KnexDatabase, TransactionImportConnector, TransactionUI, SystemError } from '@dataplug/tasenor-common-node'
+import { AccountNumber, Asset, AssetExchange, AssetTransfer, AssetType, CryptoCurrency, Currency, Language, log, StockBookkeeping, StockValueData, TradeableAsset, TransactionDescription, Importer, TransactionApplyResults, BalanceBookkeeping, AccountAddress, Transaction, address2sql, PluginCode, Knowledge, KnowledgeBase, ID, ProcessConfig, setIntersect } from '@tasenor/common'
+import { TransactionImportHandler, ImportPlugin, KnexDatabase, TransactionImportConnector, TransactionUI, SystemError } from '@tasenor/common-node'
 import { createTransaction, deleteTransaction } from './importing'
 import { getCryptoRate, getCurrencyRate } from './services'
 import { periodOf } from './period'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Note, IconButton, SubPanel, ToolPlugin } from '@dataplug/tasenor-common-ui'
+import { Note, IconButton, SubPanel, ToolPlugin } from '@tasenor/common-ui'
 import { makeObservable, observable, runInAction } from 'mobx'
 import { Trans } from 'react-i18next'
 

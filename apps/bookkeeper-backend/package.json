@@ -16,8 +16,8 @@
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "AGPL",
   "dependencies": {
-    "@dataplug/tasenor-common": "workspace:*",
-    "@dataplug/tasenor-common-node": "workspace:*",
+    "@tasenor/common": "workspace:*",
+    "@tasenor/common-node": "workspace:*",
     "@redocly/cli": "1.0.0-beta.131",
     "@vscode/sqlite3": "^5.0.7",
     "axios": "0.26.0",

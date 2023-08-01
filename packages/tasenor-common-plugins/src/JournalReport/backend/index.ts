@@ -1,5 +1,5 @@
-import { ReportPlugin } from '@dataplug/tasenor-common-node'
-import { Language, PluginCode, ReportColumnDefinition, ReportFormat, ReportID, ReportItem, ReportOptions, Version } from '@dataplug/tasenor-common'
+import { ReportPlugin } from '@tasenor/common-node'
+import { Language, PluginCode, ReportColumnDefinition, ReportFormat, ReportID, ReportItem, ReportOptions, Version } from '@tasenor/common'
 
 class JournalReport extends ReportPlugin {
   constructor() {

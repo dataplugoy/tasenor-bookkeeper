@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { IconButton, TableCell, TableRow, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material'
-import { RuleFilterView, TransactionImportOptions, RuleViewOp } from '@dataplug/tasenor-common'
+import { RuleFilterView, TransactionImportOptions, RuleViewOp } from '@tasenor/common'
 import { observer } from 'mobx-react'
 import RttIcon from '@mui/icons-material/Rtt'
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline'

@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import { sprintf } from 'sprintf-js'
 import FI from './finnish.json'
-import { LanguagePlugin } from '@dataplug/tasenor-common-ui'
+import { LanguagePlugin } from '@tasenor/common-ui'
 
 class Finnish extends LanguagePlugin {
 

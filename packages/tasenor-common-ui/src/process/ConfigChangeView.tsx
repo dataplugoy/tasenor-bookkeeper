@@ -1,4 +1,4 @@
-import { ProcessStepModelData, elementNames, TasenorElement } from '@dataplug/tasenor-common'
+import { ProcessStepModelData, elementNames, TasenorElement } from '@tasenor/common'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ConfigView } from './ConfigView'

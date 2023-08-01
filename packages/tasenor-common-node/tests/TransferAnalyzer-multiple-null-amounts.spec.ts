@@ -1,4 +1,4 @@
-import { Asset } from '@dataplug/tasenor-common'
+import { Asset } from '@tasenor/common'
 import { UnitTester } from '../src/testing'
 
 test('Handle complex multipart dividend', async () => {

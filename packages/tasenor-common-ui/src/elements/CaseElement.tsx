@@ -1,4 +1,4 @@
-import { RenderingProps, isCaseElement } from '@dataplug/tasenor-common'
+import { RenderingProps, isCaseElement } from '@tasenor/common'
 import React from 'react'
 import { Renderer, RenderingEngine } from '../risp'
 

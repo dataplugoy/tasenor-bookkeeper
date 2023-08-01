@@ -1,6 +1,6 @@
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
-import { Crypto, EncryptedUserData, LoginPluginData, Secret, UUID } from '@dataplug/tasenor-common'
+import { Crypto, EncryptedUserData, LoginPluginData, Secret, UUID } from '@tasenor/common'
 
 /**
  * Utility to create and check hashes from passwords.

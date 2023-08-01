@@ -1,4 +1,4 @@
-import { haveStore } from '@dataplug/tasenor-common'
+import { haveStore } from '@tasenor/common'
 import React from 'react'
 
 function withStore(Component) {

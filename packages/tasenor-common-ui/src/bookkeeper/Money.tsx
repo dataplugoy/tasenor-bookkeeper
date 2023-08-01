@@ -1,5 +1,5 @@
 import React from 'react'
-import { Currency, haveCatalog } from '@dataplug/tasenor-common'
+import { Currency, haveCatalog } from '@tasenor/common'
 
 export type MoneyProps = {
   cents: number

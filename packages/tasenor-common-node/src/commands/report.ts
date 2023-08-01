@@ -2,7 +2,7 @@
 import { sprintf } from 'sprintf-js'
 import { Command } from '.'
 import { ArgumentParser } from 'argparse'
-import { Report, ReportColumnDefinition } from '@dataplug/tasenor-common'
+import { Report, ReportColumnDefinition } from '@tasenor/common'
 
 class ReportCommand extends Command {
 

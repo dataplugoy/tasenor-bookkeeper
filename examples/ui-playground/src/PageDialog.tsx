@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { observer } from 'mobx-react'
-import { Dialog } from '@dataplug/tasenor-common-ui'
+import { Dialog } from '@tasenor/common-ui'
 import { Box } from '@mui/material'
 
 const PageDialog = (): JSX.Element => {

@@ -1,5 +1,5 @@
 import { useLocation, useNavigate, Location } from 'react-router-dom'
-import { DatabaseName, isDatabaseName, ID } from '@dataplug/tasenor-common'
+import { DatabaseName, isDatabaseName, ID } from '@tasenor/common'
 
 // TODO: This could belong to bookkeeper repo. In future generic base could be here.
 export type MainMenu = '' | 'admin' | 'dashboard' | 'txs' | 'account' | 'report' | 'tools' | 'data' | 'settings' | 'classop'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material'
-import { RenderingProps, isRadioElement, isNamedElement } from '@dataplug/tasenor-common'
+import { RenderingProps, isRadioElement, isNamedElement } from '@tasenor/common'
 import { Renderer } from '../risp'
 
 /**

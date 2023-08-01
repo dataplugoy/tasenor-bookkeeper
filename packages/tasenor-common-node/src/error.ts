@@ -4,7 +4,7 @@
  * @module tasenor-common-node/src/error
  */
 
-import { TasenorElement } from '@dataplug/tasenor-common'
+import { TasenorElement } from '@tasenor/common'
 
 export class ProcessingError extends Error {}
 export class InvalidFile extends ProcessingError {}

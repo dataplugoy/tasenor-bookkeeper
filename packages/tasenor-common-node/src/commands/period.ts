@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { log, PeriodModelData } from '@dataplug/tasenor-common'
+import { log, PeriodModelData } from '@tasenor/common'
 import { Command } from '.'
 import { ArgumentParser } from 'argparse'
 

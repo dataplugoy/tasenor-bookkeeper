@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, expect, test } from '@jest/globals'
-import { mute, unmute, NormalTokenPayload, TokenAudience, Secret, Token, TOKEN_ISSUER } from '@dataplug/tasenor-common'
+import { mute, unmute, NormalTokenPayload, TokenAudience, Secret, Token, TOKEN_ISSUER } from '@tasenor/common'
 import { tokens, vault } from '../src'
 import jwt from 'jsonwebtoken'
 

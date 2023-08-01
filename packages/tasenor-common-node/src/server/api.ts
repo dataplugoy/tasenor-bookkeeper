@@ -1,4 +1,4 @@
-import { ProcessModelData, ID, ProcessModelDetailedData, ProcessStepModelData } from '@dataplug/tasenor-common'
+import { ProcessModelData, ID, ProcessModelDetailedData, ProcessStepModelData } from '@tasenor/common'
 import { KnexDatabase } from '../database'
 
 export type ProcessApi = {

@@ -1,4 +1,4 @@
-import { KnexConfig } from '@dataplug/tasenor-common-node'
+import { KnexConfig } from '@tasenor/common-node'
 import express from 'express'
 import data from '../lib/data'
 import knex from '../lib/knex'

@@ -1,4 +1,4 @@
-import { Asset, AssetType, AssetExchange, AccountNumber, TradeableAsset, StockValueData, Currency, AssetTransfer, BalanceBookkeeping, ProcessConfig, AccountAddress } from '@dataplug/tasenor-common'
+import { Asset, AssetType, AssetExchange, AccountNumber, TradeableAsset, StockValueData, Currency, AssetTransfer, BalanceBookkeeping, ProcessConfig, AccountAddress } from '@tasenor/common'
 import { ProcessConnector } from '../process'
 
 /**

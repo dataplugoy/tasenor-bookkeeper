@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals'
-import { ImportSegment, ProcessConfig, TextFileLine } from '@dataplug/tasenor-common'
+import { ImportSegment, ProcessConfig, TextFileLine } from '@tasenor/common'
 import { TransactionImportHandler } from '../src/import/TransactionImportHandler'
 
 describe('TransactionRules', () => {

@@ -1,5 +1,5 @@
 import NavigationTargetModel from './NavigationTargetModel'
-import { ID } from '@dataplug/tasenor-common'
+import { ID } from '@tasenor/common'
 import PeriodModel from './PeriodModel'
 import DatabaseModel from './DatabaseModel'
 

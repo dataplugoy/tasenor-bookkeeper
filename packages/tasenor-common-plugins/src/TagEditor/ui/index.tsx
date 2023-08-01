@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Title, ToolPlugin, QuestionMarkInline, FileUploadData, FileUploader } from '@dataplug/tasenor-common-ui'
-import { DatabaseModel, haveCursor, isTag, Tag, TagModel, TagType, Url } from '@dataplug/tasenor-common'
+import { Title, ToolPlugin, QuestionMarkInline, FileUploadData, FileUploader } from '@tasenor/common-ui'
+import { DatabaseModel, haveCursor, isTag, Tag, TagModel, TagType, Url } from '@tasenor/common'
 import { Trans, useTranslation } from 'react-i18next'
 import { Box, Button, Card, CardContent, CardMedia, Grid, IconButton, Tab, Tabs, TextField, Typography } from '@mui/material'
 import { Add, Cancel, CheckCircle } from '@mui/icons-material'

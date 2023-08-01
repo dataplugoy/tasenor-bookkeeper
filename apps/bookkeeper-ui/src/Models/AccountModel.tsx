@@ -1,4 +1,4 @@
-import { Currency, Language } from '@dataplug/tasenor-common'
+import { Currency, Language } from '@tasenor/common'
 import { runInAction } from 'mobx'
 import DatabaseModel from './DatabaseModel'
 import Model from './Model'

@@ -1,5 +1,5 @@
-import { error, UserDataModel } from '@dataplug/tasenor-common'
-import { tokens } from '@dataplug/tasenor-common-node'
+import { error, UserDataModel } from '@tasenor/common'
+import { tokens } from '@tasenor/common-node'
 import express from 'express'
 import users from '../lib/users'
 import { tasenor } from '../lib/middleware'

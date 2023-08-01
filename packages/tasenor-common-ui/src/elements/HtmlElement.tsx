@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography } from '@mui/material'
-import { RenderingProps, isHtmlElement } from '@dataplug/tasenor-common'
+import { RenderingProps, isHtmlElement } from '@tasenor/common'
 import { Renderer } from '../risp'
 
 export const HtmlRenderer: Renderer = (props: RenderingProps) => {

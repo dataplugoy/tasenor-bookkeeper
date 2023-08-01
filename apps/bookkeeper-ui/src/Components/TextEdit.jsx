@@ -4,7 +4,7 @@ import { withTranslation } from 'react-i18next'
 import Model from '../Models/Model'
 import { TextField, List, ListItem, Popper, Paper } from '@mui/material'
 import Store from '../Stores/Store'
-import { haveCursor } from '@dataplug/tasenor-common'
+import { haveCursor } from '@tasenor/common'
 import withStore from '../Hooks/withStore'
 
 @withStore

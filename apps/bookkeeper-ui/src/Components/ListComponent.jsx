@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types'
 import { List, ListItem, Avatar, ListItemAvatar, ListItemText } from '@mui/material'
 import { Trans } from 'react-i18next'
 import Store from '../Stores/Store'
-import { Title } from '@dataplug/tasenor-common-ui'
+import { Title } from '@tasenor/common-ui'
 
 // TODO: Convert to function component and use new useNavigation hook.
 class ListComponent extends Component {

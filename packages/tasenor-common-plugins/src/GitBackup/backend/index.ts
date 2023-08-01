@@ -1,5 +1,5 @@
-import { GitRepo, KnexDatabase, systemPiped, TasenorExporter, ToolPlugin } from '@dataplug/tasenor-common-node'
-import { DirectoryPath, Email, error, log, note, PluginCode, Version } from '@dataplug/tasenor-common'
+import { GitRepo, KnexDatabase, systemPiped, TasenorExporter, ToolPlugin } from '@tasenor/common-node'
+import { DirectoryPath, Email, error, log, note, PluginCode, Version } from '@tasenor/common'
 import fs from 'fs'
 import path from 'path'
 

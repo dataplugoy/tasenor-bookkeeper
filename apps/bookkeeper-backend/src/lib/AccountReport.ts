@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ReportColumnDefinition, ReportItem } from '@dataplug/tasenor-common'
-import { ReportPlugin } from '@dataplug/tasenor-common-node'
+import { ReportColumnDefinition, ReportItem } from '@tasenor/common'
+import { ReportPlugin } from '@tasenor/common-node'
 import dayjs from 'dayjs'
 
 /**

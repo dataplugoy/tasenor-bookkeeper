@@ -1,4 +1,4 @@
-import { ProcessModelDetailedData, ProcessStepModelData, ProcessStatus } from '@dataplug/tasenor-common'
+import { ProcessModelDetailedData, ProcessStepModelData, ProcessStatus } from '@tasenor/common'
 import { Card, CardContent, Typography } from '@mui/material'
 import { green } from '@mui/material/colors'
 import React from 'react'

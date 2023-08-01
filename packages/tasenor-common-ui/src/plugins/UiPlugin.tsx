@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Catalog, Store, Settings, PluginCode, Version, ShortDate, PluginUse, PluginType, ID, Language } from '@dataplug/tasenor-common'
+import { Catalog, Store, Settings, PluginCode, Version, ShortDate, PluginUse, PluginType, ID, Language } from '@tasenor/common'
 import { History } from 'history'
 
 export class UiPlugin extends Component {

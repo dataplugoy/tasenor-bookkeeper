@@ -1,9 +1,9 @@
-import { error, ID, ImportAction, isRuleEditorElement, ProcessStatus } from '@dataplug/tasenor-common'
+import { error, ID, ImportAction, isRuleEditorElement, ProcessStatus } from '@tasenor/common'
 import express from 'express'
 import { getImportSystem } from '../lib/importing'
 import knex from '../lib/knex'
 import clone from 'clone'
-import { isProduction } from '@dataplug/tasenor-common-node'
+import { isProduction } from '@tasenor/common-node'
 import { suspenseAccount } from '../lib/account'
 import { getSetting } from '../lib/settings'
 

@@ -1,5 +1,5 @@
-import { NO_SEGMENT, SegmentId, TextFileLine } from '@dataplug/tasenor-common'
-import { InvalidFile, NotImplemented, ProcessFile, TransactionImportHandler } from '@dataplug/tasenor-common-node'
+import { NO_SEGMENT, SegmentId, TextFileLine } from '@tasenor/common'
+import { InvalidFile, NotImplemented, ProcessFile, TransactionImportHandler } from '@tasenor/common-node'
 
 // Store the latest transactoin ID
 let ref: string | undefined

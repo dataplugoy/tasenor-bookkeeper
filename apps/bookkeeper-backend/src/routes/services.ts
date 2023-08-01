@@ -1,5 +1,5 @@
-import { PluginService } from '@dataplug/tasenor-common'
-import { KnexDatabase } from '@dataplug/tasenor-common-node'
+import { PluginService } from '@tasenor/common'
+import { KnexDatabase } from '@tasenor/common-node'
 import express from 'express'
 import catalog from '../lib/catalog'
 import knex from '../lib/knex'

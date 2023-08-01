@@ -1,7 +1,7 @@
 import React from 'react'
 import { ImportFile } from './ImportFile'
 import { DefaultResultViewProps } from './DefaultResultView'
-import { ProcessConfig, isImportState, ImportState, SegmentId } from '@dataplug/tasenor-common'
+import { ProcessConfig, isImportState, ImportState, SegmentId } from '@tasenor/common'
 
 export type ImportStateViewProps = {
   state: Record<string, unknown>

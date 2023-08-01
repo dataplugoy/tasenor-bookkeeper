@@ -2,7 +2,7 @@ import { runInAction } from 'mobx'
 import axios from 'axios'
 import setValue from 'set-value'
 import getValue from 'get-value'
-import { ActionHandler, ActionName, ActionResult, isActiveElement, PatchAction, PostAction, RenderingProps, TasenorAction } from '@dataplug/tasenor-common'
+import { ActionHandler, ActionName, ActionResult, isActiveElement, PatchAction, PostAction, RenderingProps, TasenorAction } from '@tasenor/common'
 
 /**
  * Registry where all action handlers has been stored.

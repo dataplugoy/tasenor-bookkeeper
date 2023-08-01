@@ -6,7 +6,7 @@ import Panel from './Panel'
 import { TextField, Button, Typography } from '@mui/material'
 import RegisterForm from './RegisterForm'
 import SubTitle from './SubTitle'
-import { haveCursor, haveSettings } from '@dataplug/tasenor-common'
+import { haveCursor, haveSettings } from '@tasenor/common'
 import withStore from '../Hooks/withStore'
 
 @withStore

@@ -1,5 +1,5 @@
-import { ImportStateText, NO_SEGMENT, SegmentId, TextFileLine } from '@dataplug/tasenor-common'
-import { NotImplemented, Process, ProcessFile, TransactionImportHandler } from '@dataplug/tasenor-common-node'
+import { ImportStateText, NO_SEGMENT, SegmentId, TextFileLine } from '@tasenor/common'
+import { NotImplemented, Process, ProcessFile, TransactionImportHandler } from '@tasenor/common-node'
 
 /**
  * Import implementation for Coinbase CSV format.

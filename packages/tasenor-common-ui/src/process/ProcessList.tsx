@@ -1,4 +1,4 @@
-import { ID, ProcessModelData } from '@dataplug/tasenor-common'
+import { ID, ProcessModelData } from '@tasenor/common'
 import { TableContainer, Table, TableHead, TableCell, TableRow, TableBody } from '@mui/material'
 import React, { useState } from 'react'
 import { Trans } from 'react-i18next'

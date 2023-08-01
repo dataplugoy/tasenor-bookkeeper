@@ -1,5 +1,5 @@
-import { AccountNumber, Language, PluginCode, ReportID, ReportOptions, Version } from '@dataplug/tasenor-common'
-import { ReportPlugin } from '@dataplug/tasenor-common-node'
+import { AccountNumber, Language, PluginCode, ReportID, ReportOptions, Version } from '@tasenor/common'
+import { ReportPlugin } from '@tasenor/common-node'
 import dayjs from 'dayjs'
 import quarterOfYear from 'dayjs/plugin/quarterOfYear'
 dayjs.extend(quarterOfYear)

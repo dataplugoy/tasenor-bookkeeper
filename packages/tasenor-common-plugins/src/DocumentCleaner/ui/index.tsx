@@ -1,10 +1,10 @@
 // eslint-disable-next-line no-use-before-define
 import React from 'react'
-import { Title, Localize, SubPanel, IconButton, ToolPlugin } from '@dataplug/tasenor-common-ui'
+import { Title, Localize, SubPanel, IconButton, ToolPlugin } from '@tasenor/common-ui'
 import { runInAction } from 'mobx'
 import { Trans } from 'react-i18next'
 import { Typography } from '@mui/material'
-import { DocumentModel, ShortDate, ID } from '@dataplug/tasenor-common'
+import { DocumentModel, ShortDate, ID } from '@tasenor/common'
 
 class DocumentCleaner extends ToolPlugin {
 

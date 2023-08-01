@@ -1,4 +1,4 @@
-import { error, TokenPayload, Secret, TokenAudience, Token, RefreshTokenPayload, TokenPair, NormalTokenPayload, REFRESH_TOKEN_EXPIRY_TIME, TOKEN_EXPIRY_TIME, TOKEN_ISSUER } from '@dataplug/tasenor-common'
+import { error, TokenPayload, Secret, TokenAudience, Token, RefreshTokenPayload, TokenPair, NormalTokenPayload, REFRESH_TOKEN_EXPIRY_TIME, TOKEN_EXPIRY_TIME, TOKEN_ISSUER } from '@tasenor/common'
 import jwt, { Jwt } from 'jsonwebtoken'
 import { create } from 'ts-opaque'
 import { vault } from './vault'

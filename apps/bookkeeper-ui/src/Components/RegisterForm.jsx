@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import { Trans, withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
 import { TextField, Button } from '@mui/material'
-import { haveCursor } from '@dataplug/tasenor-common'
+import { haveCursor } from '@tasenor/common'
 import withStore from '../Hooks/withStore'
 
 @withStore

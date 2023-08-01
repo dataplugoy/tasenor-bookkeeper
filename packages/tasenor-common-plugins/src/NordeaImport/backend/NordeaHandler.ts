@@ -1,5 +1,5 @@
-import { NO_SEGMENT, SegmentId, TextFileLine } from '@dataplug/tasenor-common'
-import { ProcessFile, TransactionImportHandler } from '@dataplug/tasenor-common-node'
+import { NO_SEGMENT, SegmentId, TextFileLine } from '@tasenor/common'
+import { ProcessFile, TransactionImportHandler } from '@tasenor/common-node'
 
 /**
  * Import implementation for Nordea CSV format.

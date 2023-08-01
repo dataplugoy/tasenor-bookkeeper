@@ -4,9 +4,9 @@ import { runInAction } from 'mobx'
 import { observer } from 'mobx-react'
 import { withTranslation, Trans } from 'react-i18next'
 import Store from '../Stores/Store'
-import { IconSpacer, IconButton, Title, downloadUrl } from '@dataplug/tasenor-common-ui'
+import { IconSpacer, IconButton, Title, downloadUrl } from '@tasenor/common-ui'
 import Configuration from '../Configuration'
-import { haveCursor } from '@dataplug/tasenor-common'
+import { haveCursor } from '@tasenor/common'
 import withStore from '../Hooks/withStore'
 
 const ICONS = {

@@ -3,7 +3,7 @@ import { BadState, DatabaseError, InvalidArgument, isAskUI } from '../error'
 import { ProcessFile } from './ProcessFile'
 import { ProcessingSystem } from './ProcessingSystem'
 import { ProcessStep } from './ProcessStep'
-import { Directions, ProcessName, ProcessConfig, ProcessStatus, ID, TasenorElement, ImportAction, ImportState } from '@dataplug/tasenor-common'
+import { Directions, ProcessName, ProcessConfig, ProcessStatus, ID, TasenorElement, ImportAction, ImportState } from '@tasenor/common'
 import { KnexDatabase } from '../database'
 
 /**

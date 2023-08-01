@@ -2,7 +2,7 @@ import express from 'express'
 import users from '../lib/users'
 import sysinfo from '../sysinfo.json'
 import pck from '../../package.json'
-import { nodeEnv } from '@dataplug/tasenor-common-node'
+import { nodeEnv } from '@tasenor/common-node'
 const router = express.Router()
 
 /**

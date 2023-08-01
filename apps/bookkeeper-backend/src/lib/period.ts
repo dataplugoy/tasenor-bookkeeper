@@ -1,5 +1,5 @@
-import { AccountModel, AccountNumber, DbPeriodModel, StockBookkeeping, StockChangeData, ID, PeriodModelData, HttpResponse } from '@dataplug/tasenor-common'
-import { KnexDatabase } from '@dataplug/tasenor-common-node'
+import { AccountModel, AccountNumber, DbPeriodModel, StockBookkeeping, StockChangeData, ID, PeriodModelData, HttpResponse } from '@tasenor/common'
+import { KnexDatabase } from '@tasenor/common-node'
 import dayjs from 'dayjs'
 import data from './data'
 

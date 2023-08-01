@@ -1,6 +1,6 @@
 import { action, AnnotationsMap, makeObservable, observable, runInAction } from 'mobx'
 import Store from '../Stores/Store'
-import { ID } from '@dataplug/tasenor-common'
+import { ID } from '@tasenor/common'
 
 class Model {
 

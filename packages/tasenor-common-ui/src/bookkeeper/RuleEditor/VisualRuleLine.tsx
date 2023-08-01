@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Chip, IconButton } from '@mui/material'
-import { RuleViewOp } from '@dataplug/tasenor-common'
+import { RuleViewOp } from '@tasenor/common'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import { useTranslation } from 'react-i18next'
 

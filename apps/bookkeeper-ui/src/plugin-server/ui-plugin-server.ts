@@ -7,8 +7,8 @@ import fs from 'fs'
 import path from 'path'
 import express from 'express'
 import pkg from '../../package.json' assert { type: 'json' }
-import { error, warning, net, log, REFRESH_TOKEN_EXPIRY_TIME, MINUTES, LocalUrl, Token, Url, TasenorPlugin } from '@dataplug/tasenor-common'
-import { vault, plugins, systemPiped } from '@dataplug/tasenor-common-node'
+import { error, warning, net, log, REFRESH_TOKEN_EXPIRY_TIME, MINUTES, LocalUrl, Token, Url, TasenorPlugin } from '@tasenor/common'
+import { vault, plugins, systemPiped } from '@tasenor/common-node'
 const { getConfig, findPluginFromIndex, setConfig, loadPluginIndex, savePluginIndex, samePlugins, sortPlugins, scanPlugins, isInstalled, loadPluginState, savePluginState, updatePluginIndex } = plugins
 
 /**

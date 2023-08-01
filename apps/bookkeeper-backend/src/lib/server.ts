@@ -1,6 +1,6 @@
-import { log, net, error, REFRESH_TOKEN_EXPIRY_TIME, MINUTES, YEARS, UUID, Token, Url, LocalUrl, NormalTokenPayload } from '@dataplug/tasenor-common'
+import { log, net, error, REFRESH_TOKEN_EXPIRY_TIME, MINUTES, YEARS, UUID, Token, Url, LocalUrl, NormalTokenPayload } from '@tasenor/common'
 import { JwtPayload } from 'jsonwebtoken'
-import { DB, tokens, vault, createUuid, isDevelopment } from '@dataplug/tasenor-common-node'
+import { DB, tokens, vault, createUuid, isDevelopment } from '@tasenor/common-node'
 import killable from 'killable'
 import path from 'path'
 import fs from 'fs'

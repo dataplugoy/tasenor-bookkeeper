@@ -1,4 +1,4 @@
-import { ToolPlugin } from '@dataplug/tasenor-common-node'
+import { ToolPlugin } from '@tasenor/common-node'
 import express from 'express'
 import catalog from '../lib/catalog'
 import knex from '../lib/knex'

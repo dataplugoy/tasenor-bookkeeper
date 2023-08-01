@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Button, Dialog as MuiDialog, DialogActions, DialogContent, DialogTitle } from '@mui/material'
-import { haveCursor } from '@dataplug/tasenor-common'
+import { haveCursor } from '@tasenor/common'
 import { Trans } from 'react-i18next'
 
 export type DialogProps = {

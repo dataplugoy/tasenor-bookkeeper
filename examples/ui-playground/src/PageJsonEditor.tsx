@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { observer } from 'mobx-react'
 import { Box } from '@mui/material'
-import { JsonEditor } from '@dataplug/tasenor-common-ui'
+import { JsonEditor } from '@tasenor/common-ui'
 
 const PageJsonEditor = (): JSX.Element => {
   const [visible, setVisible] = useState<boolean>(true)

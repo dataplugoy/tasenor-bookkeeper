@@ -4,7 +4,7 @@ import utc from 'dayjs/plugin/utc'
 import path from 'path'
 import fs from 'fs'
 import { KnexDatabase } from '..'
-import { log, Bookkeeper, AccountType, ParsedTsvFileData, ShortDate, Timestamp, BookkeeperConfig, DirectoryPath, ReportFormat, TarFilePath, SqliteDbPath, Version, AccountNumber } from '@dataplug/tasenor-common'
+import { log, Bookkeeper, AccountType, ParsedTsvFileData, ShortDate, Timestamp, BookkeeperConfig, DirectoryPath, ReportFormat, TarFilePath, SqliteDbPath, Version, AccountNumber } from '@tasenor/common'
 import { Exporter } from './Exporter'
 
 dayjs.extend(utc)

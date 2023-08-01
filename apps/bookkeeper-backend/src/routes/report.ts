@@ -1,8 +1,8 @@
-import { Language, PK, ReportQueryParams, ReportID, ReportOptions, error, warning } from '@dataplug/tasenor-common'
+import { Language, PK, ReportQueryParams, ReportID, ReportOptions, error, warning } from '@tasenor/common'
 import express from 'express'
 import knex from '../lib/knex'
 import catalog from '../lib/catalog'
-import { KnexDatabase } from '@dataplug/tasenor-common-node'
+import { KnexDatabase } from '@tasenor/common-node'
 import { AccountReport } from '../lib/AccountReport'
 
 const router = express.Router()

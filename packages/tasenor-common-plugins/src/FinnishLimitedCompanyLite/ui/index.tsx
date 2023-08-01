@@ -1,4 +1,4 @@
-import { SchemePlugin } from '@dataplug/tasenor-common-ui'
+import { SchemePlugin } from '@tasenor/common-ui'
 
 class FinnishLimitedCompanyLite extends SchemePlugin {
 

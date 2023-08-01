@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ID } from '@dataplug/tasenor-common'
+import { ID } from '@tasenor/common'
 
 /**
  * A connector interface for querying information, applying results and running various hooks.

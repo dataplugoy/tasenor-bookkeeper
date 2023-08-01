@@ -1,4 +1,4 @@
-import { ReportQueryParams } from '@dataplug/tasenor-common'
+import { ReportQueryParams } from '@tasenor/common'
 import json2csv from 'json2csv'
 import { sprintf } from 'sprintf-js'
 

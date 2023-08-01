@@ -1,6 +1,6 @@
 import knex from './knex'
-import { Password, vault, tokens, isDevelopment } from '@dataplug/tasenor-common-node'
-import { DAYS, NormalTokenPayload, TokenPair, Url, UserDataModel, isHttpSuccessResponse, net } from '@dataplug/tasenor-common'
+import { Password, vault, tokens, isDevelopment } from '@tasenor/common-node'
+import { DAYS, NormalTokenPayload, TokenPair, Url, UserDataModel, isHttpSuccessResponse, net } from '@tasenor/common'
 import catalog from './catalog'
 
 const ALLOWED_USER_FIELDS = ['id', 'name', 'email', 'disabled', 'config']

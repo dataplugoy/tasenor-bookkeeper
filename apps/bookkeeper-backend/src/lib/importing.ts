@@ -1,12 +1,12 @@
 /* eslint-disable camelcase */
-import { DocumentModel, DocumentModelData, EntryModel, EntryModelData, isHttpFailureResponse, Transaction, ID } from '@dataplug/tasenor-common'
+import { DocumentModel, DocumentModelData, EntryModel, EntryModelData, isHttpFailureResponse, Transaction, ID } from '@tasenor/common'
 import catalog from '../lib/catalog'
 import { ImportConnector } from './ImportConnector'
 import { create as createDocument } from '../lib/document'
 import { create as createEntry } from '../lib/entry'
 import dayjs from 'dayjs'
 import { periodOf } from './period'
-import { KnexDatabase, ProcessingSystem } from '@dataplug/tasenor-common-node'
+import { KnexDatabase, ProcessingSystem } from '@tasenor/common-node'
 
 /**
  * Construct import system based on its configuration ID.

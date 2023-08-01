@@ -2,7 +2,7 @@ import express from 'express'
 import data from '../lib/data'
 import knex from '../lib/knex'
 import { create, update } from '../lib/document'
-import { HttpResponse, isHttpSuccessResponse } from '@dataplug/tasenor-common'
+import { HttpResponse, isHttpSuccessResponse } from '@tasenor/common'
 
 const router = express.Router()
 

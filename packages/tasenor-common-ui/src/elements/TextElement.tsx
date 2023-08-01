@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { TextField } from '@mui/material'
-import { RenderingProps, isTextElement, isNamedElement } from '@dataplug/tasenor-common'
+import { RenderingProps, isTextElement, isNamedElement } from '@tasenor/common'
 import { Renderer, RISPProvider } from '../risp'
 
 /**

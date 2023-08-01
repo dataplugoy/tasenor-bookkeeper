@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Card, CardContent, CardHeader } from '@mui/material'
-import { RenderingProps, isBoxElement, TasenorElement } from '@dataplug/tasenor-common'
+import { RenderingProps, isBoxElement, TasenorElement } from '@tasenor/common'
 import { Renderer, RenderingEngine } from '../risp'
 
 export const BoxRenderer: Renderer = (props: RenderingProps) => {

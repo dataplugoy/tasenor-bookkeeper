@@ -1,4 +1,4 @@
-import { Secret } from '@dataplug/tasenor-common'
+import { Secret } from '@tasenor/common'
 import { randomString } from './crypto'
 
 export const ALLOWED_VAULT_VARIABLES = [

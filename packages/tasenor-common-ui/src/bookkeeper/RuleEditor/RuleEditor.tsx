@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SegmentId, TextFileLine, AccountNumber, Expression, filterView2name, ImportRule, RuleResultView, Store, Tag, TagModel, TransactionImportOptions, Value, ProcessConfig, filterView2rule, filterView2results, isValues, isValue, RuleView } from '@dataplug/tasenor-common'
+import { SegmentId, TextFileLine, AccountNumber, Expression, filterView2name, ImportRule, RuleResultView, Store, Tag, TagModel, TransactionImportOptions, Value, ProcessConfig, filterView2rule, filterView2results, isValues, isValue, RuleView } from '@tasenor/common'
 import { Box, Button, Divider, Grid, Stack, TextField, Typography, styled, Paper, Link } from '@mui/material'
 import { TagGroup } from '../TagGroups'
 import { AccountSelector } from '../AccountSelector'

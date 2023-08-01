@@ -1,6 +1,6 @@
 import path from 'path'
-import { SchemePlugin } from '@dataplug/tasenor-common-node'
-import { Currency, Language, PluginCode, SchemeName, TsvFilePath, Version } from '@dataplug/tasenor-common'
+import { SchemePlugin } from '@tasenor/common-node'
+import { Currency, Language, PluginCode, SchemeName, TsvFilePath, Version } from '@tasenor/common'
 
 class FinnishInvestmentCompany extends SchemePlugin {
 

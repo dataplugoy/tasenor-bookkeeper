@@ -2,7 +2,7 @@
 import { sprintf } from 'sprintf-js'
 import { Command } from '.'
 import { ArgumentParser } from 'argparse'
-import { EntryModelData, log } from '@dataplug/tasenor-common'
+import { EntryModelData, log } from '@tasenor/common'
 
 class EntryCommand extends Command {
 

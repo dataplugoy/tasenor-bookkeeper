@@ -1,4 +1,4 @@
-import { UiPlugin } from '@dataplug/tasenor-common-ui'
+import { UiPlugin } from '@tasenor/common-ui'
 import { makeObservable, observable, runInAction } from 'mobx'
 
 /**

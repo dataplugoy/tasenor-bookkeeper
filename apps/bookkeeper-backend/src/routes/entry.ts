@@ -1,4 +1,4 @@
-import { HttpResponse, isHttpSuccessResponse } from '@dataplug/tasenor-common'
+import { HttpResponse, isHttpSuccessResponse } from '@tasenor/common'
 import express from 'express'
 import data from '../lib/data'
 import knex from '../lib/knex'

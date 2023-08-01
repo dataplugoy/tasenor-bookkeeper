@@ -1,4 +1,4 @@
-import { KnexDatabase } from '@dataplug/tasenor-common-node'
+import { KnexDatabase } from '@tasenor/common-node'
 
 export async function getSetting(db: KnexDatabase, name: string) {
   const line = await db('settings').where({ name }).first()

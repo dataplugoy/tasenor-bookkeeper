@@ -1,4 +1,4 @@
-import { DatabaseModelData, FilePath, log } from '@dataplug/tasenor-common'
+import { DatabaseModelData, FilePath, log } from '@tasenor/common'
 import { ArgumentParser } from 'argparse'
 import fs from 'fs'
 import { Command } from '.'

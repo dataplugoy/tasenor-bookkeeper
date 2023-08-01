@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from '@mui/material'
-import { RuleResultView } from '@dataplug/tasenor-common'
+import { RuleResultView } from '@tasenor/common'
 import { VisualRuleLine } from './VisualRuleLine'
 
 export interface VisualResultRuleProps {

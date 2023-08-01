@@ -1,5 +1,5 @@
-import { Cursor, haveCursor, haveStore, ID, ProcessConfig, Store } from '@dataplug/tasenor-common'
-import { JsonEditor } from '@dataplug/tasenor-common-ui'
+import { Cursor, haveCursor, haveStore, ID, ProcessConfig, Store } from '@tasenor/common'
+import { JsonEditor } from '@tasenor/common-ui'
 import React, { useState, useEffect } from 'react'
 import Loading from './Loading'
 import ImporterModel from '../Models/ImporterModel'

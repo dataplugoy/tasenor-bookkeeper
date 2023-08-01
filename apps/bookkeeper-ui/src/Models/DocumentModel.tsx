@@ -3,7 +3,7 @@ import NavigationTargetModel from './NavigationTargetModel'
 import EntryModel from './EntryModel'
 import PeriodModel from './PeriodModel'
 import DatabaseModel from './DatabaseModel'
-import { ID, ImportExecutionResult } from '@dataplug/tasenor-common'
+import { ID, ImportExecutionResult } from '@tasenor/common'
 
 class DocumentModel extends NavigationTargetModel {
 

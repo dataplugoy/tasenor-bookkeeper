@@ -1,4 +1,4 @@
-import { AssetExchange, CryptoCurrency, Currency, net, PluginService, ShortDate, Url, Value } from '@dataplug/tasenor-common'
+import { AssetExchange, CryptoCurrency, Currency, net, PluginService, ShortDate, Url, Value } from '@tasenor/common'
 
 /**
  * Call some of the service plugins internally.

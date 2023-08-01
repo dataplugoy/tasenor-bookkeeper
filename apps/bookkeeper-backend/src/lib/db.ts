@@ -1,8 +1,8 @@
 import path from 'path'
 import knex from '../lib/knex'
-import { DB, BookkeeperImporter } from '@dataplug/tasenor-common-node'
+import { DB, BookkeeperImporter } from '@tasenor/common-node'
 import catalog from '../lib/catalog'
-import { DatabaseName, error } from '@dataplug/tasenor-common'
+import { DatabaseName, error } from '@tasenor/common'
 
 /**
  * Helper to create new database for a customer.

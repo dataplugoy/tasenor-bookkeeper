@@ -3,7 +3,7 @@ import fs from 'fs'
 import { data2csv } from '..'
 import dayjs from 'dayjs'
 import quarterOfYear from 'dayjs/plugin/quarterOfYear'
-import { ReportOptions, ReportID, ReportFlagName, ReportItem, ReportQueryParams, ReportLine, AccountNumber, ReportColumnDefinition, PeriodModel, ReportFormat, Language } from '@dataplug/tasenor-common'
+import { ReportOptions, ReportID, ReportFlagName, ReportItem, ReportQueryParams, ReportLine, AccountNumber, ReportColumnDefinition, PeriodModel, ReportFormat, Language } from '@tasenor/common'
 import { BackendPlugin } from './BackendPlugin'
 
 dayjs.extend(quarterOfYear)

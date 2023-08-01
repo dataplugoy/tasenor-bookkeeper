@@ -1,5 +1,5 @@
-import { ImportPlugin } from '@dataplug/tasenor-common-node'
-import { PluginCode, Version } from '@dataplug/tasenor-common'
+import { ImportPlugin } from '@tasenor/common-node'
+import { PluginCode, Version } from '@tasenor/common'
 import { TITOHandler } from './TITOHandler'
 
 class TITOImportPlugin extends ImportPlugin {

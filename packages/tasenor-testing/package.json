@@ -1,5 +1,5 @@
 {
-  "name": "@dataplug/tasenor-testing",
+  "name": "@tasenor/testing",
   "version": "1.9.16",
   "description": "Testing tools for Tasenor project",
   "main": "src/index.ts",
@@ -14,7 +14,7 @@
     "version": "jq .version < package.json"
   },
   "dependencies": {
-    "@dataplug/tasenor-common": "workspace:*",
+    "@tasenor/common": "workspace:*",
     "dayjs": "1.10.8",
     "sprintf-js": "^1.1.2"
   },

@@ -1,5 +1,5 @@
 import express from 'express'
-import { plugins } from '@dataplug/tasenor-common-node'
+import { plugins } from '@tasenor/common-node'
 import { install, uninstall, reset } from '../lib/plugins'
 import catalog from '../lib/catalog'
 import { tasenor } from '../lib/middleware'

@@ -7,7 +7,7 @@
 import * as readline from 'readline'
 import * as FormData from 'form-data'
 import { ArgumentParser } from 'argparse'
-import { HttpMethod, net, Url, Value, TokenPair, Token, log, HttpResponse, mute, waitPromise, note } from '@dataplug/tasenor-common'
+import { HttpMethod, net, Url, Value, TokenPair, Token, log, HttpResponse, mute, waitPromise, note } from '@tasenor/common'
 import clone from 'clone'
 import DbCommand from './commands/db'
 import { Command, CommandArgumentDefault, CommandArguments } from './commands'

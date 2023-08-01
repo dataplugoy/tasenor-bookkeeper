@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tag, TagModel, TagsElement, RenderingProps, isNamedElement } from '@dataplug/tasenor-common'
+import { Tag, TagModel, TagsElement, RenderingProps, isNamedElement } from '@tasenor/common'
 import { FormGroup, FormLabel } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { TagGroup } from '../bookkeeper/TagGroups'

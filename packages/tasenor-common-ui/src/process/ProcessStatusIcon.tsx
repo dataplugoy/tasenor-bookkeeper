@@ -2,7 +2,7 @@ import React from 'react'
 import { Warning, CheckCircleOutline, Timer, ErrorOutline, HourglassEmpty, Help, Restore } from '@mui/icons-material'
 import { Typography } from '@mui/material'
 import { red, green, blue } from '@mui/material/colors'
-import { ProcessStatus } from '@dataplug/tasenor-common'
+import { ProcessStatus } from '@tasenor/common'
 
 export type ProcessStatusIconProps = {
   status: ProcessStatus

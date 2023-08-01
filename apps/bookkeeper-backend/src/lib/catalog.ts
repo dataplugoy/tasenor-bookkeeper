@@ -21,8 +21,8 @@ import {
   TokenPair,
   TsvFilePath,
   VATTarget
-} from '@dataplug/tasenor-common'
-import { plugins, BackendPlugin, ImportPlugin, KnexDatabase, ReportPlugin, SchemePlugin, ServicePlugin, TransactionImportHandler, DB, DataPlugin, ToolPlugin } from '@dataplug/tasenor-common-node'
+} from '@tasenor/common'
+import { plugins, BackendPlugin, ImportPlugin, KnexDatabase, ReportPlugin, SchemePlugin, ServicePlugin, TransactionImportHandler, DB, DataPlugin, ToolPlugin } from '@tasenor/common-node'
 import path from 'path'
 import knex from './knex'
 

@@ -1,5 +1,5 @@
-import { Currency, haveStore, ProcessModelDetailedData, ProcessStatus, ProcessStepModelData, TransactionApplyResults } from '@dataplug/tasenor-common'
-import { Money, ProcessStatusIcon, Dialog, useNavigation } from '@dataplug/tasenor-common-ui'
+import { Currency, haveStore, ProcessModelDetailedData, ProcessStatus, ProcessStepModelData, TransactionApplyResults } from '@tasenor/common'
+import { Money, ProcessStatusIcon, Dialog, useNavigation } from '@tasenor/common-ui'
 import { Button, Card, CardActions, CardContent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 import { green } from '@mui/material/colors'
 import { observer } from 'mobx-react'

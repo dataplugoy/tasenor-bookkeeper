@@ -14,10 +14,10 @@ importers:
 
   apps/bookkeeper-backend:
     dependencies:
-      '@dataplug/tasenor-common':
+      '@tasenor/common':
         specifier: workspace:*
         version: link:../../packages/tasenor-common
-      '@dataplug/tasenor-common-node':
+      '@tasenor/common-node':
         specifier: workspace:*
         version: link:../../packages/tasenor-common-node
       '@redocly/cli':
@@ -120,13 +120,13 @@ importers:
 
   apps/bookkeeper-ui:
     dependencies:
-      '@dataplug/tasenor-common':
+      '@tasenor/common':
         specifier: workspace:*
         version: link:../../packages/tasenor-common
-      '@dataplug/tasenor-common-node':
+      '@tasenor/common-node':
         specifier: workspace:*
         version: link:../../packages/tasenor-common-node
-      '@dataplug/tasenor-common-ui':
+      '@tasenor/common-ui':
         specifier: workspace:*
         version: link:../../packages/tasenor-common-ui
       '@mui/icons-material':
@@ -228,10 +228,10 @@ importers:
 
   examples/ui-playground:
     dependencies:
-      '@dataplug/tasenor-common':
+      '@tasenor/common':
         specifier: workspace:*
         version: link:../../packages/tasenor-common
-      '@dataplug/tasenor-common-ui':
+      '@tasenor/common-ui':
         specifier: workspace:*
         version: link:../../packages/tasenor-common-ui
       '@dataplug/tasenor-testing':
@@ -376,7 +376,7 @@ importers:
 
   packages/tasenor-common-node:
     dependencies:
-      '@dataplug/tasenor-common':
+      '@tasenor/common':
         specifier: workspace:*
         version: link:../tasenor-common
       '@vscode/sqlite3':
@@ -497,13 +497,13 @@ importers:
 
   packages/tasenor-common-plugins:
     dependencies:
-      '@dataplug/tasenor-common':
+      '@tasenor/common':
         specifier: workspace:*
         version: link:../tasenor-common
-      '@dataplug/tasenor-common-node':
+      '@tasenor/common-node':
         specifier: workspace:*
         version: link:../tasenor-common-node
-      '@dataplug/tasenor-common-ui':
+      '@tasenor/common-ui':
         specifier: workspace:*
         version: link:../tasenor-common-ui
       clone:
@@ -561,7 +561,7 @@ importers:
 
   packages/tasenor-common-ui:
     dependencies:
-      '@dataplug/tasenor-common':
+      '@tasenor/common':
         specifier: workspace:*
         version: link:../tasenor-common
       '@mui/icons-material':
@@ -634,7 +634,7 @@ importers:
 
   packages/tasenor-testing:
     dependencies:
-      '@dataplug/tasenor-common':
+      '@tasenor/common':
         specifier: workspace:*
         version: link:../tasenor-common
       dayjs:

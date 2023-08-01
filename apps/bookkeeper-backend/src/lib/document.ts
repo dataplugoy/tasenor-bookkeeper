@@ -1,5 +1,5 @@
-import { DocumentModelData, HttpResponse } from '@dataplug/tasenor-common'
-import { KnexDatabase } from '@dataplug/tasenor-common-node'
+import { DocumentModelData, HttpResponse } from '@tasenor/common'
+import { KnexDatabase } from '@tasenor/common-node'
 import data from './data'
 
 /**

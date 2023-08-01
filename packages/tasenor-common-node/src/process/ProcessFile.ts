@@ -1,4 +1,4 @@
-import { ID, FileEncoding } from '@dataplug/tasenor-common'
+import { ID, FileEncoding } from '@tasenor/common'
 import chardet from 'chardet'
 import clone from 'clone'
 import { KnexDatabase } from '../database'

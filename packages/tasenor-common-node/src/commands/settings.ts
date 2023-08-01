@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { Command } from '.'
 import { ArgumentParser } from 'argparse'
-import { log, needHiding } from '@dataplug/tasenor-common'
+import { log, needHiding } from '@tasenor/common'
 
 class SettingsCommand extends Command {
 

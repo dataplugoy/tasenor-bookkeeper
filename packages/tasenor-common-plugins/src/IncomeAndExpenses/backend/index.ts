@@ -1,5 +1,5 @@
-import { DataPlugin } from '@dataplug/tasenor-common-node'
-import { PluginCode, Version } from '@dataplug/tasenor-common'
+import { DataPlugin } from '@tasenor/common-node'
+import { PluginCode, Version } from '@tasenor/common'
 
 class IncomeAndExpenses extends DataPlugin {
   constructor() {

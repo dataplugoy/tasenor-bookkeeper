@@ -2,7 +2,7 @@
 import path from 'path'
 import fs from 'fs'
 import { KnexDatabase } from '..'
-import { log, ParsedTsvFileData, BookkeeperConfig, DirectoryPath, TsvFilePath, JsonFilePath, Json, Value, TarFilePath } from '@dataplug/tasenor-common'
+import { log, ParsedTsvFileData, BookkeeperConfig, DirectoryPath, TsvFilePath, JsonFilePath, Json, Value, TarFilePath } from '@tasenor/common'
 import { create } from 'ts-opaque'
 import { system } from '../system'
 import dayjs from 'dayjs'

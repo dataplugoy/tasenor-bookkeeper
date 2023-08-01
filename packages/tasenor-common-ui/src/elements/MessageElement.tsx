@@ -1,6 +1,6 @@
 import React from 'react'
 import { Alert } from '@mui/material'
-import { RenderingProps, isMessageElement } from '@dataplug/tasenor-common'
+import { RenderingProps, isMessageElement } from '@tasenor/common'
 import { Renderer } from '../risp'
 
 export const MessageRenderer: Renderer = (props: RenderingProps) => {

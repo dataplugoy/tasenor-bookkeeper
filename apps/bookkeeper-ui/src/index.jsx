@@ -11,8 +11,8 @@ import Catalog from './Stores/Catalog'
 import i18n, { initializeI18n } from './i18n'
 import { CircularProgress, Box, ThemeProvider } from '@mui/material'
 import theme from './theme'
-import { RISPProvider } from '@dataplug/tasenor-common-ui'
-import { setGlobalComponents, Knowledge } from '@dataplug/tasenor-common'
+import { RISPProvider } from '@tasenor/common-ui'
+import { setGlobalComponents, Knowledge } from '@tasenor/common'
 import withRouter from './Hooks/withRouter'
 
 const settings = new Settings()

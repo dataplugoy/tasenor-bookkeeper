@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TextFileLine, RuleFilterView, TransactionImportOptions } from '@dataplug/tasenor-common'
+import { TextFileLine, RuleFilterView, TransactionImportOptions } from '@tasenor/common'
 import { Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material'
 import { Trans, useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'

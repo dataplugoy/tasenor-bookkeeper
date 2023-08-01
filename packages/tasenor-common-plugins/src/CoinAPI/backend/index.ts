@@ -1,5 +1,5 @@
-import { ServicePlugin } from '@dataplug/tasenor-common-node'
-import { PluginCode, Version, TasenorElement } from '@dataplug/tasenor-common'
+import { ServicePlugin } from '@tasenor/common-node'
+import { PluginCode, Version, TasenorElement } from '@tasenor/common'
 
 /**
  * Service: historical-crypto-rate

@@ -6,7 +6,7 @@ import TextEdit from './TextEdit'
 import Store from '../Stores/Store'
 import EntryModel from '../Models/EntryModel'
 import DocumentModel from '../Models/DocumentModel'
-import { haveCursor } from '@dataplug/tasenor-common'
+import { haveCursor } from '@tasenor/common'
 import withRouter from '../Hooks/withRouter'
 import withStore from '../Hooks/withStore'
 

@@ -1,4 +1,4 @@
-import { Language } from '@dataplug/tasenor-common'
+import { Language } from '@tasenor/common'
 import express from 'express'
 import catalog from '../lib/catalog'
 

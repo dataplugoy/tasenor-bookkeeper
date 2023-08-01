@@ -1,7 +1,7 @@
 import { runInAction } from 'mobx'
 import Model from './Model'
 import Configuration from '../Configuration'
-import { net } from '@dataplug/tasenor-common'
+import { net } from '@tasenor/common'
 
 class TagModel extends Model {
 

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import React from 'react'
-import { AccountElement, AccountNumber, RenderingProps } from '@dataplug/tasenor-common'
+import { AccountElement, AccountNumber, RenderingProps } from '@tasenor/common'
 import { AccountSelector } from '../bookkeeper/AccountSelector'
 import { Renderer } from '../risp/RenderingEngine'
 

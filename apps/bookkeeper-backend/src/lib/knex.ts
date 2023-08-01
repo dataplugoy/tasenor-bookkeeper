@@ -1,5 +1,5 @@
-import { DatabaseName, Hostname, log } from '@dataplug/tasenor-common'
-import { DB, KnexConfig, KnexDatabase, nodeEnv } from '@dataplug/tasenor-common-node'
+import { DatabaseName, Hostname, log } from '@tasenor/common'
+import { DB, KnexConfig, KnexDatabase, nodeEnv } from '@tasenor/common-node'
 import knexfileMaster from '../knexfile-master'
 
 /**

@@ -1,5 +1,5 @@
-import { haveCursor, net } from '@dataplug/tasenor-common'
-import { TagChip, IconButton, Title } from '@dataplug/tasenor-common-ui'
+import { haveCursor, net } from '@tasenor/common'
+import { TagChip, IconButton, Title } from '@tasenor/common-ui'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Configuration from '../Configuration'

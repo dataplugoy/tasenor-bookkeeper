@@ -2,8 +2,8 @@ import express from 'express'
 import knex from '../lib/knex'
 import catalog from '../lib/catalog'
 import { getImportSystem } from '../lib/importing'
-import { ImportPlugin, ProcessFileData } from '@dataplug/tasenor-common-node'
-import { ID, ProcessStatus } from '@dataplug/tasenor-common'
+import { ImportPlugin, ProcessFileData } from '@tasenor/common-node'
+import { ID, ProcessStatus } from '@tasenor/common'
 
 const router = express.Router()
 

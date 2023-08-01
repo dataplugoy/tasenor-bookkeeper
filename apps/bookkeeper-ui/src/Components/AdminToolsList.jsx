@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
 import ListComponent from './ListComponent'
-import { haveCursor } from '@dataplug/tasenor-common'
+import { haveCursor } from '@tasenor/common'
 import withRouter from '../Hooks/withRouter'
 import withStore from '../Hooks/withStore'
 

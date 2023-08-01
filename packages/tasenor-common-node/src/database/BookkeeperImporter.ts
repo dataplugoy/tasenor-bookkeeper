@@ -2,7 +2,7 @@ import glob from 'fast-glob'
 import path from 'path'
 import fs from 'fs'
 import { system } from '..'
-import { log, BookkeeperConfig, DirectoryPath, Hostname, ProcessedTsvFileData, TarFilePath, TextFilePath, TsvFilePath, error, FilePath } from '@dataplug/tasenor-common'
+import { log, BookkeeperConfig, DirectoryPath, Hostname, ProcessedTsvFileData, TarFilePath, TextFilePath, TsvFilePath, error, FilePath } from '@tasenor/common'
 import { DB, KnexDatabase } from './DB'
 import { create } from 'ts-opaque'
 

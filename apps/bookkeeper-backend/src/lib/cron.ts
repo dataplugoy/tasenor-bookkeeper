@@ -1,5 +1,5 @@
-import { DatabaseName, Hostname, log } from '@dataplug/tasenor-common'
-import { DB } from '@dataplug/tasenor-common-node'
+import { DatabaseName, Hostname, log } from '@tasenor/common'
+import { DB } from '@tasenor/common-node'
 import dayjs from 'dayjs'
 import cron from 'node-cron'
 import catalog from './catalog'

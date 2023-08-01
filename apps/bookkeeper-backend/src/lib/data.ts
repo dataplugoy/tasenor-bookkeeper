@@ -1,5 +1,5 @@
-import { error } from '@dataplug/tasenor-common'
-import { KnexDatabase } from '@dataplug/tasenor-common-node'
+import { error } from '@tasenor/common'
+import { KnexDatabase } from '@tasenor/common-node'
 
 /**
  * A collection of data fetching functions.

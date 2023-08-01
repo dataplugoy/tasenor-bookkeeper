@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from '@mui/material'
-import { RenderingProps, isFlatElement, TasenorElement } from '@dataplug/tasenor-common'
+import { RenderingProps, isFlatElement, TasenorElement } from '@tasenor/common'
 import { Renderer, RenderingEngine } from '../risp'
 
 export const FlatRenderer: Renderer = (props: RenderingProps) => {

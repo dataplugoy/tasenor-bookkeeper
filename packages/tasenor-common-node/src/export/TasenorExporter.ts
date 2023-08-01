@@ -1,4 +1,4 @@
-import { Bookkeeper, BookkeeperConfig, DirectoryPath, log, ParsedTsvFileData, TarFilePath, Url } from '@dataplug/tasenor-common'
+import { Bookkeeper, BookkeeperConfig, DirectoryPath, log, ParsedTsvFileData, TarFilePath, Url } from '@tasenor/common'
 import { DB, KnexDatabase } from '../database'
 import { Exporter } from './Exporter'
 import knex from 'knex'

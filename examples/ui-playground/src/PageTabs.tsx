@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { TabNav } from '@dataplug/tasenor-common-ui'
+import { TabNav } from '@tasenor/common-ui'
 
 const PageTabs = (): JSX.Element => {
 

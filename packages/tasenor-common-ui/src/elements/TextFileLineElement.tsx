@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
 import { Trans } from 'react-i18next'
-import { RenderingProps, isTextFileLineElement } from '@dataplug/tasenor-common'
+import { RenderingProps, isTextFileLineElement } from '@tasenor/common'
 import { ConfigView } from '../process'
 import { Renderer } from '../risp'
 

@@ -1,4 +1,4 @@
-import { log } from '@dataplug/tasenor-common'
+import { log } from '@tasenor/common'
 import { Command } from '.'
 import { ArgumentParser } from 'argparse'
 

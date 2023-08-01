@@ -1,4 +1,4 @@
-import { Crypto, DatabaseName, error, Hostname, ID, isDatabaseName, log, Secret, Url } from '@dataplug/tasenor-common'
+import { Crypto, DatabaseName, error, Hostname, ID, isDatabaseName, log, Secret, Url } from '@tasenor/common'
 import { randomString, vault } from '..'
 import knex, { Knex } from 'knex'
 import { types } from 'pg'

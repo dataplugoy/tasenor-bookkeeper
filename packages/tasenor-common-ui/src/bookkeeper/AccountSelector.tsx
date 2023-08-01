@@ -1,7 +1,7 @@
 import React from 'react'
 import StarOutlineIcon from '@mui/icons-material/StarOutline'
 import { MenuItem, TextField } from '@mui/material'
-import { AccountNumber, FilterRule, AccountModel, filter2function } from '@dataplug/tasenor-common'
+import { AccountNumber, FilterRule, AccountModel, filter2function } from '@tasenor/common'
 import { observer } from 'mobx-react'
 
 export type AccountSelectorProps = {

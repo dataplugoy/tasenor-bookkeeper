@@ -1,4 +1,4 @@
-import { ProcessConfig, TextFileLine, SegmentId } from '@dataplug/tasenor-common'
+import { ProcessConfig, TextFileLine, SegmentId } from '@tasenor/common'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
 import { Accordion, AccordionDetails, AccordionSummary, IconButton, Link, Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography, useTheme } from '@mui/material'
 import React, { useState } from 'react'

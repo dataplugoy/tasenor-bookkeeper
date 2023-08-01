@@ -1,4 +1,4 @@
-import { AccountAddress, AccountNumber, AdditionalTransferInfo, AssetTransfer, StockValueData, Transaction, TransactionDescription, TransactionLine, ImportStateText, ImportConfig } from '@dataplug/tasenor-common'
+import { AccountAddress, AccountNumber, AdditionalTransferInfo, AssetTransfer, StockValueData, Transaction, TransactionDescription, TransactionLine, ImportStateText, ImportConfig } from '@tasenor/common'
 import { TransactionImportHandler, AskUI, Process } from '..'
 import { getTestHandler } from './test-handlers'
 import { SystemMock } from './ProcessingSystemMock'

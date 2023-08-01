@@ -1,4 +1,4 @@
-import { tasenorStack } from '@dataplug/tasenor-common-node'
+import { tasenorStack } from '@tasenor/common-node'
 import knex from './knex'
 
 /**

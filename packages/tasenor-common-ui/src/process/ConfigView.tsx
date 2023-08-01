@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Grid, Typography } from '@mui/material'
 import { Trans } from 'react-i18next'
-import { ProcessConfig } from '@dataplug/tasenor-common'
+import { ProcessConfig } from '@tasenor/common'
 
 export const IGNORE_FIELDS = /^(answers|rules)$/
 

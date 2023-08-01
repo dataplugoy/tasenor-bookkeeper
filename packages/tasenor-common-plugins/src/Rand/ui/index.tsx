@@ -1,4 +1,4 @@
-import { CurrencyPlugin } from '@dataplug/tasenor-common-ui'
+import { CurrencyPlugin } from '@tasenor/common-ui'
 
 class Rand extends CurrencyPlugin {
 

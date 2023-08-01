@@ -1,5 +1,5 @@
 {
-  "name": "@dataplug/tasenor-common-plugins",
+  "name": "@tasenor/common-plugins",
   "version": "1.9.16",
   "description": "Shared common plugins of Tasenor project",
   "repository": "git@github.com:dataplugoy/tasenor-bookkeeper.git",
@@ -7,16 +7,16 @@
   "license": "MIT",
   "scripts": {
     "ci": "pnpm run lint && pnpm run build",
-    "build": "tsc",
+    "build": "rm -fr dist && tsc",
     "fix": "eslint --fix 'src/**/*.{ts,tsx}' 'data/**/*.mjs'",
     "lint": "eslint 'src/**/*.{ts,tsx}' 'data/**/*.mjs'",
     "data": "data/bin/build_all",
     "version": "jq .version < package.json"
   },
   "dependencies": {
-    "@dataplug/tasenor-common": "workspace:*",
-    "@dataplug/tasenor-common-node": "workspace:*",
-    "@dataplug/tasenor-common-ui": "workspace:*",
+    "@tasenor/common": "workspace:*",
+    "@tasenor/common-node": "workspace:*",
+    "@tasenor/common-ui": "workspace:*",
     "clone": "^2.1.2",
     "dayjs": "1.10.8",
     "sprintf-js": "^1.1.2"

@@ -10,7 +10,7 @@ import HeadingModel from '../Models/HeadingModel'
 import ReportModel from '../Models/ReportModel'
 import i18n from '../i18n'
 import jwtDecode from 'jwt-decode'
-import { error, net, TOKEN_EXPIRY_TIME, waitPromise, Crypto } from '@dataplug/tasenor-common'
+import { error, net, TOKEN_EXPIRY_TIME, waitPromise, Crypto } from '@tasenor/common'
 import Configuration from '../Configuration'
 import ImporterModel from '../Models/ImporterModel'
 

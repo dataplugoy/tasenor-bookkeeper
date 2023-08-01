@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { TasenorElement, BackendCatalog, Constructor, DirectoryPath, FilePath, Language, PluginCode, PluginType, PluginUse, Version, ID, getServerRoot } from '@dataplug/tasenor-common'
+import { TasenorElement, BackendCatalog, Constructor, DirectoryPath, FilePath, Language, PluginCode, PluginType, PluginUse, Version, ID, getServerRoot } from '@tasenor/common'
 import * as path from 'path'
 import * as fs from 'fs'
 import { KnexDatabase } from '..'

@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { haveCatalog } from '@dataplug/tasenor-common'
+import { haveCatalog } from '@tasenor/common'
 
 export interface LocalizeProps {
   date?: string | number

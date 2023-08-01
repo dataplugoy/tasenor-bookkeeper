@@ -1,4 +1,4 @@
-import { log } from '@dataplug/tasenor-common'
+import { log } from '@tasenor/common'
 import fs from 'fs'
 import { TransactionImportHandler } from '../import/TransactionImportHandler'
 import { TransactionUI } from '../import/TransactionUI'

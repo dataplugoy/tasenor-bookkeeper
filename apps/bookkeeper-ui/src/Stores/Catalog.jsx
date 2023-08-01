@@ -1,5 +1,5 @@
-import { latestVersion } from '@dataplug/tasenor-common'
-import { UiPlugin, Title } from '@dataplug/tasenor-common-ui'
+import { latestVersion } from '@tasenor/common'
+import { UiPlugin, Title } from '@tasenor/common-ui'
 import { observable, makeObservable, runInAction } from 'mobx'
 import dayjs from 'dayjs'
 import { sprintf } from 'sprintf-js'

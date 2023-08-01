@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FormControlLabel, Checkbox } from '@mui/material'
-import { isNamedElement, isBooleanElement, RenderingProps } from '@dataplug/tasenor-common'
+import { isNamedElement, isBooleanElement, RenderingProps } from '@tasenor/common'
 import { Renderer } from '../risp'
 
 /**

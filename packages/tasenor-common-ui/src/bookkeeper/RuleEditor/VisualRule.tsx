@@ -1,6 +1,6 @@
 import React from 'react'
 import { Stack, Typography } from '@mui/material'
-import { RuleFilterView, RuleResultView } from '@dataplug/tasenor-common'
+import { RuleFilterView, RuleResultView } from '@tasenor/common'
 import { Trans } from 'react-i18next'
 import { VisualRuleLine } from './VisualRuleLine'
 import { VisualResultRule } from './VisualResultRule'

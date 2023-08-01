@@ -1,7 +1,7 @@
 import express from 'express'
-import { encryptdata, vault } from '@dataplug/tasenor-common-node'
+import { encryptdata, vault } from '@tasenor/common-node'
 import catalog from '../lib/catalog'
-import { LoginData, PluginCode, Url, log, net } from '@dataplug/tasenor-common'
+import { LoginData, PluginCode, Url, log, net } from '@tasenor/common'
 import knex from '../lib/knex'
 import { defaultLoginData } from '../lib/plugins'
 

@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import fs from 'fs'
 import mimeTypes from 'mime-types'
-import { log, TagModelData } from '@dataplug/tasenor-common'
+import { log, TagModelData } from '@tasenor/common'
 import { Command } from '.'
 import { ArgumentParser } from 'argparse'
 

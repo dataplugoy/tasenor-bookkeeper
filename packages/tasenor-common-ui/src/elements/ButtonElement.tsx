@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@mui/material'
-import { RenderingProps, isButtonElement } from '@dataplug/tasenor-common'
+import { RenderingProps, isButtonElement } from '@tasenor/common'
 import { Renderer } from '../risp'
 
 export const ButtonRenderer: Renderer = (props: RenderingProps) => {

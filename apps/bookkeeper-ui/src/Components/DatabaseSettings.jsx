@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import Store from '../Stores/Store'
-import { Title, SubPanel } from '@dataplug/tasenor-common-ui'
+import { Title, SubPanel } from '@tasenor/common-ui'
 import Panel from './Panel'
 import { withTranslation, Trans } from 'react-i18next'
 import SubTitle from './SubTitle'
-import { haveSettings } from '@dataplug/tasenor-common'
+import { haveSettings } from '@tasenor/common'
 import withStore from '../Hooks/withStore'
 
 @withStore

@@ -1,5 +1,5 @@
 import { sprintf } from 'sprintf-js'
-import { ucfirst, AssetTransfer, AssetTransferReason, AssetType, TransactionDescription, Currency, AdditionalTransferInfo, AssetRates, isStockChangeDelta, haveCatalog, haveStore, ProcessConfig } from '@dataplug/tasenor-common'
+import { ucfirst, AssetTransfer, AssetTransferReason, AssetType, TransactionDescription, Currency, AdditionalTransferInfo, AssetRates, isStockChangeDelta, haveCatalog, haveStore, ProcessConfig } from '@tasenor/common'
 import { Trans } from 'react-i18next'
 import { AccountBalanceTwoTone, CurrencyExchangeTwoTone, HttpsTwoTone, ListAltTwoTone, MonetizationOnTwoTone, QuestionMarkTwoTone, RequestQuoteTwoTone, SavingsTwoTone } from '@mui/icons-material'
 import { Chip, Divider, Box } from '@mui/material'

@@ -9,7 +9,7 @@ import { DefaultSuccessView, DefaultSuccessViewProps } from './DefaultSuccessVie
 import { DefaultResultViewProps } from './DefaultResultView'
 import { StepList } from './StepList'
 import { ConfigChangeView } from './ConfigChangeView'
-import { RenderingProps, isImportOpAction, isImportConfigureAction, isImportAnswerAction, ProcessModelDetailedData, ProcessStepModelData, Values, TasenorSetup, Value, isTasenorElement, isImportRollbackAction } from '@dataplug/tasenor-common'
+import { RenderingProps, isImportOpAction, isImportConfigureAction, isImportAnswerAction, ProcessModelDetailedData, ProcessStepModelData, Values, TasenorSetup, Value, isTasenorElement, isImportRollbackAction } from '@tasenor/common'
 import { RISP } from '../risp'
 import { ArrowBackOutlined, NavigateBefore, NavigateNext } from '@mui/icons-material'
 import { useAxios } from '../misc'

@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { RenderingEngine } from './RenderingEngine'
 import { runInAction } from 'mobx'
 import { ActionEngine } from './ActionEngine'
-import { isNamedElement, ActiveElement, isActiveElement, isContainerElement, isCaseElement, TasenorElement, RenderingProps } from '@dataplug/tasenor-common'
+import { isNamedElement, ActiveElement, isActiveElement, isContainerElement, isCaseElement, TasenorElement, RenderingProps } from '@tasenor/common'
 
 export type RISPProps = RenderingProps & {
   onActionSuccess?: (result: unknown, trigger: string, props: RenderingProps) => void

@@ -1,6 +1,6 @@
 import path from 'path'
-import { plugins } from '@dataplug/tasenor-common-node'
-import { LoginPluginData, PricingModel, log } from '@dataplug/tasenor-common'
+import { plugins } from '@tasenor/common-node'
+import { LoginPluginData, PricingModel, log } from '@tasenor/common'
 
 const { isInstalled, loadPluginIndex, findPluginFromIndex, setConfig, loadPluginState, savePluginState, updatePluginIndex } = plugins
 

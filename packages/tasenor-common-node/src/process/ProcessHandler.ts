@@ -2,7 +2,7 @@ import { ProcessFile } from './ProcessFile'
 import { ProcessingSystem } from './ProcessingSystem'
 import { Process } from './Process'
 import { NotImplemented } from '../error'
-import { Directions, ImportAction, ImportState, ProcessConfig } from '@dataplug/tasenor-common'
+import { Directions, ImportAction, ImportState, ProcessConfig } from '@tasenor/common'
 
 /**
  * A handler taking care of moving between process states.

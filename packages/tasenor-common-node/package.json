@@ -1,5 +1,5 @@
 {
-  "name": "@dataplug/tasenor-common-node",
+  "name": "@tasenor/common-node",
   "version": "1.9.16",
   "description": "Common Node-parts of Tasenor project",
   "main": "src/index.ts",
@@ -17,7 +17,7 @@
     "version": "jq .version < package.json"
   },
   "dependencies": {
-    "@dataplug/tasenor-common": "workspace:*",
+    "@tasenor/common": "workspace:*",
     "@vscode/sqlite3": "5.1.6-vscode",
     "argparse": "^2.0.1",
     "axios": "0.26.0",

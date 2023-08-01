@@ -5,7 +5,7 @@ import fs from 'fs'
 import Knex from 'knex'
 import cors from 'cors'
 import { router } from './router'
-import { ID } from '@dataplug/tasenor-common'
+import { ID } from '@tasenor/common'
 import { ProcessHandler, ProcessConnector, defaultConnector, ProcessingSystem } from '../process'
 import { KnexDatabase } from '../database'
 

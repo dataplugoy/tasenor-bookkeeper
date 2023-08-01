@@ -1,7 +1,7 @@
 import React from 'react'
 import { DefaultStateView, DefaultStateViewProps } from './DefaultStateView'
 import { DefaultResultView, DefaultResultViewProps } from './DefaultResultView'
-import { ProcessStepModelData, ProcessModelDetailedData } from '@dataplug/tasenor-common'
+import { ProcessStepModelData, ProcessModelDetailedData } from '@tasenor/common'
 import { SummaryView } from './SummaryView'
 
 export type StepViewProps = {

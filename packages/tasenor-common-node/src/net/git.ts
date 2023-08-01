@@ -1,4 +1,4 @@
-import { DirectoryPath, Email, error, FilePath, log, Url, warning } from '@dataplug/tasenor-common'
+import { DirectoryPath, Email, error, FilePath, log, Url, warning } from '@tasenor/common'
 import simpleGit, { SimpleGit } from 'simple-git'
 import gitUrlParse from 'git-url-parse'
 import fs from 'fs'

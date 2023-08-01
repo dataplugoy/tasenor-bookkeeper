@@ -1,4 +1,4 @@
-import { HttpMethod, Values } from '@dataplug/tasenor-common'
+import { HttpMethod, Values } from '@tasenor/common'
 import React from 'react'
 import { UiPlugin } from './UiPlugin'
 

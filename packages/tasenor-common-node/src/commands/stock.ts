@@ -2,7 +2,7 @@
 import { sprintf } from 'sprintf-js'
 import { Command } from '.'
 import { ArgumentParser } from 'argparse'
-import { AccountNumber, Asset, DocumentModelData, EntryModelData, log, PeriodModelData, StockValueData } from '@dataplug/tasenor-common'
+import { AccountNumber, Asset, DocumentModelData, EntryModelData, log, PeriodModelData, StockValueData } from '@tasenor/common'
 
 class StockCommand extends Command {
 

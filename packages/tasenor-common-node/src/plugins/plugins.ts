@@ -1,7 +1,7 @@
 import fs from 'fs'
 import glob from 'fast-glob'
 import path from 'path'
-import { TasenorPlugin, PluginCatalog, FilePath, net, Url, note, log } from '@dataplug/tasenor-common'
+import { TasenorPlugin, PluginCatalog, FilePath, net, Url, note, log } from '@tasenor/common'
 import { create } from 'ts-opaque'
 import { vault } from '../net'
 

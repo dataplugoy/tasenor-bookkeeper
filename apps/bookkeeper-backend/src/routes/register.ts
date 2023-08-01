@@ -1,6 +1,6 @@
 import express from 'express'
 import users from '../lib/users'
-import { error } from '@dataplug/tasenor-common'
+import { error } from '@tasenor/common'
 
 const router = express.Router()
 

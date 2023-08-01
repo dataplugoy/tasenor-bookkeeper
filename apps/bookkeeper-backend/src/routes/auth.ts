@@ -1,6 +1,6 @@
 import express from 'express'
-import { DAYS, LoginData, Url, error, net } from '@dataplug/tasenor-common'
-import { tokens, tasenorStack, isDevelopment, encryptdata, vault } from '@dataplug/tasenor-common-node'
+import { DAYS, LoginData, Url, error, net } from '@tasenor/common'
+import { tokens, tasenorStack, isDevelopment, encryptdata, vault } from '@tasenor/common-node'
 import users from '../lib/users'
 import catalog from '../lib/catalog'
 import { defaultLoginData } from '../lib/plugins'

@@ -4,7 +4,7 @@
  * @module tasenor-common-node/src/system
  */
 import { exec, spawn } from 'child_process'
-import { log, error, note } from '@dataplug/tasenor-common'
+import { log, error, note } from '@tasenor/common'
 
 /**
  * Helper to execute system command as a promise.

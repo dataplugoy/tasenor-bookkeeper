@@ -1,11 +1,11 @@
 import { Trans, useTranslation } from 'react-i18next'
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Box } from '@mui/material'
 import { alpha } from '@mui/material/styles'
-import { ID, ImportExecutionResult } from '@dataplug/tasenor-common'
+import { ID, ImportExecutionResult } from '@tasenor/common'
 import React from 'react'
 import DocumentModel from '../Models/DocumentModel'
 import EntryModel from '../Models/EntryModel'
-import { Money } from '@dataplug/tasenor-common-ui'
+import { Money } from '@tasenor/common-ui'
 import { CheckTwoTone, ContentCopyTwoTone, DeleteForeverTwoTone, HourglassFullTwoTone, QuestionMarkTwoTone, Restore } from '@mui/icons-material'
 
 /**

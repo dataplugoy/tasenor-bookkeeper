@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TagModel, Tag, TagType } from '@dataplug/tasenor-common'
+import { TagModel, Tag, TagType } from '@tasenor/common'
 import { observer } from 'mobx-react'
 import { Box, Grid, Typography } from '@mui/material'
 import { TagChip } from './TagChip'

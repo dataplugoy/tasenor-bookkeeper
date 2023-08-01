@@ -2,7 +2,7 @@ import { Card, CardContent, ToggleButton, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { Settings } from '@mui/icons-material'
-import { ProcessStepModelData, ProcessModelDetailedData } from '@dataplug/tasenor-common'
+import { ProcessStepModelData, ProcessModelDetailedData } from '@tasenor/common'
 import { ConfigJSONView } from './ConfigJSONView'
 
 export type SummaryViewProps = {

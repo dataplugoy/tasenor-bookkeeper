@@ -1,6 +1,6 @@
 import { Command } from '.'
 import { ArgumentParser } from 'argparse'
-import { log, TasenorPlugin } from '@dataplug/tasenor-common'
+import { log, TasenorPlugin } from '@tasenor/common'
 
 class PluginCommand extends Command {
 

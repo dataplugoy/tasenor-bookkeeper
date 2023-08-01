@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
-import { Money, Localize } from '@dataplug/tasenor-common-ui'
+import { Money, Localize } from '@tasenor/common-ui'
 import './ReportLine.css'
 import { TableRow, TableCell } from '@mui/material'
-import { haveSettings } from '@dataplug/tasenor-common'
+import { haveSettings } from '@tasenor/common'
 
 @observer
 class ReportLine extends Component {

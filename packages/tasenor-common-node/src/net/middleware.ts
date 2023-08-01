@@ -1,6 +1,6 @@
 import cors from 'cors'
 import express, { Request, Response, RequestHandler, ErrorRequestHandler } from 'express'
-import { error, log, MAX_UPLOAD_SIZE, Secret, Token, TokenAudience, Url } from '@dataplug/tasenor-common'
+import { error, log, MAX_UPLOAD_SIZE, Secret, Token, TokenAudience, Url } from '@tasenor/common'
 import { tokens } from './tokens'
 import { vault } from './vault'
 import helmet from 'helmet'

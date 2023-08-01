@@ -1,4 +1,4 @@
-import { ProcessConfig } from '@dataplug/tasenor-common'
+import { ProcessConfig } from '@tasenor/common'
 import React from 'react'
 import { ConfigViewProps } from './ConfigView'
 import { DefaultResultViewProps } from './DefaultResultView'

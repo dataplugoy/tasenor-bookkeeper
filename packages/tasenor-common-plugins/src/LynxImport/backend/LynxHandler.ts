@@ -1,5 +1,5 @@
-import { ImportStateText, NO_SEGMENT, ProcessConfig, warning, month, Language, ucfirst } from '@dataplug/tasenor-common'
-import { InvalidFile, Process, ProcessFile, TransactionImportHandler } from '@dataplug/tasenor-common-node'
+import { ImportStateText, NO_SEGMENT, ProcessConfig, warning, month, Language, ucfirst } from '@tasenor/common'
+import { InvalidFile, Process, ProcessFile, TransactionImportHandler } from '@tasenor/common-node'
 
 // Matcher for ticker and ISIN code.
 const TICKER_ISIN_REGEX = /^\s*([-A-Za-z0-9 .]+)\(([A-Z0-9]+)\)/

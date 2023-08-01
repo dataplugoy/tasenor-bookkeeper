@@ -1,4 +1,4 @@
-import { Currency, Url, UUID } from '@dataplug/tasenor-common'
+import { Currency, Url, UUID } from '@tasenor/common'
 import knex from '../lib/knex'
 
 /**

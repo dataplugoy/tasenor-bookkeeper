@@ -2,8 +2,8 @@
 import React from 'react'
 import dayjs from 'dayjs'
 import { Trans } from 'react-i18next'
-import { AccountNumber, Currency, DocumentModelData, EntryModel, haveKnowledge, Tag, TagType } from '@dataplug/tasenor-common'
-import { Localize, SubPanel, IconButton, IconSpacer, ToolPlugin, Money, TagChip, Dialog, Note } from '@dataplug/tasenor-common-ui'
+import { AccountNumber, Currency, DocumentModelData, EntryModel, haveKnowledge, Tag, TagType } from '@tasenor/common'
+import { Localize, SubPanel, IconButton, IconSpacer, ToolPlugin, Money, TagChip, Dialog, Note } from '@tasenor/common-ui'
 import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import { makeObservable, observable, runInAction } from 'mobx'
 

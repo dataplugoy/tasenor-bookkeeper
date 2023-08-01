@@ -1,5 +1,5 @@
-import { Asset, Currency } from '@dataplug/tasenor-common'
-import { Money } from '@dataplug/tasenor-common-ui'
+import { Asset, Currency } from '@tasenor/common'
+import { Money } from '@tasenor/common-ui'
 import { TableCell, TableRow } from '@mui/material'
 import React, { Fragment } from 'react'
 import { Trans } from 'react-i18next'

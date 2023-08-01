@@ -2,7 +2,7 @@ import React from 'react'
 import { PropTypes } from 'prop-types'
 import { Typography } from '@mui/material'
 import { Trans } from 'react-i18next'
-import { Money } from '@dataplug/tasenor-common-ui'
+import { Money } from '@tasenor/common-ui'
 
 const PluginPrice = ({ price, currency }) => {
   let text, color
