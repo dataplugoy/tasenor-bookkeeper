@@ -1,6 +1,6 @@
 {
   "name": "@tasenor/bookkeeper-backend",
-  "version": "1.9.16",
+  "version": "1.9.26",
   "description": "Tasenor bookkeeper API.",
   "main": "src/server.ts",
   "scripts": {
@@ -10,6 +10,7 @@
     "fix": "eslint --fix 'src/**/*.ts'",
     "generate-key": "tsx bin/generate-key.ts",
     "lint": "eslint 'src/**/*.ts'",
+    "release": "pnpm version patch",
     "show-version": "jq .version < package.json"
   },
   "keywords": [],

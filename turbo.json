@@ -46,7 +46,7 @@
     "test": {
       "inputs": ["src/**", "test/**"]
     },
-    "publish": {
+    "release": {
       "cache": false
     }
   }

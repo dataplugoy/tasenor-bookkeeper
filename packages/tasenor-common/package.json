@@ -1,6 +1,6 @@
 {
   "name": "@tasenor/common",
-  "version": "1.9.16",
+  "version": "1.9.26",
   "description": "Common parts of Tasenor project",
   "main": "src/index.ts",
   "types": "src/index.ts",
@@ -14,7 +14,7 @@
     "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
     "test": "jest",
     "prepublish": "pnpm version patch",
-    "publish": "pnpm publish --access public",
+    "release": "pnpm publish --access public --no-git-checks",
     "show-version": "jq .version < package.json",
     "watch": "jest --onlyChanged --watch"
   },
