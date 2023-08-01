@@ -12,7 +12,9 @@
     "build": "rm -fr dist && tsc",
     "fix": "eslint --fix 'src/**/*.{ts,tsx}'",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
-    "version": "jq .version < package.json"
+    "prepublish": "pnpm version patch",
+    "publish": "pnpm publish --access public",
+    "show-version": "jq .version < package.json"
   },
   "dependencies": {
     "@tasenor/common": "workspace:*",

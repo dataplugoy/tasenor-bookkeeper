@@ -34,4 +34,5 @@ This is a monorepo for developing Tasenor Bookkeeper.
 * `turbo fix` Fix all fixable syntax checks.
 * `turbo lint` Syntax check all.
 * `turbo test` Run all tests.
-* `turbo version` List all versions from published packages.
+* `turbo publish` Increase patch level and publish all public NPM packages.
+* `turbo show-version` List all versions from published packages.

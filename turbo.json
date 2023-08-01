@@ -31,7 +31,7 @@
       "cache": false,
       "persistent": true
     },
-    "version": {
+    "show-version": {
       "inputs": ["package.json"]
     },
     "lint": {
@@ -45,6 +45,9 @@
     },
     "test": {
       "inputs": ["src/**", "test/**"]
+    },
+    "publish": {
+      "cache": false
     }
   }
 }

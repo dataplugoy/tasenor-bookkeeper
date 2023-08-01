@@ -13,7 +13,9 @@
     "fix": "eslint --fix 'src/**/*.ts' 'tests/**/*.ts'",
     "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
     "test": "jest",
-    "version": "jq .version < package.json",
+    "prepublish": "pnpm version patch",
+    "publish": "pnpm publish --access public",
+    "show-version": "jq .version < package.json",
     "watch": "jest --onlyChanged --watch"
   },
   "dependencies": {

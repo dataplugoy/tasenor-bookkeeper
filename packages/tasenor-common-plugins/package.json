@@ -11,7 +11,9 @@
     "fix": "eslint --fix 'src/**/*.{ts,tsx}' 'data/**/*.mjs'",
     "lint": "eslint 'src/**/*.{ts,tsx}' 'data/**/*.mjs'",
     "data": "data/bin/build_all",
-    "version": "jq .version < package.json"
+    "prepublish": "pnpm version patch",
+    "publish": "pnpm publish --access public",
+    "show-version": "jq .version < package.json"
   },
   "dependencies": {
     "@tasenor/common": "workspace:*",

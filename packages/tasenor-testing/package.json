@@ -11,7 +11,9 @@
     "build": "rm -fr dist && tsc",
     "fix": "eslint --fix 'src/**/*.ts'",
     "lint": "eslint 'src/**/*.ts'",
-    "version": "jq .version < package.json"
+    "prepublish": "pnpm version patch",
+    "publish": "pnpm publish --access public",
+    "show-version": "jq .version < package.json"
   },
   "dependencies": {
     "@tasenor/common": "workspace:*",

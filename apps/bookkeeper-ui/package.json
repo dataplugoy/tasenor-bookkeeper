@@ -15,7 +15,7 @@
     "dev": "pnpm run dev-ui-plugin-server & pnpm run dev-initialize-plugins && pnpm run dev-vite",
     "fix": "eslint --fix 'src/**/*.ts{,x}'",
     "lint": "eslint 'src/**/*.ts{,x}'",
-    "version": "jq .version < package.json"
+    "show-version": "jq .version < package.json"
   },
   "dependencies": {
     "@tasenor/common": "workspace:*",
