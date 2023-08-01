@@ -234,7 +234,7 @@ importers:
       '@tasenor/common-ui':
         specifier: workspace:*
         version: link:../../packages/tasenor-common-ui
-      '@dataplug/tasenor-testing':
+      '@tasenor/testing':
         specifier: workspace:*
         version: link:../../packages/tasenor-testing
       '@emotion/styled':
@@ -464,7 +464,7 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
     devDependencies:
-      '@dataplug/tasenor-testing':
+      '@tasenor/testing':
         specifier: workspace:*
         version: link:../tasenor-testing
       '@jest/globals':

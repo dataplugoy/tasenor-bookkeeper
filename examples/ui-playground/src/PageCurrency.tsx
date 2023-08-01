@@ -1,6 +1,6 @@
 import React from 'react'
 import { RISP } from '@tasenor/common-ui'
-import { setup } from '@dataplug/tasenor-testing'
+import { setup } from '@tasenor/testing'
 import { TasenorElement } from '@tasenor/common'
 import { makeObservable, observable } from 'mobx'
 import { observer } from 'mobx-react'

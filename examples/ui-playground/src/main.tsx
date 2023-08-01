@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { RISPProvider } from '@tasenor/common-ui'
 import App from './App'
 // import { CursorMock, MockCatalog, MockStore, SettingsMock } from './mocks'
-import { MockCursor, MockCatalog, MockStore, MockSettings } from '@dataplug/tasenor-testing'
+import { MockCursor, MockCatalog, MockStore, MockSettings } from '@tasenor/testing'
 import theme from './theme'
 
 const store: Store = new MockStore() as unknown as Store // Need to force for now
