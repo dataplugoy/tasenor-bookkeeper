@@ -9,6 +9,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -fr dist && tsc",
+    "ci": "pnpm run lint && pnpm run build",
     "fix": "eslint --fix 'src/**/*.ts'",
     "lint": "eslint 'src/**/*.ts'",
     "prepublish": "pnpm version patch",
@@ -18,7 +19,11 @@
   "dependencies": {
     "@tasenor/common": "workspace:*",
     "@tasenor/common-node": "workspace:*",
+    "axios": "0.26.0",
+    "base64-arraybuffer": "^1.0.2",
+    "clone": "^2.1.2",
     "dayjs": "1.10.8",
+    "deep-equal": "^2.2.2",
     "sprintf-js": "^1.1.2"
   },
   "devDependencies": {
