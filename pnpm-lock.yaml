@@ -14,15 +14,15 @@ importers:
 
   apps/bookkeeper-backend:
     dependencies:
+      '@redocly/cli':
+        specifier: 1.0.0-beta.131
+        version: 1.0.0-beta.131(@babel/core@7.22.8)(core-js@3.31.1)(react-is@18.2.0)(webpack@5.88.1)
       '@tasenor/common':
         specifier: workspace:*
         version: link:../../packages/tasenor-common
       '@tasenor/common-node':
         specifier: workspace:*
         version: link:../../packages/tasenor-common-node
-      '@redocly/cli':
-        specifier: 1.0.0-beta.131
-        version: 1.0.0-beta.131(@babel/core@7.22.8)(core-js@3.31.1)(react-is@18.2.0)(webpack@5.88.1)
       '@vscode/sqlite3':
         specifier: ^5.0.7
         version: 5.0.7
@@ -120,6 +120,12 @@ importers:
 
   apps/bookkeeper-ui:
     dependencies:
+      '@mui/icons-material':
+        specifier: ^5.14.1
+        version: 5.14.1(@mui/material@5.13.7)(@types/react@17.0.62)(react@17.0.2)
+      '@mui/material':
+        specifier: ^5.13.7
+        version: 5.13.7(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@17.0.62)(react-dom@17.0.2)(react@17.0.2)
       '@tasenor/common':
         specifier: workspace:*
         version: link:../../packages/tasenor-common
@@ -129,12 +135,6 @@ importers:
       '@tasenor/common-ui':
         specifier: workspace:*
         version: link:../../packages/tasenor-common-ui
-      '@mui/icons-material':
-        specifier: ^5.14.1
-        version: 5.14.1(@mui/material@5.13.7)(@types/react@17.0.62)(react@17.0.2)
-      '@mui/material':
-        specifier: ^5.13.7
-        version: 5.13.7(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@17.0.62)(react-dom@17.0.2)(react@17.0.2)
       clone:
         specifier: ^2.1.2
         version: 2.1.2
@@ -228,6 +228,12 @@ importers:
 
   examples/ui-playground:
     dependencies:
+      '@emotion/styled':
+        specifier: ^11.11.0
+        version: 11.11.0(@emotion/react@11.11.1)(@types/react@17.0.62)(react@17.0.2)
+      '@mui/material':
+        specifier: ^5.13.7
+        version: 5.13.7(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@17.0.62)(react-dom@17.0.2)(react@17.0.2)
       '@tasenor/common':
         specifier: workspace:*
         version: link:../../packages/tasenor-common
@@ -237,12 +243,6 @@ importers:
       '@tasenor/testing':
         specifier: workspace:*
         version: link:../../packages/tasenor-testing
-      '@emotion/styled':
-        specifier: ^11.11.0
-        version: 11.11.0(@emotion/react@11.11.1)(@types/react@17.0.62)(react@17.0.2)
-      '@mui/material':
-        specifier: ^5.13.7
-        version: 5.13.7(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@17.0.62)(react-dom@17.0.2)(react@17.0.2)
       mobx:
         specifier: ^6.9.0
         version: 6.9.0
@@ -464,9 +464,6 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
     devDependencies:
-      '@tasenor/testing':
-        specifier: workspace:*
-        version: link:../tasenor-testing
       '@jest/globals':
         specifier: ^29.6.1
         version: 29.6.1
@@ -561,15 +558,15 @@ importers:
 
   packages/tasenor-common-ui:
     dependencies:
-      '@tasenor/common':
-        specifier: workspace:*
-        version: link:../tasenor-common
       '@mui/icons-material':
         specifier: 5.11.0
         version: 5.11.0(@mui/material@5.11.0)(react@17.0.2)
       '@mui/material':
         specifier: 5.11.0
         version: 5.11.0(react-dom@17.0.2)(react@17.0.2)
+      '@tasenor/common':
+        specifier: workspace:*
+        version: link:../tasenor-common
       axios:
         specifier: 0.26.0
         version: 0.26.0
@@ -637,6 +634,9 @@ importers:
       '@tasenor/common':
         specifier: workspace:*
         version: link:../tasenor-common
+      '@tasenor/common-node':
+        specifier: workspace:*
+        version: link:../tasenor-common-node
       dayjs:
         specifier: 1.10.8
         version: 1.10.8

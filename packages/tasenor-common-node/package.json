@@ -54,7 +54,6 @@
     "@types/jest": "^29.5.2",
     "@types/jsonwebtoken": "^9.0.2",
     "eslint-config-tasenor": "workspace:*",
-    "@tasenor/testing": "workspace:*",
     "jest": "^29.6.1",
     "jestconfig": "workspace:*",
     "ts-jest": "^29.1.1",
