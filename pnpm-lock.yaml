@@ -659,9 +659,18 @@ importers:
       '@jest/globals':
         specifier: ^29.6.1
         version: 29.6.1
+      '@types/clone':
+        specifier: ^2.1.1
+        version: 2.1.1
+      '@types/deep-equal':
+        specifier: ^1.0.1
+        version: 1.0.1
       '@types/jest':
         specifier: ^29.5.2
         version: 29.5.2
+      '@types/sprintf-js':
+        specifier: ^1.1.2
+        version: 1.1.2
       eslint-config-tasenor:
         specifier: workspace:*
         version: link:../eslint-config-tasenor
@@ -2443,10 +2452,18 @@ packages:
       '@types/node': 20.4.1
     dev: true
 
+  /@types/clone@2.1.1:
+    resolution: {integrity: sha512-BZIU34bSYye0j/BFcPraiDZ5ka6MJADjcDVELGf7glr9K+iE8NYVjFslJFVWzskSxkLLyCrSPScE82/UUoBSvg==}
+    dev: true
+
   /@types/connect@3.4.35:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
     dependencies:
       '@types/node': 20.4.1
+    dev: true
+
+  /@types/deep-equal@1.0.1:
+    resolution: {integrity: sha512-mMUu4nWHLBlHtxXY17Fg6+ucS/MnndyOWyOe7MmwkoMYxvfQU2ajtRaEvqSUv+aVkMqH/C0NCI8UoVfRNQ10yg==}
     dev: true
 
   /@types/eslint-scope@3.7.4:
@@ -2644,6 +2661,10 @@ packages:
       '@types/http-errors': 2.0.1
       '@types/mime': 3.0.1
       '@types/node': 20.4.1
+    dev: true
+
+  /@types/sprintf-js@1.1.2:
+    resolution: {integrity: sha512-hkgzYF+qnIl8uTO8rmUSVSfQ8BIfMXC4yJAF4n8BE758YsKBZvFC4NumnAegj7KmylP0liEZNpb9RRGFMbFejA==}
     dev: true
 
   /@types/stack-utils@2.0.1:

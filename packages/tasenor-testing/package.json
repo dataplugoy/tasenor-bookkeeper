@@ -28,7 +28,10 @@
   },
   "devDependencies": {
     "@jest/globals": "^29.6.1",
+    "@types/clone": "^2.1.1",
+    "@types/deep-equal": "^1.0.1",
     "@types/jest": "^29.5.2",
+    "@types/sprintf-js": "^1.1.2",
     "eslint-config-tasenor": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^5.1.6"

@@ -13,7 +13,7 @@ import { ISPDemoServer, ProcessHandler, TransactionImportHandler, TransactionImp
 // TODO: Accessing directly should be handled other way.
 import { CoinbaseHandler } from '../../tasenor-common-plugins/src/CoinbaseImport/backend/CoinbaseHandler'
 import IncomeAndExpenses from '../../tasenor-common-plugins/src/IncomeAndExpenses/backend'
-import { getCryptoRate, getCurrencyRate } from './services'
+import { getTestCryptoRate, getTestCurrencyRate } from './services'
 
 const PORT = 4567
 const DATABASE_URL: string = process.env.DATABASE_URL || 'postgres://user:pass@localhost/test'
@@ -225,9 +225,9 @@ export class TestImportConnector implements TransactionImportConnector {
       let result
 
       if (type === 'currency') {
-        result = await getCurrencyRate(asset, currency, stamp)
+        result = await getTestCurrencyRate(asset, currency, stamp)
       } else if (type === 'crypto') {
-        result = await getCryptoRate(asset, currency, stamp)
+        result = await getTestCryptoRate(asset, currency, stamp)
       }
 
       if (result) {
