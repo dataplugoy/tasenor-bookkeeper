@@ -1,3 +1,4 @@
+import fs from 'fs'
 import path from 'path'
 import { CoinbaseHandler } from '../../../tasenor-common-plugins/src/CoinbaseImport/backend/CoinbaseHandler'
 import { KrakenHandler } from '../../../tasenor-common-plugins/src/KrakenImport/backend/KrakenHandler'
@@ -14,8 +15,7 @@ const handlers: Record<string, TransactionImportHandler> = {
   // Typescript commonly screws up, if there are slight version differencies. Force type.
   Coinbase: new CoinbaseHandler() as unknown as TransactionImportHandler,
   Nordea: new NordeaHandler() as unknown as TransactionImportHandler,
-  'Nordnet-Megalo': new NordnetHandler() as unknown as TransactionImportHandler,
-  'Nordnet-Hilunki': new NordnetHandler() as unknown as TransactionImportHandler,
+  Nordnet: new NordnetHandler() as unknown as TransactionImportHandler,
   Lynx: new LynxHandler() as unknown as TransactionImportHandler,
   Kraken: new KrakenHandler() as unknown as TransactionImportHandler,
   TITO: new TITOHandler() as unknown as TransactionImportHandler,
@@ -39,17 +39,9 @@ export function getTestHandler(className: string): TransactionImportHandler {
  * @returns
  */
 export function getTestHandlerPath(className: string): string {
-  const handlerDirs: Record<string, string> = {
-    Coinbase: 'src/CoinbaseImport/backend',
-    Nordea: 'src/NordeaImport/backend',
-    'Nordnet-Megalo': 'src/NordnetImport/backend',
-    'Nordnet-Hilunki': 'src/NordnetImport/backend',
-    Lynx: 'src/LynxImport/backend',
-    Kraken: 'src/KrakenImport/backend',
-    TITO: 'src/TITOImport/backend',
-  }
-  if (!handlers[className]) {
+  const dirName = path.join(__dirname, '..', '..', '..', 'tasenor-common-plugins', 'src', `${className}Import`, 'backend')
+  if (!fs.existsSync(dirName)) {
     throw new Error(`No such import handler path as '${className}'.`)
   }
-  return path.join('../../tasenor-common-plugins', handlerDirs[className])
+  return dirName
 }

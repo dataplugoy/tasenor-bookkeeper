@@ -28,12 +28,14 @@ export class TestImportConnector implements TransactionImportConnector {
   static baseDir: string = path.join(__dirname, '..', '..')
 
   static handlerDirs: Record<string, string> = {
+    // TODO: This should be filled with glob().
     // TODO: Accessing directly should be handled other way.
-    Coinbase: path.join(TestImportConnector.baseDir, 'src', 'CoinbaseImport', 'backend'),
-    Nordea: path.join(TestImportConnector.baseDir, 'src', 'NordeaImport', 'backend'),
-    Nordnet: path.join(TestImportConnector.baseDir, 'src', 'NordnetImport', 'backend'),
-    Lynx: path.join(TestImportConnector.baseDir, 'src', 'LynxImport', 'backend'),
-    TITO: path.join(TestImportConnector.baseDir, 'src', 'TITOImport', 'backend'),
+    Coinbase: path.join(TestImportConnector.baseDir, 'tasenor-common-plugins', 'src', 'CoinbaseImport', 'backend'),
+    Nordea: path.join(TestImportConnector.baseDir, 'tasenor-common-plugins', 'src', 'NordeaImport', 'backend'),
+    Nordnet: path.join(TestImportConnector.baseDir, 'tasenor-common-plugins', 'src', 'NordnetImport', 'backend'),
+    Kraken: path.join(TestImportConnector.baseDir, 'tasenor-common-plugins', 'src', 'KrakenImport', 'backend'),
+    Lynx: path.join(TestImportConnector.baseDir, 'tasenor-common-plugins', 'src', 'LynxImport', 'backend'),
+    TITO: path.join(TestImportConnector.baseDir, 'tasenor-common-plugins', 'src', 'TITOImport', 'backend'),
   }
 
   config: Record<string, unknown>
@@ -52,10 +54,10 @@ export class TestImportConnector implements TransactionImportConnector {
     this.stock = null
     this.watch = watch
 
-    this.testFilePath = path.normalize(path.join(__dirname, '..', testFile))
+    this.testFilePath = path.normalize(testFile)
     this.testDir = path.dirname(this.testFilePath)
     this.handler = getTestHandler(handler)
-    this.moduleDir = path.join(TestImportConnector.baseDir, getTestHandlerPath(handler))
+    this.moduleDir = getTestHandlerPath(handler)
     this.config = JSON.parse(fs.readFileSync(`${this.testDir}/settings.json`).toString('utf-8'))
 
     const rules = JSON.parse(fs.readFileSync(`${this.moduleDir}/rules.json`).toString('utf-8')).rules
@@ -80,11 +82,12 @@ export class TestImportConnector implements TransactionImportConnector {
 
     // Create knowledge base.
     // TODO: Accessing directly should be handled other way.
-    const vat = JSON.parse(fs.readFileSync(`${this.testDir}/../../../../src/VATFinland/backend/vat.json`).toString('utf-8'))
-    const income = JSON.parse(fs.readFileSync(`${this.testDir}/../../../../src/IncomeAndExpenses/backend/income.json`).toString('utf-8'))
-    const expense = JSON.parse(fs.readFileSync(`${this.testDir}/../../../../src/IncomeAndExpenses/backend/expense.json`).toString('utf-8'))
-    const assetCodes = JSON.parse(fs.readFileSync(`${this.testDir}/../../../../src/IncomeAndExpenses/backend/assetCodes.json`).toString('utf-8'))
-    const taxTypes = JSON.parse(fs.readFileSync(`${this.testDir}/../../../../src/IncomeAndExpenses/backend/taxTypes.json`).toString('utf-8'))
+    console.log(this.moduleDir)
+    const vat = JSON.parse(fs.readFileSync(`${this.moduleDir}/../../VATFinland/backend/vat.json`).toString('utf-8'))
+    const income = JSON.parse(fs.readFileSync(`${this.moduleDir}/../../IncomeAndExpenses/backend/income.json`).toString('utf-8'))
+    const expense = JSON.parse(fs.readFileSync(`${this.moduleDir}/../../IncomeAndExpenses/backend/expense.json`).toString('utf-8'))
+    const assetCodes = JSON.parse(fs.readFileSync(`${this.moduleDir}/../../IncomeAndExpenses/backend/assetCodes.json`).toString('utf-8'))
+    const taxTypes = JSON.parse(fs.readFileSync(`${this.moduleDir}/../../IncomeAndExpenses/backend/taxTypes.json`).toString('utf-8'))
 
     this.knowledge = new Knowledge({ income, expense, vat, taxTypes, assetCodes })
   }
