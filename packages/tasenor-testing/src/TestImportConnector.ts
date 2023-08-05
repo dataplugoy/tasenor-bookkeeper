@@ -82,7 +82,6 @@ export class TestImportConnector implements TransactionImportConnector {
 
     // Create knowledge base.
     // TODO: Accessing directly should be handled other way.
-    console.log(this.moduleDir)
     const vat = JSON.parse(fs.readFileSync(`${this.moduleDir}/../../VATFinland/backend/vat.json`).toString('utf-8'))
     const income = JSON.parse(fs.readFileSync(`${this.moduleDir}/../../IncomeAndExpenses/backend/income.json`).toString('utf-8'))
     const expense = JSON.parse(fs.readFileSync(`${this.moduleDir}/../../IncomeAndExpenses/backend/expense.json`).toString('utf-8'))
