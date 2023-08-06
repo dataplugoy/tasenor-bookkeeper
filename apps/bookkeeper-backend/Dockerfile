@@ -4,19 +4,22 @@ WORKDIR /var/app
 
 RUN apk update
 RUN apk upgrade
-RUN apk add nano curl git openssh-client bash python3 make gcc g++ libc-dev
+RUN apk add nano curl git openssh-client bash python3 make gcc g++ libc-dev jq
 RUN ln -sf /usr/bin/python3 /usr/bin/python
 
 RUN npm install -g pnpm
 
-# ADD ssh /root/.ssh
-# RUN chmod 600 /root/.ssh/id_rsa
+ADD package.json original-package.json
+RUN jq '{"dependencies": [.dependencies | to_entries | .[] | select(.value != "workspace:*")] | from_entries} + {"devDependecies": [.devDependencies | to_entries | .[] | select(.value != "workspace:*")] | from_entries} + ([to_entries | .[] | select(.key != "dependencies" and .key != "devDependencies")] | from_entries)' original-package.json > package.json
 
-# TODO: Need to create different version of package.json
-ADD package.json .
-ADD . .
+ADD tsconfig.json .
+ADD bin .
+ADD src .
+ADD .env.docker .env.local
 
 RUN pnpm install
+RUN pnpm add @tasenor/common
+RUN pnpm add @tasenor/common-node
 
-# TODO: Need separate script for production?
+# TODO: Need separate script for production? 'docker'?
 CMD ["pnpm", "run", "dev"]

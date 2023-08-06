@@ -57,6 +57,3 @@ services:
       VIRTUAL_HOST: bookkeeper-api.localhost
       VIRTUAL_PORT: 7205
     command: pnpm run dev
-    volumes:
-      - ./apps/bookkeeper-backend/package.json:/var/app/package.json
-      - ./apps/bookkeeper-backend/src:/var/app/src
