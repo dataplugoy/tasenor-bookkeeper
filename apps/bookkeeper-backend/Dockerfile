@@ -12,14 +12,14 @@ RUN npm install -g pnpm
 ADD package.json original-package.json
 RUN jq '{"dependencies": [.dependencies | to_entries | .[] | select(.value != "workspace:*")] | from_entries} + {"devDependecies": [.devDependencies | to_entries | .[] | select(.value != "workspace:*")] | from_entries} + ([to_entries | .[] | select(.key != "dependencies" and .key != "devDependencies")] | from_entries)' original-package.json > package.json
 
-ADD tsconfig.json .
-ADD bin .
-ADD src .
-ADD .env.docker .env.local
-
 RUN pnpm install
 RUN pnpm add @tasenor/common
 RUN pnpm add @tasenor/common-node
+
+ADD tsconfig.json .
+ADD bin/ bin/
+ADD src/ src/
+ADD .env.docker .env.local
 
 # TODO: Need separate script for production? 'docker'?
 CMD ["pnpm", "run", "dev"]
