@@ -640,6 +640,9 @@ importers:
       '@tasenor/common-node':
         specifier: workspace:*
         version: link:../tasenor-common-node
+      '@tasenor/common-plugins':
+        specifier: workspace:*
+        version: link:../tasenor-common-plugins
       axios:
         specifier: 0.26.0
         version: 0.26.0
@@ -677,6 +680,15 @@ importers:
       eslint-config-tasenor:
         specifier: workspace:*
         version: link:../eslint-config-tasenor
+      jest:
+        specifier: ^29.6.1
+        version: 29.6.1(@types/node@20.4.1)
+      jestconfig:
+        specifier: workspace:*
+        version: link:../jestconfig
+      react:
+        specifier: ^17.0.2
+        version: 17.0.2
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig

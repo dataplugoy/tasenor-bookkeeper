@@ -1,5 +1,5 @@
 import { AccountAddress, AccountNumber, AdditionalTransferInfo, AssetTransfer, StockValueData, Transaction, TransactionDescription, TransactionLine, ImportStateText, ImportConfig } from '@tasenor/common'
-import { TransactionImportHandler, AskUI, Process } from '..'
+import { TransactionImportHandler, AskUI, Process } from '@tasenor/common-node'
 import { getTestHandler } from './test-handlers'
 import { SystemMock } from './ProcessingSystemMock'
 import { sprintf } from 'sprintf-js'

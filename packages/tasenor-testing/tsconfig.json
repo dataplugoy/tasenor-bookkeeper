@@ -1,10 +1,11 @@
 {
-  "extends": "tsconfig/base.json",
+  "extends": "tsconfig/tsx.json",
   "compilerOptions": {
     "outDir": "dist",
   },
   "include": [
-    "./src/**/*"
+    "./src/**/*",
+    "./tests/**/*"
   ],
   "exclude": [
     "./node_modules"

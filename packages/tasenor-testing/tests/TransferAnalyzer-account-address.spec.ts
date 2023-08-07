@@ -1,4 +1,5 @@
-import { UnitTester } from '../src/testing'
+import { test } from '@jest/globals'
+import { UnitTester } from '../src/UnitTester'
 
 test('Direct expense account address', async () => {
 

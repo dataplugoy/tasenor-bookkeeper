@@ -11,14 +11,15 @@ let txt = ''
 for (const pathName of glob.sync(dir + '/*')) {
   const module = path.basename(pathName)
   if (fs.existsSync(path.join(pathName, 'backend'))) {
-    txt += `export ${module}PluginBackend from './${module}/backend'\n`
+    txt += `export { default as ${module}Backend } from './${module}/backend'\n`
   }
   if (fs.existsSync(path.join(pathName, 'backend', `${module.replace(/Import$/, '')}Handler.ts`))) {
-    txt += `export ${module}Handler from './${module}/${module}Handler'\n`
+    txt += `export { ${module.replace(/Import$/, '')}Handler } from './${module}/backend/${module.replace(/Import$/, '')}Handler'\n`
   }
-  if (fs.existsSync(path.join(pathName, 'ui'))) {
-    txt += `export ${module}PluginUI from './${module}/ui'\n`
-  }
+  // TODO: Currently tasenor-testing package does not compile tests, if this is included.
+  // if (fs.existsSync(path.join(pathName, 'ui'))) {
+  //   txt += `export { default as ${module}UI } from './${module}/ui'\n`
+  // }
 }
 
 const indexPath = path.join(dir, 'index.ts')
