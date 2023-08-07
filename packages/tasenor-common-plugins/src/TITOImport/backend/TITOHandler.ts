@@ -1,4 +1,4 @@
-import { NO_SEGMENT, SegmentId, TextFileLine } from '@tasenor/common'
+import { DirectoryPath, NO_SEGMENT, SegmentId, TextFileLine } from '@tasenor/common'
 import { InvalidFile, NotImplemented, ProcessFile, TransactionImportHandler } from '@tasenor/common-node'
 
 // Store the latest transactoin ID
@@ -251,6 +251,10 @@ export class TITOHandler extends TransactionImportHandler {
         }
       }
     }
+  }
+
+  get path(): DirectoryPath {
+    return __dirname as DirectoryPath
   }
 
   canHandle(file: ProcessFile): boolean {

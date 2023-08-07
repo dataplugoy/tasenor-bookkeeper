@@ -1,4 +1,4 @@
-import { NO_SEGMENT, SegmentId, TextFileLine } from '@tasenor/common'
+import { DirectoryPath, NO_SEGMENT, SegmentId, TextFileLine } from '@tasenor/common'
 import { ProcessFile, TransactionImportHandler } from '@tasenor/common-node'
 
 /**
@@ -23,6 +23,10 @@ export class NordeaHandler extends TransactionImportHandler {
         columnSeparator: '\t'
       }
     }
+  }
+
+  get path(): DirectoryPath {
+    return __dirname as DirectoryPath
   }
 
   canHandle(file: ProcessFile): boolean {

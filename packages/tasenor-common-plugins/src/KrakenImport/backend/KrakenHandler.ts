@@ -1,4 +1,4 @@
-import { ImportStateText, NO_SEGMENT, SegmentId, TextFileLine } from '@tasenor/common'
+import { DirectoryPath, ImportStateText, NO_SEGMENT, SegmentId, TextFileLine } from '@tasenor/common'
 import { NotImplemented, Process, ProcessFile, TransactionImportHandler } from '@tasenor/common-node'
 
 /**
@@ -16,6 +16,10 @@ export class KrakenHandler extends TransactionImportHandler {
       totalAmountField: 'amount',
       csv: { useFirstLineHeadings: true, columnSeparator: ',' }
     }
+  }
+
+  get path(): DirectoryPath {
+    return __dirname as DirectoryPath
   }
 
   canHandle(file: ProcessFile): boolean {

@@ -1,4 +1,4 @@
-import { NO_SEGMENT, SegmentId, TextFileLine } from '@tasenor/common'
+import { DirectoryPath, NO_SEGMENT, SegmentId, TextFileLine } from '@tasenor/common'
 import { ProcessFile, TransactionImportHandler } from '@tasenor/common-node'
 
 /**
@@ -16,6 +16,10 @@ export class CoinbaseHandler extends TransactionImportHandler {
       totalAmountField: 'amount',
       csv: { useFirstLineHeadings: true }
     }
+  }
+
+  get path(): DirectoryPath {
+    return __dirname as DirectoryPath
   }
 
   canHandle(file: ProcessFile): boolean {

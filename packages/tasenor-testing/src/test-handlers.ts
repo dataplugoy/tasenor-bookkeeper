@@ -33,9 +33,8 @@ export function getTestHandler(className: string): TransactionImportHandler {
  * @returns
  */
 export function getTestHandlerPath(className: string): string {
-  const dirName = path.join(__dirname, '..', '..', '..', 'tasenor-common-plugins', 'src', `${className}Import`, 'backend')
-  if (!fs.existsSync(dirName)) {
+  if (!handlers[className]) {
     throw new Error(`No such import handler path as '${className}'.`)
   }
-  return dirName
+  return handlers[className].path
 }

@@ -1,4 +1,4 @@
-import { ImportStateText, NO_SEGMENT, SegmentId, TextFileLine } from '@tasenor/common'
+import { DirectoryPath, ImportStateText, NO_SEGMENT, SegmentId, TextFileLine } from '@tasenor/common'
 import { NotImplemented, Process, ProcessFile, TransactionImportHandler } from '@tasenor/common-node'
 
 /**
@@ -16,6 +16,10 @@ export class NordnetHandler extends TransactionImportHandler {
       totalAmountField: 'Summa',
       csv: { useFirstLineHeadings: true, columnSeparator: '\t' }
     }
+  }
+
+  get path(): DirectoryPath {
+    return __dirname as DirectoryPath
   }
 
   canHandle(file: ProcessFile): boolean {

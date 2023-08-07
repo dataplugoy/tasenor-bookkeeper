@@ -1,4 +1,4 @@
-import { ImportStateText, NO_SEGMENT, ProcessConfig, warning, month, Language, ucfirst } from '@tasenor/common'
+import { ImportStateText, NO_SEGMENT, ProcessConfig, warning, month, Language, ucfirst, DirectoryPath } from '@tasenor/common'
 import { InvalidFile, Process, ProcessFile, TransactionImportHandler } from '@tasenor/common-node'
 
 // Matcher for ticker and ISIN code.
@@ -24,6 +24,10 @@ export class LynxHandler extends TransactionImportHandler {
       textField: null,
       totalAmountField: null,
     }
+  }
+
+  get path(): DirectoryPath {
+    return __dirname as DirectoryPath
   }
 
   canHandle(file: ProcessFile): boolean {
