@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ID, ProcessConfig, ProcessName } from '@tasenor/common'
 import { UnitTestImportConnector } from './UnitTestImportConnector'
-import { KnexDatabase, Process, ProcessConnector, ProcessFile, ProcessFileData, ProcessHandler, ProcessHandlerMap, ProcessStep } from '..'
+import { KnexDatabase, Process, ProcessConnector, ProcessFile, ProcessFileData, ProcessHandler, ProcessHandlerMap, ProcessStep } from '@tasenor/common-node'
 
 /**
  * Processing system mock for unit testing.

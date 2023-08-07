@@ -14,11 +14,14 @@
     "lint": "eslint 'src/**/*.ts'",
     "prepublish": "pnpm version patch",
     "release": "pnpm publish --access public --no-git-checks",
-    "show-version": "jq .version < package.json"
+    "show-version": "jq .version < package.json",
+    "test": "jest",
+    "watch": "jest --onlyChanged --watch"
   },
   "dependencies": {
     "@tasenor/common": "workspace:*",
     "@tasenor/common-node": "workspace:*",
+    "@tasenor/common-plugins": "workspace:*",
     "axios": "0.26.0",
     "base64-arraybuffer": "^1.0.2",
     "clone": "^2.1.2",
@@ -33,6 +36,9 @@
     "@types/jest": "^29.5.2",
     "@types/sprintf-js": "^1.1.2",
     "eslint-config-tasenor": "workspace:*",
+    "jest": "^29.6.1",
+    "jestconfig": "workspace:*",
+    "react": "^17.0.2",
     "tsconfig": "workspace:*",
     "typescript": "^5.1.6"
   }

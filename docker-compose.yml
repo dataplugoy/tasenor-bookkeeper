@@ -1,0 +1,59 @@
+#
+# This is for testing container build for publishing containers for actual
+# use in staging and production servers. Development should be done using
+# directly `turbo` or `pnpm` scripts.
+#
+version: '3'
+
+volumes:
+  tasenor_db:
+
+services:
+  tasenor-nginx-proxy:
+    container_name: tasenor-nginx-proxy
+    build:
+      context: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - "/etc/nginx/vhost.d"
+      - "/usr/share/nginx/html"
+      - "/etc/nginx/certs"
+
+  tasenor-db:
+    container_name: tasenor-db
+    build:
+      context: databases/bookkeeper
+    volumes:
+      - tasenor_db:/var/lib/postgresql/data
+    ports:
+      - 7202:7202
+    environment:
+      NODE_ENV: development
+      POSTGRES_MULTIPLE_DATABASES: tasenor,tasenor,IU982ehsa09uh0q:bookkeeper,bookkeeper,Biure80s2rt832:test,test,8ydsyTa63298:demo,demo,oiuewHqw3d
+      POSTGRES_PASSWORD: Jow92eygdGYwe3edsoy2
+      POSTGRES_USER: root
+    command: -p 7202
+
+  tasenor-bookkeeper-api:
+    container_name: tasenor-bookkeeper-api
+    build:
+      context: apps/bookkeeper-backend
+    depends_on:
+      - tasenor-db
+    ports:
+      - 7205
+    environment:
+      VAULT_URL: env://
+      UI_ORIGIN_URL: http://bookkeeper.localhost
+      DATABASE_ROOT_PASSWORD: Jow92eygdGYwe3edsoy2
+      DATABASE_ROOT_USER: root
+      DATABASE_URL: postgresql://bookkeeper:Biure80s2rt832@tasenor-db:7202/bookkeeper
+      NODE_ENV: development
+      PORT: 7205
+      SECRET: c4nn0ts4y_c4nn0ts4y_c4nn0ts4y_c4nn0ts4y
+      VIRTUAL_HOST: bookkeeper-api.localhost
+      VIRTUAL_PORT: 7205
+    command: pnpm run dev

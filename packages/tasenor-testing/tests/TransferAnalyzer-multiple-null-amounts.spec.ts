@@ -1,5 +1,6 @@
+import { test } from '@jest/globals'
 import { Asset } from '@tasenor/common'
-import { UnitTester } from '../src/testing'
+import { UnitTester } from '../src/UnitTester'
 
 test('Handle complex multipart dividend', async () => {
 

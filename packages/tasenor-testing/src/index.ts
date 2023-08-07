@@ -1,3 +1,7 @@
 export * from './mocks'
 export * from './TestImportConnector'
 export * from './services'
+export * from './ProcessingSystemMock'
+export * from './UnitTester'
+export * from './UnitTestImportConnector'
+export * from './test-handlers'
