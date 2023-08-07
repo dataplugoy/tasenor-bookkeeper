@@ -9,11 +9,10 @@ import clone from 'clone'
 import deepEqual from 'deep-equal'
 
 import { elementNames, ImportState, AccountNumber, TradeableAsset, StockValueData, Transaction, AssetType, Asset, AssetExchange, Currency, TransactionDescription, sortTransactions, AssetTransfer, Language, Knowledge, VATTarget, error, isCurrency, BalanceBookkeeping, ZERO_STOCK, ZERO_CENTS, Directions, ID } from '@tasenor/common'
-import { ISPDemoServer, ProcessHandler, TransactionImportHandler, TransactionImportConnector, ImportPlugin, getTestHandler, getTestHandlerPath } from '@tasenor/common-node'
-// TODO: Accessing directly should be handled other way.
-import { CoinbaseHandler } from '../../tasenor-common-plugins/src/CoinbaseImport/backend/CoinbaseHandler'
-import IncomeAndExpenses from '../../tasenor-common-plugins/src/IncomeAndExpenses/backend'
+import { ISPDemoServer, ProcessHandler, TransactionImportHandler, TransactionImportConnector, ImportPlugin } from '@tasenor/common-node'
+import { CoinbaseHandler, IncomeAndExpensesBackend } from '@tasenor/common-plugins'
 import { getTestCryptoRate, getTestCurrencyRate } from './services'
+import { getTestHandler, getTestHandlerPath } from './test-handlers'
 
 const PORT = 4567
 const DATABASE_URL: string = process.env.DATABASE_URL || 'postgres://user:pass@localhost/test'
@@ -26,17 +25,6 @@ class TestFailure extends Error {}
 export class TestImportConnector implements TransactionImportConnector {
 
   static baseDir: string = path.join(__dirname, '..', '..')
-
-  static handlerDirs: Record<string, string> = {
-    // TODO: This should be filled with glob().
-    // TODO: Accessing directly should be handled other way.
-    Coinbase: path.join(TestImportConnector.baseDir, 'tasenor-common-plugins', 'src', 'CoinbaseImport', 'backend'),
-    Nordea: path.join(TestImportConnector.baseDir, 'tasenor-common-plugins', 'src', 'NordeaImport', 'backend'),
-    Nordnet: path.join(TestImportConnector.baseDir, 'tasenor-common-plugins', 'src', 'NordnetImport', 'backend'),
-    Kraken: path.join(TestImportConnector.baseDir, 'tasenor-common-plugins', 'src', 'KrakenImport', 'backend'),
-    Lynx: path.join(TestImportConnector.baseDir, 'tasenor-common-plugins', 'src', 'LynxImport', 'backend'),
-    TITO: path.join(TestImportConnector.baseDir, 'tasenor-common-plugins', 'src', 'TITOImport', 'backend'),
-  }
 
   config: Record<string, unknown>
   server: ISPDemoServer
@@ -139,7 +127,7 @@ export class TestImportConnector implements TransactionImportConnector {
     if (ret !== text) {
       return ret
     }
-    const IEplugin = new IncomeAndExpenses()
+    const IEplugin = new IncomeAndExpensesBackend()
     return IEplugin.t(text, language as Language)
   }
 
