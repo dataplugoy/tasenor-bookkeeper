@@ -7,6 +7,7 @@
     "build-test": "tsc --noEmit",
     "ci": "pnpm run lint && pnpm run build-test",
     "dev": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx watch -r dotenv/config src/server.ts",
+    "docker": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx -r dotenv/config src/server.ts",
     "fix": "eslint --fix 'src/**/*.ts'",
     "generate-key": "npx tsx bin/generate-key.ts",
     "lint": "eslint 'src/**/*.ts'",

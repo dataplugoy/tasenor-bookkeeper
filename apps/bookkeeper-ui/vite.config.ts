@@ -9,6 +9,7 @@ export default defineConfig(async ({ mode }) => {
 
   return {
     appType: 'spa',
+    clearScreen: false,
     plugins: [
       react({
         babel: {
@@ -27,6 +28,7 @@ export default defineConfig(async ({ mode }) => {
       global: 'globalThis',
     },
     server: {
+      host: '0.0.0.0',
       port: parseInt(env.PORT || '7204'),
       proxy: {
         '/internal/plugins': {

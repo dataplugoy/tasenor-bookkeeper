@@ -21,5 +21,4 @@ ADD bin/ bin/
 ADD src/ src/
 ADD .env.docker .env.local
 
-# TODO: Need separate script for production? 'docker'?
-CMD ["pnpm", "run", "dev"]
+CMD ["pnpm", "run", "docker"]

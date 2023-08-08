@@ -25,3 +25,11 @@ ADD bin/ bin/
 ADD public/ public/
 ADD src/ src/
 ADD .env.docker .env.local
+ADD index.html .
+ADD vite.config.ts .
+
+RUN pnpm run dev-initialize-plugins
+RUN npx vite build
+RUN npx vite optimize
+
+CMD ["pnpm", "run", "docker"]

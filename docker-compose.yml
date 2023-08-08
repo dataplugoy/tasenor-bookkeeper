@@ -46,6 +46,7 @@ services:
     ports:
       - 7204
     environment:
+      # TODO: Lot of duplicates vs. env.local
       VAULT_URL: env://
       API_URL: http://tasenor-bookkeeper-api:7205
       UI_API_URL: http://bookkeeper-api.localhost
