@@ -37,6 +37,26 @@ services:
       POSTGRES_USER: root
     command: -p 7202
 
+  tasenor-bookkeeper:
+    container_name: tasenor-bookkeeper
+    build:
+      context: apps/bookkeeper-ui
+    depends_on:
+      - tasenor-bookkeeper-api
+    ports:
+      - 7204
+    environment:
+      VAULT_URL: env://
+      API_URL: http://tasenor-bookkeeper-api:7205
+      UI_API_URL: http://bookkeeper-api.localhost
+      API_SITE_TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImF1ZGllbmNlIjoidWkiLCJvd25lciI6Imh0dHA6Ly9sb2NhbGhvc3Q6NzIwNCIsImZlYXRzIjp7IlNVUEVSVVNFUiI6dHJ1ZX19LCJpYXQiOjE2NzYzMDkwMDcsImV4cCI6NDgyOTkwOTAwNywiYXVkIjoicmVmcmVzaCIsImlzcyI6IlRhc2Vub3IifQ.XgXK3lcjJ-A7Dn03Ek3gBc5zXrrk3xS0tBn2sUf7eo4
+      NODE_ENV: development
+      PORT: 7204
+      SECRET: c4nn0ts4y_c4nn0ts4y_c4nn0ts4y_c4nn0ts4y
+      VIRTUAL_HOST: bookkeeper.localhost
+      VIRTUAL_PORT: 7204
+    command: ./wait-for-it.sh -t 60 -h tasenor-bookkeeper-api -p 7205 -- pnpm run dev
+
   tasenor-bookkeeper-api:
     container_name: tasenor-bookkeeper-api
     build:

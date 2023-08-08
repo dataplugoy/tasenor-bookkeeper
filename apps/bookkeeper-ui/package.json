@@ -9,9 +9,9 @@
   "scripts": {
     "build-test": "tsc --noEmit",
     "ci": "pnpm run lint && pnpm run build-test",
-    "dev-initialize-plugins": "DOTENV_CONFIG_PATH=`pwd`/.env.local ts-node -r dotenv/config bin/initialize-plugins.mjs",
-    "dev-vite": "DOTENV_CONFIG_PATH=`pwd`/.env.local vite",
-    "dev-ui-plugin-server": "DOTENV_CONFIG_PATH=`pwd`/.env.local tsx watch -r dotenv/config ../bookkeeper-ui/src/plugin-server/ui-plugin-server.ts",
+    "dev-initialize-plugins": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx ts-node -r dotenv/config bin/initialize-plugins.mjs",
+    "dev-vite": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx vite",
+    "dev-ui-plugin-server": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx watch -r dotenv/config ./src/plugin-server/ui-plugin-server.ts",
     "dev": "pnpm run dev-ui-plugin-server & pnpm run dev-initialize-plugins && pnpm run dev-vite",
     "fix": "eslint --fix 'src/**/*.ts{,x}'",
     "lint": "eslint 'src/**/*.ts{,x}'",
