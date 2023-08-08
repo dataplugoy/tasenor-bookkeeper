@@ -1,7 +1,7 @@
 import path from 'path'
-import knex from '../lib/knex'
+import knex from './knex'
 import { DB, BookkeeperImporter } from '@tasenor/common-node'
-import catalog from '../lib/catalog'
+import catalog from './catalog'
 import { DatabaseName, error } from '@tasenor/common'
 
 /**

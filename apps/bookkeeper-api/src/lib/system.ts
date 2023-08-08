@@ -1,5 +1,5 @@
 import { Currency, Url, UUID } from '@tasenor/common'
-import knex from '../lib/knex'
+import knex from './knex'
 
 /**
  * Definition of the system settings.

@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 import { DocumentModel, DocumentModelData, EntryModel, EntryModelData, isHttpFailureResponse, Transaction, ID } from '@tasenor/common'
-import catalog from '../lib/catalog'
+import catalog from './catalog'
 import { ImportConnector } from './ImportConnector'
-import { create as createDocument } from '../lib/document'
-import { create as createEntry } from '../lib/entry'
+import { create as createDocument } from './document'
+import { create as createEntry } from './entry'
 import dayjs from 'dayjs'
 import { periodOf } from './period'
 import { KnexDatabase, ProcessingSystem } from '@tasenor/common-node'

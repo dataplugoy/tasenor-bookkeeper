@@ -40,7 +40,7 @@ services:
   tasenor-bookkeeper:
     container_name: tasenor-bookkeeper
     build:
-      context: apps/bookkeeper-ui
+      context: apps/bookkeeper
     depends_on:
       - tasenor-bookkeeper-api
     ports:
@@ -61,7 +61,7 @@ services:
   tasenor-bookkeeper-api:
     container_name: tasenor-bookkeeper-api
     build:
-      context: apps/bookkeeper-backend
+      context: apps/bookkeeper-api
     depends_on:
       - tasenor-db
     ports:
