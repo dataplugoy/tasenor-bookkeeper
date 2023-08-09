@@ -8,7 +8,7 @@
   "license": "AGPL",
   "scripts": {
     "build-test": "npx vite build",
-    "ci": "pnpm run lint && pnpm run build-test",
+    "ci": "pnpm run dev-initialize-plugins && pnpm run lint && pnpm run build-test",
     "dev-initialize-plugins": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx ts-node -r dotenv/config bin/initialize-plugins.mjs",
     "docker-vite": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx vite preview --port ${PORT:=7204}",
     "dev-vite": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx vite --port ${PORT:=7204}",
