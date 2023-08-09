@@ -8,7 +8,7 @@
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "ci": "pnpm run lint && pnpm run build && pnpm run test",
+    "ci": "pnpm run lint && pnpm run test",
     "build": "rm -fr dist && tsc",
     "fix": "eslint --fix 'src/**/*.ts' 'tests/**/*.ts'",
     "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
