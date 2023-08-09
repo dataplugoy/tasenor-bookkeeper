@@ -327,7 +327,8 @@ function pluginLocalPath(indexFilePath: FilePath): string | undefined {
 /**
  * Go through repository URLs and install all missing plugin repositories.
  */
-async function updateRepositories(repos: string[], src: DirectoryPath, dst: DirectoryPath) {
+async function updateRepositories(repos: string[], src: DirectoryPath, dst: DirectoryPath): Promise<boolean> {
+  let changes = false
   for (const repo of repos) {
     log(`Checking plugin repo ${repo}.`)
     if (repo.startsWith('file://')) {
@@ -339,6 +340,7 @@ async function updateRepositories(repos: string[], src: DirectoryPath, dst: Dire
           log(`  Linking repo ${source} => ${target}.`)
           const cmd = `ln -sf "${source}" "${target}"`
           await systemPiped(cmd)
+          changes = true
         }
       } else {
         error(`A plugin repository ${repo} not found.`)
@@ -350,9 +352,12 @@ async function updateRepositories(repos: string[], src: DirectoryPath, dst: Dire
         log(`  Fetching plugin repo ${repo} to ${target}.`)
         const cmd = `cd ${dst} && git clone "${repo}"`
         await systemPiped(cmd)
+        changes = true
       }
     }
   }
+
+  return changes
 }
 
 /**

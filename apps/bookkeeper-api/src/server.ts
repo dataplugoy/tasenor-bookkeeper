@@ -31,29 +31,8 @@ async function main() {
     server.register()
 
     log('Checking default plugin repos...')
-    let changes = false
-    for (const repo of INITIAL_PLUGIN_REPOS) {
-      log(`Checking plugin repo ${repo}.`)
-      if (repo.startsWith('file://')) {
-        const src = path.join(__dirname, '..', '..', '..', repo.substring(7))
-        const dst = path.join(plugins.getConfig('PLUGIN_PATH'), path.basename(repo))
-        if (fs.existsSync(src)) {
-          if (!fs.existsSync(dst)) {
-            const cmd = `ln -sf "${src}" "${dst}"`
-            await system(cmd)
-            changes = true
-          }
-        } else {
-          error(`A plugin repository ${repo} not found.`)
-        }
-      } else {
-        const dst = path.join(plugins.getConfig('PLUGIN_PATH'), path.basename(repo).replace(/\.git$/, ''))
-        if (!fs.existsSync(dst)) {
-          await GitRepo.get(repo as Url, plugins.getConfig('PLUGIN_PATH') as DirectoryPath)
-          changes = true
-        }
-      }
-    }
+    const src = path.join(__dirname, '..', '..', '..') as DirectoryPath
+    const changes = await plugins.updateRepositories(INITIAL_PLUGIN_REPOS, src, plugins.getConfig('PLUGIN_PATH') as DirectoryPath)
 
     // Rebuild plugin index if changes.
     if (changes) {
