@@ -1,4 +1,5 @@
 module.exports = {
   root: true,
-  extends: ['tasenor']
+  extends: ['tasenor'],
+  ignorePatterns: ["src/Plugins"]
 }
