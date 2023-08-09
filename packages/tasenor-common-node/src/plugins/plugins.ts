@@ -1,9 +1,10 @@
 import fs from 'fs'
 import glob from 'fast-glob'
 import path from 'path'
-import { TasenorPlugin, PluginCatalog, FilePath, net, Url, note, log } from '@tasenor/common'
+import { TasenorPlugin, PluginCatalog, FilePath, net, Url, note, log, DirectoryPath, error } from '@tasenor/common'
 import { create } from 'ts-opaque'
 import { vault } from '../net'
+import { systemPiped } from '..'
 
 const PLUGIN_FIELDS = ['code', 'title', 'version', 'icon', 'releaseDate', 'use', 'type', 'description']
 
@@ -324,6 +325,37 @@ function pluginLocalPath(indexFilePath: FilePath): string | undefined {
 }
 
 /**
+ * Go through repository URLs and install all missing plugin repositories.
+ */
+async function updateRepositories(repos: string[], src: DirectoryPath, dst: DirectoryPath) {
+  for (const repo of repos) {
+    log(`Checking plugin repo ${repo}.`)
+    if (repo.startsWith('file://')) {
+      // Handle local file.
+      const source = path.join(src, repo.substring(7))
+      const target = path.join(dst, path.basename(repo))
+      if (fs.existsSync(src)) {
+        if (!fs.existsSync(target)) {
+          log(`  Linking repo ${source} => ${target}.`)
+          const cmd = `ln -sf "${source}" "${target}"`
+          await systemPiped(cmd)
+        }
+      } else {
+        error(`A plugin repository ${repo} not found.`)
+      }
+    } else {
+      // By default, assume git repo.
+      const target = path.join(dst, repo.replace(/.*\//, '').replace('.git', ''))
+      if (!fs.existsSync(target)) {
+        log(`  Fetching plugin repo ${repo} to ${target}.`)
+        const cmd = `cd ${dst} && git clone "${repo}"`
+        await systemPiped(cmd)
+      }
+    }
+  }
+}
+
+/**
  * Collection of file system and API related plugin handling functions for fetching, building and scanning.
  */
 export const plugins = {
@@ -341,5 +373,6 @@ export const plugins = {
   setConfig,
   sortPlugins,
   updatePluginIndex,
-  updatePluginList
+  updatePluginList,
+  updateRepositories
 }
