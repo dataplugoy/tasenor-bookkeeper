@@ -96,10 +96,10 @@ async function updateLocalPluginList() {
   const scanned: TasenorPlugin[] = Object.values(current) as TasenorPlugin[]
   if (!samePlugins(oldIndex, scanned)) {
     savePluginIndex(scanned)
-    savePluginIndexJsx(current)
+    savePluginIndexJsx(scanned)
   }
 
-  return current
+  return scanned
 }
 
 /**

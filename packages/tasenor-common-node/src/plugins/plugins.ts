@@ -53,6 +53,10 @@ function setConfig(variable: ConfigVariable, value: string): void {
  * @returns New sorted list.
  */
 function sortPlugins(plugins: TasenorPlugin[]): TasenorPlugin[] {
+  if (!plugins) {
+    error('No plugins given found for sorting.')
+    return []
+  }
   return plugins.sort((a, b) => a.code < b.code ? -1 : (a.code > b.code ? 1 : 0))
 }
 
