@@ -2,13 +2,12 @@ import buffer from 'buffer'
 import { Secret } from '../types'
 global.Buffer = global.Buffer || buffer.Buffer
 
-let crypto
-
-try {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  crypto = require('crypto')
-} catch (err) {
-  crypto = window.crypto
+function getCrypto() {
+  try {
+    return window.crypto
+  } catch {
+    return require('crypto')
+  }
 }
 
 export class Crypto {
@@ -31,12 +30,12 @@ export class Crypto {
    * Create an encryption key as a hex string.
    */
   static async generateKey(): Promise<Secret> {
-    const key = await crypto.subtle.generateKey({
+    const key = await getCrypto().subtle.generateKey({
       name: 'AES-GCM',
       length: 256,
     }, true, ['encrypt', 'decrypt'])
 
-    const buf = await crypto.subtle.exportKey('raw', key)
+    const buf = await getCrypto().subtle.exportKey('raw', key)
 
     return Crypto.buf2hex(buf) as Secret
   }
@@ -45,7 +44,7 @@ export class Crypto {
    * Helper to generate IV for encryption.
    */
   static generateIv() {
-    return crypto.getRandomValues(new Uint8Array(12))
+    return getCrypto().getRandomValues(new Uint8Array(12))
   }
 
   /**
@@ -55,12 +54,12 @@ export class Crypto {
     const encoder = new TextEncoder()
     const encoded = encoder.encode(clearText)
     const iv = Crypto.generateIv()
-    const key = await crypto.subtle.importKey('raw', Crypto.hex2buf(secret), {
+    const key = await getCrypto().subtle.importKey('raw', Crypto.hex2buf(secret), {
       name: 'AES-GCM',
       length: 256,
     }, true, ['encrypt', 'decrypt'])
 
-    const cipher = await crypto.subtle.encrypt({
+    const cipher = await getCrypto().subtle.encrypt({
       name: 'AES-GCM',
       iv,
     }, key, encoded)
@@ -76,12 +75,12 @@ export class Crypto {
     if (!ivText) throw new Error('IV not found when decrypting.')
     const iv = Crypto.hex2buf(ivText)
     const text = Crypto.hex2buf(cipher)
-    const key = await crypto.subtle.importKey('raw', Crypto.hex2buf(secret), {
+    const key = await getCrypto().subtle.importKey('raw', Crypto.hex2buf(secret), {
       name: 'AES-GCM',
       length: 256,
     }, true, ['encrypt', 'decrypt'])
 
-    const decoded = await crypto.subtle.decrypt({
+    const decoded = await getCrypto().subtle.decrypt({
       name: 'AES-GCM',
       iv,
     }, key, text)

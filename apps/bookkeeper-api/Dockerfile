@@ -21,4 +21,6 @@ ADD bin/ bin/
 ADD src/ src/
 ADD .env.docker .env.local
 
+RUN mkdir src/plugins
+
 CMD ["pnpm", "run", "docker"]
