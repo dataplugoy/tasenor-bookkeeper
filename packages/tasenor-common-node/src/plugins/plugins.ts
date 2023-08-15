@@ -345,12 +345,22 @@ async function updateRepositories(repos: string[], src: DirectoryPath, dst: Dire
       } else {
         error(`A plugin repository ${repo} not found.`)
       }
+    } else if (repo.startsWith('npm://')) {
+      const npm = repo.substring(6)
+      const source = path.join(dst, 'package')
+      const target = path.join(dst, npm.replace(/@/g, '').replace(/[^a-zA-Z0-9]/g, '-'))
+      if (!fs.existsSync(target)) {
+        log(`  Downloading NPM ${npm}.`)
+        const cmd = `cd "${dst}" && rm -fr "${source}" && npm view ${npm} dist.tarball | xargs curl -s | tar xz && mv "${source}" "${target}"`
+        await systemPiped(cmd)
+        changes = true
+      }
     } else {
       // By default, assume git repo.
       const target = path.join(dst, repo.replace(/.*\//, '').replace('.git', ''))
       if (!fs.existsSync(target)) {
         log(`  Fetching plugin repo ${repo} to ${target}.`)
-        const cmd = `cd ${dst} && git clone "${repo}"`
+        const cmd = `cd "${dst}" && git clone "${repo}"`
         await systemPiped(cmd)
         changes = true
       }
