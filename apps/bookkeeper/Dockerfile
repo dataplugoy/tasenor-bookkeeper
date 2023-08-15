@@ -28,7 +28,10 @@ ADD .env.docker .env.local
 ADD index.html .
 ADD vite.config.ts .
 
-RUN pnpm run dev-initialize-plugins
+RUN echo '[]' > src/Plugins/index.json
+RUN echo 'const index = []' > src/Plugins/index.jsx
+RUN echo 'export default index' >> src/Plugins/index.jsx
+
 RUN npx vite build
 RUN npx vite optimize
 
