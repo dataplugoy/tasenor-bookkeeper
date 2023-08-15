@@ -56,7 +56,7 @@ services:
       SECRET: c4nn0ts4y_c4nn0ts4y_c4nn0ts4y_c4nn0ts4y
       VIRTUAL_HOST: bookkeeper.localhost
       VIRTUAL_PORT: 7204
-    command: ./wait-for-it.sh -t 60 -h tasenor-bookkeeper-api -p 7205 -- pnpm run dev
+    command: ./wait-for-it.sh -t 60 -h tasenor-bookkeeper-api -p 7205 -- pnpm run docker
 
   tasenor-bookkeeper-api:
     container_name: tasenor-bookkeeper-api
@@ -77,4 +77,4 @@ services:
       SECRET: c4nn0ts4y_c4nn0ts4y_c4nn0ts4y_c4nn0ts4y
       VIRTUAL_HOST: bookkeeper-api.localhost
       VIRTUAL_PORT: 7205
-    command: pnpm run dev
+    command: pnpm run docker
