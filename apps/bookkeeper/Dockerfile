@@ -32,7 +32,9 @@ RUN echo '[]' > src/Plugins/index.json
 RUN echo 'const index = []' > src/Plugins/index.jsx
 RUN echo 'export default index' >> src/Plugins/index.jsx
 
-RUN npx vite build
-RUN npx vite optimize
+# TODO: Vite really sucks when it comes to use of crypto.subtle. Let us use dev versions until it works properly.
+#       Package.json should use `docker-vite` instead of `dev-vite` script when this works.
+#RUN npx vite build
+#RUN npx vite optimize
 
 CMD ["pnpm", "run", "docker"]
