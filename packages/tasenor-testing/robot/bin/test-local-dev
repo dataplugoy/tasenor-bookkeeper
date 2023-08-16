@@ -1,0 +1,28 @@
+#!/bin/bash
+#
+# Run tests for localhost `npm run dev` version.
+#
+
+set -e
+
+FILE=`dirname "${BASH_SOURCE[0]}"`/..
+ROOT=`readlink -f "$FILE"`
+
+export TEST_BASE_URL=http://localhost:7204
+export TEST_ADMIN_USER=root@localhost
+export TEST_ADMIN_PASSWORD=Ayfiewchg872rt5sq2e4
+export TEST_USER=robot@localhost
+export TEST_PASSWORD=pass_pass4
+export TEST_EMAIL=robot@localhost
+export TEST_SECRET="c4nn0ts4y_c4nn0ts4y_c4nn0ts4y_c4nn0ts4y"
+export TEST_DEMO_USER=user@localhost
+export TEST_DEMO_PASSWORD=Ayfiewchg872rt5sq2e4
+export CI=False
+
+cd $ROOT
+if [ -z "$*" ]; then
+    ARGS=tests
+else
+    ARGS=$*
+fi
+robot --outputdir reports --exclude skip $ARGS
