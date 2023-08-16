@@ -117,7 +117,7 @@ Go To Admin
     Wait Until No Loading Shadow
     Wait Until Element is Visible       AdminMenu
     Click Element                       AdminMenu
-    Wait Until Element is Visible       css:.UserTools
+    Wait Until Element is Visible       css:.AdminToolsList
     Wait Until No Loading Shadow
 
 Go To Admin / Plugins
