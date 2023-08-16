@@ -7,7 +7,6 @@ set -e
 FILE=`dirname "${BASH_SOURCE[0]}"`/..
 ROOT=`readlink -f "$FILE"`
 
-export TEST_BASE_URL=http://bookkeeper.localhost
 export TEST_ADMIN_USER=root@localhost
 export TEST_ADMIN_PASSWORD=Ayfiewchg872rt5sq2e4
 export TEST_USER=test@localhost
@@ -16,18 +15,35 @@ export TEST_EMAIL=test@localhost
 export TEST_DEMO_USER=user@localhost
 export TEST_DEMO_PASSWORD=Ayfiewchg872rt5sq2e4
 export TEST_SECRET="c4nn0ts4y_c4nn0ts4y_c4nn0ts4y_c4nn0ts4y"
+export CI=True
 
-if [ "$1" == '--debug' ]; then
-    export CI=False
-    shift
-else
-    export CI=True
+#
+# Parse arguments.
+#
+while [  "$1" != "" ]; do
+  case "$1" in
+    --normal)
+      NIGHTLY=no
+      ;;
+    --nightly)
+      NIGHTLY=yes
+      ;;
+  esac
+  shift
+done
+
+if [ -z "$NIGHTLY" ]; then
+  echo "Usage: $0 --nightly|--normal"
+  exit 1
 fi
+
+if [ $NIGHTLY == 'yes' ]; then
+    export TEST_BASE_URL=http://bookkeeper.localhost
+else
+    export TEST_BASE_URL=http://localhost:7204
+fi
+
+ARGS=tests
 
 cd $ROOT
-if [ -z "$*" ]; then
-    ARGS=tests
-else
-    ARGS=$*
-fi
 robot --outputdir reports --exclude skip --exitonfailure $ARGS

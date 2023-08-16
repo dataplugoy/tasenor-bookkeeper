@@ -9,11 +9,12 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -fr dist && tsc",
-    "ci": "pnpm run lint && pnpm run test",
+    "ci": "pnpm run lint && pnpm run test && pnpm run robot",
     "fix": "eslint --fix 'src/**/*.ts'",
     "lint": "eslint 'src/**/*.ts'",
     "prepublish": "pnpm version patch",
     "release": "pnpm publish --access public --no-git-checks",
+    "robot": "robot/bin/test-ci",
     "show-version": "jq .version < package.json",
     "test": "jest",
     "watch": "jest --onlyChanged --watch"
