@@ -46,4 +46,4 @@ fi
 ARGS=tests
 
 cd $ROOT
-robot --outputdir reports --exclude skip --exitonfailure $ARGS
+robot --outputdir reports --exclude skip --exclude nightly --exitonfailure $ARGS

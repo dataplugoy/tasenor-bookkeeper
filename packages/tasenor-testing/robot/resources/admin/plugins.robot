@@ -12,11 +12,11 @@ Install Plugin If Missing
 Install Plugin
     [Arguments]                         ${code}     ${timeout}=${DEFAULT_INSTALL_TIMEOUT}
     Click Element                       ${PLUGIN_LIST}//*[@id="${code}"]//*[contains(@class, "InstallPlugin")]
-    Wait for Info Message               Plugin installed successfully.      ${timeout}
-    Wait for Message Gone
+    Wait Until No Loading Shadow
+    Wait Until Page Contains Element    ${PLUGIN_LIST}//*[@id="${code}"]//*[contains(@class, "RemovePlugin")]
 
 Remove Plugin
     [Arguments]                         ${code}      ${timeout}=${DEFAULT_INSTALL_TIMEOUT}
     Click Element                       ${PLUGIN_LIST}//*[@id="${code}"]//*[contains(@class, "RemovePlugin")]
-    Wait for Info Message               Plugin deleted successfully.        ${timeout}
-    Wait for Message Gone
+    Wait Until No Loading Shadow
+    Wait Until Page Contains Element    ${PLUGIN_LIST}//*[@id="${code}"]//*[contains(@class, "InstallPlugin")]
