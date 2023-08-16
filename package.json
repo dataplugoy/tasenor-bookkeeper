@@ -6,6 +6,6 @@
   "packageManager": "pnpm@8.6.6",
   "scripts": {},
   "devDependencies": {
-    "turbo": "^1.10.8"
+    "turbo": "^1.10.12"
   }
 }
