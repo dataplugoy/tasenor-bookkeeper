@@ -1,6 +1,6 @@
-# Bookkeeper databases
+# Databases
 
-Few sample databases for easier local development and testing setup.
+Default setup creates the following databases.
 
 ## Bookkeeper database
 
