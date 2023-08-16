@@ -208,7 +208,7 @@ async function uninstall(auth, code, ignoreError = false) {
  * Rebuild client.
  */
 async function rebuild() {
-  await systemPiped('pnpm build')
+  await systemPiped('pnpm build-test')
 }
 
 /**
@@ -278,7 +278,7 @@ async function middleware(req, res, next) {
       net.GET(`${process.env.API_URL}/plugins/rebuild` as Url, null, { Authorization: auth }) // No await. Run parallel.
       await rebuild().catch(next)
       const plugins = await updateLocalPluginList().catch(next)
-      res.send(plugins)
+      return res.send(plugins)
     } else {
       return res.status(405).send({ message: 'Method not allowed.' })
     }
