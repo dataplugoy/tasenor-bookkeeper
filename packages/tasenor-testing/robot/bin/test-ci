@@ -1,0 +1,33 @@
+#!/bin/bash
+#
+# Run headless CI version of the tests.
+#
+set -e
+
+FILE=`dirname "${BASH_SOURCE[0]}"`/..
+ROOT=`readlink -f "$FILE"`
+
+export TEST_BASE_URL=http://bookkeeper.localhost
+export TEST_ADMIN_USER=root@localhost
+export TEST_ADMIN_PASSWORD=Ayfiewchg872rt5sq2e4
+export TEST_USER=test@localhost
+export TEST_PASSWORD=pass_pass4
+export TEST_EMAIL=test@localhost
+export TEST_DEMO_USER=user@localhost
+export TEST_DEMO_PASSWORD=Ayfiewchg872rt5sq2e4
+export TEST_SECRET="c4nn0ts4y_c4nn0ts4y_c4nn0ts4y_c4nn0ts4y"
+
+if [ "$1" == '--debug' ]; then
+    export CI=False
+    shift
+else
+    export CI=True
+fi
+
+cd $ROOT
+if [ -z "$*" ]; then
+    ARGS=tests
+else
+    ARGS=$*
+fi
+robot --outputdir reports --exclude skip --exitonfailure $ARGS
