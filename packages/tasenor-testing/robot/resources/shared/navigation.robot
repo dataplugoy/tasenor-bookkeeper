@@ -49,8 +49,8 @@ Go To Login
 Go To Dashboard
     Wait Until No Loading Shadow
     Wait Until App Loaded
-    Click Element                       css:.logo
-    Wait Until Element is Visible       css:.DatabasesPage
+    Click Element                       ⌂Menu
+    Wait Until Element is Visible       css:.Dashboard
     Wait Until No Loading Shadow
 
 Go To Transactions
