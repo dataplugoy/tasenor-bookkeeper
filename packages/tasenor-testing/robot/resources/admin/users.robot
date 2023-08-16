@@ -11,7 +11,15 @@ Fill in Login
 
 Fill in Registration
     [Arguments]                         ${username}     ${password}     ${email}
-    Input Text                          full-name       Created by Robot
+    Input Text                          full-name       ${username}
+    Input Text                          email           ${email}
+    Input Password                      password        ${password}
+    Input Password                      password-again  ${password}
+    Click Element                       submit
+
+Fill in Admin Registration
+    [Arguments]                         ${username}     ${password}     ${email}
+    Input Text                          full-name       ${username}
     Input Text                          email           ${email}
     Input Password                      password        ${password}
     Input Password                      password-again  ${password}

@@ -1,6 +1,6 @@
 #
 # Requires:
-# (Nothing)
+# tests/10__initialize/05__create_admin.robot
 #
 
 *** Settings ***

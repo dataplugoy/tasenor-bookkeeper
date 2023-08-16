@@ -28,7 +28,7 @@ class AdminPage extends Component {
 
     if (tool === 'users') {
       return (
-        <div>
+        <div className="UsersPage">
           <Title><Trans>Users</Trans></Title>
           <UserList/>
         </div>
@@ -36,7 +36,7 @@ class AdminPage extends Component {
     }
     if (tool === 'plugins') {
       return (
-        <div>
+        <div className="PluginsPage">
           <Title><Trans>Plugins</Trans></Title>
           <PluginList />
         </div>
