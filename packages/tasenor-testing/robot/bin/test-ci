@@ -9,9 +9,9 @@ ROOT=`readlink -f "$FILE"`
 
 export TEST_ADMIN_USER=root@localhost
 export TEST_ADMIN_PASSWORD=Ayfiewchg872rt5sq2e4
-export TEST_USER=test@localhost
+export TEST_USER=robot@localhost
 export TEST_PASSWORD=pass_pass4
-export TEST_EMAIL=test@localhost
+export TEST_EMAIL=robot@localhost
 export TEST_DEMO_USER=user@localhost
 export TEST_DEMO_PASSWORD=Ayfiewchg872rt5sq2e4
 export TEST_SECRET="c4nn0ts4y_c4nn0ts4y_c4nn0ts4y_c4nn0ts4y"
