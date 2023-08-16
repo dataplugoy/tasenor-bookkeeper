@@ -14,7 +14,7 @@
     "lint": "eslint 'src/**/*.ts'",
     "prepublish": "pnpm version patch",
     "release": "pnpm publish --access public --no-git-checks",
-    "robot": "robot/bin/test-ci",
+    "robot": "robot/bin/test-ci --normal",
     "show-version": "jq .version < package.json",
     "test": "jest",
     "watch": "jest --onlyChanged --watch"
