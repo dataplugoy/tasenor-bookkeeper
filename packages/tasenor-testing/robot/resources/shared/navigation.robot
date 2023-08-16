@@ -93,6 +93,14 @@ Go To Tools
     Wait Until Element is Visible       css:.ToolsForDatabasesPage
     Wait Until No Loading Shadow
 
+Go To Shop
+    ${page}                             Current Page
+    ${already_there}                    Evaluate            '${page}'=='shop'
+    Return From Keyword If              ${already_there}
+    Wait Until Element is Visible       ShopMenu
+    Click Element                       ShopMenu
+    Wait For Title                      Available Plugins
+
 Go To Data
     ${page}                             Current Page
     ${already_there}                    Evaluate            '${page}'=='data'

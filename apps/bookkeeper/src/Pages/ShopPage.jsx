@@ -18,7 +18,7 @@ class ShopPage extends Component {
     return (
       <div className="Shop">
         <Title><Trans>Available Plugins</Trans></Title>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <div className="PluginList" style={{ display: 'flex', flexWrap: 'wrap' }}>
           {this.props.catalog.available.map((plugin) => {
             if (data[plugin.id] && data[plugin.id].subscription) {
               return undefined

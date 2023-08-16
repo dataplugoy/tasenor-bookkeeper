@@ -24,6 +24,7 @@ Resource                                ./user/accounts.robot
 Resource                                ./user/databases.robot
 Resource                                ./user/periods.robot
 Resource                                ./user/import.robot
+Resource                                ./user/subscriptions.robot
 Resource                                ./shared/dialog.robot
 
 *** Variables ***
