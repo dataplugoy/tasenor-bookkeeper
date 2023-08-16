@@ -1,15 +1,15 @@
 version: '3'
 
 volumes:
-  tasenor_bookkeeper_db:
+  tasenor_db:
 
 services:
-  tasenor-bookkeeper-database:
-    container_name: tasenor-bookkeeper-database
+  tasenor-db:
+    container_name: tasenor-db
     build:
       context: .
     volumes:
-      - tasenor_bookkeeper_db:/var/lib/postgresql/data
+      - tasenor_db:/var/lib/postgresql/data
     ports:
       - 7202:7202
     environment:
