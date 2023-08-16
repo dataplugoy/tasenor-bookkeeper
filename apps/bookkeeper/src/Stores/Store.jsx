@@ -845,7 +845,7 @@ export class Store {
    * Check if user is logged in.
    */
   isLoggedIn() {
-    return !!this.token
+    return !!window.localStorage.getItem('token')
   }
 
   /**

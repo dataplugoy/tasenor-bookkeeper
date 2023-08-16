@@ -200,7 +200,7 @@ class App extends Component {
                 <Route exact path="/:db/shop///:plugin?" element={<ShopPage/>}/>
               </Routes>
             </Paper>
-            <div className={`Version ${store.isLoggedIn() ? 'logged-in' : 'not-logged-in'}`} style={{ color: 'rgb(0,0,0,0.5)', fontSize: '0.6rem', position: 'absolute', right: '2px', bottom: '2px' }}>v{Configuration.VERSION}</div>
+            <div className={`Version ${store.token ? 'logged-in' : 'not-logged-in'}`} style={{ color: 'rgb(0,0,0,0.5)', fontSize: '0.6rem', position: 'absolute', right: '2px', bottom: '2px' }}>v{Configuration.VERSION}</div>
           </div>
         </div>
       </div>
