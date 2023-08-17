@@ -1,4 +1,5 @@
 /** @type {import('vite').UserConfig} */
+// import path from 'path'
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import 'dotenv/config'
@@ -35,6 +36,10 @@ export default defineConfig(async ({ mode }) => {
           target: 'http://localhost:' + (parseInt(env.PORT || '7204') + 2),
           secure: false,
         }
+      },
+      watch: {
+        // In theory this would be good idea but does not work too well, since we lose the track of plugins.
+        // ignored: [path.join(__dirname, 'src/Plugins/index.json'), path.join(__dirname, 'src/Plugins/index.jsx')]
       }
     }
   }
