@@ -28,7 +28,7 @@ Install All Needed Plugins
     Install Plugin If Missing           CoinbaseImport
     Install Plugin If Missing           RapidAPI
     Install Plugin If Missing           CoinAPI
-    Click Element                       rebuild-plugins
+#    Click Element                       rebuild-plugins
     Wait Until No Loading Shadow
     Reload Page
     Logout
