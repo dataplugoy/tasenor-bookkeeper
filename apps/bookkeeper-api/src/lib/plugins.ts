@@ -1,3 +1,4 @@
+import fs from 'fs'
 import path from 'path'
 import { plugins } from '@tasenor/common-node'
 import { LoginPluginData, PricingModel, log } from '@tasenor/common'
@@ -7,6 +8,10 @@ const { isInstalled, loadPluginIndex, findPluginFromIndex, setConfig, loadPlugin
 const pluginPath = path.join(__dirname, '..', 'plugins')
 setConfig('PLUGIN_PATH', pluginPath)
 log(`Setting PLUGIN_PATH to '${pluginPath}'.`)
+if (!fs.existsSync(pluginPath)) {
+  log(`Creating plugin path '${pluginPath}'.`)
+  fs.mkdirSync(pluginPath)
+}
 
 /**
  * Install plugin.
