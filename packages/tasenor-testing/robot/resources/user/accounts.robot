@@ -4,6 +4,9 @@ Create New Account
     ...                                 This will create new account.
     [Arguments]                         ${number}     ${name}     ${type}
     Click Element                       CreateNewAccount
+    Click Element                       account_number
+    Press Keys                          None    CTRL+a
+    Press Keys                          None    BACKSPACE
     Input Text                          account_number  ${number}
     Input Text                          account_name    ${name}
     Click Element                       css:.account-type-dropdown
