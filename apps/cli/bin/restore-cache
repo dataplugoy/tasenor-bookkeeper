@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ -z "$1" -o -z "$2" ]; then
+  echo "Usage: $0 <database url> <file>"
+  exit 1
+fi
+
+docker exec tasenor-db psql $1 < $2

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+  echo "Usage: $0 <database url>"
+  exit 1
+fi
+
+echo "--"
+echo "-- Delete old data"
+echo "--"
+echo
+echo "DELETE FROM public.cached_requests"
+echo
+
+docker exec tasenor-db pg_dump -t cached_requests --inserts -a $1
