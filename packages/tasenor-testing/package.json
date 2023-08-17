@@ -12,9 +12,11 @@
     "ci": "pnpm run lint && pnpm run test && pnpm run robot",
     "fix": "eslint --fix 'src/**/*.ts'",
     "lint": "eslint 'src/**/*.ts'",
+    "nightly": "pnpm run lint && pnpm run test && pnpm run robot-nightly",
     "prepublish": "pnpm version patch",
     "release": "pnpm publish --access public --no-git-checks",
     "robot": "robot/bin/test-ci --normal",
+    "robot-nightly": "robot/bin/test-ci --nightly",
     "show-version": "jq .version < package.json",
     "test": "jest",
     "watch": "jest --onlyChanged --watch"

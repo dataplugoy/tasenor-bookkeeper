@@ -24,9 +24,11 @@ while [  "$1" != "" ]; do
   case "$1" in
     --normal)
       NIGHTLY=no
+      ARGS="--exclude nightly"
       ;;
     --nightly)
       NIGHTLY=yes
+      ARGS=""
       ;;
   esac
   shift
@@ -43,7 +45,6 @@ else
     export TEST_BASE_URL=http://localhost:7204
 fi
 
-ARGS=tests
-
 cd $ROOT
-robot --outputdir reports --exclude skip --exclude nightly --exitonfailure $ARGS
+echo robot --outputdir reports --exclude skip --exitonfailure $ARGS tests
+robot --outputdir reports --exclude skip --exitonfailure $ARGS tests

@@ -12,6 +12,7 @@
     "build": "rm -rf dist && tsc && cp -r migrations dist/",
     "fix": "eslint --fix 'src/**/*.ts' 'tests/**/*.ts'",
     "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
+    "nightly": "pnpm run ci",
     "prepublish": "pnpm version patch",
     "release": "pnpm publish --access public --no-git-checks",
     "test": "jest",

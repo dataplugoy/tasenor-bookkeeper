@@ -11,6 +11,7 @@
     "fix": "eslint --fix 'src/**/*.ts'",
     "generate-key": "npx tsx bin/generate-key.ts",
     "lint": "eslint 'src/**/*.ts'",
+    "nightly": "pnpm run ci",
     "release": "pnpm version patch",
     "show-version": "jq .version < package.json"
   },
