@@ -28,6 +28,7 @@ Install All Needed Plugins
     Install Plugin If Missing           RapidAPI
     Install Plugin If Missing           VAT
     Install Plugin If Missing           VATFinland
+    Wait Until Element is Visible       rebuild-plugins
 #    Click Element                       rebuild-plugins
     Wait Until No Loading Shadow
     Reload Page
@@ -52,7 +53,9 @@ Install All Plugins
     Install Plugin If Missing           TagEditor
     Install Plugin If Missing           USDollar
 
+    Wait Until Element is Visible       rebuild-plugins
     Click Element                       rebuild-plugins
+
     Wait Until No Loading Shadow
     Reload Page
     Logout
