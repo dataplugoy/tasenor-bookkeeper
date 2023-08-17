@@ -227,6 +227,18 @@ importers:
         specifier: ^5.1.6
         version: 5.1.6
 
+  apps/cli:
+    dependencies:
+      '@tasenor/common':
+        specifier: workspace:*
+        version: link:../../packages/tasenor-common
+      '@tasenor/common-node':
+        specifier: workspace:*
+        version: link:../../packages/tasenor-common-node
+      tsx:
+        specifier: ^3.12.7
+        version: 3.12.7
+
   databases/bookkeeper: {}
 
   examples/ui-playground:

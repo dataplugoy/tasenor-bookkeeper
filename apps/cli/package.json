@@ -1,0 +1,13 @@
+{
+  "name": "@tasenor/cli",
+  "description": "Tasenor Command-line Utility",
+  "scripts": {},
+  "keywords": [],
+  "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
+  "license": "AGPL",
+  "dependencies": {
+    "@tasenor/common": "workspace:*",
+    "@tasenor/common-node": "workspace:*",
+    "tsx": "^3.12.7"
+  }
+}
