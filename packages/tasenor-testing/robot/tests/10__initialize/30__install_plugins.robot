@@ -14,20 +14,20 @@ Install All Needed Plugins
     Go To Admin / Plugins
     Click Element                       refresh-plugins
     Wait Until No Loading Shadow
-    Install Plugin If Missing           Finnish
+    Install Plugin If Missing           CoinAPI
+    Install Plugin If Missing           CoinbaseImport
     Install Plugin If Missing           DocumentCleaner
-    Install Plugin If Missing           JournalReport
-    Install Plugin If Missing           LedgerReport
+    Install Plugin If Missing           Euro
+    Install Plugin If Missing           Finnish
     Install Plugin If Missing           FinnishBalanceSheetReport
     Install Plugin If Missing           FinnishIncomeStatementReport
     Install Plugin If Missing           FinnishLimitedCompanyComplete
-    Install Plugin If Missing           VAT
-    Install Plugin If Missing           Euro
     Install Plugin If Missing           IncomeAndExpenses
-    Install Plugin If Missing           VATFinland
-    Install Plugin If Missing           CoinbaseImport
+    Install Plugin If Missing           JournalReport
+    Install Plugin If Missing           LedgerReport
     Install Plugin If Missing           RapidAPI
-    Install Plugin If Missing           CoinAPI
+    Install Plugin If Missing           VAT
+    Install Plugin If Missing           VATFinland
 #    Click Element                       rebuild-plugins
     Wait Until No Loading Shadow
     Reload Page
@@ -41,30 +41,15 @@ Install All Plugins
     Wait Until No Loading Shadow
 
     Install Plugin If Missing           CoinAPI
-    Install Plugin If Missing           Euro
-    Install Plugin If Missing           FinnishBalanceSheetReportLite
-    Install Plugin If Missing           FinnishInvestmentCompany
+    Install Plugin If Missing           CoinbaseImport
     Install Plugin If Missing           GitBackup
     Install Plugin If Missing           KrakenImport
-    Install Plugin If Missing           NordeaImport
-    Install Plugin If Missing           RapidAPI
-    Install Plugin If Missing           VAT
-    Install Plugin If Missing           CoinbaseImport
-    Install Plugin If Missing           Finnish
-    Install Plugin If Missing           FinnishIncomeStatementReport
-    Install Plugin If Missing           FinnishLimitedCompanyComplete
-    Install Plugin If Missing           IncomeAndExpenses
-    Install Plugin If Missing           LedgerReport
-    Install Plugin If Missing           NordnetImport
-    Install Plugin If Missing           TagEditor
-    Install Plugin If Missing           VATFinland
-    Install Plugin If Missing           DocumentCleaner
-    Install Plugin If Missing           FinnishBalanceSheetReport
-    Install Plugin If Missing           FinnishIncomeStatementReportLite
-    Install Plugin If Missing           FinnishLimitedCompanyLite
-    Install Plugin If Missing           JournalReport
     Install Plugin If Missing           LynxImport
+    Install Plugin If Missing           NordeaImport
+    Install Plugin If Missing           NordnetImport
     Install Plugin If Missing           Rand
+    Install Plugin If Missing           RapidAPI
+    Install Plugin If Missing           TagEditor
     Install Plugin If Missing           USDollar
 
     Click Element                       rebuild-plugins
