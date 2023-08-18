@@ -131,8 +131,10 @@ async function fetch(name) {
   if (config.repositories[name].directory) {
     const src = path.resolve(config.repositories[name].directory)
     const dst = `${config.buildDir}/${name}`
-    log(`Linking directory ${name} from ${src} to ./build`)
-    await system(`ln -sf "${src}" "${config.buildDir}/${name}"`)
+    if (!fs.existsSync(dst)) {
+      log(`Linking directory ${name} from ${src} to ./build`)
+      await system(`ln -sf "${src}" "${dst}"`)
+    }
     return
   }
   log(`Fetching repository ${name} to ${config.buildDir}`)

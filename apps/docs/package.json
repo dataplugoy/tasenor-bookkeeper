@@ -11,8 +11,7 @@
     "show-version": "jq .version < package.json"
   },
   "dependencies": {
-    "@tasenor/doccer": "workspace:*"
-  },
-  "devDependencies": {
+    "@tasenor/doccer": "workspace:*",
+    "typedoc": "^0.24.8"
   }
 }

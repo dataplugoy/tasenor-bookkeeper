@@ -244,6 +244,9 @@ importers:
       '@tasenor/doccer':
         specifier: workspace:*
         version: link:../../packages/tasenor-doccer
+      typedoc:
+        specifier: ^0.24.8
+        version: 0.24.8(typescript@5.1.6)
 
   databases/bookkeeper: {}
 
