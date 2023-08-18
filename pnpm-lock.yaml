@@ -241,12 +241,12 @@ importers:
 
   apps/docs:
     dependencies:
-      '@tasenor/doccer':
-        specifier: workspace:*
-        version: link:../../packages/tasenor-doccer
       typedoc:
         specifier: ^0.24.8
         version: 0.24.8(typescript@5.1.6)
+      typedoc-plugin-mermaid:
+        specifier: ^1.10.0
+        version: 1.10.0(typedoc@0.24.8)
 
   databases/bookkeeper: {}
 
@@ -646,30 +646,6 @@ importers:
         version: 5.1.6
 
   packages/tasenor-config: {}
-
-  packages/tasenor-doccer:
-    dependencies:
-      '@types/node':
-        specifier: ^20.4.1
-        version: 20.4.1
-      argparse:
-        specifier: ^2.0.1
-        version: 2.0.1
-      deepmerge:
-        specifier: ^4.3.1
-        version: 4.3.1
-      glob:
-        specifier: 7.2.0
-        version: 7.2.0
-      typedoc:
-        specifier: ^0.24.8
-        version: 0.24.8(typescript@5.1.6)
-      typedoc-plugin-mermaid:
-        specifier: ^1.10.0
-        version: 1.10.0(typedoc@0.24.8)
-      typescript:
-        specifier: ^5.1.6
-        version: 5.1.6
 
   packages/tasenor-testing:
     dependencies:
@@ -3878,6 +3854,7 @@ packages:
   /deepmerge@4.3.1:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
     engines: {node: '>=0.10.0'}
+    dev: true
 
   /define-properties@1.2.0:
     resolution: {integrity: sha512-xvqAVKGfT1+UAvPwKTVw/njhdQ8ZhXK4lI0bCIuCMrp2up9nPnaDftrLtmpTazqd1o+UY4zgzU+avtMbDP+ldA==}

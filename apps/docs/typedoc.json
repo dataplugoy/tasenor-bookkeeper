@@ -5,9 +5,9 @@
     "../../packages/tasenor-common-node/src/index.ts",
     "../../packages/tasenor-common-ui/src/index.ts",
   ],
+  "readme": "./README.md",
   "name": "The Tasenor Project",
   "logLevel": "Verbose",
-  "json": "/home/wigy/project/tasenor-bookkeeper/apps/docs/build/index.json",
   "plugin": [
     "typedoc-plugin-mermaid"
   ]

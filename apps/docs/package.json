@@ -7,11 +7,13 @@
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "AGPL",
   "scripts": {
+    "docs": "npx typedoc",
+    "nightly": "pnpm run docs",
     "release": "pnpm version patch",
     "show-version": "jq .version < package.json"
   },
   "dependencies": {
-    "@tasenor/doccer": "workspace:*",
-    "typedoc": "^0.24.8"
+    "typedoc": "^0.24.8",
+    "typedoc-plugin-mermaid": "^1.10.0"
   }
 }
