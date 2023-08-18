@@ -1,0 +1,14 @@
+{
+  "out": "/home/wigy/project/tasenor-bookkeeper/apps/docs/build/html",
+  "entryPoints": [
+    "../../packages/tasenor-common/src/index.ts",
+    "../../packages/tasenor-common-node/src/index.ts",
+    "../../packages/tasenor-common-ui/src/index.ts",
+  ],
+  "name": "The Tasenor Project",
+  "logLevel": "Verbose",
+  "json": "/home/wigy/project/tasenor-bookkeeper/apps/docs/build/index.json",
+  "plugin": [
+    "typedoc-plugin-mermaid"
+  ]
+}
