@@ -50,13 +50,13 @@ services:
       VAULT_URL: env://
       API_URL: http://tasenor-bookkeeper-api:7205
       UI_API_URL: http://bookkeeper-api.localhost
-      API_SITE_TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImF1ZGllbmNlIjoidWkiLCJvd25lciI6Imh0dHA6Ly9sb2NhbGhvc3Q6NzIwNCIsImZlYXRzIjp7IlNVUEVSVVNFUiI6dHJ1ZX19LCJpYXQiOjE2NzYzMDkwMDcsImV4cCI6NDgyOTkwOTAwNywiYXVkIjoicmVmcmVzaCIsImlzcyI6IlRhc2Vub3IifQ.XgXK3lcjJ-A7Dn03Ek3gBc5zXrrk3xS0tBn2sUf7eo4
+      API_SITE_TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImF1ZGllbmNlIjoidWkiLCJvd25lciI6Imh0dHA6Ly9sb2NhbGhvc3Q6NzIwNCIsImZlYXRzIjp7IlNVUEVSVVNFUiI6dHJ1ZX19LCJpYXQiOjE2OTAyMTkwNzMsImV4cCI6NDg0MzgxOTA3MywiYXVkIjoicmVmcmVzaCIsImlzcyI6IlRhc2Vub3IifQ.B-gZD84O7xfuqCHSWS52TzhO6VbP4UdXBzEM2N_GrEY
       NODE_ENV: development
       PORT: 7204
       SECRET: eb53dbcd0f081bfcec68bdf88dce90f2a1d26bd88be8ee49caea74920e35bb3e
       VIRTUAL_HOST: bookkeeper.localhost
       VIRTUAL_PORT: 7204
-    command: ./wait-for-it.sh -t 60 -h tasenor-bookkeeper-api -p 7205 -- pnpm run docker
+    command: ./bin/wait-for-it.sh -t 60 -h tasenor-bookkeeper-api -p 7205 -- pnpm run docker
 
   tasenor-bookkeeper-api:
     container_name: tasenor-bookkeeper-api

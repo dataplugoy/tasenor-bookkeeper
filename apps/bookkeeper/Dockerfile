@@ -9,9 +9,6 @@ RUN ln -sf /usr/bin/python3 /usr/bin/python
 
 RUN npm install -g pnpm
 
-RUN curl -O -s https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
-RUN chmod +x wait-for-it.sh
-
 ADD package.json original-package.json
 RUN jq '{"dependencies": [.dependencies | to_entries | .[] | select(.value != "workspace:*")] | from_entries} + {"devDependecies": [.devDependencies | to_entries | .[] | select(.value != "workspace:*")] | from_entries} + ([to_entries | .[] | select(.key != "dependencies" and .key != "devDependencies")] | from_entries)' original-package.json > package.json
 
