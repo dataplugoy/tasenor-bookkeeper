@@ -7,7 +7,9 @@
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "AGPL",
   "scripts": {
-    "docs": "npx typedoc",
+    "docs-api": "npx swagger-cli bundle -o api/openapi.json api/openapi.yaml && npx @redocly/cli build-docs -o build/api/index.html api/openapi.yaml",
+    "docs-code": "npx typedoc",
+    "docs": "pnpm run docs-api && pnpm run docs-code",
     "nightly": "pnpm run docs",
     "release": "pnpm version patch",
     "show-version": "jq .version < package.json"
@@ -15,5 +17,9 @@
   "dependencies": {
     "typedoc": "^0.24.8",
     "typedoc-plugin-mermaid": "^1.10.0"
+  },
+  "devDependencies": {
+    "@redocly/cli": "1.0.2",
+    "swagger-cli": "^4.0.4"
   }
 }

@@ -1,0 +1,42 @@
+post:
+  security: []
+  operationId: login
+  tags:
+    - Login
+  summary: Log in with a password
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            user:
+              description: Email of the user.
+              type: string
+              example: my.name@gmail.com
+            password:
+              description: Password of the user.
+              type: string
+              example: hiwD322ds_aede2
+          required:
+            - user
+            - password
+  responses:
+    '200':
+      description: Login successful.
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/LoginData.yaml
+    '401':
+      description: Login failed.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Incorrect username or password.
+            required:
+              - message

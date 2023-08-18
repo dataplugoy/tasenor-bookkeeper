@@ -1,0 +1,8 @@
+allOf:
+- $ref: ./Plugin.yaml
+type: object
+properties:
+  versions:
+    description: Available versions of this plugin.
+    items:
+      $ref: ./PluginVersion.yaml

@@ -1,0 +1,4 @@
+description: Install location of the plugin.
+type: string
+enum: [ui, backend, both]
+example: backend

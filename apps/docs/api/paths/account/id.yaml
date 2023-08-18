@@ -1,0 +1,76 @@
+get:
+  operationId: getAccount
+  tags:
+    - Accounts
+  summary: Get account data of one account.
+  parameters:
+  - in: path
+    name: databaseName
+    schema:
+      $ref: ../../components/types/databaseName.yaml
+    required: true
+  - in: path
+    name: id
+    schema:
+      $ref: ../../components/types/id.yaml
+    required: true
+    description: The ID of the account.
+  responses:
+    '200':
+      description: Get the details of the account.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: ../../components/schemas/GetAccount.yaml
+              - type: object
+                properties:
+                  periods:
+                    description: List of periods that account has transactions.
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: ../../components/schemas/GetPeriod.yaml
+                        - type: object
+                          properties:
+                            entries:
+                              description: The number of transactions for the account in this period.
+                              type: integer
+                              example: 31
+
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      $ref: ../../components/responses/403.yaml
+    '404':
+      $ref: ../../components/responses/404.yaml
+
+patch:
+  operationId: updateAccount
+  tags:
+    - Accounts
+  summary: Change the account attributes.
+  parameters:
+  - in: path
+    name: databaseName
+    schema:
+      $ref: ../../components/types/databaseName.yaml
+    required: true
+  - in: path
+    name: id
+    schema:
+      $ref: ../../components/types/id.yaml
+    required: true
+    description: The ID of the account.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/EditAccount.yaml
+  responses:
+    '204':
+      description: Account updated successfully.
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      $ref: ../../components/responses/403.yaml

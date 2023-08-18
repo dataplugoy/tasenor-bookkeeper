@@ -1,0 +1,4 @@
+description: Plugin category.
+type: string
+enum: ["import", "report", "service", "scheme", "data", "language", "tool", "currency", "report"]
+example: data

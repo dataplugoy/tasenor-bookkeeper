@@ -1,0 +1,21 @@
+get:
+  operationId: getStatus
+  tags:
+   - Status
+  summary: Get system status and messages
+  responses:
+    '200':
+      description: Get status and informative messages to display.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              hasAdminUser:
+                description: If false, system is not ready and it will ask for admin user and password.
+                type: boolean
+                example: true
+              introduction:
+                description: The descrpiption text for the login page.
+                type: string
+                example: "Welcome to the Tasenor\nPlease login!"

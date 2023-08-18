@@ -1,0 +1,35 @@
+type: object
+properties:
+  id:
+    $ref: ../types/id.yaml
+  code:
+    description: Unique string to denote the plugin.
+    type: string
+    example: VATFinland
+  title:
+    description: The title of the plugin.
+    type: string
+    example: VAT Data for Finland
+  icon:
+    description: Icon of the plugin in SVG format.
+    type: string
+  path:
+    description: The location of the plugin as local path inside the plugin directory (if abailable).
+    nullable: true
+    type: string
+    example: installed/VATFinland
+  releaseDate:
+    description: The location of the plugin as local path inside the plugin directory (if abailable).
+    type: string
+    format: date-time
+    example: 2022-03-17T00:00:00.000Z
+  use:
+    $ref: ../types/pluginUse.yaml
+  type:
+    $ref: ../types/pluginType.yaml
+  description:
+    description: The longer introduction to the plugin usage.
+    type: string
+    example: "This plugin provides data needed for VAT handling in Finland."
+  installedVersion:
+    $ref: ../types/version.yaml

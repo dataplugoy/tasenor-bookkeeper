@@ -1,0 +1,87 @@
+get:
+  operationId: getEntry
+  tags:
+    - Entries
+  summary: Get data of one transaction line
+  parameters:
+  - in: path
+    name: databaseName
+    schema:
+      $ref: ../../components/types/databaseName.yaml
+    required: true
+  - in: path
+    name: id
+    schema:
+      $ref: ../../components/types/id.yaml
+    required: true
+    description: The ID of the entry.
+  responses:
+    '200':
+      description: Get the details of the transaction entries.
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/GetEntry.yaml
+
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      $ref: ../../components/responses/403.yaml
+    '404':
+      $ref: ../../components/responses/404.yaml
+
+patch:
+  operationId: updateEntry
+  tags:
+    - Entries
+  summary: Change the line attributes
+  parameters:
+  - in: path
+    name: databaseName
+    schema:
+      $ref: ../../components/types/databaseName.yaml
+    required: true
+  - in: path
+    name: id
+    schema:
+      $ref: ../../components/types/id.yaml
+    required: true
+    description: The ID of the entry.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/EditEntry.yaml
+  responses:
+    '204':
+      description: Entry updated successfully.
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      $ref: ../../components/responses/403.yaml
+
+
+delete:
+  operationId: deleteEntry
+  tags:
+    - Entries
+  summary: Delete a transaction line
+  parameters:
+  - in: path
+    name: databaseName
+    schema:
+      $ref: ../../components/types/databaseName.yaml
+    required: true
+  - in: path
+    name: id
+    schema:
+      $ref: ../../components/types/id.yaml
+    required: true
+    description: The ID of the entry.
+  responses:
+    '204':
+      description: Entry deleted successfully.
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      $ref: ../../components/responses/403.yaml

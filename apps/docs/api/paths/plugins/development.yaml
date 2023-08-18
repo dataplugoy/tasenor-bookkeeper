@@ -1,0 +1,18 @@
+get:
+  operationId: getDevelopmentPlugins
+  tags:
+   - Plugins
+  summary: List of development plugins
+  responses:
+    '200':
+      description: Get the list of plugins in the development folder.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../../components/schemas/GetPlugin.yaml
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      $ref: ../../components/responses/403.yaml

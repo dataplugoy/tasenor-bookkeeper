@@ -1,0 +1,12 @@
+type: object
+properties:
+  version:
+    $ref: ../types/version.yaml
+  releaseDate:
+    description: The release date of the version.
+    type: string
+    format: date-time
+  enabled:
+    description: If set, this plugin is available for install.
+    type: boolean
+    example: true

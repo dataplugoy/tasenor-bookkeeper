@@ -1,0 +1,28 @@
+allOf:
+  - $ref: ./Database.yaml
+type: object
+properties:
+  scheme:
+    description: A code of the supported scheme available.
+    type: string
+    example: SchemaName
+  companyName:
+    description: Name of the company,
+    type: string
+    example: Company Inc.
+  companyCode:
+    description: Official registration code of the company.
+    type: string
+    example: 1234567-US
+  language:
+    description: Language used in the database.
+    $ref: ../types/language.yaml
+    example: en
+  currency:
+    description: System default currency for the database.
+    $ref: ../types/currency.yaml
+    example: USD
+required:
+  - scheme
+  - databaseName
+  - companyName

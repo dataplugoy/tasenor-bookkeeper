@@ -1,0 +1,38 @@
+get:
+  operationId: getDatabases
+  tags:
+   - Databases
+  summary: List of databases
+  responses:
+    '200':
+      description: Get the list of all databases accessible by the authenticated user.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../../components/schemas/Database.yaml
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      $ref: ../../components/responses/403.yaml
+
+post:
+  operationId: createDatabase
+  tags:
+   - Databases
+  summary: Create a database
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/EditDatabase.yaml
+  responses:
+    '204':
+      description: New database successfully created.
+    '400':
+      $ref: ../../components/responses/400.yaml
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      $ref: ../../components/responses/403.yaml

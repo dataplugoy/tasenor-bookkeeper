@@ -1,0 +1,18 @@
+get:
+  operationId: getInstalledPlugins
+  tags:
+   - Plugins
+  summary: List of installed plugins
+  responses:
+    '200':
+      description: Get the list of plugins that has been installed.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../../components/schemas/GetPlugin.yaml
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      $ref: ../../components/responses/403.yaml

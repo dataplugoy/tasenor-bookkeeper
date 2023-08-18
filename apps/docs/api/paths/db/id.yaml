@@ -1,0 +1,23 @@
+
+delete:
+  operationId: deleteDatabase
+  tags:
+   - Databases
+  summary: Delete a database
+  parameters:
+    - in: path
+      name: databaseName
+      schema:
+        $ref: ../../components/types/databaseName.yaml
+      required: true
+  responses:
+    '204':
+      description: Database successfully deleted.
+    '400':
+      $ref: ../../components/responses/400.yaml
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      $ref: ../../components/responses/403.yaml
+    '404':
+      $ref: ../../components/responses/404.yaml

@@ -1,0 +1,44 @@
+get:
+  operationId: getUsers
+  tags:
+   - Users
+  summary: List of all users
+  responses:
+    '200':
+      description: Get the list of users in the database.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../../components/schemas/GetUser.yaml
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      $ref: ../../components/responses/403.yaml
+
+post:
+  operationId: createUser
+  tags:
+   - Users
+  summary: Create new user
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/CreateUser.yaml
+  responses:
+    '200':
+      description: Newly created user.
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/GetUser.yaml
+    '400':
+      $ref: ../../components/responses/400.yaml
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      description: No permission or user registration disabled.
+    '500':
+      description: Something went wrong with new user creation.

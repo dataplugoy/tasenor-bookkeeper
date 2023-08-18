@@ -1,0 +1,26 @@
+get:
+  operationId: getHeadings
+  tags:
+   - Headings
+  summary: Get account list headings
+  parameters:
+  - in: path
+    name: databaseName
+    schema:
+      $ref: ../../components/types/databaseName.yaml
+    required: true
+  responses:
+    '200':
+      description: |
+        This list describes headings that can be used when
+        displaying account lists.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../../components/schemas/Heading.yaml
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      $ref: ../../components/responses/403.yaml

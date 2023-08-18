@@ -1,0 +1,18 @@
+get:
+  operationId: getPlugins
+  tags:
+   - Plugins
+  summary: List of all known plugins
+  responses:
+    '200':
+      description: Get the list of plugins available.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../../components/schemas/GetPluginWithVersions.yaml
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      $ref: ../../components/responses/403.yaml

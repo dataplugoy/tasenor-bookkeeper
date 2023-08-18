@@ -1,0 +1,118 @@
+openapi: 3.0.2
+info:
+  title: Tasenor Bookkeeper API
+  description: Complete set of API end-points to manage bookkeeping.
+  version: '1.0'
+  contact:
+    name: Tommi Ronkainen
+  license:
+    name: GPL-3.0
+    url: https://opensource.org/licenses/GPL-3.0
+
+servers:
+  - url: http://localhost:3101
+    description: Local development host
+
+components:
+  securitySchemes:
+    BearerToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - BearerToken: []
+
+paths:
+  /auth:
+    $ref: paths/auth/index.yaml
+
+  /auth/refresh:
+    $ref: paths/auth/refresh.yaml
+
+  /auth/refresh/ui:
+    $ref: paths/auth/ui.yaml
+
+  /db:
+    $ref: paths/db/index.yaml
+
+  /db/{databaseName}:
+    $ref: paths/db/id.yaml
+
+  /db/upload:
+    $ref: paths/db/upload.yaml
+
+  /db/{databaseName}/download:
+    $ref: paths/db/download.yaml
+
+  /db/{databaseName}/account:
+    $ref: paths/account/index.yaml
+
+  /db/{databaseName}/account/{id}:
+    $ref: paths/account/id.yaml
+
+  /db/{databaseName}/document:
+    $ref: paths/document/index.yaml
+
+  /db/{databaseName}/document/{id}:
+    $ref: paths/document/id.yaml
+
+  /db/{databaseName}/entry:
+    $ref: paths/entry/index.yaml
+
+  /db/{databaseName}/entry/{id}:
+    $ref: paths/entry/id.yaml
+
+  /db/{databaseName}/heading:
+    $ref: paths/heading/index.yaml
+
+  /db/{databaseName}/period:
+    $ref: paths/period/index.yaml
+
+  /db/{databaseName}/period/{id}:
+    $ref: paths/period/id.yaml
+
+  /plugins:
+    $ref: paths/plugins/index.yaml
+
+  /plugins/development:
+    $ref: paths/plugins/development.yaml
+
+  /plugins/installed:
+    $ref: paths/plugins/installed.yaml
+
+  /plugins/rebuild:
+    $ref: paths/plugins/rebuild.yaml
+
+  /db/{databaseName}/report:
+    $ref: paths/report/index.yaml
+
+  /db/{databaseName}/report/{format}/{id}:
+    $ref: paths/report/id.yaml
+
+  /db/{databaseName}/report/{format}/{id}/{account}:
+    $ref: paths/report/account.yaml
+
+  /db/{databaseName}/settings:
+    $ref: paths/settings/index.yaml
+
+  /db/{databaseName}/tags:
+    $ref: paths/tags/index.yaml
+
+  /db/{databaseName}/tags/{id}:
+    $ref: paths/tags/id.yaml
+
+  /db/{databaseName}/tags/{id}/view:
+    $ref: paths/tags/view.yaml
+
+  /admin/user:
+    $ref: paths/admin/user.yaml
+
+  /admin/user/{email}:
+    $ref: paths/admin/user/email.yaml
+
+  /admin/user/current-user:
+    $ref: paths/admin/current-user.yaml
+
+  /status:
+    $ref: paths/status.yaml

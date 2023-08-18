@@ -1,0 +1,11 @@
+description: User has no access to this.
+content:
+  application/json:
+    schema:
+      properties:
+        message:
+          description: Error message.
+          type: string
+          example: Access denied.
+      required:
+        - message

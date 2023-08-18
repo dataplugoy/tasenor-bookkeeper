@@ -1,0 +1,25 @@
+get:
+  operationId: downloadDb
+  tags:
+    - Databases
+  summary: Download a database
+  parameters:
+  - in: path
+    name: databaseName
+    schema:
+      $ref: ../../components/types/databaseName.yaml
+    required: true
+  responses:
+    '200':
+      description: Get a database.
+      content:
+        application/gzip:
+          schema:
+            type: string
+            format: binary
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      $ref: ../../components/responses/403.yaml
+    '404':
+      $ref: ../../components/responses/404.yaml

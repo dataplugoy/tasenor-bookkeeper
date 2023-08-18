@@ -1,0 +1,25 @@
+type: object
+properties:
+  number:
+    $ref: ../types/accountNumber.yaml
+  name:
+    description: Name of the account.
+    type: string
+    example: "Savings Bank Account"
+  type:
+    $ref: ../types/accountType.yaml
+  language:
+    $ref: ../types/language.yaml
+  currency:
+    $ref: ../types/currency.yaml
+  data:
+    description: Additional accout attributes.
+    type: object
+    properties:
+      favourite:
+        description: If set, this account can be filtered as favourite account.
+        type: boolean
+        example: true
+      code:
+        description: The asset, tax, income or expense type code.
+        type: string
