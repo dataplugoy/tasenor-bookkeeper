@@ -1,8 +1,6 @@
 /* eslint-disable camelcase */
 /**
  * Command line interface utilities.
- *
- * @module tasenor-common-node/src/cli
  */
 import * as readline from 'readline'
 import * as FormData from 'form-data'

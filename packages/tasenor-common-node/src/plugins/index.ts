@@ -1,7 +1,5 @@
 /**
  * Plugin base classes for backend and utility functions.
- *
- * @module tasenor-common-node/src/plugins
  */
 export * from './BackendPlugin'
 export * from './DataPlugin'

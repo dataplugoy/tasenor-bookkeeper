@@ -1,7 +1,5 @@
 /**
  * General purpose logging and debugging interface for all Tasenor code.
- *
- * @module tasenor-common/src/logging
  */
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'

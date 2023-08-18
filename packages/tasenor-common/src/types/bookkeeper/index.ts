@@ -1,7 +1,5 @@
 /**
  * Type definitions for Bookkeeper.
- *
- * @module tasenor-common/src/types/bookkeeper
  */
 export * from './accounts'
 export * from './catalog'

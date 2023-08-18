@@ -1,7 +1,5 @@
 /**
  * Views for rendering process listing and its states.
- *
- * @module tasenor-common-ui/src/process
  */
 export * from './ConfigChangeView'
 export * from './ConfigJSONView'

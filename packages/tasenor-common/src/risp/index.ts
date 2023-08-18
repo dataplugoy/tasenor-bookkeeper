@@ -1,7 +1,5 @@
 /**
  * Type defintions for processing and triggering element actions.
- *
- * @module tasenor-common/src/risp
  */
 
 export * from './actions'

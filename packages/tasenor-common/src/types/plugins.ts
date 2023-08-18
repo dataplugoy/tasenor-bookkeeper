@@ -1,7 +1,5 @@
 /**
  * Type definitions for plugins.
- *
- * @module tasenor-common/src/types/plugin
  */
 import Opaque from 'ts-opaque'
 import { Version } from './common'

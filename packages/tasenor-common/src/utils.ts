@@ -1,7 +1,5 @@
 /**
  * Common utilities.
- *
- * @module tasenor-common/src/utils
  */
 
 import { ZERO_CENTS } from './constants'

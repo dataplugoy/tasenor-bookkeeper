@@ -1,7 +1,5 @@
 /**
  * Fixed universal value definitions.
- *
- * @module tasenor-common/src/constants
  */
 
 /**

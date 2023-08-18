@@ -1,7 +1,5 @@
 /**
  * Type definitions for time.
- *
- * @module tasenor-common/src/types/time
  */
 import Opaque from 'ts-opaque'
 

@@ -1,7 +1,5 @@
 /**
  * All general purpose types.
- *
- * @module tasenor-common/src/types/common
  */
 import Opaque from 'ts-opaque'
 

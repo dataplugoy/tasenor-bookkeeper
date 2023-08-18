@@ -1,7 +1,6 @@
 /* eslint-disable no-var */
 /**
  * Accessors for Bookkeeper global components and info.
- * @module
  */
 import { Cursor } from '../types/bookkeeper/cursor'
 import { Catalog } from '../types/bookkeeper/catalog'

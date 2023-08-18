@@ -1,6 +1,5 @@
 /**
  * Plugin base classes for UI.
- * @module tasenor-common-ui/src/plugins
  */
 export * from './CurrencyPlugin'
 export * from './LanguagePlugin'

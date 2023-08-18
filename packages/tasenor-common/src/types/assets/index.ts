@@ -1,7 +1,5 @@
 /**
  * Type definitions for asset managament.
- *
- * @module tasenor-common/src/types/assets
  */
 import Opaque from 'ts-opaque'
 import { Expression } from '../..'

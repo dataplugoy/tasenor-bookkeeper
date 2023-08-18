@@ -1,7 +1,5 @@
 /**
  * Interactive stateful process element implementations.
- *
- * @module tasenor-common-ui/src/elements
  */
 export * from './AccountElement'
 export * from './BooleanElement'

@@ -1,7 +1,5 @@
 /**
  * Implementation for process handling.
- *
- * @module tasenor-common-node/src/process
  */
 export * from './Process'
 export * from './ProcessConnector'

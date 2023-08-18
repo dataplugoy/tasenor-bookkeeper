@@ -1,7 +1,5 @@
 /**
  * Type definitions related to networking.
- *
- * @module tasenor-common/src/types/net
  */
 import { MINUTES } from './time'
 import Opaque from 'ts-opaque'

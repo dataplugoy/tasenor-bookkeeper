@@ -1,7 +1,5 @@
 /**
  * Type definitions for knowledge base management.
- *
- * @module tasenor-common/src/types/knowledge
  */
 import { AssetCode } from './assetCodes'
 import { Asset, TaxType } from './assets'

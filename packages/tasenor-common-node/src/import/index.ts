@@ -1,7 +1,5 @@
 /**
  * Helpers for text file processing for importing them to some processing system.
- *
- * @module tasenor-common-node/src/import
  */
 export * from './TextFileProcessHandler'
 export * from './TransactionImportConnector'

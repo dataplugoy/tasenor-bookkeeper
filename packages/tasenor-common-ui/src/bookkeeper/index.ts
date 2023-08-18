@@ -1,7 +1,5 @@
 /**
  * Miscellaneous utility classes for Bookkeeper.
- *
- * @module tasenor-common-ui/src/bookkeeper
  */
 export * from './Dialog'
 export * from './Hooks'

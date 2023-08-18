@@ -1,12 +1,5 @@
 /**
  * Some utility type definitions for processing.
- *
- * @module tasenor-common/src/process_types
- */
-/**
- * Definitions for some process fields.
- *
- * @module
  */
 
 /**

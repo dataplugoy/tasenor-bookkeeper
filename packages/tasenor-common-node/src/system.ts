@@ -1,7 +1,5 @@
 /**
  * Server operating system related functions.
- *
- * @module tasenor-common-node/src/system
  */
 import { exec, spawn } from 'child_process'
 import { log, error, note } from '@tasenor/common'

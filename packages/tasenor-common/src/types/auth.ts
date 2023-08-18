@@ -1,7 +1,5 @@
 /**
  * Types related to user and login.
- *
- * @module tasenor-common/src/types/erp
  */
 import { Email } from './common'
 

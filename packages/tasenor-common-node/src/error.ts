@@ -1,7 +1,5 @@
 /**
  * Error types for processing and an exception used to ask more information from UI.
- *
- * @module tasenor-common-node/src/error
  */
 
 import { TasenorElement } from '@tasenor/common'
