@@ -1,0 +1,19 @@
+{
+  "title": "The Tasenor Project",
+  "repositories": {
+    "tasenor-common": {
+      "directory": "../../packages/tasenor-common",
+      "modules": ["src/*.ts", "src/types/*.ts", "src/types/*/index.ts", "src/*/index.ts"],
+      "excludes": ["src/index.ts", "src/types/index.ts"]
+    },
+    "tasenor-common-node": {
+      "directory": "../../packages/tasenor-common-node",
+      "modules": ["src/*.ts", "src/*/index.ts"],
+      "excludes": ["src/index.ts"]
+    },
+    "tasenor-common-ui": {
+      "directory": "../../packages/tasenor-common-ui",
+      "modules": ["src/doccer.ts", "src/*/index.ts"]
+    }
+  }
+}

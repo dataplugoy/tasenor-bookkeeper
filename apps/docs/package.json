@@ -1,0 +1,18 @@
+{
+  "name": "@tasenor/docs",
+  "version": "1.9.65",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "description": "Tasenor developer documentation",
+  "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
+  "license": "AGPL",
+  "scripts": {
+    "release": "pnpm version patch",
+    "show-version": "jq .version < package.json"
+  },
+  "dependencies": {
+    "@tasenor/doccer": "workspace:*"
+  },
+  "devDependencies": {
+  }
+}
