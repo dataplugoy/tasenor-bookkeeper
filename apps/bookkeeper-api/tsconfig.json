@@ -1,15 +1,7 @@
 {
+  "extends": "@tasenor/config/base",
   "compilerOptions": {
-    "declaration": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "strictNullChecks": true,
-    "target": "esnext",
-    "noEmit": false,
-    "resolveJsonModule": true
+    "outDir": "dist",
   },
   "include": [
     "./src/**/*"

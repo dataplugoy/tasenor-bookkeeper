@@ -16,6 +16,7 @@ RUN pnpm install
 RUN pnpm add @tasenor/common
 RUN pnpm add @tasenor/common-node
 RUN pnpm add @tasenor/common-ui
+RUN pnpm add @tasenor/config
 
 ADD tsconfig.json .
 ADD bin/ bin/
