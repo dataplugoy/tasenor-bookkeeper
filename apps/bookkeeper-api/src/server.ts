@@ -22,7 +22,6 @@ async function main() {
   await db.migrate()
   await server.initialize()
   app.use(tasenorInitialStack({ origin: process.env.UI_ORIGIN_URL as Url }))
-  app.use(express.static('doc'))
   app.use('/', routes)
   app.use(tasenorFinalStack())
 
