@@ -1,8 +1,13 @@
 {
   "name": "@tasenor/config",
-  "version": "1.9.63",
+  "version": "1.9.64",
   "repository": "git@github.com:dataplugoy/tasenor-bookkeeper.git",
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "MIT",
-  "main": "./index.js"
+  "main": "./index.js",
+  "scripts": {
+    "prepublish": "pnpm version patch",
+    "release": "pnpm publish --access public --no-git-checks",
+    "show-version": "jq .version < package.json"
+  }
 }
