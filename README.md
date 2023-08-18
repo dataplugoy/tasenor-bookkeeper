@@ -27,9 +27,7 @@ This is a monorepo for developing Tasenor Bookkeeper.
 
 ### Configurations
 
-* [Jest](./packages/jestconfig/README.md)
-* [Typescript](./packages/tsconfig/README.md)
-* [Eslint](./packages/eslint-config-tasenor/README.md)
+* [Tasenor Config](./packages/tasenot-config/README.md)
 
 ### Turbo Commands
 

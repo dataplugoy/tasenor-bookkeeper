@@ -40,7 +40,6 @@
     "@types/sprintf-js": "^1.1.2",
     "eslint-config-tasenor": "workspace:*",
     "jest": "^29.6.1",
-    "jestconfig": "workspace:*",
     "react": "^17.0.2",
     "@tasenor/config": "workspace:*",
     "typescript": "^5.1.6"
