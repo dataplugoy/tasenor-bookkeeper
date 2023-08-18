@@ -7,10 +7,12 @@
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "AGPL",
   "scripts": {
+    "docs-index": "rm -fr build && mkdir build && cp -r index/* build",
     "docs-api": "npx swagger-cli bundle -o api/openapi.json api/openapi.yaml && npx @redocly/cli build-docs -o build/api/index.html api/openapi.yaml",
     "docs-code": "npx typedoc",
-    "docs": "pnpm run docs-api && pnpm run docs-code",
+    "build": "pnpm run docs-index && pnpm run docs-api && pnpm run docs-code",
     "lint": "openapi lint api/openapi.yaml --skip-rule operation-4xx-response --extends recommended",
+    "ci": "pnpm run lint",
     "nightly": "pnpm run docs",
     "release": "pnpm version patch",
     "show-version": "jq .version < package.json"

@@ -69,3 +69,14 @@ services:
       VIRTUAL_HOST: bookkeeper-api.localhost
       VIRTUAL_PORT: 7205
     command: pnpm run docker
+
+  tasenor-docs:
+    container_name: tasenor-docs
+    build:
+      context: apps/docs
+    ports:
+      - 7207
+    environment:
+      NODE_ENV: development
+      VIRTUAL_HOST: docs.localhost
+      VIRTUAL_PORT: 7207
