@@ -43,6 +43,9 @@ Install All Plugins
 
     Install Plugin If Missing           CoinAPI
     Install Plugin If Missing           CoinbaseImport
+    Install Plugin If Missing           FinnishBalanceSheetReportInvestment
+    Install Plugin If Missing           FinnishIncomeStatementReportInvestment
+    Install Plugin If Missing           FinnishInvestmentCompany
     Install Plugin If Missing           GitBackup
     Install Plugin If Missing           KrakenImport
     Install Plugin If Missing           LynxImport
@@ -51,6 +54,7 @@ Install All Plugins
     Install Plugin If Missing           Rand
     Install Plugin If Missing           RapidAPI
     Install Plugin If Missing           TagEditor
+    Install Plugin If Missing           TITOImport
     Install Plugin If Missing           USDollar
 
     Wait Until Element is Visible       rebuild-plugins

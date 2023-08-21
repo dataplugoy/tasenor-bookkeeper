@@ -69,6 +69,11 @@ Initialize Variables
     Log to Console                      Demo user is ${TEST_DEMO_USER}
     ${TEST_DEMO_PASSWORD}               Get Environment Variable    TEST_DEMO_PASSWORD
     Set Global Variable                 ${TEST_DEMO_PASSWORD}
+    ${TEST_QA_USER}                     Get Environment Variable    TEST_QA_USER
+    Set Global Variable                 ${TEST_QA_USER}
+    Log to Console                      QA user is ${TEST_QA_USER}
+    ${TEST_QA_PASSWORD}                 Get Environment Variable    TEST_QA_PASSWORD
+    Set Global Variable                 ${TEST_QA_PASSWORD}
     Set Global Variable                 ${YEAR}
     Set Global Variable                 ${NEXT_YEAR}
     ${DOWNLOADS}                        Get Download Directory
