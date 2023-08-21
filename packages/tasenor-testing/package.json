@@ -1,6 +1,6 @@
 {
   "name": "@tasenor/testing",
-  "version": "1.9.70",
+  "version": "1.9.71",
   "description": "Testing tools for Tasenor project",
   "main": "src/index.ts",
   "types": "src/index.ts",
