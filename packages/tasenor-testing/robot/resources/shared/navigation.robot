@@ -21,6 +21,9 @@ Login As User
 Login As Demo User
     Login As                            ${TEST_DEMO_USER}      ${TEST_DEMO_PASSWORD}
 
+Login As QA User
+    Login As                            ${TEST_QA_USER}      ${TEST_QA_PASSWORD}
+
 Login As
     [Arguments]                         ${username}     ${password}
     Ensure Browser Is Open
