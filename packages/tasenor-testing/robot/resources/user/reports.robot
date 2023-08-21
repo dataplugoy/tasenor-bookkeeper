@@ -57,36 +57,3 @@ Toggle Report Option Off
 Page Should Contain Report Line
     [Arguments]                         ${title}                    ${value}
     Page Should Contain Element         //*[contains(@class, "ReportDisplay")]//tr[contains(@class, "ReportLine")][.//*[text()="${title}"]][.//*[text()="${value}"]]
-
-Verify Dataplug Balance Sheet
-    [Arguments]                         ${year}     ${quarter}      ${expected}
-    Login as Demo User
-    Change Language                     fi
-    Select Database                     dataplug
-    Select Period                       ${year}-01-01               ${year}-12-31
-    Select Report                       balance-sheet-detailed
-    Run Keyword If                      ${quarter} != 4             Select Report Option                option-quarter${quarter}
-    Run Keyword If                      ${quarter} == 4             Select Report Option                option-full
-    ${data}                             Gather Report Data
-    Report Should Match                 ${data}     ${expected}
-
-Verify Dataplug Detailed Balance Sheet
-    [Arguments]                         ${year}     ${quarter}      ${expected}
-    Verify Dataplug Balance Sheet       ${year}     ${quarter}      ${expected}
-
-Verify Dataplug Income Statement
-    [Arguments]                         ${year}     ${quarter}      ${expected}
-    Login as Demo User
-    Change Language                     fi
-    Select Database                     dataplug
-    Select Period                       ${year}-01-01               ${year}-12-31
-    Select Report                       income-statement-detailed
-    Run Keyword If                      ${quarter} != 4             Select Report Option                option-quarter${quarter}
-    Run Keyword If                      ${quarter} == 4             Select Report Option                option-full
-    Toggle Report Option On             option-byTags
-    ${data}                             Gather Report Data
-    Report Should Match                 ${data}     ${expected}
-
-Verify Dataplug Detailed Income Statement
-    [Arguments]                         ${year}     ${quarter}      ${expected}
-    Verify Dataplug Income Statement    ${year}     ${quarter}      ${expected}
