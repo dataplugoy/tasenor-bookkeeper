@@ -123,7 +123,7 @@ export function isCaseElement(object: unknown): object is CaseElement {
     return false
   }
   return ('type' in object) && object.type === 'case' && !!object.condition && !!object.cases &&
-    typeof object.condition === 'object' && typeof object.cases === 'object' &&
+    typeof object.condition === 'string' && typeof object.cases === 'object' &&
     object.condition !== null && object.cases !== null
 }
 
