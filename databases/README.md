@@ -16,3 +16,10 @@ There are two other databases used for testing purposes. They are not needed by 
 psql postgresql://test:8ydsyTa63298@localhost:7202/test
 psql postgresql://demo:oiuewHqw3d@localhost:7202/demo
 ```
+
+## General Purpose database
+
+In addition, there is an additional database for any kind of additional component/app developement.
+```
+psql postgresql://tasenor:IU982ehsa09uh0q@localhost:7202/tasenor
+```
