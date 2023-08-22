@@ -8,6 +8,11 @@ version: '3'
 volumes:
   tasenor_db:
 
+networks:
+  tasenor:
+    name: tasenor
+    driver: bridge
+
 services:
   tasenor-nginx-proxy:
     container_name: tasenor-nginx-proxy
@@ -21,6 +26,8 @@ services:
       - "/etc/nginx/vhost.d"
       - "/usr/share/nginx/html"
       - "/etc/nginx/certs"
+    networks:
+      - tasenor
 
   tasenor-db:
     container_name: tasenor-db
@@ -36,6 +43,8 @@ services:
       POSTGRES_PASSWORD: Jow92eygdGYwe3edsoy2
       POSTGRES_USER: root
     command: -p 7202
+    networks:
+      - tasenor
 
   tasenor-bookkeeper:
     container_name: tasenor-bookkeeper
@@ -51,6 +60,8 @@ services:
       VIRTUAL_HOST: bookkeeper.localhost
       VIRTUAL_PORT: 7204
     command: ./bin/wait-for-it.sh -t 60 -h tasenor-bookkeeper-api -p 7205 -- pnpm run docker
+    networks:
+      - tasenor
 
   tasenor-bookkeeper-api:
     container_name: tasenor-bookkeeper-api
@@ -69,6 +80,8 @@ services:
       VIRTUAL_HOST: bookkeeper-api.localhost
       VIRTUAL_PORT: 7205
     command: pnpm run docker
+    networks:
+      - tasenor
 
   tasenor-docs:
     container_name: tasenor-docs
@@ -80,3 +93,5 @@ services:
       NODE_ENV: development
       VIRTUAL_HOST: docs.localhost
       VIRTUAL_PORT: 7207
+    networks:
+      - tasenor
