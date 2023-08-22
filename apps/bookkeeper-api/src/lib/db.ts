@@ -2,7 +2,7 @@ import path from 'path'
 import knex from './knex'
 import { DB, BookkeeperImporter } from '@tasenor/common-node'
 import catalog from './catalog'
-import { DatabaseName, error } from '@tasenor/common'
+import { DatabaseName, Hostname, error } from '@tasenor/common'
 
 /**
  * Helper to create new database for a customer.
@@ -89,7 +89,7 @@ async function migrate(): Promise<void> {
   const master = await DB.getMaster()
   const migrations = path.join(__dirname, '..', 'migrations-bookkeeping')
   for (const db of all) {
-    await DB.migrate(master, db.database as DatabaseName, migrations)
+    await DB.migrate(master, db.database as DatabaseName, migrations, process.env.DB_HOST_OVERRIDE as Hostname)
   }
 }
 
