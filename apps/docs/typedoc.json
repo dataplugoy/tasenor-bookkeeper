@@ -1,5 +1,5 @@
 {
-  "out": "/home/wigy/project/tasenor-bookkeeper/apps/docs/build/classes",
+  "out": "./build/classes",
   "entryPoints": [
     "../../packages/tasenor-common/src/index.ts",
     "../../packages/tasenor-common-node/src/index.ts",
