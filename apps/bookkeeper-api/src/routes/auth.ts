@@ -24,11 +24,11 @@ router.post('/',
         const res = await net.POST(`${vault.get('TASENOR_API_URL')}/auth/site/login` as Url, { user })
         if (res.success) {
           const { plugins, prices, subscriptions } = res.data as unknown as LoginData
-          Object.assign(out, encryptdata({ plugins, prices, subscriptions }))
+          Object.assign(out, await encryptdata({ plugins, prices, subscriptions }))
         }
       }
 
-      // Scan plugin availability if no other plugin handled it.
+      // Allow all installed plugins if no service in use.
       if (!out.data) {
         const db = await knex.masterDb()
         const data = await db('users').select('config').where({ email: user }).first()
@@ -37,6 +37,7 @@ router.post('/',
         const secret = defaultLoginData(ids, all)
         Object.assign(out, await encryptdata(secret))
       }
+
       res.send(out)
     } else {
       res.status(401).send({ message: 'Invalid user or password.' })
