@@ -1,14 +1,11 @@
 #!/usr/bin/env -S npx tsx
-import path, { dirname } from 'path'
-import { fileURLToPath } from 'url'
+import path from 'path'
 import common from '@tasenor/common'
 import commonNode from '@tasenor/common-node'
 
-const { net, note, log, error, mute, unmute, warning, waitPromise } = common
+const { net, log, error, mute, unmute, warning, waitPromise } = common
 const { vault, plugins } = commonNode
 const { setConfig, sortPlugins } = plugins
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
 
 /**
  * Check that TASENOR_SITE_TOKEN token is set and configure net if it is.
@@ -83,10 +80,10 @@ async function publishPlugins(dir ,api) {
 
   for (const plugin of data) {
     if (oldPlugins[plugin.code]) {
-      log(`Skipping ${plugin.code} v${plugin.version}`)
+      warning(`Skipping ${plugin.code} v${plugin.version}`)
       continue
     }
-    note(`Publishing ${plugin.code} v${plugin.version}`)
+    log(`Publishing ${plugin.code} v${plugin.version}`)
     const { code, title, description, icon, use, type } = plugin
     const res = await net.POST(`${api}/plugins/publish`, { code, title, description, icon, use, type })
     if (res === undefined) {
