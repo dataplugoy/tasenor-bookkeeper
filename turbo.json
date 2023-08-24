@@ -48,6 +48,18 @@
     },
     "release": {
       "cache": false
+    },
+    "tasenor-common#release": {
+      "dependsOn": ["tasenor-config#release"]
+    },
+    "tasenor-common-node#release": {
+      "dependsOn": ["tasenor-config#release"]
+    },
+    "tasenor-common-ui#release": {
+      "dependsOn": ["tasenor-config#release"]
+    },
+    "tasenor-common-plugins#release": {
+      "dependsOn": ["tasenor-common#release", "tasenor-common-node#release", "tasenor-common-ui#release"]
     }
   }
 }
