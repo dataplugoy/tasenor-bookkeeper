@@ -1,13 +1,17 @@
 #!/usr/bin/env -S npx tsx
+import path, { dirname } from 'path'
+import { fileURLToPath } from 'url'
 import common from '@tasenor/common'
 import commonNode from '@tasenor/common-node'
-const { net, log, mute, unmute, warning, waitPromise } = common
+
+const { net, note, log, error, mute, unmute, warning, waitPromise } = common
 const { vault, plugins } = commonNode
 const { setConfig, sortPlugins } = plugins
 
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
 /**
  * Check that TASENOR_SITE_TOKEN token is set and configure net if it is.
- * @param url
  */
 function checkErpToken(url) {
   if (!process.env.TASENOR_SITE_TOKEN) {
@@ -29,8 +33,6 @@ function checkErpToken(url) {
 
 /**
  * Ask plugin list from API.
- * @param api
- * @returns
  */
 async function getPlugins(api) {
   mute()
@@ -61,6 +63,39 @@ async function listPlugins(api) {
 }
 
 /**
+ * Handle publishing of plugin from the given directory.
+ */
+async function publishPlugins(dir ,api) {
+  // Collect existing plugins.
+  const oldPlugins = {}
+  for (const plugin of await getPlugins(api)) {
+    oldPlugins[plugin.code] = plugin
+  }
+
+  // Scan all and publish plugins that does not exist yet on remote.
+  setConfig('PLUGIN_PATH', path.resolve(dir))
+  const data = plugins.scanPlugins()
+
+  // Handle publishing.
+  process.env.VAULT_URL = 'env://'
+  process.env.TASENOR_API_URL = api
+  await vault.initialize()
+
+  for (const plugin of data) {
+    if (oldPlugins[plugin.code]) {
+      log(`Skipping ${plugin.code} v${plugin.version}`)
+      continue
+    }
+    note(`Publishing ${plugin.code} v${plugin.version}`)
+    const { code, title, description, icon, use, type } = plugin
+    const res = await net.POST(`${api}/plugins/publish`, { code, title, description, icon, use, type })
+    if (res === undefined) {
+      error(`Publishing ${plugin.code} failed.`)
+    }
+  }
+}
+
+/**
  * Display usage.
  */
 function usage() {
@@ -74,15 +109,18 @@ async function main() {
   if (process.argv.length < 3) {
     usage()
   } else {
-    const [, , cmd, arg] = process.argv
+    const [, , cmd, arg, arg2] = process.argv
     switch (cmd) {
       case 'ls':
         checkErpToken(arg)
         return listPlugins(arg)
+      case 'publish':
+        checkErpToken(arg2)
+        return publishPlugins(arg, arg2)
       default:
         throw new Error(`Cannot handle unknown command ${cmd}`)
     }
   }
 }
 
-main().catch(err => { console.error(`${process.argv.join(' ')}: Error exit: ${err}`); process.exit(-1) }).then(() => process.exit())
+main().catch(err => { console.error(`${process.argv.join(' ')}:\n`, err); process.exit(-1) }).then(() => process.exit())
