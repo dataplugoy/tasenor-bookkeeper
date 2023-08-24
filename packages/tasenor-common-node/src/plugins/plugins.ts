@@ -157,9 +157,9 @@ function scanPlugins(): TasenorPlugin[] {
   let backendFiles: FilePath[] = []
 
   // Scan each dir resolving symlinks first.
-  const dirs = glob.sync(path.join(rootPath, '**', 'package.json'))
+  const dirs = [rootPath]
 
-  dirs.map(dir => path.dirname(fs.realpathSync(dir))).forEach(dir => {
+  dirs.map(dir => fs.realpathSync(dir)).forEach(dir => {
     uiFiles = uiFiles.concat(
       glob.sync(path.join(dir, '**', 'ui', 'index.tsx')).map(
         p => p.substring(0, p.length - 'ui/index.tsx'.length) as FilePath

@@ -1,5 +1,7 @@
 #!/usr/bin/env -S npx tsx
 import path from 'path'
+import dayjs from 'dayjs'
+import fs from 'fs'
 import common from '@tasenor/common'
 import commonNode from '@tasenor/common-node'
 
@@ -93,10 +95,63 @@ async function publishPlugins(dir ,api) {
 }
 
 /**
+ * Increase a version number.
+ */
+function versionAdd(version) {
+  if (!version) return
+  const parts = version.split('.')
+  const n = parts.length - 1
+  parts[n] = parseInt(parts[n]) + 1
+  return parts.join('.')
+}
+
+/**
+ * Update plugin version numbers for all plugins found from the given dir.
+ */
+async function releasePatch(dir) {
+  // Scan all and publish plugins that does not exist yet on remote.
+  setConfig('PLUGIN_PATH', path.resolve(dir))
+  for (const plugin of plugins.scanPlugins()) {
+    let content, compare, uiContent, backendContent
+    // Get and change UI version.
+    const uiPath = path.join(plugin.path, 'ui', 'index.tsx')
+    if (fs.existsSync(uiPath)) {
+      content = fs.readFileSync(uiPath).toString('utf-8')
+      const [full,, version] = /(\bstatic\s+version\s*=\s*['"])([0-9.]+)(['"])/.exec(content)
+      compare = version
+      uiContent = content.replace(full, full.replace(version, versionAdd(version)))
+      const [full2,, date] = /(\bstatic\s+releaseDate\s*=\s*['"])([-0-9]+)(['"])/.exec(content)
+      uiContent = uiContent.replace(full2, full2.replace(date, dayjs().format('YYYY-MM-DD')))
+    }
+    // Get and change backend version.
+    const backendPath = path.join(plugin.path, 'backend', 'index.ts')
+    if (fs.existsSync(backendPath)) {
+      content = fs.readFileSync(backendPath).toString('utf-8')
+      const [full,, version] = /(\bthis\.version\s*=\s*['"])([0-9.]+)(['"])/.exec(content)
+      if (compare && version !== compare) {
+        throw new Error(`Plugin ${plugin} has version ${compare} for UI but version ${version} for backend.`)
+      }
+      compare = version
+      backendContent = content.replace(full, full.replace(version, versionAdd(version)))
+      const [full2,, date] = /(\bthis\.releaseDate\s*=\s*['"])([-0-9]+)(['"])/.exec(content)
+      backendContent = backendContent.replace(full2, full2.replace(date, dayjs().format('YYYY-MM-DD')))
+    }
+
+    // Write results.
+    log(`Increasing version number of ${plugin} from ${compare} to ${versionAdd(compare)}.`)
+    if (uiContent) fs.writeFileSync(uiPath, uiContent)
+    if (backendContent) fs.writeFileSync(backendPath, backendContent)
+  }
+}
+
+/**
  * Display usage.
  */
 function usage() {
-  console.log(`${process.argv[1]} ls <url>|publish <dir> <url>|release-patch <dir>`)
+  console.log(`${process.argv[1]}`)
+  console.log('             ls <url>            - list plugins available in the Tasenor server at <url>')
+  console.log('             publish <dir> <url> - append plugins from <dir> to the server at <url>')
+  console.log('             release-patch <dir> - increase patch version and release date for plugin(s) in the <dir>.')
 }
 
 /**
@@ -114,6 +169,8 @@ async function main() {
       case 'publish':
         checkErpToken(arg2)
         return publishPlugins(arg, arg2)
+      case 'release-patch':
+        return releasePatch(arg)
       default:
         throw new Error(`Cannot handle unknown command ${cmd}`)
     }

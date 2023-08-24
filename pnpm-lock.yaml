@@ -235,6 +235,9 @@ importers:
       '@tasenor/common-node':
         specifier: workspace:*
         version: link:../../packages/tasenor-common-node
+      dayjs:
+        specifier: 1.10.8
+        version: 1.10.8
       tsx:
         specifier: ^3.12.7
         version: 3.12.7
