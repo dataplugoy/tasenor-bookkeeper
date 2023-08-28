@@ -52,6 +52,7 @@ Go To Login
 Go To Dashboard
     Wait Until No Loading Shadow
     Wait Until App Loaded
+    Sleep                               500milliseconds
     Wait Until Element is Visible       ⌂Menu
     Click Element                       ⌂Menu
     Wait Until Element is Visible       css:.Dashboard
