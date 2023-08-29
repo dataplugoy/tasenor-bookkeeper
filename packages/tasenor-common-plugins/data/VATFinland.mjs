@@ -1,5 +1,6 @@
-#!/usr/bin/env node
-import { trimId, readTsv, fixNumber, saveJson } from './lib/utils.mjs'
+#!/usr/bin/env -S npx tsx
+import commonNode from '@tasenor/common-node'
+const { trimId, readTsv, fixNumber, saveJson } = commonNode.dataUtils
 
 const data = []
 const tsv = readTsv('Finland VAT - Definitions.tsv', true)

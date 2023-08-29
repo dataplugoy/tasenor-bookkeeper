@@ -1,9 +1,12 @@
 import fs from 'fs'
-import path, { dirname } from 'path'
-import { fileURLToPath } from 'url'
+import path from 'path'
 import { MAX_TARGET_ID_LEN } from '@tasenor/common'
 
-const DIRNAME = path.join(dirname(fileURLToPath(import.meta.url)), '..', '..')
+let DIRNAME = ''
+
+function setDir(dir: string) {
+  DIRNAME = dir
+}
 
 /**
  * Read in text from UTF-8 encoded file.
@@ -313,7 +316,7 @@ function cleanFlagDuplicates(tsv) {
   return tsv.split('\n').map(line => line.split('\t')).map(([a, b, c]) => [a, b, rempoveDuplicates(c)]).map(a => a.join('\t')).join('\n')
 }
 
-export default {
+export const dataUtils = {
   buildData,
   cleanFlagDuplicates,
   collectParents,
@@ -331,6 +334,7 @@ export default {
   saveFile,
   saveJson,
   saveText,
+  setDir,
   toMap,
   trimCRLF,
   trimId,

@@ -13,6 +13,7 @@
     "fix": "eslint --fix 'src/**/*.{ts,tsx}' 'data/**/*.mjs'",
     "lint": "eslint 'src/**/*.{ts,tsx}' 'data/**/*.mjs'",
     "nightly": "pnpm run ci",
+    "nightly3": "pnpm run data",
     "data": "data/bin/build_all",
     "prepublish": "pnpm version patch",
     "release": "pnpm publish --access public --no-git-checks",
@@ -24,11 +25,13 @@
     "@tasenor/common-ui": "workspace:*",
     "clone": "^2.1.2",
     "dayjs": "1.10.8",
-    "sprintf-js": "^1.1.2"
+    "sprintf-js": "^1.1.2",
+    "tsx": "^3.12.7"
   },
   "devDependencies": {
     "@mui/icons-material": "^5.14.1",
     "@mui/material": "^5.13.7",
+    "@tasenor/config": "workspace:*",
     "@types/jest": "^29.5.2",
     "@types/node": "^20.4.1",
     "eslint-config-tasenor": "workspace:*",
@@ -40,7 +43,6 @@
     "react-dom": "^17",
     "react-i18next": "^13.0.2",
     "react-router-dom": "^6.14.1",
-    "@tasenor/config": "workspace:*",
     "typescript": "^5.1.6"
   },
   "peerDependencies": {

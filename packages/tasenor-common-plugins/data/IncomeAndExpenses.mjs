@@ -1,5 +1,6 @@
-#!/usr/bin/env node
-import { buildData, combine, insertToFile, lint, parseFile, rebuildTranslations, saveFile, saveJson, trimIndentation } from './lib/utils.mjs'
+#!/usr/bin/env -S npx tsx
+import commonNode from '@tasenor/common-node'
+const { buildData, combine, insertToFile, lint, parseFile, rebuildTranslations, saveFile, saveJson, trimIndentation } = commonNode.dataUtils
 
 // Collect JSON data.
 const all = combine(

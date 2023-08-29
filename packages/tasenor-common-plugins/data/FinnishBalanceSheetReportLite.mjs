@@ -1,5 +1,6 @@
-#!/usr/bin/env node
-import { readFile, saveText, trimCRLF } from './lib/utils.mjs'
+#!/usr/bin/env -S npx tsx
+import commonNode from '@tasenor/common-node'
+const { readFile, saveText, trimCRLF } = commonNode.dataUtils
 
 let tsv
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env -S npx tsx
 import glob from 'glob'
 import fs from 'fs'
 import path from 'path'

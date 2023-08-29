@@ -1,5 +1,6 @@
-#!/usr/bin/env node
-import { readFile, saveFile, trimCRLF } from './lib/utils.mjs'
+#!/usr/bin/env -S npx tsx
+import commonNode from '@tasenor/common-node'
+const { readFile, saveFile, trimCRLF } = commonNode.dataUtils
 
 let tsv
 tsv = trimCRLF(readFile('FinnishLimitedCompanyLite - fi-EUR.tsv'))
