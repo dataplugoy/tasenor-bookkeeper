@@ -1,4 +1,5 @@
 export * from './cli'
+export * from './data'
 export * from './database'
 export * from './error'
 export * from './export'
