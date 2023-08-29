@@ -43,9 +43,6 @@ Install All Plugins
 
     Install Plugin If Missing           CoinAPI
     Install Plugin If Missing           CoinbaseImport
-    Install Plugin If Missing           FinnishBalanceSheetReportInvestment
-    Install Plugin If Missing           FinnishIncomeStatementReportInvestment
-    Install Plugin If Missing           FinnishInvestmentCompany
     Install Plugin If Missing           GitBackup
     Install Plugin If Missing           KrakenImport
     Install Plugin If Missing           LynxImport
