@@ -26,6 +26,10 @@ ADD .env.docker .env.local
 ADD index.html .
 ADD vite.config.ts .
 
+RUN mkdir .ssh
+RUN chmod 700 .ssh
+RUN cp node_modules/@tasenor/config/ssh/known_hosts .ssh/
+
 RUN echo '[]' > src/Plugins/index.json
 RUN echo 'const index = []' > src/Plugins/index.jsx
 RUN echo 'export default index' >> src/Plugins/index.jsx

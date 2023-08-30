@@ -25,7 +25,5 @@ ADD .env.docker .env.local
 RUN mkdir .ssh
 RUN chmod 700 .ssh
 RUN cp node_modules/@tasenor/config/ssh/known_hosts .ssh/
-RUN bin/make-file-from-env ID_RSA .ssh/id_rsa 600
-RUN bin/make-file-from-env ID_RSA_PUB .ssh/id_rsa.pub
 
 CMD ["pnpm", "run", "docker"]

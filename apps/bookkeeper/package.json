@@ -14,12 +14,13 @@
     "dev-vite": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx vite --port ${PORT:=7204}",
     "dev-ui-plugin-server": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx watch --clear-screen=false -r dotenv/config ./src/plugin-server/ui-plugin-server.ts",
     "dev": "pnpm run dev-initialize-plugins && pnpm run dev-ui-plugin-server & pnpm run dev-vite",
-    "docker": "pnpm run dev-initialize-plugins && pnpm run dev-ui-plugin-server & pnpm run dev-vite",
+    "docker": "pnpm run ssh-keys && pnpm run dev-initialize-plugins && pnpm run dev-ui-plugin-server & pnpm run dev-vite",
     "fix": "eslint --fix 'src/**/*.ts{,x}'",
     "lint": "eslint 'src/**/*.ts{,x}'",
     "nightly": "pnpm run ci",
     "release": "pnpm version patch",
-    "show-version": "jq .version < package.json"
+    "show-version": "jq .version < package.json",
+    "ssh-keys": "bin/make-file-from-env ID_RSA .ssh/id_rsa 600 && bin/make-file-from-env ID_RSA_PUB .ssh/id_rsa.pub"
   },
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.22.7",
