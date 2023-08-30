@@ -59,6 +59,7 @@ services:
       PORT: 7204
       VIRTUAL_HOST: bookkeeper.localhost
       VIRTUAL_PORT: 7204
+      INITIAL_PLUGIN_REPOS: ${INITIAL_PLUGIN_REPOS:-npm://@tasenor/common-plugins}
     command: ./bin/wait-for-it.sh -t 60 -h tasenor-bookkeeper-api -p 7205 -- pnpm run docker
     networks:
       - tasenor
@@ -79,6 +80,7 @@ services:
       PORT: 7205
       VIRTUAL_HOST: bookkeeper-api.localhost
       VIRTUAL_PORT: 7205
+      INITIAL_PLUGIN_REPOS: ${INITIAL_PLUGIN_REPOS:-npm://@tasenor/common-plugins}
     command: pnpm run docker
     networks:
       - tasenor
