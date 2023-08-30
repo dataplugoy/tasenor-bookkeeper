@@ -20,7 +20,7 @@
     "nightly": "pnpm run ci",
     "release": "pnpm version patch",
     "show-version": "jq .version < package.json",
-    "ssh-keys": "bin/make-file-from-env ID_RSA .ssh/id_rsa 600 && bin/make-file-from-env ID_RSA_PUB .ssh/id_rsa.pub"
+    "ssh-keys": "bin/make-file-from-env ID_RSA /root/.ssh/id_rsa 600 && bin/make-file-from-env ID_RSA_PUB /root/.ssh/id_rsa.pub"
   },
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.22.7",

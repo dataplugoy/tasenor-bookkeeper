@@ -22,8 +22,8 @@ ADD bin/ bin/
 ADD src/ src/
 ADD .env.docker .env.local
 
-RUN mkdir .ssh
-RUN chmod 700 .ssh
-RUN cp node_modules/@tasenor/config/ssh/known_hosts .ssh/
+RUN mkdir /root/.ssh
+RUN chmod 700 /root/.ssh
+RUN cp node_modules/@tasenor/config/ssh/known_hosts /root/.ssh/
 
 CMD ["pnpm", "run", "docker"]

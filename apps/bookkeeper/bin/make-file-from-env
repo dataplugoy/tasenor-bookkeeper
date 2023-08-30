@@ -2,8 +2,6 @@
 #
 # A little helper to create some credential files from env variables passed to docker.
 #
-FILE=`dirname "${BASH_SOURCE[0]}"`/..
-ROOT=`readlink -f "$FILE"`
 
 usage() {
   echo "$0 [env-name] [file-path]"
@@ -25,15 +23,15 @@ fi
 
 VALUE=${!___NAME}
 
-rm -f "$ROOT/$___FILE"
+rm -f "$___FILE"
 
 if [ -z "$VALUE" ]; then
   echo "Value for $___NAME not set. Nothing to do."
   exit
 fi
 
-echo "Creating $ROOT/$___FILE from variable $___NAME with permission $___PERM."
-touch "$ROOT/$___FILE"
-chmod 600 "$ROOT/$___FILE"
-echo $VALUE > "$ROOT/$___FILE"
-chmod $___PERM "$ROOT/$___FILE"
+echo "Creating $___FILE from variable $___NAME with permission $___PERM."
+touch "$___FILE"
+chmod 600 "$___FILE"
+echo $VALUE > "$___FILE"
+chmod $___PERM "$___FILE"
