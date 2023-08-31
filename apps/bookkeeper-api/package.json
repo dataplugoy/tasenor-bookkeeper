@@ -1,19 +1,20 @@
 {
   "name": "@tasenor/bookkeeper-api",
-  "version": "1.9.87",
+  "version": "1.9.93",
   "description": "Tasenor bookkeeper API.",
   "main": "src/server.ts",
   "scripts": {
     "build-test": "tsc --noEmit",
     "ci": "pnpm run lint && pnpm run build-test",
     "dev": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx watch --clear-screen=false -r dotenv/config src/server.ts",
-    "docker": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx -r dotenv/config src/server.ts",
+    "docker": "pnpm run ssh-keys && DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx -r dotenv/config src/server.ts",
     "fix": "eslint --fix 'src/**/*.ts'",
     "generate-key": "npx tsx bin/generate-key.ts",
     "lint": "eslint 'src/**/*.ts'",
     "nightly": "pnpm run ci",
     "release": "pnpm version patch",
-    "show-version": "jq .version < package.json"
+    "show-version": "jq .version < package.json",
+    "ssh-keys": "bin/make-file-from-env ID_RSA /root/.ssh/id_rsa 600 && bin/make-file-from-env ID_RSA_PUB /root/.ssh/id_rsa.pub"
   },
   "keywords": [],
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",

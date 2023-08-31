@@ -1,0 +1,37 @@
+#!/bin/bash
+#
+# A little helper to create some credential files from env variables passed to docker.
+#
+
+usage() {
+  echo "$0 [env-name] [file-path]"
+  exit 1
+}
+
+___NAME="$1"
+if [ -z "$___NAME" ]; then
+  usage
+fi
+___FILE="$2"
+if [ -z "$___FILE" ]; then
+  usage
+fi
+___PERM="$3"
+if [ -z "$___PERM" ]; then
+  ___PERM=644
+fi
+
+VALUE=${!___NAME}
+
+rm -f "$___FILE"
+
+if [ -z "$VALUE" ]; then
+  echo "Value for $___NAME not set. Nothing to do."
+  exit
+fi
+
+echo "Creating $___FILE from variable $___NAME with permission $___PERM."
+touch "$___FILE"
+chmod 600 "$___FILE"
+echo "$VALUE" > "$___FILE"
+chmod $___PERM "$___FILE"
