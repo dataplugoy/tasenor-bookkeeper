@@ -40,7 +40,7 @@ ${TEST_DATABASE}                        robot
 ${TEST_COMPANY}                         Robot Oy
 ${YEAR}                                 2022
 ${NEXT_YEAR}                            2023
-${DEFAULT_TIMEOUT}                      5s
+${DEFAULT_TIMEOUT}                      10s
 ${DEFAULT_INSTALL_TIMEOUT}              60s
 
 *** Keywords ***

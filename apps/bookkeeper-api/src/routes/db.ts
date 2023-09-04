@@ -34,8 +34,8 @@ router.post('/',
     const schemePlugin = catalog.getSchemePlugin(scheme)
 
     if (!schemePlugin) {
-      error(`Cannot find the sheme plugin for scheme ${scheme}.`)
-      return res.status(400).send({ message: 'Cannot find the plugin.' })
+      error(`Cannot find the scheme plugin for scheme ${scheme}.`)
+      return res.status(400).send({ message: 'Cannot find the scheme plugin.' })
     }
 
     if (!DB_REGEX.test(databaseName)) {
