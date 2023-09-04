@@ -7,7 +7,7 @@
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "AGPL-3.0-or-later",
   "scripts": {
-    "build": "npx vite build",
+    "build": "rm -f src/Plugins/index.js{on,x} && npx vite build",
     "ci": "pnpm run dev-initialize-plugins && pnpm run lint && pnpm run build",
     "dev-initialize-plugins": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx -r dotenv/config bin/initialize-plugins.mjs",
     "dev-vite": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx vite --port ${PORT:=7204}",
