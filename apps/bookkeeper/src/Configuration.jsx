@@ -10,14 +10,11 @@ const Configuration = {
   COMMAND_KEY: browser.os === 'iOS' ? '⌘' : 'Alt',
   COMMAND_KEY_MOD: browser.os === 'iOS' ? 'Meta' : 'Alt',
   // eslint-disable-next-line
-  UI_API_URL: UI_API_URL || ''
+  UI_API_URL: __UI_API_URL || ''
 }
 
 if (!Configuration.UI_API_URL) {
-  const siteUrl = new URL(document.location)
-  const parts = siteUrl.hostname.split('.')
-  parts[0] += '-api'
-  Configuration.UI_API_URL = `${siteUrl.protocol}://${parts.join('.')}${siteUrl.port ? ':' + siteUrl.port : ''}`
+  throw new Error('Environment UI_API_URL is not set.')
 }
 
 export default Configuration

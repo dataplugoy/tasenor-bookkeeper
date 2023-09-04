@@ -201,7 +201,7 @@ async function uninstall(auth, code, ignoreError = false) {
  * Rebuild client.
  */
 async function rebuild() {
-  await systemPiped('pnpm build-test')
+  await systemPiped('pnpm run build')
 }
 
 /**

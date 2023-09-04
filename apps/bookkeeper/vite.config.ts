@@ -25,7 +25,7 @@ export default defineConfig(async ({ mode }) => {
     ],
     base: '/',
     define: {
-      UI_API_URL: JSON.stringify(env.UI_API_URL || 'http://localhost:7204/'),
+      __UI_API_URL: JSON.stringify(env.UI_API_URL || 'http://localhost:7204/'),
       global: 'globalThis',
     },
     server: {
