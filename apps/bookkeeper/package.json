@@ -5,7 +5,7 @@
   "types": "src/index.ts",
   "description": "Tasenor bookkeeper UI",
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
-  "license": "AGPL",
+  "license": "AGPL-3.0-or-later",
   "scripts": {
     "build-test": "npx vite build",
     "ci": "pnpm run dev-initialize-plugins && pnpm run lint && pnpm run build-test",
