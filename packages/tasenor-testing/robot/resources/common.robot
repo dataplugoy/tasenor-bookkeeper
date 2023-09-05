@@ -80,6 +80,7 @@ Initialize Variables
     Set Global Variable                 ${DOWNLOADS}
 
 Standard Suite Setup
+    Set Selenium Timeout                ${DEFAULT_TIMEOUT}
     Initialize Variables
     Clear Downloads
     Remove Work Files
