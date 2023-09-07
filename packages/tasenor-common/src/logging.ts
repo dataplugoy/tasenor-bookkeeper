@@ -13,38 +13,41 @@ const colors = !isUi()
 /**
  * Various independently on/off togglable debugging message channels.
  *
- * * `STOCK` - Debug changes in assets.
+ * * `ANALYSIS` - Debug transfer results of the analysis.
  * * `BALANCE` - Debug changes in account balances.
+ * * `CLASSIFICATION` - Debug results of the classification.
+ * * `EXECUTION` - Debug process of execution.
+ * * `NET`- Debug network library.
  * * `RULES` - Debug how rule filters and results are evaluated.
  * * `SEGMENTATION` - Debug results of the segmentation.
- * * `CLASSIFICATION` - Debug results of the classification.
- * * `ANALYSIS` - Debug transfer results of the analysis.
- * * `EXECUTION` - Debug process of execution.
+ * * `STOCK` - Debug changes in assets.
  *
  * These can be set with by setting environment `DEBUG_<name>` to `yes`.
  */
-export type DebugChannel = 'STOCK' | 'BALANCE' | 'RULES' | 'SEGMENTATION' | 'CLASSIFICATION' | 'ANALYSIS' | 'EXECUTION'
+export type DebugChannel = 'STOCK' | 'BALANCE' | 'RULES' | 'SEGMENTATION' | 'CLASSIFICATION' | 'ANALYSIS' | 'EXECUTION' | 'NET'
 
 // Which channels are on?
 const debugChannels = (): Record<DebugChannel, boolean> => {
   return isUi()
     ? {
-        STOCK: 'DEBUG_STOCK' in window && window.DEBUG_STOCK === 'yes',
+        ANALYSIS: 'DEBUG_ANALYSIS' in window && window.DEBUG_ANALYSIS === 'yes',
         BALANCE: 'DEBUG_BALANCE' in window && window.DEBUG_BALANCE === 'yes',
+        CLASSIFICATION: 'DEBUG_CLASSIFICATION' in window && window.DEBUG_CLASSIFICATION === 'yes',
+        EXECUTION: 'DEBUG_EXECUTION' in window && window.DEBUG_EXECUTION === 'yes',
+        NET: 'DEBUG_NET' in window && window.DEBUG_NET === 'yes',
         RULES: 'DEBUG_RULES' in window && window.DEBUG_RULES === 'yes',
         SEGMENTATION: 'DEBUG_SEGMENTATION' in window && window.DEBUG_SEGMENTATION === 'yes',
-        CLASSIFICATION: 'DEBUG_CLASSIFICATION' in window && window.DEBUG_CLASSIFICATION === 'yes',
-        ANALYSIS: 'DEBUG_ANALYSIS' in window && window.DEBUG_ANALYSIS === 'yes',
-        EXECUTION: 'DEBUG_EXECUTION' in window && window.DEBUG_EXECUTION === 'yes'
+        STOCK: 'DEBUG_STOCK' in window && window.DEBUG_STOCK === 'yes',
       }
     : {
-        STOCK: process.env.DEBUG_STOCK === 'yes' || false,
+        ANALYSIS: process.env.DEBUG_ANALYSIS === 'yes' || false,
         BALANCE: process.env.DEBUG_BALANCE === 'yes' || false,
+        CLASSIFICATION: process.env.DEBUG_CLASSIFICATION === 'yes' || false,
+        EXECUTION: process.env.DEBUG_EXECUTION === 'yes' || false,
+        NET: process.env.DEBUG_NET === 'yes' || false,
         RULES: process.env.DEBUG_RULES === 'yes' || false,
         SEGMENTATION: process.env.DEBUG_SEGMENTATION === 'yes' || false,
-        CLASSIFICATION: process.env.DEBUG_CLASSIFICATION === 'yes' || false,
-        ANALYSIS: process.env.DEBUG_ANALYSIS === 'yes' || false,
-        EXECUTION: process.env.DEBUG_EXECUTION === 'yes' || false
+        STOCK: process.env.DEBUG_STOCK === 'yes' || false,
       }
 }
 
@@ -56,7 +59,7 @@ function displayChannels() {
   if (Object.values(channels).filter(flag => flag).length === 0) {
     return
   }
-  for (const channel of ['STOCK', 'RULES', 'SEGMENTATION', 'CLASSIFICATION', 'ANALYSIS', 'EXECUTION']) {
+  for (const channel of ['STOCK', 'RULES', 'SEGMENTATION', 'NET', 'CLASSIFICATION', 'ANALYSIS', 'EXECUTION']) {
     console.log(`\u001b[93mDEBUG_${channel} = ${channels[channel] ? 'yes' : 'no'}\u001b[0m`)
   }
 }

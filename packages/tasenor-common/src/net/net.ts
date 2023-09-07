@@ -1,7 +1,7 @@
 import FormData from 'form-data'
 import jwtDecode from 'jwt-decode'
 import axios from 'axios'
-import { error, log, note, warning } from '../logging'
+import { debug, error, note, warning } from '../logging'
 import { isLocalUrl, LocalUrl, Token, TokenPair, Url, UUID, Value } from '../types'
 
 /**
@@ -73,6 +73,7 @@ const config: NetConfig = {
  */
 function configure(conf: NetConfig): void {
   if (conf.baseUrl) {
+    debug('NET', `Setting baseUrl to ${conf.baseUrl}`)
     config.baseUrl = conf.baseUrl
   }
   if (conf.sites) {
@@ -83,6 +84,7 @@ function configure(conf: NetConfig): void {
       if (!config.sites[site]) {
         config.sites[site] = {}
       }
+      debug('NET', `Configuring site ${site} to`, conf.sites[site])
       Object.assign(config.sites[site], conf.sites[site])
     }
   }
@@ -150,7 +152,7 @@ async function refreshToken(url: Url): Promise<boolean | Error> {
   setConf(url, 'token', null)
   if (getConf(url, 'refreshToken') && getConf(url, 'refreshUrl')) {
     const refreshUrl = `${new URL(url).origin}${getConf(url, 'refreshUrl')}` as Url
-    log(`Refreshing token from ${refreshUrl}.`)
+    debug('NET', `Refreshing token from ${refreshUrl}.`)
     const headers = {
       Authorization: `Bearer ${getConf(url, 'refreshToken')}`
     }
@@ -175,7 +177,7 @@ async function refreshToken(url: Url): Promise<boolean | Error> {
       if (refreshed.data.refresh) {
         setConf(url, 'refreshToken', refreshed.data.refresh)
       }
-      log(`Received new token from ${url}.`)
+      debug('NET', `Received new token from ${url}.`)
       return true
     }
     const logout = getConf(url, 'logout') as () => void
@@ -206,14 +208,19 @@ function createRequestHandler(method: HttpMethod): HttpRequestFunction {
 
     // Helper to perform actual request.
     async function doRequest({ method, url, data }): Promise<HttpResponse> {
+      debug('NET', `Handling request: ${method} ${url} with data`, data)
       const headers: { Authorization?: string } = {}
       Object.assign(headers, extraHeaders)
       if (config.sites && config.sites[origin] && !headers.Authorization) {
-        if (getConf(url, 'token')) {
-          headers.Authorization = `Bearer ${getConf(url, 'token')}`
+        const token = getConf(url, 'token') as string
+        if (token) {
+          debug('NET', `Setting token to ${token.replace(/.....$/, '*****')}`)
+          headers.Authorization = `Bearer ${token}`
         }
-        if (getConf(url, 'uuid')) {
-          headers['X-UUID'] = getConf(url, 'uuid')
+        const uuid = getConf(url, 'uuid') as string
+        if (uuid) {
+          debug('NET', `Setting UUDI to ${uuid.replace(/.....$/, '*****')}`)
+          headers['X-UUID'] = uuid
         }
       }
       // Construct a call object.
@@ -235,6 +242,7 @@ function createRequestHandler(method: HttpMethod): HttpRequestFunction {
 
       // Execute the call.
       const resp = await axios(axiosCall).catch(err => {
+        debug('NET', 'Request FAILED.')
         if (err.response) {
           return err.response
         }
@@ -314,7 +322,7 @@ function createRequestHandler(method: HttpMethod): HttpRequestFunction {
                   success = false
                 })
                 if (success) {
-                  log(`Retrying ${method} ${url} successful.`)
+                  debug('NET', `Retrying ${method} ${url} successful.`)
                   return retried as HttpResponse
                 }
               }
@@ -345,14 +353,14 @@ function createRequestHandler(method: HttpMethod): HttpRequestFunction {
         const expires = decoded.exp * 1000
         const now = new Date().getTime()
         if (expires - now < 1000) {
-          log('Token has been expired.')
+          debug('NET', 'Token has been expired.')
           needRefresh = true
         }
       } catch (err) {}
     }
 
     if (needRefresh) {
-      log('Token needs refreshing.')
+      debug('NET', 'Token needs refreshing.')
       const err = await refreshToken(url)
       if (err !== true) {
         error(`Trying to refresh token gave an error: ${err}`)
