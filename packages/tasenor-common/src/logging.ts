@@ -168,12 +168,18 @@ export function debug(channel: DebugChannel, ...args) {
   if (!channels[channel]) {
     return
   }
+  const allArgs = [`[${channel}]`].concat(args)
   const allString = args.every(arg => typeof arg === 'string' || typeof arg === 'number' || typeof arg === 'boolean' || arg === null)
   if (allString) {
-    console.log('\u001b[35m' + args.join(' ') + '\u001b[0m')
+    console.log('\u001b[35m' + allArgs.join(' ') + '\u001b[0m')
   } else {
-    for (const arg of args) {
-      console.dir(arg, { depth: null, maxArrayLength: null })
+    for (const arg of allArgs) {
+      if (typeof arg === 'string') {
+        console.log('\u001b[35m' + arg + '\u001b[0m')
+      } else {
+        console.dir(arg, { depth: null, maxArrayLength: null })
+      }
     }
+    console.log(`\u001b[35m[/${channel}]\u001b[0m`)
   }
 }

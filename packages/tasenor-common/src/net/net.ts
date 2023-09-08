@@ -242,7 +242,7 @@ function createRequestHandler(method: HttpMethod): HttpRequestFunction {
 
       // Execute the call.
       const resp = await axios(axiosCall).catch(err => {
-        debug('NET', 'Request FAILED.')
+        debug('NET', 'Request FAILED.', err)
         if (err.response) {
           return err.response
         }
