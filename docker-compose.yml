@@ -53,7 +53,7 @@ services:
     depends_on:
       - tasenor-bookkeeper-api
     ports:
-      - 7204
+      - 7204:7204
     environment:
       NODE_ENV: development
       PORT: 7204
@@ -73,7 +73,7 @@ services:
     depends_on:
       - tasenor-db
     ports:
-      - 7205
+      - 7205:7205
     environment:
       DATABASE_ROOT_PASSWORD: Jow92eygdGYwe3edsoy2
       DATABASE_ROOT_USER: root
@@ -94,7 +94,7 @@ services:
     build:
       context: apps/docs
     ports:
-      - 7207
+      - 7207:7207
     environment:
       NODE_ENV: development
       VIRTUAL_HOST: docs.localhost
