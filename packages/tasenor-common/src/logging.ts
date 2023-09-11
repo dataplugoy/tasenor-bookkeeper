@@ -168,7 +168,7 @@ export function debug(channel: DebugChannel, ...args) {
   if (!channels[channel]) {
     return
   }
-  const allArgs = [`[${channel}]`].concat(args)
+  const allArgs = [`[${channel}]`].concat(args).concat([`[/${channel}]`])
   const allString = args.every(arg => typeof arg === 'string' || typeof arg === 'number' || typeof arg === 'boolean' || arg === null)
   if (allString) {
     console.log('\u001b[35m' + allArgs.join(' ') + '\u001b[0m')
@@ -180,6 +180,5 @@ export function debug(channel: DebugChannel, ...args) {
         console.dir(arg, { depth: null, maxArrayLength: null })
       }
     }
-    console.log(`\u001b[35m[/${channel}]\u001b[0m`)
   }
 }

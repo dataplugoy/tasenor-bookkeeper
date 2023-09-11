@@ -214,12 +214,12 @@ function createRequestHandler(method: HttpMethod): HttpRequestFunction {
       if (config.sites && config.sites[origin] && !headers.Authorization) {
         const token = getConf(url, 'token') as string
         if (token) {
-          debug('NET', `Setting token to ${token.replace(/.....$/, '*****')}`)
+          debug('NET', `Setting token to ${token}`)
           headers.Authorization = `Bearer ${token}`
         }
         const uuid = getConf(url, 'uuid') as string
         if (uuid) {
-          debug('NET', `Setting UUDI to ${uuid.replace(/.....$/, '*****')}`)
+          debug('NET', `Setting UUID to ${uuid}`)
           headers['X-UUID'] = uuid
         }
       }
@@ -242,7 +242,7 @@ function createRequestHandler(method: HttpMethod): HttpRequestFunction {
 
       // Execute the call.
       const resp = await axios(axiosCall).catch(err => {
-        debug('NET', 'Request FAILED.', err)
+        debug('NET', 'Request FAILED.', `${err}`)
         if (err.response) {
           return err.response
         }
