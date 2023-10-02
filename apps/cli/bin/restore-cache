@@ -5,4 +5,4 @@ if [ -z "$1" -o -z "$2" ]; then
   exit 1
 fi
 
-docker exec tasenor-db psql $1 < $2
+docker exec -i tasenor-db psql $1 < $2
