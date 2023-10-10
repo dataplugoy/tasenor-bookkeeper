@@ -14,6 +14,12 @@ export type BalanceSummaryEntry = {
   mayTakeLoan: boolean
 }
 
+const _debug = (account: AccountNumber, ...args) => {
+  if (process.env.DEBUG_BALANCE_ACCOUNT === null || process.env.DEBUG_BALANCE_ACCOUNT === account) {
+    debug('BALANCE', ...args)
+  }
+}
+
 /**
  * A class for storing account balance.
  */
@@ -34,7 +40,7 @@ export class BalanceBookkeeping {
    */
   set(account: AccountNumber, value: number) {
     this.balance[account] = value
-    debug('BALANCE', `Set ${account} ${this.name(account)} initial balance ${sprintf('%.2f', this.balance[account] / 100)}`)
+    _debug(account, `Set ${account} ${this.name(account)} initial balance ${sprintf('%.2f', this.balance[account] / 100)}`)
   }
 
   /**
@@ -61,7 +67,7 @@ export class BalanceBookkeeping {
    */
   change(account: AccountNumber, change: number): number {
     this.balance[account] = (this.balance[account] || 0) + change
-    debug('BALANCE', `Change ${account} ${this.name(account)} Δ ${change >= 0 ? '+' : ''}${sprintf('%.2f', change / 100)} ⟹ ${sprintf('%.2f', this.balance[account] / 100)}`)
+    _debug(account, `Change ${account} ${this.name(account)} Δ ${change >= 0 ? '+' : ''}${sprintf('%.2f', change / 100)} ⟹ ${sprintf('%.2f', this.balance[account] / 100)}`)
     return this.balance[account]
   }
 
