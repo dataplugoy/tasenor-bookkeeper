@@ -1131,23 +1131,7 @@ export class TransferAnalyzer {
         throw new SystemError(`Cannot find account ${transfer.reason}.${transfer.type}.${transfer.asset} for entry ${JSON.stringify(txEntry)}`)
       }
 
-      // Update balance and check for negative currency account if it needs to be configured.
-      const total = this.applyBalance(txEntry)
-      if (this.balances.mayTakeLoan(transfer.reason, transfer.type, transfer.asset) && realNegative(total)) {
-        const addr: AccountAddress = `${transfer.reason}.${transfer.type}.${transfer.asset}` as AccountAddress
-        const debtAddr: AccountAddress = this.balances.debtAddress(addr)
-        const debtAccount = this.getConfig(`account.${debtAddr}`, null)
-        if (debtAccount === null) {
-          await this.UI.throwDebtAccount(this.config, txEntry.account, addr)
-        }
-      }
-
-      // Add data and rates.
-      if (transfer.data) {
-        txEntry.data = clone(transfer.data)
-      }
-
-      // Check if there are deposits or withdrawals and make sure they are added.
+      // Check if there are deposits or withdrawals and make sure they should be added.
       const { reason, type } = transfer
       if (type === 'external') {
         if (reason === 'deposit') {
@@ -1161,6 +1145,22 @@ export class TransferAnalyzer {
             tx.executionResult = 'ignored'
           }
         }
+      }
+
+      // Update balance and check for negative currency account if it needs to be configured.
+      const total = tx.executionResult === 'ignored' ? 0 : this.applyBalance(txEntry)
+      if (this.balances.mayTakeLoan(transfer.reason, transfer.type, transfer.asset) && realNegative(total)) {
+        const addr: AccountAddress = `${transfer.reason}.${transfer.type}.${transfer.asset}` as AccountAddress
+        const debtAddr: AccountAddress = this.balances.debtAddress(addr)
+        const debtAccount = this.getConfig(`account.${debtAddr}`, null)
+        if (debtAccount === null) {
+          await this.UI.throwDebtAccount(this.config, txEntry.account, addr)
+        }
+      }
+
+      // Copy data and rates.
+      if (transfer.data) {
+        txEntry.data = clone(transfer.data)
       }
 
       // Post-process and add it to the list.
