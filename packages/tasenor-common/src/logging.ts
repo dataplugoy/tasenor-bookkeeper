@@ -59,7 +59,7 @@ function displayChannels() {
   if (Object.values(channels).filter(flag => flag).length === 0) {
     return
   }
-  for (const channel of ['STOCK', 'RULES', 'SEGMENTATION', 'NET', 'CLASSIFICATION', 'ANALYSIS', 'EXECUTION']) {
+  for (const channel of ['STOCK', 'RULES', 'BALANCE', 'SEGMENTATION', 'NET', 'CLASSIFICATION', 'ANALYSIS', 'EXECUTION']) {
     console.log(`\u001b[93mDEBUG_${channel} = ${channels[channel] ? 'yes' : 'no'}\u001b[0m`)
   }
 }
