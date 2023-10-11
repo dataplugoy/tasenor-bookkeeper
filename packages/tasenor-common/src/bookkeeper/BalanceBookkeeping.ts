@@ -1,4 +1,4 @@
-import { debug } from '../logging'
+import { debug, warning } from '../logging'
 import { AccountAddress, AccountNumber, Asset, AssetTransferReason, AssetType, TransactionLine } from '../types'
 import { sprintf } from 'sprintf-js'
 import { ProcessConfig } from '../process_types'
@@ -40,7 +40,7 @@ export class BalanceBookkeeping {
    */
   set(account: AccountNumber, value: number) {
     this.balance[account] = value
-    _debug(account, `Set ${account} ${this.name(account)} initial balance ${sprintf('%.2f', this.balance[account] / 100)}`)
+    _debug(account, `Set ${account} ${this.name(account)} initial balance to ${sprintf('%.2f', this.balance[account] / 100)}`)
   }
 
   /**
@@ -93,6 +93,9 @@ export class BalanceBookkeeping {
    * Find the balance for the given account.
    */
   get(account: AccountAddress): number {
+    if (!(account in this.number)) {
+      warning(`Cannot find account ${account} from balance bookkeeping.`)
+    }
     return this.balance[this.number[account]] || 0
   }
 
