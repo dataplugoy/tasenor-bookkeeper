@@ -185,7 +185,7 @@ export class ImportConnector implements TransactionImportConnector {
       .join('entry', 'document.id', '=', 'entry.document_id')
       .join('account', 'entry.account_id', '=', 'account.id')
       .select('account.number')
-      .sum('entry.amount')
+      .sum(this.db.raw('ROUND(entry.amount * 100)'))
       .where('entry.debit', '=', false)
       .andWhere('document.period_id', '=', period.id)
       .andWhere('document.date', '<', time)
@@ -194,7 +194,7 @@ export class ImportConnector implements TransactionImportConnector {
       .join('entry', 'document.id', '=', 'entry.document_id')
       .join('account', 'entry.account_id', '=', 'account.id')
       .select('account.number')
-      .sum('entry.amount')
+      .sum(this.db.raw('ROUND(entry.amount * 100)'))
       .where('entry.debit', '=', true)
       .andWhere('document.period_id', '=', period.id)
       .andWhere('document.date', '<', time)
@@ -203,14 +203,15 @@ export class ImportConnector implements TransactionImportConnector {
     const balance: Record<AccountNumber, number> = {}
 
     debit.forEach(record => {
-      const { number, sum } = record
-      balance[number] = (balance[number] || 0) + parseFloat(sum) * 100
+      const { number, sum } = record as { number: string, sum: string }
+      balance[number] = (balance[number] || 0) + parseInt(sum)
     })
 
     credit.forEach(record => {
-      const { number, sum } = record
-      balance[number] = (balance[number] || 0) - parseFloat(sum) * 100
+      const { number, sum } = record as { number: string, sum: string }
+      balance[number] = (balance[number] || 0) - parseInt(sum)
     })
+
     balances.configureNames(config)
     Object.keys(balance).forEach(number => balances.set(number as AccountNumber, balance[number]))
   }
