@@ -27,10 +27,12 @@ export class BalanceBookkeeping {
 
   private balance: Record<AccountNumber, number>
   private number: Record<AccountAddress, AccountNumber>
+  private warnings: Set<string>
 
   constructor() {
     this.balance = {}
     this.number = {}
+    this.warnings = new Set()
     debug('BALANCE', 'Created new balance bookkeeper.')
   }
 
@@ -94,7 +96,11 @@ export class BalanceBookkeeping {
    */
   get(account: AccountAddress): number {
     if (!(account in this.number)) {
-      warning(`Cannot find account ${account} from balance bookkeeping.`)
+      const text = `Cannot find account ${account} from balance bookkeeping.`
+      if (!this.warnings.has(text)) {
+        this.warnings.add(text)
+        warning(text)
+      }
     }
     return this.balance[this.number[account]] || 0
   }
