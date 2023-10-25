@@ -237,13 +237,13 @@ test('Rules: sum()', () => {
   expect(e.eval("sum([], 'c')")).toBe(0)
 })
 
-test('Rules: concat()', () => {
+test('Rules: collect()', () => {
   const e = new RulesEngine({}, true)
-  expect(e.eval('concat([])')).toBe('')
-  expect(e.eval("concat(['a', null, 'b', undefined, ''])")).toBe('a\nb')
-  expect(e.eval("concat(['a', null, 'b', undefined, ''], null, '+')")).toBe('a+b')
-  expect(e.eval("concat([{a: 3}, {b: -4}, {a: 1, b: 5}], 'a')")).toBe('3\n1')
-  expect(e.eval("concat([{a: 3}, {b: -4}, {a: 1, b: 5}], 'x')")).toBe('')
+  expect(e.eval('collect([])')).toBe('')
+  expect(e.eval("collect(['a', null, 'b', undefined, ''])")).toBe('a\nb')
+  expect(e.eval("collect(['a', null, 'b', undefined, ''], null, '+')")).toBe('a+b')
+  expect(e.eval("collect([{a: 3}, {b: -4}, {a: 1, b: 5}], 'a')")).toBe('3\n1')
+  expect(e.eval("collect([{a: 3}, {b: -4}, {a: 1, b: 5}], 'x')")).toBe('')
 })
 
 test('Rules: clean()', () => {

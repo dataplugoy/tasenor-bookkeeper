@@ -71,7 +71,7 @@ export class RuleParsingError extends Error {
  * * `chosen` - {@link RulesEngine.chosen}
  * * `clean` - {@link RulesEngine.clean}
  * * `contains` - {@link RulesEngine.contains}
- * * `concat` - {@link RulesEngine.concat}
+ * * `collect` - {@link RulesEngine.collect}
  * * `d` - {@link RulesEngine.d}
  * * `has` - {@link RulesEngine.has}
  * * `isCurrency` - {@link RulesEngine.isCurrency}
@@ -162,7 +162,7 @@ export class RulesEngine {
       cents: (n: number) => this.cents(n),
       chosen: (question: string) => this.chosen(question),
       clean: (s: string) => this.clean(s),
-      concat: (vector: unknown[], field: string | undefined, sep: string | undefined) => this.concat(vector, field, sep),
+      collect: (vector: unknown[], field: string | undefined, sep: string | undefined) => this.collect(vector, field, sep),
       contains: (s: string, r: string) => this.contains(s, r),
       d: (...args: unknown[]) => this.d(...args),
       has: (list: unknown[], str: unknown) => this.has(list, str),
@@ -558,9 +558,9 @@ export class RulesEngine {
    * Only entries with proper values are used. Empty strings, nulls etc are ignored.
    * If separator is not given, new line is used by default.
    */
-  concat(vector: unknown[], field: string | undefined, sep: string | undefined) {
+  collect(vector: unknown[], field: string | undefined, sep: string | undefined) {
     if (typeof vector !== 'object') {
-      throw new Error(`Invalid argument ${JSON.stringify(vector)} for concat().`)
+      throw new Error(`Invalid argument ${JSON.stringify(vector)} for collect().`)
     }
 
     const parts: string[] = []
