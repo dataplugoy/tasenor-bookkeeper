@@ -73,9 +73,9 @@ class DashboardPage extends Component {
       return ''
     }
     if (!store.db) {
-      return <>
+      return <div className="Dashboard">
         <Title><Trans>No Database Selected</Trans></Title>
-      </>
+        </div>
     }
     const { periodId } = this.props.params
 
