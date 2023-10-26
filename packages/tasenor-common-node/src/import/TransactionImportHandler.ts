@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { TasenorElement, AccountAddress, Asset, AssetExchange, AssetTransfer, AssetTransferReason, AssetType, Currency, Language, TransactionDescription, TransactionApplyResults, debug, realNegative, AccountNumber, realPositive, ProcessConfig, ImportStateText, TextFileLine, SegmentId, NO_SEGMENT, num, ImportSegment, Directions, ImportAnswers, ImportConfig, BalanceSummaryEntry, less, mergeTags, log, DirectoryPath } from '@tasenor/common'
+import { TasenorElement, AccountAddress, Asset, AssetExchange, AssetTransfer, AssetTransferReason, AssetType, Currency, Language, TransactionDescription, TransactionApplyResults, debug, realNegative, AccountNumber, realPositive, ProcessConfig, ImportStateText, TextFileLine, SegmentId, NO_SEGMENT, num, ImportSegment, Directions, ImportAnswers, ImportConfig, BalanceSummaryEntry, less, mergeTags, log, DirectoryPath, Timestamp } from '@tasenor/common'
 import { TransferAnalyzer } from './TransferAnalyzer'
 import hash from 'object-hash'
 import { TransactionUI } from './TransactionUI'
@@ -68,11 +68,11 @@ export class TransactionImportHandler extends TextFileProcessHandler {
    * Get a single account balance.
    * @param addr
    */
-  getBalance(addr: AccountAddress): number {
+  getBalance(addr: AccountAddress, time: Timestamp): number {
     if (!this.analyzer) {
       throw new Error(`Cannot access balance for ${addr} when no analyzer instantiated.`)
     }
-    return this.analyzer.getBalance(addr)
+    return this.analyzer.getBalance(addr, time)
   }
 
   /**
@@ -655,12 +655,12 @@ export class TransactionImportHandler extends TextFileProcessHandler {
           if (balance.account === loanAccount) {
             continue
           }
-          const accountBalance = this.analyzer.getBalance(balance.address) || 0
-          const debtBalance = this.analyzer.getBalance(balance.debtAddress) || 0
+          const accountBalance = this.analyzer.getBalance(balance.address, tx.date.getTime() as Timestamp) || 0
+          const debtBalance = this.analyzer.getBalance(balance.debtAddress, tx.date.getTime() as Timestamp) || 0
           // Take more loan.
           if (realNegative(accountBalance) && realNegative(entry.amount)) {
             this.analyzer.revertBalance(entry)
-            const originalBalance = this.analyzer.getBalance(balance.address) || 0
+            const originalBalance = this.analyzer.getBalance(balance.address, tx.date.getTime() as Timestamp) || 0
             // Only partial loan needed.
             if (realPositive(originalBalance)) {
               const loanEntry = {

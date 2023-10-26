@@ -103,12 +103,12 @@ export class UnitTester {
    * Get the account balance.
    * @param name
    */
-  get(addr): number {
+  getBalance(addr, time): number {
     const number = this.accountNumber[addr]
     if (!number) {
       throw new Error(`Invalid account name ${addr}.`)
     }
-    return this.handler.getBalance(addr)
+    return this.handler.getBalance(addr, time)
   }
 
   /**

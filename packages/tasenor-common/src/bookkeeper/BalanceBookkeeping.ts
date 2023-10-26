@@ -1,5 +1,5 @@
 import { debug, warning } from '../logging'
-import { AccountAddress, AccountNumber, Asset, AssetTransferReason, AssetType, TransactionLine } from '../types'
+import { AccountAddress, AccountNumber, Asset, AssetTransferReason, AssetType, Timestamp, TransactionLine } from '../types'
 import { sprintf } from 'sprintf-js'
 import { ProcessConfig } from '../process_types'
 
@@ -94,7 +94,7 @@ export class BalanceBookkeeping {
   /**
    * Find the balance for the given account.
    */
-  get(account: AccountAddress): number {
+  get(account: AccountAddress, time: Timestamp): number {
     if (!(account in this.number)) {
       const text = `Cannot find account ${account} from balance bookkeeping.`
       if (!this.warnings.has(text)) {
