@@ -655,12 +655,12 @@ export class TransactionImportHandler extends TextFileProcessHandler {
           if (balance.account === loanAccount) {
             continue
           }
-          const accountBalance = this.analyzer.getBalance(balance.address, tx.date.getTime() as Timestamp) || 0
-          const debtBalance = this.analyzer.getBalance(balance.debtAddress, tx.date.getTime() as Timestamp) || 0
+          const accountBalance = this.analyzer.getBalance(balance.address, new Date(tx.date).getTime() as Timestamp) || 0
+          const debtBalance = this.analyzer.getBalance(balance.debtAddress, new Date(tx.date).getTime() as Timestamp) || 0
           // Take more loan.
           if (realNegative(accountBalance) && realNegative(entry.amount)) {
             this.analyzer.revertBalance(entry)
-            const originalBalance = this.analyzer.getBalance(balance.address, tx.date.getTime() as Timestamp) || 0
+            const originalBalance = this.analyzer.getBalance(balance.address, new Date(tx.date).getTime() as Timestamp) || 0
             // Only partial loan needed.
             if (realPositive(originalBalance)) {
               const loanEntry = {
