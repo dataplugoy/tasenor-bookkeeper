@@ -62,7 +62,7 @@ services:
       INITIAL_PLUGIN_REPOS: ${INITIAL_PLUGIN_REPOS:-npm://@tasenor/common-plugins}
       ID_RSA: ${ID_RSA:-}
       ID_RSA_PUB: ${ID_RSA_PUB:-}
-    command: ./bin/wait-for-it.sh -t 60 -h tasenor-bookkeeper-api -p 7205 -- pnpm run docker
+    command: pnpm run docker
     networks:
       - tasenor
 
