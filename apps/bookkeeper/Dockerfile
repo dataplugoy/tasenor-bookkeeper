@@ -34,7 +34,4 @@ RUN echo '[]' > src/Plugins/index.json
 RUN echo 'const index = []' > src/Plugins/index.jsx
 RUN echo 'export default index' >> src/Plugins/index.jsx
 
-RUN pnpm run build
-RUN pnpm run optimize
-
 CMD ["pnpm", "run", "docker"]
