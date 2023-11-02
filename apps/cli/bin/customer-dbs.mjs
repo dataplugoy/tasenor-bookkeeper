@@ -1,4 +1,8 @@
 #!/usr/bin/env -S npx tsx
+/**
+ * List customer databases found.
+ */
+
 import commonNode from '@tasenor/common-node'
 const { DB } = commonNode
 

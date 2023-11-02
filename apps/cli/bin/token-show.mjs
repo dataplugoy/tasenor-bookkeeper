@@ -1,4 +1,7 @@
 #!/usr/bin/env -S npx tsx
+/**
+ * Display the content of Tasenor token.
+ */
 import commonNode from '@tasenor/common-node'
 const { tokens } = commonNode
 

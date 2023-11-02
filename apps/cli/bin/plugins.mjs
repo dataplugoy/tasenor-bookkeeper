@@ -1,4 +1,7 @@
 #!/usr/bin/env -S npx tsx
+/**
+ * A tool for plugin  management.
+ */
 import path from 'path'
 import dayjs from 'dayjs'
 import fs from 'fs'

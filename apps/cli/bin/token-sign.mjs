@@ -1,4 +1,7 @@
 #!/usr/bin/env -S npx tsx
+/**
+ * Create signed token for Tasenor.
+ */
 import commonNode from '@tasenor/common-node'
 const { vault, tokens, cli } = commonNode
 

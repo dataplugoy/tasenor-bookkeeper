@@ -1,4 +1,7 @@
 #!/usr/bin/env -S npx tsx
+/**
+ * A front end executor to tasenor CLI commands.
+ */
 import commonNode from '@tasenor/common-node'
 const { CLI } = commonNode
 const cli = new CLI()
