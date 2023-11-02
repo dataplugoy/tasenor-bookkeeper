@@ -1,0 +1,55 @@
+#!/bin/bash
+#
+# A tool for viewing and managing docker volumes.
+#
+
+set -e
+
+CONTAINER=node:18
+FILE=`dirname "${BASH_SOURCE[0]}"`/..
+ROOT=`readlink -f "$FILE"`
+BACKUPDIR="$ROOT/backup"
+
+usage() {
+  echo "Usage: $0 ls|enter <vol>|dump <vol>|restore <vol>"
+}
+
+docker_ls() {
+  docker volume ls | grep tasenor | awk '{print  $2}' | sed -e 's/^tasenor_//'
+}
+
+docker_enter() {
+  VOL=tasenor_$1
+  docker run -it -v $VOL:/volume $CONTAINER bash -c "cd /volume; bash -i"
+}
+
+docker_dump() {
+  VOL=tasenor_$1
+  cd $BACKUPDIR
+  docker run -it -v $VOL:/volume --mount "type=bind,source=`pwd`,target=/backup" $CONTAINER bash -c "cd /volume && tar czvf /backup/$1.tgz ."
+  echo
+  echo "Backup stored to $BACKUPDIR/$1.tgz"
+  echo
+}
+
+docker_restore() {
+  VOL=tasenor_$1
+  cd $BACKUPDIR
+
+  docker run -it -v $VOL:/volume --mount "type=bind,source=`pwd`,target=/backup" $CONTAINER bash -c "cd /volume && tar xzvf /backup/$1.tgz"
+  echo
+  echo "Backup restored to $VOL"
+  echo
+}
+
+if [ "$1" == 'ls' ]; then
+  docker_ls
+elif [ "$1" == 'enter' ]; then
+  docker_enter $2
+elif [ "$1" == 'dump' ]; then
+  docker_dump $2
+elif [ "$1" == 'restore' ]; then
+  docker_restore $2
+else
+  usage
+fi
