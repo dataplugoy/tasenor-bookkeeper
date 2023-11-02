@@ -15,6 +15,7 @@ This is a command-line tool collection.
 ## Data Management
 
 * `change-db-host.mjs` Convert tasenor.sql file to different server.
+* `dump-tasenor.mjs` Create tar-packagge of bookkeeper customer database.
 
 ## Maintenance
 
