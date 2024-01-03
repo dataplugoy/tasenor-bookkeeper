@@ -296,6 +296,11 @@ export class TestImportConnector implements TransactionImportConnector {
           config: '* * * removed * * *'
         }
       }
+      if ('options' in directions.element) {
+        directions.element.options = {
+          config: '* * * removed * * *'
+        }
+      }
       console.dir(directions.element, { depth: null })
 
       console.log()
