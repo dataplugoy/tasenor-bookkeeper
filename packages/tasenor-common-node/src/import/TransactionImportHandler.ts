@@ -765,6 +765,7 @@ export class TransactionImportHandler extends TextFileProcessHandler {
           debug('EXECUTION', res.transactions)
           const hasOld = await this.system.connector.resultExists(process.id, res)
           if (hasOld) {
+            log(`Duplicate transaction found ${JSON.stringify(res.transactions)}.`)
             const allow = await this.UI.getBoolean(process.config, 'allowIdenticalTx', 'Allow creation of identical transactions that has been already created.')
             if (!allow) {
               for (const tx of res.transactions || []) {
