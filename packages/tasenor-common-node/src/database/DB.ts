@@ -1,4 +1,4 @@
-import { Crypto, DatabaseName, error, Hostname, ID, isDatabaseName, log, Secret, Url } from '@tasenor/common'
+import { Crypto, DatabaseName, delay, error, Hostname, ID, isDatabaseName, log, Secret, Url } from '@tasenor/common'
 import { randomString, vault } from '..'
 import knex, { Knex } from 'knex'
 import { types } from 'pg'
@@ -245,10 +245,6 @@ const migrate = async (masterDb: KnexDatabase, name: DatabaseName, migrations: s
  * Apply migrations to the master database.
  */
 const migrateMaster = async (migrations: string): Promise<void> => {
-  function delay(time) {
-    return new Promise(resolve => setTimeout(resolve, time))
-  }
-
   log('Migrating master database.')
 
   const conf = await getMasterConfig()

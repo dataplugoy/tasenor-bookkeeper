@@ -136,3 +136,10 @@ export function setIntersect<T>(s1: Set<T>, s2: Set<T>): Set<T> {
   const tmp: T[] = [...s1].filter(x => s2.has(x))
   return new Set<T>(tmp)
 }
+
+/**
+ * A promise adding a waiting time.
+ */
+export function delay(time: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, time))
+}

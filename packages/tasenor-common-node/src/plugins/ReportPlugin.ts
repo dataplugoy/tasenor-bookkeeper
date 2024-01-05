@@ -165,6 +165,13 @@ export class ReportPlugin extends BackendPlugin {
   }
 
   /**
+   * Optional extra SQL limitation for SQL used to gather raw data. See constructSqlQuery().
+   */
+  async extraSQLCondition(): Promise<string | null> {
+    return null
+  }
+
+  /**
    * Construct a SQL for the report query.
    * @param db
    * @param options
@@ -196,7 +203,8 @@ export class ReportPlugin extends BackendPlugin {
       'account.type',
       'account.number',
       db.raw(`CAST(ROUND(${negateSql} * entry.amount * 100) AS BIGINT) AS amount`),
-      'entry.description'
+      'entry.description',
+      'entry.data'
     )
       .from('entry')
       .leftJoin('account', 'account.id', 'entry.account_id')
@@ -208,12 +216,19 @@ export class ReportPlugin extends BackendPlugin {
       sqlQuery = sqlQuery.andWhere('account.id', '=', options.accountId)
     }
 
+    // Add extras, if any.
+    const extras = await this.extraSQLCondition()
+    if (extras) {
+      sqlQuery = sqlQuery.andWhere(db.raw(extras))
+    }
+
     // Tune ordering.
     sqlQuery = (sqlQuery
       .orderBy('document.date')
       .orderBy('document.number')
       .orderBy('document.id')
-      .orderBy('entry.row_number'))
+      .orderBy('entry.row_number')
+      .orderBy('entry.id'))
 
     return sqlQuery
   }
@@ -324,7 +339,7 @@ export class ReportPlugin extends BackendPlugin {
    * @param options
    * @param columns
    */
-  preProcess(id: ReportID, entries, options: ReportQueryParams, settings: ReportMeta, columns): ReportItem[] {
+  preProcess(id: ReportID, entries: ReportData[], options: ReportQueryParams, settings: ReportMeta, columns): ReportItem[] {
     throw new Error(`Report plugin ${this.constructor.name} does not implement preProcess().`)
   }
 
@@ -337,7 +352,7 @@ export class ReportPlugin extends BackendPlugin {
    * @param columns Column definitions.
    * @returns
    */
-  postProcess(id: ReportID, data, options: ReportQueryParams, settings: ReportMeta, columns): ReportLine[] {
+  postProcess(id: ReportID, data: ReportLine[], options: ReportQueryParams, settings: ReportMeta, columns): ReportLine[] {
     return data
   }
 
