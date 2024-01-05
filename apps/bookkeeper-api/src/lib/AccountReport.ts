@@ -9,6 +9,7 @@ import dayjs from 'dayjs'
 export class AccountReport extends ReportPlugin {
 
   async getColumns(id, entries, options, settings): Promise<ReportColumnDefinition[]> {
+    // TODO: Translations should be actually in this plugin and not in general translation file.
     return [{
       type: 'id',
       name: 'id',

@@ -108,6 +108,7 @@ class AssetReport extends ReportPlugin {
         amounts: { }
       })
       // Note: we could construct also detailed changes at this point, if we want detailed version of the report.
+      // TODO: Text column should work here so that we can add asset as text column instead of using it as a name.
       for (const [, asset, amount] of bookkeeping.totals()) {
         if (amount) {
           const value = bookkeeping.value(asset)
