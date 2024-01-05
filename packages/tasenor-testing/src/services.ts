@@ -15,7 +15,7 @@ export async function callTestService(service, data: Record<string, string>) {
     throw new Error('Cannot use testing services without setting environment API_URL.')
   }
   if (!API_SITE_TOKEN) {
-    throw new Error('Cannot use testing services without setting environment API_URL.')
+    throw new Error('Cannot use testing services without setting environment API_SITE_TOKEN.')
   }
   const auth = await axios.get(`${API_URL}/auth/refresh`, {
     headers: {

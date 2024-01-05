@@ -50,8 +50,8 @@ router.get('/refresh',
   async (req, res, next) => {
     const { audience, owner, feats } = res.locals.auth
     if (!await users.verifyUser(owner)) {
-      error(`User ${owner} is disabled. Refusing the refresh.`)
-      return res.status(403).send({ message: 'User is disabled.' })
+      error(`User ${owner} is disabled or does not exist. Refusing the refresh.`)
+      return res.status(403).send({ message: 'User is disabled or does not exist.' })
     }
     if (audience === 'bookkeeping') {
       const pair = await tokens.sign2({ owner, feats }, 'bookkeeping', isDevelopment() ? DAYS * 365 : 0).catch(next)
