@@ -1,4 +1,4 @@
-import { AccountNumber, Language, PluginCode, ReportColumnDefinition, ReportData, ReportID, ReportItem, ReportLine, ReportMeta, ReportOptions, ReportQueryParams, StockBookkeeping, StockChangeData, Version } from '@tasenor/common'
+import { AccountNumber, Language, PluginCode, ReportColumnDefinition, ReportData, ReportID, ReportLine, ReportMeta, ReportOptions, ReportQueryParams, StockBookkeeping, StockChangeData, Version } from '@tasenor/common'
 import { ReportPlugin } from '@tasenor/common-node'
 import dayjs from 'dayjs'
 import quarterOfYear from 'dayjs/plugin/quarterOfYear'
