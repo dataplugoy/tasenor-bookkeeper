@@ -1,6 +1,7 @@
 import Opaque from 'ts-opaque'
-import { AccountNumber, PeriodModel } from '.'
+import { AccountNumber, AccountType, PeriodModel } from '.'
 import { Language, PK } from '../common'
+import { ShortDate } from '..'
 
 /**
  * Rendering hints for alliwing selection of report options in UI.
@@ -45,6 +46,20 @@ export type ReportFormat = Opaque<string, 'ReportFormat'>
  * Names of the flags usable as an option in a report line.
  */
 export type ReportFlagName = 'NEW_PAGE' | 'BREAK' | 'BOLD' | 'ITALIC' | 'DETAILS' | 'HIDE_TOTAL' | 'REQUIRED'
+
+/**
+ * Raw data produced by the SQL query for further processing.
+ */
+export interface ReportData {
+  periodId: PK
+  documentId: PK
+  date: ShortDate
+  name: string
+  type: AccountType
+  number: AccountNumber
+  amount: number
+  description: string
+}
 
 /**
  * Formatting instructions for one content line of the report.
@@ -112,12 +127,26 @@ export type ReportLineParagrapBreak = { paragraphBreak: true }
 export type ReportLine = ReportItem | ReportLinePageBreak | ReportLineParagrapBreak | Record<string, never>
 
 /**
+ * Meta data for report.
+ */
+export interface ReportMeta {
+  companyName: string
+  companyCode: string
+  tags: string[]
+}
+
+/**
+ * Value summary for report processing keeping totals per column name per account.
+ */
+export type ReportTotals = Record<string, Record<AccountNumber, number>>
+
+/**
  * A complete report data.
  */
 export type Report = {
   format: ReportID
   columns: ReportColumnDefinition[]
-  meta: Record<string, string>
+  meta: ReportMeta
   data: ReportItem[]
 }
 
@@ -125,15 +154,18 @@ export type Report = {
  * Possible query parameters that can be given to the report generator.
  */
 export interface ReportQueryParams {
-  format?: ReportFormat,
-  periodId?: PK,
-  accountId?: PK,
-  lang?: Language,
-  quarter1?: boolean,
-  quarter2?: boolean,
-  quarter3?: boolean,
-  compact?: boolean,
-  byTags?: boolean,
-  csv?: boolean,
+  format?: ReportFormat
+  periodId?: PK
+  periods?: PK[]
+  accountId?: PK
+  lang?: Language
+  quarter1?: boolean
+  quarter2?: boolean
+  quarter3?: boolean
+  compact?: boolean
+  byTags?: boolean
+  csv?: boolean
   dropTitle?: boolean
+  negateAssetAndProfit?: boolean
+  addPreviousPeriod?: boolean
 }

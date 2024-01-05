@@ -1,4 +1,4 @@
-import { AccountNumber, Language, PluginCode, ReportID, ReportOptions, Version } from '@tasenor/common'
+import { AccountNumber, Language, PluginCode, ReportID, ReportItem, ReportOptions, Version } from '@tasenor/common'
 import { ReportPlugin } from '@tasenor/common-node'
 import dayjs from 'dayjs'
 import quarterOfYear from 'dayjs/plugin/quarterOfYear'
@@ -66,7 +66,7 @@ class FinnishBalanceSheetReport extends ReportPlugin {
     }
   }
 
-  preProcess(id, entries, options, settings, columns) {
+  preProcess(id, entries, options, settings, columns): ReportItem[] {
     const columnNames = columns.map((col) => col.name)
 
     // Summarize all totals from the entries.

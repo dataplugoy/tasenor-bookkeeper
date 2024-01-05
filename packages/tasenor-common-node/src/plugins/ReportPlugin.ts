@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import fs from 'fs'
-import { data2csv } from '..'
+import { KnexDatabase, data2csv } from '..'
 import dayjs from 'dayjs'
 import quarterOfYear from 'dayjs/plugin/quarterOfYear'
-import { ReportOptions, ReportID, ReportFlagName, ReportItem, ReportQueryParams, ReportLine, AccountNumber, ReportColumnDefinition, PeriodModel, ReportFormat, Language } from '@tasenor/common'
+import { ReportOptions, ReportID, ReportFlagName, ReportItem, ReportQueryParams, ReportLine, AccountNumber, ReportColumnDefinition, PeriodModel, ReportFormat, Language, PK, ReportMeta, ReportData, ReportTotals } from '@tasenor/common'
 import { BackendPlugin } from './BackendPlugin'
 
 dayjs.extend(quarterOfYear)
@@ -24,7 +24,7 @@ export class ReportPlugin extends BackendPlugin {
   }
 
   /**
-   * Read in report struture file.
+   * Read in report structure file.
    */
   getReportStructure(id: ReportID, lang: Language) : ReportFormat | undefined {
     const path = this.filePath(`${id}-${lang}.tsv`)
@@ -44,7 +44,7 @@ export class ReportPlugin extends BackendPlugin {
    * Check if the given report is provided by this plugin.
    * @param id
    */
-  hasReport(id) {
+  hasReport(id: ReportID) {
     return this.formats.includes(id)
   }
 
@@ -62,7 +62,7 @@ export class ReportPlugin extends BackendPlugin {
    * Return UI option definitions for the given report.
    * @param id
    */
-  getReportOptions(id): ReportOptions {
+  getReportOptions(id: ReportID): ReportOptions {
     return {}
   }
 
@@ -85,7 +85,7 @@ export class ReportPlugin extends BackendPlugin {
    * @param flags
    * @returns
    */
-  flags2item(flags: ReportFlagName[]) {
+  flags2item(flags: ReportFlagName[]): ReportItem {
     const item: ReportItem = {}
     flags.forEach(flag => {
       if (flag) {
@@ -124,9 +124,9 @@ export class ReportPlugin extends BackendPlugin {
    * @param entries
    * @param options
    */
-  async getColumns(id, entries, options: ReportOptions, settings): Promise<ReportColumnDefinition[]> {
+  async getColumns(id: ReportID, entries: ReportData[], options: ReportOptions, settings: ReportMeta): Promise<ReportColumnDefinition[]> {
     if (!options.periods) {
-      throw new Error(`Need periods to define columns ${JSON.stringify(options)}`)
+      throw new Error(`Need option 'periods' to define columns in ${JSON.stringify(options)}`)
     }
     const columns: ReportColumnDefinition[] = options.periods.map((period) => {
       return {
@@ -157,7 +157,7 @@ export class ReportPlugin extends BackendPlugin {
    * Force some options, if needed.
    * @returns
    */
-  forceOptions(options) {
+  forceOptions(options: ReportQueryParams): ReportQueryParams {
     return {
       negateAssetAndProfit: false, // A flag to multiply by -1 entries from asset and profit types of accounts.
       addPreviousPeriod: false // A flag to define if the previous period should be displayed for comparison.
@@ -170,7 +170,7 @@ export class ReportPlugin extends BackendPlugin {
    * @param options
    * @returns A knex query prepared.
    */
-  async constructSqlQuery(db, options, settings) {
+  async constructSqlQuery(db: KnexDatabase, options: ReportQueryParams, settings: ReportMeta) {
     // Construct value negator.
     let negateSql = '(CASE debit WHEN true THEN 1 ELSE -1 END)'
     if (options.negateAssetAndProfit) {
@@ -180,7 +180,7 @@ export class ReportPlugin extends BackendPlugin {
     // Find periods.
     const periodIds = [options.periodId]
     if (options.addPreviousPeriod) {
-      const recentPeriods = await db.select('*').from('period').where('id', '<=', options.periodId).orderBy('end_date', 'desc').limit(2)
+      const recentPeriods = await db.select('*').from('period').where('id', '<=', options.periodId + '').orderBy('end_date', 'desc').limit(2)
       if (recentPeriods.length > 1) {
         periodIds.push(recentPeriods[1].id)
       }
@@ -201,7 +201,7 @@ export class ReportPlugin extends BackendPlugin {
       .from('entry')
       .leftJoin('account', 'account.id', 'entry.account_id')
       .leftJoin('document', 'document.id', 'entry.document_id')
-      .whereIn('document.period_id', periodIds)
+      .whereIn('document.period_id', periodIds as PK[])
 
     // Limit by account, if given.
     if (options.accountId) {
@@ -241,7 +241,7 @@ export class ReportPlugin extends BackendPlugin {
    * * `number` Account number if the entry is an account.
    * * `amounts` An object with entry for each column mapping name of the columnt to the value to display.
    */
-  async renderReport(db, id, options: ReportQueryParams = {}) {
+  async renderReport(db: KnexDatabase, id: ReportID, options: ReportQueryParams = {}): Promise<ReportLine[]> {
 
     // Add report forced options.
     Object.assign(options, this.forceOptions(options))
@@ -263,11 +263,11 @@ export class ReportPlugin extends BackendPlugin {
 
     // Prepare query.
     const q = await this.constructSqlQuery(db, options, settings)
-    let entries = await q
+    let entries = await q as ReportData[]
 
     // Process big ints.
     for (const entry of entries) {
-      entry.amount = parseInt(entry.amount)
+      entry.amount = parseInt(entry.amount + '')
     }
 
     // Apply query filtering.
@@ -275,7 +275,7 @@ export class ReportPlugin extends BackendPlugin {
 
     // We have now relevant entries collected. Use plugin features next.
     const columns: ReportColumnDefinition[] = await this.getColumns(id, entries, options as ReportOptions, settings)
-    let data = this.preProcess(id, entries, options, settings, columns)
+    let data = this.preProcess(id, entries, options, settings, columns) as ReportLine[]
     data = this.postProcess(id, data, options, settings, columns)
     const report = {
       format: id,
@@ -292,7 +292,8 @@ export class ReportPlugin extends BackendPlugin {
       return data2csv(report, options)
     }
 
-    return report
+    // TODO: Define stuff above so that we don't need this.
+    return report as unknown as ReportLine[]
   }
 
   /**
@@ -302,7 +303,7 @@ export class ReportPlugin extends BackendPlugin {
    * @param options
    * @param settings
    */
-  doFiltering(id, entries, options, settings) {
+  doFiltering(id: ReportID, entries: ReportData[], options: ReportQueryParams, settings: ReportMeta) {
     let filter = (entry) => true
 
     if (options.quarter1) {
@@ -323,7 +324,7 @@ export class ReportPlugin extends BackendPlugin {
    * @param options
    * @param columns
    */
-  preProcess(id, entries, options, settings, columns) {
+  preProcess(id: ReportID, entries, options: ReportQueryParams, settings: ReportMeta, columns): ReportItem[] {
     throw new Error(`Report plugin ${this.constructor.name} does not implement preProcess().`)
   }
 
@@ -336,12 +337,12 @@ export class ReportPlugin extends BackendPlugin {
    * @param columns Column definitions.
    * @returns
    */
-  postProcess(id, data, options, settings, columns) {
+  postProcess(id: ReportID, data, options: ReportQueryParams, settings: ReportMeta, columns): ReportLine[] {
     return data
   }
 
   /**
-   * A helper to combine final report from pre-processed material for reports using text description.
+   * A helper to combine final report from pre-processed material for reports using TSV text description file.
    * @param accountNumbers A set of all account numbers found.
    * @param accountNames A mapping from account numbers to their names.
    * @param columnNames A list of column names.
@@ -349,7 +350,7 @@ export class ReportPlugin extends BackendPlugin {
    * @param totals A mapping from account numbers their total balance.
    * @returns
    */
-  parseAndCombineReport(accountNumbers: AccountNumber[], accountNames, columns, format, totals) {
+  parseAndCombineReport(accountNumbers: AccountNumber[], accountNames: Record<AccountNumber, string>, columns: ReportColumnDefinition[], format: ReportFormat, totals: ReportTotals): ReportLine[] {
     const columnNames = columns.filter((col) => col.type === 'numeric').map((col) => col.name)
 
     // Parse report and construct format.
@@ -359,9 +360,9 @@ export class ReportPlugin extends BackendPlugin {
       if (/^#/.test(line)) {
         return
       }
-      let [numbers, text, flags] = line.split('\t')
-      numbers = numbers.split(' ')
-      flags = flags ? new Set(flags.trim().split(/\s+/)) : new Set()
+      let [accNumbers, text, accFlags] = line.split('\t')
+      const numbers = accNumbers.split(' ')
+      const flags: Set<ReportFlagName> = accFlags ? new Set(accFlags.trim().split(/\s+/) as ReportFlagName[]) : new Set()
       const tab = text ? text.replace(/^(_*).*/, '$1').length : 0
       text = text ? text.replace(/^_+/, '') : ''
 
@@ -379,7 +380,7 @@ export class ReportPlugin extends BackendPlugin {
       const amounts: Record<string, number | null> = {}
       columnNames.forEach((column) => (amounts[column] = null))
       let unused = true
-      const item: ReportItem = { tab, ...this.flags2item(flags) }
+      const item: ReportItem = { tab, ...this.flags2item([...flags]) }
 
       // Collect all totals inside any of the account number ranges.
       for (let i = 0; i < numbers.length; i++) {
@@ -391,7 +392,7 @@ export class ReportPlugin extends BackendPlugin {
             if (number >= from && number < to) {
               unused = false
               if (totals[column][number] !== undefined) {
-                amounts[column] += totals[column][number]
+                amounts[column] = (amounts[column] || 0) + totals[column][number]
               }
             }
           })
@@ -415,7 +416,7 @@ export class ReportPlugin extends BackendPlugin {
           const to = parts[1]
           allAccounts.forEach((number) => {
             if (number >= from && number < to) {
-              const item = { tab, ...this.flags2item(flags) }
+              const item = { tab, ...this.flags2item([...flags]) }
               item.isAccount = true
               delete item.accountDetails
               item.name = accountNames[number]
@@ -438,6 +439,7 @@ export class ReportPlugin extends BackendPlugin {
       }
     })
 
-    return ret
+    // TODO: Define stuff so that need no type hint.
+    return ret as ReportLine[]
   }
 }
