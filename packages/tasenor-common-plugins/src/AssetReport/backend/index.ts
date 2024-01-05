@@ -1,4 +1,4 @@
-import { Language, PluginCode, ReportColumnDefinition, ReportData, ReportID, ReportItem, ReportMeta, ReportOptions, ReportQueryParams, Version } from '@tasenor/common'
+import { AccountNumber, Language, PluginCode, ReportColumnDefinition, ReportData, ReportID, ReportItem, ReportLine, ReportMeta, ReportOptions, ReportQueryParams, StockBookkeeping, StockChangeData, Version } from '@tasenor/common'
 import { ReportPlugin } from '@tasenor/common-node'
 import dayjs from 'dayjs'
 import quarterOfYear from 'dayjs/plugin/quarterOfYear'
@@ -21,10 +21,16 @@ class AssetReport extends ReportPlugin {
 
     this.languages = {
       en: {
-        'report-assets': 'Assets'
+        'report-assets': 'Assets',
+        'column-purchase-value': 'Purchase Value',
+        'column-average-value': 'Average Value',
+        'column-count': 'Count',
       },
       fi: {
-        'report-assets': 'Omaisuuserät'
+        'report-assets': 'Omaisuuserät',
+        'column-purchase-value': 'Ostohinta',
+        'column-average-value': 'Keskihinta',
+        'column-count': 'Kpl',
       }
     }
   }
@@ -42,14 +48,29 @@ class AssetReport extends ReportPlugin {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getColumns(id: ReportID, entries: ReportData[], options: ReportOptions, settings: ReportMeta): Promise<ReportColumnDefinition[]> {
-    console.log(entries)
     return [
       {
         name: 'title',
         title: '',
         type: 'name'
-      }
+      },
+      {
+        name: 'count',
+        title: '{column-count}',
+        type: 'numeric'
+      },
+      {
+        name: 'average',
+        title: '{column-average-value}',
+        type: 'numeric'
+      },
+      {
+        name: 'value',
+        title: '{column-purchase-value}',
+        type: 'numeric'
+      },
     ]
   }
 
@@ -60,9 +81,51 @@ class AssetReport extends ReportPlugin {
   /**
    * Gather ticker counts for each account.
    */
-  preProcess(id: ReportID, entries: ReportData[], options: ReportQueryParams, settings: ReportMeta, columns): ReportItem[] {
-    console.log(entries)
-    return []
+  preProcess(id: ReportID, entries: ReportData[], options: ReportQueryParams, settings: ReportMeta, columns: ReportColumnDefinition[]): ReportLine[] {
+
+    const stock: Record<AccountNumber, { data: StockChangeData, time: Date }[]> = {}
+    const lines: ReportLine[] = []
+
+    entries.forEach(entry => {
+      if (!stock[entry.number]) {
+        stock[entry.number] = []
+      }
+      stock[entry.number].push({
+        data: entry.data as StockChangeData,
+        time: new Date(entry.date)
+      })
+    })
+
+    Object.keys(stock).forEach(number => {
+      const bookkeeping = new StockBookkeeping(number)
+      bookkeeping.applyAll(stock[number])
+      lines.push({
+        tab: 0,
+        hideTotal: true,
+        required: true,
+        bold: true,
+        name: number, // TODO: Add account name too
+        amounts: { }
+      })
+      // Note: we could construct also detailed changes at this point, if we want detailed version of the report.
+      for (const [, asset, amount] of bookkeeping.totals()) {
+        if (amount) {
+          const value = bookkeeping.value(asset)
+          lines.push({
+            tab: 4,
+            name: asset,
+            amounts: {
+              count: amount, // TODO: Decimal number instead of money value.
+              average: value / amount,
+              value
+            }
+          })
+        }
+      }
+      lines.push({ paragraphBreak: true })
+    })
+
+    return lines
   }
 
   postProcess(id, data) {

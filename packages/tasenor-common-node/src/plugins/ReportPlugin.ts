@@ -3,7 +3,7 @@ import fs from 'fs'
 import { KnexDatabase, data2csv } from '..'
 import dayjs from 'dayjs'
 import quarterOfYear from 'dayjs/plugin/quarterOfYear'
-import { ReportOptions, ReportID, ReportFlagName, ReportItem, ReportQueryParams, ReportLine, AccountNumber, ReportColumnDefinition, PeriodModel, ReportFormat, Language, PK, ReportMeta, ReportData, ReportTotals } from '@tasenor/common'
+import { ReportOptions, ReportID, ReportFlagName, ReportItem, ReportQueryParams, ReportLine, AccountNumber, ReportColumnDefinition, PeriodModel, ReportFormat, Language, PK, ReportMeta, ReportData, ReportTotals, Report } from '@tasenor/common'
 import { BackendPlugin } from './BackendPlugin'
 
 dayjs.extend(quarterOfYear)
@@ -256,7 +256,7 @@ export class ReportPlugin extends BackendPlugin {
    * * `number` Account number if the entry is an account.
    * * `amounts` An object with entry for each column mapping name of the columnt to the value to display.
    */
-  async renderReport(db: KnexDatabase, id: ReportID, options: ReportQueryParams = {}): Promise<ReportLine[]> {
+  async renderReport(db: KnexDatabase, id: ReportID, options: ReportQueryParams = {}): Promise<Report> {
 
     // Add report forced options.
     Object.assign(options, this.forceOptions(options))
@@ -307,8 +307,7 @@ export class ReportPlugin extends BackendPlugin {
       return data2csv(report, options)
     }
 
-    // TODO: Define stuff above so that we don't need this.
-    return report as unknown as ReportLine[]
+    return report
   }
 
   /**
@@ -339,7 +338,7 @@ export class ReportPlugin extends BackendPlugin {
    * @param options
    * @param columns
    */
-  preProcess(id: ReportID, entries: ReportData[], options: ReportQueryParams, settings: ReportMeta, columns): ReportItem[] {
+  preProcess(id: ReportID, entries: ReportData[], options: ReportQueryParams, settings: ReportMeta, columns: ReportColumnDefinition[]): ReportLine[] {
     throw new Error(`Report plugin ${this.constructor.name} does not implement preProcess().`)
   }
 
@@ -352,7 +351,7 @@ export class ReportPlugin extends BackendPlugin {
    * @param columns Column definitions.
    * @returns
    */
-  postProcess(id: ReportID, data: ReportLine[], options: ReportQueryParams, settings: ReportMeta, columns): ReportLine[] {
+  postProcess(id: ReportID, data: ReportLine[], options: ReportQueryParams, settings: ReportMeta, columns: ReportColumnDefinition[]): ReportLine[] {
     return data
   }
 

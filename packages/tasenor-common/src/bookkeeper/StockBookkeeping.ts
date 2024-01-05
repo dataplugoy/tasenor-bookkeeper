@@ -205,7 +205,7 @@ export class StockBookkeeping {
    * Apply multiple stock change data entries at once.
    * @param data
    */
-  applyAll(data: { data: StockChangeData, time: Date }[ ]): void {
+  applyAll(data: { data: StockChangeData, time: Date }[]): void {
     data.forEach((entry) => this.apply(entry.time, entry.data))
   }
 

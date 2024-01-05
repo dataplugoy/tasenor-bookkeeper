@@ -131,9 +131,9 @@ export type ReportLine = ReportItem | ReportLinePageBreak | ReportLineParagrapBr
  * Meta data for report.
  */
 export interface ReportMeta {
-  companyName: string
-  companyCode: string
-  tags: string[]
+  businessName: string
+  businessId: string
+  tags?: string[]
 }
 
 /**
@@ -148,7 +148,7 @@ export type Report = {
   format: ReportID
   columns: ReportColumnDefinition[]
   meta: ReportMeta
-  data: ReportItem[]
+  data: ReportLine[]
 }
 
 /**
