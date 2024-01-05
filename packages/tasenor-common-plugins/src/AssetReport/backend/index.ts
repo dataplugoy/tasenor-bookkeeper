@@ -81,14 +81,18 @@ class AssetReport extends ReportPlugin {
   /**
    * Gather ticker counts for each account.
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   preProcess(id: ReportID, entries: ReportData[], options: ReportQueryParams, settings: ReportMeta, columns: ReportColumnDefinition[]): ReportLine[] {
 
     const stock: Record<AccountNumber, { data: StockChangeData, time: Date }[]> = {}
+    const names: Record<AccountNumber, string> = {}
+
     const lines: ReportLine[] = []
 
     entries.forEach(entry => {
       if (!stock[entry.number]) {
         stock[entry.number] = []
+        names[entry.number] = entry.name
       }
       stock[entry.number].push({
         data: entry.data as StockChangeData,
@@ -104,7 +108,7 @@ class AssetReport extends ReportPlugin {
         hideTotal: true,
         required: true,
         bold: true,
-        name: number, // TODO: Add account name too
+        name: `${number} ${names[number]}`,
         amounts: { }
       })
       // Note: we could construct also detailed changes at this point, if we want detailed version of the report.
