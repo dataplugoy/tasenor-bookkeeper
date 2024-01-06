@@ -56,11 +56,11 @@ class JournalReport extends ReportPlugin {
       name: 'title',
       title: '{column-date-and-accounts}'
     }, {
-      type: 'numeric',
+      type: 'currency',
       name: 'debit',
       title: '{column-debit}'
     }, {
-      type: 'numeric',
+      type: 'currency',
       name: 'credit',
       title: '{column-credit}'
     }]

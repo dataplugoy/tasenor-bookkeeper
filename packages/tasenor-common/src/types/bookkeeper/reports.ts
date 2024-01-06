@@ -107,7 +107,7 @@ export interface ReportItem {
  * A definition of a column in a report.
  */
 export interface ReportColumnDefinition {
-  type: 'id' | 'name' | 'numeric' | 'text'
+  type: 'id' | 'name' | 'numeric' | 'currency' | 'text'
   name: string
   title: string
 }

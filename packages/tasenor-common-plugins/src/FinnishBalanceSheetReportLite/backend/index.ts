@@ -67,7 +67,7 @@ class FinnishBalanceSheetReportLite extends ReportPlugin {
   async getColumns(id, entries, options) {
     const columns = options.periods.map((period) => {
       return {
-        type: 'numeric',
+        type: 'currency',
         name: 'period' + period.id,
         title: this.columnTitle(id, period, options)
       }

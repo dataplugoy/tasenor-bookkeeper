@@ -25,15 +25,15 @@ export class AccountReport extends ReportPlugin {
       name: 'description',
       title: '{column-description}'
     }, {
-      type: 'numeric',
+      type: 'currency',
       name: 'debit',
       title: '{column-debit}'
     }, {
-      type: 'numeric',
+      type: 'currency',
       name: 'credit',
       title: '{column-credit}'
     }, {
-      type: 'numeric',
+      type: 'currency',
       name: 'balance',
       title: '{column-balance}'
     }]

@@ -71,12 +71,12 @@ class AssetReport extends ReportPlugin {
       {
         name: 'average',
         title: '{column-average-value}',
-        type: 'numeric'
+        type: 'currency'
       },
       {
         name: 'value',
         title: '{column-purchase-value}',
-        type: 'numeric'
+        type: 'currency'
       },
     ]
   }
@@ -129,7 +129,7 @@ class AssetReport extends ReportPlugin {
             tab: 4,
             values: {
               ticker: asset,
-              count: amount, // TODO: Decimal number instead of money value.
+              count: amount,
               average: value / amount,
               value
             }

@@ -82,12 +82,12 @@ class FinnishIncomeStatementReport extends ReportPlugin {
     // Construct columns for each tag and extra column for non-tagged.
     if (options.byTags) {
       const columns = settings.tags.map((tag) => ({
-        type: 'numeric',
+        type: 'currency',
         name: `tag-${tag.tag}`,
         title: tag.name
       }))
       columns.push({
-        type: 'numeric',
+        type: 'currency',
         name: 'other',
         title: '{Other}'
       })
@@ -200,7 +200,7 @@ class FinnishIncomeStatementReport extends ReportPlugin {
 
     // Remove empty columns.
     for (let i = 0; i < columns.length; i++) {
-      if (columns[i].type === 'numeric' && !found.has(columns[i].name)) {
+      if ((columns[i].type === 'currency' || columns[i].type === 'numeric') && !found.has(columns[i].name)) {
         columns.splice(i, 1)
         i--
       }

@@ -5,6 +5,7 @@ import { Money, Localize } from '@tasenor/common-ui'
 import './ReportLine.css'
 import { TableRow, TableCell } from '@mui/material'
 import { haveSettings } from '@tasenor/common'
+import { sprintf } from 'sprintf-js'
 
 @observer
 class ReportLine extends Component {
@@ -59,11 +60,20 @@ class ReportLine extends Component {
         case 'name':
           return td(column, decor(needLocalization ? <Localize>{name}</Localize> : name), { ...extras, className: 'tab' + (tab || 0) })
         // Render currency value.
-        case 'numeric':
+        case 'currency':
           return td(column,
             values && !hideTotal && values[column.name] !== ''
               ? (
                   decor(values[column.name] === null ? '–' : <Money currency={settings.get('currency')} cents={values[column.name]}></Money>)
+                )
+              : ''
+          )
+        // Render numeric value.
+        case 'numeric':
+          return td(column,
+            values && !hideTotal && values[column.name] !== ''
+              ? (
+                  decor(values[column.name] === null ? '–' : sprintf('%f', decor(values[column.name])))
                 )
               : ''
           )

@@ -75,7 +75,8 @@ class ReportCommand extends Command {
           const text = {
             id: () => item.id,
             name: () => item.name,
-            numeric: () => item.values && item.values[column.name] !== undefined && sprintf('%.2f', (item.values[column.name] || 0) / 100)
+            currency: () => item.values && item.values[column.name] !== undefined && sprintf('%.2f', (item.values[column.name] || 0) / 100),
+            numeric: () => item.values && item.values[column.name] !== undefined && sprintf('%f', (item.values[column.name] || 0))
           }[column.type]()
           line.push(text || '')
         }

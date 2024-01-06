@@ -56,15 +56,15 @@ class LedgerReport extends ReportPlugin {
       name: 'name',
       title: '{column-name-or-date}'
     }, {
-      type: 'numeric',
+      type: 'currency',
       name: 'debit',
       title: '{column-debit}'
     }, {
-      type: 'numeric',
+      type: 'currency',
       name: 'credit',
       title: '{column-credit}'
     }, {
-      type: 'numeric',
+      type: 'currency',
       name: 'balance',
       title: '{column-balance}'
     }]

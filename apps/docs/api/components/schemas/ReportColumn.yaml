@@ -3,7 +3,7 @@ properties:
   type:
     description: Type of the column data.
     type: string
-    enum: [id, name, numeric]
+    enum: [id, name, numeric, currency]
     example: numeric
   name:
     description: Name of the key used in data array to refer a value in this column.

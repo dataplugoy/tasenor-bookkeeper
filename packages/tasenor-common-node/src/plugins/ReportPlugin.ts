@@ -130,7 +130,7 @@ export class ReportPlugin extends BackendPlugin {
     }
     const columns: ReportColumnDefinition[] = options.periods.map((period) => {
       return {
-        type: 'numeric',
+        type: 'currency',
         name: 'period' + period.id,
         title: this.columnTitle(id, period, options)
       }

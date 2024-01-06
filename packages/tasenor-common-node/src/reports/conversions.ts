@@ -20,6 +20,13 @@ export function data2csv(report, options: ReportQueryParams) {
       entry.values[column.name] !== '' &&
       !isNaN(entry.values[column.name]) &&
       entry.values[column.name] !== undefined)
+      ? (entry.values[column.name] === null ? '—' : sprintf('%.f', entry.values[column.name]))
+      : '',
+    currency: (column, entry) => (entry.values &&
+      !entry.hideTotal &&
+      entry.values[column.name] !== '' &&
+      !isNaN(entry.values[column.name]) &&
+      entry.values[column.name] !== undefined)
       ? (entry.values[column.name] === null ? '—' : sprintf('%.2f', entry.values[column.name] / 100))
       : ''
   }
