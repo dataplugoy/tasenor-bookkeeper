@@ -66,7 +66,7 @@ export interface ReportData {
  * Formatting instructions for one content line of the report.
  *
  * `accountDetails` - If true, after this there are separate lines for each account involved.
- * `amounts` - A mapping from column names to the numerical content (or just dash if null).
+ * `values` - A mapping from column names to the numerical or string content (or just dash if null).
  * `bigger` - if true, show in bigger font.
  * `bold` - Use bold font.
  * `break` - A short empty line.
@@ -78,7 +78,7 @@ export interface ReportData {
  * `name` - Name of the column. Used as a key when accessing column date.
  * `needLocalization` - If set, value should be localized, i.e. translated via Localization component in ui.
  * `number` - Account number if relevant.
- * `required` - If true, this line is always shown even if no amounts available.
+ * `required` - If true, this line is always shown even if no values available for that item.
  * `tab` - A number starting from zero denoting indentation level of the line.
  * `useRemainingColumns` If set, extend this column index to use all the rest columns in the row.
  *
@@ -86,7 +86,7 @@ export interface ReportData {
 export interface ReportItem {
   id?: string
   accountDetails?: boolean
-  amounts?: Record<string, '' | number | null>
+  values?: Record<string, string | number | null>
   bigger?: boolean
   bold?: boolean
   break?: boolean

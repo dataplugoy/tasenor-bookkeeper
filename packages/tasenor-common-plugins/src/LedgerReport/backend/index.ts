@@ -87,7 +87,7 @@ class LedgerReport extends ReportPlugin {
         documentId: entry.documentId,
         description: entry.description,
         date: entry.date,
-        amounts: {
+        values: {
           debit: entry.amount >= 0 ? entry.amount : null,
           credit: entry.amount < 0 ? -entry.amount : null,
           balance: null
@@ -110,16 +110,16 @@ class LedgerReport extends ReportPlugin {
       })
       let total = 0
       lines.forEach((line) => {
-        total += line.amounts.debit
-        total -= line.amounts.credit
-        line.amounts.balance = total
+        total += line.values.debit
+        total -= line.values.credit
+        line.values.balance = total
         if (options.compact) {
           data.push({
             tab: 0,
             needLocalization: true,
             id: `#${line.documentId}`,
             name: `{${this.time2str(line.date)}} ${line.description.replace(/^(\[.+?\])+\s*/g, '')}`,
-            amounts: line.amounts
+            values: line.values
           })
         } else {
           data.push({
@@ -137,7 +137,7 @@ class LedgerReport extends ReportPlugin {
           data.push({
             tab: 0,
             name: '',
-            amounts: line.amounts
+            values: line.values
           })
         }
       })
@@ -146,7 +146,7 @@ class LedgerReport extends ReportPlugin {
         name: '',
         bold: true,
         bigger: true,
-        amounts: {
+        values: {
           debit: '',
           credit: '',
           balance: total

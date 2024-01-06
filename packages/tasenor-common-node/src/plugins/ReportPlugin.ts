@@ -254,7 +254,7 @@ export class ReportPlugin extends BackendPlugin {
    * * `needLocalization` if set, value should be localized, i.e. translated via Localization component in ui.
    * * `name` Title of the entry.
    * * `number` Account number if the entry is an account.
-   * * `amounts` An object with entry for each column mapping name of the columnt to the value to display.
+   * * `values` An object with entry for each column mapping name of the columnt to the value to display.
    */
   async renderReport(db: KnexDatabase, id: ReportID, options: ReportQueryParams = {}): Promise<Report> {
 
@@ -391,8 +391,8 @@ export class ReportPlugin extends BackendPlugin {
       }
 
       // Split the line and reset variables.
-      const amounts: Record<string, number | null> = {}
-      columnNames.forEach((column) => (amounts[column] = null))
+      const values: Record<string, number | null> = {}
+      columnNames.forEach((column) => (values[column] = null))
       let unused = true
       const item: ReportItem = { tab, ...this.flags2item([...flags]) }
 
@@ -406,7 +406,7 @@ export class ReportPlugin extends BackendPlugin {
             if (number >= from && number < to) {
               unused = false
               if (totals[column][number] !== undefined) {
-                amounts[column] = (amounts[column] || 0) + totals[column][number]
+                values[column] = (values[column] || 0) + totals[column][number]
               }
             }
           })
@@ -417,7 +417,7 @@ export class ReportPlugin extends BackendPlugin {
       if (!item.accountDetails) {
         if (item.required || !unused) {
           item.name = text
-          item.amounts = amounts
+          item.values = values
           ret.push(item)
         }
       }
@@ -435,15 +435,15 @@ export class ReportPlugin extends BackendPlugin {
               delete item.accountDetails
               item.name = accountNames[number]
               item.number = number
-              item.amounts = {}
+              item.values = {}
               columnNames.forEach((column) => {
-                if (!item.amounts) {
-                  item.amounts = {}
+                if (!item.values) {
+                  item.values = {}
                 }
                 if (totals[column][number] === undefined) {
-                  item.amounts[column] = null
+                  item.values[column] = null
                 } else {
-                  item.amounts[column] = totals[column][number] + 0
+                  item.values[column] = totals[column][number] + 0
                 }
               })
               ret.push(item)

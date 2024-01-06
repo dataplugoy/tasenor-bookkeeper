@@ -186,10 +186,10 @@ class FinnishIncomeStatementReportLite extends ReportPlugin {
     // Find empty columns.
     const found = new Set()
     for (const line of data) {
-      if (!line.amounts) {
+      if (!line.values) {
         continue
       }
-      for (const [k, v] of Object.entries(line.amounts)) {
+      for (const [k, v] of Object.entries(line.values)) {
         if (v !== null && !isNaN(v as number)) {
           found.add(k)
         }

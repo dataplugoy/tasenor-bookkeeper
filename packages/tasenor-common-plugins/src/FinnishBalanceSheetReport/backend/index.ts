@@ -92,8 +92,8 @@ class FinnishBalanceSheetReport extends ReportPlugin {
     const liabilities = data.find(line => line.name === 'Vastattavaa yhteensä')
     const assets = data.find(line => line.name === 'Vastaavaa yhteensä')
     if (liabilities && assets) {
-      Object.values(liabilities.amounts).forEach((value, idx) => {
-        if (Object.values(assets.amounts)[idx] !== value) {
+      Object.values(liabilities.values).forEach((value, idx) => {
+        if (Object.values(assets.values)[idx] !== value) {
           assets.error = true
           liabilities.error = true
         }

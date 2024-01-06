@@ -81,7 +81,7 @@ class JournalReport extends ReportPlugin {
         number: entry.number,
         description: entry.description,
         date: entry.date,
-        amounts: {
+        values: {
           debit: entry.amount >= 0 ? entry.amount : null,
           credit: entry.amount < 0 ? -entry.amount : null
         }
@@ -138,13 +138,13 @@ class JournalReport extends ReportPlugin {
           data.push({
             tab: 0,
             name: `${line.number} ${line.name}: ${line.description}`,
-            amounts: line.amounts
+            values: line.values
           })
         } else {
           data.push({
             tab: 2,
             name: `${line.number} ${line.name}`,
-            amounts: line.amounts
+            values: line.values
           })
         }
       })

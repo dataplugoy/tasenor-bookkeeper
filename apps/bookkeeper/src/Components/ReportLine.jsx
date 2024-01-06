@@ -14,10 +14,10 @@ class ReportLine extends Component {
     const settings = haveSettings()
 
     let {
-      id, name, number, amounts, bold, error, italic, hideTotal, tab, pageBreak,
+      id, name, number, values, bold, error, italic, hideTotal, tab, pageBreak,
       paragraphBreak, isAccount, fullWidth, needLocalization, useRemainingColumns, bigger
     } = this.props.line
-
+console.log(this.props.line)
     const columns = this.props.columns
     if (isAccount) {
       name = `${number} ${name}`
@@ -55,9 +55,9 @@ class ReportLine extends Component {
       name: (column, extras = {}) => td(column, decor(needLocalization ? <Localize>{name}</Localize> : name), { ...extras, className: 'tab' + (tab || 0) }),
       // Render currency value.
       numeric: (column, extras = {}) => td(column,
-        amounts && !hideTotal && amounts[column.name] !== ''
+        values && !hideTotal && values[column.name] !== ''
           ? (
-              decor(amounts[column.name] === null ? '–' : <Money currency={settings.get('currency')} cents={amounts[column.name]}></Money>)
+              decor(values[column.name] === null ? '–' : <Money currency={settings.get('currency')} cents={values[column.name]}></Money>)
             )
           : ''
       )

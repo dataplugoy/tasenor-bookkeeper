@@ -46,7 +46,7 @@ export class AccountReport extends ReportPlugin {
         id: entry.documentId,
         description: entry.description,
         date: dayjs(entry.date).format('YYYY-MM-DD'),
-        amounts: {
+        values: {
           debit: entry.amount >= 0 ? entry.amount : null,
           credit: entry.amount < 0 ? -entry.amount : null,
           balance: total

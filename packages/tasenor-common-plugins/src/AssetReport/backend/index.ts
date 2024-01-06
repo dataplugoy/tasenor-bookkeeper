@@ -109,7 +109,7 @@ class AssetReport extends ReportPlugin {
         required: true,
         bold: true,
         name: `${number} ${names[number]}`,
-        amounts: { }
+        values: { }
       })
       // Note: we could construct also detailed changes at this point, if we want detailed version of the report.
       // TODO: Text column should work here so that we can add asset as text column instead of using it as a name.
@@ -119,7 +119,7 @@ class AssetReport extends ReportPlugin {
           lines.push({
             tab: 4,
             name: asset,
-            amounts: {
+            values: {
               count: amount, // TODO: Decimal number instead of money value.
               average: value / amount,
               value

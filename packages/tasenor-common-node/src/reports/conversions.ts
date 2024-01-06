@@ -15,12 +15,12 @@ export function data2csv(report, options: ReportQueryParams) {
     id: (column, entry) => entry.id,
     name: (column, entry) => `${entry.isAccount ? entry.number + ' ' : ''}${entry.name}`,
     text: (column, entry) => entry[column.name],
-    numeric: (column, entry) => (entry.amounts &&
+    numeric: (column, entry) => (entry.values &&
       !entry.hideTotal &&
-      entry.amounts[column.name] !== '' &&
-      !isNaN(entry.amounts[column.name]) &&
-      entry.amounts[column.name] !== undefined)
-      ? (entry.amounts[column.name] === null ? '—' : sprintf('%.2f', entry.amounts[column.name] / 100))
+      entry.values[column.name] !== '' &&
+      !isNaN(entry.values[column.name]) &&
+      entry.values[column.name] !== undefined)
+      ? (entry.values[column.name] === null ? '—' : sprintf('%.2f', entry.values[column.name] / 100))
       : ''
   }
 
