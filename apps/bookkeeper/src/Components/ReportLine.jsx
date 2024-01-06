@@ -17,7 +17,7 @@ class ReportLine extends Component {
       id, name, number, values, bold, error, italic, hideTotal, tab, pageBreak,
       paragraphBreak, isAccount, fullWidth, needLocalization, useRemainingColumns, bigger
     } = this.props.line
-console.log(this.props.line)
+
     const columns = this.props.columns
     if (isAccount) {
       name = `${number} ${name}`
@@ -48,33 +48,44 @@ console.log(this.props.line)
     }
 
     // Rendering functions per type.
-    const render = {
-      // ID of the entry.
-      id: (column, extras = {}) => td(column, decor(id)),
-      // Name of the entry.
-      name: (column, extras = {}) => td(column, decor(needLocalization ? <Localize>{name}</Localize> : name), { ...extras, className: 'tab' + (tab || 0) }),
-      // Render currency value.
-      numeric: (column, extras = {}) => td(column,
-        values && !hideTotal && values[column.name] !== ''
-          ? (
-              decor(values[column.name] === null ? '–' : <Money currency={settings.get('currency')} cents={values[column.name]}></Money>)
-            )
-          : ''
-      )
+    const render = (column, extras = {}) => {
+      switch (column.type) {
+        // ID of the entry.
+        case 'id':
+          return td(column, decor(id), extras)
+        case 'text':
+          return td(column, values && !hideTotal && values[column.name] !== '' ? decor(values[column.name]) : '', extras)
+        // Name of the entry.
+        case 'name':
+          return td(column, decor(needLocalization ? <Localize>{name}</Localize> : name), { ...extras, className: 'tab' + (tab || 0) })
+        // Render currency value.
+        case 'numeric':
+          return td(column,
+            values && !hideTotal && values[column.name] !== ''
+              ? (
+                  decor(values[column.name] === null ? '–' : <Money currency={settings.get('currency')} cents={values[column.name]}></Money>)
+                )
+              : ''
+          )
+        default:
+          throw new Error(`Invalid column type '${column.type}'.`)
+      }
+      /*
+      */
     }
 
     const classNames = 'ReportLine' + (pageBreak ? ' pageBreak' : '') + (bigger ? ' bigger' : '') + (paragraphBreak ? ' paragraphBreak' : '')
 
     if (fullWidth !== undefined) {
       return <TableRow className={classNames}>
-        {columns[0].type && render[columns[0].type] && render[columns[0].type](columns[0])}
+        {render(columns[0])}
       </TableRow>
     }
 
     if (useRemainingColumns !== undefined) {
       const ret = []
       for (let i = 0; i <= useRemainingColumns; i++) {
-        ret.push(columns[i].type && render[columns[i].type] && render[columns[i].type](columns[i], {
+        ret.push(render(columns[i], {
           colSpan: i === useRemainingColumns ? columns.length - useRemainingColumns : 1
         }))
       }
@@ -82,7 +93,7 @@ console.log(this.props.line)
     }
 
     return <TableRow className={classNames}>
-      {columns.map((column) => column.type && render[column.type] && render[column.type](column))}
+      {columns.map((column) => render(column))}
     </TableRow>
   }
 }

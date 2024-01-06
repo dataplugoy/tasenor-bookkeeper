@@ -25,12 +25,14 @@ class AssetReport extends ReportPlugin {
         'column-purchase-value': 'Purchase Value',
         'column-average-value': 'Average Value',
         'column-count': 'Count',
+        'column-ticker': 'Ticker',
       },
       fi: {
         'report-assets': 'Omaisuuserät',
         'column-purchase-value': 'Ostohinta',
         'column-average-value': 'Keskihinta',
         'column-count': 'Kpl',
+        'column-ticker': 'Lyhenne',
       }
     }
   }
@@ -55,6 +57,11 @@ class AssetReport extends ReportPlugin {
         name: 'title',
         title: '',
         type: 'name'
+      },
+      {
+        name: 'ticker',
+        title: '{column-ticker}',
+        type: 'text'
       },
       {
         name: 'count',
@@ -108,18 +115,20 @@ class AssetReport extends ReportPlugin {
         hideTotal: true,
         required: true,
         bold: true,
+        fullWidth: true,
         name: `${number} ${names[number]}`,
         values: { }
       })
       // Note: we could construct also detailed changes at this point, if we want detailed version of the report.
-      // TODO: Text column should work here so that we can add asset as text column instead of using it as a name.
+      let total = 0
       for (const [, asset, amount] of bookkeeping.totals()) {
         if (amount) {
           const value = bookkeeping.value(asset)
+          total += value
           lines.push({
             tab: 4,
-            name: asset,
             values: {
+              ticker: asset,
               count: amount, // TODO: Decimal number instead of money value.
               average: value / amount,
               value
@@ -127,6 +136,15 @@ class AssetReport extends ReportPlugin {
           })
         }
       }
+      lines.push({
+        name: '',
+        bold: true,
+        values: {
+          count: '',
+          average: '',
+          value: total
+        }
+      })
       lines.push({ paragraphBreak: true })
     })
 
