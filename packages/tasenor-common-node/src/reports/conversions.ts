@@ -13,14 +13,14 @@ export function data2csv(report, options: ReportQueryParams) {
 
   const render = {
     id: (column, entry) => entry.id,
-    name: (column, entry) => `${entry.isAccount ? entry.number + ' ' : ''}${entry.name}`,
+    name: (column, entry) => entry.name === undefined ? '' : `${entry.isAccount ? entry.number + ' ' : ''}${entry.name}`,
     text: (column, entry) => entry[column.name],
     numeric: (column, entry) => (entry.values &&
       !entry.hideTotal &&
       entry.values[column.name] !== '' &&
       !isNaN(entry.values[column.name]) &&
       entry.values[column.name] !== undefined)
-      ? (entry.values[column.name] === null ? '—' : sprintf('%.f', entry.values[column.name]))
+      ? (entry.values[column.name] === null ? '—' : sprintf('%f', entry.values[column.name]))
       : '',
     currency: (column, entry) => (entry.values &&
       !entry.hideTotal &&
