@@ -1,8 +1,9 @@
 {
   "name": "@tasenor/bookkeeper-database",
   "scripts": {
-    "dev": "docker-compose -f ../../docker-compose.yml up --build tasenor-db",
+    "dev": "docker compose -f ../../docker-compose.yml up --build tasenor-db",
     "load": "docker exec -i tasenor-db psql -b -q -E postgresql://bookkeeper:Biure80s2rt832@localhost:7202/bookkeeper < samples/bookkeeper.sql",
     "save": "docker exec tasenor-db pg_dump --clean --if-exists postgresql://bookkeeper:Biure80s2rt832@localhost:7202/bookkeeper > samples/bookkeeper.sql"
-  }
+  },
+  "dependencies": {}
 }
