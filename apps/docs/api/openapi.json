@@ -2260,7 +2260,8 @@
                             "enum": [
                               "id",
                               "name",
-                              "numeric"
+                              "numeric",
+                              "currency"
                             ],
                             "example": "numeric"
                           },
