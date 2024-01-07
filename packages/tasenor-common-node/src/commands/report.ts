@@ -2,7 +2,7 @@
 import { sprintf } from 'sprintf-js'
 import { Command } from '.'
 import { ArgumentParser } from 'argparse'
-import { Report, ReportColumnDefinition } from '@tasenor/common'
+import { Report, ReportColumnDefinition, isReportItem } from '@tasenor/common'
 
 class ReportCommand extends Command {
 
@@ -53,7 +53,7 @@ class ReportCommand extends Command {
 
       // Meta data.
       if ('meta' in data) {
-        Object.keys(report.meta as Record<string, unknown>).forEach((meta) => console.log(`${meta}: ${(report.meta as Record<string, unknown>)[meta]}`))
+        Object.keys(report.meta).forEach((meta) => console.log(`${meta}: ${(report.meta)[meta]}`))
         console.log()
       }
 
@@ -71,14 +71,16 @@ class ReportCommand extends Command {
       // Render each report line.
       for (const item of report.data) {
         line = []
-        for (const column of columns) {
-          const text = {
-            id: () => item.id,
-            name: () => item.name,
-            currency: () => item.values && item.values[column.name] !== undefined && sprintf('%.2f', (item.values[column.name] || 0) / 100),
-            numeric: () => item.values && item.values[column.name] !== undefined && sprintf('%f', (item.values[column.name] || 0))
-          }[column.type]()
-          line.push(text || '')
+        if (isReportItem(item)) {
+          for (const column of columns) {
+            const text = {
+              id: () => item.id,
+              name: () => item.name,
+              currency: () => item.values && item.values[column.name] !== undefined && sprintf('%.2f', (item.values[column.name] as number || 0) / 100),
+              numeric: () => item.values && item.values[column.name] !== undefined && sprintf('%f', (item.values[column.name] || 0))
+            }[column.type]()
+            line.push(text || '')
+          }
         }
         lines.push(line)
       }
@@ -103,6 +105,7 @@ class ReportCommand extends Command {
       }
       return
     }
+
     throw new Error('Default output not implented.')
   }
 

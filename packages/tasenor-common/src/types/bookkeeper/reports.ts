@@ -103,6 +103,13 @@ export interface ReportItem {
   useRemainingColumns?: boolean
 }
 
+export function isReportItem(obj: unknown): obj is ReportItem {
+  if (typeof obj !== 'object' && obj === null) return false
+  if ('pageBreak' in (obj as Record<string, unknown>)) return false
+  if ('paragraphBreak' in (obj as Record<string, unknown>)) return false
+  return true
+}
+
 /**
  * A definition of a column in a report.
  */
@@ -125,7 +132,7 @@ export type ReportLineParagrapBreak = { paragraphBreak: true }
 /**
  * A single line of the report description.
  */
-export type ReportLine = ReportItem | ReportLinePageBreak | ReportLineParagrapBreak | Record<string, never>
+export type ReportLine = ReportItem | ReportLinePageBreak | ReportLineParagrapBreak
 
 /**
  * Meta data for report.
