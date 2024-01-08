@@ -9,6 +9,6 @@
     "@tasenor/common": "workspace:*",
     "@tasenor/common-node": "workspace:*",
     "dayjs": "1.10.8",
-    "tsx": "^3.12.7"
+    "tsx": "3.12.7"
   }
 }
