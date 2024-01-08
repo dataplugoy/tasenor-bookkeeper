@@ -98,6 +98,12 @@
           "reason": "'trade'"
         },
         {
+          "reason": "'fee'",
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "Fees"
+        },
+        {
           "type": "'currency'",
           "asset": "Currency",
           "amount": "Total",
@@ -117,6 +123,12 @@
           "asset": "Asset",
           "amount": "Quantity",
           "reason": "'trade'"
+        },
+        {
+          "reason": "'fee'",
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "Fees"
         },
         {
           "type": "'currency'",
