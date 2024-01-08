@@ -235,6 +235,22 @@ export class TransactionImportHandler extends TextFileProcessHandler {
       }
     }
 
+    // Remap fields, if defined.
+    if (this.importOptions.fieldRemapping) {
+      Object.keys(this.importOptions.fieldRemapping).forEach(old => {
+        const replace = (this.importOptions.fieldRemapping && this.importOptions.fieldRemapping[old]) || ''
+        for (const fileName of Object.keys(state.files)) {
+          for (let n = 0; n < state.files[fileName].lines.length; n++) {
+            const { columns } = state.files[fileName].lines[n]
+            if (columns[old] !== undefined) {
+              columns[replace] = columns[old]
+              delete columns[old]
+            }
+          }
+        }
+      })
+    }
+
     return state
   }
 

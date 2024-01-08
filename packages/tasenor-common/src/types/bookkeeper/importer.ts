@@ -63,6 +63,7 @@ export interface TransactionImportOptions {
   sharedFields?: string[]
   totalAmountField: string | null
   textField: string | null
+  fieldRemapping?: Record<string, string>
   csv?: ImportCSVOptions
   custom?: ImportCustomOptions
 }

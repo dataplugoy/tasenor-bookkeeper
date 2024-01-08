@@ -14,7 +14,10 @@ export class CoinbaseHandler extends TransactionImportHandler {
       requiredFields: [],
       textField: 'type',
       totalAmountField: 'amount',
-      csv: { useFirstLineHeadings: true }
+      csv: { useFirstLineHeadings: true },
+      fieldRemapping: {
+        'amount/balance unit': 'unit'
+      }
     }
   }
 
@@ -34,13 +37,16 @@ export class CoinbaseHandler extends TransactionImportHandler {
   }
 
   async init(files: ProcessFile[]): Promise<ProcessFile[]> {
-    for (const file of files) {
-      const data = file.decode()
-      const lines = data.split('\n').splice(7)
-      if (!/^Timestamp,Transaction Type,Asset,Quantity Transacted,Spot Price Currency,Spot Price at Transaction,Subtotal,Total/.test(lines[0])) {
-        throw new Error('Coinbase parser is not able to understand the format.')
+    if (this.version === 2) {
+      // Clean up trash from the beginning.
+      for (const file of files) {
+        const data = file.decode()
+        const lines = data.split('\n').splice(7)
+        if (!/^Timestamp,Transaction Type,Asset,Quantity Transacted,Spot Price Currency,Spot Price at Transaction,Subtotal,Total/.test(lines[0])) {
+          throw new Error('Coinbase parser is not able to understand the format.')
+        }
+        file.set(lines.join('\n'))
       }
-      file.set(lines.join('\n'))
     }
     return files
   }
