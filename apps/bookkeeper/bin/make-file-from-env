@@ -33,5 +33,5 @@ fi
 echo "Creating $___FILE from variable $___NAME with permission $___PERM."
 touch "$___FILE"
 chmod 600 "$___FILE"
-echo "$VALUE" > "$___FILE"
+echo "$VALUE" | sed -e 's/\\n/\n/' > "$___FILE"
 chmod $___PERM "$___FILE"
