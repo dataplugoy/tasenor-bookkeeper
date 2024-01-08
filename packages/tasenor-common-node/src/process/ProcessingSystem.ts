@@ -92,7 +92,13 @@ export class ProcessingSystem {
     let selectedHandler: ProcessHandler | null = null
     for (const handler of Object.values(this.handlers)) {
       try {
-        if (handler.canHandle(processFile)) {
+        const version = handler.canHandle(processFile)
+        if (version) {
+          if (version === true) {
+            handler.version = 1
+          } else {
+            handler.version = version
+          }
           selectedHandler = handler
           break
         }

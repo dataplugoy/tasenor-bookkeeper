@@ -23,6 +23,7 @@ export class CoinbaseHandler extends TransactionImportHandler {
   }
 
   canHandle(file: ProcessFile): boolean {
+    console.log(file.decode())
     return file.firstLineMatch(/^(portfolio,)?type,time,amount,balance,amount.balance unit,transfer id,trade id,order id/)
   }
 

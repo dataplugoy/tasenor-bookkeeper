@@ -10,7 +10,10 @@ import { Directions, ImportAction, ImportState, ProcessConfig } from '@tasenor/c
 export class ProcessHandler {
 
   system: ProcessingSystem
+  // Name of the process handler.
   name: string
+  // Source data version (if more than one).
+  version?: number = undefined
 
   constructor(name: string) {
     this.name = name
@@ -25,10 +28,10 @@ export class ProcessHandler {
   }
 
   /**
-   * Check if we are able to handle the given file.
+   * Check if we are able to handle the given file. Can be boolean or version number of data format.
    * @param file
    */
-  canHandle(file: ProcessFile): boolean {
+  canHandle(file: ProcessFile): boolean | number {
     throw new NotImplemented(`A handler '${this.name}' cannot check file '${file.name}', since canHandle() is not implemented.`)
   }
 
