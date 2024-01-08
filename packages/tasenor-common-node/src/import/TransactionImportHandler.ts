@@ -188,6 +188,22 @@ export class TransactionImportHandler extends TextFileProcessHandler {
   async segmentationPostProcess(state: ImportStateText<'segmented'>): Promise<ImportStateText<'segmented'>> {
     const shared: Record<SegmentId, Record<string, string>> = {}
 
+    // Remap fields, if defined.
+    if (this.importOptions.fieldRemapping) {
+      Object.keys(this.importOptions.fieldRemapping).forEach(old => {
+        const replace = (this.importOptions.fieldRemapping && this.importOptions.fieldRemapping[old]) || ''
+        for (const fileName of Object.keys(state.files)) {
+          for (let n = 0; n < state.files[fileName].lines.length; n++) {
+            const { columns } = state.files[fileName].lines[n]
+            if (columns[old] !== undefined) {
+              columns[replace] = columns[old]
+              delete columns[old]
+            }
+          }
+        }
+      })
+    }
+
     for (const fileName of Object.keys(state.files)) {
       // Build standard fields.
       const { textField, totalAmountField } = this.importOptions
@@ -233,22 +249,6 @@ export class TransactionImportHandler extends TextFileProcessHandler {
           Object.assign(columns, shared[segmentId as SegmentId])
         }
       }
-    }
-
-    // Remap fields, if defined.
-    if (this.importOptions.fieldRemapping) {
-      Object.keys(this.importOptions.fieldRemapping).forEach(old => {
-        const replace = (this.importOptions.fieldRemapping && this.importOptions.fieldRemapping[old]) || ''
-        for (const fileName of Object.keys(state.files)) {
-          for (let n = 0; n < state.files[fileName].lines.length; n++) {
-            const { columns } = state.files[fileName].lines[n]
-            if (columns[old] !== undefined) {
-              columns[replace] = columns[old]
-              delete columns[old]
-            }
-          }
-        }
-      })
     }
 
     return state

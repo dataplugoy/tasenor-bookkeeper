@@ -379,7 +379,7 @@ export class TransferAnalyzer {
       values.giveAsset = myEntry[0].amount < 0 ? myEntry[0].asset : otherEntry[0].asset
     } else if (weHave(['dividend', 'income'], ['currency', 'statement']) || weHave(['tax', 'dividend', 'income'], ['currency', 'statement'])) {
       kind = 'dividend'
-    } else if (weHave(['income'], ['currency', 'statement']) || weHave(['income', 'tax'], ['currency', 'statement'])) {
+    } else if (weHave(['income'], ['currency', 'statement']) || weHave(['income'], ['crypto', 'statement']) || weHave(['income', 'tax'], ['currency', 'statement'])) {
       kind = 'income'
       const statementEntry = shouldHaveOne('income', 'statement')
       values.name = await this.getTranslation(`income-${statementEntry.asset}`)
@@ -1003,7 +1003,7 @@ export class TransferAnalyzer {
           ? transfers.transfers.filter(t => t.reason === 'trade' && t.value && t.value > 0)
           : transfers.transfers.filter(t => t.reason === 'trade' && t.value && t.value < 0))
         if (soldAsset.length !== 1) {
-          throw new BadState(`Did not found unique asset that was sold from ${JSON.stringify(transfers.transfers)}`)
+          throw new BadState(`Did not found unique asset that was traded from ${JSON.stringify(transfers.transfers)}`)
         }
         let reason: AssetTransferReason
         let asset: VATTarget

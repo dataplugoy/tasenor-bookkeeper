@@ -10,13 +10,21 @@ export class CoinbaseHandler extends TransactionImportHandler {
     super('CoinbaseImport')
     this.importOptions = {
       parser: 'csv',
-      numericFields: ['amount', 'balance'],
+      numericFields: ['amount', 'balance', 'Quantity', 'Price', 'Total', 'Subtotal', 'Fees'],
       requiredFields: [],
       textField: 'type',
       totalAmountField: 'amount',
       csv: { useFirstLineHeadings: true },
       fieldRemapping: {
-        'amount/balance unit': 'unit'
+        // V1
+        'amount/balance unit': 'unit',
+        // V2
+        'Transaction Type': 'type',
+        'Quantity Transacted': 'Quantity',
+        'Spot Price Currency': 'Currency',
+        'Spot Price at Transaction': 'Price',
+        'Total (inclusive of fees and/or spread)': 'Total',
+        'Fees and/or Spread': 'Fees'
       }
     }
   }
@@ -52,6 +60,9 @@ export class CoinbaseHandler extends TransactionImportHandler {
   }
 
   segmentId(line: TextFileLine): SegmentId | typeof NO_SEGMENT {
+    if (this.version === 2) {
+      return super.segmentId(line)
+    }
     if (['deposit', 'withdrawal'].includes(line.columns.type)) {
       return line.columns['transfer id']
     }
@@ -59,6 +70,9 @@ export class CoinbaseHandler extends TransactionImportHandler {
   }
 
   time(line: TextFileLine): Date | undefined {
+    if (this.version === 2) {
+      return line.columns.Timestamp ? new Date(line.columns.Timestamp) : undefined
+    }
     return line.columns.time ? new Date(line.columns.time) : undefined
   }
 }

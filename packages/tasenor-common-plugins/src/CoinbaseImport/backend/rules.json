@@ -1,7 +1,7 @@
 {
   "rules": [
     {
-      "name": "Coinbase withdrawal",
+      "name": "Coinbase withdrawal (v1)",
       "filter": "type == 'withdrawal'",
       "result": [
         {
@@ -19,7 +19,7 @@
       ]
     },
     {
-      "name": "Coinbase deposit",
+      "name": "Coinbase deposit (v1)",
       "filter": "type == 'deposit'",
       "result": [
         {
@@ -37,7 +37,7 @@
       ]
     },
     {
-      "name": "Trade",
+      "name": "Trade (v1)",
       "filter": "type == 'match'",
       "result": [
         {
@@ -49,7 +49,7 @@
       ]
     },
     {
-      "name": "Trading fee",
+      "name": "Trading fee (v1)",
       "filter": "type == 'fee'",
       "result": [
         {
@@ -57,6 +57,72 @@
           "type": "isCurrency(unit) ? 'currency' : 'crypto'",
           "asset": "unit",
           "amount": "-amount"
+        }
+      ]
+    },
+
+    {
+      "name": "Rewards (v2)",
+      "filter": "type == 'Learning Reward'",
+      "result": [
+        {
+          "data": {
+            "text": "Notes",
+            "currency": "Currency",
+            "currencyValue": "Price * 100"
+          },
+          "type": "'crypto'",
+          "asset": "Asset",
+          "amount": "Quantity",
+          "reason": "'income'"
+        },
+        {
+          "type": "'statement'",
+          "asset": "'LEARNING_REWARD'",
+          "reason": "'income'",
+          "amount": "null"
+        }
+      ]
+    },
+    {
+      "name": "Selling (v2)",
+      "filter": "type == 'Sell'",
+      "result": [
+        {
+          "data": {
+            "text": "Notes"
+          },
+          "type": "'crypto'",
+          "asset": "Asset",
+          "amount": "-Quantity",
+          "reason": "'trade'"
+        },
+        {
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "Total",
+          "reason": "'trade'"
+        }
+      ]
+    },
+    {
+      "name": "Buying (v2)",
+      "filter": "type == 'Buy'",
+      "result": [
+        {
+          "data": {
+            "text": "Notes"
+          },
+          "type": "'crypto'",
+          "asset": "Asset",
+          "amount": "Quantity",
+          "reason": "'trade'"
+        },
+        {
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "-Total",
+          "reason": "'trade'"
         }
       ]
     }
