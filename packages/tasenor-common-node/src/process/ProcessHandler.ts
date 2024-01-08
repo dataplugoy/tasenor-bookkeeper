@@ -36,6 +36,13 @@ export class ProcessHandler {
   }
 
   /**
+   * Initialization hook called after file(s) has been loaded.
+   */
+  async init(files: ProcessFile[]): Promise<ProcessFile[]> {
+    return files
+  }
+
+  /**
    * Check if we are able to append the given file to the process.
    * @param file
    */

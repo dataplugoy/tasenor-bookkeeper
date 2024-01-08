@@ -22,9 +22,27 @@ export class CoinbaseHandler extends TransactionImportHandler {
     return __dirname as DirectoryPath
   }
 
-  canHandle(file: ProcessFile): boolean {
-    console.log(file.decode())
-    return file.firstLineMatch(/^(portfolio,)?type,time,amount,balance,amount.balance unit,transfer id,trade id,order id/)
+  canHandle(file: ProcessFile): boolean | number {
+    if (file.firstLineMatch(/^(portfolio,)?type,time,amount,balance,amount.balance unit,transfer id,trade id,order id/)) {
+      return 1
+    }
+    if (file.firstLineMatch(/"You can use this transaction report/)) {
+      return 2
+    }
+
+    return 0
+  }
+
+  async init(files: ProcessFile[]): Promise<ProcessFile[]> {
+    for (const file of files) {
+      const data = file.decode()
+      const lines = data.split('\n').splice(7)
+      if (!/^Timestamp,Transaction Type,Asset,Quantity Transacted,Spot Price Currency,Spot Price at Transaction,Subtotal,Total/.test(lines[0])) {
+        throw new Error('Coinbase parser is not able to understand the format.')
+      }
+      file.set(lines.join('\n'))
+    }
+    return files
   }
 
   segmentId(line: TextFileLine): SegmentId | typeof NO_SEGMENT {

@@ -166,4 +166,13 @@ export class ProcessFile {
 
     throw new InvalidFile(`An encoding '${this.encoding}' is not yet supported.`)
   }
+
+  /**
+   * Set the new content for this file (as UTF-8).
+   */
+  set(content: string): void {
+    this.encoding = 'utf-8'
+    this.data = clone(content)
+    this._decoded = undefined
+  }
 }
