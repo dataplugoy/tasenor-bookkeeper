@@ -272,6 +272,7 @@ export class TransactionRules {
    * * `options` - the options of the current rule we are evaluating
    * * `text` - original text of the corresponding line
    * * `lineNumber` - original line number of the corresponding line
+   * * `version` - version number of the source format found
    * If the filter match is found, then questions are provided to UI unless already
    * answered. The reponses to the questions are passed to the any further evaluations.
    */
@@ -326,7 +327,8 @@ export class TransactionRules {
             rule,
             options: rule.options || {},
             text: line.text,
-            lineNumber: line.line
+            lineNumber: line.line,
+            version: this.handler.version
           }
 
           const singleMatch = rule.options && rule.options.singleMatch
