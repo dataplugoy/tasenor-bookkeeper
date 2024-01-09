@@ -78,7 +78,7 @@
         },
         {
           "type": "'statement'",
-          "asset": "'LEARNING_REWARD'",
+          "asset": "'LEARNING_REWARDS'",
           "reason": "'income'",
           "amount": "null"
         }

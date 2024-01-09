@@ -47,6 +47,8 @@ _OTHER_INCOME	Other Income	Muut tulot
 __OTHER_OPERATING_INCOME	Other operating income	Muut liiketoiminnan tuotot
 		
 __MISC_INCOME	Miscellaneous Income	Satunnaiset tulot
+___REWARDS	Rewards	Palkkiot
+____LEARNING_REWARDS	Learning rewards	Opintopalkkiot
 		
 		
 _SPECIAL_INCOME_CASES	Cases That Need Special Handling	Erityiskäsittelyä vaativat tapaukset

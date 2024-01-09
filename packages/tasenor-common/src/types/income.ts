@@ -17,6 +17,7 @@
  * * `INCOME_CORRECTION_WITHHOLDING_TAX` - Corrections in Withholding Tax
  * * `INTEREST` - Interest Income
  * * `INVEST` - Capital Investments
+ * * `LEARNING_REWARDS` - Learning rewards
  * * `LISTED_CASH_DIVIDEND` - Cash Dividends from Listed Companies
  * * `LISTED_DIVIDEND` - Dividends from Listed Companies
  * * `LISTED_STOCK_DIVIDEND` - Stock Dividends from Listed Companies
@@ -30,6 +31,7 @@
  * * `OTHER_OPERATING_INCOME` - Other operating income
  * * `P2P_INTEREST` - Interest Income from P2P Loaning
  * * `PAID_SHARES` - Payment Received from Company Shares
+ * * `REWARDS` - Rewards
  * * `SALES` - Sales
  * * `SHAREHOLDER_BORROWING` - Loan from a Shareholder
  * * `SHARE_ISSUED` - Issue New Shares
@@ -59,6 +61,7 @@ export type IncomeSource = 'CAPITAL_GAIN' |
   'INCOME_CORRECTION_WITHHOLDING_TAX' |
   'INTEREST' |
   'INVEST' |
+  'LEARNING_REWARDS' |
   'LISTED_CASH_DIVIDEND' |
   'LISTED_DIVIDEND' |
   'LISTED_STOCK_DIVIDEND' |
@@ -72,6 +75,7 @@ export type IncomeSource = 'CAPITAL_GAIN' |
   'OTHER_OPERATING_INCOME' |
   'P2P_INTEREST' |
   'PAID_SHARES' |
+  'REWARDS' |
   'SALES' |
   'SHAREHOLDER_BORROWING' |
   'SHARE_ISSUED' |
