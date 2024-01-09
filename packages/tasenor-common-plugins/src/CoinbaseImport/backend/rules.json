@@ -106,7 +106,7 @@
         {
           "type": "'currency'",
           "asset": "Currency",
-          "amount": "Total",
+          "amount": "Subtotal",
           "reason": "'trade'"
         }
       ]
@@ -133,7 +133,7 @@
         {
           "type": "'currency'",
           "asset": "Currency",
-          "amount": "-Total",
+          "amount": "-Subtotal",
           "reason": "'trade'"
         }
       ]
