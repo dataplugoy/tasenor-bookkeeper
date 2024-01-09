@@ -121,7 +121,8 @@ class AssetReport extends ReportPlugin {
       })
       // Note: we could construct also detailed changes at this point, if we want detailed version of the report.
       let total = 0
-      for (const [, asset, amount] of bookkeeping.totals()) {
+      const totals = bookkeeping.totals().sort((a, b) => a[1] < b[1] ? -1 : (a[1] > b[1] ? 1 : 0))
+      for (const [, asset, amount] of totals) {
         if (amount) {
           const value = bookkeeping.value(asset)
           total += value
