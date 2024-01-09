@@ -4,8 +4,7 @@ import { observer } from 'mobx-react'
 import { Money, Localize } from '@tasenor/common-ui'
 import './ReportLine.css'
 import { TableRow, TableCell } from '@mui/material'
-import { haveSettings } from '@tasenor/common'
-import { sprintf } from 'sprintf-js'
+import { haveSettings, strRound } from '@tasenor/common'
 
 @observer
 class ReportLine extends Component {
@@ -73,7 +72,7 @@ class ReportLine extends Component {
           return td(column,
             values && !hideTotal && values[column.name] !== ''
               ? (
-                  decor(values[column.name] === null ? '–' : sprintf('%f', decor(values[column.name])))
+                  decor(values[column.name] === null ? '–' : decor(strRound(values[column.name])))
                 )
               : ''
           )

@@ -21,3 +21,8 @@ export const ZERO_CENTS = 1e-4
  * A number that is rounded to zero when calculating amount of stock assets.
  */
 export const ZERO_STOCK = 1e-6
+
+/**
+ * How many 9's are needed in order to round visually the last digit upwards.
+ */
+export const ROUND_NINES = 4

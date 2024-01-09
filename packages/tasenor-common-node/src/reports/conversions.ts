@@ -1,4 +1,4 @@
-import { ReportQueryParams } from '@tasenor/common'
+import { ReportQueryParams, strRound } from '@tasenor/common'
 import json2csv from 'json2csv'
 import { sprintf } from 'sprintf-js'
 
@@ -22,7 +22,7 @@ export function data2csv(report, options: ReportQueryParams) {
       entry.values[column.name] !== '' &&
       !isNaN(entry.values[column.name]) &&
       entry.values[column.name] !== undefined)
-      ? (entry.values[column.name] === null ? '—' : sprintf('%f', entry.values[column.name]))
+      ? (entry.values[column.name] === null ? '—' : strRound(entry.values[column.name]))
       : '',
     currency: (column, entry) => (entry.values &&
       !entry.hideTotal &&

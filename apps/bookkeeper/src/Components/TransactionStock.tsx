@@ -1,4 +1,4 @@
-import { Asset, Currency } from '@tasenor/common'
+import { Asset, Currency, strRound } from '@tasenor/common'
 import { Money } from '@tasenor/common-ui'
 import { TableCell, TableRow } from '@mui/material'
 import React, { Fragment } from 'react'
@@ -26,7 +26,7 @@ export const TransactionStock = (props: TransactionStockProps): JSX.Element => {
         {
           Object.entries(totals).map(([asset, amount]) =>
             <Fragment key={asset}>
-              {amount} x {asset}
+              {strRound(amount)} x {asset}
               {' '}
               {amount ? <>(<Money currency={currency} cents={values[asset] / amount}/>&nbsp;/&nbsp;{asset})</> : ''}
               &nbsp;&nbsp;

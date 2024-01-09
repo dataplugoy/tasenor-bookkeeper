@@ -2,7 +2,7 @@
  * Common utilities.
  */
 
-import { ZERO_CENTS } from './constants'
+import { ROUND_NINES, ZERO_CENTS } from './constants'
 import { isContainerElement, isNamedElement, TasenorElement } from './risp'
 
 /**
@@ -104,7 +104,7 @@ export function elementNames(element: TasenorElement): Set<string> {
 /**
  * Utility to heuristically convert a messy string to number.
  * @returns
- * The string is stripped off extra spaces and all but last punctuation.
+ * The string is stripped off extra spaces and all but last punctuation. Round *999999 up to next digit.
  */
 export function num(str: string): number | typeof NaN {
   str = str.replace(/\s/g, '')
@@ -120,6 +120,29 @@ export function num(str: string): number | typeof NaN {
   } catch (err) {
     return NaN
   }
+}
+
+/**
+ * Convert *99999 in the end of the numer to nearest digit upward.
+ */
+export function strRound(n: number): string {
+  const neg = (n < 0)
+  const s = neg ? `${n}`.substring(1) : `${n}`
+
+  const re = new RegExp(`9{${ROUND_NINES}}$`)
+  if (re.test(s)) {
+    const body = s.replace(/9+$/, '')
+    if (body[body.length - 1] === '.') {
+      const newBody = `${parseInt(body) + 1}`
+      return `${neg ? '-' : ''}${newBody}`
+
+    } else {
+      const lastDigit = `${parseInt(body[body.length - 1]) + 1}`
+      const newBody = body.replace(/.$/, '')
+      return `${neg ? '-' : ''}${newBody}${lastDigit}`
+    }
+  }
+  return `${neg ? '-' : ''}${s}`
 }
 
 /**

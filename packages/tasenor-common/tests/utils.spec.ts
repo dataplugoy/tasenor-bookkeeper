@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { near, realPositive, realNegative } from '../src'
+import { near, realPositive, realNegative, strRound } from '../src'
 
 test('near', () => {
   expect(near(0, 0)).toBeTruthy()
@@ -21,4 +21,13 @@ test('realNegative', () => {
   expect(realNegative(0.0000001)).toBeFalsy()
   expect(realNegative(-0.0000001)).toBeFalsy()
   expect(realNegative(0.01)).toBeFalsy()
+})
+
+test('string rounding', () => {
+  expect(strRound(0.01)).toBe('0.01')
+  expect(strRound(-5)).toBe('-5')
+  expect(strRound(0.00999)).toBe('0.00999')
+  expect(strRound(0.009999)).toBe('0.01')
+  expect(strRound(-2.08999999)).toBe('-2.09')
+  expect(strRound(119.999999)).toBe('120')
 })
