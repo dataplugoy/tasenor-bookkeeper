@@ -277,7 +277,7 @@ export class ReportPlugin extends BackendPlugin {
     options.format = this.getReportStructure(id, options.lang || 'en')
 
     // Prepare query.
-    const q = await this.constructSqlQuery(db, options, settings)
+    const q = this.constructSqlQuery(db, options, settings)
     let entries = await q as ReportData[]
 
     // Process big ints.
@@ -365,7 +365,7 @@ export class ReportPlugin extends BackendPlugin {
    * @returns
    */
   parseAndCombineReport(accountNumbers: AccountNumber[], accountNames: Record<AccountNumber, string>, columns: ReportColumnDefinition[], format: ReportFormat, totals: ReportTotals): ReportLine[] {
-    const columnNames = columns.filter((col) => col.type === 'numeric').map((col) => col.name)
+    const columnNames = columns.filter((col) => col.type === 'currency').map((col) => col.name)
 
     // Parse report and construct format.
     const allAccounts: AccountNumber[] = Array.from(accountNumbers).sort()
