@@ -15,8 +15,6 @@ export function data2csv(report, options: ReportQueryParams) {
     id: (column, entry) => entry.id,
     name: (column, entry) => entry.name === undefined ? '' : `${entry.isAccount ? entry.number + ' ' : ''}${entry.name}`,
     text: (column, entry) => entry[column.name],
-    // TODO: Here and rendering we could use heuristic string rounding, i.e. get rid of ..3999999 -> ..4
-    //       Need to share function with rendering.
     numeric: (column, entry) => (entry.values &&
       !entry.hideTotal &&
       entry.values[column.name] !== '' &&

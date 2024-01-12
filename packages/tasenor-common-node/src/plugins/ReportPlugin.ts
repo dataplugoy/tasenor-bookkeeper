@@ -453,7 +453,6 @@ export class ReportPlugin extends BackendPlugin {
       }
     })
 
-    // TODO: Define stuff so that need no type hint.
-    return ret as ReportLine[]
+    return ret
   }
 }
