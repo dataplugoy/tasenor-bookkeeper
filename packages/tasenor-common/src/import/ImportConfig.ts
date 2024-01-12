@@ -41,17 +41,19 @@ export type ImportAnswers = Partial<Record<SegmentId, Answers> & Record<'', Glob
  */
 export type ImportConfig = Partial<
   {
-    currency: Currency,
-    language: Language,
     'tags.*.*.*': Tag[],
-
     allowShortSelling: boolean
+    answers: ImportAnswers
+    badTransactionDates: 'ignore' | 'error'
+    cashAccount: AccountNumber
+    currency: Currency,
+    isCryptoTradeFeePartOfTotal: boolean
+    isForexFeePartOfTotal: boolean
     isTradeFeePartOfTotal: boolean
+    isWithdrawalFeePartOfTotal: boolean
+    language: Language,
     recordDeposits: boolean
     recordWithdrawals: boolean
-
-    answers: ImportAnswers
-
     rules: ImportRule[]
   }
 &
