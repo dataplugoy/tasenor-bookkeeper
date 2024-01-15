@@ -6,7 +6,7 @@ interface ExchangeInfo {
   name: string
   aliases: string[]
   file: string
-  type: 'stock' | 'crypto'
+  type: 'stock' | 'crypto' | 'currency'
 }
 
 interface TickerInfo {
@@ -28,7 +28,8 @@ interface TickerInfo {
  *
  * Data sources and/or ideas:
  *
- * * hel - Manually constructed from public Nasdaq Helsinki data.
+ * * HEL - Manually constructed from public Nasdaq Helsinki data.
+ * * TAL - Manually constructed from public Nasdaq Helsinki data.
  * * crypto - https://github.com/crypti/cryptocurrencies/blob/master/cryptocurrencies.json
  *
  *   ...others done manually so far (need some source and conversion tool)...
@@ -132,6 +133,13 @@ class TickerData extends DataPlugin {
           file: 'cryptocurrencies.json',
           type: 'crypto'
         },
+        {
+          code: 'CURRENCY',
+          name: 'Currency',
+          aliases: [],
+          file: 'currencies.json',
+          type: 'currency'
+        },
       ]
     }
     const all = await this.queryExchange(ALL) as ExchangeInfo[]
@@ -148,7 +156,7 @@ class TickerData extends DataPlugin {
    */
   async queryTicker(query: string): Promise<undefined | TickerInfo[]> {
     if (query.indexOf(':') < 0) {
-      error(`Invalid query '${query}' for plugin '${this.code}'.`)
+      error(`${this.code}: Invalid query '${query}' for plugin '${this.code}'.`)
       return undefined
     }
 
@@ -164,7 +172,7 @@ class TickerData extends DataPlugin {
         return undefined
       }
       if (ex.type !== type) {
-        error(`Invalid type '${type}' when queried from exchange '${exchange}'.`)
+        error(`${this.code}: Invalid type '${type}' when queried from exchange '${exchange}'.`)
         return undefined
       }
       // TODO: Alias support. Perhaps post-load hook and if instead of the company name we have
@@ -183,15 +191,24 @@ class TickerData extends DataPlugin {
 
     // Scan all exchanges.
     let result: TickerInfo[] = []
+    let typeFound = false
     for (const ex of await this.queryExchange(ALL) as ExchangeInfo[]) {
       if (ex.type === type) {
+        typeFound = true
         const match = await this.queryTicker(`${type}:${ex.code}:${ticker}`)
         if (match !== undefined) {
           result = result.concat(match)
         }
       }
     }
-    return result.length ? result : undefined
+    if (result.length) {
+      return result
+    }
+    if (!typeFound) {
+      error(`${this.code}: Cannot find any exchange to provide data for type '${type}'.`)
+    }
+
+    return undefined
   }
 }
 

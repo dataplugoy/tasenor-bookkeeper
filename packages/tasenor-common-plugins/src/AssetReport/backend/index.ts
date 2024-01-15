@@ -136,6 +136,7 @@ class AssetReport extends ReportPlugin {
           const value = bookkeeping.value(asset)
           const tickers = await getBackendCatalog().queryBackend('ticker', `${type}:${asset}`)
           // TODO: How to differentiate between multiple answers? Perhaps need to ask during the import and store somehow?
+          //       If so, we need to query `${type}:${exchange}:${asset}` instead.
           total += value
           lines.push({
             name: tickers && tickers instanceof Array && tickers.length ? tickers[0].name : '',
