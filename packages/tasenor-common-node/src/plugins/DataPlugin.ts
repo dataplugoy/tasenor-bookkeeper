@@ -1,5 +1,6 @@
 import fs from 'fs'
 import { BackendPlugin } from './BackendPlugin'
+import { ALL } from '@tasenor/common'
 
 /**
  * Plugin data source names and query parameters.
@@ -10,9 +11,6 @@ export interface DataPluginSources {
   // List of data sets provided for backend internal use only.
   backend: string[]
 }
-
-// Query parameter to fetch all.
-export const ALL = Symbol('ALL')
 
 /**
  * A plugin providing mainly some kind of possibly frequently updated data source services.

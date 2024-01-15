@@ -3,7 +3,7 @@
  * Accessors for Bookkeeper global components and info.
  */
 import { Cursor } from '../types/bookkeeper/cursor'
-import { Catalog } from '../types/bookkeeper/catalog'
+import { BackendCatalog, Catalog } from '../types/bookkeeper/catalog'
 import { Store } from '../types/bookkeeper/store'
 import { Settings } from '../types/bookkeeper/settings'
 import { Knowledge } from './Knowledge'
@@ -13,6 +13,7 @@ declare global {
   var _serverRoot: DirectoryPath
   var _store: Store
   var _catalog: Catalog
+  var _backendCatalog: BackendCatalog
   var _cursor: Cursor
   var _settings: Settings
   var _knowledge: Knowledge
@@ -101,4 +102,18 @@ export function getServerRoot(): string {
   }
   // eslint-disable-next-line no-undef
   return _serverRoot
+}
+
+/**
+ * Set the global backend catalog instance.
+ */
+export function setGlobalBackendCatalog(catalog: BackendCatalog): void {
+  global._backendCatalog = catalog
+}
+
+/**
+ * Get the global backend catalog instance.
+ */
+export function getBackendCatalog(): BackendCatalog {
+  return global._backendCatalog
 }

@@ -26,3 +26,8 @@ export const ZERO_STOCK = 1e-6
  * How many 9's are needed in order to round visually the last digit upwards.
  */
 export const ROUND_NINES = 4
+
+/**
+ * Named parameters.
+ */
+export const ALL = Symbol('ALL')

@@ -38,15 +38,7 @@ async function main() {
     }
 
     await catalog.reload()
-    // TODO: Sould we share knowledge also here? What about subsriptions? Is all shared and free?
-    // TODO: Should separate back-end catalog an UI-catalog and define types properly in general.
-    setGlobalComponents(
-      {} as unknown as Store,
-      catalog as unknown as Catalog,
-      {} as unknown as Cursor,
-      {} as Settings,
-      new Knowledge()
-    )
+
     cron.initialize()
     log('Bookkeeper back-end server listening on port ' + config.PORT)
   })

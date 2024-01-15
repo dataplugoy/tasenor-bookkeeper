@@ -1,4 +1,5 @@
 import { AssetTransfer, Currency, Email, Language, LoginPluginData, ReportID, ReportOptions, TokenPair, TsvFilePath } from '..'
+import { ALL } from '../..'
 import { TasenorPlugin, PluginCode, BackendPlugin, SchemePlugin, ReportPlugin, ServicePlugin } from '../plugins'
 
 /**
@@ -67,4 +68,5 @@ export declare class Catalog {
 export declare class BackendCatalog {
   t(str: string, lang: Language): string
   registerHook(name: string, func: CatalogHook)
+  queryBackend(dataSet: string, query: typeof ALL | string): Promise<undefined | unknown>
 }

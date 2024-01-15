@@ -1,5 +1,5 @@
-import { AccountNumber, BackendCatalog, Language, PluginCode, ReportColumnDefinition, ReportData, ReportID, ReportLine, ReportMeta, ReportOptions, ReportQueryParams, StockBookkeeping, StockChangeData, Version, haveCatalog } from '@tasenor/common'
-import { ALL, ReportPlugin } from '@tasenor/common-node'
+import { AccountNumber, BackendCatalog, Language, PluginCode, ReportColumnDefinition, ReportData, ReportID, ReportLine, ReportMeta, ReportOptions, ReportQueryParams, StockBookkeeping, StockChangeData, Version, getBackendCatalog, haveCatalog } from '@tasenor/common'
+import { ReportPlugin } from '@tasenor/common-node'
 import dayjs from 'dayjs'
 import quarterOfYear from 'dayjs/plugin/quarterOfYear'
 dayjs.extend(quarterOfYear)
@@ -125,6 +125,7 @@ class AssetReport extends ReportPlugin {
       for (const [, asset, amount] of totals) {
         if (amount) {
           const value = bookkeeping.value(asset)
+          // console.log(getBackendCatalog())
           total += value
           lines.push({
             tab: 2,

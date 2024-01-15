@@ -1,4 +1,5 @@
 import {
+  ALL,
   AssetTransfer,
   BackendCatalog,
   CatalogHook,
@@ -17,6 +18,7 @@ import {
   PluginCode,
   ReportID,
   ReportOptions,
+  setGlobalBackendCatalog,
   TasenorPlugin,
   TokenPair,
   TsvFilePath,
@@ -31,7 +33,7 @@ const { loadPluginIndex, isInstalled } = plugins
 /**
  * Plugin accessor catalog for backend.
  */
-export class Catalog {
+export class Catalog implements BackendCatalog {
 
   private available: TasenorPlugin[]
   private plugins: BackendPlugin[]
@@ -357,6 +359,7 @@ export class Catalog {
     for (const plugin of this.dataPlugins) {
       console.log(plugin.code)
     }
+    return undefined
   }
 
   /**
@@ -430,5 +433,6 @@ export class Catalog {
 
 // Global instance.
 const catalog = new Catalog()
+setGlobalBackendCatalog(catalog)
 
 export default catalog
