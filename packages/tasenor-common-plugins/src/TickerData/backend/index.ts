@@ -42,25 +42,20 @@ class TickerData extends DataPlugin {
     }
   }
 
-  async queryBackend(dataSet: string, query: typeof ALL | string): Promise<undefined | unknown> {
+  async queryBackend<T>(dataSet: string, query: typeof ALL | string): Promise<undefined | T> {
     if (dataSet === 'exchange') {
-      return this.queryExchange(query)
+      return this.queryExchange(query) as T
     }
     if (dataSet === 'ticker' && query !== ALL) {
-      return this.queryTicker(query)
+      return this.queryTicker(query) as T
     }
     return undefined
   }
 
   async queryExchange(query: typeof ALL | string): Promise<undefined | ExchangeInfo | ExchangeInfo[]> {
     if (query === ALL) {
+      // This also priority order if there is no better knowledge for ticker exchange, when queried.
       return [
-        {
-          code: 'CRYPTO',
-          name: 'Crypto Currency',
-          aliases: [],
-          file: 'crypto.json'
-        },
         {
           code: 'NYSE',
           name: 'New York Stock Exchange',
@@ -84,6 +79,12 @@ class TickerData extends DataPlugin {
           name: 'Over the Counter',
           aliases: ['PINK', 'Pink Sheets'],
           file: 'otc.json'
+        },
+        {
+          code: 'CRYPTO',
+          name: 'Crypto Currency',
+          aliases: [],
+          file: 'crypto.json'
         },
       ]
     }

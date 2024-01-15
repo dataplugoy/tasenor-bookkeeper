@@ -154,7 +154,7 @@ class FinnishIncomeStatementReport extends ReportPlugin {
     return this.parseAndCombineReport([...accountNumbers], accountNames, columns, options.format, totals)
   }
 
-  preProcess(id, entries, options, settings, columns) {
+  async preProcess(id, entries, options, settings, columns) {
     if (options.byTags) {
       return this.preProcessByTags(id, entries, options, settings, columns)
     }
@@ -180,7 +180,7 @@ class FinnishIncomeStatementReport extends ReportPlugin {
   /**
    * Remove empty columns if report made by tags.
    */
-  postProcess(id, data, options, settings, columns) {
+  async postProcess(id, data, options, settings, columns) {
     if (!options.byTags) {
       return data
     }

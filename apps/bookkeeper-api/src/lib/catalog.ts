@@ -354,10 +354,12 @@ export class Catalog implements BackendCatalog {
   /**
    * Check data plugins for the given data set and execute query on the first one providing the data set.
    */
-  async queryBackend(dataSet: string, query: typeof ALL | string): Promise<undefined | unknown> {
-    // TODO: Instead of unknown, use <T>?
+  async queryBackend<T>(dataSet: string, query: typeof ALL | string): Promise<undefined | T> {
     for (const plugin of this.dataPlugins) {
-      console.log(plugin.code)
+      const ans = await plugin.queryBackend<T>(dataSet, query)
+      if (ans !== undefined) {
+        return ans
+      }
     }
     return undefined
   }

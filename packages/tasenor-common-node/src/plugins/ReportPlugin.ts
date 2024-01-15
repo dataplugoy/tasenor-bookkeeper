@@ -290,8 +290,8 @@ export class ReportPlugin extends BackendPlugin {
 
     // We have now relevant entries collected. Use plugin features next.
     const columns: ReportColumnDefinition[] = await this.getColumns(id, entries, options as ReportOptions, settings)
-    let data = this.preProcess(id, entries, options, settings, columns) as ReportLine[]
-    data = this.postProcess(id, data, options, settings, columns)
+    let data = await this.preProcess(id, entries, options, settings, columns) as ReportLine[]
+    data = await this.postProcess(id, data, options, settings, columns)
     const report = {
       format: id,
       columns,
@@ -338,7 +338,7 @@ export class ReportPlugin extends BackendPlugin {
    * @param options
    * @param columns
    */
-  preProcess(id: ReportID, entries: ReportData[], options: ReportQueryParams, settings: ReportMeta, columns: ReportColumnDefinition[]): ReportLine[] {
+  async preProcess(id: ReportID, entries: ReportData[], options: ReportQueryParams, settings: ReportMeta, columns: ReportColumnDefinition[]): Promise<ReportLine[]> {
     throw new Error(`Report plugin ${this.constructor.name} does not implement preProcess().`)
   }
 
@@ -351,7 +351,7 @@ export class ReportPlugin extends BackendPlugin {
    * @param columns Column definitions.
    * @returns
    */
-  postProcess(id: ReportID, data: ReportLine[], options: ReportQueryParams, settings: ReportMeta, columns: ReportColumnDefinition[]): ReportLine[] {
+  async postProcess(id: ReportID, data: ReportLine[], options: ReportQueryParams, settings: ReportMeta, columns: ReportColumnDefinition[]): Promise<ReportLine[]> {
     return data
   }
 

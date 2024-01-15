@@ -68,5 +68,5 @@ export declare class Catalog {
 export declare class BackendCatalog {
   t(str: string, lang: Language): string
   registerHook(name: string, func: CatalogHook)
-  queryBackend(dataSet: string, query: typeof ALL | string): Promise<undefined | unknown>
+  queryBackend<T>(dataSet: string, query: typeof ALL | string): Promise<undefined | T>
 }

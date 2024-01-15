@@ -66,7 +66,7 @@ class JournalReport extends ReportPlugin {
     }]
   }
 
-  preProcess(id, entries, options) {
+  async preProcess(id, entries, options) {
     // Pre-process entries by their document number.
     const docs = {}
     entries.forEach((entry) => {

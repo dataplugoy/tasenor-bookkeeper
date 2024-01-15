@@ -70,7 +70,7 @@ class LedgerReport extends ReportPlugin {
     }]
   }
 
-  preProcess(id, entries, options) {
+  async preProcess(id, entries, options) {
     // Pre-process entries by their account number.
     const accounts = {}
     const accountNames = {}

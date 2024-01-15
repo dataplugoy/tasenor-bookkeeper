@@ -56,7 +56,7 @@ export class DataPlugin extends BackendPlugin {
    * Data service used internally in the backend. If return value is `undefined`, query was not understood.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async queryBackend(dataSet: string, query: typeof ALL | string): Promise<undefined | unknown> {
+  async queryBackend<T>(dataSet: string, query: typeof ALL | string): Promise<undefined | T> {
     return undefined
   }
 }

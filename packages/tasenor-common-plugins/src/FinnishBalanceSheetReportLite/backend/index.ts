@@ -80,7 +80,7 @@ class FinnishBalanceSheetReportLite extends ReportPlugin {
     return columns
   }
 
-  preProcess(id, entries, options, settings, columns) {
+  async preProcess(id, entries, options, settings, columns) {
     const columnNames = columns.map((col) => col.name)
 
     // Summarize all totals from the entries.
@@ -102,7 +102,7 @@ class FinnishBalanceSheetReportLite extends ReportPlugin {
   /**
    * Mark mismatching Vastaavaa and Vastattavaa with red.
    */
-  postProcess(id, data) {
+  async postProcess(id, data) {
     const liabilities = data.find(line => line.name === 'Vastattavaa yhteensä')
     const assets = data.find(line => line.name === 'Vastaavaa yhteensä')
     if (liabilities && assets) {

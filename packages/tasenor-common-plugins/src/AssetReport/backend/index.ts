@@ -1,4 +1,4 @@
-import { AccountNumber, BackendCatalog, Language, PluginCode, ReportColumnDefinition, ReportData, ReportID, ReportLine, ReportMeta, ReportOptions, ReportQueryParams, StockBookkeeping, StockChangeData, Version, getBackendCatalog, haveCatalog } from '@tasenor/common'
+import { ALL, AccountNumber, Language, PluginCode, ReportColumnDefinition, ReportData, ReportID, ReportLine, ReportMeta, ReportOptions, ReportQueryParams, StockBookkeeping, StockChangeData, Version, getBackendCatalog } from '@tasenor/common'
 import { ReportPlugin } from '@tasenor/common-node'
 import dayjs from 'dayjs'
 import quarterOfYear from 'dayjs/plugin/quarterOfYear'
@@ -89,7 +89,7 @@ class AssetReport extends ReportPlugin {
    * Gather ticker counts for each account.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  preProcess(id: ReportID, entries: ReportData[], options: ReportQueryParams, settings: ReportMeta, columns: ReportColumnDefinition[]): ReportLine[] {
+  async preProcess(id: ReportID, entries: ReportData[], options: ReportQueryParams, settings: ReportMeta, columns: ReportColumnDefinition[]): Promise<ReportLine[]> {
 
     const stock: Record<AccountNumber, { data: StockChangeData, time: Date }[]> = {}
     const names: Record<AccountNumber, string> = {}
@@ -107,7 +107,7 @@ class AssetReport extends ReportPlugin {
       })
     })
 
-    Object.keys(stock).forEach(number => {
+    for (const number of Object.keys(stock)) {
       const bookkeeping = new StockBookkeeping(number)
       bookkeeping.applyAll(stock[number])
       lines.push({
@@ -125,11 +125,12 @@ class AssetReport extends ReportPlugin {
       for (const [, asset, amount] of totals) {
         if (amount) {
           const value = bookkeeping.value(asset)
-          // console.log(getBackendCatalog())
+          // TODO: Check the account code. If CRYPTOCURRENCIES, ask specificly that.
+          const tickers = await getBackendCatalog().queryBackend('ticker', asset)
           total += value
           lines.push({
             tab: 2,
-            name: '',
+            name: tickers && tickers instanceof Array && tickers.length ? tickers[0].name : '',
             values: {
               ticker: asset,
               count: amount,
@@ -149,12 +150,12 @@ class AssetReport extends ReportPlugin {
         }
       })
       lines.push({ paragraphBreak: true })
-    })
+    }
 
     return lines
   }
 
-  postProcess(id, data) {
+  async postProcess(id, data) {
     return data
   }
 }
