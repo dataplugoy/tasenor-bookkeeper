@@ -39,7 +39,9 @@ class ReportLine extends Component {
 
     // Construct table cell.
     const td = (column, content, extras = {}) => {
-      const classNames = column.type + (extras.className ? ' ' + extras.className : '')
+      const classNames = column.type +
+        (extras.className ? ' ' + extras.className : '') +
+        (column.width ? ' width' + column.width : '')
 
       return <TableCell
         key={column.name}
@@ -54,10 +56,18 @@ class ReportLine extends Component {
         case 'id':
           return td(column, decor(id), extras)
         case 'text':
-          return td(column, values && !hideTotal && values[column.name] !== '' ? decor(values[column.name]) : '', extras)
+          return td(
+            column,
+            values && !hideTotal && values[column.name] !== '' ? decor(values[column.name]) : '',
+            { ...extras, className: 'tab' + (tab || 0) }
+          )
         // Name of the entry.
         case 'name':
-          return td(column, decor(needLocalization ? <Localize>{name}</Localize> : name), { ...extras, className: 'tab' + (tab || 0) })
+          return td(
+            column,
+            decor(needLocalization ? <Localize>{name}</Localize> : name),
+            { ...extras, className: 'tab' + (tab || 0) }
+          )
         // Render currency value.
         case 'currency':
           return td(column,

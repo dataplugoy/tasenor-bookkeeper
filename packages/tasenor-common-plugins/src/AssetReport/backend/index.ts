@@ -1,4 +1,4 @@
-import { ALL, AccountNumber, Language, PluginCode, ReportColumnDefinition, ReportData, ReportID, ReportLine, ReportMeta, ReportOptions, ReportQueryParams, StockBookkeeping, StockChangeData, Version, getBackendCatalog } from '@tasenor/common'
+import { AccountNumber, Language, PluginCode, ReportColumnDefinition, ReportData, ReportID, ReportLine, ReportMeta, ReportOptions, ReportQueryParams, StockBookkeeping, StockChangeData, Version, getBackendCatalog } from '@tasenor/common'
 import { ReportPlugin } from '@tasenor/common-node'
 import dayjs from 'dayjs'
 import quarterOfYear from 'dayjs/plugin/quarterOfYear'
@@ -56,7 +56,8 @@ class AssetReport extends ReportPlugin {
       {
         name: 'title',
         title: '',
-        type: 'name'
+        type: 'name',
+        width: 5,
       },
       {
         name: 'ticker',
@@ -134,7 +135,7 @@ class AssetReport extends ReportPlugin {
         if (amount) {
           const value = bookkeeping.value(asset)
           const tickers = await getBackendCatalog().queryBackend('ticker', `${type}:${asset}`)
-          // TODO: How to differentiate between multiple answers? Need to ask during the import and store somehow.
+          // TODO: How to differentiate between multiple answers? Perhaps need to ask during the import and store somehow?
           total += value
           lines.push({
             name: tickers && tickers instanceof Array && tickers.length ? tickers[0].name : '',

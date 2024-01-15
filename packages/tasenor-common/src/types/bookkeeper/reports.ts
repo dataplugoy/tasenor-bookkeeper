@@ -82,7 +82,6 @@ export interface ReportData {
  * `required` - If true, this line is always shown even if no values available for that item.
  * `tab` - A number starting from zero denoting indentation level of the line.
  * `useRemainingColumns` If set, extend this column index to use all the rest columns in the row.
- *
  */
 export interface ReportItem {
   id?: string
@@ -113,11 +112,14 @@ export function isReportItem(obj: unknown): obj is ReportItem {
 
 /**
  * A definition of a column in a report.
+ *
+ * `width`- Relative width of the column from 1..10.
  */
 export interface ReportColumnDefinition {
   type: 'id' | 'name' | 'numeric' | 'currency' | 'text'
   name: string
   title: string
+  width?: number
 }
 
 /**

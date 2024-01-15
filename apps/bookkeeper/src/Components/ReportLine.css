@@ -53,3 +53,43 @@
 .ReportLine .name.tab8 {
   padding-left: 16em;
 }
+
+.ReportLine .width1 {
+  width: 10%;
+}
+
+.ReportLine .width2 {
+  width: 20%;
+}
+
+.ReportLine .width3 {
+  width: 30%;
+}
+
+.ReportLine .width4 {
+  width: 40%;
+}
+
+.ReportLine .width5 {
+  width: 50%;
+}
+
+.ReportLine .width6 {
+  width: 60%;
+}
+
+.ReportLine .width7 {
+  width: 70%;
+}
+
+.ReportLine .width8 {
+  width: 80%;
+}
+
+.ReportLine .width9 {
+  width: 90%;
+}
+
+.ReportLine .width10 {
+  width: 100%;
+}
