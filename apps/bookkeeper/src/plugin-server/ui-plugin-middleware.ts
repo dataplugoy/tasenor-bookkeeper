@@ -178,8 +178,13 @@ async function uninstall(auth, code, ignoreError = false) {
   if (!plugin) {
     return 'Cannot find plugin with the given code.'
   }
-  if (!plugin.installedVersion) {
-    return 'Plugin is not installed.'
+
+  // Mark uninstall to UI.
+  if (plugin.installedVersion) {
+    savePluginState(plugin, { ...loadPluginState(plugin), installed: false })
+
+    plugin.installedVersion = undefined
+    savePluginIndexJsx(updatePluginIndex(plugin, index))
   }
 
   // Mark uninstall to backend.
@@ -187,12 +192,6 @@ async function uninstall(auth, code, ignoreError = false) {
   if (!res.success && !ignoreError) {
     return 'Uninstalling plugin on backend failed.'
   }
-
-  // Mark uninstall to UI.
-  savePluginState(plugin, { ...loadPluginState(plugin), installed: false })
-
-  plugin.installedVersion = undefined
-  savePluginIndexJsx(updatePluginIndex(plugin, index))
 
   return plugin
 }
