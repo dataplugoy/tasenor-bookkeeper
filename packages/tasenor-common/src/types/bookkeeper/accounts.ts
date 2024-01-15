@@ -1,4 +1,5 @@
 import Opaque from 'ts-opaque'
+import { Asset, PluginCode } from '..'
 
 /**
  * A type of an account.
@@ -19,4 +20,12 @@ export enum AccountType {
 export type AccountNumber = Opaque<string, 'AccountNumber'>
 export function isAccountNumber(s: unknown): s is AccountNumber {
   return typeof s === 'string' && /^\d+$/.test(s)
+}
+
+/**
+ * Meta data for an account.
+ */
+export interface AccountData {
+  code: Asset
+  plugin: PluginCode
 }

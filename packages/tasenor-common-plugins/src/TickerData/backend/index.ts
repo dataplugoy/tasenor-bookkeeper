@@ -1,5 +1,5 @@
 import { DataPlugin } from '@tasenor/common-node'
-import { ALL, PluginCode, Version } from '@tasenor/common'
+import { ALL, PluginCode, Version, error } from '@tasenor/common'
 
 interface ExchangeInfo {
   code: string
@@ -23,8 +23,8 @@ interface TickerInfo {
  *
  * * (*exchange*, ALL) - List of all known exhanges.
  * * (*exchange*, *code*) - Exchange data if code, name or alias match, null otherwise.
- * * (*ticker*, *code*) - Lookup from all exchanges the specific ticker.
- * * (*ticker*, *exchange*:*code*) - Lookup from the given exchange the specific ticker.
+ * * (*ticker*, *type*:*code*) - Lookup from all exchanges the specific ticker of the given type.
+ * * (*ticker*, *type*:*exchange*:*code*) - Lookup from the given exchange the specific ticker.
  *
  * Data sources and/or ideas:
  *
@@ -147,14 +147,24 @@ class TickerData extends DataPlugin {
    * If the result is ambiquous, all results are returned.
    */
   async queryTicker(query: string): Promise<undefined | TickerInfo[]> {
-    // TODO: We could add type prefix like 'stock:HEL:UPM', 'crypto:BTC' and default it to the 'stock'.
-    //       That way we don't get random crypto for unknown stock.
-    //       It could be forced even, since we rarely don't know the context.
+    if (query.indexOf(':') < 0) {
+      error(`Invalid query '${query}' for plugin '${this.code}'.`)
+      return undefined
+    }
+
+    const parts = query.split(':')
+    const type = parts[0]
+    const exchange = parts.length >= 3 ? parts[1] : null
+    const ticker = parts.length >= 3 ? parts[2] : parts[1]
+
     // Single exchange.
-    if (query.indexOf(':') > 0) {
-      const [exchange, ticker] = query.split(':')
+    if (exchange !== null) {
       const ex = await this.queryExchange(exchange) as ExchangeInfo | undefined
       if (ex === undefined) {
+        return undefined
+      }
+      if (ex.type !== type) {
+        error(`Invalid type '${type}' when queried from exchange '${exchange}'.`)
         return undefined
       }
       // TODO: Alias support. Perhaps post-load hook and if instead of the company name we have
@@ -174,9 +184,11 @@ class TickerData extends DataPlugin {
     // Scan all exchanges.
     let result: TickerInfo[] = []
     for (const ex of await this.queryExchange(ALL) as ExchangeInfo[]) {
-      const match = await this.queryTicker(`${ex.code}:${query}`)
-      if (match !== undefined) {
-        result = result.concat(match)
+      if (ex.type === type) {
+        const match = await this.queryTicker(`${type}:${ex.code}:${ticker}`)
+        if (match !== undefined) {
+          result = result.concat(match)
+        }
       }
     }
     return result.length ? result : undefined

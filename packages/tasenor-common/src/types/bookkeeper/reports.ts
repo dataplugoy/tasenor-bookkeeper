@@ -1,5 +1,5 @@
 import Opaque from 'ts-opaque'
-import { AccountNumber, AccountType, PeriodModel } from '.'
+import { AccountData, AccountNumber, AccountType, PeriodModel } from '.'
 import { Language, PK } from '../common'
 import { AdditionalTransferInfo, ShortDate } from '..'
 
@@ -57,6 +57,7 @@ export interface ReportData {
   name: string
   type: AccountType
   number: AccountNumber
+  accountData: AccountData
   amount: number
   description: string
   data: AdditionalTransferInfo

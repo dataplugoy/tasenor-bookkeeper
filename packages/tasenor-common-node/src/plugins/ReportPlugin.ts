@@ -203,6 +203,7 @@ export class ReportPlugin extends BackendPlugin {
       'account.type',
       'account.number',
       db.raw(`CAST(ROUND(${negateSql} * entry.amount * 100) AS BIGINT) AS amount`),
+      'account.data as accountData',
       'entry.description',
       'entry.data'
     )

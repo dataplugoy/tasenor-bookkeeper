@@ -93,6 +93,7 @@ class AssetReport extends ReportPlugin {
 
     const stock: Record<AccountNumber, { data: StockChangeData, time: Date }[]> = {}
     const names: Record<AccountNumber, string> = {}
+    const types: Record<AccountNumber, string> = {}
 
     const lines: ReportLine[] = []
 
@@ -105,6 +106,9 @@ class AssetReport extends ReportPlugin {
         data: entry.data as StockChangeData,
         time: new Date(entry.date)
       })
+      if (entry.accountData && entry.accountData.code) {
+        types[entry.number] = entry.accountData.code
+      }
     })
 
     for (const number of Object.keys(stock)) {
@@ -119,15 +123,16 @@ class AssetReport extends ReportPlugin {
         name: `${number} ${names[number]}`,
         values: { }
       })
+      const type = ['CRYPTOCURRENCIES'].includes(types[number]) ? 'crypto' : 'stock'
+
       // Note: we could construct also detailed changes at this point, if we want detailed version of the report.
       let total = 0
       const totals = bookkeeping.totals().sort((a, b) => a[1] < b[1] ? -1 : (a[1] > b[1] ? 1 : 0))
       for (const [, asset, amount] of totals) {
         if (amount) {
           const value = bookkeeping.value(asset)
-          // TODO: Check the account code. If CRYPTOCURRENCIES, ask specificly that.
+          const tickers = await getBackendCatalog().queryBackend('ticker', `${type}:${asset}`)
           // TODO: How to differentiate between multiple answers? Need to ask during the import and store somehow.
-          const tickers = await getBackendCatalog().queryBackend('ticker', asset)
           total += value
           lines.push({
             tab: 2,
