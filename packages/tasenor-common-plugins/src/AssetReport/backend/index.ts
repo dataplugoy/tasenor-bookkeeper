@@ -123,6 +123,8 @@ class AssetReport extends ReportPlugin {
         name: `${number} ${names[number]}`,
         values: { }
       })
+      lines.push({ paragraphBreak: true })
+
       const type = ['CRYPTOCURRENCIES'].includes(types[number]) ? 'crypto' : 'stock'
 
       // Note: we could construct also detailed changes at this point, if we want detailed version of the report.
@@ -135,7 +137,6 @@ class AssetReport extends ReportPlugin {
           // TODO: How to differentiate between multiple answers? Need to ask during the import and store somehow.
           total += value
           lines.push({
-            tab: 2,
             name: tickers && tickers instanceof Array && tickers.length ? tickers[0].name : '',
             values: {
               ticker: asset,
