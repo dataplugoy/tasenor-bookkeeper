@@ -39,7 +39,7 @@ export class AccountReport extends ReportPlugin {
     }]
   }
 
-  preProcess(id, entries, options, settings, columns) {
+  async preProcess(id, entries, options, settings, columns) {
     const data: Record<string, unknown>[] = []
     let total = 0
     entries.forEach((entry) => {
