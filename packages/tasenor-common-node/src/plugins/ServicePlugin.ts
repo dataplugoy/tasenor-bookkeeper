@@ -9,7 +9,7 @@ export type ServicePluginRequestOptions = {
 }
 
 /**
- * An API end point provider.
+ * An API end point information provider.
  */
 export class ServicePlugin extends BackendPlugin {
 
@@ -140,7 +140,7 @@ export class ServicePlugin extends BackendPlugin {
   }
 
   /**
-   * Pick meaningful keys unique from the query parameters for using as a key, whe storing result to teh cache.
+   * Pick meaningful keys unique from the query parameters for using as a key, whe storing result to the cache.
    * @param service
    * @param params
    * By default, all parameters are used as cache key.

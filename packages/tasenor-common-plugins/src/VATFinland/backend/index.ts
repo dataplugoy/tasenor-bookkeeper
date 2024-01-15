@@ -3,7 +3,7 @@ import { PluginCode, Version } from '@tasenor/common'
 
 class VATFinland extends DataPlugin {
   constructor() {
-    super('vat')
+    super({ common: ['vat'], backend: [] })
 
     this.code = 'VATFinland'as PluginCode
     this.title = 'VAT Data for Finland'

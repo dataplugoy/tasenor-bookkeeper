@@ -3,7 +3,7 @@ import { PluginCode, Version } from '@tasenor/common'
 
 class IncomeAndExpenses extends DataPlugin {
   constructor() {
-    super('income', 'expense', 'taxTypes', 'assetCodes')
+    super({ common: ['income', 'expense', 'taxTypes', 'assetCodes'], backend: [] })
 
     this.code = 'IncomeAndExpenses'as PluginCode
     this.title = 'Income and Expense Classification'
