@@ -238,6 +238,9 @@ importers:
       '@tasenor/common-node':
         specifier: workspace:*
         version: link:../../packages/tasenor-common-node
+      csv-parse:
+        specifier: ^5.4.0
+        version: 5.4.0
       dayjs:
         specifier: 1.10.8
         version: 1.10.8

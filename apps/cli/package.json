@@ -8,6 +8,7 @@
   "dependencies": {
     "@tasenor/common": "workspace:*",
     "@tasenor/common-node": "workspace:*",
+    "csv-parse": "^5.4.0",
     "dayjs": "1.10.8",
     "tsx": "3.12.7"
   }

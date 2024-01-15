@@ -126,6 +126,7 @@ class AssetReport extends ReportPlugin {
         if (amount) {
           const value = bookkeeping.value(asset)
           // TODO: Check the account code. If CRYPTOCURRENCIES, ask specificly that.
+          // TODO: How to differentiate between multiple answers? Need to ask during the import and store somehow.
           const tickers = await getBackendCatalog().queryBackend('ticker', asset)
           total += value
           lines.push({

@@ -24,8 +24,20 @@ interface TickerInfo {
  * * (*exchange*, *code*) - Exchange data if code, name or alias match, null otherwise.
  * * (*ticker*, *code*) - Lookup from all exchanges the specific ticker.
  * * (*ticker*, *exchange*:*code*) - Lookup from the given exchange the specific ticker.
+ *
+ * Data sources and/or ideas:
+ *
+ * * hel - Manually constructed from public Nasdaq Helsinki data.
+ * * crypto - https://github.com/crypti/cryptocurrencies/blob/master/cryptocurrencies.json
+ *
+ *   ...others done manually so far (need some source and conversion tool)...
+ *
+ * Note: there is useful tool to generate from CSV in `tasenor-bookkeeper/apps/cli/bin/convert-csv-to-map.mjs`.
  */
 class TickerData extends DataPlugin {
+
+  // TODO: Currency name data.
+
   constructor() {
     super({ common: [], backend: ['exchange', 'ticker'] })
 
@@ -57,6 +69,12 @@ class TickerData extends DataPlugin {
       // This also priority order if there is no better knowledge for ticker exchange, when queried.
       return [
         {
+          code: 'ETF',
+          name: 'List of ETFs',
+          aliases: [],
+          file: 'etf.json'
+        },
+        {
           code: 'NYSE',
           name: 'New York Stock Exchange',
           aliases: [],
@@ -81,10 +99,22 @@ class TickerData extends DataPlugin {
           file: 'otc.json'
         },
         {
+          code: 'XETRA',
+          name: 'Deutsche Börse',
+          aliases: [],
+          file: 'xetra.json'
+        },
+        {
+          code: 'TSX',
+          name: 'Toronto Stock Exchange',
+          aliases: [],
+          file: 'tsx.json'
+        },
+        {
           code: 'CRYPTO',
           name: 'Crypto Currency',
           aliases: [],
-          file: 'crypto.json'
+          file: 'cryptocurrencies.json'
         },
       ]
     }
