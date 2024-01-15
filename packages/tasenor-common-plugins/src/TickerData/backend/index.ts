@@ -6,10 +6,11 @@ interface ExchangeInfo {
   name: string
   aliases: string[]
   file: string
+  type: 'stock' | 'crypto'
 }
 
 interface TickerInfo {
-  exchange: Omit<ExchangeInfo, 'file'>
+  exchange: Omit<Omit<ExchangeInfo, 'file'>, 'type'>
   ticker: string
   name: string
   aliases: string[]
@@ -72,49 +73,64 @@ class TickerData extends DataPlugin {
           code: 'ETF',
           name: 'List of ETFs',
           aliases: [],
-          file: 'etf.json'
+          file: 'etf.json',
+          type: 'stock'
         },
         {
           code: 'NYSE',
           name: 'New York Stock Exchange',
           aliases: [],
-          file: 'nyse.json'
+          file: 'nyse.json',
+          type: 'stock'
         },
         {
           code: 'NASDAQ',
           name: 'The Nasdaq Stock Market',
           aliases: ['Nasdaq', 'National Association of Securities Dealers Automated Quotations'],
-          file: 'nasdaq.json'
-        },
-        {
-          code: 'HEL',
-          name: 'Nasdaq Helsinki',
-          aliases: ['HE'],
-          file: 'hel.json'
-        },
-        {
-          code: 'OTC',
-          name: 'Over the Counter',
-          aliases: ['PINK', 'Pink Sheets'],
-          file: 'otc.json'
+          file: 'nasdaq.json',
+          type: 'stock'
         },
         {
           code: 'XETRA',
           name: 'Deutsche Börse',
           aliases: [],
-          file: 'xetra.json'
+          file: 'xetra.json',
+          type: 'stock'
+        },
+        {
+          code: 'HEL',
+          name: 'Nasdaq Helsinki',
+          aliases: ['HE'],
+          file: 'hel.json',
+          type: 'stock'
+        },
+        {
+          code: 'TAL',
+          name: 'Nasdaq Tallinn',
+          aliases: ['TL'],
+          file: 'tal.json',
+          type: 'stock'
+        },
+        {
+          code: 'OTC',
+          name: 'Over the Counter',
+          aliases: ['PINK', 'Pink Sheets'],
+          file: 'otc.json',
+          type: 'stock'
         },
         {
           code: 'TSX',
           name: 'Toronto Stock Exchange',
-          aliases: [],
-          file: 'tsx.json'
+          aliases: ['TO'],
+          file: 'tsx.json',
+          type: 'stock'
         },
         {
           code: 'CRYPTO',
           name: 'Crypto Currency',
           aliases: [],
-          file: 'cryptocurrencies.json'
+          file: 'cryptocurrencies.json',
+          type: 'crypto'
         },
       ]
     }
@@ -131,6 +147,9 @@ class TickerData extends DataPlugin {
    * If the result is ambiquous, all results are returned.
    */
   async queryTicker(query: string): Promise<undefined | TickerInfo[]> {
+    // TODO: We could add type prefix like 'stock:HEL:UPM', 'crypto:BTC' and default it to the 'stock'.
+    //       That way we don't get random crypto for unknown stock.
+    //       It could be forced even, since we rarely don't know the context.
     // Single exchange.
     if (query.indexOf(':') > 0) {
       const [exchange, ticker] = query.split(':')
