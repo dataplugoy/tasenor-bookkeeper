@@ -340,10 +340,10 @@ export class Catalog {
   /**
    * Collect all public data from data plugins.
    */
-  async getKnowledge(): Promise<Record<string, unknown>> {
+  async getCommonKnowledge(): Promise<Record<string, unknown>> {
     const result: Record<string, unknown> = {}
     for (const plugin of this.dataPlugins) {
-      const data = await plugin.getKnowledge()
+      const data = await plugin.getCommonKnowledge()
       Object.assign(result, data)
     }
     return result
@@ -357,7 +357,7 @@ export class Catalog {
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getVAT(time: Date, transfer: AssetTransfer, currency: Currency): Promise<null | number> {
-    const knowledge = new Knowledge(await this.getKnowledge() as KnowledgeBase)
+    const knowledge = new Knowledge(await this.getCommonKnowledge() as KnowledgeBase)
     return knowledge.vat(transfer.asset as VATTarget, time) || null
   }
 

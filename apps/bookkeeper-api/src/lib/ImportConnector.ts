@@ -217,7 +217,7 @@ export class ImportConnector implements TransactionImportConnector {
   }
 
   async getAccountCanditates(addr: AccountAddress, config: ProcessConfig): Promise<AccountNumber[]> {
-    const knowledge = new Knowledge(await catalog.getKnowledge() as KnowledgeBase)
+    const knowledge = new Knowledge(await catalog.getCommonKnowledge() as KnowledgeBase)
     const sql = address2sql(addr, {
       defaultCurrency: 'EUR',
       plugin: config.plugin as PluginCode

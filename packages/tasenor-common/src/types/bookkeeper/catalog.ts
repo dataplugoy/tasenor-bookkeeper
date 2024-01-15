@@ -52,7 +52,7 @@ export declare class Catalog {
   getPluginsIDs(): number[]
   getPluginsWithSettings(): BackendPlugin[]
   getImportHandlers(): TransactionImportHandler[]
-  getKnowledge(): Promise<Record<string, unknown>>
+  getCommonKnowledge(): Promise<Record<string, unknown>>
   getVAT(time: Date, transfer: AssetTransfer, currency: Currency): Promise<null | number>
   forEach(callback: (plugin: BackendPlugin) => Promise<void>)
   registerHook(name: string, func: CatalogHook): void

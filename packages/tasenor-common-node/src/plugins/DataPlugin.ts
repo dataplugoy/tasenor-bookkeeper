@@ -3,7 +3,7 @@ import { BackendPlugin } from './BackendPlugin'
 
 /**
  * A plugin providing mainly some kind of possibly frequently updated data source services.
- * Data will be publicly available from API.
+ * Data will be publicly available from API `/knowledge` end-point.
  */
 export class DataPlugin extends BackendPlugin {
 
@@ -15,9 +15,9 @@ export class DataPlugin extends BackendPlugin {
   }
 
   /**
-   * Provide the public knowledge this plugin is providing.
+   * Provide the public knowledge this plugin is providing and which is given in default API.
    */
-  async getKnowledge(): Promise<Record<string, unknown>> {
+  async getCommonKnowledge(): Promise<Record<string, unknown>> {
     const result = {}
     for (const source of this.sources) {
       const filePath = this.filePath(`${source}.json`)

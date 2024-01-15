@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.get('/',
   async (req, res) => {
-    res.send(await catalog.getKnowledge())
+    res.send(await catalog.getCommonKnowledge())
   }
 )
 
