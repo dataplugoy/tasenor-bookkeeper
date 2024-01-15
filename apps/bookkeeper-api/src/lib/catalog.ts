@@ -350,6 +350,16 @@ export class Catalog {
   }
 
   /**
+   * Check data plugins for the given data set and execute query on the first one providing the data set.
+   */
+  async queryBackend(dataSet: string, query: typeof ALL | string): Promise<undefined | unknown> {
+    // TODO: Instead of unknown, use <T>?
+    for (const plugin of this.dataPlugins) {
+      console.log(plugin.code)
+    }
+  }
+
+  /**
    * Get the VAT for transfer.
    * @param time
    * @param transfer

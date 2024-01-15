@@ -1,7 +1,7 @@
 import path from 'path'
 import express from 'express'
 import config from './config'
-import { log, Url, DirectoryPath, setServerRoot } from '@tasenor/common'
+import { log, Url, DirectoryPath, setServerRoot, setGlobalComponents, Store, Catalog, Cursor, Settings, Knowledge } from '@tasenor/common'
 import { vault, tasenorInitialStack, tasenorFinalStack, plugins } from '@tasenor/common-node'
 import db from './lib/db'
 import server from './lib/server'
@@ -38,6 +38,15 @@ async function main() {
     }
 
     await catalog.reload()
+    // TODO: Sould we share knowledge also here? What about subsriptions? Is all shared and free?
+    // TODO: Should separate back-end catalog an UI-catalog and define types properly in general.
+    setGlobalComponents(
+      {} as unknown as Store,
+      catalog as unknown as Catalog,
+      {} as unknown as Cursor,
+      {} as Settings,
+      new Knowledge()
+    )
     cron.initialize()
     log('Bookkeeper back-end server listening on port ' + config.PORT)
   })
