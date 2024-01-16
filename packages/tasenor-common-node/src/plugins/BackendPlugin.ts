@@ -151,7 +151,7 @@ export class BackendPlugin {
   }
 
   /**
-   * A scheduled function that is ran once a day during night time on server time.
+   * A scheduled function that is ran once for each database a day during night time on server time.
    */
   async nightly(db: KnexDatabase) {
     // Do nothing by default.

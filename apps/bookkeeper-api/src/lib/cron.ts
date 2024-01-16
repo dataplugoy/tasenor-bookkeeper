@@ -5,7 +5,7 @@ import cron from 'node-cron'
 import catalog from './catalog'
 import knex from './knex'
 
-async function hourly() {
+async function hourly(): Promise<void> {
   log('Running hourly cron.')
   const start = new Date().getTime()
 
@@ -15,7 +15,7 @@ async function hourly() {
   log(`Hourly cron executed in ${(stop - start) / 1000} seconds.`)
 }
 
-async function nightly() {
+async function nightly(): Promise<void> {
   log('Running nightly cron.')
   const start = new Date().getTime()
 
@@ -29,7 +29,7 @@ async function nightly() {
   log(`Nightly cron executed in ${(stop - start) / 1000} seconds.`)
 }
 
-function initialize() {
+function initialize(): void {
   log('Initializing cron sub-system.')
 
   cron.schedule('0 * * * *', async () => {
