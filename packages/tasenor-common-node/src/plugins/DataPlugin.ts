@@ -34,7 +34,7 @@ export class DataPlugin extends BackendPlugin {
     const result = {}
     for (const source of this.sources.common) {
       const filePath = this.filePath(`${source}.json`)
-      const data = JSON.parse(fs.readFileSync(filePath).toString('utf-8'))
+      const data = this.afterLoad(`${source}.json`, JSON.parse(fs.readFileSync(filePath).toString('utf-8')))
       Object.assign(result, { [source]: data })
     }
     return result
@@ -49,7 +49,14 @@ export class DataPlugin extends BackendPlugin {
     }
     const filePath = this.filePath(name)
     this.jsonCache[name] = JSON.parse(fs.readFileSync(filePath).toString('utf-8'))
-    return this.jsonCache[name] as Record<string, T>
+    return this.afterLoad(name, this.jsonCache[name] as Record<string, T>)
+  }
+
+  /**
+   * Fill in aliases.
+   */
+  afterLoad<T>(fileName: string, data: Record<string, T>): Record<string, T> {
+    return data
   }
 
   /**

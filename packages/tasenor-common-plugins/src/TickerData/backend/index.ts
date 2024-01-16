@@ -35,6 +35,14 @@ interface TickerInfo {
  *   ...others done manually so far (need some source and conversion tool)...
  *
  * Note: there is useful tool to generate from CSV in `tasenor-bookkeeper/apps/cli/bin/convert-csv-to-map.mjs`.
+ *
+ * Data file is simply a mapping from ticker to its name. If the ticker has aliases, it can be expressed
+ * as an array like
+ *   {
+ *     ...
+ *     "MAIN": ["Name of the main", "ALIAS1", "ALIAS2"]
+ *     ...
+ *   }
  */
 class TickerData extends DataPlugin {
 
@@ -152,6 +160,26 @@ class TickerData extends DataPlugin {
   }
 
   /**
+   * Fill in aliases.
+   */
+  afterLoad<T>(fileName: string, data: Record<string, T>): Record<string, T> {
+    Object.keys(data).forEach(ticker => {
+      if (data[ticker] instanceof Array) {
+        for (const alias of (data[ticker] as Array<unknown>).splice(1)) {
+          if (data[`${alias}`] !== undefined) {
+            error(`${this.code}: Cannot re-use '${alias}' as an alias since it has already used as ${JSON.stringify(data[`${alias}`])}.`)
+          } else {
+            data[`${alias}`] = data[ticker][0]
+          }
+        }
+        data[ticker] = data[ticker][0]
+      }
+    })
+
+    return data
+  }
+
+  /**
    * If the result is ambiquous, all results are returned.
    */
   async queryTicker(query: string): Promise<undefined | TickerInfo[]> {
@@ -175,8 +203,6 @@ class TickerData extends DataPlugin {
         error(`${this.code}: Invalid type '${type}' when queried from exchange '${exchange}'.`)
         return undefined
       }
-      // TODO: Alias support. Perhaps post-load hook and if instead of the company name we have
-      // ["Name of the company", "ALIAS1", "ALIAS2"] the aliases are taken from there.
       const tickers: Record<string, string> = this.loadCached(ex.file)
       if (tickers[ticker] === undefined) {
         return undefined
