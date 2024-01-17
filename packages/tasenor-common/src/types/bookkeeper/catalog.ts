@@ -1,20 +1,18 @@
-import { AssetTransfer, Currency, Email, Language, LoginPluginData, ReportID, ReportOptions, TokenPair, TsvFilePath } from '..'
+import { AssetTransfer, Currency, Email, Language, LoginPluginData, ReportID, ReportOptions, TsvFilePath } from '..'
 import { ALL } from '../..'
 import { TasenorPlugin, PluginCode, BackendPlugin, SchemePlugin, ReportPlugin, ServicePlugin } from '../plugins'
 
 /**
  * Catalog hooks for backend.
  */
-export type CatalogHookAfterLogin = (email: Email, tokens: TokenPair) => Promise<TokenPair & Record<string, unknown>>
 export type CatalogHookRegisterUser = (name: string, email: Email) => Promise<boolean>
 export type CatalogHookSubscribe = (email: Email, code: PluginCode) => Promise<LoginPluginData | null>
 export type CatalogHookUnsubscribe = (email: Email, code: PluginCode) => Promise<LoginPluginData | null>
-export type CatalogHook = CatalogHookRegisterUser | CatalogHookAfterLogin | CatalogHookSubscribe | CatalogHookUnsubscribe
+export type CatalogHook = CatalogHookRegisterUser | CatalogHookSubscribe | CatalogHookUnsubscribe
 export type CatalogHooks = {
   // TODO: These could be too complicated to have any useful use, that maybe remove them.
   // Keep for now to show how to make hooks in catalog where more useful.
   registerUser: CatalogHookRegisterUser[]
-  afterLogin: CatalogHookAfterLogin[]
   subscribe: CatalogHookSubscribe[]
   unsubscribe: CatalogHookUnsubscribe[]
 }
@@ -57,7 +55,6 @@ export declare class Catalog {
   getVAT(time: Date, transfer: AssetTransfer, currency: Currency): Promise<null | number>
   forEach(callback: (plugin: BackendPlugin) => Promise<void>)
   registerHook(name: string, func: CatalogHook): void
-  afterLogin(user: Email, tokens: TokenPair): Promise<TokenPair & Record<string, unknown>>
   subscribe(user: Email, code: PluginCode): Promise<LoginPluginData | null>
   unsubscribe(user: Email, code: PluginCode): Promise<LoginPluginData | null>
 }

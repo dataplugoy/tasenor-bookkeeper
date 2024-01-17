@@ -17,31 +17,26 @@ router.post('/',
     const { user, password } = req.body
     const valid = await users.verifyPassword(user, password).catch(next)
     if (valid) {
-      const tokens = await users.signToken(user, [])
-      const out = await catalog.afterLogin(user, tokens)
-
-      if (!out.data && process.env.TASENOR_API_URL) {
-        const res = await net.POST(`${vault.get('TASENOR_API_URL')}/auth/site/login` as Url, { user })
-        if (res.success) {
-          const { plugins, prices, subscriptions } = res.data as unknown as LoginData
-          Object.assign(out, await encryptdata({ plugins, prices, subscriptions }))
+      if (process.env.TASENOR_API_URL) {
+        const res2 = await net.POST(`${vault.get('TASENOR_API_URL')}/auth/site/login` as Url, { user })
+        if (res2.success) {
+          const loginData = res2.data as unknown as LoginData
+          const tokens = await users.signToken(user, loginData.plugins)
+          return res.send({ ...await encryptdata(loginData), ...tokens })
         }
-      }
-
-      // Allow all installed plugins if no service in use.
-      if (!out.data) {
+      } else {
+        // Allow all installed plugins if no service in use.
         const db = await knex.masterDb()
         const data = await db('users').select('config').where({ email: user }).first()
         const ids = data.config.subscriptions || []
         const all = catalog.getInstalledPluginsIDs()
-        const secret = defaultLoginData(ids, all)
-        Object.assign(out, await encryptdata(secret))
+        const loginData = defaultLoginData(ids, all)
+        const tokens = await users.signToken(user, loginData.plugins)
+        return res.send({ ...await encryptdata(loginData), ...tokens })
       }
-
-      res.send(out)
-    } else {
-      res.status(401).send({ message: 'Invalid user or password.' })
     }
+
+    res.status(401).send({ message: 'Invalid user or password.' })
   }
 )
 

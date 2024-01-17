@@ -3,7 +3,7 @@
  */
 import { MINUTES } from './time'
 import Opaque from 'ts-opaque'
-import { PluginCode } from './plugins'
+import { ID } from '..'
 
 // Net
 // ---
@@ -64,7 +64,7 @@ export type TokenFeatName = keyof TokenFeats
 export interface NormalTokenPayload {
   owner: string
   feats: TokenFeats
-  plugins?: PluginCode[]
+  plugins?: ID[]
 }
 /**
  * Payload for the refresh token.
@@ -72,7 +72,7 @@ export interface NormalTokenPayload {
 export interface RefreshTokenPayload {
   owner: string
   feats: TokenFeats
-  plugins: PluginCode[]
+  plugins: ID[]
   audience: TokenAudience
 }
 /**

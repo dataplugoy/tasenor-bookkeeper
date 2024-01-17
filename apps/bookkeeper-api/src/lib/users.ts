@@ -1,6 +1,6 @@
 import knex from './knex'
 import { Password, vault, tokens, isDevelopment } from '@tasenor/common-node'
-import { DAYS, NormalTokenPayload, TokenPair, Url, UserDataModel, isHttpSuccessResponse, net } from '@tasenor/common'
+import { DAYS, Email, ID, NormalTokenPayload, TokenPair, Url, UserDataModel, isHttpSuccessResponse, net } from '@tasenor/common'
 import catalog from './catalog'
 
 const ALLOWED_USER_FIELDS = ['id', 'name', 'email', 'disabled', 'config']
@@ -99,7 +99,7 @@ async function verifyUser(user) {
  * @param email
  * @returns Signed token.
  */
-async function signToken(email, plugins): Promise<TokenPair> {
+async function signToken(email: Email, plugins: ID[]): Promise<TokenPair> {
   const db = knex.masterDb()
   const found = await db('users').select('config').where({ email }).first()
   if (!found) {

@@ -219,7 +219,7 @@ export function tasenorStack({ url, json, user, uuid, admin, superuser, audience
     })
   }
 
-  // Add token check middleware.
+  // Add token checking middleware.
   if (audience) {
     stack.push(async (req: Request, res: Response, next: (arg?: Error) => unknown) => {
       const token: Token = res.locals.token

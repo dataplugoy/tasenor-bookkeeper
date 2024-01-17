@@ -20,7 +20,6 @@ import {
   ReportOptions,
   setGlobalBackendCatalog,
   TasenorPlugin,
-  TokenPair,
   TsvFilePath,
   VATTarget
 } from '@tasenor/common'
@@ -47,7 +46,6 @@ export class Catalog implements BackendCatalog {
   private translations: Record<string, Record<string, string>>
   private hooks: CatalogHooks = {
     registerUser: [],
-    afterLogin: [],
     subscribe: [],
     unsubscribe: []
   }
@@ -394,16 +392,6 @@ export class Catalog implements BackendCatalog {
     }
     log(`  Registering hook '${name}'.`)
     this.hooks[name].push(func)
-  }
-
-  /**
-   * Hook to add data to tokens returned by login API POST /auth.
-   */
-  async afterLogin(user: Email, tokens: TokenPair): Promise<TokenPair & Record<string, unknown>> {
-    for (const hook of this.hooks.afterLogin) {
-      tokens = await hook(user, tokens)
-    }
-    return tokens
   }
 
   /**
