@@ -4,6 +4,7 @@ import knex from '../lib/knex'
 import catalog from '../lib/catalog'
 import { KnexDatabase } from '@tasenor/common-node'
 import { AccountReport } from '../lib/AccountReport'
+import { checkSubscription, hasSubscription } from '../lib/subscriptions'
 
 const router = express.Router()
 
@@ -16,7 +17,10 @@ router.get('/',
     const scheme = await db('settings').select('value').where({ name: 'scheme' }).pluck('value')
     const options: ReportOptions = {}
     for (const id of Array.from(await catalog.getReportIDs(scheme.length ? scheme[0] : undefined))) {
-      options[id as string] = catalog.getReportOptions(id)
+      const plugin = catalog.getReportPlugin(id)
+      if (plugin && hasSubscription(res, plugin.code)) {
+        options[id as string] = catalog.getReportOptions(id)
+      }
     }
     res.send({ options })
   }
@@ -26,9 +30,14 @@ router.get('/:format/:period',
   async (req, res) => {
     const format = req.params.format as ReportID
     const periodId: PK = parseInt(req.params.period) as PK
-    const plugin = catalog.getReportPlgugin(format)
+    const plugin = catalog.getReportPlugin(format)
     if (!plugin) {
       return res.status(404).send({ message: 'No such report format.' })
+    }
+
+    const failed = checkSubscription(res, plugin.code)
+    if (failed) {
+      return failed
     }
 
     const languages = plugin.getLanguages()

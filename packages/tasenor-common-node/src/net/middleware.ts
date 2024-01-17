@@ -184,6 +184,13 @@ export function tasenorStack({ url, json, user, uuid, admin, superuser, audience
   if (token) {
     stack.push(async (req: Request, res: Response, next: (arg?: Error) => unknown) => {
       res.locals.token = tokens.get(req)
+      res.locals.plugins = []
+      if (res.locals.token) {
+        const content = tokens.parse(res.locals.token)
+        if (content) {
+          res.locals.plugins = (content.payload as JwtPayload).data?.plugins || []
+        }
+      }
       next()
     })
   }

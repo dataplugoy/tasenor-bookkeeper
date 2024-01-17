@@ -264,9 +264,9 @@ export class Catalog implements BackendCatalog {
   }
 
   /**
-   * Get the report plugin by its ID.
+   * Get the report plugin by its report ID.
    */
-  getReportPlgugin(id: ReportID): ReportPlugin | null {
+  getReportPlugin(id: ReportID): ReportPlugin | null {
     for (const plugin of this.reportPlugins) {
       if (plugin.hasReport(id)) {
         return plugin
@@ -279,7 +279,7 @@ export class Catalog implements BackendCatalog {
    * Get UI options for the report.
    */
   getReportOptions(id: ReportID): ReportOptions {
-    const plugin = this.getReportPlgugin(id)
+    const plugin = this.getReportPlugin(id)
     return plugin ? plugin.getReportOptions(id) : {}
   }
 

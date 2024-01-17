@@ -44,7 +44,7 @@ export declare class Catalog {
   getSchemePaths(code: PluginCode, language): TsvFilePath[] | null
   getSchemeDefaults(code: PluginCode): Record<string, unknown> | null
   getReportIDs(scheme: string | undefined): Promise<Set<ReportID>>
-  getReportPlgugin(id: ReportID): ReportPlugin | null
+  getReportPlugin(id: ReportID): ReportPlugin | null
   getReportOptions(id: ReportID): ReportOptions
   getServices(): string[]
   getServiceProviders(service): ServicePlugin[]
