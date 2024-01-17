@@ -101,9 +101,9 @@ async function updateLocalPluginList() {
  */
 function savePluginIndexJsx(plugins) {
   plugins = sortPlugins(plugins)
-
+  const root = getConfig('PLUGIN_PATH')
   const installed = plugins.filter(p => p.installedVersion && p.use !== 'backend')
-  const imports = installed.map(p => `import ${p.code} from '${p.path}/ui'`).join('\n')
+  const imports = installed.map(p => `import ${p.code} from '${p.path.replace(root, '.')}/ui'`).join('\n')
   const index = `const index = [
 ${installed.map(p => '  ' + p.code).join(',\n')}
 ]
