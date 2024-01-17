@@ -697,6 +697,7 @@ export class Store {
     return this.request('/db/' + db + '/report')
       .then((reports) => {
         runInAction(() => {
+          this.dbsByName[db].periods.forEach((period) => period.clearReports())
           Object.keys(reports.options).forEach((format, idx) => {
             const opts = { format, order: idx, options: reports.options[format] || {} }
             this.dbsByName[db].periods.forEach((period) => period.addReport(new ReportModel(period, opts)))
@@ -1125,10 +1126,14 @@ export class Store {
   async subscribe(code) {
     return this.request('/subscriptions', 'POST', { code })
       .then((resp) => {
-        runInAction(() => {
+        runInAction(async () => {
           if (resp) {
+            this.setTokens(resp.token, resp.refresh)
             this.setClientData(resp.data.key, resp.data.data)
             this.catalog.refreshPluginList()
+            if (this.db) {
+              await this.fetchReports(this.db)
+            }
           }
         })
       })
@@ -1141,10 +1146,14 @@ export class Store {
   async unsubscribe(code) {
     return this.request(`/subscriptions/${code}`, 'DELETE')
       .then((resp) => {
-        runInAction(() => {
+        runInAction(async () => {
           if (resp) {
+            this.setTokens(resp.token, resp.refresh)
             this.setClientData(resp.data.key, resp.data.data)
             this.catalog.refreshPluginList()
+            if (this.db) {
+              await this.fetchReports(this.db)
+            }
           }
         })
       })

@@ -183,6 +183,13 @@ class PeriodModel extends Model {
   }
 
   /**
+   * Clear report collection.
+   */
+  clearReports() {
+    this.reportsByFormat = {}
+  }
+
+  /**
    * Add a report for this period.
    * @param {ReportModel} report
    */

@@ -4,6 +4,7 @@ import catalog from '../lib/catalog'
 import { LoginData, PluginCode, Url, log, net } from '@tasenor/common'
 import knex from '../lib/knex'
 import { defaultLoginData } from '../lib/plugins'
+import users from '../lib/users'
 
 const router = express.Router()
 
@@ -19,10 +20,11 @@ router.post('/',
     }
 
     // Check out plugins handling this.
-    const out = await catalog.subscribe(res.locals.user, req.body.code)
-    if (out) {
+    const loginData = await catalog.subscribe(res.locals.user, req.body.code)
+    if (loginData) {
       log(`Subscribing plugin '${plugin.code}' from '${res.locals.user}'.`)
-      return res.send({ data: await encryptdata(out) })
+      const tokens = await users.signToken(res.locals.user, loginData.plugins)
+      return res.send({ ...tokens, data: await encryptdata(loginData) })
     }
 
     // Call API if available.
@@ -30,7 +32,8 @@ router.post('/',
       const erp = await net.POST(`${vault.get('TASENOR_API_URL')}/subscriptions` as Url, { email: res.locals.user, code: req.body.code })
       if (erp.success) {
         const { plugins, prices, subscriptions } = erp.data as unknown as LoginData
-        return res.send({ data: await encryptdata({ plugins, prices, subscriptions }) })
+        const tokens = await users.signToken(res.locals.user, plugins)
+        return res.send({ ...tokens, data: await encryptdata({ plugins, prices, subscriptions }) })
       }
     }
 
@@ -44,8 +47,9 @@ router.post('/',
       log(`Subscribing plugin '${plugin.code}' from '${res.locals.user}'.`)
       user.config.subscriptions.push(plugin.id)
       await db('users').update({ config: user.config }).where({ email: res.locals.user })
-      const secret = defaultLoginData(user.config.subscriptions, catalog.getInstalledPluginsIDs())
-      return res.send({ data: await encryptdata(secret) })
+      const loginData = defaultLoginData(user.config.subscriptions, catalog.getInstalledPluginsIDs())
+      const tokens = await users.signToken(res.locals.user, loginData.plugins)
+      return res.send({ ...tokens, data: await encryptdata(loginData) })
     }
 
     res.status(400).send({ message: 'Subscription failed.' })
@@ -64,10 +68,11 @@ router.delete('/:code',
     }
 
     // Check out plugins handling this.
-    const out = await catalog.unsubscribe(res.locals.user, req.params.code as PluginCode)
-    if (out) {
+    const loginData = await catalog.unsubscribe(res.locals.user, req.params.code as PluginCode)
+    if (loginData) {
       log(`Unsubscribing plugin '${plugin.code}' from '${res.locals.user}'.`)
-      return res.send({ data: await encryptdata(out) })
+      const tokens = await users.signToken(res.locals.user, loginData.plugins)
+      return res.send({ ...tokens, data: await encryptdata(loginData) })
     }
 
     // Call API if available.
@@ -75,7 +80,8 @@ router.delete('/:code',
       const erp = await net.DELETE(`${vault.get('TASENOR_API_URL')}/subscriptions/${req.params.code}/${res.locals.user}` as Url)
       if (erp.success) {
         const { plugins, prices, subscriptions } = erp.data as unknown as LoginData
-        return res.send({ data: await encryptdata({ plugins, prices, subscriptions }) })
+        const tokens = await users.signToken(res.locals.user, plugins)
+        return res.send({ ...tokens, data: await encryptdata({ plugins, prices, subscriptions }) })
       }
     }
 
@@ -87,8 +93,9 @@ router.delete('/:code',
       log(`Unsubscribing plugin '${plugin.code}' from '${res.locals.user}'.`)
       user.config.subscriptions = user.config.subscriptions.filter(id => id !== plugin.id)
       await db('users').update({ config: user.config }).where({ email: res.locals.user })
-      const secret = defaultLoginData(user.config.subscriptions, catalog.getInstalledPluginsIDs())
-      return res.send({ data: await encryptdata(secret) })
+      const loginData = defaultLoginData(user.config.subscriptions, catalog.getInstalledPluginsIDs())
+      const tokens = await users.signToken(res.locals.user, loginData.plugins)
+      return res.send({ ...tokens, data: await encryptdata(loginData) })
     }
 
     res.status(400).send({ message: 'Unsubscription failed.' })

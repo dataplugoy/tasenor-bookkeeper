@@ -8,6 +8,7 @@ import catalog from '../lib/catalog'
 import { log, error, DatabaseName, Hostname, DirectoryPath, FilePath, TsvFilePath } from '@tasenor/common'
 import { createNewDatabase, initializeNewDatabase, initializeSettings } from '../lib/db'
 import { tasenor } from '../lib/middleware'
+import { checkSubscription } from '../lib/subscriptions'
 
 const router = express.Router()
 
@@ -36,6 +37,11 @@ router.post('/',
     if (!schemePlugin) {
       error(`Cannot find the scheme plugin for scheme ${scheme}.`)
       return res.status(400).send({ message: 'Cannot find the scheme plugin.' })
+    }
+
+    const failed = checkSubscription(res, schemePlugin.code)
+    if (failed) {
+      return failed
     }
 
     if (!DB_REGEX.test(databaseName)) {
