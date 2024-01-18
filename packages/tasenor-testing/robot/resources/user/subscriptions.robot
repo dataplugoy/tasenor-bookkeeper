@@ -12,10 +12,18 @@ Subscribe Plugin If Missing
 
 Subscribe Plugin
     [Arguments]                         ${code}
+    Wait Until Page Contains Element    ${PLUGIN_LIST}//*[@id="${code}"]//*[contains(@class, "Subscribe")]
+    Scroll Element Into View            ${PLUGIN_LIST}//*[@id="${code}"]//*[contains(@class, "Subscribe")]
+    Execute JavaScript                  window.scrollBy(0,200)
+    Wait Until Element is Visible       ${PLUGIN_LIST}//*[@id="${code}"]//*[contains(@class, "Subscribe")]
     Click Element                       ${PLUGIN_LIST}//*[@id="${code}"]//*[contains(@class, "Subscribe")]
     Wait Until Page Contains Element    ${SUBSCRIBED_LIST}//*[@id="${code}"]//*[text()='Unsubscribe']
 
 Unsubscribe Plugin
     [Arguments]                         ${code}
+    Wait Until Page Contains Element    ${SUBSCRIBED_LIST}//*[@id="${code}"]//*[text()='Unsubscribe']
+    Scroll Element Into View            ${SUBSCRIBED_LIST}//*[@id="${code}"]//*[text()='Unsubscribe']
+    Execute JavaScript                  window.scrollBy(0,200)
+    Wait Until Element is Visible       ${SUBSCRIBED_LIST}//*[@id="${code}"]//*[text()='Unsubscribe']
     Click Element                       ${SUBSCRIBED_LIST}//*[@id="${code}"]//*[text()='Unsubscribe']
     Wait Until Page Contains Element    ${PLUGIN_LIST}//*[@id="${code}"]//*[contains(@class, "Subscribe")]
