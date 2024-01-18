@@ -119,7 +119,6 @@ class Plugin extends Component {
             </Button>}
 
             {!admin && <Box sx={{ ml: 2 }}><PluginPrice currency={settings.getSystem('currency')} price={price} /></Box>}
-
           </CardActions>
         }
       </Card>

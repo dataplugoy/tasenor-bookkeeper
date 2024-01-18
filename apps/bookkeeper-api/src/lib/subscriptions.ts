@@ -1,10 +1,10 @@
-import { Email, EncryptedUserData, LoginPluginData, PluginCode, TokenPair, error } from '@tasenor/common'
+import { Email, EncryptedUserData, LoginPluginData, PluginCode, TokenPair, Url, error, net } from '@tasenor/common'
 import { Response } from 'express'
 import catalog from './catalog'
 import knex from '../lib/knex'
 import { defaultLoginData } from './plugins'
 import users from './users'
-import { encryptdata } from '@tasenor/common-node'
+import { encryptdata, vault } from '@tasenor/common-node'
 
 /**
  * Check if the request contains valid subscription to the plugin and return reason if not.
@@ -48,10 +48,15 @@ export function checkSubscription(res: Response, code: PluginCode): Response | n
 /**
  * Sign the token and add plugin information as well.
  */
-export async function signTokenWithPlugins(email: Email, shoppingInfo = false): Promise<TokenPair & { data: EncryptedUserData } | TokenPair & LoginPluginData> {
+export async function signTokenWithPlugins(email: Email): Promise<TokenPair & EncryptedUserData | TokenPair & LoginPluginData> {
   // Call API if available.
   if (process.env.TASENOR_API_URL) {
-    throw new Error('Signing not yet implemented')
+    const res = await net.POST(`${vault.get('TASENOR_API_URL')}/auth/site/login` as Url, { user: email })
+    if (res.success) {
+      const tokens = await users.signToken(email, res.data.plugins)
+      return { ...tokens, ...await encryptdata(res.data) }
+    }
+    throw new Error('Fetchig subscription info failed.')
   }
 
   // Otherwise handle locally.
@@ -59,8 +64,5 @@ export async function signTokenWithPlugins(email: Email, shoppingInfo = false): 
   const user = await db('users').select('config').where({ email }).first()
   const loginData = defaultLoginData(user.config.subscriptions || [], catalog.getInstalledPluginsIDs())
   const tokens = await users.signToken(email, loginData.plugins)
-  if (shoppingInfo) {
-    return { ...tokens, ...loginData }
-  }
-  return { ...tokens, data: await encryptdata(loginData) }
+  return { ...tokens, ...await encryptdata(loginData) }
 }

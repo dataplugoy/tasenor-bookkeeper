@@ -1129,7 +1129,7 @@ export class Store {
         runInAction(async () => {
           if (resp) {
             this.setTokens(resp.token, resp.refresh)
-            this.setClientData(resp.data.key, resp.data.data)
+            this.setClientData(resp.key, resp.data)
             this.catalog.refreshPluginList()
             if (this.db) {
               await this.fetchReports(this.db)
@@ -1149,7 +1149,7 @@ export class Store {
         runInAction(async () => {
           if (resp) {
             this.setTokens(resp.token, resp.refresh)
-            this.setClientData(resp.data.key, resp.data.data)
+            this.setClientData(resp.key, resp.data)
             this.catalog.refreshPluginList()
             if (this.db) {
               await this.fetchReports(this.db)

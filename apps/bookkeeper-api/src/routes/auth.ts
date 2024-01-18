@@ -15,16 +15,7 @@ router.post('/',
     const { user, password } = req.body
     const valid = await users.verifyPassword(user, password).catch(next)
     if (valid) {
-      if (process.env.TASENOR_API_URL) {
-        const res2 = await net.POST(`${vault.get('TASENOR_API_URL')}/auth/site/login` as Url, { user })
-        if (res2.success) {
-          const loginData = res2.data as unknown as LoginData
-          const tokens = await users.signToken(user, loginData.plugins)
-          return res.send({ ...await encryptdata(loginData), ...tokens })
-        }
-      } else {
-        return res.send(await signTokenWithPlugins(user, true))
-      }
+      return res.send(await signTokenWithPlugins(user))
     }
 
     res.status(401).send({ message: 'Invalid user or password.' })

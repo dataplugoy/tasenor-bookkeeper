@@ -7,14 +7,20 @@ import { Title } from '@tasenor/common-ui'
 import { Trans } from 'react-i18next'
 import withRouter from '../Hooks/withRouter'
 import withCatalog from '../Hooks/withCatalog'
+import withStore from '../Hooks/withStore'
 
 @withRouter
 @withCatalog
+@withStore
 @observer
 class ShopPage extends Component {
 
   render() {
     const data = this.props.catalog.subscriptionData
+    if (Math.max(...this.props.catalog.available.map(p => p.id)) < Math.min(...Object.keys(data).map(e => parseInt(e)))) {
+      this.props.store.addError('Note: there seems to be both local plugin IDs and Tasenor Server plugin IDs mixed.')
+    }
+
     return (
       <div className="Shop">
         <Title><Trans>Available Plugins</Trans></Title>

@@ -54,15 +54,10 @@ export function createUuid(): UUID {
 /**
  * Encode UI data for user.
  */
-export async function encryptdata({ plugins, prices, subscriptions }: LoginPluginData): Promise<EncryptedUserData> {
+export async function encryptdata(data: LoginPluginData): Promise<EncryptedUserData> {
   const result = {
     key: await Crypto.generateKey(),
     data: ''
-  }
-  const data = {
-    plugins,
-    prices,
-    subscriptions
   }
   result.data = await Crypto.encrypt(result.key as Secret, JSON.stringify(data))
   return result
