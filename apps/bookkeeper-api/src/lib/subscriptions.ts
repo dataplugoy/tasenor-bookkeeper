@@ -1,4 +1,4 @@
-import { Email, EncryptedUserData, LoginPluginData, PluginCode, TokenPair, Url, error, net } from '@tasenor/common'
+import { Email, EncryptedUserData, ID, LoginPluginData, PluginCode, TokenPair, Url, error, net } from '@tasenor/common'
 import { Response } from 'express'
 import catalog from './catalog'
 import knex from '../lib/knex'
@@ -52,9 +52,10 @@ export async function signTokenWithPlugins(email: Email): Promise<TokenPair & En
   // Call API if available.
   if (process.env.TASENOR_API_URL) {
     const res = await net.POST(`${vault.get('TASENOR_API_URL')}/auth/site/login` as Url, { user: email })
-    if (res.success) {
-      const tokens = await users.signToken(email, res.data.plugins)
-      return { ...tokens, ...await encryptdata(res.data) }
+    if (res.success && res.data) {
+      const loginData = res.data as unknown as LoginPluginData
+      const tokens = await users.signToken(email, loginData.plugins as unknown as ID[])
+      return { ...tokens, ...await encryptdata(loginData) }
     }
     throw new Error('Fetchig subscription info failed.')
   }
