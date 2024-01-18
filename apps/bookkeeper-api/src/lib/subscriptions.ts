@@ -1,4 +1,4 @@
-import { Email, EncryptedUserData, PluginCode, TokenPair, error } from '@tasenor/common'
+import { Email, EncryptedUserData, LoginPluginData, PluginCode, TokenPair, error } from '@tasenor/common'
 import { Response } from 'express'
 import catalog from './catalog'
 import knex from '../lib/knex'
@@ -48,7 +48,7 @@ export function checkSubscription(res: Response, code: PluginCode): Response | n
 /**
  * Sign the token and add plugin information as well.
  */
-export async function signTokenWithPlugins(email: Email): Promise<TokenPair & { data: EncryptedUserData }> {
+export async function signTokenWithPlugins(email: Email, shoppingInfo = false): Promise<TokenPair & { data: EncryptedUserData } | TokenPair & LoginPluginData> {
   // Call API if available.
   if (process.env.TASENOR_API_URL) {
     throw new Error('Signing not yet implemented')
@@ -59,5 +59,8 @@ export async function signTokenWithPlugins(email: Email): Promise<TokenPair & { 
   const user = await db('users').select('config').where({ email }).first()
   const loginData = defaultLoginData(user.config.subscriptions || [], catalog.getInstalledPluginsIDs())
   const tokens = await users.signToken(email, loginData.plugins)
+  if (shoppingInfo) {
+    return { ...tokens, ...loginData }
+  }
   return { ...tokens, data: await encryptdata(loginData) }
 }

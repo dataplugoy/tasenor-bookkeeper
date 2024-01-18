@@ -23,7 +23,7 @@ router.post('/',
           return res.send({ ...await encryptdata(loginData), ...tokens })
         }
       } else {
-        return res.send(await signTokenWithPlugins(user))
+        return res.send(await signTokenWithPlugins(user, true))
       }
     }
 

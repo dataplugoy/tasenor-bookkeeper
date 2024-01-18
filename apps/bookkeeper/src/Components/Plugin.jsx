@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import { withTranslation, Trans } from 'react-i18next'
 import { haveSettings } from '@tasenor/common'
-import { Card, CardActions, CardContent, Button, CardHeader, Chip } from '@mui/material'
+import { Card, CardActions, CardContent, Button, CardHeader, Chip, Box } from '@mui/material'
 import PluginIcon from './PluginIcon'
 import { purple, brown, cyan, orange, pink, lime, green, yellow, blue, grey } from '@mui/material/colors'
 import { AllInclusive, Build, Flag, FormatPaint, HelpOutline, LibraryBooks, PieChart, TrendingUp, Computer, Money, Dns, Storage } from '@mui/icons-material'
@@ -117,7 +117,9 @@ class Plugin extends Component {
             {!admin && !subscribed && canSubscribe && <Button className="Subscribe" variant="outlined" color="primary" size="small" onClick={() => store.subscribe(plugin.code)}>
               <Trans>Subscribe</Trans>
             </Button>}
-            {!admin && <PluginPrice currency={settings.getSystem('currency')} price={price} />}
+
+            {!admin && <Box sx={{ ml: 2 }}><PluginPrice currency={settings.getSystem('currency')} price={price} /></Box>}
+
           </CardActions>
         }
       </Card>
