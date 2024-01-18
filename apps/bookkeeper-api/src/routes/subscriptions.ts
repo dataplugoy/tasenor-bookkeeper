@@ -3,8 +3,8 @@ import { encryptdata, vault } from '@tasenor/common-node'
 import catalog from '../lib/catalog'
 import { LoginData, PluginCode, Url, log, net } from '@tasenor/common'
 import knex from '../lib/knex'
-import { defaultLoginData } from '../lib/plugins'
 import users from '../lib/users'
+import { signTokenWithPlugins } from '../lib/subscriptions'
 
 const router = express.Router()
 
@@ -47,9 +47,7 @@ router.post('/',
       log(`Subscribing plugin '${plugin.code}' from '${res.locals.user}'.`)
       user.config.subscriptions.push(plugin.id)
       await db('users').update({ config: user.config }).where({ email: res.locals.user })
-      const loginData = defaultLoginData(user.config.subscriptions, catalog.getInstalledPluginsIDs())
-      const tokens = await users.signToken(res.locals.user, loginData.plugins)
-      return res.send({ ...tokens, data: await encryptdata(loginData) })
+      return res.send(await signTokenWithPlugins(res.locals.user))
     }
 
     res.status(400).send({ message: 'Subscription failed.' })
@@ -93,9 +91,7 @@ router.delete('/:code',
       log(`Unsubscribing plugin '${plugin.code}' from '${res.locals.user}'.`)
       user.config.subscriptions = user.config.subscriptions.filter(id => id !== plugin.id)
       await db('users').update({ config: user.config }).where({ email: res.locals.user })
-      const loginData = defaultLoginData(user.config.subscriptions, catalog.getInstalledPluginsIDs())
-      const tokens = await users.signToken(res.locals.user, loginData.plugins)
-      return res.send({ ...tokens, data: await encryptdata(loginData) })
+      return res.send(await signTokenWithPlugins(res.locals.user))
     }
 
     res.status(400).send({ message: 'Unsubscription failed.' })
