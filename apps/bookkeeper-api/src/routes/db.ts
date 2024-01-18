@@ -39,10 +39,10 @@ router.post('/',
       return res.status(400).send({ message: 'Cannot find the scheme plugin.' })
     }
 
-    // const failed = checkSubscription(res, schemePlugin.code)
-    // if (failed) {
-    //   return failed
-    // }
+    const failed = checkSubscription(res, schemePlugin.code)
+    if (failed) {
+      return failed
+    }
 
     if (!DB_REGEX.test(databaseName)) {
       error(`Invalid database name ${databaseName}.`)
