@@ -11,10 +11,14 @@ Install Plugin If Missing
 
 Install Plugin
     [Arguments]                         ${code}     ${timeout}=${DEFAULT_INSTALL_TIMEOUT}
+    Wait Until Page Contains Element    ${PLUGIN_LIST}//*[@id="${code}"]//*[contains(@class, "InstallPlugin")]
+    Scroll Element Into View            ${PLUGIN_LIST}//*[@id="${code}"]//*[contains(@class, "InstallPlugin")]
     Click Element                       ${PLUGIN_LIST}//*[@id="${code}"]//*[contains(@class, "InstallPlugin")]
     Wait Until Page Contains Element    ${PLUGIN_LIST}//*[@id="${code}"]//*[contains(@class, "RemovePlugin")]
 
 Remove Plugin
     [Arguments]                         ${code}      ${timeout}=${DEFAULT_INSTALL_TIMEOUT}
+    Wait Until Page Contains Element    ${PLUGIN_LIST}//*[@id="${code}"]//*[contains(@class, "RemovePlugin")]
+    Scroll Element Into View            ${PLUGIN_LIST}//*[@id="${code}"]//*[contains(@class, "RemovePlugin")]
     Click Element                       ${PLUGIN_LIST}//*[@id="${code}"]//*[contains(@class, "RemovePlugin")]
     Wait Until Page Contains Element    ${PLUGIN_LIST}//*[@id="${code}"]//*[contains(@class, "InstallPlugin")]
