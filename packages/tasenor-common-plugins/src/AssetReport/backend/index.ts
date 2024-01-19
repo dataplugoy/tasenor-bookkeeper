@@ -134,6 +134,9 @@ class AssetReport extends ReportPlugin {
       for (const [, asset, amount] of totals) {
         if (amount) {
           const value = bookkeeping.value(asset)
+          // TODO: This is a problematic. It assumes free plugin, since there is no verification.
+          //       There should be mechanism to be passed accessibility to this function and ignore
+          //       Call if not subscribed to this plugin.
           const tickers = await getBackendCatalog().queryBackend('ticker', `${type}:${asset}`)
           // TODO: How to differentiate between multiple answers? Perhaps need to ask during the import and store somehow?
           //       If so, we need to query `${type}:${exchange}:${asset}` instead.
