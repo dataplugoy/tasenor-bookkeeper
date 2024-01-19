@@ -16,6 +16,9 @@ export function verifySubscription(res: Response, code: PluginCode): string | tr
       if (res.locals.plugins.includes(plugin.id)) {
         return true
       }
+      if (res.locals.auth.feats.ADMIN || res.locals.auth.feats.SUPERUSER) {
+        return true
+      }
       return `Needed plugin ID ${plugin.id} but ${JSON.stringify(res.locals.auth)} did not have it.`
     } else {
       return 'Cannot find the plugin from the catalog.'
@@ -39,9 +42,6 @@ export function hasSubscription(res: Response, code: PluginCode): boolean {
 export function checkSubscription(res: Response, code: PluginCode): Response | null {
   const reason = verifySubscription(res, code)
   if (reason === true) {
-    return null
-  }
-  if (res.locals.auth.feats.ADMIN || res.locals.auth.feats.SUPERUSER) {
     return null
   }
   error(`Permission denied to plugin ${code}: ${reason}`)
