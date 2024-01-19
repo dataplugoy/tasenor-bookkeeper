@@ -47,9 +47,11 @@ Test Bad Date Format and Proposal
     Press Keys                          None    ARROW_RIGHT
     Wait Until Page Contains Element    ${SELECTED_CREDIT}
     Press Keys                          None    ENTER
+    Sleep                               1s
     Wait Until Page Contains Element    css:.proposal
     Press Keys                          None    ARROW_DOWN
     Press Keys                          None    ENTER
+    Sleep                               1s
 
     # Check balances
     Account Balance Should Be           4000    -500,00€
@@ -70,11 +72,13 @@ Delete Lines of Transaction and Whole Transaction
     Press Keys                          None    CTRL+x
     Wait for Dialog                     Delete
     Press Keys                          None    ENTER
+    Sleep                               1s
 
     # Delete the reminder.
     Account Balance Should Be           1900    16 490,00€
     Press Keys                          None    CTRL+x
     Wait for Dialog                     Delete
     Press Keys                          None    ENTER
+    Sleep                               1s
 
     Account Balance Should Be           1900    15 990,00€
