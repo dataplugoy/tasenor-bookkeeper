@@ -81,11 +81,12 @@ export function netConfigure(conf: NetConfig): void {
       if (!config.sites) {
         config.sites = {}
       }
-      if (!config.sites[site]) {
-        config.sites[site] = {}
+      const name = new URL(site).origin
+      if (!config.sites[name]) {
+        config.sites[name] = {}
       }
-      debug('NET', `Configuring site ${site} to`, conf.sites[site])
-      Object.assign(config.sites[site], conf.sites[site])
+      debug('NET', `Configuring site ${name} to`, conf.sites[site])
+      Object.assign(config.sites[name], conf.sites[site])
     }
   }
 }

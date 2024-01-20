@@ -68,7 +68,7 @@ async function initialize() {
         [baseUrl]: {
           uuid,
           refreshToken: token,
-          refreshUrl: '/auth/refresh' as LocalUrl
+          refreshUrl: '/api/v1/auth/refresh' as LocalUrl
         }
       }
     })
