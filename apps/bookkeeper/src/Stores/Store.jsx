@@ -10,7 +10,7 @@ import HeadingModel from '../Models/HeadingModel'
 import ReportModel from '../Models/ReportModel'
 import i18n from '../i18n'
 import jwtDecode from 'jwt-decode'
-import { error, TOKEN_EXPIRY_TIME, waitPromise, Crypto, netConfigure, netRefresh, net } from '@tasenor/common'
+import { error, TOKEN_EXPIRY_TIME, waitPromise, Crypto, netConfigure, netRefresh, net, getNetConf } from '@tasenor/common'
 import Configuration from '../Configuration'
 import ImporterModel from '../Models/ImporterModel'
 
@@ -1164,7 +1164,7 @@ export class Store {
    * @param baseUrl
    */
   rispSetup(baseUrl) {
-    const token = net.getConf(Configuration.UI_API_URL, 'token')
+    const token = getNetConf(Configuration.UI_API_URL, 'token')
     return {
       baseUrl,
       store: this,
