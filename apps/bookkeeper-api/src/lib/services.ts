@@ -1,11 +1,11 @@
-import { AssetExchange, CryptoCurrency, Currency, net, PluginService, ShortDate, Url, Value } from '@tasenor/common'
+import { AssetExchange, CryptoCurrency, Currency, GET, PluginService, ShortDate, Url, Value } from '@tasenor/common'
 
 /**
  * Call some of the service plugins internally.
  */
 export async function callService(service: PluginService, query: Record<string, Value>): Promise<unknown> {
   const url: Url = `http://localhost:${process.env.PORT}/services/${service}` as Url
-  const result = await net.GET(url, query)
+  const result = await GET(url, query)
   if (!result.success) {
     throw new Error(`Calling service ${service} with query ${JSON.stringify(query)} failed: ${JSON.stringify(result)}.`)
   }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Note, ProcessList, ProcessView, ConfigJSONView, ImportStateView, useAxios, Title, useNavigation, TabNav } from '@tasenor/common-ui'
 import { Trans, useTranslation } from 'react-i18next'
-import { haveCatalog, haveStore, ID, ImportRule, net } from '@tasenor/common'
+import { getNetConf, haveCatalog, haveStore, ID, ImportRule } from '@tasenor/common'
 import Config from '../Configuration'
 import { ImportResultView } from '../Components/ImportResultView'
 import { ImportSuccessView } from '../Components/ImportSuccessView'
@@ -22,7 +22,7 @@ export const ImportProcess = (props: ImportProcessProps): JSX.Element => {
 
   const apiUrl = `${Config.UI_API_URL}/db/${db}/import/${importerId}`
   const setup = store.rispSetup(`${apiUrl}/process/${processId}`)
-  const token = net.getConf(Config.UI_API_URL, 'token') as string
+  const token = getNetConf(Config.UI_API_URL, 'token') as string
   const showList = !processId
   const showViewer = !showList
 
@@ -129,7 +129,7 @@ export const ImportRules = (props: ImportRulesProps): JSX.Element => {
   const showViewer = !showList
 
   const url = `${Config.UI_API_URL}/db/${db}/importer/${importerId}`
-  const token = net.getConf(Config.UI_API_URL, 'token') as string
+  const token = getNetConf(Config.UI_API_URL, 'token') as string
 
   useAxios({
     url,

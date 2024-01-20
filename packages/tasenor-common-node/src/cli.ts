@@ -5,7 +5,7 @@
 import * as readline from 'readline'
 import * as FormData from 'form-data'
 import { ArgumentParser } from 'argparse'
-import { HttpMethod, net, Url, Value, TokenPair, Token, log, HttpResponse, mute, waitPromise, note } from '@tasenor/common'
+import { HttpMethod, Url, Value, TokenPair, Token, log, HttpResponse, mute, waitPromise, note, net, netConfigure, setNetConf } from '@tasenor/common'
 import clone from 'clone'
 import DbCommand from './commands/db'
 import { Command, CommandArgumentDefault, CommandArguments } from './commands'
@@ -139,10 +139,10 @@ export class CLIRunner {
    * @param tokens
    */
   configureApi(api: Url, tokens: TokenPair | undefined = undefined): void {
-    net.configure({ sites: { [api]: {} } })
+    netConfigure({ sites: { [api]: {} } })
     if (tokens) {
-      net.setConf(api, 'token', tokens.token)
-      net.setConf(api, 'refreshToken', tokens.refresh)
+      setNetConf(api, 'token', tokens.token)
+      setNetConf(api, 'refreshToken', tokens.refresh)
     }
   }
 }

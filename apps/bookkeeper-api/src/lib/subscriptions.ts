@@ -1,4 +1,4 @@
-import { Email, EncryptedUserData, ID, LoginPluginData, PluginCode, TokenPair, Url, error, net } from '@tasenor/common'
+import { Email, EncryptedUserData, ID, LoginPluginData, POST, PluginCode, TokenPair, Url, error } from '@tasenor/common'
 import { Response } from 'express'
 import catalog from './catalog'
 import knex from '../lib/knex'
@@ -54,7 +54,7 @@ export function checkSubscription(res: Response, code: PluginCode): Response | n
 export async function signTokenWithPlugins(email: Email): Promise<TokenPair & EncryptedUserData | TokenPair & LoginPluginData> {
   // Call API if available.
   if (process.env.TASENOR_API_URL) {
-    const res = await net.POST(`${vault.get('TASENOR_API_URL')}/auth/site/login` as Url, { user: email })
+    const res = await POST(`${vault.get('TASENOR_API_URL')}/auth/site/login` as Url, { user: email })
     if (res.success && res.data) {
       const loginData = res.data as unknown as LoginPluginData
       const tokens = await users.signToken(email, loginData.plugins as unknown as ID[])

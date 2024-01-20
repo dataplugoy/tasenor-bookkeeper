@@ -71,7 +71,7 @@ const config: NetConfig = {
  * Update network configuration for the sites and variables given as an object.
  * @param conf
  */
-function configure(conf: NetConfig): void {
+export function netConfigure(conf: NetConfig): void {
   if (conf.baseUrl) {
     debug('NET', `Setting baseUrl to ${conf.baseUrl}`)
     config.baseUrl = conf.baseUrl
@@ -111,7 +111,7 @@ export type HttpRequestFunction = (url: LocalUrl | Url, data?: Value | FormData,
  * @param name
  * @returns
  */
-const getConf = (url: Url, name: string): Value | (() => void) => {
+export const getNetConf = (url: Url, name: string): Value | (() => void) => {
   const origin = new URL(url).origin
   if (config.sites && config.sites[origin] && name in config.sites[origin]) {
     return config.sites[origin][name]
@@ -125,7 +125,7 @@ const getConf = (url: Url, name: string): Value | (() => void) => {
  * @param name
  * @param value
  */
-const setConf = (url: Url, name: string, value: Value | (() => void)): void => {
+export const setNetConf = (url: Url, name: string, value: Value | (() => void)): void => {
   const origin = new URL(url).origin
   if (!config.sites) {
     config.sites = {}
@@ -149,22 +149,22 @@ const constructUrl = (url: string): Url => {
 
 // Helper to refresh token.
 async function refreshToken(url: Url): Promise<boolean | Error> {
-  setConf(url, 'token', null)
-  if (getConf(url, 'refreshToken') && getConf(url, 'refreshUrl')) {
-    const refreshUrl = `${new URL(url).origin}${getConf(url, 'refreshUrl')}` as Url
+  setNetConf(url, 'token', null)
+  if (getNetConf(url, 'refreshToken') && getNetConf(url, 'refreshUrl')) {
+    const refreshUrl = `${new URL(url).origin}${getNetConf(url, 'refreshUrl')}` as Url
     debug('NET', `Refreshing token from ${refreshUrl}.`)
     const headers = {
-      Authorization: `Bearer ${getConf(url, 'refreshToken')}`
+      Authorization: `Bearer ${getNetConf(url, 'refreshToken')}`
     }
-    if (getConf(url, 'uuid')) {
-      headers['X-UUID'] = getConf(url, 'uuid')
+    if (getNetConf(url, 'uuid')) {
+      headers['X-UUID'] = getNetConf(url, 'uuid')
     }
     const refreshed = await axios({
       method: 'GET',
       url: refreshUrl,
       headers
     }).catch(err => {
-      const logout = getConf(url, 'logout') as () => void
+      const logout = getNetConf(url, 'logout') as () => void
       if (logout) {
         logout()
         return false
@@ -173,14 +173,14 @@ async function refreshToken(url: Url): Promise<boolean | Error> {
       return err
     })
     if (refreshed.status === 200 && refreshed.data && refreshed.data.token) {
-      setConf(url, 'token', refreshed.data.token)
+      setNetConf(url, 'token', refreshed.data.token)
       if (refreshed.data.refresh) {
-        setConf(url, 'refreshToken', refreshed.data.refresh)
+        setNetConf(url, 'refreshToken', refreshed.data.refresh)
       }
       debug('NET', `Received new token from ${url}.`)
       return true
     }
-    const logout = getConf(url, 'logout') as () => void
+    const logout = getNetConf(url, 'logout') as () => void
     if (logout) {
       logout()
       return false
@@ -212,12 +212,12 @@ function createRequestHandler(method: HttpMethod): HttpRequestFunction {
       const headers: { Authorization?: string } = {}
       Object.assign(headers, extraHeaders)
       if (config.sites && config.sites[origin] && !headers.Authorization) {
-        const token = getConf(url, 'token') as string
+        const token = getNetConf(url, 'token') as string
         if (token) {
           debug('NET', `Setting token to ${token}`)
           headers.Authorization = `Bearer ${token}`
         }
-        const uuid = getConf(url, 'uuid') as string
+        const uuid = getNetConf(url, 'uuid') as string
         if (uuid) {
           debug('NET', `Setting UUID to ${uuid}`)
           headers['X-UUID'] = uuid
@@ -309,7 +309,7 @@ function createRequestHandler(method: HttpMethod): HttpRequestFunction {
           case 401:
           case 403:
             status = err.response.status
-            if (getConf(url, 'refreshToken') && getConf(url, 'refreshUrl')) {
+            if (getNetConf(url, 'refreshToken') && getNetConf(url, 'refreshUrl')) {
               warning(`Request ${method} ${url} gave ${err.response.status} but trying to refresh the token.`)
               err = await refreshToken(url)
               if (err === true) {
@@ -344,8 +344,8 @@ function createRequestHandler(method: HttpMethod): HttpRequestFunction {
     }
 
     // Check if we have refresh token but no actual token or token has expired.
-    const token = getConf(url, 'token')
-    const hasRefreshToken = !!getConf(url, 'refreshToken')
+    const token = getNetConf(url, 'token')
+    const hasRefreshToken = !!getNetConf(url, 'refreshToken')
     let needRefresh = hasRefreshToken && !token
     if (token) {
       try {
@@ -385,27 +385,29 @@ function createRequestHandler(method: HttpMethod): HttpRequestFunction {
  * Refresh the token for the given site.
  * @param url
  */
-async function refresh(url: Url): Promise<null | TokenPair> {
+export async function netRefresh(url: Url): Promise<null | TokenPair> {
   const result = await refreshToken(url)
   if (result === true) {
     return {
-      token: getConf(url, 'token') as Token,
-      refresh: getConf(url, 'refreshToken') as Token
+      token: getNetConf(url, 'token') as Token,
+      refresh: getNetConf(url, 'refreshToken') as Token
     }
   }
   error(`Token refresh for ${url} failed:`, result)
   return null
 }
 
+export const DELETE = createRequestHandler('DELETE')
+export const GET = createRequestHandler('GET')
+export const HEAD = createRequestHandler('HEAD')
+export const PATCH = createRequestHandler('PATCH')
+export const POST = createRequestHandler('POST')
+export const PUT = createRequestHandler('PUT')
 export const net = {
-  configure,
-  getConf,
-  setConf,
-  refresh,
-  DELETE: createRequestHandler('DELETE'),
-  GET: createRequestHandler('GET'),
-  HEAD: createRequestHandler('HEAD'),
-  PATCH: createRequestHandler('PATCH'),
-  POST: createRequestHandler('POST'),
-  PUT: createRequestHandler('PUT')
+  DELETE,
+  GET,
+  HEAD,
+  PATCH,
+  POST,
+  PUT,
 }

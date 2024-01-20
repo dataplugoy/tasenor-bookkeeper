@@ -1,4 +1,4 @@
-import { haveCursor, net } from '@tasenor/common'
+import { getNetConf, haveCursor } from '@tasenor/common'
 import { TagChip, IconButton, Title } from '@tasenor/common-ui'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
@@ -35,7 +35,7 @@ class TransactionToolPanel extends Component {
     fetch(url, {
       method: 'GET',
       headers: new Headers({
-        Authorization: 'Bearer ' + net.getConf(Configuration.UI_API_URL, 'token')
+        Authorization: 'Bearer ' + getNetConf(Configuration.UI_API_URL, 'token')
 
       })
     })

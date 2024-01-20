@@ -1,7 +1,7 @@
 import express from 'express'
 import { encryptdata, vault } from '@tasenor/common-node'
 import catalog from '../lib/catalog'
-import { PluginCode, Url, log, net } from '@tasenor/common'
+import { DELETE, POST, PluginCode, Url, log } from '@tasenor/common'
 import knex from '../lib/knex'
 import users from '../lib/users'
 import { signTokenWithPlugins } from '../lib/subscriptions'
@@ -30,7 +30,7 @@ router.post('/',
 
     // Call API if available.
     if (process.env.TASENOR_API_URL) {
-      const erp = await net.POST(`${vault.get('TASENOR_API_URL')}/subscriptions` as Url, { email: res.locals.user, code: req.body.code })
+      const erp = await POST(`${vault.get('TASENOR_API_URL')}/subscriptions` as Url, { email: res.locals.user, code: req.body.code })
       if (erp.success) {
         return res.send(await signTokenWithPlugins(res.locals.user))
       }
@@ -76,7 +76,7 @@ router.delete('/:code',
 
     // Call API if available.
     if (process.env.TASENOR_API_URL) {
-      const erp = await net.DELETE(`${vault.get('TASENOR_API_URL')}/subscriptions/${req.params.code}/${res.locals.user}` as Url)
+      const erp = await DELETE(`${vault.get('TASENOR_API_URL')}/subscriptions/${req.params.code}/${res.locals.user}` as Url)
       if (erp.success) {
         return res.send(await signTokenWithPlugins(res.locals.user))
       }

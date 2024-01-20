@@ -1,7 +1,7 @@
 import { runInAction } from 'mobx'
 import Model from './Model'
 import Configuration from '../Configuration'
-import { net } from '@tasenor/common'
+import { getNetConf } from '@tasenor/common'
 
 class TagModel extends Model {
 
@@ -59,7 +59,7 @@ class TagModel extends Model {
    * Construct URL for API image viewer.
    */
   get url() {
-    const token = net.getConf(Configuration.UI_API_URL, 'token')
+    const token = getNetConf(Configuration.UI_API_URL, 'token')
     return `${Configuration.UI_API_URL}/db/${this.store.db}/tags/${this.id}/view?token=${token}`
   }
 

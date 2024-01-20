@@ -1,7 +1,7 @@
 import fs from 'fs'
 import glob from 'fast-glob'
 import path from 'path'
-import { TasenorPlugin, PluginCatalog, FilePath, net, Url, note, log, DirectoryPath, error } from '@tasenor/common'
+import { TasenorPlugin, PluginCatalog, FilePath, Url, note, log, DirectoryPath, error, GET } from '@tasenor/common'
 import { create } from 'ts-opaque'
 import { vault } from '../net'
 import { systemPiped } from '..'
@@ -139,7 +139,7 @@ function findPluginFromIndex(code: string, plugins: TasenorPlugin[] | undefined 
 async function fetchOfficialPluginList(): Promise<TasenorPlugin[]> {
   const url = vault.get('TASENOR_API_URL', '')
   if (url) {
-    const plugins = await net.GET(`${url}/plugins` as Url)
+    const plugins = await GET(`${url}/plugins` as Url)
     if (plugins.success) {
       return plugins.data as unknown as TasenorPlugin[]
     }

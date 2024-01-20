@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import { withTranslation, Trans } from 'react-i18next'
 import Store from '../Stores/Store'
-import { net } from '@tasenor/common'
 import { Dialog, downloadUrl, Title, Note } from '@tasenor/common-ui'
 import { Card, CardActions, CardContent, Button, CardHeader, TextField } from '@mui/material'
 import { Storage } from '@mui/icons-material'
@@ -13,6 +12,7 @@ import Panel from './Panel'
 import withRouter from '../Hooks/withRouter'
 import withStore from '../Hooks/withStore'
 import withCatalog from '../Hooks/withCatalog'
+import { getNetConf } from '@tasenor/common'
 
 @withRouter
 @withTranslation('translations')
@@ -59,7 +59,7 @@ class ToolsForDatabases extends Component {
     }
 
     const download = (db) => {
-      const token = net.getConf(Configuration.UI_API_URL, 'token')
+      const token = getNetConf(Configuration.UI_API_URL, 'token')
       downloadUrl(`${Configuration.UI_API_URL}/db/${db.name}/download`, token)
     }
 

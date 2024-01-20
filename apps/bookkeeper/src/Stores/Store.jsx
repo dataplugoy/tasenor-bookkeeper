@@ -10,7 +10,7 @@ import HeadingModel from '../Models/HeadingModel'
 import ReportModel from '../Models/ReportModel'
 import i18n from '../i18n'
 import jwtDecode from 'jwt-decode'
-import { error, net, TOKEN_EXPIRY_TIME, waitPromise, Crypto } from '@tasenor/common'
+import { error, TOKEN_EXPIRY_TIME, waitPromise, Crypto, netConfigure, netRefresh, net } from '@tasenor/common'
 import Configuration from '../Configuration'
 import ImporterModel from '../Models/ImporterModel'
 
@@ -169,7 +169,7 @@ export class Store {
     })
 
     this.setTokens(null, window.localStorage.getItem('token'))
-    net.configure({
+    netConfigure({
       baseUrl: Configuration.UI_API_URL,
     })
     this.refreshToken()
@@ -189,7 +189,7 @@ export class Store {
   async refreshToken() {
     if (this.isLoggedIn() && !this.busy) {
       this.busy = true
-      const resp = await net.refresh(Configuration.UI_API_URL)
+      const resp = await netRefresh(Configuration.UI_API_URL)
       if (resp) {
         this.setTokens(resp.token, resp.refresh)
       } else {
@@ -248,14 +248,14 @@ export class Store {
       window.localStorage.removeItem('token')
     }
     // Configure backend.
-    net.configure({
+    netConfigure({
       sites: {
         [Configuration.UI_API_URL]: backendConf
       }
     })
     // Configure UI server.
     const uiUrl = new URL(document.location).origin
-    net.configure({
+    netConfigure({
       sites: {
         [uiUrl]: uiConf
       }

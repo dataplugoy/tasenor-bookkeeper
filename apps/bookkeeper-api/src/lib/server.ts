@@ -1,4 +1,4 @@
-import { log, net, error, REFRESH_TOKEN_EXPIRY_TIME, MINUTES, YEARS, UUID, Token, Url, LocalUrl, NormalTokenPayload } from '@tasenor/common'
+import { log, error, REFRESH_TOKEN_EXPIRY_TIME, MINUTES, YEARS, UUID, Token, Url, LocalUrl, NormalTokenPayload, netConfigure, POST, netRefresh } from '@tasenor/common'
 import { JwtPayload } from 'jsonwebtoken'
 import { DB, tokens, vault, createUuid, isDevelopment } from '@tasenor/common-node'
 import killable from 'killable'
@@ -62,7 +62,7 @@ async function initialize() {
   // Check API URL.
   const baseUrl: Url = process.env.TASENOR_API_URL as Url
   if (baseUrl) {
-    net.configure({
+    netConfigure({
       baseUrl,
       sites: {
         [baseUrl]: {
@@ -80,7 +80,7 @@ async function initialize() {
     feats: { ADMIN: true },
     plugins: []
   }
-  net.configure({
+  netConfigure({
     sites: {
       [localUrl]: {
         token: await tokens.sign(localToken, 'internal', 2 * YEARS)
@@ -131,7 +131,7 @@ async function refreshTokens(): Promise<void> {
   if (!refreshing) {
     refreshing = true
     log('Regular token refresh for Tasenor API.')
-    await net.refresh(process.env.TASENOR_API_URL as Url)
+    await netRefresh(process.env.TASENOR_API_URL as Url)
     refreshing = false
   }
 }
@@ -144,7 +144,7 @@ async function register(): Promise<void> {
     return
   }
   log('Site token found and it looks valid. Trying to register...')
-  const res = await net.POST('/sites' as LocalUrl)
+  const res = await POST('/sites' as LocalUrl)
   if (!res.success) {
     error('Site registration failed. Exiting.')
     process.exit(1)
