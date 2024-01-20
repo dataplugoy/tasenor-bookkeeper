@@ -5,7 +5,7 @@
 import * as readline from 'readline'
 import * as FormData from 'form-data'
 import { ArgumentParser } from 'argparse'
-import { HttpMethod, Url, Value, TokenPair, Token, log, HttpResponse, mute, waitPromise, note, net, netConfigure, setNetConf } from '@tasenor/common'
+import { HttpMethod, Url, Value, TokenPair, Token, log, HttpResponse, mute, waitPromise, note, netConfigure, setNetConf, net } from '@tasenor/common'
 import clone from 'clone'
 import DbCommand from './commands/db'
 import { Command, CommandArgumentDefault, CommandArguments } from './commands'

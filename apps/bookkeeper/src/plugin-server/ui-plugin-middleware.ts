@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { error, warning, net, log, REFRESH_TOKEN_EXPIRY_TIME, MINUTES, LocalUrl, Token, Url, TasenorPlugin } from '@tasenor/common'
+import { error, warning, log, REFRESH_TOKEN_EXPIRY_TIME, MINUTES, LocalUrl, Token, Url, TasenorPlugin, netRefresh, netConfigure, POST, DELETE, GET } from '@tasenor/common'
 import { vault, plugins, systemPiped } from '@tasenor/common-node'
 const { getConfig, findPluginFromIndex, setConfig, loadPluginIndex, savePluginIndex, samePlugins, sortPlugins, scanPlugins, isInstalled, loadPluginState, savePluginState, updatePluginIndex } = plugins
 
@@ -12,7 +12,7 @@ async function refreshTokens() {
   if (!refreshing) {
     refreshing = true
     log('Regular token refresh for Bookkeeper API.')
-    await net.refresh(process.env.API_URL as Url)
+    await netRefresh(process.env.API_URL as Url)
     refreshing = false
   }
 }
@@ -20,7 +20,7 @@ async function refreshTokens() {
 // Configure external services we use and internal variables.
 export async function initialize() {
   await vault.initialize()
-  net.configure({
+  netConfigure({
     sites: {
       [`${process.env.API_URL}`]: {
         refreshUrl: '/auth/refresh/ui' as LocalUrl,
@@ -47,7 +47,7 @@ async function updateLocalPluginList() {
   let localId = -1
 
   // Start from the backend list.
-  const plugins = await net.GET(`${process.env.API_URL}/plugins` as Url)
+  const plugins = await GET(`${process.env.API_URL}/plugins` as Url)
   if (!plugins.success) {
     warning('Failed to fetch plugin update from backend.')
   } else {
@@ -155,7 +155,7 @@ async function install(auth, code, version) {
   savePluginState(plugin, { ...loadPluginState(plugin), installed: true })
 
   // Mark install to backend.
-  const res = await net.POST(`${process.env.API_URL}/plugins` as Url, { code, version }, { Authorization: auth })
+  const res = await POST(`${process.env.API_URL}/plugins` as Url, { code, version }, { Authorization: auth })
   if (!res.success) {
     return 'Installing plugin on backend failed.'
   }
@@ -188,7 +188,7 @@ async function uninstall(auth, code, ignoreError = false) {
   }
 
   // Mark uninstall to backend.
-  const res = await net.DELETE(`${process.env.API_URL}/plugins` as Url, { code }, { Authorization: auth })
+  const res = await DELETE(`${process.env.API_URL}/plugins` as Url, { code }, { Authorization: auth })
   if (!res.success && !ignoreError) {
     return 'Uninstalling plugin on backend failed.'
   }
@@ -207,7 +207,7 @@ async function rebuild() {
  * Remove all plugins and start from the scratch.
  */
 async function reset(auth) {
-  await net.GET(`${process.env.API_URL}/plugins/reset` as Url, null, { Authorization: auth })
+  await GET(`${process.env.API_URL}/plugins/reset` as Url, null, { Authorization: auth })
   for (const plugin of await loadPluginIndex()) {
     if (isInstalled(plugin)) {
       await uninstall(auth, plugin.code, true)
@@ -229,7 +229,7 @@ export async function middleware(req, res, next) {
     return res.status(401).send({ message: 'Authentication token missing.' })
   }
   // Check something from backend API and see if authorization works as a superuser.
-  const testDrive = await net.GET(`${process.env.API_URL}/plugins/auth` as Url, null, { Authorization: auth }).catch(next)
+  const testDrive = await GET(`${process.env.API_URL}/plugins/auth` as Url, null, { Authorization: auth }).catch(next)
   if (!testDrive) {
     return res.status(403).send({ message: 'Call to the backend failed.' })
   }
@@ -267,7 +267,7 @@ export async function middleware(req, res, next) {
   } else if (req.path === '/rebuild') {
     if (req.method === 'GET') {
       log('Plugin rebuild requested.')
-      net.GET(`${process.env.API_URL}/plugins/rebuild` as Url, null, { Authorization: auth }) // No await. Run parallel.
+      GET(`${process.env.API_URL}/plugins/rebuild` as Url, null, { Authorization: auth }) // No await. Run parallel.
       await rebuild().catch(next)
       const plugins = await updateLocalPluginList().catch(next)
       return res.send(plugins)
