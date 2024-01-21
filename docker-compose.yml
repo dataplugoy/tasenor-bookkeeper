@@ -85,6 +85,8 @@ services:
       INITIAL_PLUGIN_REPOS: ${INITIAL_PLUGIN_REPOS:-npm://@tasenor/common-plugins}
       ID_RSA: ${ID_RSA:-}
       ID_RSA_PUB: ${ID_RSA_PUB:-}
+      TASENOR_SITE_TOKEN: ${TASENOR_SITE_TOKEN:-}
+      TASENOR_API_URL: ${TASENOR_API_URL:-}
     command: pnpm run docker
     networks:
       - tasenor
