@@ -1,5 +1,5 @@
 import express from 'express'
-import { DAYS, error } from '@tasenor/common'
+import { DAYS, HOURS, error } from '@tasenor/common'
 import { tokens, tasenorStack, isDevelopment } from '@tasenor/common-node'
 import users from '../lib/users'
 import { signTokenWithPlugins } from '../lib/subscriptions'
@@ -42,7 +42,7 @@ router.get('/refresh/ui',
   async (req, res, next) => {
     const { audience, owner, feats } = res.locals.auth
     if (audience === 'ui') {
-      const pair = await tokens.sign2({ owner, feats }, 'ui', isDevelopment() ? DAYS * 365 : 0).catch(next)
+      const pair = await tokens.sign2({ owner, feats }, 'ui', isDevelopment() ? DAYS * 365 : HOURS * 1).catch(next)
       return res.send(pair)
     }
     return res.status(403).send({ message: 'Not allowed to refresh that audience.' })
