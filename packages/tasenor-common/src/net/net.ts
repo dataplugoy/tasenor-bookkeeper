@@ -22,7 +22,7 @@ export type SupportedStatus = SupportedSuccessStatus | SupportedFailStatus
 export interface HttpSuccessResponse<T=Value> {
   status: SupportedSuccessStatus,
   success: true,
-  data?: T
+  data: T
 }
 export function isHttpSuccessResponse(obj: unknown): obj is HttpSuccessResponse {
   if (typeof (obj) === 'object' && obj !== null && 'success' in obj) {
