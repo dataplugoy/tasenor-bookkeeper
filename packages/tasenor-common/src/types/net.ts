@@ -33,8 +33,8 @@ export const TOKEN_ISSUER = 'Tasenor'
  * * `refresh` - Can only be used for refreshing another token.
  * * `sites` - Can be used when a boookkeeper site comminicates to master API.
  *
- * * `erp` - Communication from Bookkeeper to the master API system by registered site backend.
- * * `ui` - Communication from Bookkeeper to the master API system by UI server.
+ * * `erp` - User of the master system.
+ * * `ui` - Communication from Bookkeeper to the master API by UI server.
  * * `bookkeeping` - Communication from Bookkeeper UI to backend by logged in user.
  * * `plugins` - A token used by plugin publishers.
  */
