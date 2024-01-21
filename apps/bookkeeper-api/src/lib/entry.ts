@@ -64,5 +64,5 @@ export async function update(db: KnexDatabase, entry: EntryModelData): Promise<H
 
   entry.amount /= 100
 
-  return data.updateOne(db, 'entry', entry.id, entry).then(() => ({ success: true, status: 204 }))
+  return data.updateOne(db, 'entry', entry.id, entry).then(() => ({ success: true, status: 204, data: null }))
 }

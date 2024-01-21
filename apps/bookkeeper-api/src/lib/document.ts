@@ -71,5 +71,5 @@ export async function update(db: KnexDatabase, doc: DocumentModelData): Promise<
     success: false,
     status: 400,
     message: 'Error when writing database.'
-  })).then(() => ({ success: true, status: 204 }))
+  })).then(() => ({ success: true, status: 204, data: null }))
 }
