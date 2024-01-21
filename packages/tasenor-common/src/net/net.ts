@@ -104,7 +104,7 @@ export interface HttpExtraHeaders {
 /**
  * A type of a function that performs a REST call.
  */
-export type HttpRequestFunction = (url: LocalUrl | Url, data?: Value | FormData, extraHeaders?: HttpExtraHeaders) => Promise<HttpResponse>
+export type HttpRequestFunction<T> = (url: LocalUrl | Url, data?: Value | FormData, extraHeaders?: HttpExtraHeaders) => Promise<HttpResponse<T>>
 
 /**
  * Get the configuration variable for the site URL.
@@ -197,8 +197,8 @@ async function refreshToken(url: Url): Promise<boolean | Error> {
  * @param method HTTP method.
  * @returns
  */
-function createRequestHandler(method: HttpMethod): HttpRequestFunction {
-  return async (url0: LocalUrl | Url, data?: Value | FormData, extraHeaders?: HttpExtraHeaders) => {
+function createRequestHandler<T>(method: HttpMethod): HttpRequestFunction<T> {
+  return (async (url0: LocalUrl | Url, data?: Value | FormData, extraHeaders?: HttpExtraHeaders) => {
 
     // Calculate URL and origin.
     const url: Url = constructUrl(url0)
@@ -379,7 +379,7 @@ function createRequestHandler(method: HttpMethod): HttpRequestFunction {
       }
     }
     return finalResult
-  }
+  }) as HttpRequestFunction<T>
 }
 
 /**
@@ -398,12 +398,24 @@ export async function netRefresh(url: Url): Promise<null | TokenPair> {
   return null
 }
 
-export const DELETE = createRequestHandler('DELETE')
-export const GET = createRequestHandler('GET')
-export const HEAD = createRequestHandler('HEAD')
-export const PATCH = createRequestHandler('PATCH')
-export const POST = createRequestHandler('POST')
-export const PUT = createRequestHandler('PUT')
+export async function DELETE<T=Value>(url0: LocalUrl | Url, data?: Value | FormData, extraHeaders?: HttpExtraHeaders) {
+  return createRequestHandler<T>('DELETE')(url0, data, extraHeaders)
+}
+export async function GET<T=Value>(url: LocalUrl | Url, data?: Value | FormData, extraHeaders?: HttpExtraHeaders) {
+  return createRequestHandler<T>('GET')(url, data, extraHeaders)
+}
+export async function HEAD<T=Value>(url: LocalUrl | Url, data?: Value | FormData, extraHeaders?: HttpExtraHeaders) {
+  return createRequestHandler<T>('HEAD')(url, data, extraHeaders)
+}
+export async function PATCH<T=Value>(url: LocalUrl | Url, data?: Value | FormData, extraHeaders?: HttpExtraHeaders) {
+  return createRequestHandler<T>('PATCH')(url, data, extraHeaders)
+}
+export async function POST<T=Value>(url: LocalUrl | Url, data?: Value | FormData, extraHeaders?: HttpExtraHeaders) {
+  return createRequestHandler<T>('POST')(url, data, extraHeaders)
+}
+export async function PUT<T=Value>(url: LocalUrl | Url, data?: Value | FormData, extraHeaders?: HttpExtraHeaders) {
+  return createRequestHandler<T>('PUT')(url, data, extraHeaders)
+}
 export const net = {
   DELETE,
   GET,
