@@ -3,6 +3,8 @@ import { plugins } from '@tasenor/common-node'
 import { install, uninstall, reset } from '../lib/plugins'
 import catalog from '../lib/catalog'
 import { tasenor } from '../lib/middleware'
+import path from 'path'
+import { DirectoryPath } from '@tasenor/common'
 
 const { findPluginFromIndex, loadPluginIndex, updatePluginList } = plugins
 const router = express.Router()
@@ -10,11 +12,8 @@ const router = express.Router()
 router.get('/',
   ...tasenor({ superuser: true, audience: ['bookkeeping', 'ui'] }),
   async (req, res) => {
-    let plugins = await loadPluginIndex()
-    if (plugins.length === 0) {
-      await updatePluginList()
-      plugins = await loadPluginIndex()
-    }
+    await updatePluginList()
+    const plugins = await loadPluginIndex()
     res.send(plugins.map(p => ({ ...p, path: null })))
   }
 )
@@ -24,6 +23,16 @@ router.get('/rebuild',
   async (req, res) => {
     await updatePluginList()
     res.status(204).send()
+  }
+)
+
+router.get('/upgrade',
+  ...tasenor({ superuser: true, audience: ['bookkeeping', 'ui'] }),
+  async (req, res) => {
+    const root = path.join(__dirname, '..', '..', '..', '..') as DirectoryPath
+    await plugins.upgradeRepositories(root)
+    const latest = await loadPluginIndex()
+    res.send(latest.map(p => ({ ...p, path: null })))
   }
 )
 

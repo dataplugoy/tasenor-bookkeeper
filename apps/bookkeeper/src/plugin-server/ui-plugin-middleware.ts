@@ -251,11 +251,8 @@ export async function middleware(req, res, next) {
   if (req.path === '/') {
     if (req.method === 'GET') {
       plugins.verifyPluginDir()
-      let list = loadPluginIndex()
-      if (list.length === 0) {
-        await updateLocalPluginList()
-        list = loadPluginIndex()
-      }
+      await updateLocalPluginList()
+      const list = loadPluginIndex()
       return respond(res, list)
     } else if (req.method === 'POST') {
       log(`Installing ${req.body.code} version ${req.body.version}.`)
@@ -272,6 +269,7 @@ export async function middleware(req, res, next) {
     if (req.method === 'GET') {
       log('Plugin upgrade requested.')
       await upgrade(auth).catch(next)
+      await updateLocalPluginList()
       const plugins = loadPluginIndex()
       return respond(res, plugins)
     } else {
