@@ -22,7 +22,7 @@
     "release": "pnpm version patch",
     "show-version": "jq .version < package.json",
     "ssh-keys": "bin/make-file-from-env ID_RSA /root/.ssh/id_rsa 600 && bin/make-file-from-env ID_RSA_PUB /root/.ssh/id_rsa.pub",
-    "wait": "./bin/wait-for-it.sh -t 60 -h tasenor-bookkeeper-api -p 7205"
+    "wait": "./bin/wait-for-it.sh -t 120 -h tasenor-bookkeeper-api -p 7205"
   },
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.22.7",
