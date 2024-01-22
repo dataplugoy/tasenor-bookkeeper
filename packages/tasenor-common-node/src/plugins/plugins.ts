@@ -7,6 +7,7 @@ import { vault } from '../net'
 import { systemPiped } from '..'
 
 const PLUGIN_FIELDS = ['code', 'title', 'version', 'icon', 'releaseDate', 'use', 'type', 'description']
+const SAFE_PLUGIN_FILES = ['.gitkeep', 'index.json', 'index.jsx', 'workspace', '.keep']
 
 interface PluginConfig {
   PLUGIN_PATH?: string
@@ -450,7 +451,7 @@ function verifyPluginDir(): boolean {
     return true
   }
   let fail = false
-  const okayFiles = new Set(['.gitkeep', 'index.json', 'index.jsx', 'workspace'])
+  const okayFiles = new Set(SAFE_PLUGIN_FILES)
   for (const repo of config.INITIAL_PLUGIN_REPOS?.split(' ')) {
     const dir = targetDir(repo)
     okayFiles.add(path.basename(dir))

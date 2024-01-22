@@ -225,6 +225,8 @@ async function upgrade(auth) {
   const root = path.join(__dirname, '..', '..', '..', '..') as DirectoryPath
   await plugins.upgradeRepositories(root)
   await GET(`${process.env.API_URL}/plugins/upgrade` as Url, null, { Authorization: auth })
+  // We assume that both UI and backend plugin lists are defined identically and use only backend list for publishin.
+  await GET(`${process.env.API_URL}/plugins/publish` as Url, null, { Authorization: auth })
 }
 
 /**

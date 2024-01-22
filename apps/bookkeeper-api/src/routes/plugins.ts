@@ -4,7 +4,7 @@ import { install, uninstall, reset } from '../lib/plugins'
 import catalog from '../lib/catalog'
 import { tasenor } from '../lib/middleware'
 import path from 'path'
-import { DirectoryPath } from '@tasenor/common'
+import { DirectoryPath, LocalUrl, POST, Value } from '@tasenor/common'
 
 const { findPluginFromIndex, loadPluginIndex, updatePluginList } = plugins
 const router = express.Router()
@@ -12,9 +12,10 @@ const router = express.Router()
 router.get('/',
   ...tasenor({ superuser: true, audience: ['bookkeeping', 'ui'] }),
   async (req, res) => {
+    plugins.verifyPluginDir()
     await updatePluginList()
-    const plugins = await loadPluginIndex()
-    res.send(plugins.map(p => ({ ...p, path: null })))
+    const list = await loadPluginIndex()
+    res.send(list.map(p => ({ ...p, path: null })))
   }
 )
 
@@ -26,13 +27,27 @@ router.get('/rebuild',
   }
 )
 
+router.get('/publish',
+  ...tasenor({ superuser: true, audience: ['bookkeeping', 'ui'] }),
+  async (req, res) => {
+    if (process.env.TASENOR_API_URL) {
+      const list = await loadPluginIndex()
+      for (const plugin of list) {
+        await POST('/plugins/publish' as LocalUrl, plugin as unknown as Value)
+      }
+    }
+    res.status(204).send()
+  }
+)
+
 router.get('/upgrade',
   ...tasenor({ superuser: true, audience: ['bookkeeping', 'ui'] }),
   async (req, res) => {
+    plugins.verifyPluginDir()
     const root = path.join(__dirname, '..', '..', '..', '..') as DirectoryPath
     await plugins.upgradeRepositories(root)
-    const latest = await loadPluginIndex()
-    res.send(latest.map(p => ({ ...p, path: null })))
+    await updatePluginList()
+    res.status(204).send()
   }
 )
 
