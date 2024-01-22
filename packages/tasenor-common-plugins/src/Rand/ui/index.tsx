@@ -9,7 +9,7 @@ class Rand extends CurrencyPlugin {
   static releaseDate = '2022-03-11'
   static use = 'ui'
   static type = 'currency'
-  static description = 'Support for rand currency.'
+  static description = 'Support for South African Rand currency.'
 
   getCurrencySymbol() {
     return 'R'
