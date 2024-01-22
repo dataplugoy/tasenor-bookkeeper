@@ -27,7 +27,7 @@
     "currency-codes": "^2.1.0",
     "dayjs": "1.10.8",
     "sprintf-js": "^1.1.2",
-    "tsx": "3.12.7"
+    "tsx": "^4.7.0"
   },
   "devDependencies": {
     "@mui/icons-material": "^5.14.1",
