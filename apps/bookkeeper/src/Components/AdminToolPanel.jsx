@@ -140,6 +140,11 @@ class AdminToolPanel extends Component {
       document.location.reload()
     }
 
+    const upgradePlugins = async () => {
+      await this.props.catalog.upgradePlugins()
+      document.location.reload()
+    }
+
     const resetPlugins = async () => {
       await this.props.catalog.resetPluginList()
       document.location.reload()
@@ -150,8 +155,9 @@ class AdminToolPanel extends Component {
         <div className="ToolPanel AdminToolPanel">
           <Title><Trans>Plugin Tools</Trans></Title>
           <IconButton id="refresh-plugins" onClick={() => loadPlugins()} title="refresh-plugins" icon="refresh"></IconButton>
+          <IconButton id="upgrade-plugins" onClick={() => upgradePlugins()} title="upgrade-plugins" icon="update"></IconButton>
           <IconButton id="rebuild-plugins" onClick={() => rebuildPlugins()} title="rebuild-plugins" icon="build"></IconButton>
-          <IconButton id="resete-plugins" onClick={() => resetPlugins()} title="reset-plugins" icon="trash"></IconButton>
+          <IconButton id="reset-plugins" onClick={() => resetPlugins()} title="reset-plugins" icon="trash"></IconButton>
         </div>
       )
     }

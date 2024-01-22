@@ -30,6 +30,7 @@ export async function initialize() {
   })
   const pluginPath = path.join(__dirname, '..', '..', 'src', 'Plugins')
   setConfig('PLUGIN_PATH', pluginPath)
+  setConfig('INITIAL_PLUGIN_REPOS', process.env.INITIAL_PLUGIN_REPOS || '')
   log('Updating local plugin list.')
   await updateLocalPluginList()
   log('Plugin middleware initialized.')
@@ -217,6 +218,14 @@ async function reset(auth) {
 }
 
 /**
+ * Upgrade plugins.
+ */
+async function upgrade(auth) {
+  plugins.verifyPluginDir()
+  console.log('OK')
+}
+
+/**
  * A middleware handling plugin end-point for UI server.
  * @param {Request} req
  * @param {Response} res
@@ -239,12 +248,13 @@ export async function middleware(req, res, next) {
   // Handle request.
   if (req.path === '/') {
     if (req.method === 'GET') {
-      let plugins = loadPluginIndex()
-      if (plugins.length === 0) {
+      plugins.verifyPluginDir()
+      let list = loadPluginIndex()
+      if (list.length === 0) {
         await updateLocalPluginList()
-        plugins = loadPluginIndex()
+        list = loadPluginIndex()
       }
-      return respond(res, plugins)
+      return respond(res, list)
     } else if (req.method === 'POST') {
       log(`Installing ${req.body.code} version ${req.body.version}.`)
       const data = await install(auth, req.body.code, req.body.version).catch(next)
@@ -253,6 +263,15 @@ export async function middleware(req, res, next) {
       log(`Uninstalling ${req.body.code}.`)
       const data = await uninstall(auth, req.body.code).catch(next)
       return respond(res, data)
+    } else {
+      return res.status(405).send({ message: 'Method not allowed.' })
+    }
+  } else if (req.path === '/upgrade') {
+    if (req.method === 'GET') {
+      log('Plugin upgrade requested.')
+      await upgrade(auth).catch(next)
+      const plugins = loadPluginIndex()
+      return respond(res, plugins)
     } else {
       return res.status(405).send({ message: 'Method not allowed.' })
     }

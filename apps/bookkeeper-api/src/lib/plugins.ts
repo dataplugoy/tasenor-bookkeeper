@@ -6,8 +6,11 @@ import { LoginPluginData, PricingModel, log } from '@tasenor/common'
 const { isInstalled, loadPluginIndex, findPluginFromIndex, setConfig, loadPluginState, savePluginState, updatePluginIndex } = plugins
 
 const pluginPath = path.join(__dirname, '..', 'plugins')
-setConfig('PLUGIN_PATH', pluginPath)
 log(`Setting PLUGIN_PATH to '${pluginPath}'.`)
+setConfig('PLUGIN_PATH', pluginPath)
+log(`Setting INITIAL_PLUGIN_REPOS to '${process.env.INITIAL_PLUGIN_REPOS || ''}'.`)
+setConfig('INITIAL_PLUGIN_REPOS', process.env.INITIAL_PLUGIN_REPOS || '')
+
 if (!fs.existsSync(pluginPath)) {
   log(`Creating plugin path '${pluginPath}'.`)
   fs.mkdirSync(pluginPath)

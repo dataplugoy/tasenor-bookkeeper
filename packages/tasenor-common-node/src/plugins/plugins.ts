@@ -1,7 +1,7 @@
 import fs from 'fs'
-import glob from 'fast-glob'
+import glob, { globSync } from 'fast-glob'
 import path from 'path'
-import { TasenorPlugin, PluginCatalog, FilePath, Url, note, log, DirectoryPath, error, GET } from '@tasenor/common'
+import { TasenorPlugin, PluginCatalog, FilePath, Url, note, log, DirectoryPath, error, GET, warning } from '@tasenor/common'
 import { create } from 'ts-opaque'
 import { vault } from '../net'
 import { systemPiped } from '..'
@@ -10,12 +10,14 @@ const PLUGIN_FIELDS = ['code', 'title', 'version', 'icon', 'releaseDate', 'use',
 
 interface PluginConfig {
   PLUGIN_PATH?: string
+  INITIAL_PLUGIN_REPOS?: string
 }
 type ConfigVariable = keyof PluginConfig
 
 // Internal configuration for the module.
 const config: PluginConfig = {
-  PLUGIN_PATH: undefined
+  PLUGIN_PATH: undefined,
+  INITIAL_PLUGIN_REPOS: undefined
 }
 
 interface PluginState {
@@ -329,17 +331,40 @@ function pluginLocalPath(indexFilePath: FilePath): string | undefined {
 }
 
 /**
+ * Calculate target directory for the repository.
+ */
+function targetDir(repo: string): DirectoryPath {
+  if (!config.PLUGIN_PATH) throw new Error('config.PLUGIN_PATH not set.')
+  if (repo.startsWith('file://')) {
+    return path.join(config.PLUGIN_PATH, path.basename(repo)) as DirectoryPath
+  } else if (repo.startsWith('npm://')) {
+    const npm = repo.substring(6)
+    return path.join(config.PLUGIN_PATH, npm.replace(/@/g, '').replace(/[^a-zA-Z0-9]/g, '-')) as DirectoryPath
+  } else {
+    return path.join(config.PLUGIN_PATH, repo.replace(/.*\//, '').replace('.git', '')) as DirectoryPath
+  }
+}
+
+/**
  * Go through repository URLs and install all missing plugin repositories.
  */
-async function updateRepositories(repos: string[], src: DirectoryPath, dst: DirectoryPath): Promise<boolean> {
+async function fetchRepositories(srcRoot: DirectoryPath): Promise<boolean> {
   let changes = false
-  for (const repo of repos) {
+  if (!config.INITIAL_PLUGIN_REPOS) {
+    warning('Cannot fetch plugin repos, since none defined in INITIAL_PLUGIN_REPOS.')
+    return false
+  }
+  if (!config.PLUGIN_PATH) {
+    warning('Cannot fetch plugin repos, since PLUGIN_PATH not defined.')
+    return false
+  }
+  for (const repo of config.INITIAL_PLUGIN_REPOS?.split(' ')) {
     log(`Checking plugin repo ${repo}.`)
     if (repo.startsWith('file://')) {
       // Handle local file.
-      const source = path.join(src, repo.substring(7))
-      const target = path.join(dst, path.basename(repo))
-      if (fs.existsSync(src)) {
+      const source = path.join(srcRoot, repo.substring(7))
+      const target = targetDir(repo)
+      if (fs.existsSync(srcRoot)) {
         if (!fs.existsSync(target)) {
           log(`  Linking repo ${source} => ${target}.`)
           const cmd = `ln -sf "${source}" "${target}"`
@@ -351,20 +376,20 @@ async function updateRepositories(repos: string[], src: DirectoryPath, dst: Dire
       }
     } else if (repo.startsWith('npm://')) {
       const npm = repo.substring(6)
-      const source = path.join(dst, 'package')
-      const target = path.join(dst, npm.replace(/@/g, '').replace(/[^a-zA-Z0-9]/g, '-'))
+      const source = path.join(config.PLUGIN_PATH, 'package')
+      const target = targetDir(repo)
       if (!fs.existsSync(target)) {
         log(`  Downloading NPM ${npm}.`)
-        const cmd = `cd "${dst}" && rm -fr "${source}" && npm view ${npm} dist.tarball | xargs curl -s | tar xz && mv "${source}" "${target}"`
+        const cmd = `cd "${config.PLUGIN_PATH}" && rm -fr "${source}" && npm view ${npm} dist.tarball | xargs curl -s | tar xz && mv "${source}" "${target}"`
         await systemPiped(cmd)
         changes = true
       }
     } else {
       // By default, assume git repo.
-      const target = path.join(dst, repo.replace(/.*\//, '').replace('.git', ''))
+      const target = targetDir(repo)
       if (!fs.existsSync(target)) {
         log(`  Fetching plugin repo ${repo} to ${target}.`)
-        const cmd = `cd "${dst}" && git clone "${repo}"`
+        const cmd = `cd "${config.PLUGIN_PATH}" && git clone "${repo}"`
         await systemPiped(cmd)
         changes = true
       }
@@ -372,6 +397,39 @@ async function updateRepositories(repos: string[], src: DirectoryPath, dst: Dire
   }
 
   return changes
+}
+
+/**
+ * Check that plugin directory does not have any extra files or that there are no missing plugin repositories.
+ */
+function verifyPluginDir(): boolean {
+  if (!config.INITIAL_PLUGIN_REPOS) {
+    warning('No plugin repositories to verify.')
+    return true
+  }
+  let fail = false
+  const okayFiles = new Set(['.gitkeep', 'index.json', 'index.jsx', 'workspace'])
+  for (const repo of config.INITIAL_PLUGIN_REPOS?.split(' ')) {
+    const dir = targetDir(repo)
+    okayFiles.add(path.basename(dir))
+    if (!fs.existsSync(dir)) {
+      error(`Requiered repository ${repo} does not exist.`)
+      fail = true
+    }
+  }
+  if (config.PLUGIN_PATH) {
+    for (const fullPath of globSync(config.PLUGIN_PATH + '/**', { dot: true, deep: 2 })) {
+      const localPath = fullPath.replace(config.PLUGIN_PATH + '/', '')
+      const file = localPath.indexOf('/') < 0 ? localPath : path.dirname(localPath)
+      if (!okayFiles.has(file)) {
+        error(`Plugin directory has unrecognized file/dir '${fullPath}'.`)
+      }
+    }
+  }
+
+  if (!fail) log('Plugin directory verified as correct.')
+
+  return fail
 }
 
 /**
@@ -393,5 +451,6 @@ export const plugins = {
   sortPlugins,
   updatePluginIndex,
   updatePluginList,
-  updateRepositories
+  fetchRepositories,
+  verifyPluginDir,
 }

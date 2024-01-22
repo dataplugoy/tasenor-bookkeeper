@@ -10,9 +10,6 @@ import cron from './lib/cron'
 import pkg from '../package.json'
 import routes from './routes'
 
-// List of plugin URLs to install by default.
-const INITIAL_PLUGIN_REPOS = process.env.INITIAL_PLUGIN_REPOS ? process.env.INITIAL_PLUGIN_REPOS.split(' ') : []
-
 const app = express()
 
 async function main() {
@@ -30,7 +27,8 @@ async function main() {
 
     log('Checking default plugin repos...')
     const src = path.join(__dirname, '..', '..', '..') as DirectoryPath
-    const changes = await plugins.updateRepositories(INITIAL_PLUGIN_REPOS, src, plugins.getConfig('PLUGIN_PATH') as DirectoryPath)
+    plugins.setConfig('INITIAL_PLUGIN_REPOS', process.env.INITIAL_PLUGIN_REPOS || '')
+    const changes = await plugins.fetchRepositories(src)
 
     // Rebuild plugin index if changes.
     if (changes) {

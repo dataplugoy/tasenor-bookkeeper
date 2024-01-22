@@ -198,6 +198,17 @@ class Catalog extends Component {
   }
 
   /**
+   * Upgrade plugins to their latest versions.
+   */
+  async upgradePlugins() {
+    const plugins = await this.store.request('ui:/internal/plugins/upgrade', 'GET')
+    runInAction(() => {
+      debugPlugins('Received upgrade for plugins', plugins)
+      this.index.replace(plugins)
+    })
+  }
+
+  /**
    * Fetch the latest plugin list forcing the recompilation of the client.
    */
   async rebuildPluginList() {
