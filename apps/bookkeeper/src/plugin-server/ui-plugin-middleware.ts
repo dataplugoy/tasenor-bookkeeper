@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { error, warning, log, REFRESH_TOKEN_EXPIRY_TIME, MINUTES, LocalUrl, Token, Url, TasenorPlugin, netRefresh, netConfigure, POST, DELETE, GET } from '@tasenor/common'
+import { error, warning, log, REFRESH_TOKEN_EXPIRY_TIME, MINUTES, LocalUrl, Token, Url, TasenorPlugin, netRefresh, netConfigure, POST, DELETE, GET, DirectoryPath } from '@tasenor/common'
 import { vault, plugins, systemPiped } from '@tasenor/common-node'
 const { getConfig, findPluginFromIndex, setConfig, loadPluginIndex, savePluginIndex, samePlugins, sortPlugins, scanPlugins, isInstalled, loadPluginState, savePluginState, updatePluginIndex } = plugins
 
@@ -218,11 +218,13 @@ async function reset(auth) {
 }
 
 /**
- * Upgrade plugins.
+ * Upgrade all plugins.
  */
 async function upgrade(auth) {
   plugins.verifyPluginDir()
-  console.log('OK')
+  const root = path.join(__dirname, '..', '..', '..', '..') as DirectoryPath
+  await plugins.upgradeRepositories(root)
+  await GET(`${process.env.API_URL}/plugins/upgrade` as Url, null, { Authorization: auth })
 }
 
 /**

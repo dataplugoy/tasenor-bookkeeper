@@ -359,11 +359,14 @@ async function fetchRepositories(srcRoot: DirectoryPath): Promise<boolean> {
     return false
   }
   for (const repo of config.INITIAL_PLUGIN_REPOS?.split(' ')) {
-    log(`Checking plugin repo ${repo}.`)
+    const target = targetDir(repo)
+    if (fs.existsSync(target)) {
+      continue
+    }
+    log(`Fetching plugin repo ${repo}.`)
     if (repo.startsWith('file://')) {
       // Handle local file.
       const source = path.join(srcRoot, repo.substring(7))
-      const target = targetDir(repo)
       if (fs.existsSync(srcRoot)) {
         if (!fs.existsSync(target)) {
           log(`  Linking repo ${source} => ${target}.`)
@@ -377,22 +380,61 @@ async function fetchRepositories(srcRoot: DirectoryPath): Promise<boolean> {
     } else if (repo.startsWith('npm://')) {
       const npm = repo.substring(6)
       const source = path.join(config.PLUGIN_PATH, 'package')
-      const target = targetDir(repo)
-      if (!fs.existsSync(target)) {
-        log(`  Downloading NPM ${npm}.`)
-        const cmd = `cd "${config.PLUGIN_PATH}" && rm -fr "${source}" && npm view ${npm} dist.tarball | xargs curl -s | tar xz && mv "${source}" "${target}"`
+      log(`  Downloading NPM ${npm}.`)
+      const cmd = `cd "${config.PLUGIN_PATH}" && rm -fr "${source}" && npm view ${npm} dist.tarball | xargs curl -s | tar xz && mv "${source}" "${target}"`
+      await systemPiped(cmd)
+      changes = true
+    } else {
+      // By default, assume git repo.
+      log(`  Fetching plugin repo ${repo} to ${target}.`)
+      const cmd = `cd "${config.PLUGIN_PATH}" && git clone "${repo}"`
+      await systemPiped(cmd)
+      changes = true
+    }
+  }
+
+  return changes
+}
+
+/**
+ * Go through repository URLs and install all missing plugin repositories.
+ */
+async function upgradeRepositories(srcRoot: DirectoryPath): Promise<boolean> {
+  let changes = false
+  if (!config.INITIAL_PLUGIN_REPOS) {
+    warning('Cannot fetch plugin repos, since none defined in INITIAL_PLUGIN_REPOS.')
+    return false
+  }
+  if (!config.PLUGIN_PATH) {
+    warning('Cannot fetch plugin repos, since PLUGIN_PATH not defined.')
+    return false
+  }
+
+  changes = await fetchRepositories(srcRoot)
+
+  for (const repo of config.INITIAL_PLUGIN_REPOS?.split(' ')) {
+    log(`Upgrading plugin repo '${repo}'...`)
+    const target = targetDir(repo)
+    if (repo.startsWith('file://')) {
+      log('  Nothing to do for symlink.')
+    } else if (repo.startsWith('npm://')) {
+      const npm = repo.substring(6)
+      const cmd = `npm view ${npm} version`
+      const newVersion = (await systemPiped(cmd, true))?.trim()
+      const oldVersion = JSON.parse(fs.readFileSync(path.join(target, 'package.json')).toString('utf-8')).version
+      if (newVersion === oldVersion) {
+        log(`  The latest version ${newVersion} already installed.`)
+      } else {
+        log(`  Upgrading ${npm} from version ${oldVersion} to ${newVersion}.`)
+        const source = path.join(config.PLUGIN_PATH, 'package')
+        const cmd = `cd "${config.PLUGIN_PATH}" && rm -fr "${source}" "${target}" && npm view ${npm} dist.tarball | xargs curl -s | tar xz && mv "${source}" "${target}"`
         await systemPiped(cmd)
         changes = true
       }
     } else {
-      // By default, assume git repo.
-      const target = targetDir(repo)
-      if (!fs.existsSync(target)) {
-        log(`  Fetching plugin repo ${repo} to ${target}.`)
-        const cmd = `cd "${config.PLUGIN_PATH}" && git clone "${repo}"`
-        await systemPiped(cmd)
-        changes = true
-      }
+      const cmd = `cd "${config.PLUGIN_PATH}" && git pull`
+      await systemPiped(cmd)
+      // Note, too lazy to detect changes. Is the return value even used?
     }
   }
 
@@ -451,6 +493,7 @@ export const plugins = {
   sortPlugins,
   updatePluginIndex,
   updatePluginList,
+  upgradeRepositories,
   fetchRepositories,
   verifyPluginDir,
 }
