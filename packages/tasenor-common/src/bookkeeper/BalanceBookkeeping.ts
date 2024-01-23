@@ -123,7 +123,10 @@ export class BalanceBookkeeping {
       }
       num = `${account}` as AccountNumber
     }
+    return this.getByAccountNumber(num, time)
+  }
 
+  getByAccountNumber(num: AccountNumber, time: Timestamp | undefined = undefined): number {
     if (time === undefined) {
       return this.balance[num] || 0
     }
