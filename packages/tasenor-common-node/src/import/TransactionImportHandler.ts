@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { TasenorElement, AccountAddress, Asset, AssetExchange, AssetTransfer, AssetTransferReason, AssetType, Currency, Language, TransactionDescription, TransactionApplyResults, debug, realNegative, AccountNumber, realPositive, ProcessConfig, ImportStateText, TextFileLine, SegmentId, NO_SEGMENT, num, ImportSegment, Directions, ImportAnswers, ImportConfig, BalanceSummaryEntry, less, mergeTags, log, DirectoryPath, Timestamp } from '@tasenor/common'
+import { TasenorElement, AccountAddress, Asset, AssetExchange, AssetTransfer, AssetTransferReason, AssetType, Currency, Language, TransactionDescription, TransactionApplyResults, debug, realNegative, AccountNumber, realPositive, ProcessConfig, ImportStateText, TextFileLine, SegmentId, NO_SEGMENT, num, ImportSegment, Directions, ImportAnswers, ImportConfig, BalanceSummaryEntry, less, mergeTags, log, DirectoryPath, Timestamp, Timestring, TimeType } from '@tasenor/common'
 import { TransferAnalyzer } from './TransferAnalyzer'
 import hash from 'object-hash'
 import { TransactionUI } from './TransactionUI'
@@ -68,7 +68,7 @@ export class TransactionImportHandler extends TextFileProcessHandler {
    * Get a single account balance.
    * @param addr
    */
-  getBalance(addr: AccountAddress, time: Timestamp): number {
+  getBalance(addr: AccountAddress, time: TimeType | undefined): number {
     if (!this.analyzer) {
       throw new Error(`Cannot access balance for ${addr} when no analyzer instantiated.`)
     }

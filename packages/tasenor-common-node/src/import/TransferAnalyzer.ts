@@ -4,7 +4,7 @@ import { sprintf } from 'sprintf-js'
 import {
   AccountNumber, Asset, AccountAddress, AssetExchange, AssetTransfer, AssetTransferReason, AssetType,
   Currency, Language, StockValueData, TradeableAsset, Transaction, TransactionDescription, TransactionKind,
-  TransactionLine, StockBookkeeping, UIQuery, Tag, VATTarget, IncomeSource, ExpenseSink, isCurrency, TransferNote, isAssetTransferReason, isAssetType, ZERO_CENTS, less, warning, BalanceBookkeeping, realNegative, AdditionalTransferInfo, CryptoCurrency, ImportSegment, ImportStateText, ProcessConfig, SegmentId, TextFileLine, Timestamp
+  TransactionLine, StockBookkeeping, UIQuery, Tag, VATTarget, IncomeSource, ExpenseSink, isCurrency, TransferNote, isAssetTransferReason, isAssetType, ZERO_CENTS, less, warning, BalanceBookkeeping, realNegative, AdditionalTransferInfo, CryptoCurrency, ImportSegment, ImportStateText, ProcessConfig, SegmentId, TextFileLine, Timestamp, Timestring, TimeType
 } from '@tasenor/common'
 import { TransactionImportHandler } from './TransactionImportHandler'
 import { isTransactionImportConnector, TransactionImportConnector } from './TransactionImportConnector'
@@ -171,7 +171,7 @@ export class TransferAnalyzer {
    * Get a single account balance.
    * @param addr
    */
-  getBalance(addr: AccountAddress, time: Timestamp) {
+  getBalance(addr: AccountAddress, time: TimeType | undefined) {
     return this.balances.get(addr, time)
   }
 

@@ -186,12 +186,12 @@ test('Buying and selling', async () => {
     ]]
   )
 
-  expect(tester.getBalance('trade.currency.EUR', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(994900)
-  expect(tester.getBalance('trade.stock.NAKD', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(0)
-  expect(tester.getBalance('expense.statement.TRADE_LOSS_STOCK', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(10000)
-  expect(tester.getBalance('trade.crypto.ETH', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(0)
-  expect(tester.getBalance('fee.currency.EUR', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(200)
-  expect(tester.getBalance('income.statement.TRADE_PROFIT_CRYPTO', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(-5100)
+  expect(tester.getBalance('trade.currency.EUR')).toBe(994900)
+  expect(tester.getBalance('trade.stock.NAKD')).toBe(0)
+  expect(tester.getBalance('expense.statement.TRADE_LOSS_STOCK')).toBe(10000)
+  expect(tester.getBalance('trade.crypto.ETH')).toBe(0)
+  expect(tester.getBalance('fee.currency.EUR')).toBe(200)
+  expect(tester.getBalance('income.statement.TRADE_PROFIT_CRYPTO')).toBe(-5100)
 })
 
 test('Short selling', async () => {
@@ -348,8 +348,8 @@ test('Short selling', async () => {
     ]],
   )
 
-  expect(tester.getBalance('trade.currency.USD', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(9000)
-  expect(tester.getBalance('fee.currency.USD', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(1000)
-  expect(tester.getBalance('income.statement.TRADE_PROFIT_SHORT', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(-10000)
-  expect(tester.getBalance('trade.short.NAKD', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(0)
+  expect(tester.getBalance('trade.currency.USD')).toBe(9000)
+  expect(tester.getBalance('fee.currency.USD')).toBe(1000)
+  expect(tester.getBalance('income.statement.TRADE_PROFIT_SHORT')).toBe(-10000)
+  expect(tester.getBalance('trade.short.NAKD')).toBe(0)
 })

@@ -53,9 +53,9 @@ test('Use partly debt to buy assets', async () => {
     ]]
   )
 
-  expect(tester.getBalance('trade.currency.EUR', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(0)
-  expect(tester.getBalance('debt.currency.EUR', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(-10000)
-  expect(tester.getBalance('trade.crypto.ETH', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(20000)
+  expect(tester.getBalance('trade.currency.EUR')).toBe(0)
+  expect(tester.getBalance('debt.currency.EUR')).toBe(-10000)
+  expect(tester.getBalance('trade.crypto.ETH')).toBe(20000)
 })
 
 test('Use all debt to buy assets', async () => {
@@ -105,9 +105,9 @@ test('Use all debt to buy assets', async () => {
     ]]
   )
 
-  expect(tester.getBalance('trade.currency.EUR', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(0)
-  expect(tester.getBalance('debt.currency.EUR', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(-20000)
-  expect(tester.getBalance('trade.crypto.ETH', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(20000)
+  expect(tester.getBalance('trade.currency.EUR')).toBe(0)
+  expect(tester.getBalance('debt.currency.EUR')).toBe(-20000)
+  expect(tester.getBalance('trade.crypto.ETH')).toBe(20000)
 })
 
 test('Pay back debt more than fully', async () => {
@@ -151,9 +151,9 @@ test('Pay back debt more than fully', async () => {
     ]]
   )
 
-  expect(tester.getBalance('deposit.external.EUR', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(-20000)
-  expect(tester.getBalance('deposit.currency.EUR', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(10000)
-  expect(tester.getBalance('debt.currency.EUR', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(0)
+  expect(tester.getBalance('deposit.external.EUR')).toBe(-20000)
+  expect(tester.getBalance('deposit.currency.EUR')).toBe(10000)
+  expect(tester.getBalance('debt.currency.EUR')).toBe(0)
 })
 
 test('Pay back partial debt', async () => {
@@ -192,7 +192,7 @@ test('Pay back partial debt', async () => {
     ]]
   )
 
-  expect(tester.getBalance('deposit.external.EUR', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(-20000)
-  expect(tester.getBalance('deposit.currency.EUR', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(0)
-  expect(tester.getBalance('debt.currency.EUR', new Date('2023-01-01T00:00:00.000Z').getTime())).toBe(-10000)
+  expect(tester.getBalance('deposit.external.EUR')).toBe(-20000)
+  expect(tester.getBalance('deposit.currency.EUR')).toBe(0)
+  expect(tester.getBalance('debt.currency.EUR')).toBe(-10000)
 })

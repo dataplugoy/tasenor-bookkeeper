@@ -1,5 +1,5 @@
 import { debug, warning } from '../logging'
-import { AccountAddress, AccountNumber, Asset, AssetTransferReason, AssetType, Timestamp, TransactionLine } from '../types'
+import { AccountAddress, AccountNumber, Asset, AssetTransferReason, AssetType, TimeType, TransactionLine, time2number } from '../types'
 import { sprintf } from 'sprintf-js'
 import { ProcessConfig } from '../process_types'
 
@@ -70,24 +70,21 @@ export class BalanceBookkeeping {
   /**
    * Change the account balance and return new total.
    */
-  change(account: AccountNumber, change: number, time: Timestamp | undefined = undefined): number {
-
-    if (time === undefined) {
-      time = new Date().getTime() as Timestamp
-    }
+  change(account: AccountNumber, change: number, time: TimeType | undefined = undefined): number {
+    const stamp = time2number(time)
     if (!this.history[account] || this.history[account].length === 0) {
-      this.history[account] = [{ time, change }]
+      this.history[account] = [{ time: stamp, change }]
     } else {
       let i = this.history[account].length
-      while (i > 0 && this.history[account][i - 1].time > time) {
+      while (i > 0 && this.history[account][i - 1].time > stamp) {
         i--
       }
-      this.history[account] = this.history[account].slice(0, i).concat([{ time, change }]).concat(this.history[account].slice(i))
+      this.history[account] = this.history[account].slice(0, i).concat([{ time: stamp, change }]).concat(this.history[account].slice(i))
     }
 
     this.balance[account] = (this.balance[account] || 0) + change
 
-    _debug(account, `${new Date(time).toISOString()}: Change ${account} ${this.name(account)} Δ ${change >= 0 ? '+' : ''}${sprintf('%.2f', change / 100)} ⟹ ${sprintf('%.2f', this.balance[account] / 100)}`)
+    _debug(account, `${new Date(stamp).toISOString()}: Change ${account} ${this.name(account)} Δ ${change >= 0 ? '+' : ''}${sprintf('%.2f', change / 100)} ⟹ ${sprintf('%.2f', this.balance[account] / 100)}`)
 
     return this.balance[account]
   }
@@ -97,7 +94,7 @@ export class BalanceBookkeeping {
    * @param txEntry
    * @returns
    */
-  apply(txEntry: TransactionLine, time: Timestamp | undefined = undefined): number {
+  apply(txEntry: TransactionLine, time: TimeType | undefined = undefined): number {
     return this.change(txEntry.account, txEntry.amount, time)
   }
 
@@ -106,14 +103,14 @@ export class BalanceBookkeeping {
    * @param txEntry
    * @returns
    */
-  revert(txEntry: TransactionLine, time: Timestamp | undefined = undefined): number {
+  revert(txEntry: TransactionLine, time: TimeType | undefined = undefined): number {
     return this.change(txEntry.account, -txEntry.amount, time)
   }
 
   /**
    * Find the balance for the given account.
    */
-  get(account: AccountAddress, time: Timestamp | undefined = undefined): number {
+  get(account: AccountAddress, time: TimeType | undefined = undefined): number {
     let num = this.number[account]
     if (!(account in this.number)) {
       const text = `Cannot find account ${account} from balance bookkeeping.`
@@ -121,18 +118,18 @@ export class BalanceBookkeeping {
         this.warnings.add(text)
         warning(text)
       }
-      num = `${account}` as AccountNumber
+      return 0
     }
     return this.getByAccountNumber(num, time)
   }
 
-  getByAccountNumber(num: AccountNumber, time: Timestamp | undefined = undefined): number {
+  getByAccountNumber(num: AccountNumber, time: TimeType | undefined = undefined): number {
     if (time === undefined) {
       return this.balance[num] || 0
     }
-
+    const stamp = time2number(time)
     let i = this.history[num].length - 1
-    while (i >= 0 && this.history[num][i].time > time) {
+    while (i >= 0 && this.history[num][i].time > stamp) {
       i--
     }
     let sum = 0
