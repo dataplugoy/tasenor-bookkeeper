@@ -342,7 +342,7 @@ function targetDir(repo: string): DirectoryPath {
     const npm = repo.substring(6)
     return path.join(config.PLUGIN_PATH, npm.replace(/@/g, '').replace(/[^a-zA-Z0-9]/g, '-')) as DirectoryPath
   } else {
-    return path.join(config.PLUGIN_PATH, repo.replace(/.*\//, '').replace('.git', '')) as DirectoryPath
+    return path.join(config.PLUGIN_PATH, repo.replace(/.*\//, '').replace(/\.git$/, '')) as DirectoryPath
   }
 }
 
@@ -433,7 +433,7 @@ async function upgradeRepositories(srcRoot: DirectoryPath): Promise<boolean> {
         changes = true
       }
     } else {
-      const cmd = `cd "${config.PLUGIN_PATH}" && git pull`
+      const cmd = `cd "${target}" && git pull`
       await systemPiped(cmd)
       // Note, too lazy to detect changes. Is the return value even used?
     }
