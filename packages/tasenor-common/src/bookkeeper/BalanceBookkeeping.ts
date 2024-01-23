@@ -15,7 +15,7 @@ export type BalanceSummaryEntry = {
 }
 
 const _debug = (account: AccountNumber, ...args) => {
-  if (process.env.DEBUG_BALANCE_ACCOUNT === null || process.env.DEBUG_BALANCE_ACCOUNT === account) {
+  if (!process.env.DEBUG_BALANCE_ACCOUNT || process.env.DEBUG_BALANCE_ACCOUNT === account) {
     debug('BALANCE', ...args)
   }
 }
@@ -26,11 +26,13 @@ const _debug = (account: AccountNumber, ...args) => {
 export class BalanceBookkeeping {
 
   private balance: Record<AccountNumber, number>
+  private history: Record<AccountNumber, { time: number, change: number }[]>
   private number: Record<AccountAddress, AccountNumber>
   private warnings: Set<string>
 
   constructor() {
     this.balance = {}
+    this.history = {}
     this.number = {}
     this.warnings = new Set()
     debug('BALANCE', 'Created new balance bookkeeper.')
@@ -42,6 +44,7 @@ export class BalanceBookkeeping {
    */
   set(account: AccountNumber, value: number) {
     this.balance[account] = value
+    this.history[account] = [{ time: 0, change: value }]
     _debug(account, `Set ${account} ${this.name(account)} initial balance to ${sprintf('%.2f', this.balance[account] / 100)}`)
   }
 
@@ -67,9 +70,25 @@ export class BalanceBookkeeping {
   /**
    * Change the account balance and return new total.
    */
-  change(account: AccountNumber, change: number): number {
+  change(account: AccountNumber, change: number, time: Timestamp | undefined = undefined): number {
+
+    if (time === undefined) {
+      time = new Date().getTime() as Timestamp
+    }
+    if (!this.history[account] || this.history[account].length === 0) {
+      this.history[account] = [{ time, change }]
+    } else {
+      let i = this.history[account].length
+      while (i > 0 && this.history[account][i - 1].time > time) {
+        i--
+      }
+      this.history[account] = this.history[account].slice(0, i).concat([{ time, change }]).concat(this.history[account].slice(i))
+    }
+
     this.balance[account] = (this.balance[account] || 0) + change
-    _debug(account, `Change ${account} ${this.name(account)} Δ ${change >= 0 ? '+' : ''}${sprintf('%.2f', change / 100)} ⟹ ${sprintf('%.2f', this.balance[account] / 100)}`)
+
+    _debug(account, `${new Date(time).toISOString()}: Change ${account} ${this.name(account)} Δ ${change >= 0 ? '+' : ''}${sprintf('%.2f', change / 100)} ⟹ ${sprintf('%.2f', this.balance[account] / 100)}`)
+
     return this.balance[account]
   }
 
@@ -78,8 +97,8 @@ export class BalanceBookkeeping {
    * @param txEntry
    * @returns
    */
-  apply(txEntry: TransactionLine): number {
-    return this.change(txEntry.account, txEntry.amount)
+  apply(txEntry: TransactionLine, time: Timestamp | undefined = undefined): number {
+    return this.change(txEntry.account, txEntry.amount, time)
   }
 
   /**
@@ -87,22 +106,38 @@ export class BalanceBookkeeping {
    * @param txEntry
    * @returns
    */
-  revert(txEntry: TransactionLine): number {
-    return this.change(txEntry.account, -txEntry.amount)
+  revert(txEntry: TransactionLine, time: Timestamp | undefined = undefined): number {
+    return this.change(txEntry.account, -txEntry.amount, time)
   }
 
   /**
    * Find the balance for the given account.
    */
-  get(account: AccountAddress, time: Timestamp): number {
+  get(account: AccountAddress, time: Timestamp | undefined = undefined): number {
+    let num = this.number[account]
     if (!(account in this.number)) {
       const text = `Cannot find account ${account} from balance bookkeeping.`
       if (!this.warnings.has(text)) {
         this.warnings.add(text)
         warning(text)
       }
+      num = `${account}` as AccountNumber
     }
-    return this.balance[this.number[account]] || 0
+
+    if (time === undefined) {
+      return this.balance[num] || 0
+    }
+
+    let i = this.history[num].length - 1
+    while (i >= 0 && this.history[num][i].time > time) {
+      i--
+    }
+    let sum = 0
+    while (i >= 0) {
+      sum += this.history[num][i].change
+      i--
+    }
+    return sum
   }
 
   /**
