@@ -671,12 +671,12 @@ export class TransactionImportHandler extends TextFileProcessHandler {
           if (balance.account === loanAccount) {
             continue
           }
-          const accountBalance = this.analyzer.getBalance(balance.address, new Date(tx.date).getTime() as Timestamp) || 0
-          const debtBalance = this.analyzer.getBalance(balance.debtAddress, new Date(tx.date).getTime() as Timestamp) || 0
+          const accountBalance = this.analyzer.getBalance(balance.address, tx.date) || 0
+          const debtBalance = this.analyzer.getBalance(balance.debtAddress, tx.date) || 0
           // Take more loan.
           if (realNegative(accountBalance) && realNegative(entry.amount)) {
-            this.analyzer.revertBalance(entry)
-            const originalBalance = this.analyzer.getBalance(balance.address, new Date(tx.date).getTime() as Timestamp) || 0
+            this.analyzer.revertBalance(entry, tx.date)
+            const originalBalance = this.analyzer.getBalance(balance.address, tx.date) || 0
             // Only partial loan needed.
             if (realPositive(originalBalance)) {
               const loanEntry = {
@@ -691,18 +691,18 @@ export class TransactionImportHandler extends TextFileProcessHandler {
 
               tx.entries.push(loanEntry)
 
-              this.analyzer.applyBalance(entry)
-              this.analyzer.applyBalance(loanEntry)
+              this.analyzer.applyBalance(entry, tx.date)
+              this.analyzer.applyBalance(loanEntry, tx.date)
             } else {
               // Full loan needed.
               entry.account = loanAccount || '0' as AccountNumber
-              this.analyzer.applyBalance(entry)
+              this.analyzer.applyBalance(entry, tx.date)
             }
           }
 
           // Pay back loan.
           if (realNegative(debtBalance) && realPositive(entry.amount)) {
-            this.analyzer.revertBalance(entry)
+            this.analyzer.revertBalance(entry, tx.date)
             // Getting more than full payment.
             if (less(-debtBalance, entry.amount)) {
               const loanEntry = {
@@ -717,12 +717,12 @@ export class TransactionImportHandler extends TextFileProcessHandler {
               loanEntry.description = mergeTags(loanEntry.description, await this.analyzer.getTagsForAddr(balance.debtAddress) || [])
 
               tx.entries.push(loanEntry)
-              this.analyzer.applyBalance(entry)
-              this.analyzer.applyBalance(loanEntry)
+              this.analyzer.applyBalance(entry, tx.date)
+              this.analyzer.applyBalance(loanEntry, tx.date)
             } else {
               // Partial payment.
               entry.account = loanAccount || '0' as AccountNumber
-              this.analyzer.applyBalance(entry)
+              this.analyzer.applyBalance(entry, tx.date)
             }
           }
         }

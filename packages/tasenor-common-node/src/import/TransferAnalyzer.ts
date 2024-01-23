@@ -181,8 +181,8 @@ export class TransferAnalyzer {
    * @param name
    * @returns
    */
-  applyBalance(txEntry: TransactionLine): number {
-    return this.balances.apply(txEntry)
+  applyBalance(txEntry: TransactionLine, time: TimeType | undefined): number {
+    return this.balances.apply(txEntry, time)
   }
 
   /**
@@ -191,8 +191,8 @@ export class TransferAnalyzer {
    * @param name
    * @returns
    */
-  revertBalance(txEntry: TransactionLine): number {
-    return this.balances.revert(txEntry)
+  revertBalance(txEntry: TransactionLine, time: TimeType | undefined): number {
+    return this.balances.revert(txEntry, time)
   }
 
   /**
@@ -1148,7 +1148,7 @@ export class TransferAnalyzer {
       }
 
       // Update balance and check for negative currency account if it needs to be configured.
-      const total = tx.executionResult === 'ignored' ? 0 : this.applyBalance(txEntry)
+      const total = tx.executionResult === 'ignored' ? 0 : this.applyBalance(txEntry, tx.date)
       if (this.balances.mayTakeLoan(transfer.reason, transfer.type, transfer.asset) && realNegative(total)) {
         const addr: AccountAddress = `${transfer.reason}.${transfer.type}.${transfer.asset}` as AccountAddress
         const debtAddr: AccountAddress = this.balances.debtAddress(addr)

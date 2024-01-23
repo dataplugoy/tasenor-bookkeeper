@@ -157,7 +157,7 @@ export class BalanceBookkeeping {
         account: this.number[addr],
         address: addr,
         debtAddress: this.debtAddress(addr),
-        balance: this.balance[this.number[addr]],
+        balance: this.balance[this.number[addr]] || 0,
         mayTakeLoan: this.mayTakeLoan(reason as AssetTransferReason, type as AssetType, asset as Asset)
       })
 

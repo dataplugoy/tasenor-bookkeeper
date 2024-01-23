@@ -11,7 +11,7 @@ export function isTimestamp(s: unknown): s is Timestamp {
 }
 export type Timestring = Opaque<string, 'Timestring'>
 export function isTimestring(s: unknown): s is Timestring {
-  return typeof s === 'string' && /^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}$/.test(s)
+  return typeof s === 'string' && /^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}(\.\d+)?Z?$/.test(s)
 }
 export type ShortDate = string // YYYY-MM-DD
 export function isShortDate(s: unknown): s is ShortDate {
@@ -25,6 +25,9 @@ export type TimeType = Date | Timestamp | Timestring | ShortDate
 export function time2number(t: TimeType | undefined = undefined): number {
   if (t === undefined) {
     return new Date().getTime()
+  }
+  if (t instanceof Date) {
+    return t.getTime()
   }
   if (isTimestamp(t)) {
     return t
