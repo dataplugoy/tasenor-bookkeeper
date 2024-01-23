@@ -1,6 +1,6 @@
 {
   "name": "@tasenor/config",
-  "version": "1.9.140",
+  "version": "1.9.141",
   "repository": "git@github.com:dataplugoy/tasenor-bookkeeper.git",
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "MIT",
