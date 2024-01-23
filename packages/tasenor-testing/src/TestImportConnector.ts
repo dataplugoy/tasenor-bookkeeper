@@ -498,7 +498,7 @@ export class TestImportConnector implements TransactionImportConnector {
    * @param msg
    * @param correct
    */
-  failExit(msg: string, correct: any, failed: any) {
+  failExit(msg: string, correct: Record<string, unknown> | unknown[], failed: Record<string, unknown> | unknown[]) {
     correct = clone(correct)
     failed = clone(failed)
     if (correct && failed) {
