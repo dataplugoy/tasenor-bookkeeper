@@ -111,7 +111,7 @@ export class BalanceBookkeeping {
    * Find the balance for the given account.
    */
   get(account: AccountAddress, time: TimeType | undefined = undefined): number {
-    let num = this.number[account]
+    const num = this.number[account]
     if (!(account in this.number)) {
       const text = `Cannot find account ${account} from balance bookkeeping.`
       if (!this.warnings.has(text)) {
@@ -127,6 +127,11 @@ export class BalanceBookkeeping {
     if (time === undefined) {
       return this.balance[num] || 0
     }
+
+    if (this.history[num] === undefined) {
+      return 0
+    }
+
     const stamp = time2number(time)
     let i = this.history[num].length - 1
     while (i >= 0 && this.history[num][i].time > stamp) {

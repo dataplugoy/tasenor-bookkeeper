@@ -4,7 +4,7 @@ import { sprintf } from 'sprintf-js'
 import {
   AccountNumber, Asset, AccountAddress, AssetExchange, AssetTransfer, AssetTransferReason, AssetType,
   Currency, Language, StockValueData, TradeableAsset, Transaction, TransactionDescription, TransactionKind,
-  TransactionLine, StockBookkeeping, UIQuery, Tag, VATTarget, IncomeSource, ExpenseSink, isCurrency, TransferNote, isAssetTransferReason, isAssetType, ZERO_CENTS, less, warning, BalanceBookkeeping, realNegative, AdditionalTransferInfo, CryptoCurrency, ImportSegment, ImportStateText, ProcessConfig, SegmentId, TextFileLine, Timestamp, Timestring, TimeType
+  TransactionLine, StockBookkeeping, UIQuery, Tag, VATTarget, IncomeSource, ExpenseSink, isCurrency, TransferNote, isAssetTransferReason, isAssetType, ZERO_CENTS, less, warning, BalanceBookkeeping, realNegative, AdditionalTransferInfo, CryptoCurrency, ImportSegment, ImportStateText, ProcessConfig, SegmentId, TextFileLine, TimeType
 } from '@tasenor/common'
 import { TransactionImportHandler } from './TransactionImportHandler'
 import { isTransactionImportConnector, TransactionImportConnector } from './TransactionImportConnector'

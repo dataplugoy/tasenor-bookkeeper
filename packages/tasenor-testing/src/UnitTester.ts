@@ -1,4 +1,4 @@
-import { AccountAddress, AccountNumber, AdditionalTransferInfo, AssetTransfer, StockValueData, Transaction, TransactionDescription, TransactionLine, ImportStateText, ImportConfig, Timestamp, Timestring, TimeType } from '@tasenor/common'
+import { AccountAddress, AccountNumber, AdditionalTransferInfo, AssetTransfer, StockValueData, Transaction, TransactionDescription, TransactionLine, ImportStateText, ImportConfig, TimeType } from '@tasenor/common'
 import { TransactionImportHandler, AskUI, Process } from '@tasenor/common-node'
 import { getTestHandler } from './test-handlers'
 import { SystemMock } from './ProcessingSystemMock'
