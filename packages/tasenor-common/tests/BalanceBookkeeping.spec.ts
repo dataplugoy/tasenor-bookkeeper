@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { AccountAddress, AccountNumber, BalanceBookkeeping, Timestamp, TransactionLine, mute } from '../src'
+import { AccountAddress, AccountNumber, BalanceBookkeeping, Timestamp, TransactionLine } from '../src'
 
 test('Balance bookkeeping real time', async () => {
 
