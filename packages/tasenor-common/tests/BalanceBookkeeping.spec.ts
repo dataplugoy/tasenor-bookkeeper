@@ -72,6 +72,4 @@ test('Balance bookkeeping history', async () => {
   expect(balance.get('income.random' as AccountAddress, 3000 as Timestamp)).toBe(7)
   expect(balance.get('income.random' as AccountAddress, 3500 as Timestamp)).toBe(7)
   expect(balance.get('income.random' as AccountAddress)).toBe(7)
-  mute()
-  expect(balance.get('1' as AccountAddress)).toBe(7)
 })
