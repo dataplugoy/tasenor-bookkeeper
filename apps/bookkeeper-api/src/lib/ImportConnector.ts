@@ -181,39 +181,21 @@ export class ImportConnector implements TransactionImportConnector {
     if (!period) {
       throw new Error(`Cannot find period for timestamp '${time}'.`)
     }
-    const credit = (await this.db('document')
-      .join('entry', 'document.id', '=', 'entry.document_id')
-      .join('account', 'entry.account_id', '=', 'account.id')
-      .select('account.number')
-      .sum(this.db.raw('ROUND(entry.amount * 100)'))
-      .where('entry.debit', '=', false)
-      .andWhere('document.period_id', '=', period.id)
-      .andWhere('document.date', '<', time)
-      .groupBy('account.number'))
-    const debit = (await this.db('document')
-      .join('entry', 'document.id', '=', 'entry.document_id')
-      .join('account', 'entry.account_id', '=', 'account.id')
-      .select('account.number')
-      .sum(this.db.raw('ROUND(entry.amount * 100)'))
-      .where('entry.debit', '=', true)
-      .andWhere('document.period_id', '=', period.id)
-      .andWhere('document.date', '<', time)
-      .groupBy('account.number'))
 
-    const balance: Record<AccountNumber, number> = {}
-
-    debit.forEach(record => {
-      const { number, sum } = record as { number: string, sum: string }
-      balance[number] = (balance[number] || 0) + parseInt(sum)
-    })
-
-    credit.forEach(record => {
-      const { number, sum } = record as { number: string, sum: string }
-      balance[number] = (balance[number] || 0) - parseInt(sum)
-    })
+    const changes = (await this.db('document')
+    .join('entry', 'document.id', '=', 'entry.document_id')
+    .join('account', 'entry.account_id', '=', 'account.id')
+    .select('document.date', 'account.number AS account', this.db.raw('(CASE debit WHEN true THEN ROUND(entry.amount * 100) ELSE ROUND(entry.amount * -100) END) AS amount'))
+    .where('document.period_id', '=', period.id)
+    .andWhere('document.date', '<', time))
 
     balances.configureNames(config)
-    Object.keys(balance).forEach(number => balances.set(number as AccountNumber, balance[number]))
+
+    changes.forEach(change => balances.apply({
+      account: change.account,
+      amount: parseInt(change.amount),
+      description: ''
+    }, change.date))
   }
 
   async getAccountCanditates(addr: AccountAddress, config: ProcessConfig): Promise<AccountNumber[]> {
