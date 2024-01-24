@@ -183,11 +183,11 @@ export class ImportConnector implements TransactionImportConnector {
     }
 
     const changes = (await this.db('document')
-    .join('entry', 'document.id', '=', 'entry.document_id')
-    .join('account', 'entry.account_id', '=', 'account.id')
-    .select('document.date', 'account.number AS account', this.db.raw('(CASE debit WHEN true THEN ROUND(entry.amount * 100) ELSE ROUND(entry.amount * -100) END) AS amount'))
-    .where('document.period_id', '=', period.id)
-    .andWhere('document.date', '<', time))
+      .join('entry', 'document.id', '=', 'entry.document_id')
+      .join('account', 'entry.account_id', '=', 'account.id')
+      .select('document.date', 'account.number AS account', this.db.raw('(CASE debit WHEN true THEN ROUND(entry.amount * 100) ELSE ROUND(entry.amount * -100) END) AS amount'))
+      .where('document.period_id', '=', period.id)
+      .andWhere('document.date', '<', time))
 
     balances.configureNames(config)
 
