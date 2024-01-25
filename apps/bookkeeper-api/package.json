@@ -9,7 +9,6 @@
     "dev": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx watch --clear-screen=false -r dotenv/config src/server.ts",
     "docker": "pnpm run ssh-keys && pnpm run wait && DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx -r dotenv/config src/server.ts",
     "fix": "eslint --fix 'src/**/*.ts'",
-    "generate-key": "npx tsx bin/generate-key.ts",
     "lint": "eslint 'src/**/*.ts'",
     "nightly": "pnpm run ci",
     "release": "pnpm version patch",

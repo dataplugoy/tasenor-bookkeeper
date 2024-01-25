@@ -88,6 +88,19 @@ utils['token-show'] = {
 }
 
 /**
+ * Generate encryption key.
+ */
+utils['generate-secret'] = {
+  title: 'Generate an encryption key',
+  args: [],
+  exe: async() => {
+    console.log('Key:\n')
+    console.log(await Crypto.generateKey())
+    console.log()
+  }
+}
+
+/**
  * Runner for mini utils.
  */
 export function runMiniUtil(name: string | undefined = undefined) {
