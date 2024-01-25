@@ -2,6 +2,8 @@ import path from 'path'
 import { ArgumentParser } from 'argparse'
 import { cli } from './cli'
 import { Crypto } from '@tasenor/common'
+import { tokens } from '..'
+import { JwtPayload } from 'jsonwebtoken'
 
 /**
  * This is a collection of minimal utils available for easy command-line use.
@@ -67,6 +69,22 @@ utils.decrypt = {
     const decrypted = await Crypto.decrypt(secret, text)
     console.log(decrypted)
   },
+}
+
+/**
+ * Display the content of a Tasenor token.
+ */
+utils['token-show'] = {
+  title: 'Show token payload',
+  args: [
+    ['token', { help: 'Tasenor token' }],
+  ],
+  exe: async({ token }) => {
+    const parsed: JwtPayload = tokens.parse(token) as JwtPayload
+    if (parsed && parsed.payload && parsed.payload.iat) parsed.payload.iat = new Date(parsed.payload.iat * 1000)
+    if (parsed && parsed.payload && parsed.payload.exp) parsed.payload.exp = new Date(parsed.payload.exp * 1000)
+    console.dir(parsed, { depth: null })
+  }
 }
 
 /**
