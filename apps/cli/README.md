@@ -15,13 +15,14 @@ This is a command-line tool collection.
 ## Data Management
 
 * `change-db-host.mjs` Convert tasenor.sql file to different server.
-* `dump-tasenor.mjs` Create tar-packagge of bookkeeper customer database.
+* `dump-tasenor.mjs` Create tar-package of bookkeeper customer database.
 
 ## Maintenance
 
-* `docker-volume`A tool for backing up and viewing of docker volumes.
+* `docker-volume` A tool for backing up and viewing of docker volumes.
+* `customer-dbs.mjs` Listing of customer databases with credentials for easy DB cli access.
 
 ## CI
 
 * `dump-cache` Print a SQL-script providing all cached service data from a Bookkeeper database.
-* `restor-cache` Restore cache.
+* `restor-cache` Restore cache from SQL file.
