@@ -119,7 +119,7 @@ export function runMiniUtil(name: string | undefined = undefined) {
   const args = parser.parse_args(process.argv.slice(2))
 
   const callArgs: Record<string, any> = {}
-  for (const [arg, ] of utils[name].args) {
+  for (const [arg,] of utils[name].args) {
     callArgs[arg] = args[arg]
   }
 
