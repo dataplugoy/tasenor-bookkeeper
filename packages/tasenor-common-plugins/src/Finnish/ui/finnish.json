@@ -250,7 +250,7 @@
   "Search": "Etsi",
   "Select database": "Valitse kanta",
   "Select period": "Valitse tilikausi",
-  "Select plugin for handling the import": "Valitse tuonnin hoitava plugin",
+  "Select plugin for handling the import": "Valitse tuonnin hoitava lisäosa",
   "Session expired or invalid.": "Istunto on vanhentunut tai viallinen.",
   "Settings": "Asetukset",
   "Shop": "Kauppa",
@@ -280,8 +280,8 @@
   "System": "Järjestelmä",
   "The status is unknown.": "Tila on tuntematon",
   "There are no databases available.": "Tietokantoja ei ole saatavilla.",
-  "There are no import plugins available.": "Yhtään tuontipluginia ei ole asennettu.",
-  "There are no report plugins available.": "Yhtään raportointipluginia ei ole asennettu.",
+  "There are no import plugins available.": "Yhtään tuontilisäosaa ei ole asennettu.",
+  "There are no report plugins available.": "Yhtään raportointilisäosaa ei ole asennettu.",
   "There was a problem fetching plugin data and some features may be missing.": "Lisäosien haussa oli ongelmia ja kaikki toiminnot eivät ole tällä hetkellä käytettävissä.",
   "There was already an existing transaction matching.": "Samanlainen tilitapahtuma oli jo ennestää tilikaudella.",
   "This field is required.": "Tämä kenttä ei voi olla tyhjä.",
@@ -338,5 +338,6 @@
   "case sensitive": "aakkoslajit erottava",
   "Case sensitive match": "Aakkoslajit erottava täsmäys",
   "Match complete field value": "Täsmää kentän koko pituudelta",
-  "The text to match": "Etsittävä teksti"
+  "The text to match": "Etsittävä teksti",
+  "There are no importers configured.": "Yhtään tuontilisäosaa ei ole konfiguroitu."
 }
