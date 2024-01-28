@@ -10,10 +10,6 @@
 // ***********************************************
 //
 //
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
 // -- This is a child command --
 // Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
 //
@@ -25,13 +21,31 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+
+export {}
+
+Cypress.Commands.add('login', (email: string, password: string, admin: boolean = false) => {
+  cy.visit('/')
+  cy.get('[name="username"]').type(email)
+  cy.get('[name="password"]').type(password)
+  cy.get('#login').click()
+
+  if (admin) {
+    cy.get('.Page').should('contain', 'Admin Tools')
+  } else {
+    cy.get('.Page').should('contain', 'Databases')
+  }
+})
+
+Cypress.Commands.add('logout', () => {
+  cy.get('#LogoutMenu').click()
+})
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      login(email: string, password: string, admin?: boolean): Chainable<void>
+      logout(): Chainable<void>
+    }
+  }
+}

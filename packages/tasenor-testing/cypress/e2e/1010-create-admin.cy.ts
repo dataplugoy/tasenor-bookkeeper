@@ -2,8 +2,8 @@
 
 describe('Initialize admin', () => {
   it('Create admin user, if not yet done', () => {
-    cy.visit('/')
     cy.fixture('ci.json').then((config) => {
+      cy.visit('/')
       cy.request(Cypress.env('API_URL') + '/status').then(res => {
         if (!res.body.hasAdminUser) {
 
@@ -15,17 +15,12 @@ describe('Initialize admin', () => {
 
           cy.get('.Page').should('contain', 'Admin Tools')
 
-          cy.get('#LogoutMenu').click()
+          cy.logout()
 
         } else {
 
-          cy.get('[name="username"]').type(config.ADMIN_USER)
-          cy.get('[name="password"]').type(config.ADMIN_PASSWORD)
-          cy.get('#login').click()
-
-          cy.get('.Page').should('contain', 'Admin Tools')
-
-          cy.get('#LogoutMenu').click()
+          cy.login(config.ADMIN_USER, config.ADMIN_PASSWORD, true)
+          cy.logout()
 
         }
       })
