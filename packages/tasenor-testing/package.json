@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -fr dist && tsc",
-    "ci": "pnpm run lint && pnpm run test && pnpm run robot",
+    "ci": "pnpm run lint && pnpm run test && pnpm run robot && pnpm run cypress",
     "fix": "eslint --fix 'src/**/*.ts'",
     "lint": "eslint 'src/**/*.ts'",
     "nightly": "pnpm run lint && pnpm run test && pnpm run robot-nightly",
