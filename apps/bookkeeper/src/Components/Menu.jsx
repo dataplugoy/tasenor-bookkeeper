@@ -319,7 +319,7 @@ class Menu extends Component {
             </div>
             {
               this.props.store.isLoggedIn() &&
-              <div className="login-email" style={{ marginLeft: '1rem' }} cy-data={this.props.store.user ? this.props.store.user.email : ''}>
+              <div style={{ marginLeft: '1rem' }}>
                 <Avatar alt={this.props.t('Edit Settings')}>
                   <IconButton id="Edit Settings" title={`${this.props.t('Edit Settings')} (${Configuration.COMMAND_KEY} + 0)`} color="inherit" onClick={() => this.handleSelect('settings')}>
                     <AccountCircle fontSize="large"/>
