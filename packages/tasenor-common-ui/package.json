@@ -14,7 +14,7 @@
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "nightly": "pnpm run ci",
     "release": "pnpm version patch && pnpm publish --access public --no-git-checks",
-    "release-minor": "pnpm version minor",
+    "release-minor": "pnpm version minor && pnpm publish --access public --no-git-checks",
     "show-version": "jq .version < package.json"
   },
   "dependencies": {

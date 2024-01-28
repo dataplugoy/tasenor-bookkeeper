@@ -14,7 +14,7 @@
     "lint": "eslint 'src/**/*.ts'",
     "nightly": "pnpm run lint && pnpm run test && pnpm run robot-nightly",
     "release": "pnpm version patch && pnpm publish --access public --no-git-checks",
-    "release-minor": "pnpm version minor",
+    "release-minor": "pnpm version minor && pnpm publish --access public --no-git-checks",
     "robot": "rm -f robot/reports/* && robot/bin/test-ci --normal",
     "robot-nightly": "rm -f robot/reports/* && robot/bin/test-ci --nightly",
     "show-version": "jq .version < package.json",
