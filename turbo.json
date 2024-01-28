@@ -52,6 +52,9 @@
     "release": {
       "cache": false
     },
+    "release-minor": {
+      "cache": false
+    },
     "tasenor-common#release": {
       "dependsOn": ["tasenor-config#release"]
     },

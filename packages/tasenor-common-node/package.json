@@ -13,8 +13,8 @@
     "fix": "eslint --fix 'src/**/*.ts' 'tests/**/*.ts'",
     "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
     "nightly": "pnpm run ci",
-    "prepublish": "pnpm version patch",
-    "release": "pnpm publish --access public --no-git-checks",
+    "release": "pnpm version patch && pnpm publish --access public --no-git-checks",
+    "release-minor": "pnpm version minor",
     "test": "jest",
     "watch": "jest --onlyChanged --watch",
     "show-version": "jq .version < package.json"

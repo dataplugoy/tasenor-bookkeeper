@@ -20,6 +20,7 @@
     "optimize": "npx vite optimize",
     "prod": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx watch --clear-screen=false -r dotenv/config ./bin/prod-server.ts",
     "release": "pnpm version patch",
+    "release-minor": "pnpm version patch",
     "show-version": "jq .version < package.json",
     "ssh-keys": "bin/make-file-from-env ID_RSA /root/.ssh/id_rsa 600 && bin/make-file-from-env ID_RSA_PUB /root/.ssh/id_rsa.pub",
     "wait": "./bin/wait-for-it.sh -t 120 -h tasenor-bookkeeper-api -p 7205"

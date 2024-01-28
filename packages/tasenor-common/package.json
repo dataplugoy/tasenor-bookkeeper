@@ -14,8 +14,8 @@
     "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
     "nightly": "pnpm run ci",
     "test": "jest",
-    "prepublish": "pnpm version patch",
-    "release": "pnpm publish --access public --no-git-checks",
+    "release": "pnpm version patch && pnpm publish --access public --no-git-checks",
+    "release-minor": "pnpm version minor",
     "show-version": "jq .version < package.json",
     "watch": "jest --onlyChanged --watch"
   },

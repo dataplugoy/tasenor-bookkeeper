@@ -12,6 +12,7 @@
     "lint": "eslint 'src/**/*.ts'",
     "nightly": "pnpm run ci",
     "release": "pnpm version patch",
+    "release-minor": "pnpm version minor",
     "show-version": "jq .version < package.json",
     "ssh-keys": "bin/make-file-from-env ID_RSA /root/.ssh/id_rsa 600 && bin/make-file-from-env ID_RSA_PUB /root/.ssh/id_rsa.pub",
     "wait": "if test \"$TASENOR_API_URL\" != ''; then ./bin/wait-for-it.sh -t 120 -h `echo $TASENOR_API_URL | sed 's/.*:\\/\\/\\(.*\\):.*/\\1/'` -p 7201; fi"
