@@ -17,9 +17,9 @@
     "release-minor": "pnpm version minor && pnpm publish --access public --no-git-checks",
     "robot": "rm -f robot/reports/* && robot/bin/test-ci --normal",
     "robot-nightly": "rm -f robot/reports/* && robot/bin/test-ci --nightly",
-    "cypress-docker": "CYPRESS_URL=http://bookkeeper.localhost cypress open --browser chrome --e2e",
-    "cypress-localhost": "CYPRESS_URL=http://localhost:7204 cypress open --browser chrome --e2e",
-    "cypress": "CYPRESS_URL=http://localhost:7204 cypress run",
+    "cypress-docker": "CYPRESS_URL=http://bookkeeper.localhost CYPRESS_API_URL=http://bookkeeper-api.localhost cypress open --browser chrome --e2e",
+    "cypress-localhost": "CYPRESS_URL=http://localhost:7204 CYPRESS_API_URL=http://localhost:7205 cypress open --browser chrome --e2e",
+    "cypress": "CYPRESS_URL=http://localhost:7204 CYPRESS_API_URL=http://localhost:7205 cypress run",
     "show-version": "jq .version < package.json",
     "test": "jest",
     "watch": "jest --onlyChanged --watch"

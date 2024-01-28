@@ -1,0 +1,12 @@
+{
+  "ADMIN_USER": "root@localhost",
+  "ADMIN_PASSWORD": "Ayfiewchg872rt5sq2e4",
+  "USER": "robot@localhost",
+  "PASSWORD": "pass_pass4",
+  "EMAIL": "robot@localhost",
+  "DEMO_USER": "user@localhost",
+  "DEMO_PASSWORD": "Ayfiewchg872rt5sq2e4",
+  "QA_USER": "qa@localhost",
+  "QA_PASSWORD": "Ayfiewchg872rt5sq2e4",
+  "SECRET": "eb53dbcd0f081bfcec68bdf88dce90f2a1d26bd88be8ee49caea74920e35bb3e"
+}

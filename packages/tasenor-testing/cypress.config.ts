@@ -5,6 +5,7 @@ export default defineConfig({
     viewportHeight: 1080,
     viewportWidth: 1920,
     e2e: {
+      watchForFileChanges: true,
       baseUrl: process.env.CYPRESS_URL,
       chromeWebSecurity: false,
       experimentalStudio: true,
