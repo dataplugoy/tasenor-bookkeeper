@@ -17,6 +17,9 @@
     "release-minor": "pnpm version minor && pnpm publish --access public --no-git-checks",
     "robot": "rm -f robot/reports/* && robot/bin/test-ci --normal",
     "robot-nightly": "rm -f robot/reports/* && robot/bin/test-ci --nightly",
+    "cypress-docker": "CYPRESS_URL=http://bookkeeper.localhost cypress open --browser chrome --e2e",
+    "cypress-localhost": "CYPRESS_URL=http://localhost:7204 cypress open --browser chrome --e2e",
+    "cypress": "CYPRESS_URL=http://localhost:7204 cypress run",
     "show-version": "jq .version < package.json",
     "test": "jest",
     "watch": "jest --onlyChanged --watch"
@@ -34,14 +37,16 @@
   },
   "devDependencies": {
     "@jest/globals": "^29.6.1",
+    "@tasenor/config": "workspace:*",
     "@types/clone": "^2.1.1",
     "@types/deep-equal": "^1.0.1",
     "@types/jest": "^29.5.2",
+    "@types/node": "^20.4.1",
     "@types/sprintf-js": "^1.1.2",
+    "cypress": "^13.6.3",
     "eslint-config-tasenor": "workspace:*",
     "jest": "^29.6.1",
     "react": "^17.0.2",
-    "@tasenor/config": "workspace:*",
     "typescript": "^5.1.6"
   }
 }

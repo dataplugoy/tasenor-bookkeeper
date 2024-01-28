@@ -21,3 +21,12 @@ To run test set visually
 ```
 robot/bin/test-local-dev
 ```
+
+## Cypress
+
+To run cypress tests, you need
+```
+apt install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+```
+
+TODO: Local Cypress test setup instructions.
