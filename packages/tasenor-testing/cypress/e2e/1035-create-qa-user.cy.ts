@@ -1,4 +1,4 @@
-/// <reference types="../support/index.d.ts" />
+import '../support/commands'
 
 describe('Initialize user', () => {
   it('Create QA user', () => {

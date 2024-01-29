@@ -3,6 +3,7 @@
 
 import './commands/auth'
 import './commands/elements'
+import './commands/nav'
 import './commands/plugins'
 
 export {}
@@ -27,14 +28,3 @@ declare global {
     }
   }
 }
-
-/**
- * Select menu and optionally a side menu.
- */
-Cypress.Commands.add('goto', (menu: string, listItem: string, icon: string | null = null) => {
-  cy.menu(menu).click()
-  cy.list(listItem).click()
-  if (icon) {
-    cy.icon(icon).click()
-  }
-})

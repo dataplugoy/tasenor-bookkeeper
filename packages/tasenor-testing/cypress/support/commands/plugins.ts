@@ -1,5 +1,8 @@
 export {}
 
+/**
+ * On the admin plugin page, installs one plugin if not installed.
+ */
 Cypress.Commands.add('installPlugin', (code: string) => {
   cy.plugin(code).then($plugin => {
     if ($plugin.find('[data-cy="button-Install"]').length) {

@@ -1,4 +1,4 @@
-/// <reference types="../support/index.d.ts" />
+import '../support/commands'
 
 describe('Install plugins', () => {
   it('Add common plugins', () => {
@@ -21,5 +21,17 @@ describe('Install plugins', () => {
     cy.installPlugin('VAT')
     cy.installPlugin('VATFinland')
 
+    if (Cypress.env('MODE') === 'nightly') {
+      cy.installPlugin('GitBackup')
+      cy.installPlugin('KrakenImport')
+      cy.installPlugin('LynxImport')
+      cy.installPlugin('NordeaImport')
+      cy.installPlugin('NordnetImport')
+      cy.installPlugin('Rand')
+      cy.installPlugin('RapidAPI')
+      cy.installPlugin('TagEditor')
+      cy.installPlugin('TITOImport')
+      cy.installPlugin('USDollar')
+    }
   })
 })
