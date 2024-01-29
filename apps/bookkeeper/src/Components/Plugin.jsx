@@ -108,13 +108,13 @@ class Plugin extends Component {
         {
           !compact &&
           <CardActions>
-            {admin && !isInstalled && isAvailable && <Button data-cy="button-Install" color="primary" size="small" onClick={() => catalog.install(plugin)}>
+            {admin && !isInstalled && isAvailable && <Button className="InstallPlugin" data-cy="button-Install" color="primary" size="small" onClick={() => catalog.install(plugin)}>
               <Trans>Install</Trans>
             </Button>}
-            {admin && isInstalled && <Button data-cy="button-Remove" variant="outlined" color="secondary" size="small" onClick={() => catalog.uninstall(plugin)}>
+            {admin && isInstalled && <Button className="RemovePlugin" data-cy="button-Remove" variant="outlined" color="secondary" size="small" onClick={() => catalog.uninstall(plugin)}>
               <Trans>Remove</Trans>
             </Button>}
-            {!admin && !subscribed && canSubscribe && <Button data-cy="button-Subscribe" variant="outlined" color="primary" size="small" onClick={() => store.subscribe(plugin.code)}>
+            {!admin && !subscribed && canSubscribe && <Button className="Subscribe" data-cy="button-Subscribe" variant="outlined" color="primary" size="small" onClick={() => store.subscribe(plugin.code)}>
               <Trans>Subscribe</Trans>
             </Button>}
 
