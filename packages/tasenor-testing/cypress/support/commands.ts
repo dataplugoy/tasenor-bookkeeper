@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /// <reference types="cypress" />
 
+import './commands/auth'
 import './commands/elements'
+import './commands/plugins'
 
 export {}
 
@@ -12,58 +14,19 @@ declare global {
       button(text: string): Chainable<JQuery<HTMLElement>>
       errors(): Chainable<JQuery<HTMLElement>>
       form(fields: Record<string, string>): Chainable<void>
-      goto(menu: string, listItem: string, icon: string | null): Chainable<void>
+      goto(menu: string, listItem: string, icon?: string): Chainable<void>
       icon(text: string): Chainable<JQuery<HTMLElement>>
+      installPlugin(code: string): Chainable<void>
       list(text: string): Chainable<JQuery<HTMLElement>>
       login(email: string, password: string, admin?: boolean): Chainable<void>
       logout(): Chainable<void>
       menu(text: string): Chainable<JQuery<HTMLElement>>
       messages(): Chainable<JQuery<HTMLElement>>
+      plugin(text: string): Chainable<JQuery<HTMLElement>>
       text(text: string): Chainable<JQuery<HTMLElement>>
     }
   }
 }
-
-/**
- * Log in, if not yet logged in as `email`. If `admin` set, expect us to land on admin page.
- */
-Cypress.Commands.add('login', (email: string, password: string, admin = false) => {
-
-  cy.visit('/')
-  cy.get('.current-user').then($user => {
-    if ($user.attr('data-cy') !== email) {
-      if ($user.attr('data-cy')) {
-        cy.logout()
-      }
-
-      cy.text('Email').type(email)
-      cy.text('Password').type(password)
-      cy.button('Login').click()
-
-      if (admin) {
-        cy.get('.Page').should('contain', 'Admin Tools')
-      } else {
-        cy.get('.Page').should('contain', 'Databases')
-      }
-    }
-  })
-})
-
-/**
- * Log out.
- */
-Cypress.Commands.add('logout', () => {
-  cy.menu('Logout').click()
-})
-
-/**
- * Log in as admin.
- */
-Cypress.Commands.add('adminLogin', () => {
-  cy.fixture('ci.json').then((config) => {
-    cy.login(config.ADMIN_USER, config.ADMIN_PASSWORD, true)
-  })
-})
 
 /**
  * Select menu and optionally a side menu.

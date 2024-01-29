@@ -23,8 +23,8 @@ Cypress.Commands.add('list', (text: string) => {
 Cypress.Commands.add('icon', (text: string) => {
   return elem(null, `icon-${text}`)
 })
-Cypress.Commands.add('button', (text: string) => {
-  return elem(null, `button-${text}`)
+Cypress.Commands.add('button', { prevSubject: 'optional' }, (subject, text: string) => {
+  return elem(subject, `button-${text}`)
 })
 Cypress.Commands.add('text', (text: string) => {
   return elem(null, `text-${text}`)
@@ -34,6 +34,9 @@ Cypress.Commands.add('messages', () => {
 })
 Cypress.Commands.add('errors', () => {
   return cy.get('[data-cy="snackbar"]').find('[data-cy="message-error"]')
+})
+Cypress.Commands.add('plugin', (text: string) => {
+  return elem(null, `plugin-${text}`)
 })
 
 /**

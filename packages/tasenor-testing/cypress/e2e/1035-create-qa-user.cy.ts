@@ -1,7 +1,7 @@
 /// <reference types="../support/index.d.ts" />
 
 describe('Initialize user', () => {
-  it('Create new user', () => {
+  it('Create QA user', () => {
 
     cy.fixture('ci.json').then((config) => {
       cy.adminLogin()
