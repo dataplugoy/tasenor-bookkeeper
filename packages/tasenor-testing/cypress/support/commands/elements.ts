@@ -23,3 +23,18 @@ Cypress.Commands.add('list', (text: string) => {
 Cypress.Commands.add('icon', (text: string) => {
   return elem(null, `icon-${text}`)
 })
+Cypress.Commands.add('button', (text: string) => {
+  return elem(null, `button-${text}`)
+})
+Cypress.Commands.add('text', (text: string) => {
+  return elem(null, `text-${text}`)
+})
+
+/**
+ * Low level element manipulators.
+ */
+Cypress.Commands.add('form', (fields: Record<string, string>) => {
+  Object.keys(fields).forEach(k => {
+    cy.text(k).type(fields[k])
+  })
+})

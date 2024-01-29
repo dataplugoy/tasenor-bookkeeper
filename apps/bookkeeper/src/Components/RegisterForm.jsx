@@ -64,6 +64,7 @@ class RegisterForm extends Component {
         <TextField
           fullWidth
           name="full-name"
+          data-cy="text-Full Name"
           label={<Trans>Full Name</Trans>}
           onChange={(event) => (this.setState({ name: event.target.value }))}
         />
@@ -71,6 +72,7 @@ class RegisterForm extends Component {
         <TextField
           fullWidth
           name="email"
+          data-cy="text-Email"
           label={<Trans>Email</Trans>}
           onChange={(event) => (this.setState({ email: event.target.value }))}
         />
@@ -78,6 +80,7 @@ class RegisterForm extends Component {
         <TextField
           type="password"
           name="password"
+          data-cy="text-Password"
           fullWidth
           label={<Trans>Password</Trans>}
           onChange={(event) => (this.setState({ password: event.target.value }))}
@@ -86,15 +89,16 @@ class RegisterForm extends Component {
         <TextField
           type="password"
           name="password-again"
+          data-cy="text-Password Again"
           fullWidth
           label={<Trans>Password Again</Trans>}
           onChange={(event) => (this.setState({ passwordAgain: event.target.value }))}
         />
         <br/>
         <br/>
-        <Button id="cancel" variant="outlined" onClick={() => this.onCancel()}><Trans>Cancel</Trans></Button>
+        <Button id="cancel" data-cy="button-Cancel" variant="outlined" onClick={() => this.onCancel()}><Trans>Cancel</Trans></Button>
         &nbsp;
-        <Button id="submit" variant="outlined" onClick={() => this.onRegister()}><Trans>Submit</Trans></Button>
+        <Button id="submit" data-cy="button-Submit" variant="outlined" onClick={() => this.onRegister()}><Trans>Submit</Trans></Button>
     </form>
   }
 }

@@ -2,7 +2,19 @@
 
 describe('Initialize user', () => {
   it('Create new user', () => {
-    cy.adminLogin()
-    cy.goto('Admin', 'Users', 'create-user')
+
+    cy.fixture('ci.json').then((config) => {
+      cy.adminLogin()
+      cy.goto('Admin', 'Users', 'create-user')
+      cy.form({
+        'Full Name': config.USER,
+        Password: config.PASSWORD,
+        'Password Again': config.PASSWORD,
+        Email: config.EMAIL,
+      })
+      cy.button('Submit').click()
+      // TODO: Could have specific function success() for this.
+      cy.get('body').should('contain.text', 'User created successfully.')
+    })
   })
 })

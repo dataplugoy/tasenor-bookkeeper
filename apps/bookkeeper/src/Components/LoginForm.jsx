@@ -72,6 +72,7 @@ class LoginForm extends Component {
         <TextField
           name="username"
           style={{ width: '50%' }}
+          data-cy="text-Email"
           label={<Trans>Email</Trans>}
           onChange={(event) => (this.setState({ user: event.target.value }))}
         />
@@ -81,12 +82,13 @@ class LoginForm extends Component {
           name="password"
           type="password"
           style={{ width: '50%' }}
+          data-cy="text-Password"
           label={<Trans>Password</Trans>}
           onChange={(event) => (this.setState({ password: event.target.value }))}
         />
         <br/>
         <br/>
-        <Button id="login" variant="outlined" onClick={() => this.onLogin()}><Trans>Login</Trans></Button>
+        <Button id="login" data-cy="button-Login" variant="outlined" onClick={() => this.onLogin()}><Trans>Login</Trans></Button>
         <br />
         <br />
         {

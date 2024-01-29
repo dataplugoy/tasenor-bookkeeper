@@ -14,6 +14,9 @@ declare global {
       menu(text: string): Chainable<JQuery<HTMLElement>>
       list(text: string): Chainable<JQuery<HTMLElement>>
       icon(text: string): Chainable<JQuery<HTMLElement>>
+      button(text: string): Chainable<JQuery<HTMLElement>>
+      text(text: string): Chainable<JQuery<HTMLElement>>
+      form(fields: Record<string, string>): Chainable<void>
     }
   }
 }
@@ -26,9 +29,13 @@ Cypress.Commands.add('login', (email: string, password: string, admin = false) =
   cy.visit('/')
   cy.get('.current-user').then($user => {
     if ($user.attr('data-cy') !== email) {
-      cy.get('[name="username"]').type(email)
-      cy.get('[name="password"]').type(password)
-      cy.get('#login').click()
+      if ($user.attr('data-cy')) {
+        cy.logout()
+      }
+
+      cy.text('Email').type(email)
+      cy.text('Password').type(password)
+      cy.button('Login').click()
 
       if (admin) {
         cy.get('.Page').should('contain', 'Admin Tools')
@@ -43,7 +50,7 @@ Cypress.Commands.add('login', (email: string, password: string, admin = false) =
  * Log out.
  */
 Cypress.Commands.add('logout', () => {
-  cy.get('#LogoutMenu').click()
+  cy.menu('Logout').click()
 })
 
 /**
