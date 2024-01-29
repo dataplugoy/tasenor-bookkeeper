@@ -3,6 +3,6 @@
 describe('Initialize user', () => {
   it('Create new user', () => {
     cy.adminLogin()
-    // cy.logout()
+    cy.goto('Admin', 'Users', 'create-user')
   })
 })

@@ -266,6 +266,7 @@ class Menu extends Component {
     return <Button
       key={entry.title}
       id={`${entry.title}Menu`}
+      data-cy={`menu-${entry.title}`}
       className="button"
       disabled={!this.isEnabled(entry)}
       color={current === entry.path ? 'secondary' : 'primary'}

@@ -55,6 +55,7 @@ class ListComponent extends Component {
                 <ListItem
                   id={menu.cssId ? menu.cssId : (idx <= 10 ? `${idx % 10}` : '')}
                   key={menu.id}
+                  data-cy={`list-${menu.title}`}
                   button
                   selected={params[matchVar] === `${menu.id}` || (!params[matchVar] && menu.default)}
                   disabled={menu.disabled()}

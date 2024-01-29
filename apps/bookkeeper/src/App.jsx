@@ -202,7 +202,7 @@ class App extends Component {
               </Routes>
             </Paper>
             <div className={`Version ${store.token ? 'logged-in' : 'not-logged-in'}`} style={{ color: 'rgb(0,0,0,0.5)', fontSize: '0.6rem', position: 'absolute', right: '2px', bottom: '2px' }}>v{Configuration.VERSION}</div>
-            <div className="current-user" cy-data={store.token ? jwtDecode(store.token).data.owner : ''}/>
+            <div className="current-user" data-cy={store.token ? jwtDecode(store.token).data.owner : ''}/>
           </div>
         </div>
       </div>

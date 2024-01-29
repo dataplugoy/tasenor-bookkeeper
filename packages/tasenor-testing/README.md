@@ -29,4 +29,8 @@ To run cypress tests, you need
 apt install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2 libxtst6 xauth xvfb
 ```
 
-TODO: Local Cypress test setup instructions.
+In the root of the repository, launch the dev ennvironment.
+```
+cd ../..
+turbo dev --concurrency 14
+```
