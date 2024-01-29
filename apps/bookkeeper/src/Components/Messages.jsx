@@ -17,7 +17,7 @@ class Messages extends Component {
 
   renderMessage(message) {
     return (
-      <div>
+      <div className={`Message ${message.type}`}>
         {message.text}
         <IconButton size="small" aria-label="close" color="inherit" onClick={() => this.removeMessage(message)}>
           <Close fontSize="small" />
@@ -57,5 +57,6 @@ class Messages extends Component {
 Messages.propTypes = {
   store: PropTypes.instanceOf(Store)
 }
+
 
 export default Messages
