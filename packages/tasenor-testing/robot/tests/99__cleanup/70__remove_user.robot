@@ -38,6 +38,6 @@ Delete Other Users
 
     Select User From List               ${TEST_QA_USER}
     Click Element                       delete-user
-    Input Text                          deleted-user-email         ${TEST_QA_EMAIL}
+    Input Text                          deleted-user-email         ${TEST_QA_USER}
     Click Element                       OK
     Should Have Info Message            User deleted permanently.
