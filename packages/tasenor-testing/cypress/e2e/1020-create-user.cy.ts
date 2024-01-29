@@ -13,8 +13,7 @@ describe('Initialize user', () => {
         Email: config.EMAIL,
       })
       cy.button('Submit').click()
-      // TODO: Could have specific function success() for this.
-      cy.get('body').should('contain.text', 'User created successfully.')
+      cy.messages().should('contain.text', 'User created successfully.')
     })
   })
 })

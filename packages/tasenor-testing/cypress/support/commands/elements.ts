@@ -29,6 +29,12 @@ Cypress.Commands.add('button', (text: string) => {
 Cypress.Commands.add('text', (text: string) => {
   return elem(null, `text-${text}`)
 })
+Cypress.Commands.add('messages', () => {
+  return cy.get('[data-cy="snackbar"]').find('[data-cy="message-info"]')
+})
+Cypress.Commands.add('errors', () => {
+  return cy.get('[data-cy="snackbar"]').find('[data-cy="message-error"]')
+})
 
 /**
  * Low level element manipulators.

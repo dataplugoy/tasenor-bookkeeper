@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Snackbar, IconButton, Alert } from '@mui/material'
+import { Snackbar, IconButton, Alert, Box } from '@mui/material'
 import { Close } from '@mui/icons-material'
 import { observer } from 'mobx-react'
 import { PropTypes } from 'prop-types'
@@ -17,7 +17,7 @@ class Messages extends Component {
 
   renderMessage(message) {
     return (
-      <div key={message.id} className={`Message ${message.type}`}>
+      <div>
         {message.text}
         <IconButton size="small" aria-label="close" color="inherit" onClick={() => this.removeMessage(message)}>
           <Close fontSize="small" />
@@ -28,10 +28,6 @@ class Messages extends Component {
 
   render() {
     const { messages, loading } = this.props.store
-    let severity = 'info'
-    if (messages.filter(m => m.type === 'error').length) {
-      severity = 'error'
-    }
     return (
       <div>
         <Loading visible={loading} />
@@ -41,10 +37,17 @@ class Messages extends Component {
             horizontal: 'right',
           }}
           open={messages.length > 0}
+          data-cy="snackbar"
         >
-          <Alert variant="filled" elevation={6} severity={severity}>
-            {messages.map(message => this.renderMessage(message))}
-          </Alert>
+          <Box>
+          {
+            messages.map(message =>
+              <Alert key={message.id} data-cy={`message-${message.type}`} variant="filled" elevation={6} severity={message.type}>
+                {this.renderMessage(message)}
+              </Alert>
+            )
+          }
+          </Box>
         </Snackbar>
       </div>
     )

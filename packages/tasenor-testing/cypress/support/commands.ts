@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 /// <reference types="cypress" />
 
 import './commands/elements'
@@ -8,15 +9,17 @@ declare global {
   namespace Cypress {
     interface Chainable {
       adminLogin(): Chainable<void>
+      button(text: string): Chainable<JQuery<HTMLElement>>
+      errors(): Chainable<JQuery<HTMLElement>>
+      form(fields: Record<string, string>): Chainable<void>
       goto(menu: string, listItem: string, icon: string | null): Chainable<void>
+      icon(text: string): Chainable<JQuery<HTMLElement>>
+      list(text: string): Chainable<JQuery<HTMLElement>>
       login(email: string, password: string, admin?: boolean): Chainable<void>
       logout(): Chainable<void>
       menu(text: string): Chainable<JQuery<HTMLElement>>
-      list(text: string): Chainable<JQuery<HTMLElement>>
-      icon(text: string): Chainable<JQuery<HTMLElement>>
-      button(text: string): Chainable<JQuery<HTMLElement>>
+      messages(): Chainable<JQuery<HTMLElement>>
       text(text: string): Chainable<JQuery<HTMLElement>>
-      form(fields: Record<string, string>): Chainable<void>
     }
   }
 }
