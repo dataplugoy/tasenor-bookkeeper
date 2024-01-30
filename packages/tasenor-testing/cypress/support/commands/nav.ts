@@ -8,3 +8,8 @@ Cypress.Commands.add('goto', (menu: string, listItem: string, icon: string | nul
     cy.icon(icon).click()
   }
 })
+
+Cypress.Commands.add('waitLoading', () => {
+  cy.get('.MuiBackdrop-root').should('exist')
+  cy.get('.MuiBackdrop-root').should('not.exist')
+})
