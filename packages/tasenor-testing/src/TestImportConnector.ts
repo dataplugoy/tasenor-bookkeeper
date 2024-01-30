@@ -15,7 +15,7 @@ import { getTestCryptoRate, getTestCurrencyRate } from './services'
 import { getTestHandler, getTestHandlerPath } from './test-handlers'
 
 const PORT = 4567
-const DATABASE_URL: string = process.env.DATABASE_URL || 'postgres://user:pass@localhost/test'
+const DATABASE_URL: string = process.env.DATABASE_URL || 'postgresql://user:pass@localhost/test'
 
 class TestFailure extends Error {}
 
