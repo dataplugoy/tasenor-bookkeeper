@@ -20,6 +20,7 @@ declare global {
       installPlugin(code: string): Chainable<void>
       list(text: string): Chainable<JQuery<HTMLElement>>
       login(email: string, password: string, admin?: boolean): Chainable<void>
+      language(lang: string): Chainable<void>
       logout(): Chainable<void>
       menu(text: string): Chainable<JQuery<HTMLElement>>
       messages(): Chainable<JQuery<HTMLElement>>
