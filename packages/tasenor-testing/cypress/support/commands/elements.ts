@@ -14,20 +14,20 @@ function elem(subject, target, extras = ''): Cypress.Chainable<JQuery<HTMLElemen
 /**
  * Low level element accessors.
  */
-Cypress.Commands.add('menu', (text: string) => {
-  return elem(null, `menu-${text}`)
+Cypress.Commands.add('menu', { prevSubject: 'optional' }, (subject, text: string) => {
+  return elem(subject, `menu-${text}`)
 })
-Cypress.Commands.add('list', (text: string) => {
-  return elem(null, `list-${text}`)
+Cypress.Commands.add('list', { prevSubject: 'optional' }, (subject, text: string) => {
+  return elem(subject, `list-${text}`)
 })
-Cypress.Commands.add('icon', (text: string) => {
-  return elem(null, `icon-${text}`)
+Cypress.Commands.add('icon', { prevSubject: 'optional' }, (subject, text: string) => {
+  return elem(subject, `icon-${text}`)
 })
 Cypress.Commands.add('button', { prevSubject: 'optional' }, (subject, text: string) => {
   return elem(subject, `button-${text}`)
 })
-Cypress.Commands.add('text', (text: string) => {
-  return elem(null, `text-${text}`)
+Cypress.Commands.add('text', { prevSubject: 'optional' }, (subject, text: string) => {
+  return elem(subject, `text-${text}`)
 })
 Cypress.Commands.add('messages', () => {
   return cy.get('[data-cy="snackbar"]').find('[data-cy="message-info"]')
@@ -35,14 +35,14 @@ Cypress.Commands.add('messages', () => {
 Cypress.Commands.add('errors', () => {
   return cy.get('[data-cy="snackbar"]').find('[data-cy="message-error"]')
 })
-Cypress.Commands.add('plugin', (text: string) => {
-  return elem(null, `plugin-${text}`)
+Cypress.Commands.add('plugin', { prevSubject: 'optional' }, (subject, text: string) => {
+  return elem(subject, `plugin-${text}`)
 })
-Cypress.Commands.add('dialog', (text: string) => {
-  return elem(null, `dialog-${text}`)
+Cypress.Commands.add('dialog', { prevSubject: 'optional' }, (subject, text: string) => {
+  return elem(subject, `dialog-${text}`)
 })
-Cypress.Commands.add('dropdown', (text: string) => {
-  return elem(null, `dropdown-${text}`)
+Cypress.Commands.add('dropdown', { prevSubject: 'optional' }, (subject, text: string) => {
+  return elem(subject, `dropdown-${text}`)
 })
 
 /**

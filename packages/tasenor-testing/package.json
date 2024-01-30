@@ -21,7 +21,7 @@
     "cypress-localhost": "CYPRESS_URL=http://localhost:7204 CYPRESS_API_URL=http://localhost:7205 cypress open --browser chrome --e2e",
     "cypress-nightly-localhost": "CYPRESS_MODE=nightly CYPRESS_URL=http://localhost:7204 CYPRESS_API_URL=http://localhost:7205 cypress open --browser chrome --e2e",
     "cypress": "CYPRESS_URL=http://localhost:7204 CYPRESS_API_URL=http://localhost:7205 cypress run",
-    "cypress-nightly": "CYPRESS_MODE=nightly CYPRESS_URL=http://localhost:7204 CYPRESS_API_URL=http://localhost:7205 cypress run",
+    "cypress-nightly": "CYPRESS_MODE=nightly CYPRESS_URL=http://bookkeeper.localhost CYPRESS_API_URL=http://bookkeeper-api.localhost cypress run",
     "show-version": "jq .version < package.json",
     "test": "jest",
     "watch": "jest --onlyChanged --watch"
