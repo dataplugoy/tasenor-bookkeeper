@@ -98,7 +98,7 @@ class Plugin extends Component {
             {!compact && <><br/> <PluginUse use={plugin.use} /> <PluginType type={plugin.type}/></>}
           </span>}
           subheader={subheader}
-          />
+        />
         {
           !compact &&
           <CardContent>

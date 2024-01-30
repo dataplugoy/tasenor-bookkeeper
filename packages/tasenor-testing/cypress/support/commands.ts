@@ -15,7 +15,7 @@ declare global {
       button(text: string): Chainable<JQuery<HTMLElement>>
       errors(): Chainable<JQuery<HTMLElement>>
       form(fields: Record<string, string>): Chainable<void>
-      goto(menu: string, listItem: string, icon?: string): Chainable<void>
+      goto(menu: string, listItem?: string, icon?: string): Chainable<void>
       icon(text: string): Chainable<JQuery<HTMLElement>>
       installPlugin(code: string): Chainable<void>
       list(text: string): Chainable<JQuery<HTMLElement>>
@@ -24,7 +24,9 @@ declare global {
       menu(text: string): Chainable<JQuery<HTMLElement>>
       messages(): Chainable<JQuery<HTMLElement>>
       plugin(text: string): Chainable<JQuery<HTMLElement>>
+      subscribePlugin(code: string): Chainable<void>
       text(text: string): Chainable<JQuery<HTMLElement>>
+      unsubscribePlugin(code: string): Chainable<void>
       userLogin(): Chainable<void>
       waitLoading(): Chainable<void>
     }
