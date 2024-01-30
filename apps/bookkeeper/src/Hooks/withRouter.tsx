@@ -1,6 +1,9 @@
 import React from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
+/**
+ * Helper to access router stuff in old components.
+ */
 function withRouter(Component) {
   function ComponentWithRouterProp(props) {
     const location = useLocation()
