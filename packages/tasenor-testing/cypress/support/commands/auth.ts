@@ -49,3 +49,12 @@ Cypress.Commands.add('userLogin', () => {
     cy.login(config.USER, config.PASSWORD)
   })
 })
+
+/**
+ * Log in as QA user.
+ */
+Cypress.Commands.add('qaLogin', () => {
+  cy.fixture('ci.json').then((config) => {
+    cy.login(config.QA_USER, config.QA_PASSWORD)
+  })
+})

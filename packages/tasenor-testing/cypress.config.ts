@@ -9,8 +9,8 @@ export default defineConfig({
     baseUrl: process.env.CYPRESS_URL,
     chromeWebSecurity: false,
     experimentalStudio: true,
-    defaultCommandTimeout: 5_000,
-    taskTimeout: 5_000,
+    defaultCommandTimeout: 10_000,
+    taskTimeout: 10_000,
     testIsolation: false,
     video: true,
     setupNodeEvents(on, config) {

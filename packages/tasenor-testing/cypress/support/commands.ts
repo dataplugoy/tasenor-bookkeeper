@@ -24,6 +24,7 @@ declare global {
       menu(text: string): Chainable<JQuery<HTMLElement>>
       messages(): Chainable<JQuery<HTMLElement>>
       plugin(text: string): Chainable<JQuery<HTMLElement>>
+      qaLogin(): Chainable<void>
       subscribePlugin(code: string): Chainable<void>
       text(text: string): Chainable<JQuery<HTMLElement>>
       unsubscribePlugin(code: string): Chainable<void>
