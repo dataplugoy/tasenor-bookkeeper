@@ -38,6 +38,12 @@ Cypress.Commands.add('errors', () => {
 Cypress.Commands.add('plugin', (text: string) => {
   return elem(null, `plugin-${text}`)
 })
+Cypress.Commands.add('dialog', (text: string) => {
+  return elem(null, `dialog-${text}`)
+})
+Cypress.Commands.add('dropdown', (text: string) => {
+  return elem(null, `dropdown-${text}`)
+})
 
 /**
  * Low level element manipulators.
@@ -46,4 +52,8 @@ Cypress.Commands.add('form', (fields: Record<string, string>) => {
   Object.keys(fields).forEach(k => {
     cy.text(k).type(fields[k])
   })
+})
+Cypress.Commands.add('selection', (dropdown: string, item: string) => {
+  cy.dropdown(dropdown).click()
+  cy.get(`[data-value="${item}"]`).click()
 })

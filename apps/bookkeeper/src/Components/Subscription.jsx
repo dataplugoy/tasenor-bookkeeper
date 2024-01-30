@@ -17,7 +17,7 @@ class Subscription extends Component {
   render() {
     const { plugin, subscription, catalog } = this.props
 
-    let unsubscribeButton = <Button color="secondary" onClick={() => this.props.store.unsubscribe(plugin.code)}><Trans>Unsubscribe</Trans></Button>
+    let unsubscribeButton = <Button color="secondary" data-cy="button-Unsubscribe" onClick={() => this.props.store.unsubscribe(plugin.code)}><Trans>Unsubscribe</Trans></Button>
 
     let expires
 

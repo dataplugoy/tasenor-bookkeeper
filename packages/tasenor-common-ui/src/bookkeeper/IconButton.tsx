@@ -90,8 +90,15 @@ export const IconButton = (props: IconButtonProps) => {
   }
 
   return (
-    <MuiIconButton id={id} data-cy={`icon-${id}`} className={className} color={color} title={t('icon-' + title) + (shortcut ? ` (Ctrl + ${shortcut})` : '')} disabled={disabled} onClick={(e) => handleClick(e)}>
-      <Icon style={{ fontSize: 30 }}/>
+    <MuiIconButton
+      id={id}
+      data-cy={`icon-${title}`}
+      className={className}
+      color={color}
+      title={t('icon-' + title) + (shortcut ? ` (Ctrl + ${shortcut})` : '')}
+      disabled={disabled}
+      onClick={(e) => handleClick(e)}>
+        <Icon style={{ fontSize: 30 }}/>
     </MuiIconButton>
   )
 }

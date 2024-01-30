@@ -1,7 +1,7 @@
 import '../support/commands'
 
 describe('Install plugins', () => {
-  it('Add common plugins', () => {
+  it('Add common plugins', { defaultCommandTimeout: 120_000 }, () => {
 
     cy.adminLogin()
     cy.goto('Admin', 'Plugins')
@@ -33,5 +33,8 @@ describe('Install plugins', () => {
       cy.installPlugin('TITOImport')
       cy.installPlugin('USDollar')
     }
+
+    cy.icon('rebuild-plugins').click()
+    cy.waitLoading()
   })
 })

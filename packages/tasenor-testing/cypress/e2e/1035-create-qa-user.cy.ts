@@ -1,9 +1,7 @@
 import '../support/commands'
 
 describe('Initialize user', () => {
-  // TODO: The user already exists. This is needed once we get rid of old robot tests.
-  //       This user is used in some legacy tests.
-  it.skip('Create QA user', () => {
+  it('Create QA user', () => {
 
     cy.fixture('ci.json').then((config) => {
       cy.adminLogin()

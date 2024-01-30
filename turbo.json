@@ -4,6 +4,7 @@
   "globalEnv": [
     "API_URL",
     "API_SITE_TOKEN",
+    "CYPRESS_URL",
     "DATABASE_URL",
     "DB_HOST_OVERRIDE",
     "DEBUG_ANALYSIS",
