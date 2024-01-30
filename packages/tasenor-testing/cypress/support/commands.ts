@@ -25,6 +25,7 @@ declare global {
       messages(): Chainable<JQuery<HTMLElement>>
       plugin(text: string): Chainable<JQuery<HTMLElement>>
       text(text: string): Chainable<JQuery<HTMLElement>>
+      userLogin(): Chainable<void>
       waitLoading(): Chainable<void>
     }
   }

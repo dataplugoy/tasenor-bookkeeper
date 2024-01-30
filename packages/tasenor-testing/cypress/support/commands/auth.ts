@@ -40,3 +40,12 @@ Cypress.Commands.add('adminLogin', () => {
     cy.login(config.ADMIN_USER, config.ADMIN_PASSWORD, true)
   })
 })
+
+/**
+ * Log in as normal user.
+ */
+Cypress.Commands.add('userLogin', () => {
+  cy.fixture('ci.json').then((config) => {
+    cy.login(config.USER, config.PASSWORD)
+  })
+})
