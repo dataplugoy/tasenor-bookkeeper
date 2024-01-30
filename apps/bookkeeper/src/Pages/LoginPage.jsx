@@ -27,18 +27,6 @@ const LoginPage = observer(withStore(withCatalog((props) => {
       })
   }
 
-  if (state === 'NO_ROOT') {
-    // TODO: Use theme for color.
-    return (
-      <Box sx={{ backgroundColor: '#fcf9f4', minHeight: '100%' }}>
-        <Title><Trans>This system has no admin user</Trans></Title>
-        <Panel title={<Trans>Please register an admin user</Trans>}>
-          <RegisterForm onRegister={onRegisterAdmin}/>
-        </Panel>
-      </Box>
-    )
-  }
-
   const onLogin = async ({ user, password, message }) => {
     const success = await props.store.login(user, password)
     if (success) {
@@ -85,6 +73,18 @@ const LoginPage = observer(withStore(withCatalog((props) => {
         ))}
         </Panel>
         <LoginForm onLogin={onLogin}/>
+      </Box>
+    )
+  }
+
+  if (state === 'NO_ROOT') {
+    // TODO: Use theme for color.
+    return (
+      <Box sx={{ backgroundColor: '#fcf9f4', minHeight: '100%' }}>
+        <Title><Trans>This system has no admin user</Trans></Title>
+        <Panel title={<Trans>Please register an admin user</Trans>}>
+          <RegisterForm onRegister={onRegisterAdmin}/>
+        </Panel>
       </Box>
     )
   }
