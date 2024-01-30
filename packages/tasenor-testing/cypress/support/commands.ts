@@ -2,6 +2,7 @@
 /// <reference types="cypress" />
 
 import './commands/auth'
+import './commands/assertions'
 import './commands/elements'
 import './commands/nav'
 import './commands/plugins'
@@ -13,6 +14,8 @@ declare global {
     interface Chainable {
       adminLogin(): Chainable<void>
       button(text: string): Chainable<JQuery<HTMLElement>>
+      dialog(text: string): Chainable<JQuery<HTMLElement>>
+      dropdown(text: string): Chainable<JQuery<HTMLElement>>
       errors(): Chainable<JQuery<HTMLElement>>
       form(fields: Record<string, string>): Chainable<void>
       goto(menu: string, listItem?: string, icon?: string): Chainable<void>
@@ -26,6 +29,7 @@ declare global {
       messages(): Chainable<JQuery<HTMLElement>>
       plugin(text: string): Chainable<JQuery<HTMLElement>>
       qaLogin(): Chainable<void>
+      selection(dropdown: string, item: string): Chainable<void>
       subscribePlugin(code: string): Chainable<void>
       text(text: string): Chainable<JQuery<HTMLElement>>
       unsubscribePlugin(code: string): Chainable<void>

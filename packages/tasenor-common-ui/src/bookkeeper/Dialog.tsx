@@ -75,19 +75,41 @@ export const Dialog = (props: DialogProps): JSX.Element => {
   }
 
   return (
-    <MuiDialog {...muiProps} PaperProps={paperProps} open={isVisible} onClose={() => { cursor.removeModal(className); onClose() }}>
+    <MuiDialog {...muiProps}
+      PaperProps={paperProps}
+      open={isVisible}
+      onClose={() => { cursor.removeModal(className); onClose() }}
+    >
       <DialogTitle>
         {title}
       </DialogTitle>
-      <DialogContent dividers>
+      <DialogContent dividers data-cy={`dialog-${title.props.children}`}>
         {children}
       </DialogContent>
       {
         noActions
           ? ''
           : <DialogActions>
-        {!okOnly && <Button id="Cancel" variant="outlined" onClick={() => keyEscape()}><Trans>Cancel</Trans></Button>}
-        {!okOnly && <Button id="OK" variant="outlined" onClick={() => keyEnter()} disabled={isValid && !isValid()} color="primary"><Trans>Confirm</Trans></Button>}
+        {!okOnly &&
+          <Button
+            id="Cancel"
+            data-cy="button-Cancel"
+            variant="outlined"
+            onClick={() => keyEscape()}
+          >
+            <Trans>Cancel</Trans>
+          </Button>}
+        {!okOnly &&
+          <Button
+            id="OK"
+            data-cy="button-OK"
+            variant="outlined"
+            onClick={() => keyEnter()}
+            disabled={isValid && !isValid()}
+            color="primary"
+          >
+            <Trans>Confirm</Trans>
+          </Button>}
 
         {okOnly && <Button id="OK" variant="outlined" color="primary" onClick={() => keyEscape()}><Trans>Close</Trans></Button>}
       </DialogActions>

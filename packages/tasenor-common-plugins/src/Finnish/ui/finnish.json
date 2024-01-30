@@ -339,5 +339,6 @@
   "Case sensitive match": "Aakkoslajit erottava täsmäys",
   "Match complete field value": "Täsmää kentän koko pituudelta",
   "The text to match": "Etsittävä teksti",
-  "There are no importers configured.": "Yhtään tuontilisäosaa ei ole konfiguroitu."
+  "There are no importers configured.": "Yhtään tuontilisäosaa ei ole konfiguroitu.",
+  "Create New Database": "Perusta uusi tietokanta"
 }

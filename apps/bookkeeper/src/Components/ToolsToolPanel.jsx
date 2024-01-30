@@ -204,6 +204,7 @@ class ToolsToolPanel extends Component {
           <TextField
             name="startDate"
             style={{ width: '50%' }}
+            data-cy="text-Start Date"
             label={<Trans>Start Date</Trans>}
             value={this.state.periodStartDate}
             onChange={(event) => (this.setState({ periodStartDate: event.target.value }))}
@@ -211,6 +212,7 @@ class ToolsToolPanel extends Component {
           <TextField
             name="endDate"
             style={{ width: '50%' }}
+            data-cy="text-End Date"
             label={<Trans>End Date</Trans>}
             value={this.state.periodEndDate}
             onChange={(event) => (this.setState({ periodEndDate: event.target.value }))}
@@ -242,6 +244,7 @@ class ToolsToolPanel extends Component {
             <TextField
               fullWidth
               name="scheme"
+              data-cy="dropdown-Accounting Scheme"
               label={<Trans>Accounting Scheme</Trans>}
               value={this.state.schemeSelected}
               onChange={(e) => this.setState({ changed: true, schemeSelected: e.target.value })}
@@ -256,6 +259,7 @@ class ToolsToolPanel extends Component {
             <TextField
               fullWidth
               name="company-name"
+              data-cy="text-Company Name"
               label={<Trans>Company Name</Trans>}
               value={this.state.companyName}
               onChange={(e) => this.onChangeCompanyName(e.target.value)}
@@ -266,6 +270,7 @@ class ToolsToolPanel extends Component {
             <TextField
               fullWidth
               name="company-number"
+              data-cy="text-Company Registration Number"
               label={<Trans>Company Registration Number</Trans>}
               value={this.state.companyCode}
               onChange={(e) => this.setState({ changed: true, companyCode: e.target.value })}
@@ -275,6 +280,7 @@ class ToolsToolPanel extends Component {
               fullWidth
               select
               name="currency"
+              data-cy="dropdown-Currency"
               label={<Trans>Currency</Trans>}
               value={this.state.currency}
               onChange={(e) => this.setState({ changed: true, currency: e.target.value })}
@@ -284,6 +290,7 @@ class ToolsToolPanel extends Component {
             <TextField
               fullWidth
               name="database-name"
+              data-cy="text-Database Name"
               label={<Trans>Database Name</Trans>}
               value={this.state.databaseName}
               onChange={(e) => this.setState({ changed: true, databaseName: e.target.value })}
