@@ -1,7 +1,7 @@
 import '../support/commands'
 
 describe('Subscribe plugins', () => {
-  it.only('Subscribe for test user', () => {
+  it('Subscribe for test user', () => {
 
     cy.userLogin()
 
