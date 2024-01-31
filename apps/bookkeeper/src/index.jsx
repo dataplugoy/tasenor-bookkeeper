@@ -10,7 +10,7 @@ import Settings from './Stores/Settings'
 import Catalog from './Stores/Catalog'
 import i18n, { initializeI18n } from './i18n'
 import { CircularProgress, Box, ThemeProvider } from '@mui/material'
-import theme from './theme'
+import { light } from './theme'
 import { RISPProvider } from '@tasenor/common-ui'
 import { setGlobalComponents, Knowledge } from '@tasenor/common'
 import withRouter from './Hooks/withRouter'
@@ -59,7 +59,7 @@ ReactDOM.render(
     onBlur={() => cursor.enableHandler()}
     onFocus={() => cursor.disableHandler()}
   >
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={light}>
       <Provider store={store} cursor={cursor} settings={settings} catalog={catalog}>
         <BrowserRouter>
           <AppRenderer />
