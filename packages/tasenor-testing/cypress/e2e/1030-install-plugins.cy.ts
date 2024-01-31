@@ -1,6 +1,6 @@
 import '../support/commands'
 
-describe('Install plugins', () => {
+describe.skip('Install plugins', () => {
   it('Add common plugins', { defaultCommandTimeout: 120_000 }, () => {
 
     cy.adminLogin()

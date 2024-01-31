@@ -44,11 +44,11 @@ ReactDOM.render(
     onBlur={() => cursor.enableHandler()}
     onFocus={() => cursor.disableHandler()}
   >
-      <Provider store={store} cursor={cursor} settings={settings} catalog={catalog}>
-        <BrowserRouter>
-          <AppRenderer />
-        </BrowserRouter>
-      </Provider>
+    <Provider store={store} cursor={cursor} settings={settings} catalog={catalog}>
+      <BrowserRouter>
+        <AppRenderer />
+      </BrowserRouter>
+    </Provider>
   </RISPProvider>,
   document.getElementById('app')
 )
