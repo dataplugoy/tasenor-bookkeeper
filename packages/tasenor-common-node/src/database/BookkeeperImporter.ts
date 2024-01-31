@@ -2,7 +2,7 @@ import glob from 'fast-glob'
 import path from 'path'
 import fs from 'fs'
 import { system } from '..'
-import { log, BookkeeperConfig, DirectoryPath, Hostname, ProcessedTsvFileData, TarFilePath, TextFilePath, TsvFilePath, error, FilePath, JsonFilePath, Value } from '@tasenor/common'
+import { log, BookkeeperConfig, DirectoryPath, Hostname, ProcessedTsvFileData, TarFilePath, TextFilePath, TsvFilePath, error, FilePath, JsonFilePath, Value, ID } from '@tasenor/common'
 import { DB, KnexDatabase } from './DB'
 import { create } from 'ts-opaque'
 
@@ -12,6 +12,9 @@ import { create } from 'ts-opaque'
 export class BookkeeperImporter {
 
   VERSION: number | null = null
+
+  // Mapping from document numbers to database ID resulting from import.
+  documentIdMap: Record<number, ID>
 
   /**
    * Read in a TSV-file and construct list of objects.
@@ -210,6 +213,7 @@ export class BookkeeperImporter {
           date: line['date / account']
         }
         docId = (await db('document').insert(entry).returning('id'))[0].id
+        this.documentIdMap[entry.number] = docId
         count++
         rowNumber = 1
         continue
@@ -325,6 +329,8 @@ export class BookkeeperImporter {
    * @param db Database connection.
    */
   async clearEverything(db: KnexDatabase): Promise<void> {
+    this.documentIdMap = {}
+
     log('Deleting all existing data.')
     await db('entry').del()
     await db('document').del()
@@ -335,6 +341,10 @@ export class BookkeeperImporter {
     await db('settings').del()
     if ((this.VERSION || 0) >= 3) {
       await db('importers').del()
+      await db('processes').del()
+      await db('process_files').del()
+      await db('process_steps').del()
+      await db('segment_document').del()
     }
   }
 

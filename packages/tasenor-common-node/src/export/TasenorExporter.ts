@@ -128,6 +128,14 @@ export class TasenorExporter extends Exporter {
   }
 
   /**
+   * Collect a structure with all imports and their results.
+   * @param db Knex connection to use.
+   */
+  async getImports(db: KnexDatabase): Promise<Value> {
+    // TODO: Implement.
+  }
+
+  /**
    * Run the full backup for the given database.
    * @param dbUrl Database URL.
    * @param out Directory to save backup.
