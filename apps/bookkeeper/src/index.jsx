@@ -1,71 +1,54 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { I18nextProvider } from 'react-i18next'
 import { Provider } from 'mobx-react'
 import App from './App'
-import { BrowserRouter } from 'react-router-dom'
-import Store from './Stores/Store'
-import Cursor from './Stores/Cursor'
-import Settings from './Stores/Settings'
-import Catalog from './Stores/Catalog'
+import { BrowserRouter, useNavigate } from 'react-router-dom'
 import i18n, { initializeI18n } from './i18n'
-import { CircularProgress, Box, ThemeProvider } from '@mui/material'
-import { light } from './theme'
+import { ThemeProvider, useMediaQuery } from '@mui/material'
+import { light, dark } from './theme'
 import { RISPProvider } from '@tasenor/common-ui'
-import { setGlobalComponents, Knowledge } from '@tasenor/common'
-import withRouter from './Hooks/withRouter'
+import Loading from './Components/Loading'
+import withStore from './Hooks/withStore'
+import withCatalog from './Hooks/withCatalog'
 
-const settings = new Settings()
-const store = new Store(settings)
-const cursor = new Cursor(store)
-const catalog = new Catalog(store)
-store.setCatalog(catalog)
-const knowledge = new Knowledge()
+import { store, cursor, settings, catalog, knowledge } from './globals'
 
-setGlobalComponents(store, catalog, cursor, settings, knowledge)
+const AppRenderer = withCatalog(withStore((props) => {
+  const [loading, setLoading] = useState(true)
+  const navigate = useNavigate()
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
 
-@withRouter
-class AppRenderer extends Component {
-  state = {
-    loading: true
-  }
-
-  async componentDidMount() {
-    const el = document.getElementById('tasenor-loading')
-    if (el) el.remove()
-    await store.fetchSettings()
-    await initializeI18n(catalog, store)
-    const data = await store.request('/knowledge')
+  useEffect(async () => {
+    await props.store.fetchSettings()
+    await initializeI18n(catalog, props.store)
+    const data = await props.store.request('/knowledge')
     knowledge.update(data)
+    // TODO: Get rid of this once we have properly refactored catalog.
+    catalog.connectProps({ navigate })
+    setLoading(false)
+  }, [])
 
-    catalog.connectProps({ navigate: this.props.navigate })
-    this.setState({ loading: false })
+  if (loading) {
+    return <Loading visible={true}/>
   }
-
-  render() {
-    if (this.state.loading) {
-      return (
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '20%' }}>
-          <CircularProgress />
-        </Box>
-      )
-    }
-    return <I18nextProvider i18n={ i18n }><App /></I18nextProvider>
-  }
-}
+  return (
+    <ThemeProvider theme={prefersDarkMode ? dark : light}>
+      <I18nextProvider i18n={ i18n }><App /></I18nextProvider>
+    </ThemeProvider>
+  )
+}))
 
 ReactDOM.render(
   <RISPProvider
     onBlur={() => cursor.enableHandler()}
     onFocus={() => cursor.disableHandler()}
   >
-    <ThemeProvider theme={light}>
       <Provider store={store} cursor={cursor} settings={settings} catalog={catalog}>
         <BrowserRouter>
           <AppRenderer />
         </BrowserRouter>
       </Provider>
-    </ThemeProvider>
   </RISPProvider>,
   document.getElementById('app')
 )

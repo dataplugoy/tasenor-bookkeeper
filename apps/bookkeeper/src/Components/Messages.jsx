@@ -58,5 +58,4 @@ Messages.propTypes = {
   store: PropTypes.instanceOf(Store)
 }
 
-
 export default Messages

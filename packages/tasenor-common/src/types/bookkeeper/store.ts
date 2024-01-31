@@ -6,10 +6,10 @@ import { Catalog } from './catalog'
  * A Mobx store for keeping all currently loaded data in memory.
  */
 export declare class Store {
-  db: string
+  db: string | null
   accounts: AccountModel[]
   database: DatabaseModel
-  dbsByName: Record<string, DatabaseModel>
+  dbsByName: Record<string, DatabaseModel> | null
   catalog: Catalog
   periodId: number | null
   period?: PeriodModel
@@ -18,7 +18,6 @@ export declare class Store {
   addError(text:string): void
   addMessage(text:string): void
   fetchImporter(db, importerId): Promise<ImporterModel>
-  deleteDocument(doc): Promise<BalanceModel[]>
   getDocuments(accounts?: AccountNumber[], filter?: (e: EntryModel) => boolean)
   fetchBalances(db?: string, periodId?: number): Promise<void>
   fetchDocuments(db?: string, periodId?: number): Promise<void>
