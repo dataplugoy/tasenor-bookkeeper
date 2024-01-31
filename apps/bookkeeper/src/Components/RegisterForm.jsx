@@ -96,9 +96,24 @@ class RegisterForm extends Component {
         />
         <br/>
         <br/>
-        <Button id="cancel" data-cy="button-Cancel" variant="outlined" onClick={() => this.onCancel()}><Trans>Cancel</Trans></Button>
+        <Button
+          id="cancel"
+          data-cy="button-Cancel"
+          variant="outlined"
+          disabled={!this.props.onCancel}
+          onClick={() => this.onCancel()}
+        >
+            <Trans>Cancel</Trans>
+          </Button>
         &nbsp;
-        <Button id="submit" data-cy="button-Submit" variant="outlined" onClick={() => this.onRegister()}><Trans>Submit</Trans></Button>
+        <Button
+          id="submit"
+          data-cy="button-Submit"
+          variant="outlined"
+          onClick={() => this.onRegister()}
+        >
+          <Trans>Submit</Trans>
+        </Button>
     </form>
   }
 }
