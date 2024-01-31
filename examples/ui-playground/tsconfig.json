@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/tsx.json",
+  "extends": "@tasenor/config/tsx",
   "include": [
     "./src/**/*"
   ],

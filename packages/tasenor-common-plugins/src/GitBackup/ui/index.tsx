@@ -32,7 +32,7 @@ class GitBackup extends ToolPlugin {
       },
       fi: {
         'label-repository': 'Git-säilön URL',
-        'label-subDirectory': 'Alihakemisotn nimi säilön sisällä',
+        'label-subDirectory': 'Alihakemiston nimi säilön sisällä',
         'summarize-make-backup': 'Tee varmuuskopio',
 
         'Backup for Git': 'Git-pohjainen Varmuuskopiointi',
