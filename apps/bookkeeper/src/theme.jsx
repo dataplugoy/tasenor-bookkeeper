@@ -10,8 +10,7 @@ export const light = createTheme({
       main: deepPurple[900],
     },
     background: {
-      default: 'white',
-      paper: 'white',
+      paper: 'rgb(252,249,244)',
     },
   },
 })
@@ -25,8 +24,7 @@ export const dark = createTheme({
       main: deepPurple[900],
     },
     background: {
-      default: 'white',
-      paper: 'white',
+      paper: 'rgb(252,249,244)',
     },
   },
 })

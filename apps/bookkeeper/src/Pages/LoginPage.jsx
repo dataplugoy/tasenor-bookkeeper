@@ -63,7 +63,7 @@ const LoginPage = observer(withStore(withCatalog((props) => {
 
   if (state === 'NOT_LOGGED_IN') {
     return (
-      <Box sx={{ backgroundColor: '#fcf9f4', minHeight: '100%' }}>
+      <Box sx={{ minHeight: '100%' }}>
         <Title className="LoginPage"><Trans>Login</Trans></Title>
         <Panel title={t('Welcome to {{product}}', { product: 'Tasenor' })}>
         {introduction && introduction.split('\n').map((line, idx) => (
@@ -78,9 +78,8 @@ const LoginPage = observer(withStore(withCatalog((props) => {
   }
 
   if (state === 'NO_ROOT') {
-    // TODO: Use theme for color.
     return (
-      <Box sx={{ backgroundColor: '#fcf9f4', minHeight: '100%' }}>
+      <Box sx={{ minHeight: '100%' }}>
         <Title><Trans>This system has no admin user</Trans></Title>
         <Panel title={<Trans>Please register an admin user</Trans>}>
           <RegisterForm onRegister={onRegisterAdmin}/>

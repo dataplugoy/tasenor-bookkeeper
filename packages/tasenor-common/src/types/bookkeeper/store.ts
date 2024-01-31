@@ -1,4 +1,4 @@
-import { AccountModel, AccountNumber, BalanceModel, DatabaseModel, EntryModel, ImporterModel, PeriodModel } from '.'
+import { AccountModel, AccountNumber, DatabaseModel, EntryModel, ImporterModel, PeriodModel } from '.'
 import { TasenorSetup } from '../../risp'
 import { Catalog } from './catalog'
 
