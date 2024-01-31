@@ -18,9 +18,9 @@ const LoginPage = observer(withStore(withCatalog((props) => {
   const [introduction, setIntroduction] = useState('')
 
   const onRegisterAdmin = ({ name, password, email }) => {
-    return store.request('/register', 'POST', { admin: true, name, password, email })
+    return props.store.request('/register', 'POST', { admin: true, name, password, email })
       .then(() => {
-        store.login(email, password)
+        props.store.login(email, password)
           .then(() => {
             navigate('/_/admin')
           })
