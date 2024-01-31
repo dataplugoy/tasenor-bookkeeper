@@ -24,6 +24,8 @@ function dateFromDb(date: Timestamp): ShortDate {
  */
 export class TilitinExporter extends Exporter {
 
+  VERSION = 2
+
   /**
    * Construct Knex configuration for the given file.
    * @param path Path to the Sqlite-file.

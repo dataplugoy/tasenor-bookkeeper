@@ -64,6 +64,14 @@ export class Exporter {
   }
 
   /**
+   * Collect a structure with all importers and their configs.
+   * @param db Knex connection to use.
+   */
+  async getImporters(db: KnexDatabase): Promise<Value> {
+    throw new Error(`Exporter ${this.constructor.name} does not implement getImporters().`)
+  }
+
+  /**
    * Write prepared data to TSV file.
    * @param path Output file path.
    * @param lines Data content.
@@ -80,7 +88,7 @@ export class Exporter {
    */
   writeJson(path: JsonFilePath, data: Json): void {
     log(`Writing ${path}`)
-    fs.writeFileSync(path, JSON.stringify(data, null, 4) + '\n')
+    fs.writeFileSync(path, JSON.stringify(data, null, 2) + '\n')
   }
 
   /**
@@ -107,6 +115,10 @@ export class Exporter {
     this.writeTsv(create(path.join(out, 'entries.tsv')), entries)
     const tags = await this.getTags(db, out)
     this.writeTsv(create(path.join(out, 'tags.tsv')), tags)
+    if (this.VERSION >= 3) {
+      const importers = await this.getImporters(db)
+      this.writeJson(create(path.join(out, 'importers.json')), importers)
+    }
 
     return conf
   }

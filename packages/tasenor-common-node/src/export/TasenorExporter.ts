@@ -1,4 +1,4 @@
-import { Bookkeeper, BookkeeperConfig, DirectoryPath, log, ParsedTsvFileData, TarFilePath, Url } from '@tasenor/common'
+import { Bookkeeper, BookkeeperConfig, DirectoryPath, log, ParsedTsvFileData, TarFilePath, Url, Value } from '@tasenor/common'
 import { DB, KnexDatabase } from '../database'
 import { Exporter } from './Exporter'
 import knex from 'knex'
@@ -10,6 +10,8 @@ import fs from 'fs'
  * Export Tasenor database.
  */
 export class TasenorExporter extends Exporter {
+
+  VERSION = 3
 
   /**
    * Read configuration information from database and construct compiled configuration.
@@ -115,6 +117,14 @@ export class TasenorExporter extends Exporter {
     }
     log(`Found ${lines.length} lines of data for tags.`)
     return lines
+  }
+
+  /**
+   * Collect a structure with all importers and their configs.
+   * @param db Knex connection to use.
+   */
+  async getImporters(db: KnexDatabase): Promise<Value> {
+    return await db('importers').select('config', 'name').orderBy('id')
   }
 
   /**

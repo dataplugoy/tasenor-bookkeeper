@@ -2,7 +2,7 @@ import glob from 'fast-glob'
 import path from 'path'
 import fs from 'fs'
 import { system } from '..'
-import { log, BookkeeperConfig, DirectoryPath, Hostname, ProcessedTsvFileData, TarFilePath, TextFilePath, TsvFilePath, error, FilePath } from '@tasenor/common'
+import { log, BookkeeperConfig, DirectoryPath, Hostname, ProcessedTsvFileData, TarFilePath, TextFilePath, TsvFilePath, error, FilePath, JsonFilePath, Value } from '@tasenor/common'
 import { DB, KnexDatabase } from './DB'
 import { create } from 'ts-opaque'
 
@@ -33,6 +33,17 @@ export class BookkeeperImporter {
       objects.push(obj)
     }
     return objects
+  }
+
+  /**
+   * Read in a JSON-file and construct saved value.
+   * @param file Path to the JSON-file.
+   * @returns Saved value.
+   */
+  async readJson(file: TsvFilePath): Promise<Value> {
+    log(`Reading ${file}.`)
+    const content = fs.readFileSync(file).toString('utf-8')
+    return JSON.parse(content)
   }
 
   /**
@@ -298,6 +309,18 @@ export class BookkeeperImporter {
   }
 
   /**
+   * Read in importers.
+   * @param db Database connection.
+   * @param file Path to the importers file.
+   */
+  async setImporters(db: KnexDatabase, file: JsonFilePath): Promise<void> {
+    const importers = await this.readJson(file)
+    for (const importer of importers as Value[]) {
+      await db('importers').insert(importer)
+    }
+  }
+
+  /**
    * Remove all data from all tables.
    * @param db Database connection.
    */
@@ -310,6 +333,9 @@ export class BookkeeperImporter {
     await db('period').del()
     await db('tags').del()
     await db('settings').del()
+    if ((this.VERSION || 0) >= 3) {
+      await db('importers').del()
+    }
   }
 
   /**
@@ -337,6 +363,10 @@ export class BookkeeperImporter {
     await this.setEntries(userDb, create(entriesPath), conf)
     const tagsPath = path.join(out, 'tags.tsv')
     await this.setTags(userDb, create(tagsPath))
+    if ((this.VERSION || 0) >= 3) {
+      const importersPath = path.join(out, 'importers.json')
+      await this.setImporters(userDb, create(importersPath))
+    }
   }
 
   /**
