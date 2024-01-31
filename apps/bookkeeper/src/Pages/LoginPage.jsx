@@ -59,7 +59,7 @@ const LoginPage = observer(withStore(withCatalog((props) => {
           }
         })
     }
-  },[])
+  }, [])
 
   if (state === 'NOT_LOGGED_IN') {
     return (
