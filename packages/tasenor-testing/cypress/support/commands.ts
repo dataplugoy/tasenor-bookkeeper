@@ -37,4 +37,16 @@ declare global {
       waitLoading(): Chainable<void>
     }
   }
+
+  namespace Cypress {
+    interface Chainer<Subject> {
+      (chainer: 'cellEquals', row: number, col: number, text: string): Chainable<Subject>
+    }
+  }
+
+  namespace Chai {
+    interface Assertion {
+      testId(row: number, col: number, text: string): void
+    }
+  }
 }
