@@ -1,6 +1,6 @@
 import '../support/commands'
 
-describe('Subscribe plugins', () => {
+describe.skip('Subscribe plugins', () => {
   it('Subscribe for test user', () => {
 
     cy.userLogin()

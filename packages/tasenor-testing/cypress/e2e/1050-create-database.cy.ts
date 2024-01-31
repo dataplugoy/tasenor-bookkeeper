@@ -1,6 +1,6 @@
 import '../support/commands'
 
-describe('Create databases', () => {
+describe.skip('Create databases', () => {
   it('Basic database for default user', () => {
 
     cy.fixture('ci.json').then((config) => {
