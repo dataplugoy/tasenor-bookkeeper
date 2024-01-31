@@ -9,7 +9,7 @@ export declare class Store {
   db: string | null
   accounts: AccountModel[]
   database: DatabaseModel
-  dbsByName: Record<string, DatabaseModel> | null
+  dbsByName: Record<string, DatabaseModel>
   catalog: Catalog
   periodId: number | null
   period?: PeriodModel
