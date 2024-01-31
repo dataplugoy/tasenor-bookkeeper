@@ -44,7 +44,6 @@ router.post('/',
     user.config.subscriptions = user.config.subscriptions || []
 
     if (plugin && user.config.subscriptions.indexOf(plugin.id) < 0) {
-      log(`Subscribing plugin '${plugin.code}' for '${res.locals.user}'.`)
       user.config.subscriptions.push(plugin.id)
       await db('users').update({ config: user.config }).where({ email: res.locals.user })
       return res.send(await signTokenWithPlugins(res.locals.user))
