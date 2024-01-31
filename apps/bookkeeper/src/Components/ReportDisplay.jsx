@@ -25,19 +25,19 @@ class ReportHeader extends Component {
 
     return [
       <TableRow key="1" className="heading1">
-        <TableCell colSpan={columns}>
+        <TableCell className="ReportCell" colSpan={columns}>
           <span className="report-title">{this.props.t('report-' + report.format)}</span>
           <span style={{ float: 'right' }}>{report.meta.businessName}</span>
         </TableCell>
       </TableRow>,
       <TableRow key="2" className="heading2">
-        <TableCell colSpan={columns}>
+        <TableCell className="ReportCell" colSpan={columns}>
           <span>{new Date().toLocaleDateString(lang)}</span>
           <span style={{ float: 'right' }}>{report.meta.businessId}</span>
         </TableCell>
       </TableRow>,
       <TableRow key="3" className="columns">
-        {report.columns.map((column) => <TableCell key={column.name} className={column.type}>
+        {report.columns.map((column) => <TableCell key={column.name} className={'ReportCell ' + column.type}>
           <Localize>{column.title}</Localize>
         </TableCell>)}
       </TableRow>

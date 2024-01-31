@@ -39,7 +39,7 @@ class ReportLine extends Component {
 
     // Construct table cell.
     const td = (column, content, extras = {}) => {
-      const classNames = column.type +
+      const classNames = 'ReportCell ' + column.type +
         (extras.className ? ' ' + extras.className : '') +
         (column.width ? ' width' + column.width : '')
 
