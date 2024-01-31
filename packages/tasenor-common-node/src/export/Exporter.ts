@@ -127,7 +127,7 @@ export class Exporter {
       const importers = await this.getImporters(db)
       this.writeJson(create(path.join(out, 'importers.json')), importers)
       const imports = await this.getImports(db)
-      console.dir(imports, {depth: null})
+      console.dir(imports, { depth: null })
     }
 
     return conf
