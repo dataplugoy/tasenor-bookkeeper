@@ -68,6 +68,16 @@ export async function systemPiped(command: string, quiet = false, ignoreError = 
 }
 
 /**
+ * Try to kill a process holding the TCP port.
+ */
+export async function killPortUser(port: string | number): Promise<void> {
+  const out = await systemPiped(`fuser -n tcp ${port}`, true)
+  if (out) {
+    system(`kill ${out.trim()}`)
+  }
+}
+
+/**
  * Check if the current environment is not development environment.
  */
 export function isProduction(): boolean {
