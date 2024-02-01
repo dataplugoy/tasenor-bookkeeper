@@ -2,6 +2,8 @@
  * Some utility type definitions for processing.
  */
 
+import { SegmentId } from '.'
+
 /**
  * Configuration data for a process.
  */
@@ -84,6 +86,16 @@ export type ProcessModelData = {
 }
 
 /**
+ * Mapping from imported segments.
+ */
+export type SegmentModelData = {
+  process_id: ID
+  segment_id: SegmentId
+  importer_id: ID
+  document_id: ID
+}
+
+/**
  * Response for single process fetch.
  */
 export type ProcessModelDetailedData = {
@@ -96,6 +108,7 @@ export type ProcessModelDetailedData = {
   currentStep: number
   steps: ProcessStepModelData[]
   files: ProcessFileModelData[]
+  segments?: Record<SegmentId, number>
   status: ProcessStatus
   error?: string
   created: Date

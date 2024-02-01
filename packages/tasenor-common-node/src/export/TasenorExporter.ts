@@ -1,4 +1,4 @@
-import { Bookkeeper, BookkeeperConfig, DirectoryPath, ImporterModelData, log, ParsedTsvFileData, ProcessFileModelData, ProcessModelData, ProcessModelDetailedData, ProcessStepModelData, TarFilePath, Url } from '@tasenor/common'
+import { Bookkeeper, BookkeeperConfig, DirectoryPath, ImporterModelData, log, ParsedTsvFileData, ProcessFileModelData, ProcessModelData, ProcessModelDetailedData, ProcessStepModelData, SegmentModelData, TarFilePath, Url } from '@tasenor/common'
 import { DB, KnexDatabase } from '../database'
 import { Exporter } from './Exporter'
 import knex from 'knex'
@@ -144,6 +144,7 @@ export class TasenorExporter extends Exporter {
     const processes: ProcessModelData[] = await db('processes').orderBy('id')
     const steps: Partial<ProcessStepModelData>[] = await db('process_steps').orderBy('id')
     const files: Partial<ProcessFileModelData>[] = await db('process_files').orderBy('id')
+    const segments: Partial<SegmentModelData & { number: number}>[] = await db('segment_document').join('document', 'document.id', '=', 'segment_document.document_id').select('segment_document.*', 'document.number')
 
     const result: Record<number, ProcessModelDetailedData> = {}
     processes.forEach(p => {
@@ -166,7 +167,14 @@ export class TasenorExporter extends Exporter {
       delete f.processId
     })
 
-    // TODO: Add segment ID mapping.
+    segments.forEach(segment => {
+      result[segment.process_id || ''].segments = result[segment.process_id || ''].segments || {}
+      if (result[segment.process_id || ''].segments[segment.segment_id]) {
+        throw new Error(`Duplicates not yet handled for segment '${segment.segment_id}'.`)
+      }
+      result[segment.process_id || ''].segments[segment.segment_id] = segment.number
+    })
+
     return Object.values(result)
   }
 
