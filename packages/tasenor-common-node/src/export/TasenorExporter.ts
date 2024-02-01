@@ -166,6 +166,7 @@ export class TasenorExporter extends Exporter {
       delete f.processId
     })
 
+    // TODO: Add segment ID mapping.
     return Object.values(result)
   }
 

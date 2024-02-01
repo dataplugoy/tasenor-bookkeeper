@@ -2,8 +2,9 @@ import glob from 'fast-glob'
 import path from 'path'
 import fs from 'fs'
 import { system } from '..'
-import { log, BookkeeperConfig, DirectoryPath, Hostname, ProcessedTsvFileData, TarFilePath, TextFilePath, TsvFilePath, error, FilePath, JsonFilePath, Value, ID } from '@tasenor/common'
+import { log, BookkeeperConfig, DirectoryPath, Hostname, ProcessedTsvFileData, TarFilePath, TextFilePath, TsvFilePath, error, FilePath, JsonFilePath, Value, ID, ProcessModelDetailedData, ProcessFileModelData, ProcessStepModelData } from '@tasenor/common'
 import { DB, KnexDatabase } from './DB'
+// TODO: Hmm, the create() is more confusing that simpy using `as Type`?
 import { create } from 'ts-opaque'
 
 /**
@@ -43,10 +44,10 @@ export class BookkeeperImporter {
    * @param file Path to the JSON-file.
    * @returns Saved value.
    */
-  async readJson(file: TsvFilePath): Promise<Value> {
+  async readJson<T = Value>(file: TsvFilePath): Promise<T> {
     log(`Reading ${file}.`)
     const content = fs.readFileSync(file).toString('utf-8')
-    return JSON.parse(content)
+    return JSON.parse(content) as T
   }
 
   /**
@@ -317,10 +318,26 @@ export class BookkeeperImporter {
    * @param db Database connection.
    * @param file Path to the importers file.
    */
-  async setImporters(db: KnexDatabase, file: JsonFilePath): Promise<void> {
-    const importers = await this.readJson(file)
-    for (const importer of importers as Value[]) {
-      await db('importers').insert(importer)
+  async setImporters(db: KnexDatabase, configPath: JsonFilePath, importPaths: JsonFilePath[]): Promise<void> {
+    const config = await this.readJson(configPath)
+    const name = path.basename(path.dirname(configPath))
+    const importer = await db('importers').insert({ name, config }).returning('id')
+    const importerId = importer[0].id
+    for (const importPath of importPaths) {
+      const process: Partial<ProcessModelDetailedData> = await this.readJson(importPath)
+      const files: ProcessFileModelData[] = process.files || []
+      const steps: ProcessStepModelData[] = process.steps || []
+      delete process.files
+      delete process.steps
+      process.ownerId = importerId
+      const inserted = await db('processes').insert(process).returning('id')
+      const processId = inserted[0].id
+      for (const file of files) {
+        await db('process_files').insert({ processId, ...file })
+      }
+      for (const step of steps) {
+        await db('process_steps').insert({ processId, ...step })
+      }
     }
   }
 
@@ -365,7 +382,7 @@ export class BookkeeperImporter {
     }
     await this.clearEverything(userDb)
     await this.setConfig(userDb, conf)
-    const files = glob.sync(path.join(out, 'accounts', '*'))
+    const files = glob.sync(path.join(out, 'accounts', '*.tsv'))
     await this.setAccounts(userDb, files as FilePath[])
     const periodsPath = path.join(out, 'periods.tsv')
     await this.setPeriods(userDb, create(periodsPath))
@@ -374,8 +391,12 @@ export class BookkeeperImporter {
     const tagsPath = path.join(out, 'tags.tsv')
     await this.setTags(userDb, create(tagsPath))
     if ((this.VERSION || 0) >= 3) {
-      const importersPath = path.join(out, 'importers.json')
-      await this.setImporters(userDb, create(importersPath))
+      const configPaths = glob.sync(path.join(out, 'importers', '*', 'config.json'))
+      for (const configPath of configPaths) {
+        const importerName = path.basename(path.dirname(configPath))
+        const imporPaths = glob.sync(path.join(out, 'importers', importerName, '[0-9][0-9][0-9][0-9]-*.json'))
+        await this.setImporters(userDb, create(configPath), imporPaths as JsonFilePath[])
+      }
     }
   }
 
