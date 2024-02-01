@@ -35,6 +35,10 @@ router.post('/',
     }
 
     const db = await knex.db(res.locals.user, res.locals.db)
+    const existing = await db('importers').where({ name }).first()
+    if (existing) {
+      return res.status(400).send({ message: 'Importer with that name already exists.' })
+    }
 
     for (const i in config.handlers) {
       const plugin: ImportPlugin = catalog.find(config.handlers[i]) as ImportPlugin
