@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material'
-import { blueGrey, amber, brown } from '@mui/material/colors'
+import { amber, brown } from '@mui/material/colors'
 
 export const light = createTheme({
   palette: {
@@ -25,17 +25,4 @@ export const light = createTheme({
   },
 })
 
-export const dark = createTheme({
-  palette: {
-    mode: 'dark',
-    primary: {
-      main: blueGrey[500],
-    },
-    secondary: {
-      main: amber[900],
-    },
-    background: {
-      paper: 'rgb(252,249,244)',
-    },
-  },
-})
+export const dark = light
