@@ -27,6 +27,10 @@ router.post('/',
     if (!name) {
       return res.status(400).send({ message: 'Name is missing.' })
     }
+    // TODO: Make this common function.
+    if (/[[\]:\\/|<>*{}%#&$!'"`=?,.]/.test(name)) {
+      return res.status(400).send({ message: 'Invalid characters in the name.' })
+    }
     if (!config || typeof config !== 'object') {
       return res.status(400).send({ message: 'Invalid configuration.' })
     }

@@ -2,7 +2,7 @@
 import path from 'path'
 import fs from 'fs'
 import { KnexDatabase } from '..'
-import { log, ParsedTsvFileData, BookkeeperConfig, DirectoryPath, TsvFilePath, JsonFilePath, Json, Value, TarFilePath } from '@tasenor/common'
+import { log, ParsedTsvFileData, BookkeeperConfig, DirectoryPath, TsvFilePath, JsonFilePath, Json, Value, TarFilePath, ProcessModelDetailedData, ImporterModelData, FilePath } from '@tasenor/common'
 import { create } from 'ts-opaque'
 import { system } from '../system'
 import dayjs from 'dayjs'
@@ -67,7 +67,7 @@ export class Exporter {
    * Collect a structure with all importers and their configs.
    * @param db Knex connection to use.
    */
-  async getImporters(db: KnexDatabase): Promise<Value> {
+  async getImporters(db: KnexDatabase): Promise<ImporterModelData[]> {
     throw new Error(`Exporter ${this.constructor.name} does not implement getImporters().`)
   }
 
@@ -75,7 +75,7 @@ export class Exporter {
    * Collect a structure with all imports.
    * @param db Knex connection to use.
    */
-  async getImports(db: KnexDatabase): Promise<Value> {
+  async getImports(db: KnexDatabase): Promise<ProcessModelDetailedData[]> {
     throw new Error(`Exporter ${this.constructor.name} does not implement getImports().`)
   }
 
@@ -84,9 +84,12 @@ export class Exporter {
    * @param path Output file path.
    * @param lines Data content.
    */
-  writeTsv(path: TsvFilePath, lines: ParsedTsvFileData): void {
-    log(`Writing ${path}`)
-    fs.writeFileSync(path, lines.map(l => l.join('\t')).join('\n') + '\n')
+  writeTsv(tsvPath: TsvFilePath, lines: ParsedTsvFileData): void {
+    log(`Writing ${tsvPath}`)
+    if (!fs.existsSync(path.dirname(tsvPath))) {
+      fs.mkdirSync(path.dirname(tsvPath), { recursive: true })
+    }
+    fs.writeFileSync(tsvPath, lines.map(l => l.join('\t')).join('\n') + '\n')
   }
 
   /**
@@ -94,9 +97,12 @@ export class Exporter {
    * @param path Output file path.
    * @param lines Data content.
    */
-  writeJson(path: JsonFilePath, data: Json): void {
-    log(`Writing ${path}`)
-    fs.writeFileSync(path, JSON.stringify(data, null, 2) + '\n')
+  writeJson(jsonPath: JsonFilePath, data: Json): void {
+    log(`Writing ${jsonPath}`)
+    if (!fs.existsSync(path.dirname(jsonPath))) {
+      fs.mkdirSync(path.dirname(jsonPath), { recursive: true })
+    }
+    fs.writeFileSync(jsonPath, JSON.stringify(data, null, 2) + '\n')
   }
 
   /**
@@ -123,11 +129,22 @@ export class Exporter {
     this.writeTsv(create(path.join(out, 'entries.tsv')), entries)
     const tags = await this.getTags(db, out)
     this.writeTsv(create(path.join(out, 'tags.tsv')), tags)
+
     if (this.VERSION >= 3) {
       const importers = await this.getImporters(db)
-      this.writeJson(create(path.join(out, 'importers.json')), importers)
       const imports = await this.getImports(db)
-      console.dir(imports, { depth: null })
+      for (const importer of importers) {
+        const importerDir: DirectoryPath = create(path.join(out, 'importers', importer.name))
+        const importerPath: FilePath = create(path.join(importerDir, 'config.json'))
+        // TODO: Need type improvements.
+        this.writeJson(importerPath, importer.config as Value)
+      }
+      for (const imp of imports) {
+        const importDir: DirectoryPath = create(path.join(out, 'importers', imp.ownerId + ''))
+        const importPath: FilePath = create(path.join(importDir, imp.created + '.json'))
+        // TODO: Need type improvements.
+        this.writeJson(importPath, { ...imp, ownerId: undefined } as unknown as Value)
+      }
     }
 
     return conf

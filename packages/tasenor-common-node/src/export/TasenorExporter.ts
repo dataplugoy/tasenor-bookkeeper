@@ -1,4 +1,4 @@
-import { Bookkeeper, BookkeeperConfig, DirectoryPath, log, ParsedTsvFileData, TarFilePath, Url, Value } from '@tasenor/common'
+import { Bookkeeper, BookkeeperConfig, DirectoryPath, ImporterModelData, log, ParsedTsvFileData, ProcessFileModelData, ProcessModelData, ProcessModelDetailedData, ProcessStepModelData, TarFilePath, Url } from '@tasenor/common'
 import { DB, KnexDatabase } from '../database'
 import { Exporter } from './Exporter'
 import knex from 'knex'
@@ -12,6 +12,9 @@ import fs from 'fs'
 export class TasenorExporter extends Exporter {
 
   VERSION = 3
+
+  // Mapping from document importer IDs to their name.
+  importerIdMap: Record<number, string>
 
   /**
    * Read configuration information from database and construct compiled configuration.
@@ -123,17 +126,47 @@ export class TasenorExporter extends Exporter {
    * Collect a structure with all importers and their configs.
    * @param db Knex connection to use.
    */
-  async getImporters(db: KnexDatabase): Promise<Value> {
-    return await db('importers').select('config', 'name').orderBy('id')
+  async getImporters(db: KnexDatabase): Promise<ImporterModelData[]> {
+    const importers = await db('importers').select('id', 'config', 'name').orderBy('id')
+    this.importerIdMap = {}
+    importers.forEach(i => {
+      this.importerIdMap[i.id] = i.name
+      delete i.id
+    })
+    return importers
   }
 
   /**
    * Collect a structure with all imports and their results.
    * @param db Knex connection to use.
    */
-  async getImports(db: KnexDatabase): Promise<Value> {
-    // TODO: Implement.
-    return {}
+  async getImports(db: KnexDatabase): Promise<ProcessModelDetailedData[]> {
+    const processes: ProcessModelData[] = await db('processes').orderBy('id')
+    const steps: Partial<ProcessStepModelData>[] = await db('process_steps').orderBy('id')
+    const files: Partial<ProcessFileModelData>[] = await db('process_files').orderBy('id')
+
+    const result: Record<number, ProcessModelDetailedData> = {}
+    processes.forEach(p => {
+      result[p.id || ''] = p
+      result[p.id || ''].ownerId = this.importerIdMap[p.ownerId || '']
+      result[p.id || ''].steps = []
+      result[p.id || ''].files = []
+      delete result[p.id || ''].id
+    })
+
+    steps.forEach(s => {
+      result[s.processId || ''].steps.push(s)
+      delete s.id
+      delete s.processId
+    })
+
+    files.forEach(f => {
+      result[f.processId || ''].files.push(f)
+      delete f.id
+      delete f.processId
+    })
+
+    return Object.values(result)
   }
 
   /**

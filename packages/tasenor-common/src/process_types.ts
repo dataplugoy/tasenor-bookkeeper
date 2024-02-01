@@ -56,6 +56,18 @@ export type ProcessStepModelData = {
 }
 
 /**
+ * File data for imported files.
+ */
+export type ProcessFileModelData = {
+  id: ID
+  processId?: ID
+  name: string
+  type: string // TODO: Should be MIME-type
+  encoding: FileEncoding
+  data: string
+}
+
+/**
  * Response for process listing.
  */
 export type ProcessModelData = {
@@ -83,6 +95,7 @@ export type ProcessModelDetailedData = {
   successful: boolean
   currentStep: number
   steps: ProcessStepModelData[]
+  files: ProcessFileModelData[]
   status: ProcessStatus
   error?: string
   created: Date
