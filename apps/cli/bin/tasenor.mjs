@@ -7,8 +7,8 @@ const { CLI } = commonNode
 const cli = new CLI()
 
 const DEFAULTS = [
-  { name: 'user', envName: 'USERNAME', defaultValue: 'root@localhost' },
-  { name: 'password', envName: 'PASSWORD', defaultValue: 'Ayfiewchg872rt5sq2e4' },
+  { name: 'user', envName: 'TASENOR_USERNAME', defaultValue: 'root@localhost' },
+  { name: 'password', envName: 'TASENOR_PASSWORD', defaultValue: 'Ayfiewchg872rt5sq2e4' },
   { name: 'api', envName: 'API', defaultValue: 'http://localhost:7205' },
   { name: 'ui_api', envName: 'UI_API', defaultValue: 'http://localhost:7204' }
 ]
