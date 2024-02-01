@@ -325,18 +325,37 @@ export class BookkeeperImporter {
     const importerId = importer[0].id
     for (const importPath of importPaths) {
       const process: Partial<ProcessModelDetailedData> = await this.readJson(importPath)
+
       const files: ProcessFileModelData[] = process.files || []
       const steps: ProcessStepModelData[] = process.steps || []
+      const segmentData = process.segments || {}
+
       delete process.files
       delete process.steps
+      delete process.segments
+
       process.ownerId = importerId
+
       const inserted = await db('processes').insert(process).returning('id')
       const processId = inserted[0].id
+
       for (const file of files) {
         await db('process_files').insert({ processId, ...file })
       }
+
       for (const step of steps) {
         await db('process_steps').insert({ processId, ...step })
+      }
+
+      if (segmentData) {
+        for (const segmentId of Object.keys(segmentData)) {
+          await db('segment_document').insert({
+            segment_id: segmentId,
+            process_id: processId,
+            importer_id: importerId,
+            document_id: this.documentIdMap[segmentData[segmentId]]
+          })
+        }
       }
     }
   }
