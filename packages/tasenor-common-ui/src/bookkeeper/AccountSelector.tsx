@@ -46,7 +46,7 @@ export const AccountSelector = observer((props: AccountSelectorProps) => {
     options={accounts}
     getOptionLabel={(option) => `${option.number} ${option.name}`}
     renderOption={(props, option) => (
-      <Box component="li" {...props}>
+      <Box component="li" {...props} id={`Account ${option.number}`}>
         {option.number} {option.name}
         {preferredSet.has(option.number) && <StarOutlineIcon fontSize="small" sx={{ color: 'rgba(0,0,0,0.2)' }}/>}
       </Box>
