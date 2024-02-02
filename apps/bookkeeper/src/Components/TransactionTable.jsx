@@ -10,11 +10,12 @@ import { TransactionStock } from './TransactionStock'
 import Store from '../Stores/Store'
 import EntryModel from '../Models/EntryModel'
 import DocumentModel from '../Models/DocumentModel'
-import { TableContainer, Table, TableHead, TableCell, TableRow, TableBody, Typography, TextField, MenuItem, Autocomplete, Box } from '@mui/material'
+import { TableContainer, Table, TableHead, TableCell, TableRow, TableBody, Typography } from '@mui/material'
 import { runInAction } from 'mobx'
 import { haveCursor, haveSettings, StockBookkeeping } from '@tasenor/common'
 import withRouter from '../Hooks/withRouter'
 import withStore from '../Hooks/withStore'
+import { AccountSelector } from '@tasenor/common-ui/src/bookkeeper/AccountSelector'
 
 @withTranslation('translations')
 @withRouter
@@ -24,7 +25,7 @@ class TransactionTable extends Component {
 
   state = {
     showAccountDropdown: false,
-    account: 0
+    account: null
   }
 
   // Store for transaction waiting for deletion confirmation.
@@ -330,7 +331,6 @@ class TransactionTable extends Component {
     const ret = []
 
     if (this.state.showAccountDropdown) {
-      const options = [{ id: 0, name: '', number: '' }].concat(this.props.store.accounts)
 
       const accountDialog = (
         <Dialog key="dialog2"
@@ -339,27 +339,14 @@ class TransactionTable extends Component {
           title={<Trans>Please select an account</Trans>}
           isVisible={this.state.showAccountDropdown}
           onClose={() => this.setState({ showAccountDropdown: false })}
-          onConfirm={() => this.onSelectAccount(this.state.account)}>
-          <Autocomplete
-            id="Select Account"
-            options={options}
-            getOptionLabel={(option) => `${option.number} ${option.name}`}
-            renderOption={(props, option) => (
-              <Box component="li" {...props}>
-                {option.number} {option.name}
-              </Box>
-            )}
-            onChange={(_, value) => this.setState({ account: value.id })}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label={this.props.t('Select Account')}
-                inputProps={{
-                  ...params.inputProps,
-                  autoComplete: 'off'
-                }}
-              />
-            )}
+          onConfirm={() => this.onSelectAccount(this.state.account.id)}
+        >
+          <AccountSelector
+            autoFocus
+            accounts={this.props.store.accounts}
+            value={this.state.account}
+            label={this.props.t('Select Account')}
+            onChange={(account) => this.setState({ account })}
           />
         </Dialog>
       )

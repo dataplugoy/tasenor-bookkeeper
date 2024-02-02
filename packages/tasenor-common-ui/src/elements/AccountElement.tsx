@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import React from 'react'
-import { AccountElement, AccountNumber, RenderingProps } from '@tasenor/common'
+import { AccountElement, RenderingProps } from '@tasenor/common'
 import { AccountSelector } from '../bookkeeper/AccountSelector'
 import { Renderer } from '../risp/RenderingEngine'
 
@@ -11,14 +11,16 @@ export const AccountRenderer: Renderer = (props: RenderingProps<AccountElement>)
   const label = element.label ? element.label : t(`label-${element.name}`)
   const value = values[element.name]
   const [, setValue] = React.useState(value)
+  const account = (value && setup.store.database && setup.store.database.getAccountByNumber(`${value}`)) ? setup.store.database.getAccountByNumber(`${value}`) : null
 
   return <AccountSelector
     label={label}
-    value={value && setup.store.database && setup.store.database.getAccountByNumber(`${value}`) ? value as AccountNumber : '' as AccountNumber}
+    value={account}
     onChange={(e) => {
-      element.triggerHandler && element.triggerHandler({ type: 'onChange', name: element.name, value: e || null }, props)
-      values[element.name] = e || null
-      setValue(e || null)
+      const val = e ? e.number : null
+      element.triggerHandler && element.triggerHandler({ type: 'onChange', name: element.name, value: val }, props)
+      values[element.name] = val
+      setValue(val)
     }}
     preferred={element.preferred}
     filter={element.filter}

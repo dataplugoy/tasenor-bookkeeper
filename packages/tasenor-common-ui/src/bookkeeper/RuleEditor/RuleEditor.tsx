@@ -200,17 +200,18 @@ export const RuleEditor = observer((props: RuleEditorProps): JSX.Element => {
             <Typography variant="h5"><Trans>Quick Once-Off Selection</Trans></Typography>
             <AccountSelector
               label={'Select Account'}
-              value={account as AccountNumber}
+              value={account ? store.database.getAccountByNumber(account) : null}
               accounts={store.accounts}
-              onChange={num => {
-                setAccount(num)
+              onChange={acc => {
+                if (!acc) return
+                setAccount(acc.number)
                 setMode('once-off')
                 const resView = resultViews({ account, tags })
                 const result = filterView2results(resView)
                 const ruleView: RuleView = { ...rule.view || { filter: [] }, result: resView }
                 const newRule: ImportRule = { ...rule, result, view: ruleView }
                 setRule(newRule)
-                onChange({ ...editorOuput, rule: newRule as unknown as Value, transfers: transfers({ text, tags, account: num }), account: num })
+                onChange({ ...editorOuput, rule: newRule as unknown as Value, transfers: transfers({ text, tags, account: acc.number }), account: acc.number })
               }
               }
             />
