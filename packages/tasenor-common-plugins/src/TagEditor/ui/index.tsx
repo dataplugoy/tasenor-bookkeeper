@@ -415,7 +415,7 @@ const TagsEditor = observer((props: TagsEditorProps): JSX.Element => {
       )}
       {types.length === 0 && (
         <Typography variant="h6" sx={{ padding: 1 }}>
-          <Trans>You don&apos;t have any tag groups yet. Please create the firt one by naming it above.</Trans>
+          <Trans>You don&apos;t have any tag groups yet. Please create the first one by naming it above.</Trans>
         </Typography>
       )}
     </Box>
@@ -449,7 +449,7 @@ class TagEditor extends ToolPlugin {
         'Once added, the tag can be used in transaction list as a filter by showing only the transactions with the give tag.': 'Kun tapahtumaan on lisätty tägi, sitä voidaan käyttää tapahtumalistan filtteröintiin näyttämään vain kyseise tägin sisältämät rivit.',
         'Tag grouping is used to keep tags of the specific dimension in the single group.': 'Tägien ryhmittelyä käytetään tietyn dimension tägien yhdistämiseen saman nimen alle.',
         'It is usable in some reports for example.': 'Ryhmittelyä voidaan hyödyntää esimerkiksi joissakin raporteissa.',
-        'You don&apos;t have any tag groups yet. Please create the firt one by naming it above.': 'Yhtään tägiryhmää ei ole vielä olemassa. Ole hyvä ja luo ensimmäinen antamalla sille nimi yllä.',
+        'You don&apos;t have any tag groups yet. Please create the first one by naming it above.': 'Yhtään tägiryhmää ei ole vielä olemassa. Ole hyvä ja luo ensimmäinen antamalla sille nimi yllä.',
       }
     }
   }
