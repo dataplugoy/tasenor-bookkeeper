@@ -10,7 +10,7 @@ import { log, error, note } from '@tasenor/common'
  * @param quiet If set, do not output.
  * @returns Srandard output if successfully executed.
  */
-export async function system(command: string, quiet = false): Promise<string> {
+export async function system(command: string, quiet = false, ignoreError = false): Promise<string|null> {
   if (!quiet) {
     log(`Running system command: ${command}`)
   }
@@ -18,6 +18,7 @@ export async function system(command: string, quiet = false): Promise<string> {
     exec(command, { maxBuffer: 1024 * 1024 * 500 }, (err, stdout, stderr) => {
       if (err) {
         if (!quiet) error(err)
+        if (ignoreError) return resolve(null)
         return reject(err)
       }
       if (stderr && !quiet) {
@@ -71,9 +72,11 @@ export async function systemPiped(command: string, quiet = false, ignoreError = 
  * Try to kill a process holding the TCP port.
  */
 export async function killPortUser(port: string | number): Promise<void> {
-  const out = await systemPiped(`fuser -n tcp ${port}`, true)
+  const out = await systemPiped(`fuser -n tcp ${port}`, true, true)
   if (out) {
-    system(`kill ${out.trim()}`)
+    system(`kill ${out.trim()}`, true)
+  } else {
+    error(`Cannot find process accessing TCP ${port}.`)
   }
 }
 

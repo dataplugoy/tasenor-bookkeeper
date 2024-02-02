@@ -33,8 +33,13 @@ export class GitRepo {
   /**
    * Set the git configuration.
    */
-  configure(name: string, email: Email) {
-    this.git.addConfig('user.name', name).addConfig('user.email', email)
+  configure(conf: { name: string, email: Email, sshPrivateKey: FilePath | null }) {
+    this.git.addConfig('user.name', conf.name).addConfig('user.email', conf.email)
+    if (conf.sshPrivateKey) {
+      this.git.env('GIT_SSH_COMMAND', `ssh -i "${conf.sshPrivateKey}"`)
+    } else {
+      this.git.env('GIT_SSH_COMMAND', 'ssh')
+    }
   }
 
   /**
@@ -95,6 +100,10 @@ export class GitRepo {
    */
   async put(message: string, ...subPaths: (FilePath | DirectoryPath)[]): Promise<boolean> {
     let fail = false
+    await this.git.pull().catch(err => {
+      error(`Git pull failed: ${err}`)
+      fail = true
+    })
     await this.git.add(subPaths).catch(err => {
       error(`Git add failed: ${err}`)
       fail = true

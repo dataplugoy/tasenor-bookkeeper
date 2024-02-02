@@ -28,12 +28,14 @@ class GitBackup extends ToolPlugin {
       en: {
         'label-repository': 'Repository URL',
         'label-subDirectory': 'Subdirectory inside the repository',
-        'summarize-make-backup': 'Make a backup'
+        'label-sshPrivateKey': 'SSH private key',
+        'label-sshPublicKey': 'SSH public key',
+        'icon-summarize-make-backup': 'Make a backup'
       },
       fi: {
         'label-repository': 'Git-säilön URL',
         'label-subDirectory': 'Alihakemiston nimi säilön sisällä',
-        'summarize-make-backup': 'Tee varmuuskopio',
+        'icon-summarize-make-backup': 'Tee varmuuskopio',
 
         'Backup for Git': 'Git-pohjainen Varmuuskopiointi',
         'Manual backup by GitBackup {version}': 'Ylimääräinen varmuuskopio GitBackup {version}',
@@ -73,19 +75,17 @@ class GitBackup extends ToolPlugin {
   }
 
   toolMainPanel() {
-    // TODO: We could use here some link utility that keeps selected dbs and ids intact but changes URL parts.
     const repo = this.getSetting('repository')
     if (!repo) {
       return <>
         <Note><Trans>You need to configure this tool first from the configuration page.</Trans></Note>
       </>
     }
+    // TODO: Listing and restoring backups.
     return <>
       <SubPanel>
         <Trans>This tool takes every night automatically one backup.</Trans><> </>
         <Trans>You can also make immediately backup from the icon above.</Trans><> </>
-        <Trans>Setting up SSH keys is not yet supported.</Trans><> </>
-        <Trans>Please contact the support for the server SSH keys to get access to your repository.</Trans>
       </SubPanel>
       <SubPanel>
         <Trans>Currently restore is not yet implemented.</Trans><> </>
@@ -94,9 +94,6 @@ class GitBackup extends ToolPlugin {
       </SubPanel>
     </>
   }
-
-  // TODO: Add button to create backup right now. Maybe with comments?
-  // TODO: Communicating with backend counterpart needs URL passing all requests to plugin.
 
   getSettings() {
     return {
@@ -110,6 +107,11 @@ class GitBackup extends ToolPlugin {
         {
           type: 'text',
           name: 'subDirectory',
+          actions: {}
+        },
+        {
+          type: 'text',
+          name: 'sshPrivateKey',
           actions: {}
         },
         {

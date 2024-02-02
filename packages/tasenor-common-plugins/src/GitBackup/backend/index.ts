@@ -1,5 +1,5 @@
 import { GitRepo, KnexDatabase, systemPiped, TasenorExporter, ToolPlugin } from '@tasenor/common-node'
-import { DirectoryPath, Email, error, log, note, PluginCode, Version } from '@tasenor/common'
+import { DirectoryPath, Email, error, FilePath, log, note, PluginCode, Version } from '@tasenor/common'
 import fs from 'fs'
 import path from 'path'
 
@@ -55,17 +55,27 @@ class GitBackup extends ToolPlugin {
     const workDir = this.getWorkSpace(db)
     const repository = await this.getSetting(db, 'repository')
     const subDirectory = await this.getSetting(db, 'subDirectory')
+    const sshPrivateKey = await this.getSetting(db, 'sshPrivateKey')
 
     // Skip if not configured for use.
     if (repository === undefined || subDirectory === undefined) {
       return false
     }
 
+    const sshPath: FilePath = path.join(workDir, 'ssh.key') as FilePath
+    fs.writeFileSync(sshPath, '')
+    fs.chmodSync(sshPath, 0o600)
+
+    if (sshPrivateKey) {
+      fs.appendFileSync(sshPath, sshPrivateKey)
+      fs.appendFileSync(sshPath, '\n')
+    }
+
     const repoName = GitRepo.defaultName(repository)
 
     if (!this.isValidWritePath(db, workDir, repoName, subDirectory)) {
 
-      error(`A sub directory '${subDirectory}' does not produce valide allowed work directory for backup in DB '${db.client.config.connection.database}'.`)
+      error(`A sub directory '${subDirectory}' does not produce valid allowed work directory for backup in DB '${db.client.config.connection.database}'.`)
       return false
 
     } else {
@@ -73,10 +83,15 @@ class GitBackup extends ToolPlugin {
       log(`Making a backup into '${subDirectory}' of DB '${db.client.config.connection.database}'.`)
       const repo = await GitRepo.get(repository, workDir)
       if (repo) {
-        repo.configure('Tasenor', 'tasenor@gmail.com' as Email)
+        repo.configure({
+          name: 'Tasenor',
+          email: 'communications.tasenor@gmail.com' as Email,
+          sshPrivateKey: sshPrivateKey ? sshPath : null,
+        })
         const backupDir = path.join(workDir, repoName, subDirectory) as DirectoryPath
         await this.dump(db, backupDir)
         await repo.put(message, subDirectory)
+        // TODO: Return code gives failure even when succssful. Should return result of git command here.
         return true
       }
       return false
