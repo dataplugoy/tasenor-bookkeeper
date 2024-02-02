@@ -24,6 +24,8 @@ export const TextRenderer: Renderer = (props: RenderingProps) => {
 
   return <TextField
     label={label}
+    multiline={!!element.multiline}
+    minRows={element.multiline ? 2 : 1}
     name={element.name}
     value={value || ''}
     error={false}
@@ -35,7 +37,6 @@ export const TextRenderer: Renderer = (props: RenderingProps) => {
     }}
     onFocus={() => RISPProvider.onFocus()}
     onBlur={() => RISPProvider.onBlur()}
-    onKeyPress={() => null}
     onKeyUp={() => null}
     onKeyDown={() => null}
   />

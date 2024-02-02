@@ -71,6 +71,7 @@ export function isNumberElement(object: unknown): object is NumberElement {
  */
 export interface TextElement extends ActiveElement, NamedElement {
   readonly type: 'text'
+  multiline?: boolean
 }
 
 export function isTextElement(object: unknown): object is TextElement {

@@ -112,6 +112,7 @@ class GitBackup extends ToolPlugin {
         {
           type: 'text',
           name: 'sshPrivateKey',
+          multiline: true,
           actions: {}
         },
         {
