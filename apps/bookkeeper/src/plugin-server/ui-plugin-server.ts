@@ -7,6 +7,7 @@ import express from 'express'
 import pkg from '../../package.json' assert { type: 'json' }
 import { log } from '@tasenor/common'
 import { initialize, middleware } from './ui-plugin-middleware'
+import { listen } from '@tasenor/common-node'
 
 async function main() {
   log(`Starting UI plugin server v${pkg.version}`)
@@ -18,8 +19,8 @@ async function main() {
   app.use('/internal/plugins', middleware)
 
   const port = parseInt(process.env.PORT || '7204') + 2
-  log(`UI plugin server listening on port ${port}`)
-  await app.listen(port)
+
+  listen(app, port, () => log(`UI plugin server listening on port ${port}`))
 }
 
 main().catch(err => { console.error(err); process.exit(-1) })
