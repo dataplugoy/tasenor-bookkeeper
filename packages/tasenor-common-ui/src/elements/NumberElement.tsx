@@ -38,7 +38,6 @@ export const NumberRenderer: Renderer = (props: RenderingProps) => {
     }}
     onFocus={() => RISPProvider.onFocus()}
     onBlur={() => RISPProvider.onBlur()}
-    onKeyPress={() => null}
     onKeyUp={() => null}
     onKeyDown={() => null}
   />

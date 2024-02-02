@@ -3,6 +3,7 @@ import StarOutlineIcon from '@mui/icons-material/StarOutline'
 import { Autocomplete, Box, TextField } from '@mui/material'
 import { AccountNumber, FilterRule, AccountModel, filter2function } from '@tasenor/common'
 import { observer } from 'mobx-react'
+import { RISPProvider } from '..'
 
 export type AccountSelectorProps = {
   label: string
@@ -50,6 +51,8 @@ export const AccountSelector = observer((props: AccountSelectorProps) => {
         {preferredSet.has(option.number) && <StarOutlineIcon fontSize="small" sx={{ color: 'rgba(0,0,0,0.2)' }}/>}
       </Box>
     )}
+    onFocus={() => RISPProvider.onFocus()}
+    onBlur={() => RISPProvider.onBlur()}
     value={value && value.id ? value : notSelected}
     onChange={(_, value) => onChange(value && value.id ? value as AccountModel : null)}
     renderInput={(params) => (
