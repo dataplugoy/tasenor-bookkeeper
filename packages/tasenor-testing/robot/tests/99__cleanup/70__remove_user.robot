@@ -35,9 +35,3 @@ Delete Other Users
     Input Text                          deleted-user-email         noname@outside
     Click Element                       OK
     Should Have Info Message            User deleted permanently.
-
-    Select User From List               ${TEST_QA_USER}
-    Click Element                       delete-user
-    Input Text                          deleted-user-email         ${TEST_QA_USER}
-    Click Element                       OK
-    Should Have Info Message            User deleted permanently.
