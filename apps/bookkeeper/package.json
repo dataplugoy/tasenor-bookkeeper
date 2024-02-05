@@ -28,6 +28,7 @@
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.22.7",
     "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.1",
     "@mui/material": "^5.13.7",
     "@tasenor/common": "workspace:*",
