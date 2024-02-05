@@ -26,18 +26,18 @@
     "dayjs": "1.10.8",
     "form-data": "^4.0.0",
     "jwt-decode": "^3.1.2",
-    "mathjs": "^10.0.2",
+    "mathjs": "^12.3.1",
     "sprintf-js": "^1.1.2",
     "ts-opaque": "^3.0.1"
   },
   "devDependencies": {
     "@jest/globals": "^29.6.1",
+    "@tasenor/config": "workspace:*",
     "@types/jest": "^29.5.2",
     "@types/node": "^20.4.1",
     "eslint-config-tasenor": "workspace:*",
     "jest": "^29.6.1",
     "ts-jest": "^29.1.1",
-    "@tasenor/config": "workspace:*",
     "typescript": "^5.1.6"
   }
 }
