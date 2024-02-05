@@ -9,7 +9,7 @@ echo "--"
 echo "-- Delete old data"
 echo "--"
 echo
-echo "DELETE FROM public.cached_requests"
+echo "DELETE FROM public.cached_requests;"
 echo
 
 docker exec tasenor-db pg_dump -t cached_requests --inserts -a $1
