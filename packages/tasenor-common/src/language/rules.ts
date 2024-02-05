@@ -103,43 +103,64 @@ export class RulesEngine {
         // If we need more combinations, we can add them here.
         'string, string': function equal(a, b) {
           return a === b
-        }
+        },
+        'number, number': function equal(a, b) {
+          return a === b
+        },
       })
       ),
       createUnequal: factory('unequal', [], () => typed('unequal', {
         'string, string': function equal(a, b) {
           return a !== b
-        }
+        },
+        'number, number': function equal(a, b) {
+          return a !== b
+        },
       })
       ),
       createSmaller: factory('smaller', [], () => typed('smaller', {
         'string, string': function equal(a, b) {
           return a < b
-        }
+        },
+        'number, number': function equal(a, b) {
+          return a < b
+        },
       })
       ),
       createSmallerEq: factory('smallerEq', [], () => typed('smallerEq', {
         'string, string': function equal(a, b) {
           return a <= b
-        }
+        },
+        'number, number': function equal(a, b) {
+          return a <= b
+        },
       })
       ),
       createLarger: factory('larger', [], () => typed('larger', {
         'string, string': function equal(a, b) {
           return a > b
-        }
+        },
+        'number, number': function equal(a, b) {
+          return a > b
+        },
       })
       ),
       createLargerEq: factory('largerEq', [], () => typed('largerEq', {
         'string, string': function equal(a, b) {
           return a >= b
-        }
+        },
+        'number, number': function equal(a, b) {
+          return a >= b
+        },
       })
       ),
       createCompare: factory('compare', [], () => typed('compare', {
         'string, string': function equal(a, b) {
           return a > b ? 1 : a < b ? -1 : 0
-        }
+        },
+        'number, number': function equal(a, b) {
+          return a > b ? 1 : a < b ? -1 : 0
+        },
       })
       ),
       // Some other ops.
