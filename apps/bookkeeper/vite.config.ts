@@ -11,6 +11,9 @@ export default defineConfig(async ({ mode }) => {
   return {
     appType: 'spa',
     clearScreen: false,
+    build: {
+      chunkSizeWarningLimit: 10_000,
+    },
     plugins: [
       react({
         babel: {
