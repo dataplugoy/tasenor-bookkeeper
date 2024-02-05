@@ -15,8 +15,8 @@ Cypress.Commands.add('goto', (menu: string, listItem: string | null = null, icon
  * Wait that we get loading dimming and then wait until it is gone.
  */
 Cypress.Commands.add('waitLoading', () => {
-  cy.get('.MuiBackdrop-root').should('exist')
-  cy.get('.MuiBackdrop-root').should('not.exist')
+  cy.get('.MuiBackdrop-root').should('be.visible')
+  cy.get('.MuiBackdrop-root').should('be.hidden')
 })
 
 /**
