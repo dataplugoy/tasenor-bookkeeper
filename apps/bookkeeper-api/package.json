@@ -39,7 +39,7 @@
     "jsonwebtoken": "9.0.0",
     "killable": "^1.0.1",
     "knex": "2.4.2",
-    "multer": "^1.4.2",
+    "multer": "1.4.5-lts.1",
     "node-cron": "^3.0.2",
     "pg": "^8.7.3",
     "promise-sequential": "^1.1.1",

@@ -4,13 +4,13 @@ import { sprintf } from 'sprintf-js'
 import NavigationTargetModel from './NavigationTargetModel'
 import TagModel from './TagModel'
 import { Money } from '@tasenor/common-ui'
-import safeEval from 'safer-eval'
 import i18n from '../i18n'
 import { Link } from '@mui/material'
 import DocumentModel from './DocumentModel'
 import { ID, Currency } from '@tasenor/common'
 import DatabaseModel from './DatabaseModel'
 import PeriodModel from './PeriodModel'
+import Mexp from 'math-expression-evaluator'
 
 class EntryModel extends NavigationTargetModel {
 
@@ -376,7 +376,8 @@ class EntryModel extends NavigationTargetModel {
         str = str.replace(new RegExp(k, 'g'), v)
       }
       try {
-        return safeEval(str, { navigator: window.navigator })
+        const mexp = new Mexp()
+        return mexp.eval(str)
       } catch (err) {
         return NaN
       }
