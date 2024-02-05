@@ -13,7 +13,8 @@
     "build": "pnpm run docs-index && pnpm run docs-api && pnpm run docs-code",
     "lint": "openapi lint api/openapi.yaml --skip-rule operation-4xx-response --extends recommended",
     "ci": "pnpm run lint",
-    "nightly": "pnpm run build",
+    "nightly": "pnpm run ci",
+    "nightly3": "pnpm run build",
     "release": "pnpm version patch",
     "release-minor": "pnpm version minor",
     "show-version": "jq .version < package.json"
