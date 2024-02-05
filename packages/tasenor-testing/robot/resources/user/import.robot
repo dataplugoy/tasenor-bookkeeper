@@ -28,8 +28,8 @@ Answer Import Dropdown
     [Arguments]                         ${number}        ${text}
     Wait Until Element Is Enabled       //*[text()="${text}"]/..
     Click Element                       //*[text()="${text}"]/..
-    Scroll Element Into View            //*[@data-value="${number}"]
-    Click Element                       //*[@data-value="${number}"]
+    Scroll Element Into View            //*[@id="Account ${number}"]
+    Click Element                       //*[@id="Account ${number}"]
 
 Answer Import Radio
     [Documentation]                     Select the radio button related to label.
