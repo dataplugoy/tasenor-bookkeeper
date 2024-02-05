@@ -1,5 +1,5 @@
 import Opaque from 'ts-opaque'
-import { create, all, factory, MathJsStatic, clone, typed } from 'mathjs'
+import { create, all, factory, MathJsInstance, clone, typed } from 'mathjs'
 import { AssetTransfer, isCurrency, warning } from '..'
 import { num } from '../utils'
 import { TextFileLine } from '../import/TextFileLine'
@@ -89,7 +89,7 @@ export class RuleParsingError extends Error {
  */
 export class RulesEngine {
 
-  private engine: MathJsStatic
+  private engine: MathJsInstance
   private scope: Record<string, RuleValue | CallableFunction>
   private variables: RuleVariables
   private quiet: boolean
@@ -217,7 +217,7 @@ export class RulesEngine {
    * @param variables
    * @returns
    */
-  eval(expr: Expression | string | object, variables?: RuleVariables): RuleValue {
+  eval(expr: Expression | string | number | object, variables?: RuleVariables): RuleValue {
     if (variables) {
       this.variables = clone(variables)
     }
@@ -231,6 +231,9 @@ export class RulesEngine {
       const result: Record<string, RuleValue> = {}
       Object.keys(expr).forEach(k => (result[k] = this.eval(expr[k])))
       return result
+    }
+    if (typeof expr === 'number') {
+      return expr
     }
     let result
     try {

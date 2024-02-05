@@ -8,6 +8,7 @@ test('Rules: constants', () => {
   expect(e.eval("''")).toBe('')
   expect(e.eval('"a"')).toBe('a')
   expect(e.eval('3.0')).toBe(3)
+  expect(e.eval(3.2)).toBe(3.2)
   expect(e.eval('null')).toBe(null)
   expect(e.eval('false')).toBe(false)
   expect(e.eval('true')).toBe(true)
