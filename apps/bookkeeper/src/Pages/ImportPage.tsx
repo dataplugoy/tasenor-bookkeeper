@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Note, ProcessList, ProcessView, ConfigJSONView, ImportStateView, useAxios, Title, useNavigation, TabNav } from '@tasenor/common-ui'
+import { Note, ProcessList, ProcessView, ImportStateView, useAxios, Title, useNavigation, TabNav } from '@tasenor/common-ui'
 import { Trans, useTranslation } from 'react-i18next'
 import { getNetConf, haveCatalog, haveStore, ID, ImportRule } from '@tasenor/common'
 import Config from '../Configuration'
@@ -13,6 +13,7 @@ export interface ImportProcessProps {
   importerId: ID
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const ImportProcess = (props: ImportProcessProps): JSX.Element => {
   const store = haveStore()
   const nav = useNavigation()
@@ -26,7 +27,7 @@ export const ImportProcess = (props: ImportProcessProps): JSX.Element => {
   const showList = !processId
   const showViewer = !showList
 
-  const onActionSuccess = (result, trigger, _props) => {
+  const onActionSuccess = (result, trigger: string) => {
     if (trigger === 'onClick' || trigger === 'onContinue' || trigger === 'onCreateRule') {
       if (result.status === 'SUCCEEDED') {
         store.fetchBalances().then(() => store.fetchDocuments()).then(() => nav.go({ processId: result.processId, step: result.step }))
@@ -41,7 +42,7 @@ export const ImportProcess = (props: ImportProcessProps): JSX.Element => {
   const onRetry = async () => {
     const url = `/db/${db}/import/${importerId}/process/${processId}`
     const result = await store.request(url, 'POST', { continueOption: 'retry' })
-    onActionSuccess(result, 'onContinue', {})
+    onActionSuccess(result, 'onContinue')
   }
 
   // TODO: Passing all these views is legacy from old separate library. Should be removed and used directly everywhere.
@@ -67,7 +68,7 @@ export const ImportProcess = (props: ImportProcessProps): JSX.Element => {
           onRetry={onRetry}
           resultView={ImportResultView}
           successView={ImportSuccessView}
-          onActionSuccess={(result, trigger, props) => onActionSuccess(result, trigger, props)}
+          onActionSuccess={(result, trigger) => onActionSuccess(result, trigger)}
         />
       }
     </div>
@@ -189,6 +190,7 @@ export const ImportTabs = (props: ImportTabsProps): JSX.Element => {
 export interface ImportProps {
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const ImportPage = (props: ImportProps): JSX.Element => {
   const catalog = haveCatalog()
 

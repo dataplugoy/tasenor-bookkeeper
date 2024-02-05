@@ -183,7 +183,7 @@ class DocumentModel extends NavigationTargetModel {
   imbalance() {
     let debit = 0
     let credit = 0
-    this.entries.forEach((entry, idx) => {
+    this.entries.forEach((entry) => {
       if (entry.debit) {
         debit += entry.amount
       } else {
