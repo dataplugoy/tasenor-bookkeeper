@@ -1,4 +1,4 @@
-import Opaque from "ts-opaque"
+import Opaque from 'ts-opaque'
 
 /**
  * A string definition of a key press as in `keydown` event listener.
