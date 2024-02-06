@@ -34,7 +34,7 @@ const runPlugin = async (req, res, args) => {
     }
     res.send(out)
   } else {
-    res.status(404).send({ message: `Plugin not found.` })
+    res.status(404).send({ message: 'Plugin not found.' })
   }
 }
 
