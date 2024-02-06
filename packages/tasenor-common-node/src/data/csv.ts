@@ -14,14 +14,15 @@ export async function loadCSVfile(path: FilePath): Promise<string[][]> {
     })
     const result:string[][] = []
 
-    parser.on('readable', function(){
-      let record: string[];
+    parser.on('readable', function() {
+      let record: string[]
       while ((record = parser.read()) !== null) {
         result.push(record)
       }
     })
-    parser.on('error', function(err){
-      console.error(err.message);
+    parser.on('error', function(err) {
+      console.error(err.message)
+      reject(err)
     })
     parser.on('end', () => resolve(result))
     parser.write(data)
