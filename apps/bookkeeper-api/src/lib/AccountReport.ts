@@ -3,8 +3,6 @@ import { ReportColumnDefinition, ReportItem } from '@tasenor/common'
 import { ReportPlugin } from '@tasenor/common-node'
 import dayjs from 'dayjs'
 
-// TODO: Not used?
-
 /**
  * Report of account transactions on the given period.
  */

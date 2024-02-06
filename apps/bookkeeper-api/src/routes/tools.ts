@@ -33,6 +33,8 @@ const runPlugin = async (req, res, args) => {
       return res.status(400).send({ message: `Plugin does not implement ${method} query.` })
     }
     res.send(out)
+  } else {
+    res.status(404).send({ message: `Plugin not found.` })
   }
 }
 

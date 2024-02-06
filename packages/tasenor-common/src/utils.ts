@@ -166,3 +166,10 @@ export function setIntersect<T>(s1: Set<T>, s2: Set<T>): Set<T> {
 export function delay(time: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, time))
 }
+
+/**
+ * Test a name for bad characters.
+ */
+export function validFileName(name: string): boolean {
+  return (/[[\]:\\/|<>*{}%#&$!'"`=?,.]/.test(name))
+}
