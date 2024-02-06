@@ -3,38 +3,13 @@
  * Take CSV file name, key column number (1..n) and value column number and then build mapping from key to value JSON.
  */
 
-import fs from 'fs'
+import commonNode from '@tasenor/common-node'
+const { loadCSVfile } = commonNode
 import { argv } from 'process'
-import { parse } from 'csv-parse'
 
 if (argv.length < 5) {
   console.log('usage: convert-csv-to-map.mjs <csv-file> <key-column> <value-column>')
   process.exit(1)
-}
-
-// TODO: Move to node common.
-async function loadCSVfile(path) {
-  return new Promise((resolve, reject) => {
-
-    const data = fs.readFileSync(path).toString('utf-8')
-    const parser = parse({
-      delimiter: ','
-    })
-    const result = []
-
-    parser.on('readable', function(){
-      let record;
-      while ((record = parser.read()) !== null) {
-        result.push(record)
-      }
-    })
-    parser.on('error', function(err){
-      console.error(err.message);
-    })
-    parser.on('end', () => resolve(result))
-    parser.write(data)
-    parser.end()
-  })
 }
 
 const csv = await loadCSVfile(argv[2])
