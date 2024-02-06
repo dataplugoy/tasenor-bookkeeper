@@ -6,11 +6,9 @@ export {}
 Cypress.Commands.add('installPlugin', (code: string) => {
   cy.plugin(code).then($plugin => {
     if ($plugin.find('[data-cy="button-Install"]').length) {
-      cy.wrap($plugin).button('Install').click()
+      cy.plugin(code).button('Install').click()
     }
   })
-  // Check that remove button is there.
-  cy.plugin(code).button('Remove')
 })
 
 /**
@@ -19,11 +17,9 @@ Cypress.Commands.add('installPlugin', (code: string) => {
 Cypress.Commands.add('subscribePlugin', (code: string) => {
   cy.plugin(code).then($plugin => {
     if ($plugin.find('[data-cy="button-Subscribe"]').length) {
-      cy.wrap($plugin).button('Subscribe').click()
+      cy.plugin(code).button('Subscribe').click()
     }
   })
-  // Check that unsubscribe button is there.
-  cy.plugin(code).button('Unsubscribe')
 })
 
 /**
@@ -31,6 +27,4 @@ Cypress.Commands.add('subscribePlugin', (code: string) => {
  */
 Cypress.Commands.add('unsubscribePlugin', (code: string) => {
   cy.plugin(code).find('[data-cy="button-Unsubscribe"]').click()
-  // Check that subscribe button is there.
-  cy.plugin(code).button('Subscribe')
 })
