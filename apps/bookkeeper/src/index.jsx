@@ -5,7 +5,7 @@ import { Provider } from 'mobx-react'
 import App from './App'
 import { BrowserRouter, useNavigate } from 'react-router-dom'
 import i18n, { initializeI18n } from './i18n'
-import { ThemeProvider, useMediaQuery } from '@mui/material'
+import { CssBaseline, ThemeProvider, useMediaQuery } from '@mui/material'
 import { light, dark } from './theme'
 import { RISPProvider } from '@tasenor/common-ui'
 import Loading from './Components/Loading'
@@ -34,6 +34,7 @@ const AppRenderer = withCatalog(withStore((props) => {
   }
   return (
     <ThemeProvider theme={prefersDarkMode ? dark : light}>
+      <CssBaseline/>
       <I18nextProvider i18n={ i18n }><App /></I18nextProvider>
     </ThemeProvider>
   )

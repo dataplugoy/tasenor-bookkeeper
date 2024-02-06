@@ -13,7 +13,7 @@ export const Note = (props: NoteProps) => {
     return <></>
   }
   return (
-    <Typography className={className || 'Note'} color="error" align="center" variant="h6">
+    <Typography className={className || 'Note'} sx={{ m: 2 }} color="error" align="center" variant="h6">
       {children}
     </Typography>
   )

@@ -89,3 +89,10 @@
     cursor: pointer;
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  .sub-selected {
+    outline: 2px whitesmoke solid !important;
+    outline-offset: 1px;
+  }
+}
