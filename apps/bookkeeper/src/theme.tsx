@@ -42,7 +42,7 @@ export const dark = createTheme({
       dark: blueGrey[400],
     },
     error: {
-      main: deepOrange['A400']
+      main: deepOrange.A400
     },
     text: {
       primary: brown[200],
