@@ -168,8 +168,16 @@ export function delay(time: number): Promise<void> {
 }
 
 /**
- * Test a name for bad characters.
+ * Test a file name canditate for bad characters.
  */
 export function validFileName(name: string): boolean {
   return !(/[[\]:\\/|<>*{}%#&$!'"`=?,.]/.test(name))
+}
+
+/**
+ * Test a git repo name for bad characters.
+ */
+export function validGitRepoName(name: string): boolean {
+  const re = new RegExp('((git|ssh|http(s)?)|(git@[\\w\\.]+))(:(//)?)([\\w\\.@\\:/\\-~]+)(\\.git)(/)?', 'i')
+  return re.test(name)
 }

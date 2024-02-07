@@ -1,5 +1,5 @@
 import { GitRepo, KnexDatabase, systemPiped, TasenorExporter, ToolPlugin } from '@tasenor/common-node'
-import { DirectoryPath, Email, error, FilePath, log, note, PluginCode, Version } from '@tasenor/common'
+import { DirectoryPath, Email, error, FilePath, log, note, PluginCode, validGitRepoName, Version } from '@tasenor/common'
 import fs from 'fs'
 import path from 'path'
 
@@ -59,6 +59,12 @@ class GitBackup extends ToolPlugin {
 
     // Skip if not configured for use.
     if (repository === undefined || subDirectory === undefined) {
+      error('Cannot make backup since no repository or subdirectory configured.')
+      return false
+    }
+
+    if (!validGitRepoName(repository)) {
+      error(`Bad repository address ${JSON.stringify(repository)}.`)
       return false
     }
 
