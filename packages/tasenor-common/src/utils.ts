@@ -171,5 +171,5 @@ export function delay(time: number): Promise<void> {
  * Test a name for bad characters.
  */
 export function validFileName(name: string): boolean {
-  return (/[[\]:\\/|<>*{}%#&$!'"`=?,.]/.test(name))
+  return !(/[[\]:\\/|<>*{}%#&$!'"`=?,.]/.test(name))
 }
