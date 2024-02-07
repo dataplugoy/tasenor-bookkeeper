@@ -23,4 +23,6 @@ export declare class Store {
   fetchDocuments(db?: string, periodId?: number): Promise<void>
   request(path, method?: string, data?: unknown, file?: unknown, noDimming?: boolean): Promise<unknown>
   rispSetup(baseUrl: string): TasenorSetup
+  setLoadingOn(): void
+  setLoadingOff(): void
 }

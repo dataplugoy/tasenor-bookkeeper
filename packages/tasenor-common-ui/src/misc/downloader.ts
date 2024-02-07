@@ -3,9 +3,9 @@
  * @param url
  * @param token
  */
-export const downloadUrl = (url: string, token?: string, fileName?: string): void => {
+export const downloadUrl = async (url: string, token?: string, fileName?: string): Promise<void> => {
   const headers: HeadersInit = token ? { Authorization: 'Bearer ' + token } : {}
-  fetch(url, {
+  return fetch(url, {
     method: 'GET',
     headers: new Headers(headers)
   })
