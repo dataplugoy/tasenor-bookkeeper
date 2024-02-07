@@ -83,22 +83,22 @@ const debug = (...args) => DEBUG && console.log.apply(console, args)
  */
 export class Store {
 
-  db = null
-  loading = false
-  messages = []
-  periodId = null
   accountId = null
   changed = false
+  db = null
   dbsByName = null
-  lastDate = null
-  report = null
-  token = null
   isAdmin = false
   isSuperuser = false
-  tools = { tagDisabled: {}, accounts: {} }
-  users = []
-  user = {}
+  lastDate = null
+  loading = false
+  messages = []
   motd = null
+  periodId = null
+  report = null
+  token = null
+  tools = { tagDisabled: {}, accounts: {} }
+  user = {}
+  users = []
 
   // Cache for account descriptions list.
   entryDescriptions = {}
@@ -109,63 +109,63 @@ export class Store {
     this.settings = settings
     this.catalog = null
     makeObservable(this, {
-      db: observable,
-      loading: observable,
-      messages: observable,
-      periodId: observable,
+      account: computed,
       accountId: observable,
+      accounts: computed,
+      balances: computed,
       changed: observable,
-      dbsByName: observable,
-      lastDate: observable,
-      report: observable,
-      token: observable,
-      isAdmin: observable,
-      isSuperuser: observable,
-      tools: observable,
-      users: observable,
-      user: observable,
-      motd: observable,
-      setTokens: action,
-      request: action,
-      fetchDatabases: action,
-      setDb: action,
-      setPeriod: action,
-      setAccount: action,
+      clearAccount: action,
       clearDb: action,
       clearPeriod: action,
-      clearAccount: action,
-      fetchSettings: action,
-      fetchPeriods: action,
-      fetchPeriodData: action,
-      fetchTags: action,
+      createDatabase: action,
+      database: computed,
+      db: observable,
+      dbs: computed,
+      dbsByName: observable,
+      documents: computed,
       fetchAccounts: action,
+      fetchBalances: action,
+      fetchCurrentUser: action,
+      fetchDatabases: action,
+      fetchDocuments: action,
       fetchEntryProposals: action,
       fetchHeadings: action,
-      fetchImporters: action,
       fetchImporter: action,
-      fetchReports: action,
-      fetchReport: action,
-      fetchBalances: action,
-      fetchDocuments: action,
+      fetchImporters: action,
+      fetchPeriodData: action,
+      fetchPeriods: action,
       fetchRawDocument: action,
+      fetchReport: action,
+      fetchReports: action,
+      fetchSettings: action,
+      fetchTags: action,
+      filteredTransactions: computed,
+      headings: computed,
+      invalidateReport: action,
+      isAdmin: observable,
+      isSuperuser: observable,
+      lastDate: observable,
+      loading: observable,
       login: action,
       logout: action,
-      createDatabase: action,
-      invalidateReport: action,
-      uploadImportFiles: action,
-      fetchCurrentUser: action,
-      filteredTransactions: computed,
-      transactions: computed,
-      dbs: computed,
-      database: computed,
+      messages: observable,
+      motd: observable,
       period: computed,
+      periodId: observable,
       periods: computed,
-      balances: computed,
-      account: computed,
-      accounts: computed,
-      headings: computed,
+      report: observable,
       reports: computed,
-      documents: computed,
+      request: action,
+      setAccount: action,
+      setDb: action,
+      setPeriod: action,
+      setTokens: action,
+      token: observable,
+      tools: observable,
+      transactions: computed,
+      uploadImportFiles: action,
+      user: observable,
+      users: observable,
     })
 
     this.setTokens(null, window.localStorage.getItem('token'))
@@ -288,6 +288,24 @@ export class Store {
   }
 
   /**
+   * Put the screen dimming on.
+   */
+  setLoadingOn() {
+    runInAction(() => {
+      this.loading = true
+    })
+  }
+
+  /**
+   * Put the screen dimming on.
+   */
+  setLoadingOff() {
+    runInAction(() => {
+      this.loading = false
+    })
+  }
+
+  /**
    * Make a HTTP request to the back-end.
    * @param {String} path
    * @param {String} method
@@ -318,14 +336,10 @@ export class Store {
 
     debug('  Request:', method, url, data || '')
 
-    runInAction(() => {
-      this.loading = !noDimming
-    })
+    !noDimming && this.setLoadingOn()
     const res = await net[method](url, data, headers)
+    this.setLoadingOff()
 
-    runInAction(() => {
-      this.loading = false
-    })
     if (res.success) {
       return res.status === 200 ? res.data : true
     }
