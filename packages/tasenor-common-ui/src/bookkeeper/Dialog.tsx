@@ -83,7 +83,7 @@ export const Dialog = (props: DialogProps): JSX.Element => {
       <DialogTitle>
         {title}
       </DialogTitle>
-      <DialogContent dividers data-cy={`dialog-${title.props.children}`}>
+      <DialogContent dividers data-cy={`dialog-${typeof title === 'string' ? title : title.props.children}`}>
         {children}
       </DialogContent>
       {
