@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material'
-import { amber, brown, grey, blueGrey, deepOrange, red } from '@mui/material/colors'
+import { amber, brown, grey, blueGrey, deepOrange, red, teal } from '@mui/material/colors'
 
 export const light = createTheme({
   palette: {
@@ -32,14 +32,14 @@ export const dark = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      light: amber[700],
-      main: amber[800],
-      dark: amber[900],
+      light: teal[700],
+      main: teal[800],
+      dark: teal[900],
     },
     secondary: {
-      light: blueGrey[200],
-      main: blueGrey[300],
-      dark: blueGrey[400],
+      light: blueGrey[700],
+      main: blueGrey[800],
+      dark: blueGrey[900],
     },
     error: {
       main: deepOrange.A400
@@ -49,7 +49,7 @@ export const dark = createTheme({
       secondary: brown[300],
     },
     background: {
-      paper: grey[800],
+      paper: grey[900],
       default: grey[800],
     },
   },
