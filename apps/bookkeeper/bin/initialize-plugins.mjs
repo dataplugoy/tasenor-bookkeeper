@@ -2,7 +2,6 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-// TODO: Hmm. Normal import does not work here.
 import common from '@tasenor/common'
 import commonNode from '@tasenor/common-node'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))

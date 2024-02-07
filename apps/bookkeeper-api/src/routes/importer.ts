@@ -3,7 +3,7 @@ import knex from '../lib/knex'
 import catalog from '../lib/catalog'
 import { getImportSystem } from '../lib/importing'
 import { ImportPlugin, ProcessFileData } from '@tasenor/common-node'
-import { ID, ProcessStatus } from '@tasenor/common'
+import { ID, ProcessStatus, validFileName } from '@tasenor/common'
 
 const router = express.Router()
 
@@ -27,8 +27,7 @@ router.post('/',
     if (!name) {
       return res.status(400).send({ message: 'Name is missing.' })
     }
-    // TODO: Make this common function.
-    if (/[[\]:\\/|<>*{}%#&$!'"`=?,.]/.test(name)) {
+    if (!validFileName(name)) {
       return res.status(400).send({ message: 'Invalid characters in the name.' })
     }
     if (!config || typeof config !== 'object') {

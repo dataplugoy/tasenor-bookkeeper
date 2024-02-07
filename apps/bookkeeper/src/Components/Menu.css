@@ -20,13 +20,6 @@
   margin-left: 1rem;
 }
 
-.Menu .button .shortcut {
-  border-radius: 4px;
-  padding: 3px;
-  font-size: 0.7rem;
-  border: 1px solid rgba(255,255,255,0.5);
-}
-
 .Menu .language {
   margin-left: 2rem;
 }
