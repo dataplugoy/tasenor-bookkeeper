@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import { Note, IconButton, SubPanel, ToolPlugin, Dialog } from '@tasenor/common-ui'
 import { makeObservable, observable, runInAction } from 'mobx'
 import { Trans, useTranslation } from 'react-i18next'
-import { useState, useRef } from 'react'
 import { TextField } from '@mui/material'
 
 interface MakeBackupIconProps {
@@ -23,10 +22,10 @@ function MakeBackupIcon(props: MakeBackupIconProps) {
         wider
         isVisible={askMessage}
         title={t('Comment for Git Commit')} onClose={() =>
-        setAskMessage(false)}
+          setAskMessage(false)}
         onConfirm={() => onMakeBackup(val.current.trim())}
       >
-        <TextField fullWidth autoFocus value={val.current} onChange={(e) => {setMessage(e.target.value); val.current = e.target.value}}/>
+        <TextField fullWidth autoFocus value={val.current} onChange={(e) => { setMessage(e.target.value); val.current = e.target.value }}/>
       </Dialog>
     }
     <IconButton id="Make Backup" disabled={disabled} onClick={() => setAskMessage(true)} title="summarize-make-backup" icon="save" />
