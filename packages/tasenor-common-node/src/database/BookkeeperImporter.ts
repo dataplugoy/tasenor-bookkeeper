@@ -89,7 +89,7 @@ export class BookkeeperImporter {
           data.code = code
         }
 
-        // Verision 1.
+        // Version 1.
         if (this.VERSION === 1) {
           const flags = new Set(account.flags ? account.flags.split(' ') : [])
           if (flags.has('FAVOURITE')) {
@@ -236,7 +236,7 @@ export class BookkeeperImporter {
           }
         }
       // Version 2.
-      } else if (this.VERSION === 2) {
+      } else if ((this.VERSION || 0) >= 2) {
         Object.assign(data, JSON.parse(line.data))
       }
 
