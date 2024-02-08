@@ -45,6 +45,10 @@ export type ParsedTsvFileData = string[][]
 export type ProcessedTsvFileData = {[key: string]: string}[]
 export type Json = Value
 
+export function isFilePath(obj: unknown): obj is FilePath {
+  return typeof obj === 'string'
+}
+
 // Common utility types
 // --------------------
 export type Constructor<T> = new (...args) => T

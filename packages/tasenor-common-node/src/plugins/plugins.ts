@@ -1,7 +1,7 @@
 import fs from 'fs'
 import glob, { globSync } from 'fast-glob'
 import path from 'path'
-import { TasenorPlugin, PluginCatalog, FilePath, Url, note, log, DirectoryPath, error, GET, warning } from '@tasenor/common'
+import { TasenorPlugin, PluginCatalog, FilePath, Url, note, log, DirectoryPath, error, GET, warning, isFilePath } from '@tasenor/common'
 import { create } from 'ts-opaque'
 import { vault } from '../net'
 import { systemPiped } from '..'
@@ -259,8 +259,8 @@ function readBackendPlugin(indexPath: FilePath): TasenorPlugin {
 /**
  * Read the local plugin state.
  */
-function loadPluginState(plugin: TasenorPlugin): PluginState {
-  const stateFile = plugin.path && path.join(plugin.path, '.state')
+function loadPluginState(plugin: TasenorPlugin | FilePath): PluginState {
+  const stateFile = isFilePath(plugin) ? plugin : plugin.path && path.join(plugin.path, '.state')
   if (stateFile && fs.existsSync(stateFile)) {
     return JSON.parse(fs.readFileSync(stateFile).toString('utf-8'))
   }
@@ -272,8 +272,8 @@ function loadPluginState(plugin: TasenorPlugin): PluginState {
 /**
  * Save local plugin state.
  */
-function savePluginState(plugin: TasenorPlugin, state: PluginState): void {
-  const stateFile = path.join(plugin.path, '.state')
+function savePluginState(plugin: TasenorPlugin | FilePath, state: PluginState): void {
+  const stateFile = isFilePath(plugin) ? plugin : path.join(plugin.path, '.state')
   fs.writeFileSync(stateFile, JSON.stringify(state, null, 2) + '\n')
 }
 
@@ -398,6 +398,26 @@ async function fetchRepositories(srcRoot: DirectoryPath): Promise<boolean> {
 }
 
 /**
+ * Find all state files from a directory and load them.
+ */
+function collectPluginStates(dir: DirectoryPath): Record<DirectoryPath, PluginState> {
+  const states: Record<DirectoryPath, PluginState> = {}
+  for (const statePath of globSync(`${dir}/**/.state`)) {
+    states[statePath] = loadPluginState(statePath as FilePath)
+  }
+  return states
+}
+
+/**
+ * Save state files from the collection.
+ */
+function savePluginStates(states: Record<DirectoryPath, PluginState>): void {
+  Object.keys(states).forEach(statePath => {
+    savePluginState(statePath as FilePath, states[statePath])
+  })
+}
+
+/**
  * Go through repository URLs and install all missing plugin repositories.
  */
 async function upgradeRepositories(srcRoot: DirectoryPath): Promise<boolean> {
@@ -427,10 +447,12 @@ async function upgradeRepositories(srcRoot: DirectoryPath): Promise<boolean> {
         log(`  The latest version ${newVersion} already installed.`)
       } else {
         log(`  Upgrading ${npm} from version ${oldVersion} to ${newVersion}.`)
+        const states = collectPluginStates(target)
         const source = path.join(config.PLUGIN_PATH, 'package')
         const cmd = `cd "${config.PLUGIN_PATH}" && rm -fr "${source}" "${target}" && npm view ${npm} dist.tarball | xargs curl -s | tar xz && mv "${source}" "${target}"`
         await systemPiped(cmd)
         changes = true
+        savePluginStates(states)
       }
     } else {
       const cmd = `cd "${target}" && git pull`
