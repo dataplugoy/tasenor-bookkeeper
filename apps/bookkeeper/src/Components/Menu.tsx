@@ -42,7 +42,7 @@ export interface MenuProps {
 
 export const Menu = observer(withStore((props: MenuProps): React.ReactNode => {
 
-  const [refresh, setRefresh] = useState(false)
+  const [, setRefresh] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
   const { t } = useTranslation()
@@ -52,6 +52,7 @@ export const Menu = observer(withStore((props: MenuProps): React.ReactNode => {
   let [, db, tool, periodId, accountId, extras]: (string | null | number)[] = location.pathname.split('/')
 
   useEffect(() => {
+    // TODO: This is legacy and should be handled by each individual page accordingly.
     if (db === '_') {
       db = null
     }

@@ -81,6 +81,7 @@ class ToolsToolPanel extends Component {
     }
     await store.database.createNewPeriod(realStartDate, realEndDate, this.props.t('Initial balance'))
     await store.fetchPeriods(store.db)
+    await store.fetchReports(store.db)
   }
 
   /**
