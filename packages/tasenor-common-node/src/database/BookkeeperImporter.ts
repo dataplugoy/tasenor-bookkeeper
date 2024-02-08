@@ -2,10 +2,8 @@ import glob from 'fast-glob'
 import path from 'path'
 import fs from 'fs'
 import { system } from '..'
-import { log, BookkeeperConfig, DirectoryPath, Hostname, ProcessedTsvFileData, TarFilePath, TextFilePath, TsvFilePath, error, FilePath, JsonFilePath, Value, ID, ProcessModelDetailedData, ProcessFileModelData, ProcessStepModelData } from '@tasenor/common'
+import { log, BookkeeperConfig, DirectoryPath, Hostname, ProcessedTsvFileData, TarFilePath, TextFilePath, TsvFilePath, error, FilePath, JsonFilePath, Value, ID, ProcessModelDetailedData, ProcessFileModelData, ProcessStepModelData, DatabaseName } from '@tasenor/common'
 import { DB, KnexDatabase } from './DB'
-// TODO: Hmm, the create() is more confusing that simpy using `as Type`?
-import { create } from 'ts-opaque'
 
 /**
  * Implementation of the database backup file reading.
@@ -392,9 +390,9 @@ export class BookkeeperImporter {
    * @param hostOverride If set, use this hostname instead of the one in database, when connecting to target DB.
    */
   async restore(masterDb: KnexDatabase, dbName: string, out: DirectoryPath, hostOverride: Hostname | null = null): Promise<void> {
-    const userDb = await DB.get(masterDb, create(dbName), hostOverride)
+    const userDb = await DB.get(masterDb, dbName as DatabaseName, hostOverride)
 
-    this.setVersion(create(path.join(out, 'VERSION')))
+    this.setVersion(path.join(out, 'VERSION') as FilePath)
     const conf = JSON.parse(fs.readFileSync(path.join(out, 'settings.json')).toString('utf-8'))
     if (!conf.language) {
       throw new Error('Configuration does not have language.')
@@ -403,18 +401,18 @@ export class BookkeeperImporter {
     await this.setConfig(userDb, conf)
     const files = glob.sync(path.join(out, 'accounts', '*.tsv'))
     await this.setAccounts(userDb, files as FilePath[])
-    const periodsPath = path.join(out, 'periods.tsv')
-    await this.setPeriods(userDb, create(periodsPath))
-    const entriesPath = path.join(out, 'entries.tsv')
-    await this.setEntries(userDb, create(entriesPath), conf)
-    const tagsPath = path.join(out, 'tags.tsv')
-    await this.setTags(userDb, create(tagsPath))
+    const periodsPath = path.join(out, 'periods.tsv') as FilePath
+    await this.setPeriods(userDb, periodsPath)
+    const entriesPath = path.join(out, 'entries.tsv') as FilePath
+    await this.setEntries(userDb, entriesPath, conf)
+    const tagsPath = path.join(out, 'tags.tsv') as FilePath
+    await this.setTags(userDb, tagsPath)
     if ((this.VERSION || 0) >= 3) {
-      const configPaths = glob.sync(path.join(out, 'importers', '*', 'config.json'))
+      const configPaths = glob.sync(path.join(out, 'importers', '*', 'config.json')) as FilePath[]
       for (const configPath of configPaths) {
         const importerName = path.basename(path.dirname(configPath))
         const imporPaths = glob.sync(path.join(out, 'importers', importerName, '[0-9][0-9][0-9][0-9]-*.json'))
-        await this.setImporters(userDb, create(configPath), imporPaths as JsonFilePath[])
+        await this.setImporters(userDb, configPath, imporPaths as JsonFilePath[])
       }
     }
   }
@@ -427,7 +425,7 @@ export class BookkeeperImporter {
    * @param hostOverride If set, use this hostname instead of the one in database, when connecting to target DB.
    */
   async run(masterDb: KnexDatabase, dbName: string, tarPath: TarFilePath, out: DirectoryPath, hostOverride: Hostname | null = null) {
-    tarPath = create(path.resolve(tarPath))
+    tarPath = path.resolve(tarPath) as FilePath
     if (!fs.existsSync(tarPath)) {
       throw new Error(`Backup ${tarPath} does not exist.`)
     }
