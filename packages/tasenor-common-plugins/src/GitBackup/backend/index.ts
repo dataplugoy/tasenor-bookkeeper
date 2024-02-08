@@ -1,5 +1,5 @@
 import { GitRepo, KnexDatabase, systemPiped, TasenorExporter, ToolPlugin } from '@tasenor/common-node'
-import { DirectoryPath, Email, error, FilePath, log, note, PluginCode, validGitRepoName, Version } from '@tasenor/common'
+import { DirectoryPath, Email, error, FilePath, log, note, PluginCode, Url, validGitRepoName, Version } from '@tasenor/common'
 import fs from 'fs'
 import path from 'path'
 
@@ -9,7 +9,7 @@ class GitBackup extends ToolPlugin {
 
     this.code = 'GitBackup'as PluginCode
     this.title = 'Backup for Git'
-    this.version = '1.0.3' as Version
+    this.version = '1.0.4' as Version
     this.icon = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"></path></svg>'
     this.releaseDate = '2022-12-12'
     this.use = 'both'
@@ -49,9 +49,28 @@ class GitBackup extends ToolPlugin {
   }
 
   /**
-   * Execute backup making for a database.
+   * List of the latest backup commits.
    */
-  async makeBackup(db: KnexDatabase, message: string): Promise<boolean> {
+  async GET(db: KnexDatabase, data): Promise<unknown> {
+    if (typeof data === 'object' && data !== null && data.type === 'commits') {
+      const commits = await this.collectCommits(db, data.count || 10)
+      return { success: true, data: { commits } }
+    }
+    return { success: false }
+  }
+
+  /**
+   * A helper to check settings and set up repository for further use.
+   */
+  private async setupRepository(db: KnexDatabase): Promise<null | {
+    workDir: DirectoryPath,
+    repository: Url,
+    subDirectory: DirectoryPath,
+    sshPrivateKey: string,
+    sshPath: FilePath,
+    backupDir: DirectoryPath,
+    repo: GitRepo,
+  }> {
     const workDir = this.getWorkSpace(db)
     const repository = await this.getSetting(db, 'repository')
     const subDirectory = await this.getSetting(db, 'subDirectory')
@@ -60,14 +79,16 @@ class GitBackup extends ToolPlugin {
     // Skip if not configured for use.
     if (repository === undefined || subDirectory === undefined) {
       error('Cannot make backup since no repository or subdirectory configured.')
-      return false
+      return null
     }
 
+    // Check repo URL.
     if (!validGitRepoName(repository)) {
       error(`Bad repository address ${JSON.stringify(repository)}.`)
-      return false
+      return null
     }
 
+    // Set up SSH if needed.
     const sshPath: FilePath = path.join(workDir, 'ssh.key') as FilePath
     fs.writeFileSync(sshPath, '')
     fs.chmodSync(sshPath, 0o600)
@@ -77,31 +98,68 @@ class GitBackup extends ToolPlugin {
       fs.appendFileSync(sshPath, '\n')
     }
 
+    // Verify the resulting work directory.
     const repoName = GitRepo.defaultName(repository)
-
     if (!this.isValidWritePath(db, workDir, repoName, subDirectory)) {
 
       error(`A sub directory '${subDirectory}' does not produce valid allowed work directory for backup in DB '${db.client.config.connection.database}'.`)
-      return false
+      return null
+    }
 
-    } else {
+    const backupDir = path.join(workDir, repoName, subDirectory) as DirectoryPath
 
-      log(`Making a backup into '${subDirectory}' of DB '${db.client.config.connection.database}'.`)
-      const repo = await GitRepo.get(repository, workDir)
-      if (repo) {
-        repo.configure({
-          name: 'Tasenor',
-          email: 'communications.tasenor@gmail.com' as Email,
-          sshPrivateKey: sshPrivateKey ? sshPath : null,
-        })
-        const backupDir = path.join(workDir, repoName, subDirectory) as DirectoryPath
-        await this.dump(db, backupDir)
-        await repo.put(message, subDirectory)
-        // TODO: Return code gives failure even when succssful. Should return result of git command here.
-        return true
-      }
+    // Instantiate and configure Git.
+    const repo = await GitRepo.get(repository, workDir)
+    if (!repo) {
+      error(`Failed to establish git repository instance '${repository}' into ${workDir}.`)
+      return null
+    }
+    repo.configure({
+      name: 'Tasenor',
+      email: 'communications.tasenor@gmail.com' as Email,
+      sshPrivateKey: sshPrivateKey ? sshPath : null,
+    })
+
+    return {
+      workDir, repository, subDirectory, sshPrivateKey, sshPath, backupDir, repo
+    }
+  }
+
+  /**
+   * Get a list of commits.
+   */
+  async collectCommits(db: KnexDatabase, limit: number): Promise<unknown[]> {
+    const setup = await this.setupRepository(db)
+    if (!setup) {
+      return []
+    }
+    const { repo } = setup
+
+    log(`Fetching commit list for DB '${db.client.config.connection.database}'.`)
+    await repo.update()
+    const gitLog = await repo.git.log({ maxCount: limit })
+    return gitLog.all.map(e => ({
+      hash: e.hash,
+      date: e.date,
+      message: e.message,
+      author: `${e.author_name} ${e.author_email ? '<' + e.author_email + '>' : ''}`.trim()
+    }))
+  }
+
+  /**
+   * Execute backup making for a database.
+   */
+  async makeBackup(db: KnexDatabase, message: string): Promise<boolean> {
+
+    const setup = await this.setupRepository(db)
+    if (!setup) {
       return false
     }
+    const { subDirectory, repo, backupDir } = setup
+
+    log(`Making a backup into '${subDirectory}' of DB '${db.client.config.connection.database}'.`)
+    await this.dump(db, backupDir)
+    return repo.put(message, subDirectory)
   }
 
   /**

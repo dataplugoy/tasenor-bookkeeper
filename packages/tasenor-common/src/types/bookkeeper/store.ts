@@ -1,4 +1,5 @@
 import { AccountModel, AccountNumber, DatabaseModel, EntryModel, ImporterModel, PeriodModel } from '.'
+import { HttpResponse } from '../..'
 import { TasenorSetup } from '../../risp'
 import { Catalog } from './catalog'
 
@@ -21,7 +22,7 @@ export declare class Store {
   getDocuments(accounts?: AccountNumber[], filter?: (e: EntryModel) => boolean)
   fetchBalances(db?: string, periodId?: number): Promise<void>
   fetchDocuments(db?: string, periodId?: number): Promise<void>
-  request(path, method?: string, data?: unknown, file?: unknown, noDimming?: boolean): Promise<unknown>
+  request<T>(path, method?: string, data?: unknown, file?: unknown, noDimming?: boolean): Promise<HttpResponse<T>>
   rispSetup(baseUrl: string): TasenorSetup
   setLoadingOn(): void
   setLoadingOff(): void

@@ -99,25 +99,39 @@ export class GitRepo {
    * Add, commit and push the given files and/or directories.
    */
   async put(message: string, ...subPaths: (FilePath | DirectoryPath)[]): Promise<boolean> {
+    let fail = !await this.update()
+    if (!fail) {
+      await this.git.add('.').catch(err => {
+        error(`Git add failed: ${err}`)
+        fail = true
+      })
+    }
+    if (!fail) {
+      await this.git.commit(message).catch(err => {
+        error(`Git commit failed: ${err}`)
+        fail = true
+      })
+    }
+    if (!fail) {
+      await this.git.push().catch(err => {
+        error(`Git push failed: ${err}`)
+        fail = true
+      })
+    }
+
+    return !fail
+  }
+
+  /**
+   * Pull the latest.
+   */
+  async update(): Promise<boolean> {
     let fail = false
     await this.git.pull().catch(err => {
       error(`Git pull failed: ${err}`)
       fail = true
     })
-    await this.git.add(subPaths).catch(err => {
-      error(`Git add failed: ${err}`)
-      fail = true
-    })
-    await this.git.commit(message).catch(err => {
-      error(`Git commit failed: ${err}`)
-      fail = true
-    })
-    await this.git.push().catch(err => {
-      error(`Git push failed: ${err}`)
-      fail = true
-    })
-
-    return fail
+    return !fail
   }
 
   /**
