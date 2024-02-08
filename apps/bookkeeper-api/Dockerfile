@@ -4,7 +4,7 @@ WORKDIR /var/app
 
 RUN apk update
 RUN apk upgrade
-RUN apk add nano curl git openssh-client bash python3 make gcc g++ libc-dev jq
+RUN apk add nano curl git openssh-client bash python3 make gcc g++ libc-dev jq postgresql-client
 RUN ln -sf /usr/bin/python3 /usr/bin/python
 
 RUN npm install -g pnpm
