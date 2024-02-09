@@ -24,7 +24,8 @@ function MakeBackupIcon(props: MakeBackupIconProps): React.ReactNode {
       <Dialog
         wider
         isVisible={askMessage}
-        title={t('Comment for Git Commit')} onClose={() =>
+        title={t('Comment for Git Commit')}
+        onClose={() =>
           setAskMessage(false)}
         onConfirm={() => onMakeBackup(val.current.trim())}
       >
@@ -162,7 +163,8 @@ class GitBackup extends ToolPlugin {
         'You can also make immediately backup from the icon above.': 'Lisäksi voit tehdä ylimääräisen varmuuskopion halutessasi ylläolevasta ikonista.',
         'Existing backups are listed below and can be restored from the icon next to them.': 'Aiemmat varmuuskopiot ovat alla listattuna. Niistä voi palauttaa minkä tahansa klikkaamalla niiden vieressä olevaa ikonia.',
         'Backup restored successfully.': 'Varmuuskopion palautus onnistui.',
-        'Restoring backup failed.': 'Varmuuskopion palauttaminen epäonnistui.'
+        'Restoring backup failed.': 'Varmuuskopion palauttaminen epäonnistui.',
+        'Comment for Git Commit': 'Kommentti varmuuskopiosta',
       }
     }
   }
