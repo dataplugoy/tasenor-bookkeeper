@@ -1,8 +1,12 @@
-import { GitRepo, KnexDatabase, systemPiped, TasenorExporter, ToolPlugin } from '@tasenor/common-node'
+import { BookkeeperImporter, GitRepo, KnexDatabase, systemPiped, TasenorExporter, ToolPlugin } from '@tasenor/common-node'
 import { DirectoryPath, Email, error, FilePath, log, note, PluginCode, Timestring, Url, validGitRepoName, Version } from '@tasenor/common'
 import fs from 'fs'
 import path from 'path'
 import { GitBackupCommit } from '../common/types'
+
+// TODO: Master branch should be configurable.
+// Branch.
+const BRANCH = 'main'
 
 // Mainly for temporary testing with file:/// repository.
 const ALLOW_BAD_REPOSITORY = false
@@ -68,8 +72,8 @@ class GitBackup extends ToolPlugin {
    */
   async PUT(db: KnexDatabase, data): Promise<unknown> {
     if (typeof data === 'object' && data !== null && !!data.commit) {
-      console.log('TODO: hash', data.commit)
-      return { success: true }
+      const success = await this.restoreBackup(db, data.commit)
+      return { success }
     }
     return { success: false }
   }
@@ -129,6 +133,7 @@ class GitBackup extends ToolPlugin {
       error(`Failed to establish git repository instance '${repository}' into ${workDir}.`)
       return null
     }
+    repo.branch = BRANCH
     repo.configure({
       name: 'Tasenor',
       email: 'communications.tasenor@gmail.com' as Email,
@@ -178,14 +183,39 @@ class GitBackup extends ToolPlugin {
     const { subDirectory, repo, backupDir } = setup
 
     log(`Making a backup into '${subDirectory}' of DB '${db.client.config.connection.database}'.`)
+    await repo.update()
     await this.dump(db, backupDir)
     return repo.put(message, subDirectory)
   }
 
   /**
+   * Read in database from the give giot hash.
+   */
+  async restoreBackup(db: KnexDatabase, commit: string): Promise<boolean> {
+
+    const setup = await this.setupRepository(db)
+    if (!setup) {
+      return false
+    }
+    const { repo, backupDir } = setup
+
+    log(`Restoting a backup into '${backupDir}' for DB '${db.client.config.connection.database}' from hash '${commit}'.`)
+    await repo.update()
+    try {
+      await repo.git.checkout(commit)
+    } catch (err) {
+      error(`Checking out the hash '${commit}' failed: ${err}`)
+      return false
+    }
+    await this.restore(db, backupDir)
+
+    return true
+  }
+
+  /**
    * Write the data from the database to the directory.
    */
-  async dump(db: KnexDatabase, dir: DirectoryPath) {
+  private async dump(db: KnexDatabase, dir: DirectoryPath) {
 
     note(`Creating backup into '${dir}'.`)
 
@@ -195,6 +225,10 @@ class GitBackup extends ToolPlugin {
     }
     const exportDir = path.join(dir, 'export') as DirectoryPath
     fs.mkdirSync(exportDir, { recursive: true })
+
+    // This dump.sql is not really needed, but it is kind of safety net for failures
+    // in export and import code. It helps to rebuild database manually, if all else
+    // fails.
     // TODO: Check for pg_dump crash. What if that happens?
     const { host, port, database, user, password } = db.client.config.connection
     const url = `postgresql://${user}:${password}@${host}:${port}/${database}`
@@ -202,6 +236,14 @@ class GitBackup extends ToolPlugin {
 
     const exporter = new TasenorExporter()
     await exporter.dump(db, exportDir)
+  }
+
+  /**
+   * Read the data to the database from the directory.
+   */
+  private async restore(db: KnexDatabase, dir: DirectoryPath): Promise<void> {
+    const importer = new BookkeeperImporter()
+    await importer.restoreUser(db, path.join(dir, 'export') as DirectoryPath)
   }
 }
 

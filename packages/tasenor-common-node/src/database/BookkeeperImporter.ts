@@ -391,6 +391,10 @@ export class BookkeeperImporter {
    */
   async restore(masterDb: KnexDatabase, dbName: string, out: DirectoryPath, hostOverride: Hostname | null = null): Promise<void> {
     const userDb = await DB.get(masterDb, dbName as DatabaseName, hostOverride)
+    return this.restoreUser(userDb, out)
+  }
+
+  async restoreUser(userDb: KnexDatabase, out: DirectoryPath): Promise<void> {
 
     this.setVersion(path.join(out, 'VERSION') as FilePath)
     const conf = JSON.parse(fs.readFileSync(path.join(out, 'settings.json')).toString('utf-8'))

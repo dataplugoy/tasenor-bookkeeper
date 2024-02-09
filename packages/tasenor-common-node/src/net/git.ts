@@ -14,9 +14,11 @@ export class GitRepo {
   url: Url
   rootDir: DirectoryPath
   name: string
+  branch: string
   git: SimpleGit
 
   constructor(url: Url, rootDir: DirectoryPath) {
+    this.branch = 'master'
     this.url = url
     this.name = GitRepo.defaultName(url)
     this.setDir(rootDir)
@@ -98,6 +100,7 @@ export class GitRepo {
   /**
    * Add, commit and push the given files and/or directories.
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async put(message: string, ...subPaths: (FilePath | DirectoryPath)[]): Promise<boolean> {
     let fail = !await this.update()
     if (!fail) {
@@ -127,10 +130,17 @@ export class GitRepo {
    */
   async update(): Promise<boolean> {
     let fail = false
-    await this.git.pull().catch(err => {
+
+    await this.git.checkout(this.branch).catch(err => {
       error(`Git pull failed: ${err}`)
       fail = true
     })
+    if (!fail) {
+      await this.git.pull().catch(err => {
+        error(`Git pull failed: ${err}`)
+        fail = true
+      })
+    }
     return !fail
   }
 
