@@ -6,6 +6,7 @@ export type MainMenu = '' | 'admin' | 'dashboard' | 'txs' | 'account' | 'report'
 const mainMenuSet = new Set(['', 'admin', 'dashboard', 'txs', 'account', 'report', 'tools', 'data', 'settings', 'classop'])
 export const isMainMenu = (name: unknown): name is MainMenu => typeof name === 'string' && mainMenuSet.has(name)
 
+// TODO: Filen should be splitted to 'MenuState.ts' and 'useNavigation.tsx'
 export class MenuState {
   db: DatabaseName
   main: MainMenu

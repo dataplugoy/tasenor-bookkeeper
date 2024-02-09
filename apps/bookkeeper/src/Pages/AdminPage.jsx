@@ -9,6 +9,7 @@ import { Title } from '@tasenor/common-ui'
 import PluginList from '../Components/PluginList'
 import withRouter from '../Hooks/withRouter'
 import withStore from '../Hooks/withStore'
+import AdminDatabaseList from '../Components/AdminDatabaseList'
 
 @withRouter
 @withTranslation('translations')
@@ -34,6 +35,7 @@ class AdminPage extends Component {
         </div>
       )
     }
+
     if (tool === 'plugins') {
       return (
         <div className="PluginsPage">
@@ -42,6 +44,16 @@ class AdminPage extends Component {
         </div>
       )
     }
+
+    if (tool === 'databases') {
+      return (
+        <div className="DatabasePage">
+          <Title><Trans>Databases</Trans></Title>
+          <AdminDatabaseList />
+        </div>
+      )
+    }
+
     return <Title><Trans>Admin</Trans> TODO: {tool}</Title>
   }
 }

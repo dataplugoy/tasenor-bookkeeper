@@ -2,6 +2,7 @@
  * Type definitions for Bookkeeper.
  */
 export * from './accounts'
+export * from './db'
 export * from './catalog'
 export * from './config'
 export * from './cursor'

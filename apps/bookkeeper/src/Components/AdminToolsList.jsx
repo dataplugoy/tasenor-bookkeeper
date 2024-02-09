@@ -31,6 +31,11 @@ class AdminToolsList extends ListComponent {
       id: 'users',
       title: 'Users',
       disabled: () => false,
+    }, {
+      page: 'admin',
+      id: 'databases',
+      title: 'Databases',
+      disabled: () => false,
     }]
   }
 

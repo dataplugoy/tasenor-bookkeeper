@@ -26,6 +26,11 @@ export const light = createTheme({
       default: 'white',
     },
   },
+  typography: {
+    subtitle1: {
+      fontWeight: 'bold'
+    }
+  },
 })
 
 export const dark = createTheme({
@@ -52,5 +57,10 @@ export const dark = createTheme({
       paper: grey[900],
       default: grey[800],
     },
+  },
+  typography: {
+    subtitle1: {
+      fontWeight: 'bold'
+    }
   },
 })

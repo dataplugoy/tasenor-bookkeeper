@@ -2,7 +2,7 @@ import path from 'path'
 import knex from './knex'
 import { DB, BookkeeperImporter } from '@tasenor/common-node'
 import catalog from './catalog'
-import { DatabaseName, Hostname, error } from '@tasenor/common'
+import { DbDataModel, DatabaseName, Hostname, error } from '@tasenor/common'
 
 /**
  * Helper to create new database for a customer.
@@ -93,7 +93,16 @@ async function migrate(): Promise<void> {
   }
 }
 
+/**
+ * Get all databases.
+ */
+async function getAll(): Promise<DbDataModel[]> {
+  const db = knex.masterDb()
+  return db('databases').select('id', 'name', 'created', 'config').orderBy('name')
+}
+
 export default {
+  getAll,
   migrate,
   createNewDatabase,
   initializeNewDatabase,

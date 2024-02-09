@@ -22,11 +22,13 @@ import subscriptionsRoute from './subscriptions'
 import systemRoute from './system'
 import tagsRoute from './tags'
 import toolsRoute from './tools'
-import userRoute from './user'
+import adminDbRoute from './admin-db'
+import adminUserRoute from './admin-user'
 
 const router = express.Router()
 
-router.use('/admin/user', ...tasenor({ url: true, json: true }), userRoute)
+router.use('/admin/db', ...tasenor({ url: true, json: true }), adminDbRoute)
+router.use('/admin/user', ...tasenor({ url: true, json: true }), adminUserRoute)
 router.use('/auth', authRoute)
 router.use('/db/:db/account', ...tasenor({ url: true, json: true, user: true, db: true }), accountRoute)
 router.use('/db/:db/document', ...tasenor({ url: true, json: true, user: true, db: true }), documentRoute)

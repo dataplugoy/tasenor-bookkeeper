@@ -162,6 +162,15 @@ class AdminToolPanel extends Component {
       )
     }
 
+    if (tool === 'databases') {
+      return (
+        <div className="ToolPanel AdminToolPanel">
+          <Title><Trans>Database Tools</Trans></Title>
+          <IconButton id="add-user" onClick={() => null} disabled title="add-user" icon="user-plus"></IconButton>
+        </div>
+      )
+    }
+
     return <Title><Trans>No Tools</Trans></Title>
   }
 }
