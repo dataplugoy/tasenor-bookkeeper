@@ -3,6 +3,7 @@ import { haveCatalog } from '@tasenor/common'
 
 export interface LocalizeProps {
   date?: string | number
+  withTime?: boolean
   children?: JSX.Element
 }
 
@@ -29,7 +30,7 @@ export const Localize = (props: LocalizeProps) => {
   }
 
   if (props.date) {
-    return catalog.date2str(props.date)
+    return catalog.date2str(props.date) + (props.withTime ? ' ' + catalog.time2str(props.date) : '')
   }
   const what = props.children
   if (what === undefined) {

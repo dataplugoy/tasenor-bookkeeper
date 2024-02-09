@@ -506,6 +506,19 @@ class Catalog extends Component {
   }
 
   /**
+   * Convert a date or datetime to the localized timestamp string based on the currently selected language.
+   * @param date A date as a string YYYY-MM-DD or with time.
+   * @return Year, month and day localized.
+   */
+  time2str(date) {
+    const lang = this.language()
+    if (this.pluginForLanguage[lang]) {
+      return this.pluginForLanguage[lang].time2str(date)
+    }
+    return dayjs(date).format('HH:mm:ss')
+  }
+
+  /**
    * Convert (possibly partial) localized date to 'YYYY-MM-DD'
    * @param date A local format of date - possibly without year and/or month.
    * @param sample A sample to use for filling in missing parts (default: today)

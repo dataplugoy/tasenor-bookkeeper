@@ -32,6 +32,16 @@ export class LanguagePlugin extends UiPlugin {
   }
 
   /**
+   * Convert a date or datetime to the localized timestamp string based on the currently selected language.
+   * @param date A date as a string YYYY-MM-DD or with time.
+   * @return Year, month and day localized.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  time2str(date) {
+    throw new Error(`A plugin ${this.code} does not implement time2str().`)
+  }
+
+  /**
    * Convert (possibly partial) localized date to 'YYYY-MM-DD'
    * @param date A local format of date - possibly without year and/or month.
    * @param sample A sample to use for filling in missing parts (default: today)

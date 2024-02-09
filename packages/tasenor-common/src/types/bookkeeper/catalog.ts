@@ -30,6 +30,7 @@ export declare class Catalog {
   language(): Language
   money2str(cents: number, currency?: Currency, signed?: boolean): string
   date2str(date: string | number): string
+  time2str(date: string | number): string
   getImportOptions(): Record<string, TasenorPlugin>
   reset(): void
   load(plugin): BackendPlugin
