@@ -1,7 +1,8 @@
 import { GitRepo, KnexDatabase, systemPiped, TasenorExporter, ToolPlugin } from '@tasenor/common-node'
-import { DirectoryPath, Email, error, FilePath, log, note, PluginCode, Url, validGitRepoName, Version } from '@tasenor/common'
+import { DirectoryPath, Email, error, FilePath, log, note, PluginCode, Timestring, Url, validGitRepoName, Version } from '@tasenor/common'
 import fs from 'fs'
 import path from 'path'
+import { GitBackupCommit } from '../common/types'
 
 const ALLOW_BAD_REPOSITORY = true
 
@@ -141,8 +142,7 @@ class GitBackup extends ToolPlugin {
   /**
    * Get a list of commits.
    */
-  async collectCommits(db: KnexDatabase, limit: number): Promise<unknown[]> {
-    // TODO: Would it work if we define types in ../common instead of unknown[]?
+  async collectCommits(db: KnexDatabase, limit: number): Promise<GitBackupCommit[]> {
     const setup = await this.setupRepository(db)
     if (!setup) {
       return []
@@ -155,7 +155,7 @@ class GitBackup extends ToolPlugin {
       const gitLog = await repo.git.log({ maxCount: limit })
       return gitLog.all.map(e => ({
         hash: e.hash,
-        date: e.date,
+        date: e.date as Timestring,
         message: e.message,
         author: `${e.author_name} ${e.author_email ? '<' + e.author_email + '>' : ''}`.trim()
       }))

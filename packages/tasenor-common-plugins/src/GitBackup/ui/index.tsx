@@ -3,8 +3,8 @@ import { Note, IconButton, SubPanel, ToolPlugin, Dialog, Localize } from '@tasen
 import { makeObservable, observable, runInAction } from 'mobx'
 import { Trans, useTranslation } from 'react-i18next'
 import { Box, Table, TableBody, TableCell, TableContainer, TableRow, TextField, Typography } from '@mui/material'
-import { Store, Timestring } from '@tasenor/common'
-import { t } from 'i18next'
+import { Store } from '@tasenor/common'
+import { GitBackupCommit } from '../common/types'
 
 interface MakeBackupIconProps {
   disabled: boolean
@@ -32,13 +32,6 @@ function MakeBackupIcon(props: MakeBackupIconProps): React.ReactNode {
     }
     <IconButton id="Make Backup" disabled={disabled} onClick={() => setAskMessage(true)} title="summarize-make-backup" icon="save" />
   </>
-}
-
-interface GitBackupCommit {
-  hash: string
-  date: Timestring
-  message: string
-  author: string
 }
 
 interface BackupCommitListProps {
