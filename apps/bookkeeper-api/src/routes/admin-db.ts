@@ -12,8 +12,8 @@ router.get('/',
   ...tasenor({ admin: true }),
   async (req, res, next) => {
 
-    const dbs = (await db.getAll()).reduce((prev, cur) => ({...prev, [`${cur.id}`]: cur}), {})
-    const usrs = (await users.getAll()).reduce((prev, cur) => ({...prev, [`${cur.id}`]: cur}), {})
+    const dbs = (await db.getAll()).reduce((prev, cur) => ({ ...prev, [`${cur.id}`]: cur }), {})
+    const usrs = (await users.getAll()).reduce((prev, cur) => ({ ...prev, [`${cur.id}`]: cur }), {})
 
     const master = knex.masterDb()
     const dbUsers = await master('database_users').select('*')
@@ -30,4 +30,4 @@ router.get('/',
     res.send(Object.values(dbs))
   })
 
-  export default router
+export default router
