@@ -4,7 +4,8 @@ import fs from 'fs'
 import path from 'path'
 import { GitBackupCommit } from '../common/types'
 
-const ALLOW_BAD_REPOSITORY = true
+// Mainly for temporary testing with file:/// repository.
+const ALLOW_BAD_REPOSITORY = false
 
 class GitBackup extends ToolPlugin {
   constructor() {
