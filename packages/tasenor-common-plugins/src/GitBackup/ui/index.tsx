@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Note, IconButton, SubPanel, ToolPlugin, Dialog, Title } from '@tasenor/common-ui'
+import { Note, IconButton, SubPanel, ToolPlugin, Dialog, Localize } from '@tasenor/common-ui'
 import { makeObservable, observable, runInAction } from 'mobx'
 import { Trans, useTranslation } from 'react-i18next'
 import { Box, Table, TableBody, TableCell, TableContainer, TableRow, TextField, Typography } from '@mui/material'
 import { Store, Timestring } from '@tasenor/common'
+import { t } from 'i18next'
 
 interface MakeBackupIconProps {
   disabled: boolean
@@ -47,32 +48,68 @@ interface BackupCommitListProps {
 
 function BackupCommitList(props: BackupCommitListProps): React.ReactNode {
   const { store, backups } = props
-  const [commits, setCommits] = useState<GitBackupCommit>([])
+  const [commits, setCommits] = useState<GitBackupCommit[]>([])
+  const [fetched, setFetched] = useState(false)
+  const [restore, setRestore] = useState<GitBackupCommit|null>(null)
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (!store.db) {
       return
     }
     store.request<{ commits: GitBackupCommit[] }>(`/db/${store.db}/tools/${GitBackup.code}`, 'GET', { type: 'commits', count: 20 }).then((res) => {
+      setFetched(true)
       if (res.success) {
         setCommits(res.data.commits)
       }
     })
   }, [store.db, backups])
 
-  return <TableContainer>
-    <Table>
-      <TableBody>
-        {commits.map((commit, idx) => <TableRow key={idx}>
-          <TableCell>
-            <Box><Typography color="secondary">{commit.hash}</Typography></Box>
-            <Typography variant="body1">{commit.message}</Typography>
-            <Typography variant="caption">{commit.author}</Typography>
-          </TableCell>
-        </TableRow>)}
-      </TableBody>
-    </Table>
-  </TableContainer>
+  const onRestore = (commit: GitBackupCommit) => {
+    store.request<{ commits: GitBackupCommit[] }>(`/db/${store.db}/tools/${GitBackup.code}`, 'PUT', { commit: commit.hash }).then((res) => {
+      if (res && res.success) {
+        store.addMessage(t('Backup restored successfully.'))
+      } else {
+        store.addError(t('Restoring backup failed.'))
+      }
+    })
+  }
+
+  if (fetched && commits.length === 0) {
+    return <Box>
+      <Trans>Not able to find any commits from the repository.</Trans>
+    </Box>
+  }
+
+  return <Box>
+    <TableContainer>
+      <Table>
+        <TableBody>
+          {commits.map((commit, idx) => <TableRow key={idx}>
+            <TableCell>
+              <IconButton id="Restore" icon="update" title="restore" onClick={() => setRestore(commit)}/>
+            </TableCell>
+            <TableCell>
+              <Typography color="secondary">{commit.hash}</Typography>
+              <Typography variant="body1">{commit.message}</Typography>
+              <Typography variant="caption">{commit.author}</Typography>
+            </TableCell>
+            <TableCell>
+              <Localize date={commit.date} withTime/>
+            </TableCell>
+          </TableRow>)}
+        </TableBody>
+      </Table>
+    </TableContainer>
+
+    <Dialog isVisible={!!restore} title={t('Restore this backup?')} wider onClose={() => setRestore(null)} onConfirm={() => onRestore(restore)}>
+      { restore && <Box>
+        <Typography variant="caption"><Localize date={restore.date} withTime/> {restore.hash}</Typography>
+        <Typography variant="body1">{restore.message}</Typography>
+        <Typography variant="caption">{restore.author}</Typography>
+      </Box>}
+    </Dialog>
+  </Box>
 }
 
 class GitBackup extends ToolPlugin {
@@ -105,21 +142,28 @@ class GitBackup extends ToolPlugin {
         'label-repository': 'Repository URL',
         'label-subDirectory': 'Subdirectory inside the repository',
         'label-sshPrivateKey': 'SSH private key',
-        'icon-summarize-make-backup': 'Make a backup'
+        'icon-restore': 'Restore this backup',
+        'icon-summarize-make-backup': 'Make a backup',
       },
       fi: {
         'label-repository': 'Git-säilön URL',
         'label-subDirectory': 'Alihakemiston nimi säilön sisällä',
         'label-sshPrivateKey': 'SSH yksityinen avain',
+        'icon-restore': 'Palauta tältä varmuuskopiolta',
         'icon-summarize-make-backup': 'Tee varmuuskopio',
 
         'Backup for Git': 'Git-pohjainen Varmuuskopiointi',
         'Manual backup by GitBackup {version}': 'Ylimääräinen varmuuskopio GitBackup {version}',
         'Backup created successfully.': 'Varmuuskopion luominen onnistui.',
-        'Creating backup failed.': 'Varmuuskopion luominen ei onnistunut.'
+        'Creating backup failed.': 'Varmuuskopion luominen ei onnistunut.',
+        'Not able to find any commits from the repository.': 'Varmuuskopio vaikuttaisi olevan tyhjä.',
+        'This tool takes every night automatically one backup.': 'Tämä työkalu tekee yhden varmuuskopion joka yö.',
+        'You can also make immediately backup from the icon above.': 'Lisäksi voit tehdä ylimääräisen varmuuskopion halutessasi ylläolevasta ikonista.',
+        'Existing backups are listed below and can be restored from the icon next to them.': 'Aiemmat varmuuskopiot ovat alla listattuna. Niistä voi palauttaa minkä tahansa klikkaamalla niiden vieressä olevaa ikonia.',
+        'Backup restored successfully.': 'Varmuuskopion palautus onnistui.',
+        'Restoring backup failed.': 'Varmuuskopion palauttaminen epäonnistui.'
       }
     }
-
   }
 
   toolMenu() {
@@ -140,9 +184,9 @@ class GitBackup extends ToolPlugin {
         this.backups = this.backups + 1
       })
       if (success) {
-        this.store.addMessage(this.t('Backup created successfully.'))
+        this.store.addMessage(this.t('Backup restored successfully.'))
       } else {
-        this.store.addError(this.t('Creating backup failed.'))
+        this.store.addError(this.t('Restoring backup failed.'))
       }
     })
   }
@@ -164,6 +208,7 @@ class GitBackup extends ToolPlugin {
       <SubPanel>
         <Trans>This tool takes every night automatically one backup.</Trans><> </>
         <Trans>You can also make immediately backup from the icon above.</Trans><> </>
+        <Trans>Existing backups are listed below and can be restored from the icon next to them.</Trans><> </>
       </SubPanel>
       <Box sx={{ m: 2 }}>
         <BackupCommitList backups={this.backups} store={this.store}/>

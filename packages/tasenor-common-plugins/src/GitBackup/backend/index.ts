@@ -3,6 +3,8 @@ import { DirectoryPath, Email, error, FilePath, log, note, PluginCode, Url, vali
 import fs from 'fs'
 import path from 'path'
 
+const ALLOW_BAD_REPOSITORY = true
+
 class GitBackup extends ToolPlugin {
   constructor() {
     super()
@@ -60,6 +62,17 @@ class GitBackup extends ToolPlugin {
   }
 
   /**
+   * Restore from the backup.
+   */
+  async PUT(db: KnexDatabase, data): Promise<unknown> {
+    if (typeof data === 'object' && data !== null && !!data.commit) {
+      console.log('TODO: hash', data.commit)
+      return { success: true }
+    }
+    return { success: false }
+  }
+
+  /**
    * A helper to check settings and set up repository for further use.
    */
   private async setupRepository(db: KnexDatabase): Promise<null | {
@@ -83,7 +96,7 @@ class GitBackup extends ToolPlugin {
     }
 
     // Check repo URL.
-    if (!validGitRepoName(repository)) {
+    if (!ALLOW_BAD_REPOSITORY && !validGitRepoName(repository)) {
       error(`Bad repository address ${JSON.stringify(repository)}.`)
       return null
     }
@@ -129,6 +142,7 @@ class GitBackup extends ToolPlugin {
    * Get a list of commits.
    */
   async collectCommits(db: KnexDatabase, limit: number): Promise<unknown[]> {
+    // TODO: Would it work if we define types in ../common instead of unknown[]?
     const setup = await this.setupRepository(db)
     if (!setup) {
       return []
@@ -137,13 +151,18 @@ class GitBackup extends ToolPlugin {
 
     log(`Fetching commit list for DB '${db.client.config.connection.database}'.`)
     await repo.update()
-    const gitLog = await repo.git.log({ maxCount: limit })
-    return gitLog.all.map(e => ({
-      hash: e.hash,
-      date: e.date,
-      message: e.message,
-      author: `${e.author_name} ${e.author_email ? '<' + e.author_email + '>' : ''}`.trim()
-    }))
+    try {
+      const gitLog = await repo.git.log({ maxCount: limit })
+      return gitLog.all.map(e => ({
+        hash: e.hash,
+        date: e.date,
+        message: e.message,
+        author: `${e.author_name} ${e.author_email ? '<' + e.author_email + '>' : ''}`.trim()
+      }))
+    } catch (err) {
+      error(`Failed to get log from git repository for DB '${db.client.config.connection.database}'.`)
+      return []
+    }
   }
 
   /**
