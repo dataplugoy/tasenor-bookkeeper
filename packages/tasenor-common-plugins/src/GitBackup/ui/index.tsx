@@ -5,6 +5,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { Box, Table, TableBody, TableCell, TableContainer, TableRow, TextField, Typography } from '@mui/material'
 import { Store } from '@tasenor/common'
 import { GitBackupCommit } from '../common/types'
+import { useNavigate } from 'react-router-dom'
 
 interface MakeBackupIconProps {
   disabled: boolean
@@ -45,6 +46,8 @@ function BackupCommitList(props: BackupCommitListProps): React.ReactNode {
   const [fetched, setFetched] = useState(false)
   const [restore, setRestore] = useState<GitBackupCommit|null>(null)
   const { t } = useTranslation()
+  // TODO: Use from common-ui once more useful.
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!store.db) {
@@ -62,6 +65,11 @@ function BackupCommitList(props: BackupCommitListProps): React.ReactNode {
     store.request<{ commits: GitBackupCommit[] }>(`/db/${store.db}/tools/${GitBackup.code}`, 'PUT', { commit: commit.hash }).then((res) => {
       if (res && res.success) {
         store.addMessage(t('Backup restored successfully.'))
+        runInAction(() => {
+          store.setDb(null).then(() => {
+            navigate(`/${store.db}`)
+          })
+        })
       } else {
         store.addError(t('Restoring backup failed.'))
       }

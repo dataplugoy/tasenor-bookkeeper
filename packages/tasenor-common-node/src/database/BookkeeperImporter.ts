@@ -375,9 +375,9 @@ export class BookkeeperImporter {
     await db('settings').del()
     if ((this.VERSION || 0) >= 3) {
       await db('importers').del()
-      await db('processes').del()
       await db('process_files').del()
       await db('process_steps').del()
+      await db('processes').del()
       await db('segment_document').del()
     }
   }
