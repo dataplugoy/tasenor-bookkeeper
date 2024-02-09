@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material'
 import { RenderingProps, isRadioElement, isNamedElement } from '@tasenor/common'
@@ -9,7 +9,9 @@ import { Renderer } from '../risp'
  */
 export const RadioRenderer: Renderer = (props: RenderingProps) => {
   const { element } = props
-
+  // Need little trick to properly set the value '' if it is one of the options.
+  // Without this it looks confusingly like already selected but is not set as a value.
+  const [changed, setChanged] = useState(false)
   const { t } = useTranslation()
   const label = (isRadioElement(element) && element.label) ? element.label : ((isNamedElement(element) && element.name) ? t(`label-${element.name}`) : '')
   const [value, setValue] = React.useState(isNamedElement(element) ? props.values[element.name] || '' : '')
@@ -28,8 +30,9 @@ export const RadioRenderer: Renderer = (props: RenderingProps) => {
             value={v}
             control={<Radio />}
             label={k}
-            checked={value === v}
+            checked={changed && value === v}
             onChange={() => {
+              setChanged(true)
               setValue(v)
               element.triggerHandler && element.triggerHandler({ type: 'onChange', name: element.name, value: v }, props)
             }}/>
