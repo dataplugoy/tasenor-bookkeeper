@@ -175,7 +175,7 @@ const DatabaseAdminToolPanel = withStore((props: DatabaseAdminToolPanelProps): J
       store.request(`/admin/user/${user.email}/databases`, 'POST', { database: selected }).then((res) => {
         if (res) {
           store.addMessage(t('User added to database.'))
-          nav.go({ database: null})
+          nav.go({ database: null })
         }
       })
     }

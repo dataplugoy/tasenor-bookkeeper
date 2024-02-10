@@ -24,7 +24,7 @@ const AdminDatabaseList = withStore((props: AdminDatabaseListProps): React.React
 
   return <List>
     {dbs.map(db =>
-      <ListItemButton key={db.id} onClick={() => nav.go({ database: db.name })} selected={nav.get('database') ===  db.name}>
+      <ListItemButton key={db.id} onClick={() => nav.go({ database: db.name })} selected={nav.get('database') === db.name}>
         <ListItemText>
           <Typography variant="subtitle1">{db.name}</Typography>
           <Trans>Creation Date</Trans>: <Localize date={db.created}/><br/>
