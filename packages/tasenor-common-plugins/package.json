@@ -1,6 +1,6 @@
 {
   "name": "@tasenor/common-plugins",
-  "version": "1.10.41",
+  "version": "1.10.42",
   "description": "Shared common plugins of Tasenor project",
   "repository": "git@github.com:dataplugoy/tasenor-bookkeeper.git",
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
