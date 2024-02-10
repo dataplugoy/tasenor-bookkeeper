@@ -483,11 +483,13 @@ function verifyPluginDir(): boolean {
     }
   }
   if (config.PLUGIN_PATH) {
+    const reported = new Set<string>()
     for (const fullPath of globSync(config.PLUGIN_PATH + '/**', { dot: true, deep: 2 })) {
       const localPath = fullPath.replace(config.PLUGIN_PATH + '/', '')
       const file = localPath.indexOf('/') < 0 ? localPath : path.dirname(localPath)
-      if (!okayFiles.has(file)) {
-        error(`Plugin directory has unrecognized file/dir '${fullPath}'.`)
+      if (!okayFiles.has(file) && !reported.has(file)) {
+        error(`Plugin directory has unrecognized file/dir '${file}'.`)
+        reported.add(file)
       }
     }
   }
