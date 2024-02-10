@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { Dialog, IconButton, Title, useNav } from '@tasenor/common-ui'
+import { Dialog, IconButton, RISPProvider, Title, useNav } from '@tasenor/common-ui'
 import Store from '../Stores/Store'
 import Catalog from '../Stores/Catalog'
 import RegisterForm from './RegisterForm'
-import { Box, TextField } from '@mui/material'
-import { Email, haveCursor } from '@tasenor/common'
+import { Autocomplete, Box, TextField } from '@mui/material'
+import { Email, ID, UserDataModel, haveCursor } from '@tasenor/common'
 import withStore from '../Hooks/withStore'
 import withCatalog from '../Hooks/withCatalog'
 
@@ -144,12 +144,81 @@ const UserAdminToolPanel = withStore((props: UserAdminToolPanelProps): JSX.Eleme
   )
 })
 
-const DatabaseAdminToolPanel = (): JSX.Element => {
+interface DatabaseAdminToolPanelProps {
+  store: Store
+  selected: ID
+}
+
+const DatabaseAdminToolPanel = withStore((props: DatabaseAdminToolPanelProps): JSX.Element => {
+  const { store, selected } = props
+  const [showAddUserDialog, setShowAddUserDialog] = useState(false)
+  const { t } = useTranslation()
+  const [user, setUser] = useState<UserDataModel|null>(null)
+  const nav = useNav()
+
+  useEffect(() => {
+    const cursor = haveCursor()
+    store.getUsers()
+    cursor.registerTools({
+      keyIconA: () => {
+        setShowAddUserDialog(true)
+        return { preventDefault: true }
+      },
+    })
+    return () => {
+      cursor.registerTools(null)
+    }
+  }, [])
+
+  const onAddUser = () => {
+    if (user) {
+      store.request(`/admin/user/${user.email}/databases`, 'POST', { database: selected }).then((res) => {
+        if (res) {
+          store.addMessage(t('User added to database.'))
+          nav.go({ database: null})
+        }
+      })
+    }
+  }
+
   return <Box>
     <Title><Trans>Database Tools</Trans></Title>
-    <IconButton id="add-user" onClick={() => null} disabled title="add-user" icon="user-plus"></IconButton>
+    <IconButton id="add-user" shortcut="A" pressKey="IconA" disabled={!selected} title="add-user" icon="user-plus"></IconButton>
+
+    <Dialog
+      wider
+      title={<Trans>Add User for Database</Trans>}
+      isVisible={showAddUserDialog}
+      onClose={() => setShowAddUserDialog(false)}
+      onConfirm={() => onAddUser()}
+      >
+      <Autocomplete
+        autoFocus
+        options={store.users}
+        getOptionLabel={(option: UserDataModel) => `${option.email}`}
+        renderOption={(props, option) => (
+          <Box component="li" {...props}>
+            {option.email}
+          </Box>
+        )}
+        onFocus={() => RISPProvider.onFocus()}
+        onBlur={() => RISPProvider.onBlur()}
+        value={user}
+        onChange={(_, option) => setUser(option as UserDataModel)}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label={t('Email')}
+            inputProps={{
+              ...params.inputProps,
+              autoComplete: 'off'
+            }}
+          />
+        )}
+      />
+    </Dialog>
   </Box>
-}
+})
 
 interface AdminToolPanelProps {
   store: Store
@@ -167,7 +236,7 @@ const AdminToolPanel = withStore((props: AdminToolPanelProps): React.ReactNode =
   const side = nav.get('side') || defaultTool
 
   if (side === 'users') return <Box className="ToolPanel AdminToolPanel"><UserAdminToolPanel selected={nav.get('user') as Email}/></Box>
-  if (side === 'databases') return <Box className="ToolPanel AdminToolPanel"><DatabaseAdminToolPanel/></Box>
+  if (side === 'databases') return <Box className="ToolPanel AdminToolPanel"><DatabaseAdminToolPanel selected={nav.get('database')}/></Box>
   if (side === 'plugins') return <Box className="ToolPanel AdminToolPanel"><PluginAdminToolPanel/></Box>
 
   return <Title><Trans>No Tools</Trans></Title>

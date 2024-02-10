@@ -20,11 +20,11 @@ const AdminDatabaseList = withStore((props: AdminDatabaseListProps): React.React
     store.request('/admin/db', 'GET').then(res => {
       setDbs(res)
     })
-  }, [])
+  }, [nav.get('database')])
 
   return <List>
     {dbs.map(db =>
-      <ListItemButton key={db.id} onClick={() => nav.go({ database: `${db.id}` })} selected={nav.get('database') === `${db.id}`}>
+      <ListItemButton key={db.id} onClick={() => nav.go({ database: db.name })} selected={nav.get('database') ===  db.name}>
         <ListItemText>
           <Typography variant="subtitle1">{db.name}</Typography>
           <Trans>Creation Date</Trans>: <Localize date={db.created}/><br/>
