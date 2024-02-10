@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Note, ProcessList, ProcessView, ImportStateView, useAxios, Title, useNavigation, TabNav } from '@tasenor/common-ui'
+import { Note, ProcessList, ProcessView, ImportStateView, useAxios, Title, useNav, TabNav } from '@tasenor/common-ui'
 import { Trans, useTranslation } from 'react-i18next'
 import { getNetConf, haveCatalog, haveStore, ID, ImportRule } from '@tasenor/common'
 import Config from '../Configuration'
@@ -16,7 +16,7 @@ export interface ImportProcessProps {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const ImportProcess = (props: ImportProcessProps): JSX.Element => {
   const store = haveStore()
-  const nav = useNavigation()
+  const nav = useNav()
   const { db, side, attrs } = nav
   const { processId, step } = attrs
   const importerId = side ? parseInt(side) : null
@@ -82,7 +82,7 @@ export interface ViewImportRuleProps {
 }
 
 export const ViewImportRule = (props: ViewImportRuleProps): JSX.Element => {
-  const nav = useNavigation()
+  const nav = useNav()
   const theme = useTheme()
 
   const { rule, ruleId } = props
@@ -121,7 +121,7 @@ export interface ImportRulesProps {
 
 export const ImportRules = (props: ImportRulesProps): JSX.Element => {
 
-  const nav = useNavigation()
+  const nav = useNav()
   const { db, side, attrs } = nav
   const importerId = side ? parseInt(side) : null
   const [rules, setRules] = useState<ImportRule[]>([])
@@ -194,7 +194,7 @@ export interface ImportProps {
 export const ImportPage = (props: ImportProps): JSX.Element => {
   const catalog = haveCatalog()
 
-  const { side } = useNavigation()
+  const { side } = useNav()
 
   const importerId = side ? parseInt(side) : null
   const canImport = Object.keys(catalog.getImportOptions()).length > 0

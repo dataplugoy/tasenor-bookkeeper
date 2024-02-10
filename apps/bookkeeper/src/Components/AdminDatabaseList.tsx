@@ -4,7 +4,7 @@ import Store from '../Stores/Store'
 import { Box, List, ListItemButton, ListItemText, Typography } from '@mui/material'
 import withStore from '../Hooks/withStore'
 import { DbDataModel } from '@tasenor/common'
-import { Localize, useNavigation } from '@tasenor/common-ui'
+import { Localize, useNav } from '@tasenor/common-ui'
 
 interface AdminDatabaseListProps {
   store: Store
@@ -14,7 +14,7 @@ const AdminDatabaseList = withStore((props: AdminDatabaseListProps): React.React
 
   const { store } = props
   const [dbs, setDbs] = useState<DbDataModel[]>([])
-  const nav = useNavigation()
+  const nav = useNav()
 
   useEffect(() => {
     store.request('/admin/db', 'GET').then(res => {

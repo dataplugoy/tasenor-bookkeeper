@@ -1,6 +1,6 @@
 import { Box, Paper, Tab, Tabs } from '@mui/material'
 import React from 'react'
-import { useNavigation } from './Hooks'
+import { useNav } from './useNav'
 
 export interface TabPanelProps {
   children: JSX.Element
@@ -50,7 +50,7 @@ export interface TabsProps {
  */
 export const TabNav = (props: TabsProps): JSX.Element => {
   const { menu, labels, children } = props
-  const nav = useNavigation()
+  const nav = useNav()
 
   const indices = Object.keys(labels)
   const onChange = (event, idx) => {

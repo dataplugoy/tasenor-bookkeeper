@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import PageCurrency from './PageCurrency'
 import PageDialog from './PageDialog'
 import PageTagGroup from './PageTagGroup'
-import { useNavigation } from '@tasenor/common-ui'
+import { useNav } from '@tasenor/common-ui'
 import PageTabs from './PageTabs'
 import PageRuleEditor from './PageRuleEditor'
 import PageJsonEditor from './PageJsonEditor'
@@ -13,7 +13,7 @@ import PageJsonEditor from './PageJsonEditor'
  * Playground for stuff.
  */
 const App = observer(() => {
-  const nav = useNavigation()
+  const nav = useNav()
   return (
     <Paper style={{ margin: '1rem', padding: '1rem' }} elevation={4}>
       <Button onClick={() => nav.go({ indirect: 'yes', side: 'currency' })}>Currency</Button>&nbsp;|&nbsp;

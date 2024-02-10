@@ -17,7 +17,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import Store from '../Stores/Store'
 import { runInAction } from 'mobx'
 
-// TODO: Once converted to function component, use useNavigation from tasenor-common-ui.
+// TODO: Once converted to function component, use useNav from tasenor-common-ui.
 
 export interface MenuItemFnArgs {
   db: string

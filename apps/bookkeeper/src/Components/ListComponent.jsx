@@ -5,7 +5,7 @@ import { Trans } from 'react-i18next'
 import Store from '../Stores/Store'
 import { Title } from '@tasenor/common-ui'
 
-// TODO: Convert to function component and use new useNavigation hook.
+// TODO: Convert to function component and use our useNav() hook.
 class ListComponent extends Component {
 
   url(comp, page) {

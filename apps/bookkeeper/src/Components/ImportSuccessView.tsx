@@ -1,5 +1,5 @@
 import { Currency, haveStore, ProcessModelDetailedData, ProcessStatus, ProcessStepModelData, TransactionApplyResults } from '@tasenor/common'
-import { Money, ProcessStatusIcon, Dialog, useNavigation } from '@tasenor/common-ui'
+import { Money, ProcessStatusIcon, Dialog, useNav } from '@tasenor/common-ui'
 import { Button, Card, CardActions, CardContent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 import { green } from '@mui/material/colors'
 import { observer } from 'mobx-react'
@@ -21,7 +21,7 @@ export const ImportSuccessView = observer((props: ImportSuccessViewProps): JSX.E
   const store = haveStore()
 
   const [reverting, setReverting] = useState(false)
-  const nav = useNavigation()
+  const nav = useNav()
 
   if (!step || !step.state || !store.database || !step.state.output) {
     return <></>
