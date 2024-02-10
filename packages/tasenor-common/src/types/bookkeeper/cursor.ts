@@ -21,4 +21,5 @@ export declare class Cursor {
   removeModal(name: string)
   resetSelected(): void
   registerMenu(handlers: ShortcutHandlers)
+  registerTools(handlers: ShortcutHandlers | null)
 }

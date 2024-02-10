@@ -53,7 +53,7 @@ const ICONS = {
 }
 
 export interface IconButtonProps {
-  onClick: (e: MouseEvent) => void
+  onClick?: (e: MouseEvent) => void
   id: string
   icon: string
   title: string
