@@ -57,10 +57,5 @@
     "@types/node-cron": "^3.0.11",
     "eslint-config-tasenor": "workspace:*",
     "typescript": "^5.1.6"
-  },
-  "pnpm": {
-    "overrides": {
-      "ip@=2.0.0": ">=2.0.1"
-    }
   }
 }

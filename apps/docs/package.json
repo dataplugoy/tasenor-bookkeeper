@@ -25,10 +25,5 @@
   "devDependencies": {
     "@redocly/cli": "1.0.2",
     "swagger-cli": "^4.0.4"
-  },
-  "pnpm": {
-    "overrides": {
-      "ip@=2.0.0": ">=2.0.1"
-    }
   }
 }
