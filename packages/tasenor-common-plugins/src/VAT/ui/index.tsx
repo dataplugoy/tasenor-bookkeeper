@@ -2,7 +2,7 @@
 import React from 'react'
 import dayjs from 'dayjs'
 import { Trans } from 'react-i18next'
-import { AccountNumber, Currency, DocumentModelData, EntryModel, haveKnowledge, Tag, TagType } from '@tasenor/common'
+import { AccountNumber, Currency, DocumentModelData, EntryModel, haveKnowledge, ID, Tag, TagType } from '@tasenor/common'
 import { Localize, SubPanel, IconButton, IconSpacer, ToolPlugin, Money, TagChip, Dialog, Note } from '@tasenor/common-ui'
 import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import { makeObservable, observable, runInAction } from 'mobx'
@@ -387,7 +387,7 @@ class VAT extends ToolPlugin {
     }
 
     const doc: DocumentModelData = {
-      period_id: this.store.period.id,
+      period_id: this.store.period.id as ID,
       date,
       entries: []
     }
