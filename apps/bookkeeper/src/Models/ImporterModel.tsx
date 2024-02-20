@@ -1,7 +1,12 @@
 import { runInAction } from 'mobx'
 import Model from './Model'
+import { ID } from '@tasenor/common'
 
 class ImporterModel extends Model {
+
+  declare id: ID
+  declare name: string
+  declare config: Record<string, unknown>
 
   constructor(parent, init = {}) {
     super(parent, {
