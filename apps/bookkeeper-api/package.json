@@ -42,7 +42,6 @@
     "node-cron": "^3.0.2",
     "pg": "^8.7.3",
     "promise-sequential": "^1.1.1",
-    "sprintf": "^0.1.5",
     "swagger-ui-express": "^4.3.0",
     "tar": "^6.1.0",
     "tsx": "^4.7.0"
