@@ -1,24 +1,13 @@
 import { log, error, REFRESH_TOKEN_EXPIRY_TIME, MINUTES, YEARS, UUID, Token, Url, LocalUrl, NormalTokenPayload, netConfigure, POST, netRefresh } from '@tasenor/common'
 import { JwtPayload } from 'jsonwebtoken'
-import { DB, tokens, vault, createUuid, isDevelopment, killPortUser } from '@tasenor/common-node'
+import { DB, tokens, vault, createUuid, isDevelopment, killPortUser, killListener } from '@tasenor/common-node'
 import killable from 'killable'
 import path from 'path'
 import fs from 'fs'
 import knex from './knex'
 import system from './system'
 import './plugins'
-import wtf from 'wtfnode'
 import cron from './cron'
-
-let server
-
-/**
- * Register running server.
- * @param s
- */
-function setServer(s) {
-  server = killable(s)
-}
 
 /**
  * Kill the current server.
@@ -28,8 +17,8 @@ async function kill() {
   await knex.disconnect()
   await DB.disconnectAll()
   cron.stop()
-  server.kill()
-  wtf.dump()
+  killListener()
+  setTimeout(() => process.exit(0), 1000)
 }
 
 /**
@@ -161,5 +150,4 @@ export default {
   initialize,
   kill,
   register,
-  setServer
 }

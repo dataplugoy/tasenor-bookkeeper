@@ -17,9 +17,6 @@ router.get('/',
     await updatePluginList()
     const list = await loadPluginIndex()
     res.send(list.map(p => ({ ...p, path: null })))
-
-    warning('Rebooting in 1 seconds...')
-    setTimeout(() => server.kill(), 1000)
   }
 )
 

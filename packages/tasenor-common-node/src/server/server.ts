@@ -3,6 +3,8 @@ import { Express } from 'express'
 import { log, error, waitPromise } from '@tasenor/common'
 import { killPortUser } from '../system'
 
+let expressListener: Server
+
 /**
  * Try to establish a listener for the server port.
  */
@@ -10,7 +12,7 @@ async function listener(app: Express, port: number, main: (s: Server) => void): 
   return new Promise((resolve) => {
     log('Setting up listener...')
 
-    const expressListener = app.listen(port,
+    expressListener = app.listen(port,
       ).on('error', (err) => {
         error('Launching failed:', err + '')
         if ('code' in err && err.code === 'EADDRINUSE') {
@@ -19,7 +21,6 @@ async function listener(app: Express, port: number, main: (s: Server) => void): 
         }
         resolve(false)
       }).on('listening', async () => {
-        console.log(expressListener)
         main(expressListener)
         resolve(true)
       })
@@ -34,4 +35,11 @@ export async function listen(app: Express, port: number | string, main: (s: Serv
     if (await listener(app, parseInt(`${port}`), main)) break
     await waitPromise(2000)
   }
+}
+
+/**
+ * Shut down the server.
+ */
+export function killListener() {
+  expressListener.close()
 }

@@ -27,8 +27,6 @@ async function main(listener) {
 
   cron.initialize()
   log('Bookkeeper back-end server listening on port ' + config.PORT)
-
-  server.setServer(listener)
 }
 
 async function launch() {
