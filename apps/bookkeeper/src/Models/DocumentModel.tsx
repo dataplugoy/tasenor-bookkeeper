@@ -13,6 +13,7 @@ class DocumentModel extends NavigationTargetModel {
   declare entries: EntryModel[]
   declare executionResult: null | ImportExecutionResult
   declare open: boolean
+  declare parent: PeriodModel
 
   constructor(parent, init = {}) {
     super(parent, {
@@ -94,7 +95,7 @@ class DocumentModel extends NavigationTargetModel {
    * Use localized date.
    */
   ['get.date']() {
-    return this.catalog.date2str(this.date)
+    return this.catalog.date2str(this.date as string)
   }
 
   ['validate.date'](value) {
@@ -200,7 +201,7 @@ class DocumentModel extends NavigationTargetModel {
   * Get the period this document belongs to.
   */
   get period(): PeriodModel {
-    return this.parent as unknown as PeriodModel
+    return this.parent
   }
 
   /**

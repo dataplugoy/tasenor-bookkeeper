@@ -1,4 +1,4 @@
-import { AccountNumber, AccountType, Tag, TagType } from '.'
+import { AccountNumber, AccountType, Store, Tag, TagType } from '.'
 import { Asset, ShortDate, StockValueData, Url } from '..'
 import { ID, RealID } from '../../process_types'
 import { Currency, Language } from '../common'
@@ -7,6 +7,12 @@ import { PluginCode } from '../plugins'
 // These are simplified definitions of the actual Bookkeeper data.
 // Only functions needed by components are declared here so far.
 // This could be more comprehensive and support full Typescript conversion in future.
+
+export declare class BaseModel {
+  id?: ID
+  store: Store
+  variables: string[]
+}
 
 /**
  * An account model data in the accounting schema.
@@ -29,11 +35,12 @@ export interface AccountModelData {
 /**
  * An account model in the accounting schema.
  */
-export declare class AccountModel implements AccountModelData {
+export declare class AccountModel extends BaseModel implements AccountModelData {
   id: ID
   number: AccountNumber
   name: string
   type: AccountType
+
   data: {
     favourite?: boolean
     code?: Asset | null
@@ -61,7 +68,7 @@ export interface BalanceModelData {
 /**
  * A model for storing account balance.
  */
-export declare class BalanceModel implements BalanceModelData {
+export declare class BalanceModel extends BaseModel implements BalanceModelData {
   account_id: ID
   number: AccountNumber | null
   debit: number | null
@@ -102,8 +109,7 @@ export interface EntryModelData {
 /**
  * A transaction line.
  */
-export declare class EntryModel implements EntryModelData {
-  id?: ID
+export declare class EntryModel extends BaseModel implements EntryModelData {
   account_id: ID
   amount: number
   debit: 0 | 1
@@ -131,8 +137,7 @@ export interface DocumentModelData {
 /**
  * A transaction.
  */
-export declare class DocumentModel implements DocumentModelData {
-  id?: ID
+export declare class DocumentModel extends BaseModel implements DocumentModelData {
   number?: number
   period_id: ID
   date: ShortDate
@@ -146,7 +151,7 @@ export declare class DocumentModel implements DocumentModelData {
  * Period data.
  */
 export interface PeriodModelData {
-  id: ID
+  id?: ID
   start_date: ShortDate
   end_date: ShortDate
   locked: boolean
@@ -156,8 +161,7 @@ export interface PeriodModelData {
 /**
  * A period.
  */
-export declare class PeriodModel implements PeriodModelData {
-  id: ID
+export declare class PeriodModel extends BaseModel implements PeriodModelData {
   start_date: ShortDate
   end_date: ShortDate
   locked: boolean
@@ -182,7 +186,7 @@ export interface HeadingModelData {
 /**
  * A heading definition for account listing.
  */
-export declare class HeadingModel implements HeadingModelData {
+export declare class HeadingModel extends BaseModel implements HeadingModelData {
   id: ID
   number: AccountNumber
   level: number
@@ -206,8 +210,7 @@ export interface TagModelData {
 /**
  * A tag.
  */
-export declare class TagModel implements TagModelData {
-  id?: ID
+export declare class TagModel extends BaseModel implements TagModelData {
   tag: null | Tag
   name: string
   picture: null | string
@@ -237,7 +240,7 @@ export interface DatabaseModelData {
 /**
  * A model for database.
  */
-export declare class DatabaseModel implements DatabaseModelData {
+export declare class DatabaseModel extends BaseModel implements DatabaseModelData {
   name: null | string
   periodsById: Record<RealID, PeriodModel>
   accountsById: Record<RealID, AccountModel>
@@ -254,7 +257,6 @@ export declare class DatabaseModel implements DatabaseModelData {
  * An importer definition data.
  */
 export interface ImporterModelData {
-
   id?: ID
   name: string
   config: Record<string, unknown>
@@ -263,8 +265,7 @@ export interface ImporterModelData {
 /**
  * An importer definition.
  */
-export declare class ImporterModel implements ImporterModelData {
-  id?: ID
+export declare class ImporterModel extends BaseModel implements ImporterModelData {
   name: string
   config: Record<string, unknown>
 }

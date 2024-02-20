@@ -12,6 +12,7 @@ class AccountModel extends Model {
   declare currency: undefined | Currency
   declare language: undefined | Language
   declare data: Record<string, unknown>
+  declare parent: DatabaseModel
 
   // Tags found from transactions of this account.
   declare tagsByTag
@@ -64,8 +65,8 @@ class AccountModel extends Model {
     }
     if (!this.id) {
       runInAction(() => {
-        this.language = this.settings.get('language')
-        this.currency = this.settings.get('currency')
+        this.language = this.settings.get('language') as Language
+        this.currency = this.settings.get('currency') as Currency
       })
     }
     return this.store.request('/db/' + this.db + '/account/' + (this.id || ''), this.id ? 'PATCH' : 'POST', this.toJSON())
@@ -131,7 +132,7 @@ class AccountModel extends Model {
   }
 
   get database(): DatabaseModel {
-    return this.parent as unknown as DatabaseModel
+    return this.parent
   }
 
   get tags() {

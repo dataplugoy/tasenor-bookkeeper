@@ -1,12 +1,11 @@
 import { action, AnnotationsMap, makeObservable, observable, runInAction } from 'mobx'
 import Store from '../Stores/Store'
-import { ID } from '@tasenor/common'
+import { BaseModel, Catalog, ID, Settings } from '@tasenor/common'
 
 class Model {
 
   id: ID
-  // eslint-disable-next-line no-use-before-define
-  parent: Model
+  parent: BaseModel
   store: Store
   variables: string[]
 
@@ -112,7 +111,7 @@ class Model {
    * @param {Any} value
    * @return {string|true} Error message if not valid.
    */
-  validate(field, value) {
+  validate(field: string, value: unknown): boolean {
     const name = `validate.${field}`
     return name in this ? this[name](value) : true
   }
@@ -122,7 +121,7 @@ class Model {
    * @param {String} field
    * @param {String} value
    */
-  async proposal(field, value) {
+  async proposal(field, value): Promise<string | null> {
     const name = `proposal.${field}`
     return name in this ? this[name](value) : null
   }
@@ -132,7 +131,7 @@ class Model {
    * @param {String} field
    * @param {Any} value
    */
-  async change(field, value) {
+  async change(field: string, value: unknown): Promise<void> {
     const name = `change.${field}`
     runInAction(() => {
       if (name in this) {
@@ -146,42 +145,42 @@ class Model {
   /**
    * Write this instance to the store.
    */
-  async save() {
+  async save(): Promise<void> {
     throw new Error(`The model ${this.getObjectType()} does not implement save().`)
   }
 
   /**
    * Delete this instance from the store.
    */
-  async delete() {
+  async delete(): Promise<void> {
     throw new Error(`The model ${this.getObjectType()} does not implement delete().`)
   }
 
   /**
    * Get the settings.
    */
-  get settings() {
+  get settings(): Settings {
     return this.store.settings
   }
 
   /**
-   * Get the settings.
+   * Get the catalog.
    */
-  get catalog() {
+  get catalog(): Catalog {
     return this.store.catalog
   }
 
   /**
    * Name of the current database.
    */
-  get db() {
+  get db(): string {
     return this.store.db
   }
 
   /**
    * Construct a sorting function for sorting model instances.
    */
-  static sorter(reverse = false) {
+  static sorter(reverse = false): (a: Model, b: Model) => number {
     const one = reverse ? -1 : 1
     const cmp = (a, b) => (a < b ? -one : (a > b ? one : 0))
     return (a, b) => {

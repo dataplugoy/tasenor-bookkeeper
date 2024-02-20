@@ -9,6 +9,7 @@ class BalanceModel extends NavigationTargetModel {
   declare debit: null | number
   declare credit: null | number
   declare total: null | number
+  declare parent: PeriodModel
 
   constructor(parent, init = {}) {
     super(parent, {
@@ -53,7 +54,7 @@ class BalanceModel extends NavigationTargetModel {
    * Get the period of this balance.
    */
   get period(): PeriodModel {
-    return this.parent as unknown as PeriodModel
+    return this.parent
   }
 
   /**

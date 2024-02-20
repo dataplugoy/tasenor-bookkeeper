@@ -22,6 +22,7 @@ class EntryModel extends NavigationTargetModel {
   declare data: Record<string, unknown>
   declare row_number: number
   declare tagNames: string[]
+  declare parent: DocumentModel
 
   constructor(parent, init = {}) {
     super(parent, {
@@ -576,7 +577,7 @@ class EntryModel extends NavigationTargetModel {
   * Get the document this entry belongs to.
   */
   get document(): DocumentModel {
-    return this.parent as unknown as DocumentModel
+    return this.parent
   }
 
   /**

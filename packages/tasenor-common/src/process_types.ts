@@ -2,7 +2,7 @@
  * Some utility type definitions for processing.
  */
 
-import { SegmentId } from '.'
+import { MimeType, SegmentId } from '.'
 
 /**
  * Configuration data for a process.
@@ -64,7 +64,7 @@ export type ProcessFileModelData = {
   id: ID
   processId?: ID
   name: string
-  type: string // TODO: Should be MIME-type
+  type: MimeType
   encoding: FileEncoding
   data: string
 }

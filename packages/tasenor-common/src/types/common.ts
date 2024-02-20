@@ -49,6 +49,8 @@ export function isFilePath(obj: unknown): obj is FilePath {
   return typeof obj === 'string'
 }
 
+export type MimeType = Opaque<string, 'MimeType'>
+
 // Common utility types
 // --------------------
 export type Constructor<T> = new (...args) => T

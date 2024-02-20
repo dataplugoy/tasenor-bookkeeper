@@ -1,4 +1,4 @@
-import { AssetTransfer, Currency, Email, Language, LoginPluginData, ReportID, ReportOptions, TsvFilePath } from '..'
+import { AssetTransfer, Currency, Email, Language, LoginPluginData, ReportID, ReportOptions, ShortDate, TsvFilePath } from '..'
 import { ALL } from '../..'
 import { TasenorPlugin, PluginCode, BackendPlugin, SchemePlugin, ReportPlugin, ServicePlugin } from '../plugins'
 
@@ -58,6 +58,7 @@ export declare class Catalog {
   registerHook(name: string, func: CatalogHook): void
   subscribe(user: Email, code: PluginCode): Promise<LoginPluginData | null>
   unsubscribe(user: Email, code: PluginCode): Promise<LoginPluginData | null>
+  str2date(str: string, sample: string | null): ShortDate
 }
 
 /**
