@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { TasenorSetup, AccountModel, AccountNumber, AccountType, BalanceModel, Currency, Cursor, DatabaseModel, EntryModel, HeadingModel, ID, RealID, Language, PeriodModel, Tag, TagModel, TagType, Url, VATTarget, Asset, TasenorPlugin, BackendPlugin, Store } from '@tasenor/common'
+import { TasenorSetup, AccountModel, AccountNumber, AccountType, BalanceModel, Currency, Cursor, DatabaseModel, EntryModel, HeadingModel, ID, RealID, Language, PeriodModel, Tag, TagModel, TagType, Url, Asset, TasenorPlugin, BackendPlugin, Store, ImporterModel, PluginCode, SchemePlugin, TsvFilePath, ReportID, ReportPlugin, ReportOptions, ServicePlugin, TransactionImportHandler, AssetTransfer, CatalogHook, Email, LoginPluginData, ShortDate, HttpResponse } from '@tasenor/common'
 import { sprintf } from 'sprintf-js'
 import dayjs from 'dayjs'
 
@@ -52,6 +52,9 @@ export class MockAccountModel {
     code: Asset | null
   }
 
+  store: Store
+  variables: string[]
+
   currency: Currency | null
   language: Language | null
 
@@ -83,6 +86,8 @@ export class MockDatabaseModel {
   accountsByNumber: Record<number, AccountModel>
   tagsByTag: Record<Tag, TagModel>
   headingsByNumber: Record<number, HeadingModel>
+  store: Store
+  variables: string[]
 
   constructor(parent, params: { name: string }) {
     this.name = params.name
@@ -163,6 +168,101 @@ export class MockCatalog {
 
   async reload(): Promise<void> {
   }
+
+  time2str(date: string | number): string {
+    throw new Error('Not implemented.')
+  }
+
+  find(code: PluginCode): BackendPlugin {
+    throw new Error('Not implemented.')
+  }
+
+  install(code: PluginCode): Promise<void> {
+    throw new Error('Not implemented.')
+  }
+
+  uninstall(code: PluginCode): Promise<void> {
+    throw new Error('Not implemented.')
+  }
+
+  installPluginsToDb(db): Promise<void> {
+    throw new Error('Not implemented.')
+  }
+
+  getTranslations(language?: Language): Record<string, Record<string, string>> {
+    throw new Error('Not implemented.')
+  }
+
+  getSchemePlugin(code: PluginCode): SchemePlugin {
+    throw new Error('Not implemented.')
+  }
+
+  getSchemePaths(code: PluginCode, language): TsvFilePath[] | null {
+    throw new Error('Not implemented.')
+  }
+
+  getSchemeDefaults(code: PluginCode): Record<string, unknown> | null {
+    throw new Error('Not implemented.')
+  }
+
+  getReportIDs(scheme: string | undefined): Promise<Set<ReportID>> {
+    throw new Error('Not implemented.')
+  }
+
+  getReportPlugin(id: ReportID): ReportPlugin | null {
+    throw new Error('Not implemented.')
+  }
+
+  getReportOptions(id: ReportID): ReportOptions {
+    throw new Error('Not implemented.')
+  }
+
+  getServices(): string[] {
+    throw new Error('Not implemented.')
+  }
+
+  getServiceProviders(service): ServicePlugin[] {
+    throw new Error('Not implemented.')
+  }
+
+  getPluginsIDs(): number[] {
+    throw new Error('Not implemented.')
+  }
+
+  getPluginsWithSettings(): BackendPlugin[] {
+    throw new Error('Not implemented.')
+  }
+
+  getImportHandlers(): TransactionImportHandler[] {
+    throw new Error('Not implemented.')
+  }
+
+  getCommonKnowledge(): Promise<Record<string, unknown>> {
+    throw new Error('Not implemented.')
+  }
+
+  getVAT(time: Date, transfer: AssetTransfer, currency: Currency): Promise<null | number> {
+    throw new Error('Not implemented.')
+  }
+
+  forEach(callback: (plugin: BackendPlugin) => Promise<void>) {
+  }
+
+  registerHook(name: string, func: CatalogHook): void {
+    throw new Error('Not implemented.')
+  }
+
+  subscribe(user: Email, code: PluginCode): Promise<LoginPluginData | null> {
+    throw new Error('Not implemented.')
+  }
+
+  unsubscribe(user: Email, code: PluginCode): Promise<LoginPluginData | null> {
+    throw new Error('Not implemented.')
+  }
+
+  str2date(str: string, sample: string | null): ShortDate {
+    throw new Error('Not implemented.')
+  }
 }
 
 /**
@@ -212,11 +312,31 @@ export class MockStore {
   async fetchBalances(db?: string, periodId?: number): Promise<void> {
   }
 
-  async request(path, method = 'GET', data = null, file = null, noDimming = false) {
+  async request<T>(path, method?: string, data?: unknown, file?: unknown, noDimming?: boolean): Promise<HttpResponse<T>> {
+    throw new Error('Not implemented.')
   }
 
   rispSetup(baseUrl: string): TasenorSetup {
     return setup
+  }
+
+  setLoadingOn(): void {
+  }
+
+  setLoadingOff(): void {
+  }
+
+  async setDb(db): Promise<void> {
+  }
+
+  async setPeriod(db, periodId): Promise<void> {
+  }
+
+  async fetchImporter(db, importerId): Promise<ImporterModel> {
+    return {
+      name: 'Mock',
+      config: {},
+    } as ImporterModel // TODO: Fill in store model and others to remove this.
   }
 }
 
@@ -235,7 +355,7 @@ export class MockSettings {
 }
 
 export const setup: TasenorSetup = {
-  store: new MockStore() as unknown as Store, // TODO: Need more functions to Catalog in order to satisfy Store.
+  store: new MockStore() as Store,
   baseUrl: '',
   token: '',
   errorMessage: () => console.log('ERROR'),
