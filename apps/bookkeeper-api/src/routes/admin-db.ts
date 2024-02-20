@@ -8,7 +8,7 @@ const router = express.Router()
 
 router.get('/',
   ...tasenor({ admin: true }),
-  async (req, res, next) => {
+  async (_req, res) => {
 
     const allDbs = await db.getAll()
     const dbs = allDbs.reduce((prev, cur) => ({ ...prev, [`${cur.id}`]: cur }), {})

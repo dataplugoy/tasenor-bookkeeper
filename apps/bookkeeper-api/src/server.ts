@@ -10,7 +10,7 @@ import cron from './lib/cron'
 import pkg from '../package.json'
 import routes from './routes'
 
-async function main(listener) {
+async function main() {
   server.register()
 
   log('Checking default plugin repos...')

@@ -1,7 +1,7 @@
 import path from 'path'
 import { ArgumentParser } from 'argparse'
 import { cli } from './cli'
-import { Crypto } from '@tasenor/common'
+import { Crypto, Secret, Token } from '@tasenor/common'
 import { tokens } from '..'
 import { JwtPayload } from 'jsonwebtoken'
 
@@ -24,7 +24,7 @@ import { JwtPayload } from 'jsonwebtoken'
 export interface MiniUtil {
   title: string
   args: [string, Record<string, string>][]
-  exe: (args: Record<string, any>) => Promise<void>
+  exe: (args: Record<string, unknown>) => Promise<void>
 }
 
 const utils: Record<string, MiniUtil> = {}
@@ -45,7 +45,7 @@ utils.encrypt = {
     if (!secret) {
       secret = await cli.ask('What is the secret string?')
     }
-    const crypted = await Crypto.encrypt(secret, text)
+    const crypted = await Crypto.encrypt(secret as Secret, text as string)
     console.log(crypted)
   },
 }
@@ -66,7 +66,7 @@ utils.decrypt = {
     if (!secret) {
       secret = await cli.ask('What is the secret string?')
     }
-    const decrypted = await Crypto.decrypt(secret, text)
+    const decrypted = await Crypto.decrypt(secret as Secret, text as string)
     console.log(decrypted)
   },
 }
@@ -80,7 +80,7 @@ utils['token-show'] = {
     ['token', { help: 'Tasenor token' }],
   ],
   exe: async({ token }) => {
-    const parsed: JwtPayload = tokens.parse(token) as JwtPayload
+    const parsed: JwtPayload = tokens.parse(token as Token) as JwtPayload
     if (parsed && parsed.payload && parsed.payload.iat) parsed.payload.iat = new Date(parsed.payload.iat * 1000)
     if (parsed && parsed.payload && parsed.payload.exp) parsed.payload.exp = new Date(parsed.payload.exp * 1000)
     console.dir(parsed, { depth: null })
@@ -118,7 +118,7 @@ export function runMiniUtil(name: string | undefined = undefined) {
   }
   const args = parser.parse_args(process.argv.slice(2))
 
-  const callArgs: Record<string, any> = {}
+  const callArgs: Record<string, unknown> = {}
   for (const [arg,] of utils[name].args) {
     callArgs[arg] = args[arg]
   }
