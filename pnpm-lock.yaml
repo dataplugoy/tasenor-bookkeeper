@@ -210,6 +210,9 @@ importers:
       tsx:
         specifier: ^4.7.0
         version: 4.7.0
+      wtfnode:
+        specifier: ^0.9.1
+        version: 0.9.1
     devDependencies:
       '@tasenor/config':
         specifier: workspace:*
@@ -232,6 +235,9 @@ importers:
       '@types/node':
         specifier: ^20.4.1
         version: 20.4.1
+      '@types/node-cron':
+        specifier: ^3.0.11
+        version: 3.0.11
       eslint-config-tasenor:
         specifier: workspace:*
         version: link:../../packages/eslint-config-tasenor
@@ -2780,6 +2786,10 @@ packages:
     resolution: {integrity: sha512-/SNsDidUFCvqqcWDwxv2feww/yqhNeTRL5CVoL3jU4Goc4kKEL10T7Eye65ZqPNi4HRx8sAEX59pV1aEH7drNA==}
     dependencies:
       '@types/express': 4.17.17
+    dev: true
+
+  /@types/node-cron@3.0.11:
+    resolution: {integrity: sha512-0ikrnug3/IyneSHqCBeslAhlK2aBfYek1fGo4bP4QnZPmiqSGRK+Oy7ZMisLWkesffJvQ1cqAcBnJC+8+nxIAg==}
     dev: true
 
   /@types/node@14.18.53:
@@ -10035,6 +10045,11 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
+
+  /wtfnode@0.9.1:
+    resolution: {integrity: sha512-Ip6C2KeQPl/F3aP1EfOnPoQk14Udd9lffpoqWDNH3Xt78svxPbv53ngtmtfI0q2Te3oTq79XKTnRNXVIn/GsPA==}
+    hasBin: true
+    dev: false
 
   /xtend@4.0.2:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}

@@ -1,10 +1,16 @@
 import { DatabaseName, Hostname, log } from '@tasenor/common'
 import { DB } from '@tasenor/common-node'
 import dayjs from 'dayjs'
-import cron from 'node-cron'
+import cron, { ScheduledTask } from 'node-cron'
 import catalog from './catalog'
 import knex from './knex'
 
+let houryTask: ScheduledTask
+let dailyTask: ScheduledTask
+
+/**
+ * Runner for hourly cron for every plugin.
+ */
 async function hourly(): Promise<void> {
   log('Running hourly cron.')
   const start = new Date().getTime()
@@ -15,6 +21,9 @@ async function hourly(): Promise<void> {
   log(`Hourly cron executed in ${(stop - start) / 1000} seconds.`)
 }
 
+/**
+ * Runner for daily cron for all plugins.
+ */
 async function nightly(): Promise<void> {
   log('Running nightly cron.')
   const start = new Date().getTime()
@@ -29,18 +38,30 @@ async function nightly(): Promise<void> {
   log(`Nightly cron executed in ${(stop - start) / 1000} seconds.`)
 }
 
+/**
+ * Set up cron tasks.
+ */
 function initialize(): void {
   log('Initializing cron sub-system.')
 
-  cron.schedule('0 * * * *', async () => {
+  houryTask = cron.schedule('0 * * * *', async () => {
     return hourly()
   })
 
-  cron.schedule('30 2 * * *', async () => {
+  dailyTask = cron.schedule('30 2 * * *', async () => {
     return nightly()
   })
 }
 
+/**
+ * Stop all cron tasks.
+ */
+function stop(): void {
+  houryTask && houryTask.stop()
+  dailyTask && dailyTask.stop()
+}
+
 export default {
-  initialize
+  initialize,
+  stop
 }

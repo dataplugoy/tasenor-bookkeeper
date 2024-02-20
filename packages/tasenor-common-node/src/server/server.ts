@@ -10,19 +10,20 @@ async function listener(app: Express, port: number, main: (s: Server) => void): 
   return new Promise((resolve) => {
     log('Setting up listener...')
 
-    const listener = app.listen(port,
-    ).on('error', (err) => {
-      error('Launching failed:', err + '')
-      if ('code' in err && err.code === 'EADDRINUSE') {
-        error('Trying to kill existing process...')
-        killPortUser(port)
-      }
-      resolve(false)
-    }).on('listening', async () => {
-      main(listener)
-      resolve(true)
+    const expressListener = app.listen(port,
+      ).on('error', (err) => {
+        error('Launching failed:', err + '')
+        if ('code' in err && err.code === 'EADDRINUSE') {
+          error('Trying to kill existing process...')
+          killPortUser(port)
+        }
+        resolve(false)
+      }).on('listening', async () => {
+        console.log(expressListener)
+        main(expressListener)
+        resolve(true)
+      })
     })
-  })
 }
 
 /**

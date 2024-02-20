@@ -6,7 +6,7 @@
   "scripts": {
     "build-test": "tsc --noEmit",
     "ci": "pnpm run lint && pnpm run build-test",
-    "dev": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx watch --clear-screen=false -r dotenv/config src/server.ts",
+    "dev": "while true; do DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx watch --clear-screen=false -r dotenv/config src/server.ts; done",
     "docker": "pnpm run ssh-keys && pnpm run wait && DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx -r dotenv/config src/server.ts",
     "fix": "eslint --fix 'src/**/*.ts'",
     "lint": "eslint 'src/**/*.ts'",
@@ -46,7 +46,8 @@
     "sprintf": "^0.1.5",
     "swagger-ui-express": "^4.3.0",
     "tar": "^6.1.0",
-    "tsx": "^4.7.0"
+    "tsx": "^4.7.0",
+    "wtfnode": "^0.9.1"
   },
   "devDependencies": {
     "@tasenor/config": "workspace:*",
@@ -56,6 +57,7 @@
     "@types/jsonwebtoken": "^9.0.2",
     "@types/multer": "^1.4.7",
     "@types/node": "^20.4.1",
+    "@types/node-cron": "^3.0.11",
     "eslint-config-tasenor": "workspace:*",
     "typescript": "^5.1.6"
   }

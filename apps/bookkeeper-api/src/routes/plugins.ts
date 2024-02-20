@@ -1,10 +1,11 @@
 import express from 'express'
 import { plugins } from '@tasenor/common-node'
 import { install, uninstall, reset } from '../lib/plugins'
+import server from '../lib/server'
 import catalog from '../lib/catalog'
 import { tasenor } from '../lib/middleware'
 import path from 'path'
-import { DirectoryPath, LocalUrl, POST, Value } from '@tasenor/common'
+import { DirectoryPath, LocalUrl, POST, Value, warning } from '@tasenor/common'
 
 const { findPluginFromIndex, loadPluginIndex, updatePluginList } = plugins
 const router = express.Router()
@@ -16,6 +17,9 @@ router.get('/',
     await updatePluginList()
     const list = await loadPluginIndex()
     res.send(list.map(p => ({ ...p, path: null })))
+
+    warning('Rebooting in 1 seconds...')
+    setTimeout(() => server.kill(), 1000)
   }
 )
 
@@ -48,6 +52,8 @@ router.get('/upgrade',
     await plugins.upgradeRepositories(root)
     await updatePluginList()
     res.status(204).send()
+    warning('Rebooting in 3 seconds...')
+    setTimeout(() => server.kill(), 3000)
   }
 )
 
