@@ -2,7 +2,7 @@
   "name": "@tasenor/cli",
   "description": "Tasenor Command-line Utility",
   "scripts": {
-    "audit": "pnpm audit --fix"
+    "audit": "pnpm audit --fix --ignore-registry-errors && pnpm install && pnpm audit --ignore-registry-errors"
   },
   "keywords": [],
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
@@ -13,5 +13,10 @@
     "csv-parse": "^5.4.0",
     "dayjs": "1.10.8",
     "tsx": "^4.7.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "ip@=2.0.0": ">=2.0.1"
+    }
   }
 }

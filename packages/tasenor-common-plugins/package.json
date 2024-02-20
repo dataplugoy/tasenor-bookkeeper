@@ -8,7 +8,7 @@
   "main": "src/index.ts",
   "types": "src/index.ts",
   "scripts": {
-    "audit": "pnpm audit --fix",
+    "audit": "pnpm audit --fix --ignore-registry-errors && pnpm install && pnpm audit --ignore-registry-errors",
     "ci": "pnpm run lint",
     "build": "rm -fr dist && tsc",
     "fix": "eslint --fix 'src/**/*.{ts,tsx}' 'data/**/*.mjs'",

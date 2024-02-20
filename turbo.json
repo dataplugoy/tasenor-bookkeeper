@@ -28,6 +28,8 @@
   ],
   "pipeline": {
     "audit": {
+      "cache": false,
+      "persistent": true,
       "inputs": ["package.json", "pnpm-lock.yaml"]
     },
     "dev": {
