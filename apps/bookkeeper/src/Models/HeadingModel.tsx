@@ -1,6 +1,14 @@
+import { AccountNumber, ID } from '@tasenor/common'
 import Model from './Model'
+import DatabaseModel from './DatabaseModel'
 
 class HeadingModel extends Model {
+
+  declare id: ID
+  declare number: AccountNumber
+  declare level: number
+  declare text: string
+  declare parent: DatabaseModel
 
   constructor(parent, init = {}) {
     super(parent, {
@@ -17,7 +25,7 @@ class HeadingModel extends Model {
   /**
    * Get the database this entry belongs to.
    */
-  get database() {
+  get database(): DatabaseModel {
     return this.parent
   }
 
