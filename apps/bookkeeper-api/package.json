@@ -4,7 +4,6 @@
   "description": "Tasenor bookkeeper API.",
   "main": "src/server.ts",
   "scripts": {
-    "audit": "pnpm audit --fix --ignore-registry-errors && pnpm install && pnpm audit --ignore-registry-errors",
     "build-test": "tsc --noEmit",
     "ci": "pnpm run lint && pnpm run build-test",
     "dev": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx watch --clear-screen=false -r dotenv/config src/server.ts",

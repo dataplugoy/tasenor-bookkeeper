@@ -7,7 +7,6 @@
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "AGPL",
   "scripts": {
-    "audit": "pnpm audit --fix --ignore-registry-errors && pnpm install && pnpm audit --ignore-registry-errors",
     "docs-index": "rm -fr build && mkdir build && cp -r index/* build",
     "docs-api": "npx swagger-cli bundle -o api/openapi.json api/openapi.yaml && npx @redocly/cli build-docs -o build/api/index.html api/openapi.yaml",
     "docs-code": "npx typedoc",

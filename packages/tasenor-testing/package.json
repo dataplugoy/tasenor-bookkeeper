@@ -8,7 +8,6 @@
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "audit": "pnpm audit --fix --ignore-registry-errors && pnpm install && pnpm audit --ignore-registry-errors",
     "build": "rm -fr dist && tsc",
     "ci": "pnpm run lint && pnpm run test && pnpm run robot",
     "fix": "eslint --fix 'src/**/*.ts'",
