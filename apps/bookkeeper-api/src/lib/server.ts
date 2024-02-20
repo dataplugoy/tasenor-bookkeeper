@@ -1,7 +1,6 @@
 import { log, error, REFRESH_TOKEN_EXPIRY_TIME, MINUTES, YEARS, UUID, Token, Url, LocalUrl, NormalTokenPayload, netConfigure, POST, netRefresh } from '@tasenor/common'
 import { JwtPayload } from 'jsonwebtoken'
-import { DB, tokens, vault, createUuid, isDevelopment, killPortUser, killListener } from '@tasenor/common-node'
-import killable from 'killable'
+import { DB, tokens, vault, createUuid, isDevelopment, killListener } from '@tasenor/common-node'
 import path from 'path'
 import fs from 'fs'
 import knex from './knex'
