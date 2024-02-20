@@ -1,7 +1,9 @@
 {
   "name": "@tasenor/cli",
   "description": "Tasenor Command-line Utility",
-  "scripts": {},
+  "scripts": {
+    "audit": "pnpm audit --fix"
+  },
   "keywords": [],
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "AGPL",

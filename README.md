@@ -31,6 +31,7 @@ This is a monorepo for developing Tasenor Bookkeeper.
 
 ### Turbo Commands
 
+* `turbo audit` Build all buildable packages.
 * `turbo build` Build all buildable packages.
 * `turbo demo` Launch local demo servers.
 * `turbo dev` Launch local development environment.

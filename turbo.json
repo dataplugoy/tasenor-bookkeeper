@@ -27,6 +27,9 @@
     "VAULT_URL"
   ],
   "pipeline": {
+    "audit": {
+      "inputs": ["package.json", "pnpm-lock.yaml"]
+    },
     "dev": {
       "cache": false,
       "persistent": true
