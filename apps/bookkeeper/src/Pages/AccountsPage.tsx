@@ -12,7 +12,7 @@ interface AccountsPageProps {
   store: Store
 }
 
-const AccountsPage = withStore(observer((props: AccountsPageProps) => {
+const AccountsPage = withStore(observer((props: AccountsPageProps): JSX.Element => {
   const cursor = haveCursor()
   cursor.selectPage('Accounts', {})
 
