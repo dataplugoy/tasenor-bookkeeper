@@ -22,4 +22,5 @@ export declare class Cursor {
   resetSelected(): void
   registerMenu(handlers: ShortcutHandlers)
   registerTools(handlers: ShortcutHandlers | null)
+  selectPage(page: string, hooks: Record<string, (cursor: Cursor, key: string) => void>): void
 }
