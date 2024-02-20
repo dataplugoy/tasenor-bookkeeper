@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
-import { Box, List, ListItemButton, ListItemText, Typography } from '@mui/material'
+import { Box, Chip, List, ListItemButton, ListItemText, Typography } from '@mui/material'
 import withStore from '../Hooks/withStore'
 import { DbDataModel } from '@tasenor/common'
 import { Localize, useNav } from '@tasenor/common-ui'
@@ -15,6 +15,7 @@ const AdminDatabaseList = withStore((props: AdminDatabaseListProps): React.React
   const { store } = props
   const [dbs, setDbs] = useState<DbDataModel[]>([])
   const nav = useNav()
+  const { t } = useTranslation()
 
   useEffect(() => {
     store.request('/admin/db', 'GET').then(res => {
@@ -29,7 +30,7 @@ const AdminDatabaseList = withStore((props: AdminDatabaseListProps): React.React
           <Typography variant="subtitle1">{db.name}</Typography>
           <Trans>Creation Date</Trans>: <Localize date={db.created}/><br/>
           <Trans>Users</Trans>: {db.users.map(user => <Box key={user.user.id} component="span">
-            {user.user.email} {user.config.isCreator ? '[CREATOR]' : ''}<> </>
+            {user.user.email} {user.config.isCreator ? <Chip variant="outlined" label={t('Creator')}/> : ''}<> </>
           </Box>)}
         </ListItemText>
       </ListItemButton>

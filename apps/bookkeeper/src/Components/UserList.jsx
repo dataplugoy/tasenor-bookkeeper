@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import { withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
 import Cursor from '../Stores/Cursor'
-import { List, ListItem, ListItemText } from '@mui/material'
+import { Chip, List, ListItem, ListItemButton, ListItemText } from '@mui/material'
 import withRouter from '../Hooks/withRouter'
 import withStore from '../Hooks/withStore'
 
@@ -30,13 +30,13 @@ class UserList extends Component {
           {
             this.props.store.users.map((user) => {
               const status = []
-              if (user.disabled) status.push('[ DISABLED ]')
-              if (user.config.admin) status.push('[ ADMIN ]')
-              if (user.config.superuser) status.push('[ SUPERUSER ]')
+              if (user.disabled) status.push((<Chip key="disabled" variant="outlined" label={this.props.t('Disabled')}/>))
+              if (user.config.admin) status.push(<Chip key="outlined" variant="outlined" label={this.props.t('Admin')}/>)
+              if (user.config.superuser) status.push((<Chip key="superuser" variant="outlined" label={this.props.t('Superuser')}/>))
               return (
-              <ListItem id={`user-${user.email}`} key={user.email} button selected={current === user.email} onClick={() => this.onClickUser(user)}>
-                <ListItemText primary={`${user.name} ${status.join(' ')}`} secondary={user.email} />
-              </ListItem>
+              <ListItemButton id={`user-${user.email}`} key={user.email} selected={current === user.email} onClick={() => this.onClickUser(user)}>
+                <ListItemText primary={<>{user.name} {status}</>} secondary={user.email} />
+              </ListItemButton>
               )
             })
           }
