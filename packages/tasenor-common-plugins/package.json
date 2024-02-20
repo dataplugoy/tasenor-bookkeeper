@@ -15,8 +15,8 @@
     "nightly": "pnpm run ci",
     "nightly3": "pnpm run data",
     "data": "data/bin/build_all",
-    "release": "pnpm version patch && pnpm publish --access public --no-git-checks",
-    "release-minor": "pnpm version minor && pnpm publish --access public --no-git-checks",
+    "release": "pnpm version patch && pnpm publish --force --access public --no-git-checks",
+    "release-minor": "pnpm version minor && pnpm publish --force --access public --no-git-checks",
     "show-version": "jq .version < package.json"
   },
   "dependencies": {
