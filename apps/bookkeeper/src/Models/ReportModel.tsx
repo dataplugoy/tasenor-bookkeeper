@@ -1,10 +1,24 @@
+import { Report, ReportColumnDefinition, ReportFormat, ReportMeta, ReportOptions, Url } from '@tasenor/common'
 import clone from 'clone'
 import i18n from '../i18n'
 import Model from './Model'
+import PeriodModel from './PeriodModel'
+import DatabaseModel from './DatabaseModel'
 
 class ReportModel extends Model {
 
+  declare format: ReportFormat
+  declare order: number
+  declare meta: ReportMeta
+  declare options: ReportOptions
+  declare config: Record<string, unknown>
+  declare columns: ReportColumnDefinition[]
+  declare url: Url
+  declare data: Report
+  declare parent: PeriodModel
+
   constructor(parent, init = {}) {
+
     super(parent, {
       format: null,
       // Order number.
@@ -15,8 +29,6 @@ class ReportModel extends Model {
       options: {},
       // Selected values for report options.
       config: {},
-      // A list of entries of this document.
-      entries: [],
       // Description of columns.
       columns: [],
       // URL used for fetching the report.
@@ -72,7 +84,7 @@ class ReportModel extends Model {
    * Construct URL for the back-end data.
    */
   getUrl() {
-    const options = []
+    const options: string[] = []
     Object.keys(this.options).forEach((option) => {
       options.push(`${option}=${encodeURIComponent(JSON.stringify(this.config[option]))}`)
     })
@@ -100,14 +112,14 @@ class ReportModel extends Model {
   /**
    * Get the period this document belongs to.
    */
-  get period() {
+  get period(): PeriodModel {
     return this.parent
   }
 
   /**
    * Get the database this document belongs to.
    */
-  get database() {
+  get database(): DatabaseModel {
     return this.parent.database
   }
 }
