@@ -334,7 +334,7 @@ export class Command {
     if (!periods.length) {
       throw new Error(`No periods found matching ${JSON.stringify(period)}`)
     }
-    return periods[0].id
+    return periods[0].id as ID
   }
 
   /**
