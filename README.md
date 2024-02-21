@@ -27,7 +27,7 @@ This is a monorepo for developing Tasenor Bookkeeper.
 
 ### Configurations
 
-* [Tasenor Config](./packages/tasenot-config/README.md)
+* [Tasenor Config](./packages/tasenor-config/README.md)
 
 ### Turbo Commands
 
