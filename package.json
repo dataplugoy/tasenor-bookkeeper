@@ -4,7 +4,10 @@
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "AGPL-3.0-only",
   "packageManager": "pnpm@8.9.2",
-  "scripts": {},
+  "scripts": {
+    "ci": "pnpm audit",
+    "nightly": "pnpm audit"
+  },
   "devDependencies": {
     "turbo": "^1.12.4"
   },
