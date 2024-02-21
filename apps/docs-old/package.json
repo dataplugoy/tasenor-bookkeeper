@@ -1,5 +1,5 @@
 {
-  "name": "@tasenor/docs",
+  "name": "@tasenor/docs-old",
   "version": "1.11.17",
   "main": "src/index.ts",
   "types": "src/index.ts",
@@ -10,13 +10,13 @@
     "docs-index": "rm -fr build && mkdir build && cp -r index/* build",
     "docs-api": "npx swagger-cli bundle -o api/openapi.json api/openapi.yaml && npx @redocly/cli build-docs -o build/api/index.html api/openapi.yaml",
     "docs-code": "npx typedoc",
-    "build": "pnpm run docs-index && pnpm run docs-api && pnpm run docs-code",
-    "lint": "openapi lint api/openapi.yaml --skip-rule operation-4xx-response --extends recommended",
-    "ci": "pnpm run lint",
-    "nightly": "pnpm run ci",
-    "release": "pnpm version patch",
-    "release-minor": "pnpm version minor",
-    "show-version": "jq .version < package.json"
+    "old-build": "pnpm run docs-index && pnpm run docs-api && pnpm run docs-code",
+    "old-lint": "openapi lint api/openapi.yaml --skip-rule operation-4xx-response --extends recommended",
+    "old-ci": "pnpm run lint",
+    "old-nightly": "pnpm run ci",
+    "old-release": "pnpm version patch",
+    "old-release-minor": "pnpm version minor",
+    "old-show-version": "jq .version < package.json"
   },
   "dependencies": {
     "typedoc": "^0.24.8",
