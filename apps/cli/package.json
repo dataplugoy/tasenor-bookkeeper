@@ -1,16 +1,15 @@
 {
   "name": "@tasenor/cli",
   "description": "Tasenor Command-line Utility",
-  "scripts": {
-  },
+  "scripts": {},
   "keywords": [],
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "AGPL",
   "dependencies": {
     "@tasenor/common": "workspace:*",
     "@tasenor/common-node": "workspace:*",
-    "csv-parse": "^5.4.0",
+    "csv-parse": "^5.5.3",
     "dayjs": "1.10.8",
-    "tsx": "^4.7.0"
+    "tsx": "^4.7.1"
   }
 }
