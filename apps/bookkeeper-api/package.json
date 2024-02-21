@@ -24,7 +24,6 @@
     "@redocly/cli": "1.0.0-beta.131",
     "@tasenor/common": "workspace:*",
     "@tasenor/common-node": "workspace:*",
-    "@vscode/sqlite3": "^5.1.2",
     "argparse": "^2.0.1",
     "axios": "^1.6.7",
     "base64-arraybuffer": "^1.0.2",

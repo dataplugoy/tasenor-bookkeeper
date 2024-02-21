@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "@tasenor/common": "workspace:*",
-    "@vscode/sqlite3": "5.1.6-vscode",
     "argparse": "^2.0.1",
     "axios": "^1.6.7",
     "bcrypt": "^5.1.1",
