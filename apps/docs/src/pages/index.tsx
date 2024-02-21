@@ -16,7 +16,7 @@ export default function Index(): JSX.Element {
           Welcome to Tasenor Project
         </Heading>
       <main className={styles.content}>
-        TODO: Content
+        TODO: Brief Introduction. How to start.
       </main>
     </Layout>
   );

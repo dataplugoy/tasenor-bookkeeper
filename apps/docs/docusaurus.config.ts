@@ -74,15 +74,6 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Documentation',
-          items: [
-            {
-              label: 'Introduction',
-              to: '/docs/intro',
-            },
-          ],
-        },
-        {
           title: 'Community',
           items: [
             {
