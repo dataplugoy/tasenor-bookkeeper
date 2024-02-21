@@ -99,7 +99,9 @@ services:
       - 7207:7207
     environment:
       NODE_ENV: development
+      PORT: 7207
       VIRTUAL_HOST: docs.localhost
       VIRTUAL_PORT: 7207
+    command: pnpm run docker
     networks:
       - tasenor
