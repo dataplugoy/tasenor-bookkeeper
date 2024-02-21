@@ -5,18 +5,18 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Tasenor Project',
   tagline: 'Documentation',
-  favicon: 'img/favicon.ico',
+  favicon: 'favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://docs.tasenor.com',
+  url: 'https://docs.stg.tasenor.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: '', // Usually your GitHub org/user name.
-  projectName: 'tasenor', // Usually your repo name.
+  // organizationName: '', // Usually your GitHub org/user name.
+  // projectName: '', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -54,7 +54,7 @@ const config: Config = {
       title: 'Tasenor',
       logo: {
         alt: 'Tasenor Logo',
-        src: 'img/logo.svg',
+        src: 'logo.png',
       },
       items: [
         {

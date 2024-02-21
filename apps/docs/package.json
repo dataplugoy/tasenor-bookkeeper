@@ -5,10 +5,11 @@
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "AGPL",
   "scripts": {
-    "ci": "tsc",
-    "dev": "docusaurus start",
+    "build": "docusaurus build",
+    "ci": "pnpm run lint",
+    "dev": "docusaurus start --port 7207 --no-open --no-minify",
     "lint": "echo TODO: Lint",
-    "nightly": "pnpm run ci",
+    "nightly": "pnpm run lint && pnpm run build",
     "release": "pnpm version patch",
     "release-minor": "pnpm version minor",
     "show-version": "jq .version < package.json"
