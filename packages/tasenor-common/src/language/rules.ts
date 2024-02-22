@@ -45,47 +45,7 @@ export class RuleParsingError extends Error {
 }
 
 /**
- * ## Rules Evaluation Engine
- *
- * The core of the rules engine is based on the [MathJS](https://mathjs.org/docs/expressions/syntax.html).
- *
- * ### Variables
- *
- * Typically a collection of variables are defined for the processing. For example in importing CSV file
- * we have all columns defined as variables. Note that the parser accept wide range of characters to be
- * used in the variable name. Those which cannot be expressed directly, we can use syntax like
- *
- *   `$('Variable with space')`
- *
- * ### Relations
- *
- * In addition to the standard relations, the engine defines comparisons and concatenation for strings.
- *
- * ### Custom Functions
- *
- * These functions are specifically defined for the rules engine:
- *
- * * `$` - {@link RulesEngine.$}
- * * `capitalize` - {@link RulesEngine.capitalize}
- * * `cents` - {@link RulesEngine.cents}
- * * `chosen` - {@link RulesEngine.chosen}
- * * `clean` - {@link RulesEngine.clean}
- * * `contains` - {@link RulesEngine.contains}
- * * `collect` - {@link RulesEngine.collect}
- * * `d` - {@link RulesEngine.d}
- * * `has` - {@link RulesEngine.has}
- * * `isCurrency` - {@link RulesEngine.isCurrency}
- * * `join` - {@link RulesEngine.join}
- * * `lower` - {@link RulesEngine.lower}
- * * `num` - {@link RulesEngine.num}
- * * `par` - {@link RulesEngine.par}
- * * `str` - {@link RulesEngine.str}
- * * `rates` - {@link RulesEngine.rates}
- * * `regex` - {@link RulesEngine.regex}
- * * `sum` - {@link RulesEngine.sum}
- * * `times` - {@link RulesEngine.times}
- * * `ucfirst` - {@link RulesEngine.ucfirst}
- *
+ * Rule evaluation engine.
  */
 export class RulesEngine {
 

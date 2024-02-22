@@ -1,0 +1,8 @@
+{
+  "label": "General Information",
+  "position": 200,
+  "link": {
+    "type": "generated-index",
+    "description": "Various articles about how the system works internally."
+  }
+}
