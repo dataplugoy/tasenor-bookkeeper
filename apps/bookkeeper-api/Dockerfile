@@ -5,7 +5,7 @@ WORKDIR /var/app
 RUN apk update
 RUN apk upgrade
 RUN apk add nano curl bash jq
-RUN python3 make gcc g++ libc-dev
+RUN apk add python3 make gcc g++ libc-dev
 RUN apk add git openssh-client
 RUN ln -sf /usr/bin/python3 /usr/bin/python
 
