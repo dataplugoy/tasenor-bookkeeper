@@ -1,6 +1,7 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import path from 'path';
 
 const config: Config = {
   title: 'Tasenor Project',
@@ -56,14 +57,21 @@ const config: Config = {
         config: {
           bookkeeperApi: { // the <id> referenced when running CLI commands
             specPath: "api/openapi.yaml", // path to OpenAPI spec, URLs supported
-            outputDir: "docs/api", // output directory for generated files
+            outputDir: "docs/bookkeeper-api", // output directory for generated files
             sidebarOptions: { // optional, instructs plugin to generate sidebar.js
               groupPathsBy: 'tag',
             },
           },
         }
       },
-    ]
+    ],
+    [
+      'docusaurus-plugin-typedoc-api',
+      {
+        projectRoot: path.join(__dirname, '..', '..'),
+        packages: ['packages/tasenor-common', 'packages/tasenor-common-node', 'packages/tasenor-common-ui'],
+      },
+    ],
   ],
 
   themes: ["docusaurus-theme-openapi-docs"], // export theme components
@@ -89,6 +97,11 @@ const config: Config = {
           sidebarId: 'apiSidebarId',
           position: 'left',
           label: 'API',
+        },
+        {
+          to: 'api',
+          position: 'left',
+          label: 'Class Reference',
         },
         {
           href: 'https://github.com/dataplugoy/tasenor-bookkeeper',
