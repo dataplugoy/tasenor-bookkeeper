@@ -106,7 +106,7 @@ const config: Config = {
           items: [
             {
               label: 'Discussion Forum',
-              href: 'https://github.com/dataplugoy/tasenor-bookkeeper',
+              href: 'https://github.com/dataplugoy/tasenor-bookkeeper', // TODO: Get the url.
             },
           ],
         },

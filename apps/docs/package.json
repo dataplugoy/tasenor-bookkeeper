@@ -9,8 +9,8 @@
     "ci": "pnpm run lint",
     "dev": "docusaurus start --port ${PORT:=7207} --no-open --no-minify",
     "docker": "pnpm run build && docusaurus serve --port ${PORT:=7207} --no-open",
-    "lint": "echo TODO: Lint",
-    "nightly": "pnpm run lint && pnpm run build",
+    "lint": "pnpm run build",
+    "nightly": "pnpm run build",
     "release": "pnpm version patch",
     "release-minor": "pnpm version minor",
     "show-version": "jq .version < package.json"
@@ -28,8 +28,10 @@
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.1.1",
+    "@docusaurus/theme-classic": "^3.1.1",
     "@docusaurus/tsconfig": "3.1.1",
     "@docusaurus/types": "3.1.1",
+    "@types/node": "^20.11.19",
     "typescript": "~5.2.2"
   },
   "browserslist": {
