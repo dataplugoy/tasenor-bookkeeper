@@ -33,7 +33,9 @@ Create Finnish Database
     [Documentation]                     Create new Database with the given name, company and schema.
     [Arguments]                         ${name}            ${company}          ${schema}
     Go To Tools
+    Wait Until Element Is Enabled       New Database
     Click Element                       New Database
+    Wait Until Element Is Enabled       //label[text()="Tilikartta"]/..
     Click Element                       //label[text()="Tilikartta"]/..
     Wait Until Element Is Enabled       //*[@data-value='${schema}']
     Click Element                       //*[@data-value='${schema}']

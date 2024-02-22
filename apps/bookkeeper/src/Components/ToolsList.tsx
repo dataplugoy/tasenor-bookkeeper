@@ -1,18 +1,17 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import Store from '../Stores/Store'
 import Catalog from '../Stores/Catalog'
-import withStore from '../Hooks/withStore'
 import withCatalog from '../Hooks/withCatalog'
 import { ListMenu } from './ListMenu'
+import { useNav } from '@tasenor/common-ui'
 
 export type ToolsListProps = {
-  store: Store
   catalog: Catalog
 }
 
-const ToolsList = observer(withStore(withCatalog((props: ToolsListProps): JSX.Element => {
-  const { catalog, store } = props
+const ToolsList = observer(withCatalog((props: ToolsListProps): JSX.Element => {
+  const { catalog } = props
+  const nav = useNav()
   const menu = [{
     page: 'tools',
     id: 'databases',
@@ -23,7 +22,7 @@ const ToolsList = observer(withStore(withCatalog((props: ToolsListProps): JSX.El
     page: 'tools',
     id: 'periods',
     title: 'Periods',
-    disabled: () => !store.db
+    disabled: () => !nav.db
   }].concat(catalog.getToolMenu().map(menu => ({
     page: 'tools',
     id: menu.code,
@@ -32,6 +31,6 @@ const ToolsList = observer(withStore(withCatalog((props: ToolsListProps): JSX.El
   })))
 
   return <ListMenu title="Tools" menu={menu} matchVar="tool"/>
-})))
+}))
 
 export default ToolsList

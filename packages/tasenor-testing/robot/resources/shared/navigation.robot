@@ -117,10 +117,12 @@ Go To Data
 
 Select Tool
     [Arguments]                         ${tool}
+    Wait Until Element is Visible       //*[@role="button"]//*[text()='${tool}']
     Click Element                       //*[@role="button"]//*[text()='${tool}']
 
 Click Tool Icon
     [Arguments]                         ${icon}
+    Wait Until Element is Visible       //*[contains(@class, "MainTopPanel")]//*[@id="${icon}"]
     Click Element                       //*[contains(@class, "MainTopPanel")]//*[@id="${icon}"]
 
 Go To Admin
