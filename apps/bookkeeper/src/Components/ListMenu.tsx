@@ -10,11 +10,11 @@ import Store from '../Stores/Store'
 
 export interface ListMenuItem {
   page: string
-  id: ReportID
+  id: string
   title: string
-  visible: () => boolean
+  visible?: () => boolean
   disabled: () => boolean
-  cssId: string
+  cssId?: string
   default?: boolean
 }
 
@@ -35,6 +35,8 @@ export const ListMenu = observer(withStore((props: ListMenuProps): JSX.Element =
   }
 
   let idx = 0
+
+  // TODO: Shortcuts.
 
   return <Box className={`${title.replace(/[^A-Za-z]/g, '')}List`}>
     <Title><Trans>{title}</Trans></Title>

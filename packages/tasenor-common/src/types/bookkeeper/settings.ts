@@ -3,4 +3,5 @@
  */
 export declare class Settings {
   get(name: string): unknown
+  getPluginSettings()
 }
