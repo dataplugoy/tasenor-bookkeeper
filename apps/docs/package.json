@@ -5,7 +5,9 @@
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "AGPL",
   "scripts": {
-    "build": "docusaurus gen-api-docs all && docusaurus build",
+    "build": "pnpm run build-api && pnpm run build-docs",
+    "build-api": "docusaurus gen-api-docs all",
+    "build-docs": "docusaurus build",
     "ci": "pnpm run lint",
     "dev": "docusaurus start --port ${PORT:=7207} --no-open --no-minify",
     "docker": "pnpm run build && docusaurus serve --port ${PORT:=7207} --no-open",
