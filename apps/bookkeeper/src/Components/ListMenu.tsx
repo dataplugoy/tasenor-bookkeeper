@@ -1,5 +1,5 @@
 import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemButton, ListItemText } from '@mui/material'
-import { ReportID } from '@tasenor/common'
+import { ReportID, haveCursor } from '@tasenor/common'
 import { Title, useNav } from '@tasenor/common-ui'
 import React from 'react'
 import { Trans } from 'react-i18next'
@@ -29,14 +29,34 @@ export const ListMenu = observer(withStore((props: ListMenuProps): JSX.Element =
   const { title, menu, matchVar, store } = props
   const params = useParams()
   const nav = useNav()
+  const cursor = haveCursor()
 
   if (!store.isLoggedIn()) {
     return <></>
   }
 
-  let idx = 0
+  cursor.selectPage('Tools', {
+    keyText: (cursor, key) => {
+      if (key >= '0' && key <= '9') {
+        const index = key === '0' ? 10 : parseInt(key)
+        let idx = 0
+        for (let i = 0; i < menu.length; i++) {
+          const m: ListMenuItem = menu[i]
+          if (m.visible && !m.visible()) continue
+          idx++
+          if (idx === index) {
+            if (!m.disabled()) {
+              nav.go({ side: m.id })
+              break
+            }
+          }
+        }
+        return { peventDefault: true }
+      }
+    }
+  })
 
-  // TODO: Shortcuts.
+  let idx = 0
 
   return <Box className={`${title.replace(/[^A-Za-z]/g, '')}List`}>
     <Title><Trans>{title}</Trans></Title>
