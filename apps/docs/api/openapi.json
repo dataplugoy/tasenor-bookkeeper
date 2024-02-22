@@ -220,7 +220,7 @@
             }
           },
           "401": {
-            "description": "User has not been autehnticated.",
+            "description": "User has not been authenticated.",
             "content": {
               "application/json": {
                 "schema": {

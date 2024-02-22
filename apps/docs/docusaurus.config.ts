@@ -47,6 +47,27 @@ const config: Config = {
     ],
   ],
 
+  plugins: [
+    [
+      'docusaurus-plugin-openapi-docs',
+      {
+        id: "api", // plugin id
+        docsPluginId: "classic", // id of plugin-content-docs or preset for rendering docs
+        config: {
+          bookkeeperApi: { // the <id> referenced when running CLI commands
+            specPath: "api/openapi.yaml", // path to OpenAPI spec, URLs supported
+            outputDir: "docs/api", // output directory for generated files
+            sidebarOptions: { // optional, instructs plugin to generate sidebar.js
+              groupPathsBy: 'tag',
+            },
+          },
+        }
+      },
+    ]
+  ],
+
+  themes: ["docusaurus-theme-openapi-docs"], // export theme components
+
   themeConfig: {
     // Replace with your project's social card
     image: 'logo.jpg',
@@ -59,9 +80,15 @@ const config: Config = {
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'docSidebarId',
           position: 'left',
           label: 'Documentation',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'apiSidebarId',
+          position: 'left',
+          label: 'API',
         },
         {
           href: 'https://github.com/dataplugoy/tasenor-bookkeeper',
@@ -70,6 +97,7 @@ const config: Config = {
         },
       ],
     },
+
     footer: {
       style: 'dark',
       links: [
@@ -94,10 +122,12 @@ const config: Config = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Dataplug Oy, Built with Docusaurus.`,
     },
+
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
+
   } satisfies Preset.ThemeConfig,
 };
 

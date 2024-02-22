@@ -5,7 +5,7 @@
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "AGPL",
   "scripts": {
-    "build": "docusaurus build",
+    "build": "docusaurus build && docusaurus gen-api-docs all",
     "ci": "pnpm run lint",
     "dev": "docusaurus start --port ${PORT:=7207} --no-open --no-minify",
     "docker": "pnpm run build && docusaurus serve --port ${PORT:=7207} --no-open",
@@ -20,6 +20,8 @@
     "@docusaurus/preset-classic": "3.1.1",
     "@mdx-js/react": "^3.0.0",
     "clsx": "^2.0.0",
+    "docusaurus-plugin-openapi-docs": "3.0.0-beta.5",
+    "docusaurus-theme-openapi-docs": "3.0.0-beta.5",
     "prism-react-renderer": "^2.3.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
