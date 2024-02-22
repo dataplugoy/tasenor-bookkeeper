@@ -1,6 +1,6 @@
 {
   "label": "Data Import",
-  "position": 100,
+  "position": 200,
   "link": {
     "type": "generated-index",
     "description": "About automatic transaction generation using external data source."
