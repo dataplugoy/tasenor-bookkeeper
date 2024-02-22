@@ -30,6 +30,8 @@ const config: Config = {
     locales: ['en'],
   },
 
+  staticDirectories: ['public'],
+
   presets: [
     [
       'classic',
@@ -74,7 +76,11 @@ const config: Config = {
     ],
   ],
 
-  themes: ["docusaurus-theme-openapi-docs"], // export theme components
+  themes: ['docusaurus-theme-openapi-docs', '@docusaurus/theme-mermaid'], // export theme components
+
+  markdown: {
+    mermaid: true,
+  },
 
   themeConfig: {
     // Replace with your project's social card

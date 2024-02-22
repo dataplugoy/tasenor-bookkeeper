@@ -8,6 +8,7 @@
     "build": "pnpm run build-api && pnpm run build-docs",
     "build-api": "docusaurus gen-api-docs all",
     "build-docs": "echo TODO: docusaurus build is broken",
+    "clean": "docusaurus clear",
     "todo-build-docs": "docusaurus build",
     "ci": "pnpm run lint",
     "dev": "docusaurus start --port ${PORT:=7207} --no-open --no-minify",
@@ -22,6 +23,7 @@
   "dependencies": {
     "@docusaurus/core": "3.1.1",
     "@docusaurus/preset-classic": "3.1.1",
+    "@docusaurus/theme-mermaid": "^3.1.1",
     "@mdx-js/react": "^3.0.0",
     "clsx": "^2.0.0",
     "docusaurus-plugin-openapi-docs": "3.0.0-beta.5",

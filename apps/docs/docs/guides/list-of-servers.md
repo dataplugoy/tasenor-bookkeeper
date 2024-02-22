@@ -8,11 +8,17 @@ sidebar_position: 500
 
 * [https://bookkeeper.stg.tasenor.com/](https://bookkeeper.stg.tasenor.com/)
 
-  General purpose testing server with all common plugins and few experimental private plugins.
+  General purpose testing and demo server for public use.
+
+  Plugins Available:
+  * All common plugins and few experimental private plugins under development.
 
   Languages:
   * ![English](/Flag_of_the_United_Kingdom.png)
   * ![Finnish](/Flag_of_Finland.png)
+
+  Registration:
+  * No limitations
 
   Pricing:
   * Free
