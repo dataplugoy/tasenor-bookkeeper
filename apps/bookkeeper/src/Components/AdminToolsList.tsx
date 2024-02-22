@@ -1,4 +1,4 @@
-import React, {  } from 'react'
+import React, { } from 'react'
 import { observer } from 'mobx-react'
 import Store from '../Stores/Store'
 import withStore from '../Hooks/withStore'
