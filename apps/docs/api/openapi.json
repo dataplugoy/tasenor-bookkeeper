@@ -2504,7 +2504,7 @@
         }
       },
       "patch": {
-        "operationId": "chenageSettings",
+        "operationId": "changeSettings",
         "tags": [
           "Settings"
         ],

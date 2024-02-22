@@ -24,7 +24,7 @@ get:
       $ref: ../../components/responses/403.yaml
 
 patch:
-  operationId: chenageSettings
+  operationId: changeSettings
   tags:
    - Settings
   summary: Change one or more settings
