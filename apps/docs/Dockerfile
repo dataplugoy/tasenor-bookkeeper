@@ -17,7 +17,7 @@ ADD docs/ docs/
 ADD docusaurus.config.ts .
 ADD sidebars.ts .
 ADD src/ src/
-ADD static/ static/
+ADD public/ public/
 ADD tsconfig.json .
 
 RUN pnpm install
