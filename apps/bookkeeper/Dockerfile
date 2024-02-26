@@ -26,7 +26,7 @@ ADD public/ public/
 ADD src/ src/
 ADD .env.docker .env.local
 ADD index.html .
-ADD vite.config.ts .
+ADD vite.config.mts .
 
 RUN mkdir /root/.ssh
 RUN chmod 700 /root/.ssh
