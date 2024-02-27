@@ -1,10 +1,9 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import Store from '../Stores/Store'
-import { Note } from '@tasenor/common-ui'
 import withStore from '../Hooks/withStore'
 import { ListMenu } from './ListMenu'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 
 export type ReportsListProps = {
   store: Store
