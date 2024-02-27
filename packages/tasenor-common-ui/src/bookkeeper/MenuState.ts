@@ -2,8 +2,8 @@ import { Location } from 'react-router-dom'
 import { DatabaseName, isDatabaseName, ID } from '@tasenor/common'
 
 // TODO: This could belong to bookkeeper repo. In future generic base could be here.
-export type MainMenu = '' | 'admin' | 'dashboard' | 'txs' | 'account' | 'report' | 'tools' | 'data' | 'settings' | 'classop'
-const mainMenuSet = new Set(['', 'admin', 'dashboard', 'txs', 'account', 'report', 'tools', 'data', 'settings', 'classop'])
+export type MainMenu = '' | 'admin' | 'dashboard' | 'txs' | 'account' | 'report' | 'tools' | 'data' | 'settings' | 'shop' | 'classop'
+const mainMenuSet = new Set(['', 'admin', 'dashboard', 'txs', 'account', 'report', 'tools', 'data', 'settings', 'shop', 'classop'])
 export const isMainMenu = (name: unknown): name is MainMenu => typeof name === 'string' && mainMenuSet.has(name)
 
 export class MenuState {
