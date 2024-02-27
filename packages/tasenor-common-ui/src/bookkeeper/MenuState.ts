@@ -81,6 +81,17 @@ export class MenuState {
     this.navigator(this.url)
   }
 
+  reset(): void {
+    this.db = '' as DatabaseName
+    this.main = ''
+    this.periodId = null
+    this.accountId = null
+    this.side = ''
+    this.attrs = {}
+    this.indirectPath = false
+    this.navigator(this.url)
+  }
+
   get(variable: string) {
     switch (variable) {
       case 'db':
@@ -109,6 +120,7 @@ export class MenuState {
       if (attrs.length) {
         url += `?${attrs.join('&')}`
       }
+      if (url === '/_/_') return '/'
       return url
     }
   }

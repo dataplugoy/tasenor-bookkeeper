@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react'
 import { Trans, useTranslation } from 'react-i18next'
-import { Localize } from '@tasenor/common-ui'
+import { Localize, useNav } from '@tasenor/common-ui'
 import LanguageSelector from './LanguageSelector'
 import './Menu.css'
 import AppBar from '@mui/material/AppBar'
@@ -16,8 +16,6 @@ import withStore from '../Hooks/withStore'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Store from '../Stores/Store'
 import { runInAction } from 'mobx'
-
-// TODO: Once converted to function component, use useNav from tasenor-common-ui.
 
 export interface MenuItemFnArgs {
   db: string
@@ -44,7 +42,7 @@ export const Menu = observer(withStore((props: MenuProps): React.ReactNode => {
 
   const [, setRefresh] = useState(false)
   const location = useLocation()
-  const navigate = useNavigate()
+  const nav = useNav()
   const { t } = useTranslation()
   const { store } = props
   const cursor = haveCursor()
@@ -230,11 +228,11 @@ export const Menu = observer(withStore((props: MenuProps): React.ReactNode => {
 
   const handleSelect = (key: string): void => {
     const periods = store.periods
-    let url
+
     switch (key) {
       case 'logout':
         store.logout()
-        navigate('/')
+        nav.reset()
         break
       case 'admin':
       case 'dashboard':
@@ -245,15 +243,8 @@ export const Menu = observer(withStore((props: MenuProps): React.ReactNode => {
       case 'data':
       case 'shop':
       case 'settings':
-        url = '/' + (db || '_') + '/' + key
-        if (periodId) {
-          url += '/' + periodId
-        }
-        if (accountId) {
-          url += '/' + accountId
-        }
         cursor.resetSelected()
-        navigate(url)
+        nav.go({ main: key, side: '' })
         break
       case 'next-period':
       case 'previous-period':
@@ -269,18 +260,8 @@ export const Menu = observer(withStore((props: MenuProps): React.ReactNode => {
           } else {
             return
           }
-          url = '/' + db + '/' + tool + '/' + periods[index].id
-          if (accountId) {
-            url += '/' + accountId
-          }
-          if (extras) {
-            if (!accountId) {
-              url += '/'
-            }
-            url += '/' + extras
-          }
           cursor.resetSelected()
-          navigate(url)
+          nav.go({ periodId: periods[index].id })
         }
         break
       default:
