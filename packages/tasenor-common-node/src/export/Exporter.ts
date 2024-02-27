@@ -97,7 +97,7 @@ export class Exporter {
    * @param path Output file path.
    * @param lines Data content.
    */
-  writeJson(jsonPath: JsonFilePath, data: any): void {
+  writeJson(jsonPath: JsonFilePath, data: unknown): void {
     log(`Writing ${jsonPath}`)
     if (!fs.existsSync(path.dirname(jsonPath))) {
       fs.mkdirSync(path.dirname(jsonPath), { recursive: true })
