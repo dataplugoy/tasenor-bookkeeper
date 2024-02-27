@@ -62,7 +62,7 @@ export const ListMenu = observer(withStore((props: ListMenuProps): JSX.Element =
   return <Box className={`${title.replace(/[^A-Za-z]/g, '')}List`}>
     <Title><Trans>{title}</Trans></Title>
     {
-      menu.length && <List>
+      menu.length > 0 && <List>
       {
         menu.map((menu) => {
           if (menu.visible && !menu.visible()) {

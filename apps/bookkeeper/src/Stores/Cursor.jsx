@@ -235,6 +235,8 @@ class Cursor {
 
     this.currentPageComponent = component
 
+    // TODO: Mostly unused concept after all. Could simplify a lot by getting rid of this.
+
     switch (page) {
       case 'Balances':
         this.setTopology(page, () => [
@@ -257,37 +259,8 @@ class Cursor {
         ])
         break
 
-      case 'Reports':
-        this.setTopology(page, () => [[]])
-        break
-
-      case 'Accounts':
-        this.setTopology(page, () => [[]])
-        break
-
-      case 'Tools':
-        this.setTopology(page, () => [[]])
-        break
-
-      case 'Dashboard':
-        this.setTopology(page, () => [[]])
-        break
-
-      case 'Import':
-        this.setTopology(page, () => [[]])
-        break
-
-      case 'Admin':
-        this.setTopology(page, () => [[]])
-        break
-
-      case 'Settings':
-        this.setTopology(page, () => [[]])
-        break
-
       default:
         this.setTopology(page, () => [[]])
-        console.error(`No topology defined for page ${page}.`)
     }
   }
 
