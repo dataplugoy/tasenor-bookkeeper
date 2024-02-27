@@ -14,10 +14,6 @@ const ReportsList = observer(withStore((props: ReportsListProps): JSX.Element =>
   const { store } = props
   const { t } = useTranslation()
 
-  if (!store.reports.length) {
-    return <Note><Trans>There are no report plugins available.</Trans></Note>
-  }
-
   const menu = store.reports.map(report => ({
     page: 'report',
     id: report.format,
@@ -26,7 +22,7 @@ const ReportsList = observer(withStore((props: ReportsListProps): JSX.Element =>
     cssId: `SelectReport ${report.format}`
   }))
 
-  return <ListMenu title="Reports" menu={menu} matchVar="format"/>
+  return <ListMenu title="Reports" menu={menu} matchVar="format" emptyMessage={t('There are no report plugins available.')}/>
 }))
 
 export default ReportsList

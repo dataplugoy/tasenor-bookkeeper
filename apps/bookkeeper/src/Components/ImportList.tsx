@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react'
-import { Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
 import { Title, Note } from '@tasenor/common-ui'
 import { ImporterModelData } from '@tasenor/common'
@@ -16,6 +16,7 @@ const ImportList = observer(withStore((props: ImportListProps): JSX.Element => {
   const { store } = props
   const params = useParams()
   const [importers, setImporters] = useState<ImporterModelData[]>([])
+  const { t } = useTranslation()
 
   useEffect(() => store.fetchImporters(params.db).then(importers => setImporters(importers)), [])
 
@@ -27,16 +28,7 @@ const ImportList = observer(withStore((props: ImportListProps): JSX.Element => {
     default: false
   }))
 
-  if (!importers.length) {
-    return (
-      <div>
-        <Title><Trans>Importers</Trans></Title>
-        <Note><Trans>There are no importers configured.</Trans></Note>
-      </div>
-    )
-  }
-
-  return <ListMenu title="Importers" menu={menu} matchVar="importerId"/>
+  return <ListMenu title="Importers" emptyMessage={t('There are no importers configured.')} menu={menu} matchVar="importerId"/>
 }))
 
 export default ImportList
