@@ -1,7 +1,7 @@
 import { Avatar, Box, List, ListItemAvatar, ListItemButton, ListItemText } from '@mui/material'
 import { haveCursor } from '@tasenor/common'
 import { Note, Title, useNav } from '@tasenor/common-ui'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Trans } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import { observer } from 'mobx-react'

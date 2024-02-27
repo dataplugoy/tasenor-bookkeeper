@@ -13,7 +13,7 @@ import { AccountCircle, CalendarToday, NavigateBefore, NavigateNext, Storage } f
 import Configuration from '../Configuration'
 import { error, haveCursor } from '@tasenor/common'
 import withStore from '../Hooks/withStore'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import Store from '../Stores/Store'
 import { runInAction } from 'mobx'
 
