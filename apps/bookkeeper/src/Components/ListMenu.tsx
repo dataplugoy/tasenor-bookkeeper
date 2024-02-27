@@ -32,7 +32,7 @@ export const ListMenu = observer(withStore((props: ListMenuProps): JSX.Element =
   const cursor = haveCursor()
 
   if (!store.isLoggedIn()) {
-      return <></>
+    return <></>
   }
 
   cursor.selectPage(title, {
