@@ -46,8 +46,6 @@ interface TickerInfo {
  */
 class TickerData extends DataPlugin {
 
-  // TODO: Currency name data.
-
   constructor() {
     super({ common: [], backend: ['exchange', 'ticker'] })
 
