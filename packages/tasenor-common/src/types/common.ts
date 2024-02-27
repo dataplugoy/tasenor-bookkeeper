@@ -5,7 +5,7 @@ import Opaque from 'ts-opaque'
 
 // Primitive values
 // ----------------
-// TODO: This is bad idea and should get rid of with more accurate definitions everywhere where it is used.
+// TODO: This is bad idea and should eventually get rid of with more accurate definitions everywhere where it is used.
 export type Value =
   | null
   | string
@@ -43,7 +43,6 @@ export type SqliteDbPath = FilePath
 export type TextFilePath = FilePath
 export type ParsedTsvFileData = string[][]
 export type ProcessedTsvFileData = {[key: string]: string}[]
-export type Json = Value
 
 export function isFilePath(obj: unknown): obj is FilePath {
   return typeof obj === 'string'

@@ -2,7 +2,7 @@
 import path from 'path'
 import fs from 'fs'
 import { KnexDatabase } from '..'
-import { log, ParsedTsvFileData, BookkeeperConfig, DirectoryPath, TsvFilePath, JsonFilePath, Json, Value, TarFilePath, ProcessModelDetailedData, ImporterModelData, FilePath } from '@tasenor/common'
+import { log, ParsedTsvFileData, BookkeeperConfig, DirectoryPath, TsvFilePath, JsonFilePath, TarFilePath, ProcessModelDetailedData, ImporterModelData, FilePath } from '@tasenor/common'
 import { create } from 'ts-opaque'
 import { system } from '../system'
 import dayjs from 'dayjs'
@@ -97,7 +97,7 @@ export class Exporter {
    * @param path Output file path.
    * @param lines Data content.
    */
-  writeJson(jsonPath: JsonFilePath, data: Json): void {
+  writeJson(jsonPath: JsonFilePath, data: any): void {
     log(`Writing ${jsonPath}`)
     if (!fs.existsSync(path.dirname(jsonPath))) {
       fs.mkdirSync(path.dirname(jsonPath), { recursive: true })
@@ -120,7 +120,7 @@ export class Exporter {
     log(`Saving file format version ${this.VERSION}.`)
     this.writeJson(create(path.join(out, 'VERSION')), this.VERSION)
     const conf = await this.getConfig(db)
-    this.writeJson(create(path.join(out, 'settings.json')), conf as unknown as Value)
+    this.writeJson(create(path.join(out, 'settings.json')), conf)
     const accounts = await this.getAccounts(db)
     this.writeTsv(create(path.join(accountDir, 'fi-EUR.tsv')), accounts)
     const periods = await this.getPeriods(db)
@@ -136,14 +136,12 @@ export class Exporter {
       for (const importer of importers) {
         const importerDir: DirectoryPath = create(path.join(out, 'importers', importer.name))
         const importerPath: FilePath = create(path.join(importerDir, 'config.json'))
-        // TODO: Need type improvements.
-        this.writeJson(importerPath, importer.config as Value)
+        this.writeJson(importerPath, importer.config)
       }
       for (const imp of imports) {
         const importDir: DirectoryPath = create(path.join(out, 'importers', imp.ownerId + ''))
         const importPath: FilePath = create(path.join(importDir, imp.created + '.json'))
-        // TODO: Need type improvements.
-        this.writeJson(importPath, { ...imp, ownerId: undefined } as unknown as Value)
+        this.writeJson(importPath, { ...imp, ownerId: undefined })
       }
     }
 
