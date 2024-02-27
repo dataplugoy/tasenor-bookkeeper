@@ -19,7 +19,7 @@ const ImportList = observer(withStore((props: ImportListProps): JSX.Element => {
 
   useEffect(() => store.fetchImporters(params.db).then(importers => setImporters(importers)), [params])
 
-  const menu = importers.map(importer => ({
+  const menu = (importers || []).map(importer => ({
     page: 'data',
     id: importer.id,
     title: importer.name,
