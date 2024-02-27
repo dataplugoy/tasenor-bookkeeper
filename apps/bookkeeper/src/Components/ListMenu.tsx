@@ -32,10 +32,10 @@ export const ListMenu = observer(withStore((props: ListMenuProps): JSX.Element =
   const cursor = haveCursor()
 
   if (!store.isLoggedIn()) {
-    return <></>
+      return <></>
   }
 
-  cursor.selectPage('Tools', {
+  cursor.selectPage(title, {
     keyText: (cursor, key) => {
       if (key >= '0' && key <= '9') {
         const index = key === '0' ? 10 : parseInt(key)
