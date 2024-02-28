@@ -9,7 +9,7 @@ describe('Insert transactions', () => {
     cy.fixture('ci.json').then((config) => {
       cy.userLogin()
       cy.language('fi')
-      cy.selectDb(config.TEST_DATABASE)
+      cy.selectDb('TEST_DATABASE')
       cy.icon('add-tx').click()
       // TODO: Should test also using keyboard without clicking.
       cy.accountSelector('Select Account').click()
