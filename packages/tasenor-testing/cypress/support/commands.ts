@@ -24,6 +24,7 @@ declare global {
       errors(): Chainable<JQuery<HTMLElement>>
       fill2PartIncomeTx(date: string, text: string, amount: string, account: string): Chainable<void>
       fill3PartExpenseTx(date: string, text: string, amount: string, account: string): Chainable<void>
+      fill3PartIncomeTx(date: string, text: string, amount: string, account: string): Chainable<void>
       form(fields: Record<string, string>): Chainable<void>
       goto(menu: string, listItem?: string, icon?: string): Chainable<void>
       icon(text: string): Chainable<JQuery<HTMLElement>>

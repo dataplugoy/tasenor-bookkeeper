@@ -78,6 +78,41 @@ Cypress.Commands.add('fill3PartExpenseTx', (date: string, text: string, amount: 
 })
 
 /**
+ * Assume that we have freshly added transaction and date field active. Create new income transaction with VAT.
+ */
+Cypress.Commands.add('fill3PartIncomeTx', (date: string, text: string, amount: string, account: string) => {
+  cy.xpath(SELECTED_DATE).should('exist')
+  cy.realType(date)
+  cy.realPress('Enter')
+  cy.xpath(SELECTED_ACCOUNT).should('exist')
+  cy.realPress('ArrowRight')
+  cy.xpath(SELECTED_DESCRIPTION).should('exist')
+  cy.realType(text)
+  cy.realPress('Enter')
+  cy.xpath(SELECTED_DEBIT).should('exist')
+  cy.realType(amount)
+  cy.realPress('Enter')
+  cy.xpath(SELECTED_CREDIT).should('exist')
+  cy.realPress('Tab')
+  cy.xpath(SELECTED_ACCOUNT).should('exist')
+  cy.realType(account)
+  cy.realPress('Enter')
+  cy.xpath(SELECTED_DESCRIPTION).should('exist')
+  cy.realPress('ArrowRight')
+  cy.xpath(SELECTED_DEBIT).should('exist')
+  cy.realPress('ArrowRight')
+  cy.xpath(SELECTED_CREDIT).should('exist')
+  cy.realType(amount)
+  cy.realPress('Enter')
+  cy.xpath(SELECTED_ACCOUNT).should('exist')
+  cy.realPress('Escape')
+  cy.xpath(SELECTED_ACCOUNT).should('not.exist')
+  cy.realPress('Escape')
+  cy.realPress('Escape')
+  cy.xpath(CURRENTLY_SELECTED_ROW).should('not.exist')
+})
+
+/**
  * Assum transaction screen. Select an account from the list of balances.
  */
 Cypress.Commands.add('selectBalance', (account: string) => {
