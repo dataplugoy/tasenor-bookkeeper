@@ -47,6 +47,8 @@
     "@types/node": "^20.11.19",
     "@types/sprintf-js": "^1.1.4",
     "cypress": "^13.6.5",
+    "cypress-real-events": "^1.12.0",
+    "cypress-xpath": "^2.0.1",
     "eslint-config-tasenor": "workspace:*",
     "jest": "^29.7.0",
     "react": "^17.0.2",

@@ -3,15 +3,19 @@
 
 import './commands/auth'
 import './commands/assertions'
+import './commands/databases'
 import './commands/elements'
 import './commands/nav'
 import './commands/plugins'
+import './commands/transactions'
 
 export {}
 
 declare global {
   namespace Cypress {
     interface Chainable {
+      accountSelector(text: string): Chainable<JQuery<HTMLElement>>
+      fill2PartIncomeTx(date: string, text: string, amount: string, account: string): Chainable<void>
       adminLogin(): Chainable<void>
       button(text: string): Chainable<JQuery<HTMLElement>>
       dialog(text: string): Chainable<JQuery<HTMLElement>>
@@ -29,9 +33,11 @@ declare global {
       messages(): Chainable<JQuery<HTMLElement>>
       plugin(text: string): Chainable<JQuery<HTMLElement>>
       qaLogin(): Chainable<void>
+      selectDb(name: string): Chainable<void>
       selection(dropdown: string, item: string): Chainable<void>
       subscribePlugin(code: string): Chainable<void>
       text(text: string): Chainable<JQuery<HTMLElement>>
+      page(text: string): Chainable<JQuery<HTMLElement>>
       unsubscribePlugin(code: string): Chainable<void>
       userLogin(): Chainable<void>
       waitLoading(): Chainable<void>
