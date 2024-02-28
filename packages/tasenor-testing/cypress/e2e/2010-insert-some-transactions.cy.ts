@@ -11,7 +11,7 @@ describe('Insert transactions', () => {
       cy.language('fi')
       cy.selectDb(config.TEST_DATABASE)
       cy.icon('add-tx').click()
-      // TODO: Test also using keyboard.
+      // TODO: Should test also using keyboard without clicking.
       cy.accountSelector('Select Account').click()
       cy.get(`[data-cy="Account 1900"]`).click()
       cy.button('OK').click()
@@ -20,7 +20,24 @@ describe('Insert transactions', () => {
       cy.fill2PartIncomeTx(`13.3.${config.YEAR}`, 'Loan from Business Bank', '7500,0', '2621')
       cy.icon('add-tx').click()
       cy.fill2PartIncomeTx(`13.3.${config.YEAR}`, 'Loan from Investment Bank', '6000,000', '2622')
+      cy.balance('1900').should('equal', 16_000)
+      cy.balance('2001').should('equal', -2500)
+      cy.balance('2621').should('equal', -7500)
+      cy.balance('2622').should('equal', -6000)
+    })
+  })
 
+  it.only('Create VAT transactions', () => {
+
+    cy.fixture('ci.json').then((config) => {
+      cy.userLogin()
+      cy.language('fi')
+      cy.selectDb(config.TEST_DATABASE)
+
+      cy.selectBalance('1900')
+      cy.icon('add-tx').click()
+      cy.fill3PartExpenseTx(`16.3.${config.YEAR}`, 'Buy computer', '300', '7680')
+      cy.fill3PartExpenseTx(`16.3.${config.YEAR}`, 'Buy mouse', '10', '7680')
 
       // cy.language('en')
     })

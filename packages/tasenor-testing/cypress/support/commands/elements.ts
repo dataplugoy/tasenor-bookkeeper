@@ -50,6 +50,9 @@ Cypress.Commands.add('page', { prevSubject: 'optional' }, (subject, text: string
 Cypress.Commands.add('accountSelector', { prevSubject: 'optional' }, (subject, text: string) => {
   return elem(subject, `account-selector-${text}`)
 })
+Cypress.Commands.add('box', { prevSubject: 'optional' }, (subject, text: string) => {
+  return elem(subject, `box-${text}`)
+})
 
 /**
  * Low level element manipulators.

@@ -24,6 +24,7 @@ const BalanceLine = withRouter(inject('cursor')(observer(
         id={balance.getId()}
         hover
         selected={balance.selected}
+        data-cy={`Account ${balance.account.number}`}
         onClick={() => onClick(index, balance.getUrl())}
       >
         <TableCell className="number">
@@ -54,7 +55,7 @@ class BalanceTable extends Component {
 
     return (
       <TableContainer component={Paper}>
-        <Table className="BalanceTable" size="medium" padding="none">
+        <Table className="BalanceTable" data-cy="box-Balance" size="medium" padding="none">
           <TableHead>
             <TableRow>
               <TableCell variant="head" align="center"><Trans>#</Trans></TableCell>
