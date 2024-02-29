@@ -12,6 +12,7 @@ export const Localize = (props: LocalizeProps) => {
   const catalog = haveCatalog()
   const { t } = useTranslation()
 
+  // TODO: DRY: Shared in report plugin.
   const localize = (text) => {
     let match
     do {

@@ -235,6 +235,26 @@ export class ReportPlugin extends BackendPlugin {
   }
 
   /**
+   * Scan string for `{...}` sub-strings and translate parts.
+   */
+  translate(text: string, lang: Language): string {
+    let match
+    do {
+      match = /(\{(\d\d\d\d-\d\d-\d\d)\})/.exec(text)
+      if (match) {
+        text = text.replace(match[1], 'TODO')
+      } else {
+        match = /(\{(.*?)\})/.exec(text)
+        if (match) {
+          text = text.replace(match[1], this.t(match[2], lang))
+        }
+      }
+    } while (match)
+
+    return text
+  }
+
+  /**
    * Construct a report data for the report.
    * @param db
    * @param id
@@ -292,9 +312,7 @@ export class ReportPlugin extends BackendPlugin {
     // Construct columns.
     const columns: ReportColumnDefinition[] = await this.getColumns(id, entries, options as ReportOptions, settings)
     columns.forEach(column => {
-      if (column.title.startsWith('{') && column.title.endsWith('}')) {
-        column.title = this.t(column.title.substring(1, column.title.length - 1), options.lang || 'en')
-      }
+      column.title = this.translate(column.title, options.lang || 'en')
     })
 
     // We have now relevant entries collected. Use plugin features next.
