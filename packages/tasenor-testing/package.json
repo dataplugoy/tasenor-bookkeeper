@@ -42,7 +42,6 @@
     "@jest/globals": "^29.7.0",
     "@tasenor/config": "workspace:*",
     "@types/clone": "^2.1.4",
-    "@types/csv-parse": "^1.2.2",
     "@types/deep-equal": "^1.0.4",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.19",
@@ -54,6 +53,7 @@
     "eslint-config-tasenor": "workspace:*",
     "jest": "^29.7.0",
     "react": "^17.0.2",
+    "tsx": "^4.7.1",
     "typescript": "^5.3.3"
   }
 }
