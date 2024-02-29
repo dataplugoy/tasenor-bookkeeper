@@ -53,13 +53,8 @@ declare global {
 
   namespace Cypress {
     interface Chainer<Subject> {
-      (chainer: 'cellEquals', row: number, col: number, text: string): Chainable<Subject>
-    }
-  }
-
-  namespace Chai {
-    interface Assertion {
-      testId(row: number, col: number, text: string): void
+      (chainer: 'cellEquals', row: number, col: number, text: string): Chainable<Subject>,
+      (chainer: 'matchReport', report: string): Chainable<Subject>,
     }
   }
 }

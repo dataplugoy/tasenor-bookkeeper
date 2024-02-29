@@ -9,8 +9,7 @@ describe('Check reports', () => {
       cy.selectDb('TEST_DATABASE')
       cy.goto('Reports', 'General Journal')
       // TODO: Move heading check to inspector.
-      cy.report('General Journal Robot Oy', dayjs().format('M/D/YYYY')).then(screen => {
-      })
+      cy.report('General Journal Robot Oy', dayjs().format('M/D/YYYY')).should('matchReport', report)
     })
   })
 })
