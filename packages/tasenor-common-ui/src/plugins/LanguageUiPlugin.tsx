@@ -7,6 +7,12 @@ import { UiPlugin } from '.'
 export class LanguageUiPlugin extends UiPlugin {
   handler: LanguageHandler
 
+  constructor(handler: LanguageHandler) {
+    super()
+    this.handler = handler
+    this.languages = handler.languages
+  }
+
   getLanguages(): Set<Language> { return this.handler.getLanguages() }
   flag(language: Language) { return this.handler.flag(language) }
   date2str(date): string { return this.handler.date2str(date) }

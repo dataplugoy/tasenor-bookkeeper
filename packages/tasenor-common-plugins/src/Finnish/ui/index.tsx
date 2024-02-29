@@ -12,8 +12,7 @@ class Finnish extends LanguageUiPlugin {
   static description = 'Finnish translation of the application.'
 
   constructor() {
-    super()
-    this.handler = new FinnishHandler()
+    super(new FinnishHandler())
   }
 }
 

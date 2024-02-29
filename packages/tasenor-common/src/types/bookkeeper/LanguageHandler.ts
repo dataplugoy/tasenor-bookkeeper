@@ -6,6 +6,11 @@ import { Language } from '..'
 export interface LanguageHandler {
 
   /**
+   * Languages loaded from JSON.
+   */
+  languages: Partial<Record<Language, Record<string, string>>>
+
+  /**
    * Get a set of languages provided this plugin.
    */
   getLanguages(): Set<Language>
