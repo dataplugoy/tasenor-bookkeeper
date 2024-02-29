@@ -20,7 +20,7 @@ export class BackendPlugin {
   public description: string
   public path: string
   public languages: Record<string, Record<string, string>>
-  private catalog?: BackendCatalog
+  protected catalog?: BackendCatalog
 
   constructor() {
     this.id = null

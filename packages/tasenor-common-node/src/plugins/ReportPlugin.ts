@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import fs from 'fs'
-import { KnexDatabase, data2csv } from '..'
+import { KnexDatabase, LanguageBackendPlugin, data2csv } from '..'
 import dayjs from 'dayjs'
 import quarterOfYear from 'dayjs/plugin/quarterOfYear'
 import { ReportOptions, ReportID, ReportFlagName, ReportItem, ReportQueryParams, ReportLine, AccountNumber, ReportColumnDefinition, PeriodModel, ReportFormat, Language, PK, ReportMeta, ReportData, ReportTotals, Report } from '@tasenor/common'
@@ -16,10 +16,13 @@ export class ReportPlugin extends BackendPlugin {
   private formats: ReportID[]
   // Is set, allow this report only on DBs having those accounting schemes.
   protected schemes: Set<string> | undefined
+  // Store translation plugin references.
+  protected languagePlugins: Partial<Record<Language, LanguageBackendPlugin>>
 
   constructor(...formats: ReportID[]) {
     super()
     this.formats = formats
+    this.languagePlugins = {}
     this.schemes = undefined
   }
 
@@ -242,7 +245,10 @@ export class ReportPlugin extends BackendPlugin {
     do {
       match = /(\{(\d\d\d\d-\d\d-\d\d)\})/.exec(text)
       if (match) {
-        text = text.replace(match[1], 'TODO')
+        if (!this.languagePlugins[lang]) {
+          this.languagePlugins[lang] = this.catalog?.getLanguagePlugin(lang) as LanguageBackendPlugin | undefined
+        }
+        text = text.replace(match[1], this.languagePlugins[lang]?.date2str(match[2]) || match[2])
       } else {
         match = /(\{(.*?)\})/.exec(text)
         if (match) {
@@ -378,7 +384,11 @@ export class ReportPlugin extends BackendPlugin {
    * @returns
    */
   async postProcess(id: ReportID, data: ReportLine[], options: ReportQueryParams, settings: ReportMeta, columns: ReportColumnDefinition[]): Promise<ReportLine[]> {
-    // TODO: Translate.
+    data.forEach(item => {
+      if ('needLocalization' in item && item.needLocalization && item.name) {
+        item.name = this.translate(item.name, options.lang || 'en')
+      }
+    })
     return data
   }
 
