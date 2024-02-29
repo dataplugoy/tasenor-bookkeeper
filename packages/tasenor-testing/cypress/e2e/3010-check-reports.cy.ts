@@ -24,12 +24,21 @@ describe('Check reports', () => {
     })
   })
 
-  it.only('Balance sheet', () => {
+  it('Balance sheet', () => {
     cy.fixture('reports/balance-sheet.csv').then((report) => {
       cy.userLogin()
       cy.selectDb('TEST_DATABASE')
       cy.goto('Reports', 'Balance sheet')
       cy.report().should('matchReport', 'Balance sheet Robot Oy', dayjs().format('M/D/YYYY'), report)
+    })
+  })
+
+  it.only('Detailed Balance sheet', () => {
+    cy.fixture('reports/balance-sheet-detailed.csv').then((report) => {
+      cy.userLogin()
+      cy.selectDb('TEST_DATABASE')
+      cy.goto('Reports', 'Detailed balance sheet')
+      cy.report().should('matchReport', 'Detailed balance sheet Robot Oy', dayjs().format('M/D/YYYY'), report)
     })
   })
 })
