@@ -42,12 +42,21 @@ describe('Check reports', () => {
     })
   })
 
-  it.only('Income Statement', () => {
+  it('Income Statement', () => {
     cy.fixture('reports/income-statement.csv').then((report) => {
       cy.userLogin()
       cy.selectDb('TEST_DATABASE')
       cy.goto('Reports', 'Income statement')
       cy.report().should('matchReport', 'Income statement Robot Oy', dayjs().format('M/D/YYYY'), report)
+    })
+  })
+
+  it('Detailed Income Statement', () => {
+    cy.fixture('reports/income-statement-detailed.csv').then((report) => {
+      cy.userLogin()
+      cy.selectDb('TEST_DATABASE')
+      cy.goto('Reports', 'Detailed income statement')
+      cy.report().should('matchReport', 'Detailed income statement Robot Oy', dayjs().format('M/D/YYYY'), report)
     })
   })
 })
