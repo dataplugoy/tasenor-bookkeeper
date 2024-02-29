@@ -16,10 +16,16 @@ class LedgerReport extends ReportPlugin {
 
     this.languages = {
       en: {
-        'report-general-ledger': 'General Ledger'
+        'report-general-ledger': 'General Ledger',
+        'column-account-number': 'Num',
+        'column-name-or-date': 'Account / Date',
+        'column-balance': 'Balance',
       },
       fi: {
-        'report-general-ledger': 'Pääkirja'
+        'report-general-ledger': 'Pääkirja',
+        'column-account-number': 'Nro',
+        'column-name-or-date': 'Tili / Päiväys',
+        'column-balance': 'Saldo',
       }
     }
   }

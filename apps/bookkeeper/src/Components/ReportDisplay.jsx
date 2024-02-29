@@ -38,7 +38,7 @@ class ReportHeader extends Component {
       </TableRow>,
       <TableRow key="3" className="columns">
         {report.columns.map((column) => <TableCell key={column.name} className={'ReportCell ' + column.type}>
-          <Localize>{column.title}</Localize>
+          {column.title}
         </TableCell>)}
       </TableRow>
     ]

@@ -16,10 +16,18 @@ class JournalReport extends ReportPlugin {
 
     this.languages = {
       en: {
-        'report-general-journal': 'General Journal'
+        'report-general-journal': 'General Journal',
+        'column-document-number': 'Num',
+        'column-date-and-accounts': 'Date and accounts',
+        'column-debit': 'Debit',
+        'column-credit': 'Credit',
       },
       fi: {
-        'report-general-journal': 'Päiväkirja'
+        'report-general-journal': 'Päiväkirja',
+        'column-document-number': 'Nro',
+        'column-date-and-accounts': 'Päiväys ja tilit',
+        'column-debit': 'Debet',
+        'column-credit': 'Kredit',
       }
     }
   }

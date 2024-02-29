@@ -252,7 +252,7 @@ export class ReportPlugin extends BackendPlugin {
    * * `useRemainingColumns` if set, extend this column index to use all the rest columns in the row.
    * * `accountDetails` if true, after this are summarized accounts under this entry.
    * * `isAccount` if true, this is an account entry.
-   * * `needLocalization` if set, value should be localized, i.e. translated via Localization component in ui.
+   * * `needLocalization` if set, value should be localized, i.e. translated according to the language selected.
    * * `name` Title of the entry.
    * * `number` Account number if the entry is an account.
    * * `values` An object with entry for each column mapping name of the columnt to the value to display.
@@ -289,8 +289,15 @@ export class ReportPlugin extends BackendPlugin {
     // Apply query filtering.
     entries = this.doFiltering(id, entries, options, settings)
 
-    // We have now relevant entries collected. Use plugin features next.
+    // Construct columns.
     const columns: ReportColumnDefinition[] = await this.getColumns(id, entries, options as ReportOptions, settings)
+    columns.forEach(column => {
+      if (column.title.startsWith('{') && column.title.endsWith('}')) {
+        column.title = this.t(column.title.substring(1, column.title.length - 1), options.lang || 'en')
+      }
+    })
+
+    // We have now relevant entries collected. Use plugin features next.
     let data = await this.preProcess(id, entries, options, settings, columns) as ReportLine[]
     data = await this.postProcess(id, data, options, settings, columns)
     const report = {
@@ -344,7 +351,7 @@ export class ReportPlugin extends BackendPlugin {
   }
 
   /**
-   * Do post processing for report data before sending it.
+   * Do post processing for report data before sending it. By default, do translations.
    * @param id Report type.
    * @param data Calculated report data
    * @param options Report options.
@@ -353,6 +360,7 @@ export class ReportPlugin extends BackendPlugin {
    * @returns
    */
   async postProcess(id: ReportID, data: ReportLine[], options: ReportQueryParams, settings: ReportMeta, columns: ReportColumnDefinition[]): Promise<ReportLine[]> {
+    // TODO: Translate.
     return data
   }
 

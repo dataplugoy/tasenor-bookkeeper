@@ -197,7 +197,7 @@ export class Catalog implements BackendCatalog {
   }
 
   /**
-   * Collect all or one specific translations from plugins.
+   * Collect all or one specific language translations from plugins.
    * @returns
    */
   getTranslations(language?: Language): Record<string, Record<string, string>> {

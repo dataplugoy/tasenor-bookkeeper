@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
-import { Money, Localize } from '@tasenor/common-ui'
+import { Money } from '@tasenor/common-ui'
 import './ReportLine.css'
 import { TableRow, TableCell } from '@mui/material'
 import { haveSettings, strRound } from '@tasenor/common'
@@ -15,7 +15,7 @@ class ReportLine extends Component {
 
     let {
       id, name, number, values, bold, error, italic, hideTotal, tab, pageBreak,
-      paragraphBreak, isAccount, fullWidth, needLocalization, useRemainingColumns, bigger
+      paragraphBreak, isAccount, fullWidth, useRemainingColumns, bigger
     } = this.props.line
 
     const columns = this.props.columns
@@ -65,7 +65,7 @@ class ReportLine extends Component {
         case 'name':
           return td(
             column,
-            decor(needLocalization ? <Localize>{name}</Localize> : name),
+            decor(name),
             { ...extras, className: 'tab' + (tab || 0) }
           )
         // Render currency value.
