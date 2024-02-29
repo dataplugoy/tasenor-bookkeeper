@@ -68,5 +68,5 @@ export declare class BackendCatalog {
   t(str: string, lang: Language): string
   registerHook(name: string, func: CatalogHook)
   queryBackend<T>(dataSet: string, query: typeof ALL | string): Promise<undefined | T>
-  getLanguagePlugin(lang: Language): BackendPlugin | undefined
+  getLanguagePlugin(lang: Language) // TODO: Plugin types need refining. Must lift more details to common to make this work.
 }
