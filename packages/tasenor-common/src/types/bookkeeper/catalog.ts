@@ -1,6 +1,6 @@
 import { AssetTransfer, Currency, Email, Language, LoginPluginData, ReportID, ReportOptions, ShortDate, TsvFilePath } from '..'
 import { ALL } from '../..'
-import { TasenorPlugin, PluginCode, BackendPlugin, SchemePlugin, ReportPlugin, ServicePlugin, LanguageBackendPlugin } from '../plugins'
+import { TasenorPlugin, PluginCode, BackendPlugin, SchemePlugin, ReportPlugin, ServicePlugin } from '../plugins'
 
 /**
  * Catalog hooks for backend.
@@ -68,5 +68,5 @@ export declare class BackendCatalog {
   t(str: string, lang: Language): string
   registerHook(name: string, func: CatalogHook)
   queryBackend<T>(dataSet: string, query: typeof ALL | string): Promise<undefined | T>
-  getLanguagePlugin(lang: Language): LanguageBackendPlugin | undefined
+  getLanguagePlugin(lang: Language): BackendPlugin | undefined
 }

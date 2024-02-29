@@ -235,7 +235,7 @@ export class Catalog implements BackendCatalog {
   /**
    * Find the plugin providing translations for the language.
    */
-  getLanguagePlugin(lang: Language): LanguageBackendPlugin | undefined {
+  getLanguagePlugin(lang: Language): BackendPlugin | undefined {
     for (const plugin of this.languagePlugins) {
       if (plugin.getLanguages().has(lang)) {
         return plugin

@@ -113,4 +113,3 @@ export declare class ImportPlugin extends BackendPlugin {}
 export declare class ReportPlugin extends BackendPlugin {}
 export declare class SchemePlugin extends BackendPlugin {}
 export declare class ToolPlugin extends BackendPlugin {}
-export declare class LanguageBackendPlugin extends BackendPlugin {}
