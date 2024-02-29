@@ -5,7 +5,7 @@ export {}
 /**
  * Gather the report data from the table on the screen.
  */
-Cypress.Commands.add('report', (heading1: string, heading2: string): Cypress.Chainable<string[][]> => {
+Cypress.Commands.add('report', (): Cypress.Chainable<string[][]> => {
   return cy.box('Report').then(table => {
     const rows = table.find('tr')
     const report: string[][] = []
@@ -32,13 +32,6 @@ Cypress.Commands.add('report', (heading1: string, heading2: string): Cypress.Cha
       report.push(texts)
     })
 
-    if (report[0].join(' ') !== heading1) {
-      throw new Error(`First heading of the report '${report[0].join(' ')}' does not match expected '${heading1}'.`)
-    }
-    if (report[1].join(' ') !== heading2) {
-      throw new Error(`Second heading of the report '${report[1].join(' ')}' does not match expected '${heading2}'.`)
-    }
-
-    return report.slice(2)
+    return report
   })
 })

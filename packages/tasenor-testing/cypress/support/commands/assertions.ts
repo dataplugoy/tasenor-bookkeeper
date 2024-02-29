@@ -15,12 +15,24 @@ chai.Assertion.addChainableMethod('cellEquals', function(row: number, col: numbe
 /**
  * Compare CSV report to the report found from the screen.
  */
-chai.Assertion.addChainableMethod('matchReport', function(report: string) {
+chai.Assertion.addChainableMethod('matchReport', function(heading1: string, heading2: string, report: string) {
   const file = parse(report)
+
+  // Check headings.
+  if (this._obj[0].join(' ') !== heading1) {
+    throw new Error(`First heading of the report '${this._obj[0].join(' ')}' does not match expected '${heading1}'.`)
+  }
+  if (this._obj[1].join(' ') !== heading2) {
+    throw new Error(`Second heading of the report '${this._obj[1].join(' ')}' does not match expected '${heading2}'.`)
+  }
+
+  const remaining = this._obj.slice(2)
+
+  // Compare reports.
   let diff: null | number = null
-  for (let n = 0; n < Math.max(this._obj.length, file.length); n++) {
+  for (let n = 0; n < Math.max(remaining.length, file.length); n++) {
     const original = file[n] || []
-    const current = this._obj[n] || []
+    const current = remaining[n] || []
     if (original.length !== current.length) {
       diff = n + 1
       break
@@ -34,5 +46,6 @@ chai.Assertion.addChainableMethod('matchReport', function(report: string) {
     }
     if (diff !== null) break
   }
-  expect(diff, `Report line #${diff} ${JSON.stringify(this._obj[diff  as number - 1])} does not match to ${JSON.stringify(file[diff as number - 1])}.`).to.eq(null)
+
+  expect(diff, `Report line #${diff} ${JSON.stringify(remaining[diff  as number - 1])} does not match to ${JSON.stringify(file[diff as number - 1])}.`).to.be.null
 })

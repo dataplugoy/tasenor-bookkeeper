@@ -39,7 +39,7 @@ declare global {
       page(text: string): Chainable<JQuery<HTMLElement>>
       plugin(text: string): Chainable<JQuery<HTMLElement>>
       qaLogin(): Chainable<void>
-      report(heading1: string, heading2: string): Chainable<string[][]>
+      report(): Chainable<string[][]>
       selectBalance(account: string): Chainable<void>
       selectDb(name: string): Chainable<void>
       selection(dropdown: string, item: string): Chainable<void>
@@ -54,7 +54,7 @@ declare global {
   namespace Cypress {
     interface Chainer<Subject> {
       (chainer: 'cellEquals', row: number, col: number, text: string): Chainable<Subject>,
-      (chainer: 'matchReport', report: string): Chainable<Subject>,
+      (chainer: 'matchReport', heading1: string, heading2: string, report: string): Chainable<Subject>,
     }
   }
 }
