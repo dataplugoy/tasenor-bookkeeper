@@ -22,21 +22,21 @@ export default function Index(): JSX.Element {
           <div className={styles['box-title']}>For User</div>
           TODO: Brief Introduction. How to start.
           <div className={styles['link']}>
-            <Link to="/user-features"><div className={styles['box-link']}>Read More</div></Link>
+            <Link to="/docs/guides/getting-started/features/user"><div className={styles['box-link']}>Read More</div></Link>
           </div>
         </div>
         <div className={styles.box}>
           <div className={styles['box-title']}>For Developer</div>
           TODO: Brief Introduction. How to start.
           <div className={styles['link']}>
-            <Link to="/developer-features"><div className={styles['box-link']}>Read More</div></Link>
+            <Link to="/docs/guides/getting-started/features/developer"><div className={styles['box-link']}>Read More</div></Link>
           </div>
         </div>
         <div className={styles.box}>
           <div className={styles['box-title']}>For Business</div>
           TODO: Brief Introduction. How to start.
           <div className={styles['link']}>
-            <Link to="/business-features"><div className={styles['box-link']}>Read More</div></Link>
+            <Link to="/docs/guides/getting-started/features/business"><div className={styles['box-link']}>Read More</div></Link>
           </div>
         </div>
       </main>
