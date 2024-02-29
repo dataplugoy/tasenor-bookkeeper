@@ -13,7 +13,7 @@ function convertCell(currency, decimal, thousand, cell) {
     return '–'
   }
   // Money
-  if (/^\d+\.\d\d$/.test(cell)) {
+  if (/^-?\d+\.\d\d$/.test(cell)) {
     cell = cell.replace(/(\d+)(\d{3}\.\d\d)$/, `$1${thousand}$2`)
     return (cell + currency).replace('.', decimal)
   }
