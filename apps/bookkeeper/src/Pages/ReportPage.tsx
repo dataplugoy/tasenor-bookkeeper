@@ -20,12 +20,12 @@ const ReportPage = withStore(observer((props: ReportPageProps): JSX.Element => {
     store.fetchReport(db, periodId, format)
   }, [params])
 
-  if (!store.isLoggedIn() || !store.report) {
+  if (!store.isLoggedIn()) {
     return <></>
   }
 
   return <Box className="ReportsPage">
-    <ReportDisplay report={store.report}></ReportDisplay>
+    {store.report && <ReportDisplay report={store.report}></ReportDisplay>}
   </Box>
 }))
 
