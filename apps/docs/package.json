@@ -11,7 +11,7 @@
     "clean": "docusaurus clear",
     "todo-build-docs": "docusaurus build",
     "ci": "pnpm run lint",
-    "dev": "docusaurus start --port ${PORT:=7207} --no-open --no-minify",
+    "dev": "docusaurus start --port ${DOC_PORT:=7207} --no-open --no-minify",
     "todo-docker": "pnpm run build && docusaurus serve --port ${PORT:=7207} --no-open",
     "docker": "echo TODO: Docker build is broken && pnpm run dev",
     "lint": "swagger-cli validate api/openapi.yaml",
