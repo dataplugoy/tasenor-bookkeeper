@@ -96,12 +96,12 @@ services:
     build:
       context: apps/docs
     ports:
-      - ${DOC_POST:-7207}:${DOC_POST:-7207}
+      - ${DOC_PORT:-7207}:${DOC_PORT:-7207}
     environment:
       NODE_ENV: development
-      PORT: ${DOC_POST:-7207}
+      PORT: ${DOC_PORT:-7207}
       VIRTUAL_HOST: docs.localhost
-      VIRTUAL_PORT: ${DOC_POST:-7207}
+      VIRTUAL_PORT: ${DOC_PORT:-7207}
     command: pnpm run docker
     networks:
       - tasenor

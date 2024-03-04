@@ -8,7 +8,7 @@ set -e
 FILE=`dirname "${BASH_SOURCE[0]}"`/..
 ROOT=`readlink -f "$FILE"`
 
-export TEST_BASE_URL=http://localhost:7204
+export TEST_BASE_URL=http://localhost:${BOOKKEEPER_PORT:7204}
 export TEST_ADMIN_USER=root@localhost
 export TEST_ADMIN_PASSWORD=Ayfiewchg872rt5sq2e4
 export TEST_USER=robot@localhost
