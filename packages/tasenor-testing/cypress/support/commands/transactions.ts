@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/no-namespace */
+/// <reference types="cypress" />
 export {}
 
-const SELECTED_DATE='//*[contains(@class, "TransactionDetails")][contains(@class, "date")][contains(@class, "sub-selected")]'
-const SELECTED_ACCOUNT='//*[contains(@class, "TransactionDetails")][contains(@class, "account")][contains(@class, "sub-selected")]'
-const SELECTED_DESCRIPTION='//*[contains(@class, "TransactionDetails")][contains(@class, "description")][contains(@class, "sub-selected")]'
-const SELECTED_DEBIT='//*[contains(@class, "TransactionDetails")][contains(@class, "debit")][contains(@class, "sub-selected")]'
-const SELECTED_CREDIT='//*[contains(@class, "TransactionDetails")][contains(@class, "credit")][contains(@class, "sub-selected")]'
-const CURRENTLY_SELECTED_ROW='//tr[contains(@class, "Transaction")][contains(@class, "Mui-selected")]'
+const SELECTED_DATE = '//*[contains(@class, "TransactionDetails")][contains(@class, "date")][contains(@class, "sub-selected")]'
+const SELECTED_ACCOUNT = '//*[contains(@class, "TransactionDetails")][contains(@class, "account")][contains(@class, "sub-selected")]'
+const SELECTED_DESCRIPTION = '//*[contains(@class, "TransactionDetails")][contains(@class, "description")][contains(@class, "sub-selected")]'
+const SELECTED_DEBIT = '//*[contains(@class, "TransactionDetails")][contains(@class, "debit")][contains(@class, "sub-selected")]'
+const SELECTED_CREDIT = '//*[contains(@class, "TransactionDetails")][contains(@class, "credit")][contains(@class, "sub-selected")]'
+const CURRENTLY_SELECTED_ROW = '//tr[contains(@class, "Transaction")][contains(@class, "Mui-selected")]'
 
 /**
  * Assume that we have freshly added transaction and date field active. Create new income transaction.
