@@ -16,6 +16,9 @@ for (const pathName of glob.sync(dir + '/*')) {
   if (fs.existsSync(path.join(pathName, 'backend', `${module.replace(/Import$/, '')}Handler.ts`))) {
     txt += `export { ${module.replace(/Import$/, '')}Handler } from './${module}/backend/${module.replace(/Import$/, '')}Handler'\n`
   }
+  if (fs.existsSync(path.join(pathName, 'common', `${module}Handler.ts`))) {
+    txt += `export { default as ${module}Handler } from './${module}/common/${module}Handler'\n`
+  }
   // TODO: Currently tasenor-testing package does not compile tests, if this is included.
   // if (fs.existsSync(path.join(pathName, 'ui'))) {
   //   txt += `export { default as ${module}UI } from './${module}/ui'\n`

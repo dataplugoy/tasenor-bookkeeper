@@ -23,7 +23,7 @@ import {
   TsvFilePath,
   VATTarget
 } from '@tasenor/common'
-import { plugins, BackendPlugin, ImportPlugin, KnexDatabase, ReportPlugin, SchemePlugin, ServicePlugin, TransactionImportHandler, DB, DataPlugin, ToolPlugin } from '@tasenor/common-node'
+import { plugins, BackendPlugin, ImportPlugin, KnexDatabase, ReportPlugin, SchemePlugin, ServicePlugin, TransactionImportHandler, DB, DataPlugin, ToolPlugin, LanguageBackendPlugin } from '@tasenor/common-node'
 import path from 'path'
 import knex from './knex'
 
@@ -42,6 +42,7 @@ export class Catalog implements BackendCatalog {
   private importPlugins: ImportPlugin[]
   private dataPlugins: DataPlugin[]
   private toolPlugins: ToolPlugin[]
+  private languagePlugins: LanguageBackendPlugin[]
   private services: Record<string, ServicePlugin[]>
   private translations: Record<string, Record<string, string>>
   private hooks: CatalogHooks = {
@@ -61,6 +62,7 @@ export class Catalog implements BackendCatalog {
     this.reportPlugins = []
     this.schemePlugins = []
     this.importPlugins = []
+    this.languagePlugins = []
     this.dataPlugins = []
     this.toolPlugins = []
     this.services = {}
@@ -197,7 +199,7 @@ export class Catalog implements BackendCatalog {
   }
 
   /**
-   * Collect all or one specific translations from plugins.
+   * Collect all or one specific language translations from plugins.
    * @returns
    */
   getTranslations(language?: Language): Record<string, Record<string, string>> {
@@ -225,6 +227,17 @@ export class Catalog implements BackendCatalog {
   getSchemePlugin(code: PluginCode): SchemePlugin | undefined {
     for (const plugin of this.schemePlugins) {
       if (plugin.hasScheme(code)) {
+        return plugin
+      }
+    }
+  }
+
+  /**
+   * Find the plugin providing translations for the language.
+   */
+  getLanguagePlugin(lang: Language): BackendPlugin | undefined {
+    for (const plugin of this.languagePlugins) {
+      if (plugin.getLanguages().has(lang)) {
         return plugin
       }
     }

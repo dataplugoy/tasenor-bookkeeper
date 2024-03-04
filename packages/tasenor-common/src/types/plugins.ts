@@ -2,7 +2,7 @@
  * Type definitions for plugins.
  */
 import Opaque from 'ts-opaque'
-import { Version } from './common'
+import { Language, Version } from './common'
 import { ID } from '../process_types'
 import { BackendCatalog } from './bookkeeper'
 
@@ -104,8 +104,8 @@ export declare class BackendPlugin {
   public icon: string
   public description: string
   public path: string
-  public languages: Record<string, Record<string, string>>
-  private catalog?: BackendCatalog
+  public languages: Partial<Record<Language, Record<string, string>>>
+  protected catalog?: BackendCatalog
 }
 export declare class ServicePlugin extends BackendPlugin {}
 export declare class DataPlugin extends BackendPlugin {}

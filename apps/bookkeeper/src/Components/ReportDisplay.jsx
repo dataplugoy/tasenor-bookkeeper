@@ -38,7 +38,7 @@ class ReportHeader extends Component {
       </TableRow>,
       <TableRow key="3" className="columns">
         {report.columns.map((column) => <TableCell key={column.name} className={'ReportCell ' + column.type}>
-          <Localize>{column.title}</Localize>
+          {column.title}
         </TableCell>)}
       </TableRow>
     ]
@@ -65,7 +65,7 @@ class ReportDisplay extends Component {
     return (
       <div className="ReportDisplay">
         <TableContainer>
-          <Table className="ReportDisplayTable" size="medium" padding="none">
+          <Table className="ReportDisplayTable" data-cy="box-Report" size="medium" padding="none">
             <TableBody>
               <ReportHeader report={this.props.report}></ReportHeader>
               {report.data.map((line, idx) => <ReportLine key={idx} line={line} columns={report.columns}></ReportLine>)}

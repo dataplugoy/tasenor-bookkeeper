@@ -39,9 +39,6 @@ export function data2csv(report, options: ReportQueryParams) {
   }
 
   data.forEach((entry) => {
-    if (entry.paragraphBreak) {
-      return
-    }
     line = {}
     columns.forEach((column) => {
       if (entry.pageBreak || entry.paragraphBreak) {

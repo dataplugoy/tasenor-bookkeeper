@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import fs from 'fs'
-import { KnexDatabase, data2csv } from '..'
+import { KnexDatabase, LanguageBackendPlugin, data2csv } from '..'
 import dayjs from 'dayjs'
 import quarterOfYear from 'dayjs/plugin/quarterOfYear'
 import { ReportOptions, ReportID, ReportFlagName, ReportItem, ReportQueryParams, ReportLine, AccountNumber, ReportColumnDefinition, PeriodModel, ReportFormat, Language, PK, ReportMeta, ReportData, ReportTotals, Report } from '@tasenor/common'
@@ -16,10 +16,13 @@ export class ReportPlugin extends BackendPlugin {
   private formats: ReportID[]
   // Is set, allow this report only on DBs having those accounting schemes.
   protected schemes: Set<string> | undefined
+  // Store translation plugin references.
+  protected languagePlugins: Partial<Record<Language, LanguageBackendPlugin>>
 
   constructor(...formats: ReportID[]) {
     super()
     this.formats = formats
+    this.languagePlugins = {}
     this.schemes = undefined
   }
 
@@ -235,6 +238,29 @@ export class ReportPlugin extends BackendPlugin {
   }
 
   /**
+   * Scan string for `{...}` sub-strings and translate parts.
+   */
+  translate(text: string, lang: Language): string {
+    let match
+    do {
+      match = /(\{(\d\d\d\d-\d\d-\d\d)\})/.exec(text)
+      if (match) {
+        if (!this.languagePlugins[lang]) {
+          this.languagePlugins[lang] = this.catalog?.getLanguagePlugin(lang) as LanguageBackendPlugin | undefined
+        }
+        text = text.replace(match[1], this.languagePlugins[lang]?.date2str(match[2]) || match[2])
+      } else {
+        match = /(\{(.*?)\})/.exec(text)
+        if (match) {
+          text = text.replace(match[1], this.t(match[2], lang))
+        }
+      }
+    } while (match)
+
+    return text
+  }
+
+  /**
    * Construct a report data for the report.
    * @param db
    * @param id
@@ -252,7 +278,7 @@ export class ReportPlugin extends BackendPlugin {
    * * `useRemainingColumns` if set, extend this column index to use all the rest columns in the row.
    * * `accountDetails` if true, after this are summarized accounts under this entry.
    * * `isAccount` if true, this is an account entry.
-   * * `needLocalization` if set, value should be localized, i.e. translated via Localization component in ui.
+   * * `needLocalization` if set, value should be localized, i.e. translated according to the language selected.
    * * `name` Title of the entry.
    * * `number` Account number if the entry is an account.
    * * `values` An object with entry for each column mapping name of the columnt to the value to display.
@@ -289,8 +315,13 @@ export class ReportPlugin extends BackendPlugin {
     // Apply query filtering.
     entries = this.doFiltering(id, entries, options, settings)
 
-    // We have now relevant entries collected. Use plugin features next.
+    // Construct columns.
     const columns: ReportColumnDefinition[] = await this.getColumns(id, entries, options as ReportOptions, settings)
+    columns.forEach(column => {
+      column.title = this.translate(column.title, options.lang || 'en')
+    })
+
+    // We have now relevant entries collected. Use plugin features next.
     let data = await this.preProcess(id, entries, options, settings, columns) as ReportLine[]
     data = await this.postProcess(id, data, options, settings, columns)
     const report = {
@@ -344,7 +375,7 @@ export class ReportPlugin extends BackendPlugin {
   }
 
   /**
-   * Do post processing for report data before sending it.
+   * Do post processing for report data before sending it. By default, do translations.
    * @param id Report type.
    * @param data Calculated report data
    * @param options Report options.
@@ -353,6 +384,11 @@ export class ReportPlugin extends BackendPlugin {
    * @returns
    */
   async postProcess(id: ReportID, data: ReportLine[], options: ReportQueryParams, settings: ReportMeta, columns: ReportColumnDefinition[]): Promise<ReportLine[]> {
+    data.forEach(item => {
+      if ('needLocalization' in item && item.needLocalization && item.name) {
+        item.name = this.translate(item.name, options.lang || 'en')
+      }
+    })
     return data
   }
 

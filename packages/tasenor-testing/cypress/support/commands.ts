@@ -7,6 +7,7 @@ import './commands/databases'
 import './commands/elements'
 import './commands/nav'
 import './commands/plugins'
+import './commands/reports'
 import './commands/transactions'
 
 export {}
@@ -38,6 +39,7 @@ declare global {
       page(text: string): Chainable<JQuery<HTMLElement>>
       plugin(text: string): Chainable<JQuery<HTMLElement>>
       qaLogin(): Chainable<void>
+      report(): Chainable<string[][]>
       selectBalance(account: string): Chainable<void>
       selectDb(name: string): Chainable<void>
       selection(dropdown: string, item: string): Chainable<void>
@@ -51,13 +53,8 @@ declare global {
 
   namespace Cypress {
     interface Chainer<Subject> {
-      (chainer: 'cellEquals', row: number, col: number, text: string): Chainable<Subject>
-    }
-  }
-
-  namespace Chai {
-    interface Assertion {
-      testId(row: number, col: number, text: string): void
+      (chainer: 'cellEquals', row: number, col: number, text: string): Chainable<Subject>,
+      (chainer: 'matchReport', heading1: string, heading2: string, report: string): Chainable<Subject>,
     }
   }
 }

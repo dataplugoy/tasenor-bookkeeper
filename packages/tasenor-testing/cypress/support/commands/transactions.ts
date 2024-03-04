@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /// <reference types="cypress" />
+/// <reference types="cypress-xpath" />
+/// <reference types="cypress-real-events" />
 export {}
 
 const SELECTED_DATE = '//*[contains(@class, "TransactionDetails")][contains(@class, "date")][contains(@class, "sub-selected")]'

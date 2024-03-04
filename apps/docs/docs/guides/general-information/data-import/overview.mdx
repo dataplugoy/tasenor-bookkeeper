@@ -4,15 +4,63 @@ sidebar_position: 100
 
 # Overview
 
-This document gives brief overview how the importing is processed.
+Theoretical framework how the importing data is processed.
 
 ## Interactive Stateful Process
 
-TODO: Document about interactive processing.
+### Theory
+Core of the data import processing is based on the idea we call *interactive stateful process*.
+It means a system that uses the following generic principle for processing data:
+
+1. Initial *state* of the *process* is established in the server.
+2. Possible *directions* to the next state are detemined by the server.
+3. Choose one
+   - If there is only one direction, we select that.
+   - If there are no directions, the process has *failed*. The process ends.
+   - If there are more than one direction, the server asks from the UI which one to select. User may also add
+     additional information as specified the direction definition.
+4. Apply the direction (with additional information, if any) to the state and produce a new state.
+5. Determine if the state is a *final* state. In that case, the process ends.
+6. Go back to 2.
+```mermaid
+flowchart LR
+   init([1. Initialize])
+   dir([2. Directions])
+   apply([4. Apply])
+   ui([Ask UI])
+   done([END])
+   fail([FAIL])
+   init --> dir
+   dir -->|3. no directions| fail
+   dir -->|3. one direction| apply
+   dir -->|3. more directions| ui
+   ui -->|ui response| apply
+   apply -->|5. is final| done
+   apply -->|6. is not final| dir
+```
+
+### Data Import
+
+In the case of data import, the interpretation of the above is the following: we have various stages of the import
+process, which describe the progress we have made. The directions present the possibilities of different configuration
+values needed but not yet specified. It mat also present some special handling like skipping some transaction found
+from the input statemet.
+
+```mermaid
+sequenceDiagram
+    User-)UI: Upload statement
+    UI-)Server: Transfer file(s)
+    Server-)Server: Launch processing
+    Server-)UI: Describe questions
+    UI-)User: Visualize options
+    User-)UI: Fill in some or all options
+    UI-)Server: Send
+    Server-)Server: Continue processing
+```
 
 ## Stages of Processing
 
-The import processing goes through the following stages:
+The import processing itself goes through the following stages:
 ```mermaid
 flowchart LR
    START --> segmentation

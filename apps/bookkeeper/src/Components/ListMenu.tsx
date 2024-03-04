@@ -1,7 +1,7 @@
 import { Avatar, Box, List, ListItemAvatar, ListItemButton, ListItemText } from '@mui/material'
 import { haveCursor } from '@tasenor/common'
 import { Note, Title, useNav } from '@tasenor/common-ui'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Trans } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import { observer } from 'mobx-react'
@@ -36,26 +36,28 @@ export const ListMenu = observer(withStore((props: ListMenuProps): JSX.Element =
     return <></>
   }
 
-  cursor.selectPage(title, {
-    keyText: (cursor, key) => {
-      if (key >= '0' && key <= '9') {
-        const index = key === '0' ? 10 : parseInt(key)
-        let idx = 0
-        for (let i = 0; i < menu.length; i++) {
-          const m: ListMenuItem = menu[i]
-          if (m.visible && !m.visible()) continue
-          idx++
-          if (idx === index) {
-            if (!m.disabled()) {
-              nav.go({ side: m.id })
-              break
+  useEffect(() => {
+    cursor.selectPage(title, {
+      keyText: (cursor, key) => {
+        if (key >= '0' && key <= '9') {
+          const index = key === '0' ? 10 : parseInt(key)
+          let idx = 0
+          for (let i = 0; i < menu.length; i++) {
+            const m: ListMenuItem = menu[i]
+            if (m.visible && !m.visible()) continue
+            idx++
+            if (idx === index) {
+              if (!m.disabled()) {
+                nav.go({ side: m.id })
+                break
+              }
             }
           }
+          return { peventDefault: true }
         }
-        return { peventDefault: true }
       }
-    }
-  })
+    })
+  }, [title])
 
   let idx = 0
 

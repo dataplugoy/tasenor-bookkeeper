@@ -4,6 +4,7 @@
 export * from './BackendPlugin'
 export * from './DataPlugin'
 export * from './ImportPlugin'
+export * from './LanguageBackendPlugin'
 export * from './ReportPlugin'
 export * from './SchemePlugin'
 export * from './ServicePlugin'

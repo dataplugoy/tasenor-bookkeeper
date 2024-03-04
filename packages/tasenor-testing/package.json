@@ -1,6 +1,6 @@
 {
   "name": "@tasenor/testing",
-  "version": "1.11.27",
+  "version": "1.11.39",
   "description": "Testing tools for Tasenor project",
   "main": "src/index.ts",
   "types": "src/index.ts",
@@ -46,12 +46,14 @@
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.19",
     "@types/sprintf-js": "^1.1.4",
+    "csv-parse": "^5.5.3",
     "cypress": "^13.6.5",
     "cypress-real-events": "^1.12.0",
     "cypress-xpath": "^2.0.1",
     "eslint-config-tasenor": "workspace:*",
     "jest": "^29.7.0",
     "react": "^17.0.2",
+    "tsx": "^4.7.1",
     "typescript": "^5.3.3"
   }
 }

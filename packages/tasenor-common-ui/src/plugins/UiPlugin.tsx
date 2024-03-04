@@ -11,13 +11,13 @@ export class UiPlugin extends Component {
 
   // This is meta data for this plugin instance.
   id: ID = null
-  code: PluginCode | null = null
-  title: string | null = null
+  code: PluginCode = '' as PluginCode
+  title: string = ''
   version: Version | null = null
   releaseDate: ShortDate | null = null
-  use: PluginUse | null = null
-  type: PluginType | null = null
-  description: string | null = null
+  use: PluginUse = 'unknown'
+  type: PluginType = 'unknown'
+  description: string = ''
 
   // Plugin translations from language code to the translation dictionary.
   languages = {
