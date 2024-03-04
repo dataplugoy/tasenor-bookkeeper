@@ -44,7 +44,7 @@ fi
 if [ $NIGHTLY == 'yes' ]; then
     export TEST_BASE_URL=http://bookkeeper.localhost
 else
-    export TEST_BASE_URL=http://localhost:${BOOKKEEPER_PORT:7204}
+    export TEST_BASE_URL=http://localhost:${BOOKKEEPER_PORT:-7204}
 fi
 
 cd $ROOT
