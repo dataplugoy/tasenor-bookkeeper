@@ -10,7 +10,7 @@
     "build": "rm -f src/Plugins/index.js{on,x} && pnpm run dev-initialize-plugins && npx vite build",
     "ci": "pnpm run dev-initialize-plugins && pnpm run lint && pnpm run build",
     "dev-initialize-plugins": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx -r dotenv/config bin/initialize-plugins.mjs",
-    "dev-vite": "UI_API_URL=http://localhost:${BOOKKEEPER_API_PORT:-7205} API_URL=http://localhost:${BOOKKEEPER_API_PORT:-7205} DOTENV_CONFIG_PATH=`pwd`/.env.local npx vite --port ${BOOKKEEPER_PORT:=7204}",
+    "dev-vite": "PORT=${BOOKKEEPER_PORT:-7204} UI_API_URL=http://localhost:${BOOKKEEPER_API_PORT:-7205} API_URL=http://localhost:${BOOKKEEPER_API_PORT:-7205} DOTENV_CONFIG_PATH=`pwd`/.env.local npx vite --port ${BOOKKEEPER_PORT:=7204}",
     "dev-ui-plugin-server": "PORT=${BOOKKEEPER_PORT:-7204} API_URL=http://localhost:${BOOKKEEPER_API_PORT:-7205} DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx watch --clear-screen=false -r dotenv/config ./src/plugin-server/ui-plugin-server.ts",
     "dev": "pnpm run dev-initialize-plugins && pnpm run '/(dev-ui-plugin-server|dev-vite)/'",
     "docker": "pnpm run ssh-keys && pnpm run build && pnpm run optimize && pnpm run wait && pnpm run prod",

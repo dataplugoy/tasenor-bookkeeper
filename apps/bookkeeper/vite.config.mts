@@ -7,7 +7,8 @@ import 'dotenv/config'
 // https://vitejs.dev/config/
 export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-
+  console.log(`Vite Bookkeeper: PORT = ${JSON.stringify(env.PORT)}`)
+  console.log(`Vite Bookkeeper: UI_API_URL = ${JSON.stringify(env.UI_API_URL)}`)
   return {
     appType: 'spa',
     clearScreen: false,
