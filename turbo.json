@@ -32,6 +32,13 @@
       "persistent": true,
       "inputs": ["package.json", "pnpm-lock.yaml"]
     },
+    "ci": {
+      "inputs": [
+        "**/src/**",
+        "**/test/**",
+        "**/data/**"
+      ]
+    },
     "dev": {
       "cache": false,
       "persistent": true
