@@ -2,6 +2,7 @@
 /// <reference types="cypress" />
 /// <reference types="cypress-xpath" />
 /// <reference types="cypress-real-events" />
+/// <reference types=".." />
 export {}
 
 const SELECTED_DATE = '//*[contains(@class, "TransactionDetails")][contains(@class, "date")][contains(@class, "sub-selected")]'

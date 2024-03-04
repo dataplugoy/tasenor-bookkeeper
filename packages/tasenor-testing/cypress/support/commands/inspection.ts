@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /// <reference types="cypress" />
+/// <reference types=".." />
 
 /**
  * Find the currently selected database name.

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /// <reference types="cypress" />
+/// <reference types=".." />
 import { parse } from 'csv-parse/sync'
 
 export {}

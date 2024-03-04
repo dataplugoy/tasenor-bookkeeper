@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /// <reference types="cypress" />
+/// <reference types=".." />
+
 /**
  * Select menu and optionally a side menu and an tool icon.
  */
