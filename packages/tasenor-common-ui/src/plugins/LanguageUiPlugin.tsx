@@ -19,3 +19,6 @@ export class LanguageUiPlugin extends UiPlugin {
   time2str(date): string { return this.handler.time2str(date) }
   str2date(date, sample: Date | undefined): string | undefined { return this.handler.str2date(date, sample) }
 }
+
+// TODO: Remove once staging updated.
+export class LanguagePlugin extends LanguageUiPlugin {}
