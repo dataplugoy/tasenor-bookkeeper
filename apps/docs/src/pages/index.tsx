@@ -32,7 +32,7 @@ export default function Index(): JSX.Element {
           <div className={styles['box-title']}>For Developer</div>
           Open Source solution giving you all the power to extend
           and implement your unique bookkeeping business needs.
-          Maybe earn money with plugins written by you?
+          Maybe earn some money by renting plugins written by you?
           <div className={styles['link']}>
             <Link to="/docs/guides/getting-started/features/developer"><div className={styles['box-link']}>Read More</div></Link>
           </div>

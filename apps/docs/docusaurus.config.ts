@@ -138,6 +138,15 @@ const config: Config = {
             },
           ],
         },
+        {
+          title: 'Help',
+          items: [
+            {
+              label: 'How to get help?',
+              href: '/docs/guides/help',
+            },
+          ],
+        },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Dataplug Oy, Built with Docusaurus.`,
     },
