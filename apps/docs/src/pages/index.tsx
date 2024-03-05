@@ -20,21 +20,28 @@ export default function Index(): JSX.Element {
       <main className={styles.content}>
         <div className={styles.box}>
           <div className={styles['box-title']}>For User</div>
-          TODO: Brief Introduction. How to start.
+          Easy to use pure browser solution for bookkeeping.
+          Use keyboard to use it as a desktop application or
+          automate data flow processes to get transactions
+          imported effortlessly.
           <div className={styles['link']}>
             <Link to="/docs/guides/getting-started/features/user"><div className={styles['box-link']}>Read More</div></Link>
           </div>
         </div>
         <div className={styles.box}>
           <div className={styles['box-title']}>For Developer</div>
-          TODO: Brief Introduction. How to start.
+          Open Source solution giving you all the power to extend
+          and implement your unique bookkeeping business needs.
+          Maybe earn money with plugins written by you?
           <div className={styles['link']}>
             <Link to="/docs/guides/getting-started/features/developer"><div className={styles['box-link']}>Read More</div></Link>
           </div>
         </div>
         <div className={styles.box}>
           <div className={styles['box-title']}>For Business</div>
-          TODO: Brief Introduction. How to start.
+          Choose your industry and geographical area.
+          Become a partner and provide expertise in commercial
+          support on the platform.
           <div className={styles['link']}>
             <Link to="/docs/guides/getting-started/features/business"><div className={styles['box-link']}>Read More</div></Link>
           </div>
