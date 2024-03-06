@@ -187,7 +187,7 @@ class GitBackup extends ToolPlugin {
         this.backups = this.backups + 1
       })
       if (success) {
-        this.store.addMessage(this.t('Backup restored successfully.'))
+        this.store.addMessage(this.t('Backup created successfully.'))
       } else {
         this.store.addError(this.t('Restoring backup failed.'))
       }
