@@ -1,0 +1,27 @@
+---
+sidebar_position: 100
+---
+
+# User Install
+
+Installing locall Tasenor Bookkeeper for actual use.
+
+## Pre-requisities
+
+You will need Docker.
+
+* [docker](https://www.docker.com/get-started/)
+
+## Installing Development Copy
+
+Get a copy of the repository
+```sh
+git clone https://github.com/dataplugoy/tasenor-bookkeeper.git
+```
+Build and run
+```sh
+cd tasenor-bookkeeper/
+docker compose up
+```
+
+You can now create an admin user and start exploring the system at [http://bookkeeper.localhost/](http://bookkeeper.localhost/).
