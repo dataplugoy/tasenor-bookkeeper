@@ -32,7 +32,7 @@ export const TransactionStock = (props: TransactionStockProps): JSX.Element => {
   const ret: JSX.Element[] = []
   let title: string | undefined
   if (isStockChangeDelta(info.stock)) {
-    console.log(changedAssets);
+    console.log(changedAssets)
   }
 
   if (isStockChangeFixed(info.stock)) {

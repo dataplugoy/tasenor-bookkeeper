@@ -160,7 +160,7 @@ export const TransactionLine = withStore(withCatalog(observer((props: Transactio
         </TableCell>
         <TableCell sx={{ borderBottom: 0 }}/>
       </TableRow>
-    )
+  )
 })))
 
 export interface MainTransactionProps {
@@ -206,7 +206,7 @@ export const MainTransaction = withStore(withCatalog(observer((props: MainTransa
           field="date"
           className={tx.open && index === cursor.index && cursor.row === null && cursor.inComponent('Balances.transactions') ? 'sub-selected' : ''}
           document={tx.document}
-          onComplete={async (doc, proposal) => {
+          onComplete={async (doc) => {
             // Find the new row after order by date has been changed.
             const numbers = store.filteredTransactions.map(tx => tx.document.number)
             cursor.topologyChanged()
@@ -261,7 +261,7 @@ export const Transaction = withStore(withCatalog(observer((props: TransactionPro
   // Calculate imbalance, missing accounts, and look for deletion request.
   let missingAccount = false
 
-  tx.document.entries.forEach((entry, idx) => {
+  tx.document.entries.forEach((entry) => {
     if (!entryToDelete && entry.askForDelete) {
       setEntryToDelete(entry)
     }
@@ -339,7 +339,7 @@ export const Transaction = withStore(withCatalog(observer((props: TransactionPro
             className="DeleteTransaction"
             title={<Trans>Delete this transaction?</Trans>}
             isVisible={entryToDelete.askForDelete}
-            onClose={() => { runInAction(() => entryToDelete.askForDelete = false); setEntryToDelete(null) }}
+            onClose={() => { runInAction(() => (entryToDelete.askForDelete = false)); setEntryToDelete(null) }}
             onConfirm={onDeleteEntry}>
             <i>{entryToDelete.account && entryToDelete.account.toString()}</i><br/>
             {entryToDelete.description}<br/>
