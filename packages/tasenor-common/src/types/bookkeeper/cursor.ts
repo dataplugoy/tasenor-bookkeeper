@@ -10,12 +10,36 @@ export type KeyboardShortcut = Opaque<string, 'KeyboardShortcut'>
  */
 export type ShortcutHandlers = Record<string, (Cursor, KeyboardShortcut) => undefined | { preventDefault: true }>
 
+export interface CursorOptions {
+  subitemExitUp: boolean
+  subitemExitDow: boolean
+  subitemUpStopOnNull: boolean
+  entryColumn: number
+  noScroll: boolean
+}
+
+/**
+ * A screen component that is part of the navigation.
+ */
+declare class TopologyComponent {
+  name: string
+}
+
 /**
  * A keyboard handler.
  */
 export declare class Cursor {
+
+  page: string
+  componentX: null | number
+  componentY: null | number
+  index: null | number
+  column: null | number
+  row: null | number
+
   disableHandler(): void
   enableHandler(): void
+  getComponent(): TopologyComponent
   handle(key: string): void
   addModal(name: string, hooks: Record<string, (cursor: Cursor, key: string) => void>)
   removeModal(name: string)
@@ -23,4 +47,8 @@ export declare class Cursor {
   registerMenu(handlers: ShortcutHandlers)
   registerTools(handlers: ShortcutHandlers | null)
   selectPage(page: string, hooks: Record<string, (cursor: Cursor, key: string) => void>): void
+  setCell(column: null|number, row: null|number)
+  setComponent(name: string): void
+  setIndex(index: null|number, options?: CursorOptions)
+  topologyChanged(): void
 }
