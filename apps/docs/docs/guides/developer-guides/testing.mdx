@@ -16,3 +16,20 @@ private repository and is tested in nightly test run.
 You need to sign NDA agreement to get access to that repository. You can also donate testing
 material from your own private data if you want to ensure that processes critical to you
 remain intact and unaltered in future code changes. Data will be protected with NDA as well.
+
+## Test Types
+
+TODO: Describe different types, tools used and how to run.
+
+### Running CI Test
+
+The gatekeeper for publishing individual NPM-packages is a collection of tests under the
+script `ci` in each `packages.json`. To verify that local changes will pass, you need the
+local system up
+```sh
+turbo dev
+```
+and then run all scripts
+```sh
+turbo run ci
+```
