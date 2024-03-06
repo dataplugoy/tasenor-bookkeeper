@@ -1,8 +1,9 @@
-import { AdditionalTransferInfo, Asset, Currency, StockBookkeeping, StockChangeData, isStockChangeDelta, isStockChangeFixed, strRound } from '@tasenor/common'
+import { observer } from 'mobx-react'
+import { AdditionalTransferInfo, Asset, Currency, StockBookkeeping, StockChangeData, StockChangeDelta, StockValueData, isStockChangeDelta, isStockChangeFixed, strRound } from '@tasenor/common'
 import { Money } from '@tasenor/common-ui'
 import { Box, TableCell, TableRow } from '@mui/material'
 import React, { Fragment } from 'react'
-import { Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import Settings from '../Stores/Settings'
 import EntryModel from '../Models/EntryModel'
 
@@ -15,10 +16,11 @@ export type TransactionStockProps = {
   tx: EntryModel
 }
 
-export const TransactionStock = (props: TransactionStockProps): JSX.Element => {
+export const TransactionStock = observer((props: TransactionStockProps): JSX.Element => {
 
   const { stock, settings, tx } = props
   const currency = settings.get('currency') as Currency
+  const { t } = useTranslation()
 
   if (!tx.data || !tx.data.stock) {
     return <></>
@@ -31,17 +33,22 @@ export const TransactionStock = (props: TransactionStockProps): JSX.Element => {
 
   const ret: JSX.Element[] = []
   let title: string | undefined
-  if (isStockChangeDelta(info.stock)) {
-    console.log(changedAssets)
+  if (tx.open && isStockChangeDelta(info)) {
+    ret.push(<EmptyStockChange key={'start'}/>)
+    Object.entries(info.stock.change).forEach((c) => {
+      const [name, {value, amount}] = c as [Asset, StockValueData]
+      ret.push(<TransactionStockChange key={`change-${name}`} asset={name} value={value} amount={amount} currency={currency}/>)
+    })
+    ret.push(<EmptyStockChange key={'end'}/>)
   }
 
-  if (isStockChangeFixed(info.stock)) {
-    title = 'Initial values for assets:'
+  if (isStockChangeFixed(info)) {
+    title = t('Initial values for assets:')
   }
   ret.push(<TransactionStockTotal key={tx.id + '-stock'} title={title} totals={totals} values={values} currency={currency}/>)
 
   return <>{ret}</>
-}
+})
 
 export interface TransactionStockTotalProps {
   values: Partial<Record<Asset, number>>
@@ -72,6 +79,45 @@ export const TransactionStockTotal = (props: TransactionStockTotalProps): JSX.El
           )
         }
       </TableCell>
+    </TableRow>
+  )
+}
+
+export interface TransactionStockChangeProps {
+  asset: Asset
+  value: number,
+  amount: number
+  currency: Currency
+}
+
+export const TransactionStockChange = (props: TransactionStockChangeProps): JSX.Element => {
+
+  const { asset, value, amount, currency } = props
+
+  return (
+    <TableRow>
+      <TableCell sx={{ border: 0 }} variant="footer"/>
+      <TableCell colSpan={2} variant="footer">
+        <Trans>Asset value change:</Trans>
+      </TableCell>
+      <TableCell variant="footer" align="right">
+        {asset}
+      </TableCell>
+      <TableCell variant="footer" align="right">
+        {amount >= 0 ? '+' : ''}{amount}
+      </TableCell>
+      <TableCell variant="footer" align="right">
+        {value >= 0 ? '+' : ''}<Money currency={currency} cents={value}/>
+      </TableCell>
+      <TableCell sx={{ border: 0 }} variant="footer"/>
+    </TableRow>
+  )
+}
+
+export const EmptyStockChange = (): JSX.Element => {
+  return (
+    <TableRow>
+      <TableCell colSpan={6} sx={{ border: 0, height: '0.5rem' }}></TableCell>
     </TableRow>
   )
 }
