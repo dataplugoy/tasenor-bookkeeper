@@ -431,7 +431,7 @@ class TransactionTable extends Component {
                     tx={tx}
                     total={sum}
                   />
-                  {tx.data && tx.data.stock && <TransactionStock settings={settings} tx={tx} stock={stock}/>}
+                  {tx.data && tx.data.stock && <TransactionStock index={idx} settings={settings} tx={tx} stock={stock}/>}
                 </React.Fragment>
               })}
             <TableRow className="totals">

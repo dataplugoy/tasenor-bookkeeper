@@ -7,7 +7,7 @@ import { Money } from '@tasenor/common-ui'
 import i18n from '../i18n'
 import { Link } from '@mui/material'
 import DocumentModel from './DocumentModel'
-import { ID, Currency } from '@tasenor/common'
+import { ID, Currency, isStockChangeDelta } from '@tasenor/common'
 import DatabaseModel from './DatabaseModel'
 import PeriodModel from './PeriodModel'
 import Mexp from 'math-expression-evaluator'
@@ -131,7 +131,19 @@ class EntryModel extends NavigationTargetModel {
       })
   }
 
+  /**
+   * Editable rows are the siblings of this entry and possible data lines (which are presented as copy of this entry).
+   */
   rows() {
+    if (isStockChangeDelta(this.data)) {
+      const dataEntries = Object.keys(this.data.stock.change).length
+      let ret = this.document.entries
+      for (let i = 0; i < dataEntries; i++) {
+        ret = ret.concat(this)
+      }
+      return ret
+    }
+
     return this.document.entries
   }
 
