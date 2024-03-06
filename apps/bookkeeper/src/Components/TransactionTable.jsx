@@ -423,9 +423,6 @@ class TransactionTable extends Component {
                 if (tx.data && tx.data.stock) {
                   stock.apply(tx.document.date, tx.data)
                 }
-                const changes = stock.changedAssets(tx.data)
-                const totals = changes.reduce((prev, cur) => ({ ...prev, [cur]: stock.total(cur) }), {})
-                const values = changes.reduce((prev, cur) => ({ ...prev, [cur]: stock.value(cur) }), {})
 
                 return <React.Fragment key={idx}>
                   <Transaction
@@ -434,7 +431,7 @@ class TransactionTable extends Component {
                     tx={tx}
                     total={sum}
                   />
-                  { changes.length > 0 && <TransactionStock currency={settings.get('currency')} values={values} totals={totals}/>}
+                  {tx.data && tx.data.stock && <TransactionStock settings={settings} tx={tx} stock={stock}/>}
                 </React.Fragment>
               })}
             <TableRow className="totals">
