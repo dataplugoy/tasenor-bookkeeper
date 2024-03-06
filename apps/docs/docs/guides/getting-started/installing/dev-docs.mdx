@@ -1,0 +1,33 @@
+---
+sidebar_position: 300
+---
+
+# Documentation Development
+
+Runnig document server only.
+
+## Pre-requisities
+
+The setup is the same as in Turbo version.
+
+* Node environment (prefereably with [nvm](https://github.com/nvm-sh/nvm))
+* [pnpm](https://pnpm.io/)
+
+## Installing Development Copy
+
+Get a copy of the repository
+```sh
+git clone https://github.com/dataplugoy/tasenor-bookkeeper.git
+```
+Then install needed NPM-packages
+```sh
+cd tasenor-bookkeeper/
+pnpm install
+```
+
+## Launching Document Server
+
+```sh
+cd apps/docs/
+pnpm run dev
+```
