@@ -1,6 +1,7 @@
 # Tasenor Bookkeeper
 
-This is a monorepo for developing Tasenor Bookkeeper.
+This is a monorepo for developing Tasenor Bookkeeper. For the latest published developer documentation, see
+[https://docs.stg.tasenor.com/](https://docs.stg.tasenor.com/).
 
 ## Content
 

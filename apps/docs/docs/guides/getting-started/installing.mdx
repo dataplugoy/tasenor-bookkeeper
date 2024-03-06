@@ -1,0 +1,34 @@
+---
+sidebar_position: 100
+---
+
+# Installing
+
+How to install Tasenor Bookkeeper for local use.
+
+## Pre-requisities
+
+The following additional installs are needed:
+
+* Node environment (prefereably with [nvm](https://github.com/nvm-sh/nvm))
+* [pnpm](https://pnpm.io/)
+* [turbo](https://turbo.build/repo)
+* [jq](https://jqlang.github.io/jq/)
+* [docker](https://www.docker.com/get-started/)
+
+## Installing Development Copy
+
+Get a copy of the repository
+```sh
+git clone https://github.com/dataplugoy/tasenor-bookkeeper.git
+```
+Then install needed NPM-packages
+```sh
+cd tasenor-bookkeeper/
+pnpm install
+```
+Now you can launch it in developer mode with
+```sh
+turbo dev
+```
+You can now create an admin user and start exploring the system at [http://localhost:7204/](http://localhost:7204/).
