@@ -335,5 +335,6 @@
   "Match complete field value": "Täsmää kentän koko pituudelta",
   "The text to match": "Etsittävä teksti",
   "There are no importers configured.": "Yhtään tuontilisäosaa ei ole konfiguroitu.",
-  "Create New Database": "Perusta uusi tietokanta"
+  "Create New Database": "Perusta uusi tietokanta",
+  "Initial values for assets:": "Omaisuuserien alkuarvot:"
 }
