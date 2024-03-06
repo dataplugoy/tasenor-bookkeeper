@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { AdditionalTransferInfo, Asset, Currency, StockBookkeeping, StockChangeData, StockChangeDelta, StockValueData, haveCursor, isStockChangeDelta, isStockChangeFixed, strRound } from '@tasenor/common'
+import { AdditionalTransferInfo, Asset, Currency, StockBookkeeping, StockChangeData, StockValueData, haveCursor, isStockChangeDelta, isStockChangeFixed, strRound } from '@tasenor/common'
 import { Money } from '@tasenor/common-ui'
 import { Box, TableCell, TableRow } from '@mui/material'
 import React, { Fragment } from 'react'
@@ -39,7 +39,7 @@ export const TransactionStock = observer((props: TransactionStockProps): JSX.Ele
     ret.push(<EmptyStockChange key={'start'}/>)
     let lineNo = tx.document.entries.length
     Object.entries(info.stock.change).forEach((c) => {
-      const [name, {value, amount}] = c as [Asset, StockValueData]
+      const [name, { value, amount }] = c as [Asset, StockValueData]
       ret.push(<TransactionStockChange
         key={`change-${name}`}
         asset={name}
