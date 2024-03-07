@@ -7,10 +7,19 @@ import { Money } from '@tasenor/common-ui'
 import i18n from '../i18n'
 import { Link } from '@mui/material'
 import DocumentModel from './DocumentModel'
-import { ID, Currency, isStockChangeDelta, StockChangeDelta } from '@tasenor/common'
+import { ID, Currency, isStockChangeDelta, Asset, StockChangeDelta } from '@tasenor/common'
 import DatabaseModel from './DatabaseModel'
 import PeriodModel from './PeriodModel'
 import Mexp from 'math-expression-evaluator'
+
+export type EditableStockChangeData = {
+  type: 'stock-change'
+  asset: Asset
+  amount: number
+  value: number
+}
+
+export type EditableData = EditableStockChangeData
 
 class EntryModel extends NavigationTargetModel {
 
@@ -23,7 +32,7 @@ class EntryModel extends NavigationTargetModel {
   declare row_number: number
   declare tagNames: string[]
   declare parent: DocumentModel
-  declare dataEditRow: null | string
+  declare dataEditRow: null | number
   declare dataEditColumn: null | number
 
   constructor(parent, init = {}) {
@@ -140,16 +149,33 @@ class EntryModel extends NavigationTargetModel {
    * Editable rows are the siblings of this entry and possible data lines (which are presented as copy of this entry).
    */
   rows() {
+    let ret = this.document.entries
     if (isStockChangeDelta(this.data)) {
-      const dataEntries = Object.keys(this.data.stock.change).length
-      let ret = this.document.entries
-      for (let i = 0; i < dataEntries; i++) {
+      let n = this.dataRows().length
+      while (n--) {
         ret = ret.concat(this)
       }
-      return ret
     }
 
-    return this.document.entries
+    return ret
+  }
+
+  /**
+   * Get additional rows for editor purposes.
+   */
+  dataRows(): EditableStockChangeData[] {
+    const ret: EditableStockChangeData[] = []
+    if (isStockChangeDelta(this.data)) {
+      Object.keys(this.data.stock.change).forEach(ticker => {
+        ret.push({
+          type: 'stock-change',
+          asset: ticker as Asset,
+          amount: (this.data as StockChangeDelta).stock.change[ticker].amount,
+          value: (this.data as StockChangeDelta).stock.change[ticker].value,
+        })
+      })
+    }
+    return ret
   }
 
   /**
@@ -252,8 +278,7 @@ class EntryModel extends NavigationTargetModel {
     } else {
       if (cursor.column !== null && cursor.column > 0 && isStockChangeDelta(this.data)) {
         if (this.document.canEdit()) {
-          const delta: StockChangeDelta = this.data as StockChangeDelta
-          this.dataEditRow = Object.keys(delta.stock.change)[cursor.row - this.document.entries.length]
+          this.dataEditRow = cursor.row - this.document.entries.length
           this.dataEditColumn = cursor.column
         } else {
           this.store.addError(i18n.t('Cannot edit this entry. Period locked?'))

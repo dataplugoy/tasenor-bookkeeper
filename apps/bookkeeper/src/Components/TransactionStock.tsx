@@ -19,6 +19,7 @@ export type TransactionStockProps = {
   index: number
 }
 
+// TODO: Currently there is only stock changes that are editable, but this concept should be expanded further to allow editing any value.
 export const TransactionStock = observer((props: TransactionStockProps): JSX.Element => {
 
   const { stock, settings, tx, index } = props
@@ -109,7 +110,7 @@ export interface TransactionStockChangeProps {
 export const TransactionStockChange = observer((props: TransactionStockChangeProps): JSX.Element => {
 
   const { asset, value, amount, currency, selectedColumn, tx } = props
-  const isEditorOn = tx.dataEditRow === asset
+
   return (
     <TableRow>
       <TableCell sx={{ border: 0 }} variant="footer"/>
@@ -117,13 +118,13 @@ export const TransactionStockChange = observer((props: TransactionStockChangePro
         <Trans>Asset value change:</Trans>
       </TableCell>
       <TableCell variant="footer" align="right" className={selectedColumn === 1 ? 'sub-selected' : ''}>
-        {tx.dataEditColumn === 1 && isEditorOn ? <TransactionStockEdit selectedColumn={1} asset={asset} value={asset} tx={tx}/> : asset}
+        {tx.dataEditColumn === 1 && selectedColumn === 1 ? <TransactionStockEdit selectedColumn={1} asset={asset} value={asset} tx={tx}/> : asset}
       </TableCell>
       <TableCell variant="footer" align="right" className={selectedColumn === 2 ? 'sub-selected' : ''}>
-        {tx.dataEditColumn === 2 && isEditorOn ? <TransactionStockEdit selectedColumn={2} asset={asset} value={amount} tx={tx}/> : <>{amount >= 0 ? '+' : ''}{amount}</>}
+        {tx.dataEditColumn === 2 && selectedColumn === 2 ? <TransactionStockEdit selectedColumn={2} asset={asset} value={amount} tx={tx}/> : <>{amount >= 0 ? '+' : ''}{amount}</>}
       </TableCell>
       <TableCell variant="footer" align="right" className={selectedColumn === 3 ? 'sub-selected' : ''}>
-        {tx.dataEditColumn === 3 && isEditorOn ? <TransactionStockEdit selectedColumn={3} asset={asset} value={value / 100} tx={tx}/> : <>{value >= 0 ? '+' : ''}<Money currency={currency} cents={value}/></>}
+        {tx.dataEditColumn === 3 && selectedColumn === 3 ? <TransactionStockEdit selectedColumn={3} asset={asset} value={value / 100} tx={tx}/> : <>{value >= 0 ? '+' : ''}<Money currency={currency} cents={value}/></>}
       </TableCell>
       <TableCell sx={{ border: 0 }} variant="footer"/>
     </TableRow>

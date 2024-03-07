@@ -147,7 +147,11 @@ class TransactionTable extends Component {
         if (!document.entries[cursor.row].canEdit()) {
           return
         }
-        runInAction(() => document.entries[cursor.row].markForDeletion())
+        if (cursor.row < document.entries[cursor.row].length) {
+          runInAction(() => document.entries[cursor.row].markForDeletion())
+        } else {
+          // TOD: Handle data entry deletion.
+        }
       }
     }
     return { preventDefault: true }
