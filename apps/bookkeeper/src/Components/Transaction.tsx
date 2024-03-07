@@ -314,24 +314,29 @@ export const Transaction = withStore(withCatalog(observer((props: TransactionPro
     )
   }
 
+  // Helper to handle cursor when deleting a row.
+  const cursorDeleteRow = () => {
+    let { index, column, row } = cursor
+    row = (row || 0) - 1
+    if (row < 0) {
+      row = null
+      column = null
+      index = (index || 0) - 1
+      if (index < 0) {
+        index = null
+      }
+    }
+    cursor.topologyChanged()
+    cursor.setIndex(index)
+    cursor.setCell(column, row)
+  }
+
   // Render transaction line delete dialog in the dummy row.
   if (entryToDelete) {
     const onDeleteEntry = function() {
-      let { index, column, row } = cursor
       entryToDelete.delete()
         .then(() => {
-          row = (row || 0) - 1
-          if (row < 0) {
-            row = null
-            column = null
-            index = (index || 0) - 1
-            if (index < 0) {
-              index = null
-            }
-          }
-          cursor.topologyChanged()
-          cursor.setIndex(index)
-          cursor.setCell(column, row)
+          cursorDeleteRow()
           setEntryToDelete(null)
         })
     }
@@ -359,8 +364,7 @@ export const Transaction = withStore(withCatalog(observer((props: TransactionPro
   if (dataEntryToDelete) {
     const onDeleteEntry = function() {
       dataEntryToDelete.deleteData(dataEntryToDelete.askDataForDelete as number).then(() => {
-        cursor.topologyChanged()
-        cursor.setCell(null, null)
+        cursorDeleteRow()
         setDataEntryToDelete(null)
       })
     }
