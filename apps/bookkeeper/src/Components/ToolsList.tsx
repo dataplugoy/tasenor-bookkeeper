@@ -22,7 +22,7 @@ const ToolsList = observer(withCatalog((props: ToolsListProps): JSX.Element => {
     page: 'tools',
     id: 'periods',
     title: 'Periods',
-    disabled: () => !nav.db
+    disabled: () => !nav.db || nav.db === '_'
   }].concat(catalog.getToolMenu().map(menu => ({
     page: 'tools',
     id: menu.code,
