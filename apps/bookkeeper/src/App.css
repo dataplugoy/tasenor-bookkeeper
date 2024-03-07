@@ -95,4 +95,7 @@
     outline: 2px whitesmoke solid !important;
     outline-offset: 1px;
   }
+  .Mui-selected {
+    background-color: rgba(255,0,200,0.3) !important;
+  }
 }
