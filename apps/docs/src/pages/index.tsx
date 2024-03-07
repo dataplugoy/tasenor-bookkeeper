@@ -25,7 +25,7 @@ export default function Index(): JSX.Element {
           automate data flow processes to get transactions
           imported effortlessly.
           <div className={styles['link']}>
-            <Link to="/docs/guides/getting-started/features/user"><div className={styles['box-link']}>Read More</div></Link>
+            <Link to="/docs/guides/getting-started/features/user-features"><div className={styles['box-link']}>Read More</div></Link>
           </div>
         </div>
         <div className={styles.box}>
@@ -34,7 +34,7 @@ export default function Index(): JSX.Element {
           and implement your unique bookkeeping business needs.
           Maybe earn some money by renting plugins written by you?
           <div className={styles['link']}>
-            <Link to="/docs/guides/getting-started/features/developer"><div className={styles['box-link']}>Read More</div></Link>
+            <Link to="/docs/guides/getting-started/features/developer-features"><div className={styles['box-link']}>Read More</div></Link>
           </div>
         </div>
         <div className={styles.box}>
@@ -43,7 +43,7 @@ export default function Index(): JSX.Element {
           Become a partner and provide expertise in commercial
           support on the platform.
           <div className={styles['link']}>
-            <Link to="/docs/guides/getting-started/features/business"><div className={styles['box-link']}>Read More</div></Link>
+            <Link to="/docs/guides/getting-started/features/business-features"><div className={styles['box-link']}>Read More</div></Link>
           </div>
         </div>
       </main>
