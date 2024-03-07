@@ -1,11 +1,13 @@
 import { observer } from 'mobx-react'
-import { AdditionalTransferInfo, Asset, Currency, StockBookkeeping, StockChangeData, StockValueData, haveCursor, isStockChangeDelta, isStockChangeFixed, strRound } from '@tasenor/common'
+import { AdditionalTransferInfo, Asset, Currency, StockBookkeeping, StockChangeData, StockChangeDelta, StockValueData, haveCursor, isStockChangeDelta, isStockChangeFixed, strRound } from '@tasenor/common'
 import { Money } from '@tasenor/common-ui'
 import { Box, TableCell, TableRow } from '@mui/material'
 import React, { Fragment } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import Settings from '../Stores/Settings'
 import EntryModel from '../Models/EntryModel'
+import TextEdit from './TextEdit'
+import { runInAction } from 'mobx'
 
 /**
  * View the stock situation and changes for the given transaction.
@@ -46,6 +48,7 @@ export const TransactionStock = observer((props: TransactionStockProps): JSX.Ele
         value={value}
         amount={amount}
         currency={currency}
+        tx={tx}
         selectedColumn={cursor.index === index && cursor.row === lineNo ? cursor.column : null}
       />)
       lineNo++
@@ -68,7 +71,7 @@ export interface TransactionStockTotalProps {
   title?: string
 }
 
-export const TransactionStockTotal = (props: TransactionStockTotalProps): JSX.Element => {
+export const TransactionStockTotal = observer((props: TransactionStockTotalProps): JSX.Element => {
   const { totals, values, currency, title } = props
 
   return (
@@ -92,20 +95,21 @@ export const TransactionStockTotal = (props: TransactionStockTotalProps): JSX.El
       </TableCell>
     </TableRow>
   )
-}
+})
 
 export interface TransactionStockChangeProps {
   asset: Asset
   value: number
   amount: number
   currency: Currency
+  tx: EntryModel
   selectedColumn: number | null
 }
 
-export const TransactionStockChange = (props: TransactionStockChangeProps): JSX.Element => {
+export const TransactionStockChange = observer((props: TransactionStockChangeProps): JSX.Element => {
 
-  const { asset, value, amount, currency, selectedColumn } = props
-
+  const { asset, value, amount, currency, selectedColumn, tx } = props
+  const isEditorOn = tx.dataEditRow === asset
   return (
     <TableRow>
       <TableCell sx={{ border: 0 }} variant="footer"/>
@@ -113,18 +117,18 @@ export const TransactionStockChange = (props: TransactionStockChangeProps): JSX.
         <Trans>Asset value change:</Trans>
       </TableCell>
       <TableCell variant="footer" align="right" className={selectedColumn === 1 ? 'sub-selected' : ''}>
-        {asset}
+        {tx.dataEditColumn === 1 && isEditorOn ? <TransactionStockEdit selectedColumn={1} asset={asset} value={asset} tx={tx}/> : asset}
       </TableCell>
       <TableCell variant="footer" align="right" className={selectedColumn === 2 ? 'sub-selected' : ''}>
-        {amount >= 0 ? '+' : ''}{amount}
+        {tx.dataEditColumn === 2 && isEditorOn ? <TransactionStockEdit selectedColumn={2} asset={asset} value={amount} tx={tx}/> : <>{amount >= 0 ? '+' : ''}{amount}</>}
       </TableCell>
       <TableCell variant="footer" align="right" className={selectedColumn === 3 ? 'sub-selected' : ''}>
-        {value >= 0 ? '+' : ''}<Money currency={currency} cents={value}/>
+        {tx.dataEditColumn === 3 && isEditorOn ? <TransactionStockEdit selectedColumn={3} asset={asset} value={value / 100} tx={tx}/> : <>{value >= 0 ? '+' : ''}<Money currency={currency} cents={value}/></>}
       </TableCell>
       <TableCell sx={{ border: 0 }} variant="footer"/>
     </TableRow>
   )
-}
+})
 
 export const EmptyStockChange = (): JSX.Element => {
   return (
@@ -133,3 +137,42 @@ export const EmptyStockChange = (): JSX.Element => {
     </TableRow>
   )
 }
+
+export interface TransactionStockEditProps {
+  value: string | number
+  asset: Asset
+  tx: EntryModel
+  selectedColumn: number
+}
+
+export const TransactionStockEdit = observer((props: TransactionStockEditProps): JSX.Element => {
+  const { asset, value, tx, selectedColumn } = props
+  const cursor = haveCursor()
+  return <TextEdit
+    value={`${value}`}
+    target={tx}
+    onCancel={() => tx.turnEditorOff(cursor)}
+    onComplete={async (newValue: string) => {
+      const delta: StockChangeDelta = tx.data as StockChangeDelta
+      const change = delta.stock.change[asset] as StockValueData
+
+      runInAction(() => {
+        switch (selectedColumn) {
+          case 1:
+            delete delta.stock.change[asset]
+            delta.stock.change[newValue] = change
+            break
+          case 2:
+            change.amount = parseFloat(newValue)
+            break
+          case 3:
+            change.value = Math.round(parseFloat(newValue) * 100)
+            break
+        }
+      })
+
+      await tx.save()
+      tx.turnEditorOff(cursor)
+    }}
+  />
+})

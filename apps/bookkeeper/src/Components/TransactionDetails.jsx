@@ -27,15 +27,15 @@ class TransactionDetails extends Component {
         value={target.getEdit(this.props.field)}
         className={`TransactionDetails ${this.props.field}`}
         target={target}
-        validate={value => target.validate(this.props.field, value)}
-        proposal={value => target.proposal(this.props.field, value)}
+        validate={value => target.validate(this.props.field, value)} // TODO: Could be default?
+        proposal={value => target.proposal(this.props.field, value)} // TODO: Could be default?
         onComplete={(value, proposal, originalValue) => target.change(this.props.field, value)
           .then(() => target.save())
           .then(() => target.turnEditorOff(cursor))
           .then(() => this.props.onComplete && this.props.onComplete(target, proposal, originalValue))
           .then(() => target.store.fetchBalances())
         }
-        onCancel={() => target.turnEditorOff(cursor)}
+        onCancel={() => target.turnEditorOff(cursor)} // TODO: Could be default?
       />)
     }
 

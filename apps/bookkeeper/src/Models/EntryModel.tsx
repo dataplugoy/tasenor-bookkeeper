@@ -7,7 +7,7 @@ import { Money } from '@tasenor/common-ui'
 import i18n from '../i18n'
 import { Link } from '@mui/material'
 import DocumentModel from './DocumentModel'
-import { ID, Currency, isStockChangeDelta } from '@tasenor/common'
+import { ID, Currency, isStockChangeDelta, StockChangeDelta } from '@tasenor/common'
 import DatabaseModel from './DatabaseModel'
 import PeriodModel from './PeriodModel'
 import Mexp from 'math-expression-evaluator'
@@ -23,6 +23,8 @@ class EntryModel extends NavigationTargetModel {
   declare row_number: number
   declare tagNames: string[]
   declare parent: DocumentModel
+  declare dataEditRow: null | string
+  declare dataEditColumn: null | number
 
   constructor(parent, init = {}) {
     super(parent, {
@@ -44,7 +46,10 @@ class EntryModel extends NavigationTargetModel {
       // Tag names extracted from the description.
       tagNames: []
     },
-    {},
+    {
+      dataEditRow: null,
+      dataEditColumn: null
+    },
     init,
     ['enter', 'save', 'leave', 'toggleOpen', 'turnEditorOn', 'turnEditorOff', 'setText']
     )
@@ -244,6 +249,16 @@ class EntryModel extends NavigationTargetModel {
       } else {
         this.store.addError(i18n.t('Cannot edit this entry. Period locked?'))
       }
+    } else {
+      if (cursor.column !== null && cursor.column > 0 && isStockChangeDelta(this.data)) {
+        if (this.document.canEdit()) {
+          const delta: StockChangeDelta = this.data as StockChangeDelta
+          this.dataEditRow = Object.keys(delta.stock.change)[cursor.row - this.document.entries.length]
+          this.dataEditColumn = cursor.column
+        } else {
+          this.store.addError(i18n.t('Cannot edit this entry. Period locked?'))
+        }
+      }
     }
   }
 
@@ -252,10 +267,15 @@ class EntryModel extends NavigationTargetModel {
   * @param {Cursor} cursor
   */
   turnEditorOff(cursor) {
-    if (cursor.row !== null && cursor.row < this.document.entries.length) {
-      const entry = this.document.entries[cursor.row]
-      entry.edit = false
-      cursor.editTarget = null
+    if (cursor.row !== null) {
+      if (cursor.row < this.document.entries.length) {
+        const entry = this.document.entries[cursor.row]
+        entry.edit = false
+        cursor.editTarget = null
+      } else {
+        this.dataEditRow = null
+        this.dataEditColumn = null
+      }
     }
   }
 
