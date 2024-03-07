@@ -10,6 +10,8 @@ class NavigationTargetModel extends Model {
   declare column: null | string
   // If set, this model is marked for deletion.
   declare askForDelete: boolean
+  // If set, data row of this model is marked for deletion.
+  declare askDataForDelete: null | number
 
   constructor(parent: Model, variables: Record<string, unknown>, extras: Record<string, unknown>, init: Record<string, unknown>, actions: string[] = []) {
     super(parent, variables, {
@@ -17,7 +19,8 @@ class NavigationTargetModel extends Model {
       selected: false,
       edit: false,
       column: null,
-      askForDelete: false
+      askForDelete: false,
+      askDataForDelete: null
     }, init, actions)
   }
 
@@ -100,6 +103,13 @@ class NavigationTargetModel extends Model {
    */
   markForDeletion() {
     this.askForDelete = true
+  }
+
+  /**
+   * Mark extra data row of this model for deletion request.
+   */
+  markDataForDeletion(row: number) {
+    this.askDataForDelete = row
   }
 
   /**

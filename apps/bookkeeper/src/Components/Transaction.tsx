@@ -6,7 +6,7 @@ import Tags from './Tags'
 import TransactionDetails from './TransactionDetails'
 import Store from '../Stores/Store'
 import EntryModel from '../Models/EntryModel'
-import { TableRow, TableCell, Typography } from '@mui/material'
+import { TableRow, TableCell, Typography, Box } from '@mui/material'
 import { Error } from '@mui/icons-material'
 import Catalog from '../Stores/Catalog'
 import Cursor from '../Stores/Cursor'
@@ -253,6 +253,7 @@ export interface TransactionProps {
 
 export const Transaction = withStore(withCatalog(observer((props: TransactionProps): JSX.Element => {
   const [entryToDelete, setEntryToDelete] = useState<EntryModel|null>(null)
+  const [dataEntryToDelete, setDataEntryToDelete] = useState<EntryModel|null>(null)
 
   const { tx, total, duplicate, index } = props
   const settings = haveSettings()
@@ -264,6 +265,9 @@ export const Transaction = withStore(withCatalog(observer((props: TransactionPro
   tx.document.entries.forEach((entry) => {
     if (!entryToDelete && entry.askForDelete) {
       setEntryToDelete(entry)
+    }
+    if (!dataEntryToDelete && entry.askDataForDelete !== null) {
+      setDataEntryToDelete(entry)
     }
     if (entry.account_id === 0) { // Null account_id is valid until first save, when it turns to 0.
       missingAccount = true
@@ -310,7 +314,7 @@ export const Transaction = withStore(withCatalog(observer((props: TransactionPro
     )
   }
 
-  // Render delete dialog in the dummy row.
+  // Render transaction line delete dialog in the dummy row.
   if (entryToDelete) {
     const onDeleteEntry = function() {
       let { index, column, row } = cursor
@@ -340,13 +344,41 @@ export const Transaction = withStore(withCatalog(observer((props: TransactionPro
             title={<Trans>Delete this transaction?</Trans>}
             isVisible={entryToDelete.askForDelete}
             onClose={() => { runInAction(() => (entryToDelete.askForDelete = false)); setEntryToDelete(null) }}
-            onConfirm={onDeleteEntry}>
+            onConfirm={onDeleteEntry}
+          >
             <i>{entryToDelete.account && entryToDelete.account.toString()}</i><br/>
             {entryToDelete.description}<br/>
             <b>{entryToDelete.debit ? '+' : '-'}<Money currency={settings.get('currency') as Currency} cents={entryToDelete.amount}></Money></b>
           </Dialog>
         </TableCell>
       </TableRow>
+    )
+  }
+
+  // Render data entry delete dialog in the dummy row.
+  if (dataEntryToDelete) {
+    const onDeleteEntry = function() {
+      const { index, column, row } = cursor
+      console.log('DELETE', { index, column, row });
+    }
+
+    ret.push(
+        <TableRow key="delete">
+          <TableCell colSpan={7}>
+            <Dialog
+              className="DeleteTransaction"
+              title={<Trans>Delete this data line?</Trans>}
+              isVisible={dataEntryToDelete.askDataForDelete !== null}
+              onClose={() => { runInAction(() => (dataEntryToDelete.askDataForDelete = null)); setDataEntryToDelete(null) }}
+              onConfirm={onDeleteEntry}
+            >
+              <b>{dataEntryToDelete.describeData(dataEntryToDelete.askDataForDelete as number)}</b>
+              <Box sx={{ my: 2, textAlign: 'center' }}><Trans>from this entry</Trans></Box>
+              <i>{dataEntryToDelete.account && dataEntryToDelete.account.toString()}</i><br/>
+              {dataEntryToDelete.description}
+            </Dialog>
+          </TableCell>
+        </TableRow>
     )
   }
 

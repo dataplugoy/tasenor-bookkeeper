@@ -87,5 +87,6 @@
   "rule-op-caseSensitiveMatch": "Case sensitive match",
   "rule-op-caseInsensitiveMatch": "Case insensitive match",
   "rule-op-caseInsensitiveFullMatch": "Case sensitive complete match",
-  "rule-op-caseSensitiveFullMatch": "Case insensitive complete match"
+  "rule-op-caseSensitiveFullMatch": "Case insensitive complete match",
+  "extra-data-stock-change": "Asset change"
 }

@@ -144,13 +144,16 @@ class TransactionTable extends Component {
         }
         runInAction(() => document.markForDeletion())
       } else {
-        if (!document.entries[cursor.row].canEdit()) {
-          return
-        }
-        if (cursor.row < document.entries[cursor.row].length) {
+        if (cursor.row < document.entries.length) {
+          if (!document.entries[cursor.row].canEdit()) {
+            return
+          }
           runInAction(() => document.entries[cursor.row].markForDeletion())
         } else {
-          // TOD: Handle data entry deletion.
+          if (!entry.canEdit()) {
+            return
+          }
+          runInAction(() => entry.markDataForDeletion(cursor.row - document.entries.length))
         }
       }
     }

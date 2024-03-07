@@ -179,6 +179,21 @@ class EntryModel extends NavigationTargetModel {
   }
 
   /**
+   * Construct description for data row.
+   */
+  describeData(row: number): string {
+    const rows = this.dataRows()
+    if (row >= 0 && row < rows.length) {
+      switch (rows[row].type) {
+        case 'stock-change':
+          return `${i18n.t('extra-data-stock-change')} ${rows[row].amount >= 0 ? '+' : ''}${rows[row].amount} ${rows[row].asset} (${rows[row].value >= 0 ? '+' : ''}${sprintf('%.2f', rows[row].value / 100)})`
+      }
+    }
+
+    throw new Error(`Unable to construct description for row ${row} for data ${JSON.stringify(this.data)}`)
+  }
+
+  /**
    * Cursor has entered document this entry belongs.
    */
   enter() {
