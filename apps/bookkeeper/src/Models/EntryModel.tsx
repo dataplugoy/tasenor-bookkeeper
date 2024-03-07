@@ -190,7 +190,25 @@ class EntryModel extends NavigationTargetModel {
       }
     }
 
-    throw new Error(`Unable to construct description for row ${row} for data ${JSON.stringify(this.data)}`)
+    throw new Error(`Unable to construct description for row ${row} for data ${JSON.stringify(this.data)}.`)
+  }
+
+  /**
+   * Remove extra data row.
+   */
+  async deleteData(row: number): Promise<void> {
+    const rows = this.dataRows()
+    if (row >= 0 && row < rows.length) {
+      let target: string | undefined
+      switch (rows[row].type) {
+        case 'stock-change':
+          target = Object.keys((this.data as StockChangeDelta).stock.change)[row]
+          delete (this.data as StockChangeDelta).stock.change[target]
+          return this.save()
+      }
+    }
+
+    throw new Error(`Unable to delete row ${row} from data ${JSON.stringify(this.data)}.`)
   }
 
   /**

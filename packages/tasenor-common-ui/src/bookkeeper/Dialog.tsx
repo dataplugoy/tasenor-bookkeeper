@@ -43,8 +43,8 @@ export const Dialog = (props: DialogProps): JSX.Element => {
     if (isValid && !isValid()) {
       return
     }
-    onClose()
     onConfirm && onConfirm()
+    onClose()
     cursor.removeModal(className)
     return { preventDefault: true }
   }

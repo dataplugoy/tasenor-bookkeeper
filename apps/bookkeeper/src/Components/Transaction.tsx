@@ -359,7 +359,9 @@ export const Transaction = withStore(withCatalog(observer((props: TransactionPro
   if (dataEntryToDelete) {
     const onDeleteEntry = function() {
       const { index, column, row } = cursor
-      console.log('DELETE', { index, column, row });
+      dataEntryToDelete.deleteData(dataEntryToDelete.askDataForDelete as number).then(() => {
+        console.log('DONE');
+      })
     }
 
     ret.push(
