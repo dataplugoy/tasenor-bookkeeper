@@ -147,11 +147,25 @@ export interface TransactionStockEditProps {
 
 export const TransactionStockEdit = observer((props: TransactionStockEditProps): JSX.Element => {
   const { asset, value, tx, selectedColumn } = props
+  const { t } = useTranslation()
   const cursor = haveCursor()
   return <TextEdit
     value={`${value}`}
     target={tx}
     onCancel={() => tx.turnEditorOff(cursor)}
+    validate={(value: string) => {
+      if (selectedColumn === 2 || selectedColumn === 3) {
+        let out
+        try {
+          out = parseFloat(value)
+        } catch (err) {
+          return t('Bad value')
+        }
+        if (isNaN(out)) {
+          return t('Bad value')
+        }
+      }
+    }}
     onComplete={async (newValue: string) => {
       const delta: StockChangeDelta = tx.data as StockChangeDelta
       const change = delta.stock.change[asset] as StockValueData

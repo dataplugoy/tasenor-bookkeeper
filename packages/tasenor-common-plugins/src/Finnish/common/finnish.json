@@ -337,5 +337,6 @@
   "There are no importers configured.": "Yhtään tuontilisäosaa ei ole konfiguroitu.",
   "Create New Database": "Perusta uusi tietokanta",
   "Initial values for assets:": "Omaisuuserien alkuarvot:",
-  "Asset value change:": "Omaisuuserän arvonmuutos:"
+  "Asset value change:": "Omaisuuserän arvonmuutos:",
+  "Bad value": "Virheellinen arvo"
 }
