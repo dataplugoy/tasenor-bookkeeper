@@ -16,8 +16,8 @@ const config: Config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  // organizationName: '', // Usually your GitHub org/user name.
-  // projectName: '', // Usually your repo name.
+  organizationName: 'dataplugoy',
+  projectName: 'tasenor-bookkeeper',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -38,10 +38,6 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          // editUrl:
-          //   'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -51,40 +47,40 @@ const config: Config = {
   ],
 
   plugins: [
-    [
-      'docusaurus-plugin-openapi-docs',
-      {
-        id: "api", // plugin id
-        docsPluginId: "classic", // id of plugin-content-docs or preset for rendering docs
-        config: {
-          bookkeeperApi: { // the <id> referenced when running CLI commands
-            specPath: "api/openapi.yaml", // path to OpenAPI spec, URLs supported
-            outputDir: "docs/bookkeeper-api", // output directory for generated files
-            sidebarOptions: { // optional, instructs plugin to generate sidebar.js
-              groupPathsBy: 'tag',
-            },
-          },
-        }
-      },
-    ],
-    [
-      'docusaurus-plugin-typedoc-api',
-      {
-        projectRoot: path.join(__dirname, '..', '..'),
-        packages: ['packages/tasenor-common', 'packages/tasenor-common-node', 'packages/tasenor-common-ui'],
-      },
-    ],
+   // TODO: Open API plugin is too broken to be useful.
+   // [
+   //   'docusaurus-plugin-openapi-docs',
+   //   {
+   //     id: "api", // plugin id
+   //     docsPluginId: "classic", // id of plugin-content-docs or preset for rendering docs
+   //     config: {
+   //       bookkeeperApi: { // the <id> referenced when running CLI commands
+   //         specPath: "api/openapi.yaml", // path to OpenAPI spec, URLs supported
+   //         outputDir: "docs/bookkeeper-api", // output directory for generated files
+   //         sidebarOptions: { // optional, instructs plugin to generate sidebar.js
+   //           groupPathsBy: 'tag',
+   //         },
+   //       },
+   //     }
+   //   },
+   // ],
+   [
+     'docusaurus-plugin-typedoc-api',
+     {
+       projectRoot: path.join(__dirname, '..', '..'),
+       packages: ['packages/tasenor-common', 'packages/tasenor-common-node', 'packages/tasenor-common-ui'],
+     },
+   ],
   ],
 
-  themes: ['docusaurus-theme-openapi-docs', '@docusaurus/theme-mermaid'], // export theme components
+  themes: ['docusaurus-theme-openapi-docs', '@docusaurus/theme-mermaid'],
 
   markdown: {
     mermaid: true,
   },
 
   themeConfig: {
-    // Replace with your project's social card
-    image: 'logo.jpg',
+    image: 'logo.png',
     navbar: {
       title: 'Tasenor',
       logo: {
@@ -98,12 +94,12 @@ const config: Config = {
           position: 'left',
           label: 'Documentation',
         },
-        {
-          type: 'docSidebar',
-          sidebarId: 'apiSidebarId',
-          position: 'left',
-          label: 'API',
-        },
+        // {
+        //   type: 'docSidebar',
+        //   sidebarId: 'apiSidebarId',
+        //   position: 'left',
+        //   label: 'API',
+        // },
         {
           to: 'api',
           position: 'left',
