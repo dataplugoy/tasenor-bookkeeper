@@ -1,11 +1,12 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { IconButton as MuiIconButton } from '@mui/material'
-import { HelpOutline, AccountBalance, StarRate, AttachMoney, CreditCard, LocalGroceryStore, AddShoppingCart, PersonAdd, Print, CloudDownload, FormatIndentDecrease, Filter2, Filter3, Filter1, Filter4, LocalOffer, Lock, LockOpen, AttachFile, Functions, Event, Sort, Delete, Storage, CloudUpload, ZoomIn, ZoomOut, Visibility, VisibilityOff, PlaylistAdd, DeleteSweep, Build, Extension, Refresh, Add, AddCircleOutline, Settings, ShowChartTwoTone, Pageview, ExpandMore, ExpandLess, CloudUploadTwoTone, CloudDownloadTwoTone, Update } from '@mui/icons-material'
+import { HelpOutline, AccountBalance, StarRate, AttachMoney, CreditCard, LocalGroceryStore, AddShoppingCart, PersonAdd, Print, CloudDownload, FormatIndentDecrease, Filter2, Filter3, Filter1, Filter4, LocalOffer, Lock, LockOpen, AttachFile, Functions, Event, Sort, Delete, Storage, CloudUpload, ZoomIn, ZoomOut, Visibility, VisibilityOff, PlaylistAdd, DeleteSweep, Build, Extension, Refresh, Add, AddCircleOutline, Settings, ShowChartTwoTone, Pageview, ExpandMore, ExpandLess, CloudUploadTwoTone, CloudDownloadTwoTone, Update, AddCardOutlined } from '@mui/icons-material'
 import { haveCursor, Cursor } from '@tasenor/common'
 
 const ICONS = {
   'add-entry': PlaylistAdd,
+  'add-data': AddCardOutlined,
   'add-tx': Add,
   'calendar-plus': Event,
   'credit-card': CreditCard,

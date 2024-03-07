@@ -134,6 +134,7 @@ class TransactionToolPanel extends Component {
     const canAddTx = this.props.store.period && !this.props.store.period.locked && cursor.row === null
     const canDeleteEntry = cursor.componentX > 0 && cursor.index !== null && cursor.row !== null
     const canDeleteTx = cursor.componentX > 0 && cursor.index !== null && cursor.row === null
+    const canAddStockChange = canDeleteEntry
     const canDownload = !!this.props.store.accountId
     let last = null
 
@@ -151,6 +152,7 @@ class TransactionToolPanel extends Component {
           <IconButton id="Add Row" shortcut="A" disabled={!canAddEntry} pressKey="IconA" title="add-entry" icon="add-entry" />
           <IconButton id="Delete Transaction" shortcut="X" disabled={!canDeleteTx} pressKey="IconX" title="delete-tx" icon="delete-tx" />
           <IconButton id="Delete Row" shortcut="X" disabled={!canDeleteEntry} pressKey="IconX" title="delete-entry" icon="delete-entry" />
+          <IconButton id="Add Stock Change" shortcut="N" disabled={!canAddStockChange} pressKey="IconN" title="add-stock-change" icon="add-data" />
         </div>
 
         <div style={{ marginBottom: '1rem', marginLeft: '1rem', marginRight: '1rem' }}>

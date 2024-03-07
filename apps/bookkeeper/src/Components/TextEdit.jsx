@@ -183,6 +183,7 @@ class TextEdit extends Component {
     return (
       <div className={className} ref={this.state.ref}>
         <TextField
+          name='transaction-data'
           value={this.state.value}
           error={this.state.error}
           variant="outlined"

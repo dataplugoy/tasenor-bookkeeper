@@ -3,6 +3,7 @@
   "EQUITY": "Equity",
   "EXPENSE": "Expenses",
   "icon-add-entry": "Add new line to transaction",
+  "icon-add-stock-change": "Add asset change data",
   "icon-add-tx": "Add new transaction",
   "icon-all-account-types": "Choose all types",
   "icon-asset": "Assets",

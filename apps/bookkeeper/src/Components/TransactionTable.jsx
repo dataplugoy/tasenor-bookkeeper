@@ -160,6 +160,33 @@ class TransactionTable extends Component {
     return { preventDefault: true }
   }
 
+  keyIconN(cursor) {
+    if (cursor.inComponent('Balances.transactions')) {
+      const { store } = this.props
+      if (cursor.row !== null) {
+        const entry = store.filteredTransactions[cursor.index]
+        const document = entry.document
+        if (!document.canEdit()) {
+          return
+        }
+        runInAction(() => {
+          if (!entry.data) {
+            entry.data = {}
+          }
+          if (!entry.data.stock) {
+            entry.data.stock = {}
+          }
+          if (!entry.data.stock.change) {
+            entry.data.stock.change = {}
+          }
+          entry.data.stock.change[''] = { amount: 0, value: 0 }
+          cursor.topologyChanged()
+        })
+      }
+    }
+    return { preventDefault: true }
+  }
+
   /**
    * Toggle open for entry if closed.
    */

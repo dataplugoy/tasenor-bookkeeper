@@ -341,5 +341,6 @@
   "Bad value": "Virheellinen arvo",
   "Delete this data line?": "Poistetaanko tämä tietueen rivi?",
   "from this entry": "tältä tapahtumalta",
-  "extra-data-stock-change": "Omaisuuserän muutos"
+  "extra-data-stock-change": "Omaisuuserän muutos",
+  "icon-add-stock-change": "Lisää omaisuuserän muutos"
 }
