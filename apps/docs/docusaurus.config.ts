@@ -2,6 +2,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import path from 'path';
+import pkg from './package.json'
 
 const config: Config = {
   title: 'Tasenor Project',
@@ -82,7 +83,7 @@ const config: Config = {
   themeConfig: {
     image: 'logo.png',
     navbar: {
-      title: 'Tasenor',
+      title: 'Tasenor v' + pkg.version,
       logo: {
         alt: 'Tasenor Logo',
         src: 'logo.png',
