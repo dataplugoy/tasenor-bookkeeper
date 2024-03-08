@@ -6,3 +6,8 @@
 :root {
   background-color: rgb(252,249,244);
 }
+
+[data-theme='dark']:root {
+  background-color: #222;
+
+}
