@@ -16,6 +16,7 @@ import { haveCursor, haveSettings, StockBookkeeping } from '@tasenor/common'
 import withRouter from '../Hooks/withRouter'
 import withStore from '../Hooks/withStore'
 import { AccountSelector } from '@tasenor/common-ui/src/bookkeeper/AccountSelector'
+import clone from 'clone'
 
 @withTranslation('translations')
 @withRouter
@@ -465,7 +466,7 @@ class TransactionTable extends Component {
                     tx={tx}
                     total={sum}
                   />
-                  {tx.data && tx.data.stock && <TransactionStock index={idx} settings={settings} tx={tx} stock={stock}/>}
+                  {tx.data && tx.data.stock && <TransactionStock index={idx} settings={settings} tx={tx} stock={clone(stock)}/>}
                 </React.Fragment>
               })}
             <TableRow className="totals">
