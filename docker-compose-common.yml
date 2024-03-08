@@ -5,9 +5,6 @@
 #
 version: '3'
 
-volumes:
-  tasenor_db:
-
 networks:
   tasenor:
     name: tasenor
