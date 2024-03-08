@@ -1,0 +1,88 @@
+#
+# This is for testing container build for publishing containers for actual
+# use in staging and production servers. Development should be done using
+# directly `turbo` or `pnpm` scripts.
+#
+version: '3'
+
+volumes:
+  tasenor_db:
+
+networks:
+  tasenor:
+    name: tasenor
+    driver: bridge
+
+services:
+  tasenor-nginx-proxy:
+    container_name: tasenor-nginx-proxy
+    build:
+      context: nginx-proxy
+    ports:
+      - "${HTTP_PORT:-80}:${HTTP_PORT:-80}"
+      - "${HTTPS_PORT:-443}:${HTTPS_PORT:-443}"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - "/etc/nginx/vhost.d"
+      - "/usr/share/nginx/html"
+      - "/etc/nginx/certs"
+    networks:
+      - tasenor
+
+  tasenor-bookkeeper:
+    container_name: tasenor-bookkeeper
+    build:
+      context: apps/bookkeeper
+    depends_on:
+      - tasenor-bookkeeper-api
+    ports:
+      - ${BOOKKEEPER_PORT:-7204}:${BOOKKEEPER_PORT:-7204}
+    environment:
+      NODE_ENV: development
+      PORT: ${BOOKKEEPER_PORT:-7204}
+      VIRTUAL_HOST: bookkeeper.localhost
+      VIRTUAL_PORT: ${BOOKKEEPER_PORT:-7204}
+      INITIAL_PLUGIN_REPOS: ${INITIAL_PLUGIN_REPOS:-npm://@tasenor/common-plugins}
+      ID_RSA: ${ID_RSA:-}
+      ID_RSA_PUB: ${ID_RSA_PUB:-}
+    command: pnpm run docker
+    networks:
+      - tasenor
+
+  tasenor-bookkeeper-api:
+    container_name: tasenor-bookkeeper-api
+    build:
+      context: apps/bookkeeper-api
+    ports:
+      - ${BOOKKEEPER_API_PORT:-7205}:${BOOKKEEPER_API_PORT:-7205}
+    environment:
+      DATABASE_ROOT_PASSWORD: Jow92eygdGYwe3edsoy2
+      DATABASE_ROOT_USER: root
+      DATABASE_URL: postgresql://bookkeeper:Biure80s2rt832@tasenor-db:7202/bookkeeper
+      NODE_ENV: development
+      PORT: ${BOOKKEEPER_API_PORT:-7205}
+      VIRTUAL_HOST: bookkeeper-api.localhost
+      VIRTUAL_PORT: ${BOOKKEEPER_API_PORT:-7205}
+      INITIAL_PLUGIN_REPOS: ${INITIAL_PLUGIN_REPOS:-npm://@tasenor/common-plugins}
+      ID_RSA: ${ID_RSA:-}
+      ID_RSA_PUB: ${ID_RSA_PUB:-}
+      TASENOR_SITE_TOKEN: ${TASENOR_SITE_TOKEN:-}
+      TASENOR_API_URL: ${TASENOR_API_URL:-}
+    command: pnpm run docker
+    networks:
+      - tasenor
+
+  tasenor-docs:
+    container_name: tasenor-docs
+    build:
+      context: apps/docs
+    ports:
+      - ${DOC_PORT:-7207}:${DOC_PORT:-7207}
+    environment:
+      NODE_ENV: development
+      PORT: ${DOC_PORT:-7207}
+      VIRTUAL_HOST: docs.localhost
+      VIRTUAL_PORT: ${DOC_PORT:-7207}
+    command: pnpm run docker
+    networks:
+      - tasenor

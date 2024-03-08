@@ -4,8 +4,8 @@ include:
   - docker-compose-common.yml
 
 services:
-  tasenor-db:
-    container_name: tasenor-db
+  tasenor-ci-db:
+    container_name: tasenor-ci-db
     build:
       context: databases/bookkeeper
     volumes:
@@ -19,4 +19,6 @@ services:
       POSTGRES_USER: root
     command: -p ${DB_PORT:-7202}
     networks:
-      - tasenor
+      tasenor:
+        aliases:
+          - tasenor-db
