@@ -194,7 +194,7 @@ router.get('/:id/process/:processId/step/:number',
     const processId = parseInt(req.params.processId)
     const number = parseInt(req.params.number)
     if (isNaN(number)) {
-      error(`Invalud step number ${JSON.stringify(req.params.number)}`)
+      error(`Invalid step number ${JSON.stringify(req.params.number)}`)
       return res.status(400).send({ message: 'Invalid step number.' })
     }
     const db = await knex.db(res.locals.user, res.locals.db)
