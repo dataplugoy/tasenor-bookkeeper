@@ -137,6 +137,86 @@
           "reason": "'trade'"
         }
       ]
+    },
+    {
+      "name": "Send (v2)",
+      "filter": "type == 'Send'",
+      "result": [
+        {
+          "data": {
+            "text": "Notes",
+            "currency": "Currency",
+            "currencyValue": "-Total",
+            "rates": "rates(Currency, Price)"
+          },
+          "type": "'crypto'",
+          "asset": "Asset",
+          "amount": "-Quantity",
+          "reason": "'expense'"
+        },
+        {
+          "data": {
+            "text": "Notes",
+            "currency": "Currency",
+            "currencyValue": "Total"
+          },
+          "type": "'statement'",
+          "asset": "'NEEDS_MANUAL_INSPECTION'",
+          "amount": "Total",
+          "reason": "'expense'"
+        }
+      ]
+    },
+    {
+      "name": "Receive (v2)",
+      "filter": "type == 'Receive'",
+      "result": [
+        {
+          "data": {
+            "text": "Notes",
+            "currency": "Currency",
+            "currencyValue": "Total",
+            "rates": "rates(Currency, Price)"
+          },
+          "type": "'crypto'",
+          "asset": "Asset",
+          "amount": "Quantity",
+          "reason": "'income'"
+        },
+        {
+          "data": {
+            "currency": "Currency",
+            "currencyValue": "Total"
+          },
+          "type": "'statement'",
+          "asset": "'NEEDS_MANUAL_INSPECTION'",
+          "amount": "Total",
+          "reason": "'income'"
+        }
+      ]
+    },
+    {
+      "name": "Convert (v2)",
+      "filter": "type == 'Convert'",
+      "result": [
+        {
+          "data": {
+            "text": "Notes",
+            "currency": "Currency",
+            "currencyValue": "-Total * 100"
+          },
+          "type": "'crypto'",
+          "asset": "giveAsset",
+          "amount": "-giveAmount",
+          "reason": "'trade'"
+        },
+        {
+          "type": "'crypto'",
+          "asset": "takeAsset",
+          "amount": "takeAmount",
+          "reason": "'trade'"
+        }
+      ]
     }
   ]
 }

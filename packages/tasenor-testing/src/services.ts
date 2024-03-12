@@ -1,4 +1,4 @@
-import { waitPromise } from '@tasenor/common'
+import { log, waitPromise } from '@tasenor/common'
 import axios from 'axios'
 
 const API_URL = process.env.API_URL
@@ -17,6 +17,9 @@ export async function callTestService(service, data: Record<string, string>) {
   if (!API_SITE_TOKEN) {
     throw new Error('Cannot use testing services without setting environment API_SITE_TOKEN.')
   }
+
+  log(`Calling service ${service} with data ${JSON.stringify(data)}.`)
+
   const auth = await axios.get(`${API_URL}/auth/refresh`, {
     headers: {
       Authorization: `Bearer ${API_SITE_TOKEN}`

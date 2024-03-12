@@ -155,6 +155,13 @@ export class TransactionImportHandler extends TextFileProcessHandler {
   }
 
   /**
+   * Hook to post process column values.
+   */
+  async segmentationColumnPostProcess(columns: Record<string, string>): Promise<Record<string, string>> {
+    return columns
+  }
+
+  /**
    * Hook to do some post proccessing for segmentation process. Collects standard fields.
    * @param state
    * @returns
@@ -182,7 +189,7 @@ export class TransactionImportHandler extends TextFileProcessHandler {
       // Build standard fields.
       const { textField, totalAmountField } = this.importOptions
       for (let n = 0; n < state.files[fileName].lines.length; n++) {
-        const { columns, segmentId } = state.files[fileName].lines[n]
+        let { columns, segmentId } = state.files[fileName].lines[n]
         for (const name of this.importOptions.requiredFields) {
           if (columns[name] === undefined) {
             columns[name] = ''
@@ -212,6 +219,7 @@ export class TransactionImportHandler extends TextFileProcessHandler {
         if (totalAmountField) {
           columns._totalAmountField = columns[totalAmountField]
         }
+        columns = await this.segmentationColumnPostProcess(columns)
       }
     }
 

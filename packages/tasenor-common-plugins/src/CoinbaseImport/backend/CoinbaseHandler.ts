@@ -1,4 +1,4 @@
-import { DirectoryPath, NO_SEGMENT, SegmentId, TextFileLine } from '@tasenor/common'
+import { DirectoryPath, ImportStateText, NO_SEGMENT, SegmentId, TextFileLine } from '@tasenor/common'
 import { ProcessFile, TransactionImportHandler } from '@tasenor/common-node'
 
 /**
@@ -88,5 +88,18 @@ export class CoinbaseHandler extends TransactionImportHandler {
       return line.columns.time ? new Date(line.columns.time) : undefined
     }
     throw new Error(`Coinbase import handler does not implement time() for version ${this.version}.`)
+  }
+
+  async segmentationColumnPostProcess(columns: Record<string, string>): Promise<Record<string, string>> {
+    if (columns.type === 'Convert') {
+      const match = /Converted ([0-9.]+) (\w+) to ([0-9.]+) (\w+)/.exec(columns.Notes)
+      if (match) {
+        columns.giveAmount = match[1]
+        columns.giveAsset = match[2]
+        columns.takeAmount = match[3]
+        columns.takeAsset = match[4]
+      }
+    }
+    return columns
   }
 }
