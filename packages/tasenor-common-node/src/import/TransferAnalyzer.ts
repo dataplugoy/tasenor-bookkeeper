@@ -394,7 +394,7 @@ export class TransferAnalyzer {
       kind = 'investment'
       const statementEntry = shouldHaveOne('investment', 'statement')
       values.name = await this.getTranslation(`income-${statementEntry.asset}`)
-    } else if (weHave(['expense'], ['currency', 'statement']) || weHave(['expense'], ['crypto', 'statement']) ||  weHave(['expense', 'tax'], ['currency', 'statement'])) {
+    } else if (weHave(['expense'], ['currency', 'statement']) || weHave(['expense'], ['crypto', 'statement']) || weHave(['expense', 'tax'], ['currency', 'statement'])) {
       kind = 'expense'
       const statementEntry = shouldHaveOne('expense', 'statement')
       values.name = await this.getTranslation(`expense-${statementEntry.asset}`)
@@ -1003,8 +1003,8 @@ export class TransferAnalyzer {
           ? transfers.transfers.filter(t => t.reason === 'trade' && t.value && t.value > 0)
           : transfers.transfers.filter(t => t.reason === 'trade' && t.value && t.value < 0))
 
-          if (soldAsset.length !== 1) {
-            console.log(transfers.transfers)
+        if (soldAsset.length !== 1) {
+          console.log(transfers.transfers)
           throw new BadState(`Did not found unique asset that was given out from ${JSON.stringify(transfers.transfers)}`)
         }
 
