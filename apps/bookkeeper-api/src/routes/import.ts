@@ -55,6 +55,32 @@ router.get('/:id/process/:processId',
 )
 
 /**
+ * Delete the process.
+ */
+router.delete('/:id/process/:processId',
+  async (req, res) => {
+    const processId = parseInt(req.params.processId)
+    if (!processId) {
+      return res.status(400).send({ message: 'Invalid process ID.' })
+    }
+    const db = await knex.db(res.locals.user, res.locals.db)
+    const data = await db('processes').select('*').where({ id: processId }).first()
+    if (!data) {
+      return res.status(404).send({ message: 'Process not found.' })
+    }
+    if (data.status === 'SUCCEEDED') {
+      return res.status(400).send({ message: 'Cannot delete successfully imported data.' })
+    }
+
+    await db('process_files').where({ processId }).delete()
+    await db('process_steps').where({ processId }).delete()
+    await db('processes').where({ id: processId }).delete()
+
+    return res.status(204).send()
+  }
+)
+
+/**
  * Receive new configuration settings or UI query answers and continue processing.
  */
 router.post('/:id/process/:processId',

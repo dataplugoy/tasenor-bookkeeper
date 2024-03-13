@@ -54,11 +54,17 @@ const ImportToolPanel = observer(withStore(withCatalog((props: ImportToolPanelPr
       },
 
       keyIconX: () => {
-        store.fetchImport(store.db, importerId, nav.get('processId')).then(res => {
+        const processId = nav.get('processId')
+        store.fetchImport(store.db, importerId, processId).then(res => {
           if (res.status === 'SUCCEEDED') {
             setShowCannotDelete(true)
           } else {
-            // TODO: Delete.
+            store.request(`/db/${store.db}/import/${importerId}/process/${processId}`, 'DELETE').then(res => {
+              if (res) {
+                store.addMessage(t('Imported data deleted.'))
+              }
+              nav.go({ processId: null })
+            })
           }
         })
         return { preventDefault: true }
@@ -174,6 +180,7 @@ const ImportToolPanel = observer(withStore(withCatalog((props: ImportToolPanelPr
 
     <Confirm isVisible={showCannotDelete} title={t('Alert')} onClose={() => setShowCannotDelete(false)}>
       <Trans>You cannot delete an import that has been successfully executed.</Trans>
+      <> </>
       <Trans>You need to revert changes first.</Trans>
     </Confirm>
   </Box>

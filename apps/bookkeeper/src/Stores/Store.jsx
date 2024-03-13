@@ -130,6 +130,7 @@ export class Store {
       fetchDocuments: action,
       fetchEntryProposals: action,
       fetchHeadings: action,
+      fetchImport: action,
       fetchImporter: action,
       fetchImporters: action,
       fetchPeriodData: action,
