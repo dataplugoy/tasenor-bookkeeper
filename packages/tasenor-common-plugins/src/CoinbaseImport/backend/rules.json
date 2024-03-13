@@ -212,6 +212,16 @@
           "asset": "takeAsset",
           "amount": "takeAmount",
           "reason": "'trade'"
+        },
+        {
+          "if": "Fees",
+          "data": {
+            "text": "Notes"
+          },
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "Fees",
+          "reason": "'fee'"
         }
       ]
     }
