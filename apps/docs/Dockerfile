@@ -6,31 +6,20 @@ WORKDIR /var/app
 RUN apk update
 RUN apk upgrade
 
-RUN apk add nano curl bash jq
+RUN apk add nano curl bash jq git
 
 RUN npm install -g pnpm
 
 ADD package.json original-package.json
 RUN jq '{"dependencies": [.dependencies | to_entries | .[] | select(.value != "workspace:*")] | from_entries} + {"devDependecies": [.devDependencies | to_entries | .[] | select(.value != "workspace:*")] | from_entries} + ([to_entries | .[] | select(.key != "dependencies" and .key != "devDependencies")] | from_entries)' original-package.json > package.json
 
+# Only way to reliably show the docs seems to be running full development copy.
+# Otherwise class documentation keeps giving 404.
+RUN git clone https://github.com/dataplugoy/tasenor-bookkeeper.git
+RUN cp package.json /var/app/tasenor-bookkeeper/apps/docs/package.json
+
+WORKDIR /var/app/tasenor-bookkeeper/apps/docs
+
 RUN pnpm install
-
-RUN pnpm add @tasenor/common
-RUN pnpm add @tasenor/common-node
-RUN pnpm add @tasenor/common-ui
-
-RUN mkdir /packages
-RUN ln -s /var/app/node_modules/@tasenor/common /packages/tasenor-common
-RUN ln -s /var/app/node_modules/@tasenor/common-node /packages/tasenor-common-node
-RUN ln -s /var/app/node_modules/@tasenor/common-ui /packages/tasenor-common-ui
-
-ADD babel.config.js  .
-ADD docs/ docs/
-ADD docusaurus.config.ts .
-ADD sidebars.ts .
-ADD src/ src/
-ADD public/ public/
-# For some reason this needs to be in /
-RUN echo '{}' > /tsconfig.json
 
 CMD ["pnpm", "run", "docker"]
