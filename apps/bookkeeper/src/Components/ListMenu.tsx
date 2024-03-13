@@ -78,7 +78,7 @@ export const ListMenu = observer(withStore((props: ListMenuProps): JSX.Element =
               data-cy={`list-${menu.title}`}
               selected={params[matchVar] === `${menu.id}` || (!params[matchVar] && menu.default)}
               disabled={menu.disabled()}
-              onClick={() => nav.go({ side: menu.id })}
+              onClick={() => nav.go({ side: menu.id }, true)}
             >
               <ListItemAvatar color="primary">
                 <Avatar>{idx <= 10 ? idx % 10 : ''}</Avatar>

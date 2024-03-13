@@ -75,7 +75,10 @@ export class MenuState {
     })
   }
 
-  go(to: Record<string, string | null>): void {
+  go(to: Record<string, string | null>, resetAttrs: boolean = false): void {
+    if (resetAttrs) {
+      this.attrs = {}
+    }
     this.parse(to)
     this.navigator(this.url)
   }
