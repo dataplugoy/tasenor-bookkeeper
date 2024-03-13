@@ -99,7 +99,7 @@ export class MenuState {
   }
 
   get(variable: string) {
-    this.refresh(document.location as unknown as Location<any>)
+    this.refresh(document.location as unknown as Location)
     switch (variable) {
       case 'db':
       case 'main':
