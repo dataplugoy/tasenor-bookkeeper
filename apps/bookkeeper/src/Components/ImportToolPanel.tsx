@@ -1,16 +1,14 @@
-import React, { Component, useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react'
-import { withTranslation, Trans, useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
-import { Dialog, IconSpacer, IconButton, Title, FileUploader, useNav } from '@tasenor/common-ui'
+import { Dialog, IconSpacer, IconButton, Title, FileUploader, useNav, useAxios, Confirm } from '@tasenor/common-ui'
 import ImporterConfigEditor from './ImporterConfigEditor'
 import { TextField, MenuItem, FormControl, Box } from '@mui/material'
 import ImporterModel from '../Models/ImporterModel'
 import Catalog from '../Stores/Catalog'
 import { ID, haveCursor, haveSettings } from '@tasenor/common'
 import i18n from '../i18n'
-import withRouter from '../Hooks/withRouter'
 import withStore from '../Hooks/withStore'
 import withCatalog from '../Hooks/withCatalog'
 import { useParams } from 'react-router-dom'
@@ -30,6 +28,7 @@ const ImportToolPanel = observer(withStore(withCatalog((props: ImportToolPanelPr
 
   const [showCreateImportDialog, setShowCreateImportDialog] = useState(false)
   const [showEdiSettingstDialog, setShowEdiSettingstDialog] = useState(false)
+  const [showCannotDelete, setShowCannotDelete] = useState(false)
   const [changed, setChanged] = useState(false)
   const [handler, setHandler] = useState('')
   const [name, setName] = useState('')
@@ -46,13 +45,24 @@ const ImportToolPanel = observer(withStore(withCatalog((props: ImportToolPanelPr
         setShowCreateImportDialog(true)
         return { preventDefault: true, changed: false }
       },
+
       keyIconS: () => {
         if (importerId) {
           setShowEdiSettingstDialog(!showEdiSettingstDialog)
         }
         return { preventDefault: true }
-      }
+      },
 
+      keyIconX: () => {
+        store.fetchImport(store.db, importerId, nav.get('processId')).then(res => {
+          if (res.status === 'SUCCEEDED') {
+            setShowCannotDelete(true)
+          } else {
+            // TODO: Delete.
+          }
+        })
+        return { preventDefault: true }
+      }
     })
 
     return () => {
@@ -115,6 +125,8 @@ const ImportToolPanel = observer(withStore(withCatalog((props: ImportToolPanelPr
     <IconButton id="ConfigureImport" disabled={!importerId} shortcut="S" pressKey="IconS" title="import-settings" icon="settings"/>
     <IconSpacer />
     <FileUploader color="primary" disabled={!canImport} variant="contained" onUpload={files => onUpload(files)}/>
+    <IconSpacer />
+    <IconButton id="DeleteImport" disabled={!nav.get('processId')} shortcut="X" pressKey="IconX" title="delete-import" icon="trash"/>
 
     <Dialog
       className="CreateImport"
@@ -125,41 +137,45 @@ const ImportToolPanel = observer(withStore(withCatalog((props: ImportToolPanelPr
       onConfirm={() => onCreateImport()}
       isValid={() => !!handler && !!name}
     >
-    <FormControl fullWidth>
-      <TextField
-        select
-        name="handler"
-        value={handler}
-        label={<Trans>Select plugin for handling the import</Trans>}
-        error={changed && !handler}
-        helperText={changed && !handler ? t('Plugin is required.') : ''}
-        onChange={(event) => {
-          setChanged(true)
-          setHandler(event.target.value)
-        }}
-      >
-        <MenuItem value=""></MenuItem>
-        {Object.entries(options).map(([code, title]) => <MenuItem key={code} value={code}><Trans>{title}</Trans></MenuItem>)}
-      </TextField>
-    </FormControl>
-    <FormControl fullWidth>
-      <TextField
-        name="name"
-        fullWidth
-        error={changed && !name}
-        helperText={changed && !name ? t('Name is required.') : ''}
-        label={<Trans>Give name for the import process</Trans>}
-        value={name}
-        onChange={(event) => {
-          setChanged(true)
-          setName(event.target.value)
-        }}
-      />
-    </FormControl>
+      <FormControl fullWidth>
+        <TextField
+          select
+          name="handler"
+          value={handler}
+          label={<Trans>Select plugin for handling the import</Trans>}
+          error={changed && !handler}
+          helperText={changed && !handler ? t('Plugin is required.') : ''}
+          onChange={(event) => {
+            setChanged(true)
+            setHandler(event.target.value)
+          }}
+        >
+          <MenuItem value=""></MenuItem>
+          {Object.entries(options).map(([code, title]) => <MenuItem key={code} value={code}><Trans>{title}</Trans></MenuItem>)}
+        </TextField>
+      </FormControl>
+      <FormControl fullWidth>
+        <TextField
+          name="name"
+          fullWidth
+          error={changed && !name}
+          helperText={changed && !name ? t('Name is required.') : ''}
+          label={<Trans>Give name for the import process</Trans>}
+          value={name}
+          onChange={(event) => {
+            setChanged(true)
+            setName(event.target.value)
+          }}
+        />
+      </FormControl>
     </Dialog>
 
     <ImporterConfigEditor visible={showEdiSettingstDialog} importerId={parseInt(importerId || '') as ID} onClose={() => onFinishEdit()} />
 
+    <Confirm isVisible={showCannotDelete} title={t('Alert')} onClose={() => setShowCannotDelete(false)}>
+      <Trans>You cannot delete an import that has been successfully executed.</Trans>
+      <Trans>You need to revert changes first.</Trans>
+    </Confirm>
   </Box>
 })))
 

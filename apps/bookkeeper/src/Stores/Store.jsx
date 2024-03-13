@@ -702,6 +702,18 @@ export class Store {
   }
 
   /**
+   * Get a single import data.
+   * @param db
+   * @returns
+   */
+  async fetchImport(db, importerId, processId) {
+    if (!this.token) {
+      return
+    }
+    return this.request('/db/' + db + '/import/' + importerId + '/process/' + processId)
+  }
+
+  /**
   * Get the list of report formats available for the current DB.
   */
   async fetchReports(db) {

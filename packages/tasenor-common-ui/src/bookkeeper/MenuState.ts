@@ -28,18 +28,22 @@ export class MenuState {
     this.navigator = navigator
 
     if (loc) {
-      if (loc.search.startsWith('?path=')) {
-        this.indirectPath = true
-        const search: Record<string, string> = loc.search.substr(1).split('&').map(s => s.split('=')).reduce((prev, cur) => ({ [cur[0]]: cur[1], ...prev }), {})
-        const [, db, main, periodId, accountId, side] = search.path.split('/')
-        this.parse({ db, main, periodId, accountId, side, ...search })
-        delete this.attrs.path
-        delete this.attrs.indirect
-      } else {
-        const [, db, main, periodId, accountId, side] = loc.pathname.split('/')
-        const search = loc.search.length ? loc.search.substr(1).split('&').map(s => s.split('=')).reduce((prev, cur) => ({ [cur[0]]: cur[1], ...prev }), {}) : {}
-        this.parse({ db, main, periodId, accountId, side, ...search })
-      }
+      this.refresh(loc)
+    }
+  }
+
+  refresh(loc: Location) {
+    if (loc.search.startsWith('?path=')) {
+      this.indirectPath = true
+      const search: Record<string, string> = loc.search.substr(1).split('&').map(s => s.split('=')).reduce((prev, cur) => ({ [cur[0]]: cur[1], ...prev }), {})
+      const [, db, main, periodId, accountId, side] = search.path.split('/')
+      this.parse({ db, main, periodId, accountId, side, ...search })
+      delete this.attrs.path
+      delete this.attrs.indirect
+    } else {
+      const [, db, main, periodId, accountId, side] = loc.pathname.split('/')
+      const search = loc.search.length ? loc.search.substr(1).split('&').map(s => s.split('=')).reduce((prev, cur) => ({ [cur[0]]: cur[1], ...prev }), {}) : {}
+      this.parse({ db, main, periodId, accountId, side, ...search })
     }
   }
 
@@ -95,6 +99,7 @@ export class MenuState {
   }
 
   get(variable: string) {
+    this.refresh(document.location as unknown as Location<any>)
     switch (variable) {
       case 'db':
       case 'main':
