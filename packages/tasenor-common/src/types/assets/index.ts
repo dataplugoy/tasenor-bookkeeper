@@ -47,7 +47,7 @@ export type Asset = Currency | TradeableAsset | IncomeSource | ExpenseSink | Tax
 /**
  * A fundamental reason describing one atomic piece of an asset transfer.
  *
- * - `correction` - A transfer is fix some existing mistake.
+ * - `correction` - A transfer is a fix for some existing mistake.
  * - `deposit` - A transfer of an asset like currency to the some particular service provider.
  * - `distribution` - An expense that is caused by the company itself disributing money to owners.
  * - `dividend` - An income that is caused by distribution by a company.
@@ -56,7 +56,7 @@ export type Asset = Currency | TradeableAsset | IncomeSource | ExpenseSink | Tax
  * - `forex` - Special case of the `trade` where assets exchanged are currencies.
  * - `income` - General income.
  * - `investment` - Money coming to the company via some form of invested capital.
- * - `tax` - An expense that is considered as a tax.
+ * - `tax` - An expense that is considered a tax.
  * - `trade` - Some asset has been exchanged to another asset.
  * - `transfer` - Any neutral transfer of an asset from one service provider to another service provider.
  * - `withdrawal` - - A transfer of an asset like currency from some particular service provider.

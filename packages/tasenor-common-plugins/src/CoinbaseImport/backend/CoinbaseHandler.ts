@@ -90,13 +90,13 @@ export class CoinbaseHandler extends TransactionImportHandler {
     throw new Error(`Coinbase import handler does not implement time() for version ${this.version}.`)
   }
 
-  async segmentationColumnPostProcess(columns: Record<string, string>): Promise<Record<string, string>> {
+  async segmentationColumnPostProcess(columns: Record<string, unknown>): Promise<Record<string, unknown>> {
     if (columns.type === 'Convert') {
-      const match = /Converted ([0-9.]+) (\w+) to ([0-9.]+) (\w+)/.exec(columns.Notes)
+      const match = /Converted ([0-9.]+) (\w+) to ([0-9.]+) (\w+)/.exec(columns.Notes as string)
       if (match) {
-        columns.giveAmount = match[1]
+        columns.giveAmount = parseFloat(match[1])
         columns.giveAsset = match[2]
-        columns.takeAmount = match[3]
+        columns.takeAmount = parseFloat(match[3])
         columns.takeAsset = match[4]
       }
     }

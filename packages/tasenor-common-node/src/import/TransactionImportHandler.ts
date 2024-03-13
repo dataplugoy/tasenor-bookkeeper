@@ -157,7 +157,7 @@ export class TransactionImportHandler extends TextFileProcessHandler {
   /**
    * Hook to post process column values.
    */
-  async segmentationColumnPostProcess(columns: Record<string, string>): Promise<Record<string, string>> {
+  async segmentationColumnPostProcess(columns: Record<string, unknown>): Promise<Record<string, unknown>> {
     return columns
   }
 
@@ -219,7 +219,7 @@ export class TransactionImportHandler extends TextFileProcessHandler {
         if (totalAmountField) {
           columns._totalAmountField = columns[totalAmountField]
         }
-        columns = await this.segmentationColumnPostProcess(columns)
+        columns = await this.segmentationColumnPostProcess(columns) as Record<string, string>
       }
     }
 

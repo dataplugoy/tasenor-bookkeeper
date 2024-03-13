@@ -741,6 +741,9 @@ export class TransferAnalyzer {
               // Normal selling is valued by the value of the asset in our stock.
               transfer.value = Math.round(transferAmount * (value / amount))
               if (!transfer.value) {
+                if (isNaN(transfer.value)) {
+                  throw new SystemError(`Calculation of value for ${transfer.type} ${transfer.asset} failed (transferAmount=${JSON.stringify(transferAmount)}, value=${JSON.stringify(value)}, amount=${JSON.stringify(amount)}.`)
+                }
                 throw new SystemError(`Asset ${transfer.type} ${transfer.asset} have no value left when trading on ${segment.time}.`)
               }
             }
@@ -976,6 +979,7 @@ export class TransferAnalyzer {
             delete feesToDeduct[transfer.asset]
           }
           this.setData(transfer, data)
+          // TODO: Might actually need short-stock and short-crypto separately.
           const type = transfer.type === 'short' ? 'stock' : transfer.type
           await this.changeStock(segment.time, type, transfer.asset, transfer.amount, transfer.value)
         }
@@ -1004,7 +1008,6 @@ export class TransferAnalyzer {
           : transfers.transfers.filter(t => t.reason === 'trade' && t.value && t.value < 0))
 
         if (soldAsset.length !== 1) {
-          console.log(transfers.transfers)
           throw new BadState(`Did not found unique asset that was given out from ${JSON.stringify(transfers.transfers)}`)
         }
 
@@ -1344,7 +1347,7 @@ export class TransferAnalyzer {
     }
     const account: AccountNumber = await this.getAccount('trade', type, asset) as AccountNumber
     if (!account) {
-      throw new Error(`Unable to find account for ${type} ${asset}.`)
+      throw new Error(`Unable to find account for 'trade.${type}.${asset}'.`)
     }
     // If no records yet, fetch it using the connector.
     if (!this.stocks[account]) {
@@ -1373,7 +1376,7 @@ export class TransferAnalyzer {
 
     const account = await this.getAccount('trade', type, asset)
     if (!account) {
-      throw new Error(`Unable to find account for ${type} ${asset}.`)
+      throw new Error(`Unable to find account for 'trade.${type}.${asset}'.`)
     }
     if (!this.stocks[account]) {
       this.stocks[account] = new StockBookkeeping(`Account ${account}`)
