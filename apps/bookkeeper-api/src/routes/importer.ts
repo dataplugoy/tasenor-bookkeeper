@@ -112,6 +112,7 @@ router.post('/:id',
 
     const names = files.map(f => f.name)
     const process = await system.createProcess(`Uploading file(s) ${names}`, files, config)
+
     await db('processes').update({ ownerId: importerId }).where({ id: process.id })
     if (process.canRun()) {
       await process.run()

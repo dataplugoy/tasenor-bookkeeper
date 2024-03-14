@@ -1,4 +1,4 @@
-import { TableContainer, Table, TableHead, TableCell, TableRow, TableBody, Typography, useTheme, Fab, IconButton } from '@mui/material'
+import { TableContainer, Table, TableHead, TableCell, TableRow, TableBody, Typography, useTheme, Fab, IconButton, Box } from '@mui/material'
 import React, { useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { ProcessStatusIcon } from './ProcessStatusIcon'
@@ -83,14 +83,13 @@ export const ProcessView = (props: ProcessViewProps): JSX.Element => {
     // Note, step argument does not do anything except triggers URL refetch.
     url: `${props.api}/${props.id}${currentStep !== undefined ? `?step=${currentStep}` : ''}`,
     token: props.token,
-    receiver: setProcess
+    receiver: setProcess,
   })
 
   useAxios({
-    // Note, step argument does not do anything except triggers URL refetch.
     url: currentStep === undefined ? null : `${props.api}/${props.id}/step/${currentStep}`,
     token: props.token,
-    receiver: setStep
+    receiver: setStep,
   })
 
   if (!process) return <></>
@@ -100,6 +99,7 @@ export const ProcessView = (props: ProcessViewProps): JSX.Element => {
   const hasSteps = process.currentStep !== undefined && process.steps.length > 0
   const lastStep = currentStep !== undefined && process.steps.length > 0 && currentStep === process.steps.length - 1
   const directions = currentStep !== undefined && process.steps[currentStep] ? process.steps[currentStep].directions || {} : {}
+  const badFailure = process.status === 'CRASHED' && process.steps.length === 0
   const needAnswers = (
     hasSteps &&
     process.status === 'WAITING' &&
@@ -224,6 +224,7 @@ export const ProcessView = (props: ProcessViewProps): JSX.Element => {
                   />) || <>INVALID RISP ELEMENT {JSON.stringify(directions.element)}</>
                 }
               </>}
+              {badFailure && <Box><Trans>Processing crashed before started. Bad file perhaps.</Trans></Box>}
             </TableCell>
           </TableRow>
           {

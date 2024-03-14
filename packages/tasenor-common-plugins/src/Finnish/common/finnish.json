@@ -347,5 +347,6 @@
   "You cannot delete an import that has been successfully executed.": "Sellaista tuontia ei voi poista, jossa on onnistuneesti tuotuja tapahtumia.",
   "You need to revert changes first.": "Ensin täytyy perua tuonnin tekemät muutokset.",
   "Alert": "Huomio",
-  "Imported data deleted.": "Tuonnin tiedot poistettu."
+  "Imported data deleted.": "Tuonnin tiedot poistettu.",
+  "Processing crashed before started. Bad file perhaps.": "Käsittely meni vikaan ennen kuin päästiin alkuun. Mahdollisesti vääränlainen tiedosto."
 }
