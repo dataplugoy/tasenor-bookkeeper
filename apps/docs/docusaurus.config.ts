@@ -72,6 +72,12 @@ const config: Config = {
        packages: ['packages/tasenor-common', 'packages/tasenor-common-node', 'packages/tasenor-common-ui'],
      },
    ],
+   [
+    '@easyops-cn/docusaurus-search-local',
+    {
+      hashed: true,
+    }
+   ]
   ],
 
   themes: ['docusaurus-theme-openapi-docs', '@docusaurus/theme-mermaid'],
