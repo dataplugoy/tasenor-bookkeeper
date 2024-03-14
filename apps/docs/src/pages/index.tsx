@@ -13,8 +13,12 @@ export default function Index(): JSX.Element {
       description="Tasenor developer documentation"
     >
       <Heading as="h1" className={styles.banner}>
-        The Tasenor Project
-        <div className={styles['banner-subtitle']}>Pluginized Open Source Bookkeeping</div>
+        <div></div>
+        <img src="logo.png" alt="Tasenor Logo"/>
+        <div>
+          <div className={styles['banner-title']}>The Tasenor Project</div>
+          <div className={styles['banner-subtitle']}>Pluginized Open Source Bookkeeping</div>
+        </div>
       </Heading>
 
       <main className={styles.content}>

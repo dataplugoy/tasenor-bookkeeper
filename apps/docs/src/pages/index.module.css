@@ -3,13 +3,25 @@
   margin-bottom: 4rem;
   padding-top: 4rem;
   padding-bottom: 4rem;
-  text-align: center;
-  font-size: 4rem;
   color: white;
   background-color: #5d4037;
+  display: grid;
+  grid-template-columns: 6rem 2fr 6fr;
+}
+
+.banner img {
+  height: 15rem;
+}
+
+.banner-title {
+  margin-top: 4rem;
+  text-align: center;
+  font-size: 4rem;
+  font-weight: normal;
 }
 
 .banner-subtitle {
+  text-align: center;
   font-size: 2rem;
   font-weight: normal;
 }
