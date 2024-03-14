@@ -52,6 +52,7 @@ export class CoinbaseHandler extends TransactionImportHandler {
       return files
     }
     if (this.version === 2 || this.version === 3) {
+      this.importOptions.textField = 'Notes'
       // Clean up trash from the beginning.
       for (const file of files) {
         const data = file.decode()
