@@ -16,6 +16,7 @@
 
 .content {
   margin: 0rem 4rem;
+  padding-bottom: 2rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 4rem;

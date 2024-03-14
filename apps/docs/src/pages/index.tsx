@@ -6,7 +6,7 @@ import Heading from '@theme/Heading'
 import styles from './index.module.css'
 
 export default function Index(): JSX.Element {
-  const {siteConfig} = useDocusaurusContext()
+  const { siteConfig } = useDocusaurusContext()
   return (
     <Layout
       title={`${siteConfig.title}`}
@@ -20,28 +20,22 @@ export default function Index(): JSX.Element {
       <main className={styles.content}>
         <div className={styles.box}>
           <div className={styles['box-title']}>For User</div>
-          Easy to use pure browser solution for bookkeeping.
-          Use keyboard to use it as a desktop application or
-          automate data flow processes to get transactions
-          imported effortlessly.
+          An easy-to-use pure browser solution for bookkeeping. Use the keyboard just like in a desktop
+          application or automate data flow processes for effortless transaction imports.
           <div className={styles['link']}>
             <Link to="/docs/guides/getting-started/features/user-features"><div className={styles['box-link']}>Read More</div></Link>
           </div>
         </div>
         <div className={styles.box}>
           <div className={styles['box-title']}>For Developer</div>
-          Open Source solution giving you all the power to extend
-          and implement your unique bookkeeping business needs.
-          Maybe earn some money by renting plugins written by you?
+          Open Source solution giving you all the power to extend and implement your unique bookkeeping business needs. Consider making money by leasing your written plug-ins.
           <div className={styles['link']}>
             <Link to="/docs/guides/getting-started/features/developer-features"><div className={styles['box-link']}>Read More</div></Link>
           </div>
         </div>
         <div className={styles.box}>
           <div className={styles['box-title']}>For Business</div>
-          Choose your industry and geographical area.
-          Become a partner and provide expertise in commercial
-          support on the platform.
+          Choose your industry and geographical area. Join us as a partner and provide commercial support expertise on the platform.
           <div className={styles['link']}>
             <Link to="/docs/guides/getting-started/features/business-features"><div className={styles['box-link']}>Read More</div></Link>
           </div>
