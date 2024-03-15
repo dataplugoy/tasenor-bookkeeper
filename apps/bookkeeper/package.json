@@ -1,6 +1,6 @@
 {
   "name": "@tasenor/bookkeeper",
-  "version": "1.11.70",
+  "version": "1.11.71",
   "main": "src/index.ts",
   "types": "src/index.ts",
   "description": "Tasenor bookkeeper UI",
