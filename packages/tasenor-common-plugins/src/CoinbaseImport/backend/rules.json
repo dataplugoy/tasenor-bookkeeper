@@ -85,6 +85,26 @@
       ]
     },
     {
+      "name": "Dummy selling of currency (v2)",
+      "filter": "type == 'Sell' and Currency == config.currency and Asset == config.currency and Total == Quantity",
+      "result": [
+        {
+          "if": "Fees != 0",
+          "reason": "'expense'",
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "Fees"
+        },
+        {
+          "if": "Fees != 0",
+          "reason": "'fee'",
+          "type": "'statement'",
+          "asset": "'CRYPTO_BROKER_SERVICE_FEE'",
+          "amount": "-Fees"
+        }
+      ]
+    },
+    {
       "name": "Selling (v2)",
       "filter": "type == 'Sell'",
       "result": [

@@ -220,6 +220,13 @@ export class TransactionRules {
 
     // Decide the error when passing through without finding an answer.
     if (matched) {
+      if (await this.UI.getBoolean(config, 'allowEmptyResults', 'Match was found but actually no transfers found. Should we allow this and ignore the match?')) {
+        return {
+          type: 'transfers',
+          transfers: [],
+          transactions: [],
+        }
+      }
       throw new Error(`Found matches but the result list is empty for ${JSON.stringify(lines)}.`)
     }
     throw new Error(`Could not find rules matching ${JSON.stringify(lines)}.`)
