@@ -894,7 +894,7 @@ export class TransferAnalyzer {
         variable,
         'Is transaction fee of type {type} already included in the {reason} total?'.replace('{type}',
         `${feeType}`).replace('{reason}',
-        await this.getTranslation(`reason-${nonFee}`))
+          await this.getTranslation(`reason-${nonFee}`))
       )
 
       // Adjust asset transfers by the fee paid as asset itself, when they are missing from transfer total.
@@ -1139,6 +1139,13 @@ export class TransferAnalyzer {
         account: accounts[`${transfer.reason}.${transfer.type}.${transfer.asset}`],
         amount: transfer.value === undefined ? 0 : transfer.value,
         description
+      }
+      // Some accounts are not detectable in the beginning. Try once more.
+      if (!txEntry.account) {
+        const acc = await this.getAccount(transfer.reason, transfer.type, transfer.asset, segment.id)
+        if (acc) {
+          txEntry.account = acc
+        }
       }
       if (!txEntry.account) {
         throw new SystemError(`Cannot find account ${transfer.reason}.${transfer.type}.${transfer.asset} for entry ${JSON.stringify(txEntry)}`)
