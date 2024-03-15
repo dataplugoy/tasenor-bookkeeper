@@ -13,6 +13,7 @@ ____VAT_PAYMENT	VAT Payment	ALV maksu
 ____CORPORATE-TAX_PAYMENT	Corporate Tax Payment	Yhteisöveron maksu
 ____DIVIDEND_WITHHOLDING	Dividend Payment Witholding Tax	Osingonmaksun ennakonpidätys
 		
+		
 __CAPITAL_LOSS	Capital Losses	Myyntitappiot
 ___TRADE_LOSS	Trading Losses	Myyntitappiot vaihto-omaisuuden kaupankäynnistä
 ____TRADE_LOSS_CRYPTO	Trading Losses from Cryptocurrencies	Myyntitappiot kryptovaluutoista
@@ -33,7 +34,7 @@ ____COMPUTER_ACCESSORIES	Computer Accessories	Tietokoneen lisälaitteet
 _____PRINTER	Printers	Tulostimet
 ___SOFTWARE	Software	Ohjelmistot
 ___INTERNET	Internet Expenses	Internetkulut
-		
+___INTERNET_SERVICE	Internet Service Subscriptions	Internetpalveluiden tilausmaksut
 		
 		
 		
@@ -57,18 +58,26 @@ __INTERNAL_MEETING	Internal meeting	Kokous- ja palaverikulut
 _ADMIN	Administration	Hallintokulut
 __ADMIN_OTHER	Other Adminstration	Muut hallintokulut
 ___BOOK	Books	Kirjat
+____EBOOK	E-Books	E-kirjat
 ___INFORMATION	Information Services	Tietopalvelut
 ___POSTAGE	Postage	Postikulut
 ____POSTAGE_STAMPS	Postage Stamps	Postimerkit
 ___BANKING_FEE	Banking Fees	Rahaliikenteen kulut
 ____STOCK_BROKER_INACTIVITY_FEE	Stock Broker Inactivity Fee	Osakevälittäjän epäaktiivisuusmaksu
 ____STOCK_BROKER_SERVICE_FEE	Stock Broker Service Fee	Osakevälittäjän palvelumaksu
+____CRYPTO_BROKER_SERVICE_FEE	Crypto Broker Service Fee	Kryptovälittäjän palvelumaksu
 ___ROUNDING_ERROR	Rounding Errors	Pyöristysvirheet
 ___PHONE	Phone Expenses	Puhelinkulut
 ___OFFICIAL_FEES	Official Fees	Viranomaismaksut
 ___FINANCIAL_MANAGEMENT	Financial Management	Taloushallinnon kulu
 ___NEWSPAPERS	Newspapers	Sanomalehdet
+___OFFICE_SUPPLIES	Office Supplies	Toimistotarvikkeet
 		
+		
+		
+_MATERIALS_AND_SERVICES	Materials and services	Materiaalit ja palvelut
+__EXTERNAL_SERVICES	External services	Ulkopuoliset palvelut
+___INVESTMENT_SERVICES	Investment analysis services	Sijoitus- ja analyysipalvelut
 		
 		
 		

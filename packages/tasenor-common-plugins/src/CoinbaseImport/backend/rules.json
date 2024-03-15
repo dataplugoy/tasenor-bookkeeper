@@ -97,7 +97,7 @@
         },
         {
           "if": "Fees != 0",
-          "reason": "'fee'",
+          "reason": "'expense'",
           "type": "'statement'",
           "asset": "'CRYPTO_BROKER_SERVICE_FEE'",
           "amount": "-Fees"

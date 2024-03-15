@@ -888,7 +888,14 @@ export class TransferAnalyzer {
       } else {
         throw new Error(`Handling non-fee '${nonFee}' not implemented.`)
       }
-      feeIsMissingFromTotal = !await this.UI.getBoolean(config, variable, 'Is transaction fee of type {type} already included in the {reason} total?'.replace('{type}', `${feeType}`).replace('{reason}', await this.getTranslation(`reason-${nonFee}`)))
+
+      feeIsMissingFromTotal = !await this.UI.getBoolean(
+        config,
+        variable,
+        'Is transaction fee of type {type} already included in the {reason} total?'.replace('{type}',
+        `${feeType}`).replace('{reason}',
+        await this.getTranslation(`reason-${nonFee}`))
+      )
 
       // Adjust asset transfers by the fee paid as asset itself, when they are missing from transfer total.
       if (feeIsMissingFromTotal) {

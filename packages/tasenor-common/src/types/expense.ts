@@ -15,15 +15,18 @@
  * * `COMPUTER_ACCESSORIES` - Computer Accessories
  * * `COMPUTING` - Computing
  * * `CORPORATE-TAX_PAYMENT` - Corporate Tax Payment
+ * * `CRYPTO_BROKER_SERVICE_FEE` - Crypto Broker Service Fee
  * * `DESKTOP` - Desktop Computers
  * * `DIVIDEND_PAYMENT` - Dividend Payment
  * * `DIVIDEND_WITHHOLDING` - Dividend Payment Witholding Tax
+ * * `EBOOK` - E-Books
  * * `ENTERTAINMENT` - Entertainment Expenses
  * * `EQUIPMENT` - Equipment
  * * `ERROR_EXPENSE` - Error in Expenses
  * * `EXPENSE` - Expenses
  * * `EXPENSE_CORRECTIONS` - Corrections in Expenses
  * * `EXPENSE_CORRECTION_WITHHOLDING_TAX` - Corrections in Withholding Tax
+ * * `EXTERNAL_SERVICES` - External services
  * * `FINANCIAL_MANAGEMENT` - Financial Management
  * * `FURNITURE` - Furniture
  * * `FX_OUT` - Foreign Exchange
@@ -33,12 +36,16 @@
  * * `INTEREST_EXPENSE` - Interest Expense
  * * `INTERNAL_MEETING` - Internal meeting
  * * `INTERNET` - Internet Expenses
+ * * `INTERNET_SERVICE` - Internet Service Subscriptions
+ * * `INVESTMENT_SERVICES` - Investment analysis services
  * * `LAPTOP` - Laptop Computers
  * * `MACHINERY` - Machinery
+ * * `MATERIALS_AND_SERVICES` - Materials and services
  * * `MEETINGS` - Meetings
  * * `MISC_EXPENSES` - Miscellaneous Expenses
  * * `NEEDS_MANUAL_INSPECTION` - Needs Manual Inspection
  * * `NEWSPAPERS` - Newspapers
+ * * `OFFICE_SUPPLIES` - Office Supplies
  * * `OFFICIAL_FEES` - Official Fees
  * * `OPTIONAL_PERSONNEL_EXPENSE` - Optional Personnel Expenses
  * * `OTHER_EXPENSES` - Other Expenses
@@ -83,15 +90,18 @@ export type ExpenseSink = 'ACCOMMODATION' |
   'COMPUTER_ACCESSORIES' |
   'COMPUTING' |
   'CORPORATE-TAX_PAYMENT' |
+  'CRYPTO_BROKER_SERVICE_FEE' |
   'DESKTOP' |
   'DIVIDEND_PAYMENT' |
   'DIVIDEND_WITHHOLDING' |
+  'EBOOK' |
   'ENTERTAINMENT' |
   'EQUIPMENT' |
   'ERROR_EXPENSE' |
   'EXPENSE' |
   'EXPENSE_CORRECTIONS' |
   'EXPENSE_CORRECTION_WITHHOLDING_TAX' |
+  'EXTERNAL_SERVICES' |
   'FINANCIAL_MANAGEMENT' |
   'FURNITURE' |
   'FX_OUT' |
@@ -101,12 +111,16 @@ export type ExpenseSink = 'ACCOMMODATION' |
   'INTEREST_EXPENSE' |
   'INTERNAL_MEETING' |
   'INTERNET' |
+  'INTERNET_SERVICE' |
+  'INVESTMENT_SERVICES' |
   'LAPTOP' |
   'MACHINERY' |
+  'MATERIALS_AND_SERVICES' |
   'MEETINGS' |
   'MISC_EXPENSES' |
   'NEEDS_MANUAL_INSPECTION' |
   'NEWSPAPERS' |
+  'OFFICE_SUPPLIES' |
   'OFFICIAL_FEES' |
   'OPTIONAL_PERSONNEL_EXPENSE' |
   'OTHER_EXPENSES' |
