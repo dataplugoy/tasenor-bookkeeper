@@ -6,7 +6,7 @@ import dayjs from 'dayjs'
 import { encode } from 'base64-arraybuffer'
 import { sprintf } from 'sprintf-js'
 import clone from 'clone'
-import deepEqual from 'deep-equal'
+import deepEqual from 'fast-deep-equal'
 
 import { elementNames, ImportState, AccountNumber, TradeableAsset, StockValueData, Transaction, AssetType, Asset, AssetExchange, Currency, TransactionDescription, sortTransactions, AssetTransfer, Language, Knowledge, VATTarget, error, isCurrency, BalanceBookkeeping, ZERO_STOCK, ZERO_CENTS, Directions, ID } from '@tasenor/common'
 import { ISPDemoServer, ProcessHandler, TransactionImportHandler, TransactionImportConnector, ImportPlugin } from '@tasenor/common-node'
