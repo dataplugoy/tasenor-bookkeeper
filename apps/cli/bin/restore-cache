@@ -5,4 +5,11 @@ if [ -z "$1" -o -z "$2" ]; then
   exit 1
 fi
 
-docker exec -i tasenor-db psql $1 < $2
+
+if [ "$CI" = True ]; then
+  CONTAINER=tasenor-ci-db
+else
+  CONTAINER=tasenor-db
+fi
+
+docker exec -i $CONTAINER psql $1 < $2
