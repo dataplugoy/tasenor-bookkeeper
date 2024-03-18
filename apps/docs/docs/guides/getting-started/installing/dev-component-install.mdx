@@ -4,7 +4,7 @@ sidebar_position: 300
 
 # Local Component Development
 
-Runnig Tasenor Bookkeeper by individual components.
+Running Tasenor Bookkeeper using individual components.
 
 ## Pre-requisities
 
@@ -30,8 +30,7 @@ pnpm install
 
 ## Launching Individual Pieces
 
-Assume that we are in the root of the repository
-Each part of the system can be launched separately in this order.
+If starting from the root of the repository, launching each component of the system separately is possible.
 
 1. Database
   ```sh
@@ -53,6 +52,6 @@ Each part of the system can be launched separately in this order.
   cd apps/bookkeeper/
   pnpm run dev-vite
   ```
-  It is also possible to run this together with the previous one using `pnpm run dev`.
+  It is also possible to run #3 (Plugin server for UI) and #4 (UI) together using `pnpm run dev`.
 
-You can now create an admin user and start exploring the system at [http://localhost:7204/](http://localhost:7204/).
+Now, create an admin user and start exploring the system at [http://localhost:7204/](http://localhost:7204/).

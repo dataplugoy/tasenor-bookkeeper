@@ -4,24 +4,23 @@ sidebar_position: 100
 
 # Overview
 
-Theoretical framework how the importing data is processed.
+Theoretical framework for data import processing.
 
 ## Interactive Stateful Process
 
 ### Theory
-Core of the data import processing is based on the idea we call *interactive stateful process*.
-It means a system that uses the following generic principle for processing data:
+The concept of *interactive stateful process* is the foundation of data import processing. It encompasses the following generic principles of data processing:
 
-1. Initial *state* of the *process* is established in the server.
-2. Possible *directions* to the next state are detemined by the server.
-3. Choose one
-   - If there is only one direction, we select that.
+1. In the server, the initial *state* of the *process* is established.
+2. The server determines the possible *directions* to the next state.
+3. Choose one option below:
+   - If there is only one direction, select it.
    - If there are no directions, the process has *failed*. The process ends.
-   - If there are more than one direction, the server asks from the UI which one to select. User may also add
-     additional information as specified the direction definition.
-4. Apply the direction (with additional information, if any) to the state and produce a new state.
-5. Determine if the state is a *final* state. In that case, the process ends.
-6. Go back to 2.
+   - If there are multiple directions, the server prompts the UI to select one.
+     User may also add more information as specified in the direction definition.
+4. Apply the direction, along with any additional information, to transform the state into a new state.
+5. Determine if the state is a *final* state. If so, the process is complete.
+6. Return to Step 2.
 ```mermaid
 flowchart LR
    init([1. Initialize])
@@ -41,10 +40,11 @@ flowchart LR
 
 ### Data Import
 
-In the case of data import, the interpretation of the above is the following: we have various stages of the import
-process, which describe the progress we have made. The directions present the possibilities of different configuration
-values needed but not yet specified. It mat also present some special handling like skipping some transaction found
-from the input statemet.
+Regarding data import, the theory above can be interpreted as follows:
+The import process comprises multiple stages that document progress
+The directions outline necessary but not yet specified configuration values
+Special handling might be required, such as omitting certain transactions from the input statement.
+
 
 ```mermaid
 sequenceDiagram
@@ -69,12 +69,10 @@ flowchart LR
    analyze --> execution
    execution --> END
 ```
-1. **Segmentation**: Split incoming data to smaller pieces so that parts of the original data are grouped
-   together under unique *segmentation ID*. Each group present some meaningful unit of information
-   belonging together called *segment*.
-2. **Classification**: For each segment, determine which *class* it belongs to. Classes are some
-   defined set of qualities describing similar segments.
-3. **Analyze**: Based on the classification, additional information can be collected and/or calculated
-   for each segment.
-4. **Execution**: Once information for each segment is complete, we can execute database insertions,
-   REST API calls or whatever appropriate actions based on the segement data.
+1. **Segmentation**: Split incoming data into smaller pieces and groups them based on a unique *segmentation ID*.
+   Each group presents a cohesive unit of information called a *segment*.
+2. **Classification**: Specify a class for each segment. Classes are some defined set of qualities describing
+   similar segments.
+3. **Analyze**: Additional data can be gathered and analyzed for each segment based on its classification.
+4. **Execution**: After analyzing the information for each segment, actions such as database insertions,
+   REST API calls and others can be executed based on the segment data.
