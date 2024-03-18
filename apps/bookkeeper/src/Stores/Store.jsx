@@ -698,6 +698,7 @@ export class Store {
     if (!this.token) {
       return
     }
+    await this.fetchDatabases()
     const data = await this.request('/db/' + db + '/importer/' + importerId)
     return new ImporterModel(this.database, data)
   }

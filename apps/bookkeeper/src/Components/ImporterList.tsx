@@ -20,7 +20,6 @@ const ImporterList = observer(withCatalog(withStore((props: ImporterListProps): 
   const params = useParams()
   const [importers, setImporters] = useState<ImporterModelData[]>([])
   const { t } = useTranslation()
-  const needUpdate: Record<number, boolean> = {}
 
   useEffect(() => {
     const versions = catalog.getPluginVersions()

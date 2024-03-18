@@ -2,7 +2,7 @@ import React from 'react'
 import { Typography } from '@mui/material'
 
 export interface NoteProps {
-  children: JSX.Element | JSX.Element[]
+  children: React.ReactNode
   className?: string
   showIf?: boolean
 }
