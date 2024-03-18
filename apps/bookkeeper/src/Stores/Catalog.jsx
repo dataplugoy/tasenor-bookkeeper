@@ -236,6 +236,15 @@ class Catalog extends Component {
   }
 
   /**
+   * Get a mapping from plugin codes to plugin versions.
+   */
+  getPluginVersions(pluginCode) {
+    const ret = {}
+    this.index.forEach(p => (ret[p.code] = p.version))
+    return ret
+  }
+
+  /**
    * Install plugin.
    * @param {Object} plugin
    */

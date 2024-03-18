@@ -1,4 +1,4 @@
-import { AssetTransfer, Currency, Email, Language, LoginPluginData, ReportID, ReportOptions, ShortDate, TsvFilePath } from '..'
+import { AssetTransfer, Currency, Email, Language, LoginPluginData, ReportID, ReportOptions, ShortDate, TsvFilePath, Version } from '..'
 import { ALL } from '../..'
 import { TasenorPlugin, PluginCode, BackendPlugin, SchemePlugin, ReportPlugin, ServicePlugin } from '../plugins'
 
@@ -50,6 +50,7 @@ export declare class Catalog {
   getServices(): string[]
   getServiceProviders(service): ServicePlugin[]
   getPluginsIDs(): number[]
+  getPluginVersions(): Record<PluginCode, Version>
   getPluginsWithSettings(): BackendPlugin[]
   getImportHandlers(): TransactionImportHandler[]
   getCommonKnowledge(): Promise<Record<string, unknown>>

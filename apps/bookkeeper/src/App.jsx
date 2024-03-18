@@ -14,7 +14,7 @@ import Balances from './Components/Balances'
 import Configuration from './Configuration'
 import DashboardPage from './Pages/DashboardPage'
 import DatabaseList from './Components/DatabaseList'
-import ImportList from './Components/ImportList'
+import ImporterList from './Components/ImporterList'
 import ImportPage from './Pages/ImportPage'
 import ImportToolPanel from './Components/ImportToolPanel'
 import LoginPage from './Pages/LoginPage'
@@ -99,12 +99,12 @@ class App extends Component {
               <Route exact path="/:db/admin///:tool" element={<AdminToolsList/>}/>
               <Route exact path="/:db/dashboard/:periodId?" element={<DatabaseList/>}/>
               <Route exact path="/:db/dashboard/:periodId/:accountId" element={<DatabaseList/>}/>
-              <Route exact path="/:db/data" element={<ImportList/>}/>
-              <Route exact path="/:db/data/:periodId" element={<ImportList/>}/>
-              <Route exact path="/:db/data/:periodId/:accountId" element={<ImportList/>}/>
-              <Route exact path="/:db/data/:periodId/:accountId/:importerId" element={<ImportList/>}/>
-              <Route exact path="/:db/data/:periodId//:importerId" element={<ImportList/>}/>
-              <Route exact path="/:db/data///:importerId" element={<ImportList/>}/>
+              <Route exact path="/:db/data" element={<ImporterList/>}/>
+              <Route exact path="/:db/data/:periodId" element={<ImporterList/>}/>
+              <Route exact path="/:db/data/:periodId/:accountId" element={<ImporterList/>}/>
+              <Route exact path="/:db/data/:periodId/:accountId/:importerId" element={<ImporterList/>}/>
+              <Route exact path="/:db/data/:periodId//:importerId" element={<ImporterList/>}/>
+              <Route exact path="/:db/data///:importerId" element={<ImporterList/>}/>
               <Route exact path="/:db/report/:periodId" element={<ReportsList/>}/>
               <Route exact path="/:db/report/:periodId/:accountId" element={<ReportsList/>}/>
               <Route exact path="/:db/report/:periodId/:accountId/:format" element={<ReportsList/>}/>

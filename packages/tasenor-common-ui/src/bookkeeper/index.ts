@@ -1,6 +1,7 @@
 /**
  * Miscellaneous utility classes for Bookkeeper.
  */
+export * from './AlertIcon'
 export * from './Confirm'
 export * from './Dialog'
 export * from './IconButton'

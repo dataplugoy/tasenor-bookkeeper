@@ -50,6 +50,7 @@ router.post('/',
       }
       config.handlers[i] = plugin.getHandler().name
       config.rules = config.rules || []
+      config.version = plugin.version
       config.rules = config.rules.concat(plugin.getRules())
       const acc = await db('account').whereRaw(`data->>'plugin' = '${plugin.code}'`).andWhereRaw("data->>'code' = 'CASH'").first()
       config.cashAccount = acc ? acc.number : null
