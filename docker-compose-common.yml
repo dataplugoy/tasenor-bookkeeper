@@ -5,6 +5,11 @@
 #
 version: '3'
 
+networks:
+  tasenor:
+    name: tasenor
+    driver: bridge
+
 services:
   tasenor-nginx-proxy:
     container_name: tasenor-nginx-proxy
