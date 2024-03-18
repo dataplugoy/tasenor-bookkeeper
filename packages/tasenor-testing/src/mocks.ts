@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { TasenorSetup, AccountModel, AccountNumber, AccountType, BalanceModel, Currency, Cursor, DatabaseModel, EntryModel, HeadingModel, ID, RealID, Language, PeriodModel, Tag, TagModel, TagType, Url, Asset, TasenorPlugin, BackendPlugin, Store, ImporterModel, PluginCode, SchemePlugin, TsvFilePath, ReportID, ReportPlugin, ReportOptions, ServicePlugin, TransactionImportHandler, AssetTransfer, CatalogHook, Email, LoginPluginData, ShortDate, HttpResponse } from '@tasenor/common'
+import { TasenorSetup, AccountModel, AccountNumber, AccountType, BalanceModel, Currency, Cursor, DatabaseModel, EntryModel, HeadingModel, ID, RealID, Language, PeriodModel, Tag, TagModel, TagType, Url, Asset, TasenorPlugin, BackendPlugin, Store, ImporterModel, PluginCode, SchemePlugin, TsvFilePath, ReportID, ReportPlugin, ReportOptions, ServicePlugin, TransactionImportHandler, AssetTransfer, CatalogHook, Email, LoginPluginData, ShortDate, HttpResponse, Version } from '@tasenor/common'
 import { sprintf } from 'sprintf-js'
 import dayjs from 'dayjs'
 
@@ -262,6 +262,10 @@ export class MockCatalog {
 
   str2date(str: string, sample: string | null): ShortDate {
     throw new Error('Not implemented.')
+  }
+
+  getPluginVersions(): Record<PluginCode, Version> {
+    return {}
   }
 }
 
