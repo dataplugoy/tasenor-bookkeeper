@@ -19,7 +19,8 @@ module.exports = {
     "space-before-function-paren": "off",
     "padded-blocks": "off",
     "comma-dangle": "off",
-    "semi": [2, "never"]
+    "semi": [2, "never"],
+    "@typescript-eslint/no-unused-vars": "off"
   },
   parserOptions: {
   },
