@@ -91,20 +91,20 @@ export class ProcessingSystem {
     // Find the handler.
     let selectedHandler: ProcessHandler | null = null
 
-      try {
-        const version = this.handler.canHandle(processFile)
-        if (version) {
-          if (version === true) {
-            this.handler.version = 1
-          } else {
-            this.handler.version = version
-          }
-          selectedHandler = this.handler
+    try {
+      const version = this.handler.canHandle(processFile)
+      if (version) {
+        if (version === true) {
+          this.handler.version = 1
+        } else {
+          this.handler.version = version
         }
-      } catch (err) {
-        await process.crashed(err)
-        return process
+        selectedHandler = this.handler
       }
+    } catch (err) {
+      await process.crashed(err)
+      return process
+    }
 
     if (!selectedHandler) {
       await process.crashed(new InvalidArgument(`No handler found for the file ${file.name} of type ${file.type}.`))
