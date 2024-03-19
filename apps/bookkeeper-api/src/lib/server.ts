@@ -13,11 +13,11 @@ import cron from './cron'
  */
 async function kill() {
   log('Shutting down the server.')
-  await knex.disconnect()
-  await DB.disconnectAll()
   cron.stop()
   killListener()
-  setTimeout(() => process.exit(0), 1000)
+  await knex.disconnect()
+  await DB.disconnectAll()
+  setTimeout(() => process.kill(process.ppid, 'SIGTERM'), 500)
 }
 
 /**

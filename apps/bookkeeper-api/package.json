@@ -6,7 +6,7 @@
   "scripts": {
     "build-test": "tsc --noEmit",
     "ci": "pnpm run lint && pnpm run build-test",
-    "dev": "PORT=${BOOKKEEPER_API_PORT:-7205} DATABASE_URL=postgresql://bookkeeper:Biure80s2rt832@localhost:${DB_PORT:-7202}/bookkeeper UI_ORIGIN_URL=http://localhost:${BOOKKEEPER_PORT:-7204} DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx watch --clear-screen=false -r dotenv/config src/server.ts",
+    "dev": "while true; do PORT=${BOOKKEEPER_API_PORT:-7205} DATABASE_URL=postgresql://bookkeeper:Biure80s2rt832@localhost:${DB_PORT:-7202}/bookkeeper UI_ORIGIN_URL=http://localhost:${BOOKKEEPER_PORT:-7204} DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx watch --clear-screen=false -r dotenv/config src/server.ts; done",
     "docker": "pnpm run ssh-keys && pnpm run wait && while true; do DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx -r dotenv/config src/server.ts; done",
     "fix": "eslint --fix 'src/**/*.ts'",
     "lint": "eslint 'src/**/*.ts'",

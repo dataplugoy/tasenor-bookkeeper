@@ -115,7 +115,6 @@ async function changeDbSettings(email, name, values): Promise<void> {
  * Disconnect master DB.
  */
 async function disconnect(): Promise<void> {
-  log('Disconnecting master Db.')
   masterDb().destroy()
 }
 
