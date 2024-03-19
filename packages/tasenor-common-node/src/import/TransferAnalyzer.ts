@@ -1360,10 +1360,14 @@ export class TransferAnalyzer {
     if (!isTransactionImportConnector(this.handler.system.connector)) {
       throw new SystemError('Connector used is not a transaction import connector.')
     }
-    const account: AccountNumber = await this.getAccount('trade', type, asset) as AccountNumber
+    let account: AccountNumber = await this.getAccount('trade', type, asset) as AccountNumber
+    if (!account) {
+      account = await this.UI.throwGetAccount(this.config, `trade.${type}.${asset}` as AccountAddress)
+    }
     if (!account) {
       throw new Error(`Unable to find account for 'trade.${type}.${asset}'.`)
     }
+
     // If no records yet, fetch it using the connector.
     if (!this.stocks[account]) {
       this.stocks[account] = new StockBookkeeping(`Account ${account}`)
@@ -1389,7 +1393,10 @@ export class TransferAnalyzer {
     // Force reading the stock initial status.
     await this.getStock(time, type, asset)
 
-    const account = await this.getAccount('trade', type, asset)
+    let account = await this.getAccount('trade', type, asset)
+    if (!account) {
+      account = await this.UI.throwGetAccount(this.config, `trade.${type}.${asset}` as AccountAddress)
+    }
     if (!account) {
       throw new Error(`Unable to find account for 'trade.${type}.${asset}'.`)
     }
