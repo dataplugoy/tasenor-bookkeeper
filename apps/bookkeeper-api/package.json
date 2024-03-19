@@ -10,9 +10,11 @@
     "docker": "pnpm run ssh-keys && pnpm run wait && while true; do DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx -r dotenv/config src/server.ts; done",
     "fix": "eslint --fix 'src/**/*.ts'",
     "lint": "eslint 'src/**/*.ts'",
+    "migrate": "DATABASE_URL=postgresql://bookkeeper:Biure80s2rt832@localhost:${DB_PORT:-7202}/bookkeeper DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx -r dotenv/config bin/migrate.mjs",
     "nightly": "pnpm run ci",
     "release": "pnpm version patch",
     "release-minor": "pnpm version minor",
+    "rollback": "DATABASE_URL=postgresql://bookkeeper:Biure80s2rt832@localhost:${DB_PORT:-7202}/bookkeeper DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx -r dotenv/config bin/rollback.mjs",
     "show-version": "jq .version < package.json",
     "ssh-keys": "bin/make-file-from-env ID_RSA /root/.ssh/id_rsa 600 && bin/make-file-from-env ID_RSA_PUB /root/.ssh/id_rsa.pub",
     "wait": "if test \"$TASENOR_API_URL\" != ''; then ./bin/wait-for-it.sh -t 120 -h `echo $TASENOR_API_URL | sed 's/.*:\\/\\/\\(.*\\):.*/\\1/'` -p 7201; fi"

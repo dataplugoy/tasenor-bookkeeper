@@ -20,7 +20,7 @@ module.exports = {
     "padded-blocks": "off",
     "comma-dangle": "off",
     "semi": [2, "never"],
-    "@typescript-eslint/no-unused-vars": "off"
+    "@typescript-eslint/no-unused-vars": "warn"
   },
   parserOptions: {
   },

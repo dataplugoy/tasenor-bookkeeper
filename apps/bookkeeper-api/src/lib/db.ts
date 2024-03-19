@@ -94,6 +94,18 @@ async function migrate(): Promise<void> {
 }
 
 /**
+ * Rollback customer databases.
+ */
+async function rollback(): Promise<void> {
+  const all = await DB.customerDbs()
+  const master = await DB.getMaster()
+  const migrations = path.join(__dirname, '..', 'migrations-bookkeeping')
+  for (const db of all) {
+    await DB.rollback(master, db.database as DatabaseName, migrations, process.env.DB_HOST_OVERRIDE as Hostname)
+  }
+}
+
+/**
  * Get all databases.
  */
 async function getAll(): Promise<DbDataModel[]> {
@@ -104,6 +116,7 @@ async function getAll(): Promise<DbDataModel[]> {
 export default {
   getAll,
   migrate,
+  rollback,
   createNewDatabase,
   initializeNewDatabase,
   initializeSettings

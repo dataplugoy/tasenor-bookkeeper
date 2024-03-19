@@ -274,10 +274,12 @@ const migrateMaster = async (migrations: string): Promise<void> => {
  * @param hostOverride
  */
 const rollback = async (masterDb: KnexDatabase, name: DatabaseName, migrations: string, hostOverride: null | Hostname = null): Promise<void> => {
+  log(`Rolling back database database '${name}'.`)
+
   const conf = await getConfig(masterDb, name, hostOverride)
   conf.migrations = { directory: migrations }
   const db = knex(conf)
-  await db.migrate.rollback()
+  await db.migrate.down()
   // Do not leave hanging connections.
   await db.destroy()
 }
