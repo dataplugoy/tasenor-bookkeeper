@@ -88,7 +88,21 @@ export class TransactionUI {
     const ans = await this.getSegmentAnswer(config, segment, `hasBeenRenamed.${type}.${asset}`) as undefined | boolean
 
     if (ans === undefined) {
-      throw new AskUI(await this.message(`Asset renaming question not implemented (avoid error for now by setting answer 'hasBeenRenamed.${type}.${asset}' for segment '${segment.id}').`, 'error'))
+      const text = await this.getTranslation("We don't seem to have any history for an asset '{asset}' of type '{type}'. Has it been renamed at some point?", config.language as Language)
+      const msg = await this.message(text.replace('{asset}', asset).replace('{type}', type), 'info')
+      throw new AskUI({
+        type: 'flat',
+        elements: [
+          msg,
+          {
+            type: 'yesno',
+            name: `answer.${segment.id}.hasBeenRenamed.${type}.${asset}`,
+            label: '',
+            actions: {}
+          },
+          await this.submit('Continue', 2, config.language as Language)
+        ]
+      })
     }
     return ans
   }

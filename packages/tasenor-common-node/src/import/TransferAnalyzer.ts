@@ -722,6 +722,7 @@ export class TransferAnalyzer {
               // Ot at least pass through to the short selling question.
               const renamed = await this.UI.askedRenamingOrThrow(this.config, segment, transfer.type, transfer.asset)
               if (renamed === true) {
+                // TODO: Need to implement this.
                 throw new SystemError(`Something went wrong. Asset ${transfer.type} ${transfer.asset} has been renamed but we did not encounter actual transaction for the renaming.`)
               }
             }

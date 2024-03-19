@@ -348,5 +348,6 @@
   "You need to revert changes first.": "Ensin täytyy perua tuonnin tekemät muutokset.",
   "Alert": "Huomio",
   "Imported data deleted.": "Tuonnin tiedot poistettu.",
-  "Processing crashed before started. Bad file perhaps.": "Käsittely meni vikaan ennen kuin päästiin alkuun. Mahdollisesti vääränlainen tiedosto."
+  "Processing crashed before started. Bad file perhaps.": "Käsittely meni vikaan ennen kuin päästiin alkuun. Mahdollisesti vääränlainen tiedosto.",
+  "We don't seem to have any history for an asset '{asset}' of type '{type}'. Has it been renamed at some point?": "Meillä ei näyttäisi olevan mitään tietoa tyypin '{type}' omaisuuserästä '{asset}'. Onkohan se nimetty uudelleen jossakin vaiheessa?"
 }
