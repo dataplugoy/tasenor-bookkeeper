@@ -34,7 +34,7 @@ router.post('/',
     if (!config || typeof config !== 'object') {
       return res.status(400).send({ message: 'Invalid configuration.' })
     }
-    if (!config.handlers || !config.handlers.length || !config.handlers[0]) {
+    if (!config.handler) {
       return res.status(400).send({ message: 'Handler is missing.' })
     }
 
@@ -44,18 +44,18 @@ router.post('/',
       return res.status(400).send({ message: 'Importer with that name already exists.' })
     }
 
-    for (const i in config.handlers) {
-      const plugin: ImportPlugin = catalog.find(config.handlers[i]) as ImportPlugin
-      if (!plugin) {
-        return res.status(400).send({ message: 'Plugin not found.' })
-      }
-      config.handlers[i] = plugin.getHandler().name
-      config.rules = config.rules || []
-      config.version = plugin.version
-      config.rules = config.rules.concat(plugin.getRules())
-      const acc = await db('account').whereRaw(`data->>'plugin' = '${plugin.code}'`).andWhereRaw("data->>'code' = 'CASH'").first()
-      config.cashAccount = acc ? acc.number : null
+    const plugin: ImportPlugin = catalog.find(config.handler) as ImportPlugin
+    if (!plugin) {
+      return res.status(400).send({ message: 'Plugin not found.' })
     }
+
+    config.handler = plugin.getHandler().name
+    config.rules = config.rules || []
+    config.version = plugin.version
+    config.rules = config.rules.concat(plugin.getRules())
+    const acc = await db('account').whereRaw(`data->>'plugin' = '${plugin.code}'`).andWhereRaw("data->>'code' = 'CASH'").first()
+    config.cashAccount = acc ? acc.number : null
+
     const out = await db('importers').insert({ name, config }).returning('*')
     res.send(out[0])
   }
@@ -106,7 +106,7 @@ router.put('/:id/upgrade',
     const id = parseInt(req.params.id)
     const version = req.body.version
     const config = (await db('importers').select('config').where({ id }).first()).config
-    const code = config.handlers[0]
+    const code = config.handler
     const plugin = catalog.find(code) as ImportPlugin
     if (!plugin) {
       return res.status(400).send({ message: 'Import plugin not found.' })

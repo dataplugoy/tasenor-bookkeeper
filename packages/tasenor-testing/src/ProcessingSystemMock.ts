@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ID, ProcessConfig, ProcessName } from '@tasenor/common'
 import { UnitTestImportConnector } from './UnitTestImportConnector'
-import { KnexDatabase, Process, ProcessConnector, ProcessFile, ProcessFileData, ProcessHandler, ProcessHandlerMap, ProcessStep } from '@tasenor/common-node'
+import { KnexDatabase, Process, ProcessConnector, ProcessFile, ProcessFileData, ProcessHandler, ProcessStep } from '@tasenor/common-node'
 
 /**
  * Processing system mock for unit testing.
  */
 export class SystemMock {
   db: KnexDatabase
-  handlers: ProcessHandlerMap = {}
+  handler: ProcessHandler
   connector: ProcessConnector
   logger: {
     info: (...msg) => void
@@ -33,10 +33,6 @@ export class SystemMock {
 
   async checkFinishAndFindDirections(handler: ProcessHandler, step: ProcessStep): Promise<void> {
     //
-  }
-
-  getHandler(name: string): ProcessHandler {
-    return this.handlers[name]
   }
 
   async loadProcess(id: ID): Promise<Process> {

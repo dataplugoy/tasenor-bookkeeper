@@ -1,7 +1,7 @@
 import { Process } from './Process'
 import { ProcessFile, ProcessFileData } from './ProcessFile'
 import { ProcessStep } from './ProcessStep'
-import { ProcessHandler, ProcessHandlerMap } from './ProcessHandler'
+import { ProcessHandler } from './ProcessHandler'
 import { ProcessConnector } from './ProcessConnector'
 import { ProcessName, ProcessConfig, ID } from '@tasenor/common'
 import { InvalidArgument } from '../error'
@@ -13,7 +13,7 @@ import { KnexDatabase } from '../database'
 export class ProcessingSystem {
 
   db: KnexDatabase
-  handlers: ProcessHandlerMap = {}
+  handler: ProcessHandler
   connector: ProcessConnector
   logger: {
     info: (...msg) => void
@@ -54,14 +54,14 @@ export class ProcessingSystem {
     if (!handler.name) {
       throw new InvalidArgument('A handler without name cannot be registered.')
     }
-    if (handler.name in this.handlers) {
-      throw new InvalidArgument(`The handler '${handler.name}' is already defined.`)
+    if (this.handler) {
+      throw new InvalidArgument(`The handler '${this.handler.name}' is already defined.`)
     }
     if (handler.name.length > 32) {
       throw new InvalidArgument(`The handler name '${handler.name}' is too long.`)
     }
     handler.system = this
-    this.handlers[handler.name] = handler
+    this.handler = handler
   }
 
   /**
@@ -90,23 +90,22 @@ export class ProcessingSystem {
 
     // Find the handler.
     let selectedHandler: ProcessHandler | null = null
-    for (const handler of Object.values(this.handlers)) {
+
       try {
-        const version = handler.canHandle(processFile)
+        const version = this.handler.canHandle(processFile)
         if (version) {
           if (version === true) {
-            handler.version = 1
+            this.handler.version = 1
           } else {
-            handler.version = version
+            this.handler.version = version
           }
-          selectedHandler = handler
-          break
+          selectedHandler = this.handler
         }
       } catch (err) {
         await process.crashed(err)
         return process
       }
-    }
+
     if (!selectedHandler) {
       await process.crashed(new InvalidArgument(`No handler found for the file ${file.name} of type ${file.type}.`))
       return process
@@ -181,18 +180,6 @@ export class ProcessingSystem {
       await step.process.save()
     }
     await step.process.updateStatus()
-  }
-
-  /**
-   * Get the named handler or throw an error if not registered.
-   * @param name
-   * @returns
-   */
-  getHandler(name: string): ProcessHandler {
-    if (!(name in this.handlers)) {
-      throw new InvalidArgument(`There is no handler for '${name}'.`)
-    }
-    return this.handlers[name]
   }
 
   /**

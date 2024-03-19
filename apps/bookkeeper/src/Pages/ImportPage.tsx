@@ -35,7 +35,7 @@ export const ImportPage = observer(withStore((props: ImportProps): JSX.Element =
     store.fetchImporter(db, side).then((res) => {
       setImporter(res)
       const version = res.config.version || '0.0.0'
-      const pluginCode = res.config.handlers[0]
+      const pluginCode = res.config.handler
       if (versions[pluginCode] !== version) {
         setAlert(
           t('Import rules have been created with version {old}. The import plugin has now version {new}.').replace('{old}', version).replace('{new}', versions[pluginCode]) +
@@ -47,7 +47,7 @@ export const ImportPage = observer(withStore((props: ImportProps): JSX.Element =
 
   const onKeep = async () => {
     if (!importer) return
-    const pluginCode = (importer.config.handlers as PluginCode[])[0]
+    const pluginCode = importer.config.handler as PluginCode
     await store.request(`/db/${db}/importer/${importerId}`, 'PATCH', { version: versions[pluginCode] })
     // Unfortunately only way to refresh side bar for now. Need to put them under observable in store.
     document.location.reload()
@@ -55,7 +55,7 @@ export const ImportPage = observer(withStore((props: ImportProps): JSX.Element =
 
   const onUpgrade = async () => {
     if (!importer) return
-    const pluginCode = (importer.config.handlers as PluginCode[])[0]
+    const pluginCode = importer.config.handler as PluginCode
     await store.request(`/db/${db}/importer/${importerId}/upgrade`, 'PUT', { version: versions[pluginCode] })
     // Unfortunately only way to refresh side bar for now. Need to put them under observable in store.
     document.location.reload()

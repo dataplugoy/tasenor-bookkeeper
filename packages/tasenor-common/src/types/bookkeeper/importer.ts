@@ -1,7 +1,7 @@
 import Opaque from 'ts-opaque'
 import { ImportCSVOptions } from '../../import'
 import { ID } from '../../process_types'
-import { Currency, Language } from '..'
+import { Currency, Language, PluginCode } from '..'
 import { ImportRule, UIQuery } from '../..'
 import { AccountNumber, Tag } from '.'
 
@@ -32,7 +32,7 @@ export function isTagConfig(s: unknown): s is TagConfig {
 export type ImporterConfig = {
   language: Language
   currency: Currency
-  handlers: string[]
+  handler: PluginCode
   rules: ImportRule[]
 } & Record<AccountAddressConfig, AccountConfig> & Record<TagConfig, Tag | Tag[]>
 

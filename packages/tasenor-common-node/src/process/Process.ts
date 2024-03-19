@@ -109,7 +109,7 @@ export class Process {
    */
   async proceedToState(action: ImportAction, state: ImportState): Promise<void> {
     const current = await this.getCurrentStep()
-    const handler = this.system.getHandler(current.handler)
+    const handler = this.system.handler
     current.action = action
     current.finished = new Date()
     current.save()
@@ -220,7 +220,7 @@ export class Process {
         await this.updateStatus()
         break
       }
-      const handler = this.system.getHandler(step.handler)
+      const handler = this.system.handler
       const state = clone(step.state)
       const action = clone(step.directions.action)
       try {
@@ -327,7 +327,7 @@ export class Process {
   async input(action: ImportAction): Promise<void> {
     this.system.logger.info(`Handling input ${JSON.stringify(action)} on process ${this}.`)
     const step = await this.getCurrentStep()
-    const handler = this.system.getHandler(step.handler)
+    const handler = this.system.handler
     let nextState
     try {
       nextState = await handler.action(this, action, clone(step.state), this.files)
@@ -349,7 +349,7 @@ export class Process {
     }
     const step = await this.getCurrentStep()
     this.system.logger.info(`Attempt of rolling back '${step}' from '${this}'.`)
-    const handler = this.system.getHandler(step.handler)
+    const handler = this.system.handler
     await handler.rollback(this, this.state)
     const current = await this.getCurrentStep()
     current.action = { rollback: true }

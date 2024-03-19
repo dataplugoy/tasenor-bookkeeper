@@ -16,12 +16,11 @@ import { KnexDatabase, ProcessingSystem } from '@tasenor/common-node'
  */
 export async function getImportSystem(db: KnexDatabase, importerId: ID): Promise<ProcessingSystem> {
   const importer = await db('importers').select('id', 'config').where({ id: importerId }).first()
-  const usableHandlers = new Set(importer.config.handlers)
-  const handlers = catalog.getImportHandlers().filter(handler => usableHandlers.has(handler.name))
+  const handler = catalog.getImportHandlers().filter(handler => handler.name === importer.config.handler)
   const connector = new ImportConnector(db, importer)
   const system = new ProcessingSystem(db, connector)
 
-  handlers.forEach(handler => system.register(handler))
+  handler.forEach(handler => system.register(handler))
 
   return system
 }

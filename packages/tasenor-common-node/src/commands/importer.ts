@@ -54,7 +54,7 @@ class ImporterCommand extends Command {
     const { db, name, plugin } = this.args
     await this.plugin(plugin)
     const code = this.str(plugin)
-    await this.post(`/db/${db}/importer`, { name, config: { handlers: [code] } })
+    await this.post(`/db/${db}/importer`, { name, config: { handler: code } })
     log(`Importer ${name} created successfully.`)
   }
 

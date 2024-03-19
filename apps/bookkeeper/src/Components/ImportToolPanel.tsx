@@ -106,7 +106,7 @@ const ImportToolPanel = observer(withStore(withCatalog((props: ImportToolPanelPr
       name,
       config: {
         currency: settings.get('currency'),
-        handlers: [handler],
+        handler: handler,
         language: i18n.language
       }
     })

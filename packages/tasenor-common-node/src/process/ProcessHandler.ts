@@ -95,10 +95,3 @@ export class ProcessHandler {
     throw new NotImplemented(`A handler '${this.name}' does not implement rollback()`)
   }
 }
-
-/**
- * A collection of process handlers.
- */
-export type ProcessHandlerMap = {
-  [key: string]: ProcessHandler
-}

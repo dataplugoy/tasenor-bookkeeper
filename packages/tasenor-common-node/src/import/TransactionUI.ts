@@ -166,7 +166,7 @@ export class TransactionUI {
     if (defaultAccount) {
       ui.defaultValue = defaultAccount
     } else {
-      const canditates = await this.deps.getAccountCanditates(account, { ...config, plugin: config.handlers instanceof Array && config.handlers.length ? config.handlers[0] as PluginCode : undefined })
+      const canditates = await this.deps.getAccountCanditates(account, { ...config, plugin: config.handler })
       if (canditates.length) {
         ui.defaultValue = canditates[0]
         if (canditates.length > 1) {
