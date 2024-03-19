@@ -35,7 +35,6 @@ const ImporterList = observer(withCatalog(withStore((props: ImporterListProps): 
     })
   }, [params])
 
-
   const menu = (importers || []).map(importer => ({
     page: 'data',
     id: importer.id,
