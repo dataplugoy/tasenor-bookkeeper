@@ -698,9 +698,10 @@ export class Store {
     if (!this.token) {
       return
     }
+    // TODO: Share request per db if chained.
     await this.fetchDatabases()
     const data = await this.request('/db/' + db + '/importer/' + importerId)
-    return new ImporterModel(this.database, data)
+    return new ImporterModel(this.dbsByName[db], data)
   }
 
   /**

@@ -1,4 +1,4 @@
-import { log } from '@tasenor/common'
+import { ImportRule, log } from '@tasenor/common'
 import fs from 'fs'
 import { TransactionImportHandler } from '../import/TransactionImportHandler'
 import { TransactionUI } from '../import/TransactionUI'
@@ -205,7 +205,7 @@ export class ImportPlugin extends BackendPlugin {
    * Load and return default rules from the JSON-rules file.
    * @returns
    */
-  getRules(): JSON {
+  getRules(): ImportRule[] {
     const path = this.filePath('rules.json')
     log(`Reading rules ${path}.`)
     return JSON.parse(fs.readFileSync(path).toString('utf-8')).rules

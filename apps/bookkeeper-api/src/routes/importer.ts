@@ -3,7 +3,8 @@ import knex from '../lib/knex'
 import catalog from '../lib/catalog'
 import { getImportSystem } from '../lib/importing'
 import { ImportPlugin, ProcessFileData } from '@tasenor/common-node'
-import { ID, ProcessStatus, validFileName } from '@tasenor/common'
+import { ID, ImportRule, ProcessStatus, log, validFileName } from '@tasenor/common'
+import deepEqual from 'fast-deep-equal'
 
 const router = express.Router()
 
@@ -79,15 +80,58 @@ router.patch('/:id',
     const db = await knex.db(res.locals.user, res.locals.db)
     const id = parseInt(req.params.id)
     const update: Record<string, unknown> = {}
+    const config = (await db('importers').select('config').where({ id }).first()).config
     if ('config' in req.body) {
-      const config = (await db('importers').select('config').where({ id }).first()).config
       Object.assign(config, req.body.config)
       update.config = config
     }
     if ('name' in req.body) {
       update.name = req.body.name
     }
+    if ('version' in req.body) {
+      update.config = config;
+      (update.config as Record<string, unknown>).version = req.body.version
+    }
     await db('importers').update(update).where({ id })
+    res.sendStatus(204)
+  }
+)
+
+/**
+ * Upgrade importer rules.
+ */
+router.put('/:id/upgrade',
+  async (req, res) => {
+    const db = await knex.db(res.locals.user, res.locals.db)
+    const id = parseInt(req.params.id)
+    const version = req.body.version
+    const config = (await db('importers').select('config').where({ id }).first()).config
+    const code = config.handlers[0]
+    const plugin = catalog.find(code) as ImportPlugin
+    if (!plugin) {
+      return res.status(400).send({ message: 'Import plugin not found.' })
+    }
+    // TODO: Check subscription.
+    if (plugin.version !== version) {
+      return res.status(404).send({ message: 'Requested plugin version not found.' })
+    }
+    log(`Upgrading importer rules for importer ${id} using plugin '${code}'.`)
+
+    for (const rule of plugin.getRules()) {
+      const index = config.rules.findIndex(r => r.name === rule.name)
+      if (index < 0) {
+        log(`Adding new rule '${rule.name}' to the importer ${id}.`)
+        config.rules.push(rule)
+      } else {
+        const defined = config.rules[index]
+        if (!deepEqual(defined, rule)) {
+          log(`Updating rule '${rule.name}' in the importer ${id}.`)
+          config.rules[index] = rule
+        }
+      }
+    }
+    config.version = version
+    await db('importers').update({ config }).where({ id })
     res.sendStatus(204)
   }
 )

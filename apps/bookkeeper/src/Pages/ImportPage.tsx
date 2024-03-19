@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
+import { observer } from 'mobx-react'
 import { Note, Title, useNav } from '@tasenor/common-ui'
 import { Trans, useTranslation } from 'react-i18next'
-import { haveCatalog } from '@tasenor/common'
+import { PluginCode, haveCatalog } from '@tasenor/common'
 import { ImportTabs } from '../Components/ImportTabs'
 import withStore from '../Hooks/withStore'
 import Store from '../Stores/Store'
 import { Box, Button } from '@mui/material'
+import ImporterModel from '../Models/ImporterModel'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ImportProps {
@@ -13,31 +15,51 @@ export interface ImportProps {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const ImportPage = withStore((props: ImportProps): JSX.Element => {
+export const ImportPage = observer(withStore((props: ImportProps): JSX.Element => {
   const { store } = props
   const catalog = haveCatalog()
   const { db, side } = useNav()
   const { t } = useTranslation()
   const [alert, setAlert] = useState('')
+  const [importer, setImporter] = useState<ImporterModel|null>(null)
 
   const importerId = side ? parseInt(side) : null
   const canImport = Object.keys(catalog.getImportOptions()).length > 0
+  const versions = catalog.getPluginVersions()
 
   useEffect(() => {
-    // TODO: This fails on refresh of the page.
     setAlert('')
-    const versions = catalog.getPluginVersions()
+
+    if (!side) return
+
     store.fetchImporter(db, side).then((res) => {
+      setImporter(res)
       const version = res.config.version || '0.0.0'
       const pluginCode = res.config.handlers[0]
       if (versions[pluginCode] !== version) {
         setAlert(
-          t('Import rules have been created with version {old}. The import plugin has version {new}.').replace('{old}', version).replace('{new}', versions[pluginCode]) +
+          t('Import rules have been created with version {old}. The import plugin has now version {new}.').replace('{old}', version).replace('{new}', versions[pluginCode]) +
           t('You may keep the old rules (and possible create separate importer for new rules) or update the rules of this importer.')
         )
       }
     })
-  }, [db, side])
+  }, [db, side, importer && importer.id])
+
+  const onKeep = async () => {
+    if (!importer) return
+    const pluginCode = (importer.config.handlers as PluginCode[])[0]
+    await store.request(`/db/${db}/importer/${importerId}`, 'PATCH', { version: versions[pluginCode] })
+    // Unfortunately only way to refresh side bar for now. Need to put them under observable in store.
+    document.location.reload()
+  }
+
+  const onUpgrade = async () => {
+    if (!importer) return
+    const pluginCode = (importer.config.handlers as PluginCode[])[0]
+    await store.request(`/db/${db}/importer/${importerId}/upgrade`, 'PUT', { version: versions[pluginCode] })
+    // Unfortunately only way to refresh side bar for now. Need to put them under observable in store.
+    document.location.reload()
+  }
 
   return (
     <div>
@@ -52,8 +74,8 @@ export const ImportPage = withStore((props: ImportProps): JSX.Element => {
           <Box>
             <Note>
               {alert}
-              &nbsp;<Button variant="outlined">Keep</Button>
-              &nbsp;<Button variant="outlined">Upgrade</Button>
+              &nbsp;<Button variant="outlined" onClick={onKeep}>Keep</Button>
+              &nbsp;<Button variant="outlined" onClick={onUpgrade}>Upgrade</Button>
             </Note>
           </Box>
         )
@@ -68,6 +90,6 @@ export const ImportPage = withStore((props: ImportProps): JSX.Element => {
       }
     </div>
   )
-})
+}))
 
 export default ImportPage
