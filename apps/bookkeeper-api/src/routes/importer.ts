@@ -3,7 +3,7 @@ import knex from '../lib/knex'
 import catalog from '../lib/catalog'
 import { getImportSystem } from '../lib/importing'
 import { ImportPlugin, ProcessFileData } from '@tasenor/common-node'
-import { ID, ImportRule, ProcessStatus, log, validFileName } from '@tasenor/common'
+import { ID, ImportRule, PluginCode, ProcessStatus, log, validFileName } from '@tasenor/common'
 import deepEqual from 'fast-deep-equal'
 
 const router = express.Router()
@@ -117,19 +117,26 @@ router.put('/:id/upgrade',
     }
     log(`Upgrading importer rules for importer ${id} using plugin '${code}'.`)
 
+    // Update or add rules with the same name.
+    let insertSpot = 0
     for (const rule of plugin.getRules()) {
       const index = config.rules.findIndex(r => r.name === rule.name)
       if (index < 0) {
+        // New rules must come immediately after the previous rule from plugin.
         log(`Adding new rule '${rule.name}' to the importer ${id}.`)
-        config.rules.push(rule)
+        config.rules.splice(insertSpot, 0, rule)
+        insertSpot++
       } else {
         const defined = config.rules[index]
+        insertSpot = index + 1
         if (!deepEqual(defined, rule)) {
           log(`Updating rule '${rule.name}' in the importer ${id}.`)
           config.rules[index] = rule
         }
       }
     }
+
+    // Save.
     config.version = version
     await db('importers').update({ config }).where({ id })
     res.sendStatus(204)
