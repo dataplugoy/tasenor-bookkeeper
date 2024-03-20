@@ -21,11 +21,12 @@ interface ImportToolPanelProps {
 const ImportToolPanel = observer(withStore(withCatalog((props: ImportToolPanelProps): JSX.Element => {
 
   const { store, catalog } = props
+  const params = useParams()
   const { importerId } = useParams()
   const { t } = useTranslation()
   const canImport = Object.keys(catalog.getImportOptions()).length > 0
   const nav = useNav()
-
+console.log(useParams());
   const [showCreateImportDialog, setShowCreateImportDialog] = useState(false)
   const [showEdiSettingstDialog, setShowEdiSettingstDialog] = useState(false)
   const [showCannotDelete, setShowCannotDelete] = useState(false)
@@ -74,7 +75,7 @@ const ImportToolPanel = observer(withStore(withCatalog((props: ImportToolPanelPr
     return () => {
       cursor.registerTools(null)
     }
-  }, [])
+  }, [params])
 
   if (!store.isLoggedIn()) {
     return <></>
