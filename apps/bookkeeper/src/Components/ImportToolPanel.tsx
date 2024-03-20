@@ -26,7 +26,7 @@ const ImportToolPanel = observer(withStore(withCatalog((props: ImportToolPanelPr
   const { t } = useTranslation()
   const canImport = Object.keys(catalog.getImportOptions()).length > 0
   const nav = useNav()
-console.log(useParams());
+  console.log(useParams())
   const [showCreateImportDialog, setShowCreateImportDialog] = useState(false)
   const [showEdiSettingstDialog, setShowEdiSettingstDialog] = useState(false)
   const [showCannotDelete, setShowCannotDelete] = useState(false)
