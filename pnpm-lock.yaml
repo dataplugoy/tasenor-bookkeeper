@@ -276,14 +276,14 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0
       docusaurus-plugin-openapi-docs:
-        specifier: 3.0.0-beta.5
-        version: 3.0.0-beta.5(@docusaurus/types@3.1.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
+        specifier: 3.0.0-beta.6
+        version: 3.0.0-beta.6(@docusaurus/types@3.1.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
       docusaurus-plugin-typedoc-api:
         specifier: ^4.2.0
         version: 4.2.0(@docusaurus/core@3.1.1)(@docusaurus/mdx-loader@3.1.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
       docusaurus-theme-openapi-docs:
-        specifier: 3.0.0-beta.5
-        version: 3.0.0-beta.5(@docusaurus/core@3.1.1)(@docusaurus/types@3.1.1)(@types/react@17.0.75)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
+        specifier: 3.0.0-beta.6
+        version: 3.0.0-beta.6(@docusaurus/core@3.1.1)(@docusaurus/types@3.1.1)(@types/react@17.0.75)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
       prism-react-renderer:
         specifier: ^2.3.1
         version: 2.3.1(react@18.2.0)
@@ -5729,7 +5729,7 @@ packages:
   /@types/hoist-non-react-statics@3.3.5:
     resolution: {integrity: sha512-SbcrWzkKBw2cdwRTwQAswfpB9g9LJWfjtUeW/jvNwbhC8cpmmNYVePa+ncbUe0rGTQ7G3Ff6mYUN2VMfLVr+Sg==}
     dependencies:
-      '@types/react': 18.2.57
+      '@types/react': 17.0.75
       hoist-non-react-statics: 3.3.2
     dev: false
 
@@ -5902,7 +5902,7 @@ packages:
     resolution: {integrity: sha512-NF8m5AjWCkert+fosDsN3hAlHzpjSiXlVy9EgQEmLoBhaNXbmyeGs/aj5dQzKuF+/q+S7JQagorGDW8pJ28Hmg==}
     dependencies:
       '@types/hoist-non-react-statics': 3.3.5
-      '@types/react': 18.2.57
+      '@types/react': 17.0.75
       hoist-non-react-statics: 3.3.2
       redux: 4.2.1
     dev: false
@@ -8908,8 +8908,8 @@ packages:
       esutils: 2.0.3
     dev: false
 
-  /docusaurus-plugin-openapi-docs@3.0.0-beta.5(@docusaurus/types@3.1.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2):
-    resolution: {integrity: sha512-HQKcTGxs3vB98GJrODzV/XWhj8sQ8dlr71+2ej5LEbZkituC/+vwuWcci8l9qMrqBpm1JgNRLy/M57Qk5h3Zdg==}
+  /docusaurus-plugin-openapi-docs@3.0.0-beta.6(@docusaurus/types@3.1.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-K9BnPNd1sEPUrz78aHCSYWe2WtquCWA3tEF0so7QWVBYxqPdpwzut2b81a1hF1pWuoZjlU8JlKTZKTkUjveX1A==}
     engines: {node: '>=14'}
     peerDependencies:
       react: ^16.8.4 || ^17.0.0 || ^18.0.0
@@ -9009,8 +9009,8 @@ packages:
       - webpack-cli
     dev: false
 
-  /docusaurus-theme-openapi-docs@3.0.0-beta.5(@docusaurus/core@3.1.1)(@docusaurus/types@3.1.1)(@types/react@17.0.75)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2):
-    resolution: {integrity: sha512-NMCiiIwzPqBe80dhOFnrX2z/yUjRJmRYrocRK9xAt9NgsHa9lKb7M9Gb9yVW9V9vnTL1eFB7Mls9vQEMU545SQ==}
+  /docusaurus-theme-openapi-docs@3.0.0-beta.6(@docusaurus/core@3.1.1)(@docusaurus/types@3.1.1)(@types/react@17.0.75)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-BlDFiSt347JQD/uTpxzUyccsGLyq5Ph77PMPobXm3Dg++AmYUlJH7pkwFrboSFdUwmNsjsvJkQCXsz8kp/GCdA==}
     engines: {node: '>=14'}
     peerDependencies:
       react: ^16.8.4 || ^17.0.0 || ^18.0.0
@@ -9024,7 +9024,7 @@ packages:
       clsx: 1.2.1
       copy-text-to-clipboard: 3.2.0
       crypto-js: 4.2.0
-      docusaurus-plugin-openapi-docs: 3.0.0-beta.5(@docusaurus/types@3.1.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
+      docusaurus-plugin-openapi-docs: 3.0.0-beta.6(@docusaurus/types@3.1.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
       docusaurus-plugin-sass: 0.2.5(@docusaurus/core@3.1.1)(sass@1.71.1)(webpack@5.90.3)
       file-saver: 2.0.5
       lodash: 4.17.21
