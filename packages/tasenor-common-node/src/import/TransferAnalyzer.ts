@@ -1149,6 +1149,9 @@ export class TransferAnalyzer {
         }
       }
       if (!txEntry.account) {
+        txEntry.account = await this.UI.throwGetAccount(this.config, `${transfer.reason}.${transfer.type}.${transfer.asset}` as AccountAddress)
+      }
+      if (!txEntry.account) {
         throw new SystemError(`Cannot find account ${transfer.reason}.${transfer.type}.${transfer.asset} for entry ${JSON.stringify(txEntry)}`)
       }
 

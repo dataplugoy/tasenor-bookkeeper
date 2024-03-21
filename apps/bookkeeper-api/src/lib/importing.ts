@@ -71,7 +71,7 @@ export async function createTransaction(db: KnexDatabase, tx: Transaction, proce
   for (const e of tx.entries) {
     const account = await db('account').select('id').where({ number: e.account }).first()
     if (!account) {
-      throw new Error(`Cannot find account ${e.account} for transaction ${JSON.stringify(res.data)} entry ${JSON.stringify(e)}.`)
+      throw new Error(`Cannot find account number '${e.account}' for transaction ${JSON.stringify(res.data)} entry ${JSON.stringify(e)}.`)
     }
     const entry: EntryModelData = {
       account_id: account.id,
