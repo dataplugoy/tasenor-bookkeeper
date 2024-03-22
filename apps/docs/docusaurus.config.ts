@@ -101,6 +101,12 @@ const config: Config = {
           position: 'left',
           label: 'Documentation',
         },
+        {
+          type: 'docSidebar',
+          sidebarId: 'swaggerSidebarId',
+          position: 'left',
+          label: 'API',
+        },
         // {
         //   type: 'docSidebar',
         //   sidebarId: 'apiSidebarId',
