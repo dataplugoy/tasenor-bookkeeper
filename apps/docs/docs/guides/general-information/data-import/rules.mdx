@@ -4,17 +4,13 @@ sidebar_position: 200
 
 # Import Rules
 
-How import rules are defined.
+Defining import rules.
 
 ## Transaction rule system
 
-The classification of the import data uses rule system describing how to transform segmented
-data to *transfers*, i.e. generic description of bookkeeping events. Initially in the beginning
-of the processing the settings and rules defined for the particular importer are copied to the
-initial state of the process. During the processing we may ask questions and add more information
-to the process.
+The rule system classifies the import data, explaining how to convert segmented data into *transfers*. Initially, the process starts by duplicating the settings and rules set for the importer. Throughout the process, it is possible to ask questions and add more details.
 
-So the structure of the configration is
+The configuration comprises the following structure:
 ```json
 {
   "language": "fi",
@@ -28,35 +24,30 @@ So the structure of the configration is
 }
 ```
 There are
-1. Generic universal settings like *language* or *currency*.
-2. Then there is an account and import setting configuration that has been possibly resolved during the import process
-   by asking from user, but which will also apply universally afterwards and are copied to the future import
-   configuration.
-3. **Rules** section defines how to map segments to transfers.
-4. **Question** section defines UI questions to resolve some cases, that always require user interaction and
-   cannot be resolved automatically.
-5. **Answers** section is a collection of responses to questions stored by each segment. They are not universally
-   copied to the importer, but are only relevant the current import only.
+1. Universal settings, such as *language* and *currency*.
+2. During the import process, there might be a configuration for account and import settings that could have been resolved by asking the user. Users can copy these settings for future imports.
+3. The **rules** section explains segment-to-transfer mapping.
+4. The **questions** section covers UI questions that cannot be automated and require user interaction.
+5. The **answers** section stores segmented responses. The importer does not copy data universally, only as relevant to the current import.
 
 ### Settings
 
-The following general settings are used
+The following general settings are used:
 - `currency` - A main currency of the bookkeeping database.
 - `language` - A translation language for the imported texts.
 - `tags.*.*.*` - A list of tags to be added for every transaction descriptions. Also some specific tags
                  can be specified, since `*.*.*` uses the same convention than account configurations.
 
-Accounts are defined as the following.
-- `account.<reason>.<type>.<asset>` - Defines the account number to be used for the given purpose.
+Accounts are defined as follows:
+- `account.<reason>.<type>.<asset>` - An account number to be used for the given purpose.
                                       Parts can be `'*'` to allow any purpose. Otherwise they are
                                       explained in more detail in (TODO: Link to doc TransferAnalyzer).
 
 Miscellaneous optional settings:
-- `isTradeFeePartOfTotal` If set to `true`, assume that trading fee is included in the total.
-                          Otherwise it is assumed to be paid on the top of the total.
+- `isTradeFeePartOfTotal` If set to true, assume the trading fee is included in the total. Otherwise, it is an additional cost.
 - `recordDeposits` If set to false, skip deposits.
 - `recordWithdrawals` If set to false, skip withdrawls.
-- `allowShortSelling` If set, allow short selling, i.e. selling assets we don't have.
+- `allowShortSelling` If set, allow short selling. This means selling assets not currently owned.
 
 #### Example
 ```json
@@ -79,7 +70,7 @@ Miscellaneous optional settings:
 
 ### Rules
 
-Rules sections is a list of rule definitions of form
+A list of rule definitions makes up the rules section:
 ```json
 {
    "name": "Name of the rule",
@@ -93,30 +84,24 @@ Rules sections is a list of rule definitions of form
    ]
 }
 ```
-The *name* is any string describing the rule. Rules are used so that each segment resulting from the segmentation
-step are handled in the order of their timestamps. Lines belonging to the segment are offered one by one to the
-*filter* expression and if returning true, the entries in *result* are concatenated together. Each entry in the
-result is a *transfer description*.
 
-The filtering and result expressions has various variables set during the processing. All variables from
-the segmentation is included. Typically they are the same as the column names in the CSV file for example.
+The *name* is any string describing the rule.
+Rules are used so that each segment resulting from the segmentation step are handled in the order of their timestamps.
+Lines belonging to the segment are offered one by one to the filter expression and, if returning true, the entries in *result* are concatenated together. Each entry in the result is a *transfer description*.
+
+
+During processing, variables are set for filtering and result expressions. All variables from the segmentation are included. Typically, these names are identical to the column names mentioned in the CSV file.
 See (TODO: Link to doc TransactionRules.classifyLines) for other variables available.
 
 The structure of transfers are explained in (TODO: Link to doc TransferAnalyzer).
 
-The syntax of the filter and result is explained in (TODO: link to doc TransactionUI.parseQuery).
+The syntax of the filter and result are explained in (TODO: link to doc TransactionUI.parseQuery).
 
-Currently one one boolean option is supported: `singleMatch` which means that matching any of the lines in the
-segment suffices and the parsing result is returned immediately when matching rule is found. The rest of the
-lines are ignored. It is useful when for example using `sum(lines, 'field')` to gather values from all lines
-of the segment at once.
+Currently, one boolean option is supported. With `singleMatch`, the parsing result is returned as soon as any line in the segment matches the rule. The rest of the lines are ignored. For example, it is useful when using `sum(lines, ‘field’)` to gather values from all lines of the segment at once.
 
 ### Questions
 
-There are situation, where importer cannot deduct some part of the transfer automatically. In that case we can
-define a question that needs to be answered every time, when the matching rule has been found. For example
-we may determine based on the transaction data that it is related to computers but we want to know the exact
-type of the purchase. Then we can define a question
+There are situations where an importer cannot deduct some part of the transfer automatically. In that case, we can define a question that needs to be answered every time when the matching rule has been found. For example, we may determine, based on the transaction data, that it is related to computers, but we want to know the exact type of the purchase. Then we can define a question:
 ```json
   {
     "name": "Computer purchase",
@@ -134,14 +119,13 @@ Different question types are documented in (TODO: link to doc TransactionUI.pars
 
 ### Answers
 
-This section collects answers given earlier during the processing. They are grouped per segment ID per transfer.
-For example
+This section collects answers given earlier during the processing. Answers are grouped per segment ID per transfer. For example:
 ```json
 "d3e89d9af37dda4609bed94770fc5c52be946175": {
   "type": "HARDWARE"
 },
 ```
-It may contain also complete transaction definition, which will override all parsing
+The segment ID may contain also complete transaction definition, which will override all parsing
 ```json
   "581e46d024678ddcddc01ae36369bf6fc54f16b2": {
     "transfers": [

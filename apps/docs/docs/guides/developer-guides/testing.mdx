@@ -7,29 +7,21 @@ sidebar_position: 300
 Testing guidelines and possibilities.
 
 ## Introduction to Testing
+The Tasenor Project is subject to multiple layers of testing. Because testing data sometimes is from real companies and actual use cases, it is not possible to carry out certain tests in a public environment. This data is stored in a dedicated and private repository, and it undergoes testing during nightly test runs.
 
-Tasenor Project has multiple layers of testing. Unfortunately not all of it can be public.
-We have some testing data from real companies and real use cases to verify that certain
-processes are accurate and produces correct result. That material is stored in separate
-private repository and is tested in nightly test run.
-
-You need to sign NDA agreement to get access to that repository. You can also donate testing
-material from your own private data if you want to ensure that processes critical to you
-remain intact and unaltered in future code changes. Data will be protected with NDA as well.
+A developer needs to sign an NDA agreement to get access to the private repository. An individual or organisation can also donate testing material from their private data, if they want to ensure processes critical to them remain intact and unaltered in future code changes. The NDA also protects this data.
 
 ## Test Types
 
-TODO: Describe different types, tools used and how to run.
+TODO: Explanation of various categories, the tools involved, and the process of execution.
 
 ### Running CI Test
 
-The gatekeeper for publishing individual NPM-packages is a collection of tests under the
-script `ci` in each `packages.json`. To verify that local changes will pass, you need the
-local system up
+The script `ci` in each `packages.json` contains a collection of tests that serve as the gatekeeper for publishing individual NPM-packages. To verify that local changes will be successful, a local system up is needed
 ```sh
 turbo dev
 ```
-and then run all scripts
+to run all scripts
 ```sh
 turbo run ci
 ```
