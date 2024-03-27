@@ -3,6 +3,8 @@
 This is a monorepo for developing Tasenor Bookkeeper. For the latest published developer documentation, see
 [https://docs.stg.tasenor.com/](https://docs.stg.tasenor.com/).
 
+![apps/docs/public/transaction-page.png](apps/docs/public/transaction-page.png)
+
 ## Content
 
 ### Applications
