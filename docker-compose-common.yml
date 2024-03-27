@@ -3,8 +3,6 @@
 # use in staging and production servers. Development should be done using
 # directly `turbo` or `pnpm` scripts.
 #
-version: '3'
-
 services:
   tasenor-nginx-proxy:
     container_name: tasenor-nginx-proxy
