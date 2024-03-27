@@ -18,6 +18,9 @@ export default function Index(): JSX.Element {
         <div>
           <div className={styles['banner-title']}>The Tasenor Project</div>
           <div className={styles['banner-subtitle']}>Pluginized Open Source Bookkeeping</div>
+          <div className={styles['banner-screenshot']}>
+            <Link to="/docs/guides/getting-started/features/screenshots"><img src="transaction-page.png" alt="Tasenor Screenshot"/></Link>
+          </div>
         </div>
       </Heading>
 

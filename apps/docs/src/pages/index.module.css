@@ -26,6 +26,15 @@
   font-weight: normal;
 }
 
+.banner-screenshot {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.banner-screenshot img {
+  cursor: pointer;
+}
+
 .content {
   margin: 0rem 4rem;
   padding-bottom: 2rem;
