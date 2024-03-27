@@ -1,4 +1,4 @@
-import { DocumentModelData, HttpResponse } from '@tasenor/common'
+import { DocumentModelData, HttpFailureResponse, HttpResponse, HttpSuccessResponse, error } from '@tasenor/common'
 import { KnexDatabase } from '@tasenor/common-node'
 import data from './data'
 
@@ -67,9 +67,14 @@ export async function update(db: KnexDatabase, doc: DocumentModelData): Promise<
     return bad
   }
 
-  return data.updateOne(db, 'document', doc.id, doc).catch(() => ({
-    success: false,
-    status: 400,
-    message: 'Error when writing database.'
-  })).then(() => ({ success: true, status: 204, data: null }))
+  return data.updateOne(db, 'document', doc.id, doc)
+    .then(() => ({ success: true, status: 204, data: null } as HttpSuccessResponse))
+    .catch((err) => {
+      error(err)
+      return {
+        success: false,
+        status: 400,
+        message: 'Error when writing database.'
+      } as HttpFailureResponse
+    })
 }

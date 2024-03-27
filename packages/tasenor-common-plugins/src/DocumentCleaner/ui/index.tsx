@@ -136,6 +136,16 @@ class DocumentCleaner extends ToolPlugin {
       return
     }
     const toRenumber = this.incorrectlyNumberedDocuments(store.period)
+
+    // Need to go via negative numbers if there are ovellapping document numbers.
+    // Database does not allow duplicate numbers for a single period.
+    for (const change of toRenumber) {
+      if (change.id) {
+        const doc = store.period.getDocument(change.id)
+        runInAction(() => (doc.number = -change.newNumber))
+        await doc.save()
+      }
+    }
     for (const change of toRenumber) {
       if (change.id) {
         const doc = store.period.getDocument(change.id)

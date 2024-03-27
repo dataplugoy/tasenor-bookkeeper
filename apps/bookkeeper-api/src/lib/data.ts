@@ -129,7 +129,8 @@ async function updateOne(db, className, id, data) {
   if (!id) {
     throw new Error(`No ID given to update ${className}.`)
   }
-  return db(className).where({ id }).update(data)
+
+  return await db(className).update(data).where({ id })
 }
 
 /**
