@@ -185,6 +185,26 @@ export class TITOHandler extends TransactionImportHandler {
                   })
                   break
 
+                case '07':
+                  Object.assign(columns, {
+                    ...this.parseFixedLength(extras, {
+                      'Lisätieto-1': 35,
+                      'Lisätieto-2': 35,
+                      'Lisätieto-3': 35,
+                      'Lisätieto-4': 35,
+                      'Lisätieto-5': 35,
+                      'Lisätieto-6': 35,
+                      'Lisätieto-7': 35,
+                      'Lisätieto-8': 35,
+                      'Lisätieto-9': 35,
+                      'Lisätieto-10': 35,
+                      'Lisätieto-11': 35,
+                      'Lisätieto-12': 35,
+                    }, {
+                    })
+                  })
+                  break
+
                 case '11':
                   Object.assign(columns, {
                     ...this.parseFixedLength(extras, {
