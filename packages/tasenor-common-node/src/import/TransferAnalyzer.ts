@@ -383,7 +383,7 @@ export class TransferAnalyzer {
       kind = 'income'
       const statementEntry = shouldHaveOne('income', 'statement')
       values.name = await this.getTranslation(`income-${statementEntry.asset}`)
-    } else if (weHave(['income'], ['account'])) {
+    } else if (weHave(['income'], ['account']) || weHave(['income', 'expense'], ['account'])) {
       kind = 'income'
       const texts = transfers.transfers.filter(tr => tr.type === 'account' && tr.data && tr.data.text !== undefined).map(tr => tr.data?.text)
       if (!texts.length) {
