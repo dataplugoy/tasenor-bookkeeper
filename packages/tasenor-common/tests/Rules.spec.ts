@@ -273,3 +273,14 @@ test('Rules: has()', () => {
   expect(e.eval("has([0, '', false], null)")).toBe(false)
   expect(e.eval("has([0, '', false], 'x')")).toBe(false)
 })
+
+test('Rules: nth()', () => {
+  const e = new RulesEngine({}, true)
+  expect(e.eval("nth(0, [1, null, 'x'])")).toBe(1)
+  expect(e.eval("nth(1, [1, null, 'x'])")).toBe(null)
+  expect(e.eval("nth(2, [1, null, 'x'])")).toBe('x')
+  expect(e.eval("nth(3, [1, null, 'x'])")).toBe(undefined)
+  expect(e.eval("first([1, null, 'x'])")).toBe(1)
+  expect(e.eval("second([1, null, 'x'])")).toBe(null)
+  expect(e.eval("third([1, null, 'x'])")).toBe('x')
+})

@@ -1,5 +1,5 @@
 import Opaque from 'ts-opaque'
-import { create, all, factory, MathJsInstance, clone, typed } from 'mathjs'
+import { create, all, factory, MathJsInstance, clone, typed, Matrix } from 'mathjs'
 import { AssetTransfer, isCurrency, warning } from '..'
 import { num } from '../utils'
 import { TextFileLine } from '../import/TextFileLine'
@@ -146,11 +146,15 @@ export class RulesEngine {
       collect: (vector: unknown[], field: string | undefined, sep: string | undefined) => this.collect(vector, field, sep),
       contains: (s: string, r: string) => this.contains(s, r),
       d: (...args: unknown[]) => this.d(...args),
+      first: (args: unknown[]) => this.first(args),
+      second: (args: unknown[]) => this.second(args),
+      third: (args: unknown[]) => this.third(args),
       has: (list: unknown[], str: unknown) => this.has(list, str),
       isCurrency: (str: string) => this.isCurrency(str),
       join: (...args: unknown[]) => this.join(...args),
       lower: (s: string) => this.lower(s),
       num: (column: string) => this.num(column),
+      nth: (n: number, args: unknown[]) => this.nth(n, args),
       par: (...exprs: RuleValue[]) => this.par(...exprs),
       rates: (...args) => this.rates(args),
       regex: (re: string, compare: string, flags: string | undefined) => this.regex(re, compare, flags),
@@ -564,6 +568,56 @@ export class RulesEngine {
     }
 
     return parts.join(sep || '\n')
+  }
+
+  /**
+   * Safely access array returning either item in the array or undefined if out of bounds.
+   * @param n
+   * @param vector
+   * @returns
+   */
+  nth(n: number, vector: unknown[]) {
+    if (typeof vector !== 'object') {
+      throw new Error(`Invalid argument ${JSON.stringify(vector)} for nth().`)
+    }
+    try {
+      return (vector as unknown as Matrix).get([n])
+    } catch (err) {
+      if (err instanceof RangeError) {
+        return undefined
+      }
+      throw err
+    }
+  }
+
+  /**
+   * Safely access array returning either the first item in the array or undefined if out of bounds.
+   * @param n
+   * @param vector
+   * @returns
+   */
+  first(vector: unknown[]) {
+    return this.nth(0, vector)
+  }
+
+  /**
+   * Safely access array returning either the second item in the array or undefined if out of bounds.
+   * @param n
+   * @param vector
+   * @returns
+   */
+  second(vector: unknown[]) {
+    return this.nth(1, vector)
+  }
+
+  /**
+   * Safely access array returning either the third item in the array or undefined if out of bounds.
+   * @param n
+   * @param vector
+   * @returns
+   */
+  third(vector: unknown[]) {
+    return this.nth(2, vector)
   }
 
   /**
