@@ -4,7 +4,7 @@ import { sprintf } from 'sprintf-js'
 import {
   AccountNumber, Asset, AccountAddress, AssetExchange, AssetTransfer, AssetTransferReason, AssetType,
   Currency, Language, StockValueData, TradeableAsset, Transaction, TransactionDescription, TransactionKind,
-  TransactionLine, StockBookkeeping, UIQuery, Tag, VATTarget, IncomeSource, ExpenseSink, isCurrency, TransferNote, isAssetTransferReason, isAssetType, ZERO_CENTS, less, warning, BalanceBookkeeping, realNegative, AdditionalTransferInfo, CryptoCurrency, ImportSegment, ImportStateText, ProcessConfig, SegmentId, TextFileLine, TimeType
+  TransactionLine, StockBookkeeping, UIQuery, Tag, VATTarget, IncomeSource, ExpenseSink, isCurrency, TransferNote, isAssetTransferReason, isAssetType, ZERO_CENTS, less, warning, BalanceBookkeeping, realNegative, AdditionalTransferInfo, CryptoCurrency, ImportSegment, ImportStateText, ProcessConfig, SegmentId, TextFileLine, TimeType, error
 } from '@tasenor/common'
 import { TransactionImportHandler } from './TransactionImportHandler'
 import { isTransactionImportConnector, TransactionImportConnector } from './TransactionImportConnector'
@@ -1064,7 +1064,17 @@ export class TransferAnalyzer {
 
     // At this point, total should be in order.
     if (Math.abs(total) > ZERO_CENTS) {
-      throw new SystemError(`Total should be zero but got ${total} from ${JSON.stringify(transfers.transfers)}.`)
+      const currency = this.getConfig('currency') as Currency
+
+      const fix: AssetTransfer = {
+        reason: total > 0 ? 'expense' : 'income',
+        type: 'statement',
+        asset: 'NEEDS_MANUAL_INSPECTION',
+        value: -total
+      }
+      transfers.transfers.push(fix)
+
+      error(`Total should be zero but got ${total} from ${JSON.stringify(transfers.transfers)}.`)
     }
 
     // Add more info where we can.
