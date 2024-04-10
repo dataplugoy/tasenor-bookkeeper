@@ -283,4 +283,5 @@ test('Rules: nth()', () => {
   expect(e.eval("first([1, null, 'x'])")).toBe(1)
   expect(e.eval("second([1, null, 'x'])")).toBe(null)
   expect(e.eval("third([1, null, 'x'])")).toBe('x')
+  expect(e.eval("nth(1, regex('(.)-(.)', 'AA-BB-CC-DD'))")).toBe('B')
 })

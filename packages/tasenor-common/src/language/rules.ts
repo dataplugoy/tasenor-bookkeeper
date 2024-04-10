@@ -1,5 +1,5 @@
 import Opaque from 'ts-opaque'
-import { create, all, factory, MathJsInstance, clone, typed, Matrix } from 'mathjs'
+import { size, create, all, factory, MathJsInstance, clone, typed, Matrix, isDenseMatrix } from 'mathjs'
 import { AssetTransfer, isCurrency, warning } from '..'
 import { num } from '../utils'
 import { TextFileLine } from '../import/TextFileLine'
@@ -149,6 +149,7 @@ export class RulesEngine {
       first: (args: unknown[]) => this.first(args),
       second: (args: unknown[]) => this.second(args),
       third: (args: unknown[]) => this.third(args),
+      fourth: (args: unknown[]) => this.fourth(args),
       has: (list: unknown[], str: unknown) => this.has(list, str),
       isCurrency: (str: string) => this.isCurrency(str),
       join: (...args: unknown[]) => this.join(...args),
@@ -581,6 +582,12 @@ export class RulesEngine {
       throw new Error(`Invalid argument ${JSON.stringify(vector)} for nth().`)
     }
     try {
+      if (isDenseMatrix(vector)) {
+        return vector.toArray()[n]
+      }
+      if (vector instanceof Array) {
+        return vector[n]
+      }
       return (vector as unknown as Matrix).get([n])
     } catch (err) {
       if (err instanceof RangeError) {
@@ -618,6 +625,16 @@ export class RulesEngine {
    */
   third(vector: unknown[]) {
     return this.nth(2, vector)
+  }
+
+  /**
+   * Safely access array returning either the fourth item in the array or undefined if out of bounds.
+   * @param n
+   * @param vector
+   * @returns
+   */
+  fourth(vector: unknown[]) {
+    return this.nth(3, vector)
   }
 
   /**
