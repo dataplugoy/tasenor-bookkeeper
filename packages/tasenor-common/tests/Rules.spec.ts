@@ -66,7 +66,7 @@ test('Rules: basic math', () => {
 })
 
 test('Rules: comparison', () => {
-  const e = new RulesEngine({ one: 1 })
+  const e = new RulesEngine({ one: 1, total: null })
 
   expect(e.eval('1 < 2')).toBe(true)
   expect(e.eval('one > 2')).toBe(false)
@@ -76,6 +76,7 @@ test('Rules: comparison', () => {
   expect(e.eval('not 1')).toBe(false)
   expect(e.eval('null == 6')).toBe(false)
   expect(e.eval('"null" != null')).toBe(true)
+  expect(e.eval('null == total')).toBe(true)
 })
 
 test('Rules: strings', () => {

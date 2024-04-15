@@ -79,6 +79,12 @@ export class RulesEngine {
         'string, null': function equal(a, b) {
           return a === b
         },
+        'null, identifier': function equal(a, b) {
+          return a === b
+        },
+        'identifier, null': function equal(a, b) {
+          return a === b
+        },
       })
       ),
       createUnequal: factory('unequal', [], () => typed('unequal', {
@@ -98,6 +104,12 @@ export class RulesEngine {
           return a !== b
         },
         'string, null': function equal(a, b) {
+          return a !== b
+        },
+        'null, identifier': function equal(a, b) {
+          return a !== b
+        },
+        'identifier, null': function equal(a, b) {
           return a !== b
         },
       })
