@@ -74,6 +74,8 @@ test('Rules: comparison', () => {
   expect(e.eval('true and 2')).toBe(true)
   expect(e.eval('one != 1 or false')).toBe(false)
   expect(e.eval('not 1')).toBe(false)
+  expect(e.eval('null == 6')).toBe(false)
+  expect(e.eval('"null" != null')).toBe(true)
 })
 
 test('Rules: strings', () => {
