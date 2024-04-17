@@ -260,7 +260,7 @@ importers:
       '@docusaurus/core':
         specifier: 3.1.1
         version: 3.1.1(@docusaurus/types@3.1.1)(debug@4.3.4)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
-      '@docusaurus/plugin-google-tag-manager':
+      '@docusaurus/plugin-google-gtag':
         specifier: ^3.2.1
         version: 3.2.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
       '@docusaurus/preset-classic':
@@ -283,7 +283,7 @@ importers:
         version: 3.0.0-beta.6(@docusaurus/types@3.1.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
       docusaurus-plugin-typedoc-api:
         specifier: ^4.2.0
-        version: 4.2.0(@docusaurus/core@3.1.1)(@docusaurus/mdx-loader@3.1.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
+        version: 4.2.0(@docusaurus/core@3.1.1)(@docusaurus/mdx-loader@3.2.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
       docusaurus-theme-openapi-docs:
         specifier: 3.0.0-beta.6
         version: 3.0.0-beta.6(@docusaurus/core@3.1.1)(@docusaurus/types@3.1.1)(@types/react@17.0.75)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
@@ -2776,6 +2776,48 @@ packages:
       - uglify-js
       - webpack-cli
 
+  /@docusaurus/mdx-loader@3.2.1(@docusaurus/types@3.1.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Fs8tXhXKZjNkdGaOy1xSLXSwfjCMT73J3Zfrju2U16uGedRFRjgK0ojpK5tiC7TnunsL3tOFgp1BSMBRflX9gw==}
+    engines: {node: '>=18.0'}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    dependencies:
+      '@docusaurus/logger': 3.2.1
+      '@docusaurus/utils': 3.2.1(@docusaurus/types@3.1.1)
+      '@docusaurus/utils-validation': 3.2.1(@docusaurus/types@3.1.1)
+      '@mdx-js/mdx': 3.0.1
+      '@slorber/remark-comment': 1.0.0
+      escape-html: 1.0.3
+      estree-util-value-to-estree: 3.0.1
+      file-loader: 6.2.0(webpack@5.90.3)
+      fs-extra: 11.2.0
+      image-size: 1.1.1
+      mdast-util-mdx: 3.0.0
+      mdast-util-to-string: 4.0.0
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      rehype-raw: 7.0.0
+      remark-directive: 3.0.0
+      remark-emoji: 4.0.1
+      remark-frontmatter: 5.0.0
+      remark-gfm: 4.0.0
+      stringify-object: 3.3.0
+      tslib: 2.6.2
+      unified: 11.0.4
+      unist-util-visit: 5.0.0
+      url-loader: 4.1.1(file-loader@6.2.0)(webpack@5.90.3)
+      vfile: 6.0.1
+      webpack: 5.90.3
+    transitivePeerDependencies:
+      - '@docusaurus/types'
+      - '@swc/core'
+      - esbuild
+      - supports-color
+      - uglify-js
+      - webpack-cli
+    dev: false
+
   /@docusaurus/mdx-loader@3.2.1(@docusaurus/types@3.2.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-Fs8tXhXKZjNkdGaOy1xSLXSwfjCMT73J3Zfrju2U16uGedRFRjgK0ojpK5tiC7TnunsL3tOFgp1BSMBRflX9gw==}
     engines: {node: '>=18.0'}
@@ -3061,16 +3103,17 @@ packages:
       - webpack-cli
     dev: false
 
-  /@docusaurus/plugin-google-tag-manager@3.1.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2):
-    resolution: {integrity: sha512-d07bsrMLdDIryDtY17DgqYUbjkswZQr8cLWl4tzXrt5OR/T/zxC1SYKajzB3fd87zTu5W5klV5GmUwcNSMXQXA==}
+  /@docusaurus/plugin-google-gtag@3.2.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-XtuJnlMvYfppeVdUyKiDIJAa/gTJKCQU92z8CLZZ9ibJdgVjFOLS10s0hIC0eL5z0U2u2loJz2rZ63HOkNHbBA==}
     engines: {node: '>=18.0'}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
     dependencies:
-      '@docusaurus/core': 3.1.1(@docusaurus/types@3.1.1)(debug@4.3.4)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
-      '@docusaurus/types': 3.1.1(react-dom@18.2.0)(react@18.2.0)
-      '@docusaurus/utils-validation': 3.1.1(@docusaurus/types@3.1.1)
+      '@docusaurus/core': 3.2.1(@docusaurus/types@3.2.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
+      '@docusaurus/types': 3.2.1(react-dom@18.2.0)(react@18.2.0)
+      '@docusaurus/utils-validation': 3.2.1(@docusaurus/types@3.2.1)
+      '@types/gtag.js': 0.0.12
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       tslib: 2.6.2
@@ -3093,16 +3136,16 @@ packages:
       - webpack-cli
     dev: false
 
-  /@docusaurus/plugin-google-tag-manager@3.2.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2):
-    resolution: {integrity: sha512-wiS/kE0Ny5pnjTxVCs8ljRnkL1RVMj59t6jmSsgEX7piDOoaXSMIUaoIt9ogS/v132uO0xEsxHstkRUZHQyPcQ==}
+  /@docusaurus/plugin-google-tag-manager@3.1.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-d07bsrMLdDIryDtY17DgqYUbjkswZQr8cLWl4tzXrt5OR/T/zxC1SYKajzB3fd87zTu5W5klV5GmUwcNSMXQXA==}
     engines: {node: '>=18.0'}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
     dependencies:
-      '@docusaurus/core': 3.2.1(@docusaurus/types@3.2.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
-      '@docusaurus/types': 3.2.1(react-dom@18.2.0)(react@18.2.0)
-      '@docusaurus/utils-validation': 3.2.1(@docusaurus/types@3.2.1)
+      '@docusaurus/core': 3.1.1(@docusaurus/types@3.1.1)(debug@4.3.4)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
+      '@docusaurus/types': 3.1.1(react-dom@18.2.0)(react@18.2.0)
+      '@docusaurus/utils-validation': 3.1.1(@docusaurus/types@3.1.1)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       tslib: 2.6.2
@@ -3466,6 +3509,19 @@ packages:
       '@docusaurus/types': 3.1.1(react-dom@18.2.0)(react@18.2.0)
       tslib: 2.6.2
 
+  /@docusaurus/utils-common@3.2.1(@docusaurus/types@3.1.1):
+    resolution: {integrity: sha512-N5vadULnRLiqX2QfTjVEU3u5vo6RG2EZTdyXvJdzDOdrLCGIZAfnf/VkssinFZ922sVfaFfQ4FnStdhn5TWdVg==}
+    engines: {node: '>=18.0'}
+    peerDependencies:
+      '@docusaurus/types': '*'
+    peerDependenciesMeta:
+      '@docusaurus/types':
+        optional: true
+    dependencies:
+      '@docusaurus/types': 3.1.1(react-dom@18.2.0)(react@18.2.0)
+      tslib: 2.6.2
+    dev: false
+
   /@docusaurus/utils-common@3.2.1(@docusaurus/types@3.2.1):
     resolution: {integrity: sha512-N5vadULnRLiqX2QfTjVEU3u5vo6RG2EZTdyXvJdzDOdrLCGIZAfnf/VkssinFZ922sVfaFfQ4FnStdhn5TWdVg==}
     engines: {node: '>=18.0'}
@@ -3495,6 +3551,25 @@ packages:
       - supports-color
       - uglify-js
       - webpack-cli
+
+  /@docusaurus/utils-validation@3.2.1(@docusaurus/types@3.1.1):
+    resolution: {integrity: sha512-+x7IR9hNMXi62L1YAglwd0s95fR7+EtirjTxSN4kahYRWGqOi3jlQl1EV0az/yTEvKbxVvOPcdYicGu9dk4LJw==}
+    engines: {node: '>=18.0'}
+    dependencies:
+      '@docusaurus/logger': 3.2.1
+      '@docusaurus/utils': 3.2.1(@docusaurus/types@3.1.1)
+      '@docusaurus/utils-common': 3.2.1(@docusaurus/types@3.1.1)
+      joi: 17.12.2
+      js-yaml: 4.1.0
+      tslib: 2.6.2
+    transitivePeerDependencies:
+      - '@docusaurus/types'
+      - '@swc/core'
+      - esbuild
+      - supports-color
+      - uglify-js
+      - webpack-cli
+    dev: false
 
   /@docusaurus/utils-validation@3.2.1(@docusaurus/types@3.2.1):
     resolution: {integrity: sha512-+x7IR9hNMXi62L1YAglwd0s95fR7+EtirjTxSN4kahYRWGqOi3jlQl1EV0az/yTEvKbxVvOPcdYicGu9dk4LJw==}
@@ -3548,6 +3623,43 @@ packages:
       - supports-color
       - uglify-js
       - webpack-cli
+
+  /@docusaurus/utils@3.2.1(@docusaurus/types@3.1.1):
+    resolution: {integrity: sha512-DPkIS/EPc+pGAV798PUXgNzJFM3HJouoQXgr0KDZuJVz1EkWbDLOcQwLIz8Qx7liI9ddfkN/TXTRQdsTPZNakw==}
+    engines: {node: '>=18.0'}
+    peerDependencies:
+      '@docusaurus/types': '*'
+    peerDependenciesMeta:
+      '@docusaurus/types':
+        optional: true
+    dependencies:
+      '@docusaurus/logger': 3.2.1
+      '@docusaurus/types': 3.1.1(react-dom@18.2.0)(react@18.2.0)
+      '@docusaurus/utils-common': 3.2.1(@docusaurus/types@3.1.1)
+      '@svgr/webpack': 6.5.1
+      escape-string-regexp: 4.0.0
+      file-loader: 6.2.0(webpack@5.90.3)
+      fs-extra: 11.2.0
+      github-slugger: 1.5.0
+      globby: 11.1.0
+      gray-matter: 4.0.3
+      jiti: 1.21.0
+      js-yaml: 4.1.0
+      lodash: 4.17.21
+      micromatch: 4.0.5
+      prompts: 2.4.2
+      resolve-pathname: 3.0.0
+      shelljs: 0.8.5
+      tslib: 2.6.2
+      url-loader: 4.1.1(file-loader@6.2.0)(webpack@5.90.3)
+      webpack: 5.90.3
+    transitivePeerDependencies:
+      - '@swc/core'
+      - esbuild
+      - supports-color
+      - uglify-js
+      - webpack-cli
+    dev: false
 
   /@docusaurus/utils@3.2.1(@docusaurus/types@3.2.1):
     resolution: {integrity: sha512-DPkIS/EPc+pGAV798PUXgNzJFM3HJouoQXgr0KDZuJVz1EkWbDLOcQwLIz8Qx7liI9ddfkN/TXTRQdsTPZNakw==}
@@ -9266,7 +9378,7 @@ packages:
       - webpack
     dev: false
 
-  /docusaurus-plugin-typedoc-api@4.2.0(@docusaurus/core@3.1.1)(@docusaurus/mdx-loader@3.1.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2):
+  /docusaurus-plugin-typedoc-api@4.2.0(@docusaurus/core@3.1.1)(@docusaurus/mdx-loader@3.2.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2):
     resolution: {integrity: sha512-jD31Ro2joo7U8Yyru7oPKnqOrN/Vd6uQQxmbTrTzbTp0Br4Odw1W+YxW4DLqm+CCFryMP3Ru1p4qSLFbq4uj5A==}
     engines: {node: '>=16.12.0'}
     peerDependencies:
@@ -9276,7 +9388,7 @@ packages:
       typescript: ^5.0.0
     dependencies:
       '@docusaurus/core': 3.1.1(@docusaurus/types@3.1.1)(debug@4.3.4)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
-      '@docusaurus/mdx-loader': 3.1.1(@docusaurus/types@3.1.1)(react-dom@18.2.0)(react@18.2.0)
+      '@docusaurus/mdx-loader': 3.2.1(@docusaurus/types@3.1.1)(react-dom@18.2.0)(react@18.2.0)
       '@docusaurus/plugin-content-docs': 3.1.1(debug@4.3.4)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
       '@docusaurus/types': 3.1.1(react-dom@18.2.0)(react@18.2.0)
       '@docusaurus/utils': 3.1.1(@docusaurus/types@3.1.1)
