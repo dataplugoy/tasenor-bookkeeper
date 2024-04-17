@@ -1,6 +1,6 @@
 {
   "name": "@tasenor/bookkeeper-api",
-  "version": "1.13.8",
+  "version": "1.13.9",
   "description": "Tasenor bookkeeper API.",
   "main": "src/server.ts",
   "scripts": {
