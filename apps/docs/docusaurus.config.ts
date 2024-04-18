@@ -33,9 +33,43 @@ const config: Config = {
 
   staticDirectories: ['public'],
 
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://www.google-analytics.com',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://www.googletagmanager.com',
+      },
+    },
+    // https://developers.google.com/analytics/devguides/collection/gtagjs/#install_the_global_site_tag
+    {
+      tagName: 'script',
+      attributes: {
+        src: `https://www.googletagmanager.com/gtag/js?id=G-CSK289J8VK`,
+      },
+    },
+    {
+      tagName: 'script',
+      attributes: {},
+      innerHTML: `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-CSK289J8VK');
+        `,
+    },
+  ],
+
   presets: [
     [
-      'classic',
+      '@docusaurus/preset-classic',
       {
         docs: {
           sidebarPath: './sidebars.ts',
@@ -43,9 +77,6 @@ const config: Config = {
         theme: {
           customCss: './src/css/custom.css',
         },
-        gtag: {
-          trackingID: 'G-CSK289J8VK'
-        }
       } satisfies Preset.Options,
     ],
   ],
