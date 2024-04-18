@@ -35,7 +35,7 @@ const config: Config = {
 
   presets: [
     [
-      'classic',
+      '@docusaurus/preset-classic',
       {
         docs: {
           sidebarPath: './sidebars.ts',
@@ -43,9 +43,6 @@ const config: Config = {
         theme: {
           customCss: './src/css/custom.css',
         },
-        gtag: {
-          trackingID: 'G-CSK289J8VK'
-        }
       } satisfies Preset.Options,
     ],
   ],
@@ -74,6 +71,12 @@ const config: Config = {
        projectRoot: path.join(__dirname, '..', '..'),
        packages: ['packages/tasenor-common', 'packages/tasenor-common-node', 'packages/tasenor-common-ui'],
      },
+   ],
+   [
+    '@docusaurus/plugin-google-gtag',
+    {
+      trackingID: 'G-CSK289J8VK'
+    }
    ],
    [
     '@easyops-cn/docusaurus-search-local',
