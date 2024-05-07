@@ -1,3 +1,5 @@
+import clone from 'clone'
+
 /**
  * Common utilities.
  */
@@ -181,4 +183,15 @@ export function validGitRepoName(name: string): boolean {
   // eslint-disable-next-line prefer-regex-literals
   const re = new RegExp('((git|ssh|http(s)?)|(git@[\\w\\.]+))(:(//)?)([\\w\\.@\\:/\\-~]+)(\\.git)(/)?', 'i')
   return re.test(name)
+}
+
+/**
+ * Return a copy of an array sorted.
+ * @param arr
+ * @returns
+ */
+export function sorted<T>(arr: T[]): T[] {
+  const arr2 = clone(arr)
+  arr2.sort((a: T, b: T) => a === b ? 0 : (a < b ? -1 : 1))
+  return arr2
 }
