@@ -1,6 +1,6 @@
 {
   "name": "@tasenor/common-ui",
-  "version": "1.13.14",
+  "version": "1.13.15",
   "main": "src/index.ts",
   "types": "src/index.ts",
   "description": "Common UI parts of Tasenor project",
