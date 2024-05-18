@@ -312,7 +312,7 @@ export class Command {
     if (!db) {
       throw new Error(`Invalid database argument ${JSON.stringify(db)}`)
     }
-    const period = this.str(periodArg)
+    let period = this.str(periodArg)
     if (!period) {
       throw new Error(`Invalid period argument ${JSON.stringify(period)}`)
     }
@@ -320,7 +320,9 @@ export class Command {
     if (/^\d{4}$/.test(period)) {
       const date = `${period}-06-15`
       periods = periods.filter(p => p.start_date <= date && date <= p.end_date)
-    } else if (/^\d{4}-\d{2}-\d{2}$/.test(period)) {
+    } else if (/^\d{4}-\d{1,2}-\d{1,2}$/.test(period)) {
+      const r = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(period) as RegExpExecArray
+      period = `${r[1]}-${('0'+r[2]).substring(-2)}-${('0'+r[3]).substring(-2)}`
       periods = periods.filter(p => p.start_date <= period && period <= p.end_date)
     } else if (/^\d+$/.test(period)) {
       const id = parseInt(period)
@@ -392,7 +394,8 @@ export class Command {
     }
     const entry = typeof entryArg === 'string' ? [entryArg] : entryArg
     const ret: CommandEntryData[] = []
-    for (const e of entry) {
+    for (let e of entry) {
+      e = e.replace(/−/g, '-')
       const match = /^\s*(\d+)\s+(.+?)\s+([-+]?\d+([,.]\d+)?)(\s+\{.*\})?$/.exec(e)
       if (!match) {
         throw new Error(`Invalid transaction line ${JSON.stringify(e)}`)
@@ -424,10 +427,13 @@ export class Command {
    * @param date
    */
   date(dateArg: CommandArgument): ShortDate {
-    const date = this.str(dateArg)
-    if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    let date = this.str(dateArg)
+    if (!date || !/^\d{4}-\d{1,2}-\d{1,2}$/.test(date)) {
       throw new Error(`Invalid date argument ${JSON.stringify(dateArg)}`)
     }
+    const r = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(date) as RegExpExecArray
+    date = `${r[1]}-${('0'+r[2]).substring(-2)}-${('0'+r[3]).substring(-2)}`
+
     return date
   }
 
