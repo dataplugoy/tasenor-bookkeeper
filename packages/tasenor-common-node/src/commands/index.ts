@@ -322,7 +322,7 @@ export class Command {
       periods = periods.filter(p => p.start_date <= date && date <= p.end_date)
     } else if (/^\d{4}-\d{1,2}-\d{1,2}$/.test(period)) {
       const r = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(period) as RegExpExecArray
-      period = `${r[1]}-${('0'+r[2]).substring(-2)}-${('0'+r[3]).substring(-2)}`
+      period = `${r[1]}-${('0' + r[2]).substring(-2)}-${('0' + r[3]).substring(-2)}`
       periods = periods.filter(p => p.start_date <= period && period <= p.end_date)
     } else if (/^\d+$/.test(period)) {
       const id = parseInt(period)
@@ -432,7 +432,7 @@ export class Command {
       throw new Error(`Invalid date argument ${JSON.stringify(dateArg)}`)
     }
     const r = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(date) as RegExpExecArray
-    date = `${r[1]}-${('0'+r[2]).substring(-2)}-${('0'+r[3]).substring(-2)}`
+    date = `${r[1]}-${('0' + r[2]).substring(-2)}-${('0' + r[3]).substring(-2)}`
 
     return date
   }
