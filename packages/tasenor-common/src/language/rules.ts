@@ -325,6 +325,12 @@ export class RulesEngine {
   rates(args: unknown[]): Record<string, RuleValue> {
     const ret: Record<string, RuleValue> = {}
     for (let i = 0; i < args.length; i += 2) {
+      if (!args[i]) {
+        throw new Error('Rate cannot be defined to empty asset name.')
+      }
+      if (args[i + 1] === null || args[i + 1] === undefined) {
+        throw new Error(`Rate for ${args[i]} cannot be ${args[i + 1]}.`)
+      }
       ret[`${args[i]}`] = this.num(args[i + 1] as string | number)
     }
     return ret

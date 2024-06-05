@@ -128,6 +128,8 @@ test('Rules: isCurrency()', () => {
 test('Rules: rates()', () => {
   const e = new RulesEngine({}, true)
   expect(e.eval("rates('a', '1,2', 'b', '0.11')")).toStrictEqual({ a: 1.2, b: 0.11 })
+  expect(() => e.eval("rates('', 1.0)")).toThrow(RuleParsingError)
+  expect(() => e.eval("rates('USD', null)")).toThrow(RuleParsingError)
 })
 
 test('Rules: regex()', () => {
