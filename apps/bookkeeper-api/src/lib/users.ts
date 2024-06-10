@@ -189,6 +189,16 @@ async function databases(email) {
   return db('databases').select('id', 'name', 'config', 'created').whereIn('id', ids)
 }
 
+/**
+ * Set configuration variable for a user.
+ */
+async function setConfig(email, variable, value) {
+  const db = knex.masterDb()
+  const user = await db('users').select('config').where({ email }).first()
+  user.config[variable] = value
+  await db('users').update({ config: user.config }).where({ email })
+}
+
 export default {
   databases,
   getAll,
@@ -196,9 +206,10 @@ export default {
   deleteOne,
   hasAdminUser,
   registerUser,
+  setConfig,
   signToken,
   validateUser,
   verifyPassword,
   verifyToken,
-  verifyUser
+  verifyUser,
 }

@@ -24,6 +24,7 @@ import tagsRoute from './tags'
 import toolsRoute from './tools'
 import adminDbRoute from './admin-db'
 import adminUserRoute from './admin-user'
+import userRoute from './user'
 
 const router = express.Router()
 
@@ -51,5 +52,6 @@ router.use('/services', ...tasenor({ url: true, json: true, user: true, audience
 router.use('/status', statusRoute)
 router.use('/system', ...tasenor({ url: true, json: true }), systemRoute)
 router.use('/db', dbRoute)
+router.use('/user', ...tasenor({ url: true, json: true, user: true }), userRoute)
 
 export default router

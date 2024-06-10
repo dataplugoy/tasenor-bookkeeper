@@ -50,6 +50,7 @@ class DashboardPage extends Component {
       const periods = this.props.store.database.periods.reverse()
       period = periods[num - 1]
     } else {
+      this.props.store.setConfig('periodId', num.id)
       period = num
     }
     if (period) {

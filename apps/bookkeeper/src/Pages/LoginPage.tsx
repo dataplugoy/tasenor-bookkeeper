@@ -37,7 +37,16 @@ const LoginPage = observer(withStore(withCatalog((props) => {
         navigate('/_/admin')
       } else {
         if (props.store.dbs.length) {
-          navigate(`/${props.store.dbs[0].name}`)
+          const { db, periodId } = props.store.user.config
+          if (db) {
+            if (periodId) {
+              navigate(`/${db}/txs/${periodId}`)
+            } else {
+              navigate(`/${db}`)
+            }
+          } else {
+            navigate(`/${props.store.dbs[0].name}`)
+          }
         } else {
           navigate('/_/tools///databases')
         }

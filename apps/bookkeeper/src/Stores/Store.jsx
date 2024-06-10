@@ -1202,6 +1202,13 @@ export class Store {
       successMessage: (msg) => this.addMessage(msg),
     }
   }
+
+  /**
+   * Change user configuration.
+   */
+  async setConfig(variable, value) {
+    return this.request(`/user/config`, 'PATCH', { [variable]: value })
+  }
 }
 
 export default Store

@@ -22,6 +22,12 @@ class DatabaseList extends Component {
 
     const current = store.db
 
+    const onSelect = async (name) => {
+      await store.setConfig('db', name)
+      await store.setConfig('periodId', null)
+      navigate(`/${name}`)
+    }
+
     return (
       <div>
         <Title className="DatabasesPage"><Trans>Databases</Trans></Title>
@@ -29,7 +35,7 @@ class DatabaseList extends Component {
         <List className="DatabaseList" data-cy="DatabaseList">
           {store.dbs.map((db, index) => {
             return (
-              <ListItemButton id={index + 1} key={db.name} data-cy={`list-${db.name}`} selected={current === db.name} onClick={() => navigate(`/${db.name}`)}>
+              <ListItemButton id={index + 1} key={db.name} data-cy={`list-${db.name}`} selected={current === db.name} onClick={() => onSelect(db.name)}>
                 <ListItemAvatar color="primary">
                   <Avatar>{index + 1}</Avatar>
                 </ListItemAvatar>
