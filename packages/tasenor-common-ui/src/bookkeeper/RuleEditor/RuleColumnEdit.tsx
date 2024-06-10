@@ -127,8 +127,8 @@ export const RuleColumnEdit = observer((props: RuleColumnEditProps): JSX.Element
                    RISPProvider.onBlur()
                  }
                  if (event.key === 'Escape') {
-                  RISPProvider.onBlur()
-                  setMode(null)
+                   RISPProvider.onBlur()
+                   setMode(null)
                  }
                }}
                label={t('The text to match') + ''}

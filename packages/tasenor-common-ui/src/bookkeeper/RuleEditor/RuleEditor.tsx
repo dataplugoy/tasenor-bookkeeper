@@ -220,10 +220,10 @@ export const RuleEditor = observer((props: RuleEditorProps): JSX.Element => {
               onFocus={() => RISPProvider.onFocus()}
               onBlur={() => RISPProvider.onBlur()}
                   onChange={(e) => {
-                  setText(e.target.value)
-                  setMode('once-off')
-                  onChange({ ...editorOutput, transfers: transfers({ text: e.target.value, tags, account }), text: e.target.value })
-                }
+                    setText(e.target.value)
+                    setMode('once-off')
+                    onChange({ ...editorOutput, transfers: transfers({ text: e.target.value, tags, account }), text: e.target.value })
+                  }
               }
               sx={{ pb: 1, pt: 1 }}
             />
