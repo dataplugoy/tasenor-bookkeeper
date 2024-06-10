@@ -9,6 +9,7 @@ import clone from 'clone'
 import TextFieldsIcon from '@mui/icons-material/TextFields'
 import TextFormatIcon from '@mui/icons-material/TextFormat'
 import { useTranslation } from 'react-i18next'
+import { RISPProvider } from '../..'
 
 /**
  * Mode definitions for column editor.
@@ -123,13 +124,17 @@ export const RuleColumnEdit = observer((props: RuleColumnEditProps): JSX.Element
                    setMode(null)
                    const op = `case${toggles.includes('case') ? 'Insensitive' : 'Sensitive'}${toggles.includes('whole') ? 'Full' : ''}Match` as RuleViewOp
                    updateFilter({ op, field: name, text })
+                   RISPProvider.onBlur()
                  }
                  if (event.key === 'Escape') {
-                   setMode(null)
+                  RISPProvider.onBlur()
+                  setMode(null)
                  }
                }}
                label={t('The text to match') + ''}
                value={text}
+               onFocus={() => RISPProvider.onFocus()}
+               onBlur={() => RISPProvider.onBlur()}
                onChange={(e) => setText(e.target.value)}
              />
          </TableCell>

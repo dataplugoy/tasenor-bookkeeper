@@ -7,6 +7,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'
 import { RuleLineEdit } from './RuleLineEdit'
 import { VisualRule } from './VisualRule'
+import { RISPProvider } from '../..'
 
 /**
  * Major operating mode for the editor: either build once off rule or complete new permanent rule.
@@ -219,11 +220,13 @@ export const RuleEditor = observer((props: RuleEditorProps): JSX.Element => {
               fullWidth
               label={'Describe this transaction'}
               value={text}
-              onChange={(e) => {
-                setText(e.target.value)
-                setMode('once-off')
-                onChange({ ...editorOuput, transfers: transfers({ text: e.target.value, tags, account }), text: e.target.value })
-              }
+              onFocus={() => RISPProvider.onFocus()}
+              onBlur={() => RISPProvider.onBlur()}
+                  onChange={(e) => {
+                  setText(e.target.value)
+                  setMode('once-off')
+                  onChange({ ...editorOuput, transfers: transfers({ text: e.target.value, tags, account }), text: e.target.value })
+                }
               }
               sx={{ pb: 1, pt: 1 }}
             />
@@ -290,6 +293,8 @@ export const RuleEditor = observer((props: RuleEditorProps): JSX.Element => {
               fullWidth
               label={'Name of the rule'}
               value={rule.name}
+              onFocus={() => RISPProvider.onFocus()}
+              onBlur={() => RISPProvider.onBlur()}
               onChange={(e) => {
                 setAutonaming(e.target.value.length === 0)
                 setMode('new-rule')
