@@ -7,8 +7,8 @@
   },
   "staging": {
     "introduction": {
-      "en": "Welcome to Tasenor’s secure, FREE & easy to use accounting and bookkeeping platform. Occasional and automatic upgrades takes place at 04.00 an EEST, please make sure to download your daily entries (as back-up) regularly.",
-      "fi": "Tervetuloa Tasenorin turvalliselle, ILMAISELLE ja helppokäyttöiselle kirjanpitoalustalle. Automaattiset päivitykset tapahtuu klo 04.00 EEST, joten lataa säännöllisesti varmuuskopioitiedosto itsellesi."
+      "en": "Welcome to Tasenor’s secure, FREE & easy to use accounting and bookkeeping platform. Occasional and automatic upgrades takes place at 04.00 an EEST.",
+      "fi": "Tervetuloa Tasenorin turvalliselle, ILMAISELLE ja helppokäyttöiselle kirjanpitoalustalle. Automaattiset päivitykset tapahtuu klo 04.00 EEST."
     }
   },
   "production": {

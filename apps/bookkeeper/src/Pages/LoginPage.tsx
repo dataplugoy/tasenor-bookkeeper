@@ -8,7 +8,7 @@ import Panel from '../Components/Panel'
 import { Box, Typography } from '@mui/material'
 import withStore from '../Hooks/withStore'
 import withCatalog from '../Hooks/withCatalog'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const LoginPage = observer(withStore(withCatalog((props) => {
   const { t } = useTranslation()
@@ -80,7 +80,13 @@ const LoginPage = observer(withStore(withCatalog((props) => {
             {line}
           </Typography>
         ))}
+          <Box sx={{ mt: 3, fontSize: '1.1rem'}}>
+            <Link to="https://docs.stg.tasenor.com">
+            <Trans>Online Documentation</Trans>
+            </Link>
+          </Box>
         </Panel>
+
         <LoginForm onLogin={onLogin}/>
       </Box>
     )
