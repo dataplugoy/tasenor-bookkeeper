@@ -24,7 +24,10 @@ export class CoinbaseHandler extends TransactionImportHandler {
         'Spot Price Currency': 'Currency',
         'Spot Price at Transaction': 'Price',
         'Total (inclusive of fees and/or spread)': 'Total',
-        'Fees and/or Spread': 'Fees'
+        'Fees and/or Spread': 'Fees',
+        // V4
+        'Price at Transaction': 'Price',
+        'Price Currency': 'Currency',
       }
     }
   }
@@ -41,7 +44,16 @@ export class CoinbaseHandler extends TransactionImportHandler {
       return 2
     }
     if (file.firstLineMatch(/^$/) && file.secondLineMatch(/^Transactions$/)) {
-      return 3
+      const data = file.decode()
+      const lines = data.split('\n').splice(3)
+      if (!/^Timestamp,Transaction Type,Asset,Quantity Transacted,Spot Price Currency,Spot Price at Transaction,Subtotal,Total/.test(lines[0])) {
+        return 3
+      }
+      if (!/^ID,Timestamp,Transaction Type,Asset,Quantity Transacted,Price Currency,Price at Transaction,Subtotal,Total (inclusive of fees and\/or spread),Fees and\/or Spread,Notes/.test(lines[0])) {
+        return 4
+      }
+
+      throw new Error('Coinbase parser is not able to understand the column format.')
     }
 
     return 0
@@ -57,9 +69,6 @@ export class CoinbaseHandler extends TransactionImportHandler {
       for (const file of files) {
         const data = file.decode()
         const lines = data.split('\n').splice(this.version === 2 ? 7 : 3)
-        if (!/^Timestamp,Transaction Type,Asset,Quantity Transacted,Spot Price Currency,Spot Price at Transaction,Subtotal,Total/.test(lines[0])) {
-          throw new Error('Coinbase parser is not able to understand the format.')
-        }
         file.set(lines.join('\n'))
       }
       return files
