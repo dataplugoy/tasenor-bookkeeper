@@ -111,9 +111,6 @@ export const RuleEditor = observer((props: RuleEditorProps): JSX.Element => {
         type: 'account',
         asset: account,
         amount: -_totalAmountField,
-        data: {
-          text
-        }
       } as unknown as Value)
     }
     if (tags.length && isValue(tags)) {
@@ -170,7 +167,7 @@ export const RuleEditor = observer((props: RuleEditorProps): JSX.Element => {
   }
 
   // This is actual output value of the editor as a whole.
-  const editorOuput: RuleEditorValues = {
+  const editorOutput: RuleEditorValues = {
     mode,
     account: account as AccountNumber,
     tags,
@@ -212,7 +209,7 @@ export const RuleEditor = observer((props: RuleEditorProps): JSX.Element => {
                 const ruleView: RuleView = { ...rule.view || { filter: [] }, result: resView }
                 const newRule: ImportRule = { ...rule, result, view: ruleView }
                 setRule(newRule)
-                onChange({ ...editorOuput, rule: newRule as unknown as Value, transfers: transfers({ text, tags, account: acc.number }), account: acc.number })
+                onChange({ ...editorOutput, rule: newRule as unknown as Value, transfers: transfers({ text, tags, account: acc.number }), account: acc.number })
               }
               }
             />
@@ -225,7 +222,7 @@ export const RuleEditor = observer((props: RuleEditorProps): JSX.Element => {
                   onChange={(e) => {
                   setText(e.target.value)
                   setMode('once-off')
-                  onChange({ ...editorOuput, transfers: transfers({ text: e.target.value, tags, account }), text: e.target.value })
+                  onChange({ ...editorOutput, transfers: transfers({ text: e.target.value, tags, account }), text: e.target.value })
                 }
               }
               sx={{ pb: 1, pt: 1 }}
@@ -242,7 +239,7 @@ export const RuleEditor = observer((props: RuleEditorProps): JSX.Element => {
                 const ruleView: RuleView = { ...rule.view || { filter: [] }, result: resView }
                 const newRule: ImportRule = { ...rule, result, view: ruleView }
                 setRule(newRule)
-                onChange({ ...editorOuput, rule: newRule as unknown as Value, transfers: transfers({ text, tags: selected, account }), tags: selected })
+                onChange({ ...editorOutput, rule: newRule as unknown as Value, transfers: transfers({ text, tags: selected, account }), tags: selected })
               }
               }
               selected={tags as Tag[]}
@@ -254,7 +251,7 @@ export const RuleEditor = observer((props: RuleEditorProps): JSX.Element => {
 
             <Link
               onClick={() => {
-                onChange(editorOuput)
+                onChange(editorOutput)
                 onContinue('skip-one')
               }}
               sx={{ cursor: 'pointer' }}
@@ -264,7 +261,7 @@ export const RuleEditor = observer((props: RuleEditorProps): JSX.Element => {
 
             <Link
               onClick={() => {
-                onChange(editorOuput)
+                onChange(editorOutput)
                 onContinue('ignore-rest-unrecognized')
               }}
               sx={{ cursor: 'pointer' }}
@@ -274,7 +271,7 @@ export const RuleEditor = observer((props: RuleEditorProps): JSX.Element => {
 
             <Link
               onClick={() => {
-                onChange(editorOuput)
+                onChange(editorOutput)
                 onContinue('suspense-unrecognized')
               }}
               sx={{ cursor: 'pointer' }}
@@ -300,7 +297,7 @@ export const RuleEditor = observer((props: RuleEditorProps): JSX.Element => {
                 setMode('new-rule')
                 const newRule: ImportRule = { ...rule, name: e.target.value }
                 setRule(newRule)
-                onChange({ ...editorOuput, rule: newRule as unknown as Value })
+                onChange({ ...editorOutput, rule: newRule as unknown as Value })
               }
               }
               sx={{ mt: 2 }}
@@ -319,7 +316,7 @@ export const RuleEditor = observer((props: RuleEditorProps): JSX.Element => {
                     const result = filterView2results(resView)
                     const newRule: ImportRule = { ...rule, name, result, filter, view: { filter: filters, result: resView } }
                     setRule(newRule)
-                    onChange({ ...editorOuput, rule: newRule as unknown as Value })
+                    onChange({ ...editorOutput, rule: newRule as unknown as Value })
                   }}
                 />
                 {idx < lines.length - 1 && <Divider variant="middle"/>}
@@ -348,7 +345,7 @@ export const RuleEditor = observer((props: RuleEditorProps): JSX.Element => {
                   const ruleView: RuleView = { ...rule.view || { result: [] }, filter: filters }
                   const newRule: ImportRule = { ...rule, name, filter, view: ruleView }
                   setRule(newRule)
-                  onChange({ ...editorOuput, rule: newRule as unknown as Value })
+                  onChange({ ...editorOutput, rule: newRule as unknown as Value })
                 }
                 }
               />
