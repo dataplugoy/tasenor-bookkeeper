@@ -47,7 +47,7 @@ export const TransactionLine = withStore(withCatalog(observer((props: Transactio
   }
 
   // Handle finalizing editing of a cell.
-  const onComplete = async function(column, row, proposal, originalValue) {
+  const onComplete = async function(target, column, row, proposal, originalValue) {
 
     // Handle case where account has been changed so that it moves out of the current screen.
     if (column === 0 && row !== null) {
@@ -65,6 +65,18 @@ export const TransactionLine = withStore(withCatalog(observer((props: Transactio
     const document = tx.document
     const entry = document.entries[row]
     const account = entry.account
+
+    // If the selected row is the same than the currently selected account, copy text to all entries.
+    if (props.store.account.id === account.id && column === 1) {
+      runInAction(async () => {
+        for (const other of document.entries) {
+          if (other.account_id !== account.id) {
+            other.description = entry.description
+            await other.save()
+          }
+        }
+      })
+    }
 
     // If proposal used, do some additional preparation based on that.
     if (column === 1 && proposal !== null) {
@@ -125,7 +137,7 @@ export const TransactionLine = withStore(withCatalog(observer((props: Transactio
             field="account"
             document={entry.document}
             entry={entry}
-            onComplete={(_, proposal, originalValue) => onComplete(0, line, proposal, originalValue)}
+            onComplete={(target, proposal, originalValue) => onComplete(target, 0, line, proposal, originalValue)}
           />
         </TableCell>
         <TableCell onClick={() => onClickDetail(1, line)} sx={sx}>
@@ -134,7 +146,7 @@ export const TransactionLine = withStore(withCatalog(observer((props: Transactio
             field="description"
             document={entry.document}
             entry={entry}
-            onComplete={(_, proposal, originalValue) => onComplete(1, line, proposal, originalValue)}
+            onComplete={(target, proposal, originalValue) => onComplete(target, 1, line, proposal, originalValue)}
             onClick={() => onClickDetail(1, line)}
           />
         </TableCell>
@@ -145,7 +157,7 @@ export const TransactionLine = withStore(withCatalog(observer((props: Transactio
             document={entry.document}
             entry={entry}
             onClick={() => onClickDetail(2, line)}
-            onComplete={(_, proposal, originalValue) => onComplete(2, line, proposal, originalValue)}
+            onComplete={(target, proposal, originalValue) => onComplete(target, 2, line, proposal, originalValue)}
           />
         </TableCell>
         <TableCell onClick={() => onClickDetail(3, line)} align="right" sx={{ borderRight: 1, ...sx }}>
@@ -155,7 +167,7 @@ export const TransactionLine = withStore(withCatalog(observer((props: Transactio
             document={entry.document}
             entry={entry}
             onClick={() => onClickDetail(3, line)}
-            onComplete={(_, proposal, originalValue) => onComplete(3, line, proposal, originalValue)}
+            onComplete={(target, proposal, originalValue) => onComplete(target, 3, line, proposal, originalValue)}
           />
         </TableCell>
         <TableCell sx={{ borderBottom: 0 }}/>
