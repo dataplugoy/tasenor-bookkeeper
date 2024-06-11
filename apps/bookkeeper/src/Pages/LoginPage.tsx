@@ -80,7 +80,7 @@ const LoginPage = observer(withStore(withCatalog((props) => {
             {line}
           </Typography>
         ))}
-          <Box sx={{ mt: 3, fontSize: '1.1rem'}}>
+          <Box sx={{ mt: 3, fontSize: '1.1rem' }}>
             <Link to="https://docs.stg.tasenor.com">
             <Trans>Online Documentation</Trans>
             </Link>
