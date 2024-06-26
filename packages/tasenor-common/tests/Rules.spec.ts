@@ -293,7 +293,7 @@ test('Rules: nth()', () => {
 
 test('Rules: ifNull()', () => {
   const e = new RulesEngine({}, true)
-  expect(e.eval("ifNull(1, 2)")).toBe(1)
-  expect(e.eval("ifNull(null, 2)")).toBe(2)
-  expect(e.eval("ifNull(null, null)")).toBe(null)
+  expect(e.eval('ifNull(1, 2)')).toBe(1)
+  expect(e.eval('ifNull(null, 2)')).toBe(2)
+  expect(e.eval('ifNull(null, null)')).toBe(null)
 })

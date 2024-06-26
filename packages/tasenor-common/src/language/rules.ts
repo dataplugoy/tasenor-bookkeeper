@@ -1,5 +1,5 @@
 import Opaque from 'ts-opaque'
-import { size, create, all, factory, MathJsInstance, clone, typed, Matrix, isDenseMatrix } from 'mathjs'
+import { create, all, factory, MathJsInstance, clone, typed, Matrix, isDenseMatrix } from 'mathjs'
 import { AssetTransfer, isCurrency, warning } from '..'
 import { num } from '../utils'
 import { TextFileLine } from '../import/TextFileLine'
