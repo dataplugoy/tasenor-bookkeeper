@@ -187,6 +187,7 @@ export class RulesEngine {
       third: (args: unknown[]) => this.third(args),
       fourth: (args: unknown[]) => this.fourth(args),
       has: (list: unknown[], str: unknown) => this.has(list, str),
+      ifNull: (value: unknown, value2: unknown) => this.ifNull(value, value2),
       isCurrency: (str: string) => this.isCurrency(str),
       join: (...args: unknown[]) => this.join(...args),
       lower: (s: string) => this.lower(s),
@@ -695,5 +696,14 @@ export class RulesEngine {
       .map(s => s.replace(/\s+/g, ' ').replace(/^\s+/, '').replace(/\s+$/, ''))
       .filter(s => s !== '')
       .join('\n')
+  }
+
+  /**
+   * Return the second value if the first is `null`.
+   * @param value
+   * @param value2
+   */
+  ifNull(value: unknown, value2: unknown) {
+    return value === null ? value2 : value
   }
 }

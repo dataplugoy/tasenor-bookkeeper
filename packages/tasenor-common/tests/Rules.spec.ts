@@ -290,3 +290,10 @@ test('Rules: nth()', () => {
   expect(e.eval("third([1, null, 'x'])")).toBe('x')
   expect(e.eval("nth(1, regex('(.)-(.)', 'AA-BB-CC-DD'))")).toBe('B')
 })
+
+test('Rules: ifNull()', () => {
+  const e = new RulesEngine({}, true)
+  expect(e.eval("ifNull(1, 2)")).toBe(1)
+  expect(e.eval("ifNull(null, 2)")).toBe(2)
+  expect(e.eval("ifNull(null, null)")).toBe(null)
+})
