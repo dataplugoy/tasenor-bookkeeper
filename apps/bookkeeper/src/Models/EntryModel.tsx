@@ -498,7 +498,7 @@ class EntryModel extends NavigationTargetModel {
   * Format as money, if this is debit entry.
   */
   ['get.debit']() {
-    return this.debit && this.amount ? (<Money currency={this.account && this.account.currency as Currency} cents={this.amount} />) : <span>&nbsp;</span>
+    return this.debit ? (<Money currency={this.account && this.account.currency as Currency} cents={this.amount} />) : <span>&nbsp;</span>
   }
 
   ['get.edit.debit']() {
@@ -566,7 +566,7 @@ class EntryModel extends NavigationTargetModel {
   * Format as money, if this is credit entry.
   */
   ['get.credit']() {
-    return !this.debit && this.amount ? (<Money currency={this.account && this.account.currency as Currency} cents={this.amount} />) : <span>&nbsp;</span>
+    return !this.debit ? (<Money currency={this.account && this.account.currency as Currency} cents={this.amount} />) : <span>&nbsp;</span>
   }
 
   ['get.edit.credit']() {
