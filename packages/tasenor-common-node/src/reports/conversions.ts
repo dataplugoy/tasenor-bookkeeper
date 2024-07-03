@@ -14,7 +14,7 @@ export function data2csv(report, options: ReportQueryParams) {
   const render = {
     id: (column, entry) => entry.id,
     name: (column, entry) => entry.name === undefined ? '' : `${entry.isAccount ? entry.number + ' ' : ''}${entry.name}`,
-    text: (column, entry) => `${entry.values[column.name]}`,
+    text: (column, entry) => entry.values[column.name],
     numeric: (column, entry) => (entry.values &&
       !entry.hideTotal &&
       entry.values[column.name] !== '' &&
