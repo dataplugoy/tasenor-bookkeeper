@@ -7,7 +7,7 @@ import { Localize } from '@tasenor/common-ui'
 import './ReportDisplay.css'
 import ReportModel from '../Models/ReportModel'
 import i18n from '../i18n'
-import { TableContainer, TableBody, Table, TableRow, TableCell } from '@mui/material'
+import { TableContainer, TableBody, Table, TableRow, TableCell, Box } from '@mui/material'
 
 @withTranslation('translations')
 @observer
@@ -38,7 +38,9 @@ class ReportHeader extends Component {
       </TableRow>,
       <TableRow key="3" className="columns">
         {report.columns.map((column) => <TableCell key={column.name} className={'ReportCell ' + column.type}>
-          {column.title}
+          {
+            (column.title || '').split(' ').map(txt => <Box style={{ whiteSpace: 'nowrap', textAlign: 'center' }}>{txt}</Box>)
+          }
         </TableCell>)}
       </TableRow>
     ]

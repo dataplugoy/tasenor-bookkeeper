@@ -73,7 +73,7 @@ class FinnishIncomeStatementReportLite extends ReportPlugin {
       end = this.time2str(period.end_date)
     }
 
-    return '{' + start + '} - {' + end + '}'
+    return '{' + start + '} — {' + end + '}'
   }
 
   async getColumns(id, entries, options, settings) {
