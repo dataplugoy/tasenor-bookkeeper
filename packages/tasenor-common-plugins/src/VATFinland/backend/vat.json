@@ -1,10 +1,31 @@
 [
   {
     "from": "2013-01-01",
-    "to": null,
+    "to": "2024-08-31",
     "percentage": {
       "INCOME": 24,
       "EXPENSE": 24,
+      "PERSONNEL_MEALS": 14,
+      "TICKET": 10,
+      "TAXI": 10,
+      "ACCOMMODATION": 10,
+      "BOOK": 10,
+      "NEWSPAPERS": 10,
+      "POSTAGE_STAMPS": 0,
+      "BANKING_FEE": 0,
+      "CAPITAL": 0,
+      "SPECIAL_EXPENSE_CASES": 0,
+      "SPECIAL_INCOME_CASES": 0,
+      "INVEST": 0,
+      "NON_EU_SALES": 0
+    }
+  },
+  {
+    "from": "2024-09-01",
+    "to": null,
+    "percentage": {
+      "INCOME": 25.5,
+      "EXPENSE": 25.5,
       "PERSONNEL_MEALS": 14,
       "TICKET": 10,
       "TAXI": 10,
