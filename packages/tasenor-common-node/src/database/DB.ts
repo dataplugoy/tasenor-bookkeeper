@@ -296,7 +296,7 @@ const destroy = async (masterDb: KnexDatabase, name: DatabaseName, hostOverride:
     return 'Database not found.'
   }
   const dbToDelete = await get(masterDb, name, hostOverride)
-  await dbToDelete.raw(`DROP OWNED BY ${db.user}`)
+  await dbToDelete.raw(`DROP OWNED BY "${db.user}"`)
 
   disconnect(name)
 
@@ -304,9 +304,9 @@ const destroy = async (masterDb: KnexDatabase, name: DatabaseName, hostOverride:
   await masterDb('databases').where({ id: db.id }).delete()
 
   const rootDb = getRoot()
-  await rootDb.raw(`DROP OWNED BY ${db.user}`)
-  await rootDb.raw(`DROP USER ${db.user}`)
-  await rootDb.raw(`DROP DATABASE ${db.name} WITH (FORCE)`)
+  await rootDb.raw(`DROP OWNED BY "${db.user}"`)
+  await rootDb.raw(`DROP USER "${db.user}"`)
+  await rootDb.raw(`DROP DATABASE "${db.name}" WITH (FORCE)`)
 
   return null
 }

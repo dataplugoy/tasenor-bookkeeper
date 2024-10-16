@@ -38,6 +38,8 @@ class ToolsForDatabases extends Component {
       if (await db.delete()) {
         await store.fetchDatabases(true)
         store.addMessage(this.props.t('Database deleted permanently.'))
+        await store.setConfig('db', null)
+        await store.setConfig('periodId', null)
         if (deletingCurrent) {
           store.setDb(null)
           this.props.navigate('/_/tools///databases')
