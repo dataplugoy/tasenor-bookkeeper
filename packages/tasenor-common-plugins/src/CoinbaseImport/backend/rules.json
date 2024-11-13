@@ -62,6 +62,24 @@
     },
 
     {
+      "name": "Coinbase withdrawal (v2)",
+      "filter": "type == 'Withdrawal'",
+      "result": [
+        {
+          "reason": "lower(type)",
+          "type": "'external'",
+          "asset": "Asset",
+          "amount": "-Total"
+        },
+        {
+          "reason": "lower(type)",
+          "type": "isCurrency(Asset) ? 'currency' : 'crypto'",
+          "asset": "Asset",
+          "amount": "Total"
+        }
+      ]
+    },
+    {
       "name": "Rewards (v2)",
       "filter": "type == 'Learning Reward'",
       "result": [
@@ -106,7 +124,7 @@
     },
     {
       "name": "Selling (v2)",
-      "filter": "type == 'Sell'",
+      "filter": "type == 'Sell' or type == 'Advanced Trade Sell'",
       "result": [
         {
           "data": {
