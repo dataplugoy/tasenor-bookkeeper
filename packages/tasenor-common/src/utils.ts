@@ -106,10 +106,11 @@ export function elementNames(element: TasenorElement): Set<string> {
 /**
  * Utility to heuristically convert a messy string to number.
  * @returns
- * The string is stripped off extra spaces and all but last punctuation. Round *999999 up to next digit.
+ * The string is stripped off extra spaces and all but last punctuation.
  */
 export function num(str: string): number | typeof NaN {
   str = str.replace(/\s/g, '')
+  str = str.replace(/[$€£]/g, '')
   try {
     if (/,\d+\./.test(str)) {
       str = str.replace(/,/g, '')
