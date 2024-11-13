@@ -63,7 +63,7 @@ export class CoinbaseHandler extends TransactionImportHandler {
     if (this.version === 1) {
       return files
     }
-    if (this.version === 2 || this.version === 3) {
+    if (this.version === 2 || this.version === 3 || this.version === 4) {
       this.importOptions.textField = 'Notes'
       // Clean up trash from the beginning.
       for (const file of files) {
@@ -78,7 +78,7 @@ export class CoinbaseHandler extends TransactionImportHandler {
   }
 
   segmentId(line: TextFileLine): SegmentId | typeof NO_SEGMENT {
-    if (this.version === 2 || this.version === 3) {
+    if (this.version === 2 || this.version === 3 || this.version === 4) {
       return super.segmentId(line)
     }
     if (this.version === 1) {
@@ -91,7 +91,7 @@ export class CoinbaseHandler extends TransactionImportHandler {
   }
 
   time(line: TextFileLine): Date | undefined {
-    if (this.version === 2 || this.version === 3) {
+    if (this.version === 2 || this.version === 3 || this.version === 4) {
       return line.columns.Timestamp ? new Date(line.columns.Timestamp) : undefined
     }
     if (this.version === 1) {
