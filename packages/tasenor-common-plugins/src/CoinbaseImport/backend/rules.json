@@ -124,7 +124,34 @@
     },
     {
       "name": "Selling (v2)",
-      "filter": "type == 'Sell' or type == 'Advanced Trade Sell'",
+      "filter": "type == 'Sell'",
+      "result": [
+        {
+          "data": {
+            "text": "Notes"
+          },
+          "type": "'crypto'",
+          "asset": "Asset",
+          "amount": "Quantity",
+          "reason": "'trade'"
+        },
+        {
+          "reason": "'fee'",
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "Fees"
+        },
+        {
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "Subtotal",
+          "reason": "'trade'"
+        }
+      ]
+    },
+    {
+      "name": "Selling (v4)",
+      "filter": "type == 'Advanced Trade Sell'",
       "result": [
         {
           "data": {
@@ -152,6 +179,33 @@
     {
       "name": "Buying (v2)",
       "filter": "type == 'Buy'",
+      "result": [
+        {
+          "data": {
+            "text": "Notes"
+          },
+          "type": "'crypto'",
+          "asset": "Asset",
+          "amount": "Quantity",
+          "reason": "'trade'"
+        },
+        {
+          "reason": "'fee'",
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "Fees"
+        },
+        {
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "-Subtotal",
+          "reason": "'trade'"
+        }
+      ]
+    },
+    {
+      "name": "Buying (v4)",
+      "filter": "type == 'Advanced Trade Buy'",
       "result": [
         {
           "data": {
