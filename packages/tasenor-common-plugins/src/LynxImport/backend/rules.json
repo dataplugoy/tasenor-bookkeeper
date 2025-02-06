@@ -304,6 +304,32 @@
       ]
     },
     {
+      "name": "Stock Dividend",
+      "filter": "Type == 'Corporate Actions' and Subtype == 'Stock Dividend'",
+      "result": [
+        {
+          "reason": "'dividend'",
+          "type": "'stock'",
+          "asset": "Ticker",
+          "amount": "Quantity",
+          "data": {
+            "text": "Description"
+          }
+        },
+        {
+          "reason": "'income'",
+          "type": "'statement'",
+          "asset": "'LISTED_STOCK_DIVIDEND'",
+          "data": {
+            "text": "Description",
+            "currency": "Currency",
+            "currencyValue": "-Value * 100",
+            "asset": "Ticker"
+          }
+        }
+      ]
+    },
+    {
       "name": "Splits",
       "filter": "Type == 'Corporate Actions' and Action == 'Split'",
       "result": [

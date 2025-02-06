@@ -377,7 +377,7 @@ export class TransferAnalyzer {
       // TODO: We should get rid of this and handle it in asset valuation always.
       values.takeAsset = myEntry[0].amount < 0 ? otherEntry[0].asset : myEntry[0].asset
       values.giveAsset = myEntry[0].amount < 0 ? myEntry[0].asset : otherEntry[0].asset
-    } else if (weHave(['dividend', 'income'], ['currency', 'statement']) || weHave(['tax', 'dividend', 'income'], ['currency', 'statement'])) {
+    } else if (weHave(['dividend', 'income'], ['currency', 'statement']) || weHave(['dividend', 'income'], ['stock', 'statement']) || weHave(['tax', 'dividend', 'income'], ['currency', 'statement'])) {
       kind = 'dividend'
     } else if (weHave(['income'], ['currency', 'statement']) || weHave(['income'], ['crypto', 'statement']) || weHave(['income', 'tax'], ['currency', 'statement'])) {
       kind = 'income'

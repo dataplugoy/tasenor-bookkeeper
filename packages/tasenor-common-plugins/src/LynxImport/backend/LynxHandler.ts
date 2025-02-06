@@ -344,9 +344,13 @@ export class LynxHandler extends TransactionImportHandler {
           if (!actionLines[key]) {
             throw new InvalidFile(`Unable to find matching corporate action for a line '${Description}.`)
           }
+
           // Use the first segmentId for all lines.
           let segmentId
           for (const line of actionLines[key]) {
+            if (/Stock Dividend/.test(Description)) {
+              file.lines[n].columns.Subtype = 'Stock Dividend'
+            }
             if (file.lines[line].segmentId) {
               continue
             }
