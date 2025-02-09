@@ -13,9 +13,14 @@ export class AlisaHandler extends TransactionImportHandler {
     this.importOptions = {
       parser: 'csv',
       numericFields: ['Amount', 'AmountPaid'],
-      requiredFields: ['Type', 'CounterpartyAccountNumber'],
+      requiredFields: ['Type', 'Account'],
       textField: 'Message',
       totalAmountField: 'Amount',
+      fieldRemapping: {
+        CounterpartyAccountNumber: 'Account',
+        CounterpartyName: 'Name',
+        CounterpartySpecification: 'Specification',
+      },
       csv: {
         cutFromBeginning: 8,
         useFirstLineHeadings: true,
