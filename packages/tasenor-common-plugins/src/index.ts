@@ -1,3 +1,4 @@
+export { AlisaHandler } from './AlisaImport/backend/AlisaHandler'
 export { default as AssetReportBackend } from './AssetReport/backend'
 export { default as CoinAPIBackend } from './CoinAPI/backend'
 export { default as CoinbaseImportBackend } from './CoinbaseImport/backend'

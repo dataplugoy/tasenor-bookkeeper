@@ -1,10 +1,11 @@
-import { CoinbaseHandler, KrakenHandler, LynxHandler, NordeaHandler, NordnetHandler, TITOHandler } from '@tasenor/common-plugins'
+import { CoinbaseHandler, KrakenHandler, LynxHandler, NordeaHandler, NordnetHandler, TITOHandler, AlisaHandler } from '@tasenor/common-plugins'
 import { TransactionImportHandler } from '@tasenor/common-node'
 
 /**
  * Mapping from handler class names to instances.
  */
 const handlers: Record<string, TransactionImportHandler> = {
+  Alisa: new AlisaHandler(),
   Coinbase: new CoinbaseHandler(),
   Nordea: new NordeaHandler(),
   Nordnet: new NordnetHandler(),
