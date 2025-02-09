@@ -1,4 +1,4 @@
-import { DirectoryPath, TextFileLine } from '@tasenor/common'
+import { DirectoryPath, NO_SEGMENT, SegmentId, TextFileLine } from '@tasenor/common'
 import { ProcessFile, TransactionImportHandler } from '@tasenor/common-node'
 import dayjs from 'dayjs'
 import { sprintf } from 'sprintf-js'
@@ -49,6 +49,10 @@ export class AlisaHandler extends TransactionImportHandler {
     this.importOptions.csv.columnSeparator = lines[0].trim().split('=')[1]
 
     return true
+  }
+
+  segmentId(line: TextFileLine): SegmentId | typeof NO_SEGMENT {
+    return line && line.columns ? line.columns.TransactionNumber : NO_SEGMENT
   }
 
   time(line: TextFileLine): Date | undefined {
