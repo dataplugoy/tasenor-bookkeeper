@@ -7,6 +7,7 @@ Select Period
     [Documentation]                     Assume we have just selected database. Now select the given period.
     [Arguments]                         ${from}         ${to}
     Wait Until Page Contains Element    period-${from}-${to}
+    Wait Until Element Is Enabled       //*[@id="period-${from}-${to}"]//button
     Click Element                       //*[@id="period-${from}-${to}"]//button
     Wait Until Page Contains Element    css:.BalanceTable
 
