@@ -19,9 +19,6 @@
     "watch": "jest --onlyChanged --watch",
     "show-version": "jq .version < package.json"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": ["bcrypt"]
-  },
   "dependencies": {
     "@tasenor/common": "workspace:*",
     "argparse": "^2.0.1",

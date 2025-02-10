@@ -5,7 +5,8 @@
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "AGPL",
   "scripts": {
-    "build": "rm -rf docs/bookkeeper-api/ && pnpm run build-api && pnpm run build-docs",
+    "build": "echo Docusaurus build broken as usuual",
+    "build-old": "rm -rf docs/bookkeeper-api/ && pnpm run build-api && pnpm run build-docs",
     "build-api": "echo TODO: Broken 'docusaurus gen-api-docs all'",
     "build-docs": "docusaurus build",
     "clean": "docusaurus clear",
