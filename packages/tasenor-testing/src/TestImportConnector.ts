@@ -87,7 +87,7 @@ export class TestImportConnector implements TransactionImportConnector {
         name: this.testFilePath,
         type: 'text/csv',
         encoding: 'base64',
-        data: encode(content)
+        data: encode(content as unknown as ArrayBuffer)
       }
     ]
     await axios.post(`http://localhost:${PORT}/api/isp`, { files, config: this.config })
