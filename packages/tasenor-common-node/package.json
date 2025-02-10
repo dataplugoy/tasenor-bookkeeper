@@ -19,11 +19,14 @@
     "watch": "jest --onlyChanged --watch",
     "show-version": "jq .version < package.json"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": ["bcrypt"]
+  },
   "dependencies": {
     "@tasenor/common": "workspace:*",
     "argparse": "^2.0.1",
     "axios": "^1.6.7",
-    "bcrypt": "^5.1.1",
+    "bcrypt": "5.1.1",
     "chardet": "^1.6.0",
     "clone": "^2.1.2",
     "cors": "^2.8.5",
