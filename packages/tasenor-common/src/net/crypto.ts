@@ -23,7 +23,8 @@ export class Crypto {
    * Convert hex encoded string to array buffer.
    */
   static hex2buf(hex: string): ArrayBuffer {
-    return Buffer.from(hex, 'hex')
+    // TODO: Fox broken type.
+    return Buffer.from(hex, 'hex') as unknown as ArrayBuffer
   }
 
   /**
