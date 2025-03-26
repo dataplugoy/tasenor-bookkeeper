@@ -1,36 +1,45 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env.*local"],
+  "globalDependencies": [
+    "**/.env.*local"
+  ],
   "globalEnv": [
-    "API_URL",
     "API_SITE_TOKEN",
-    "CYPRESS_URL",
+    "API_URL",
+    "BOOKKEEPER_API_PORT",
+    "BOOKKEEPER_PORT",
     "DATABASE_URL",
     "DB_HOST_OVERRIDE",
+    "DB_PORT",
     "DEBUG_ANALYSIS",
-    "DEBUG_BALANCE",
     "DEBUG_BALANCE_ACCOUNT",
+    "DEBUG_BALANCE",
     "DEBUG_CLASSIFICATION",
     "DEBUG_EXECUTION",
     "DEBUG_NET",
     "DEBUG_RULES",
     "DEBUG_SEGMENTATION",
     "DEBUG_STOCK",
-    "TASENOR_SITE_TOKEN",
+    "DOC_PORT",
+    "HTTP_PORT",
+    "HTTPS_PORT",
     "INITIAL_PLUGIN_REPOS",
     "NODE_ENV",
     "PORT",
     "SECRET",
     "TASENOR_API_URL",
-    "UI_API_URL",
+    "TASENOR_SITE_TOKEN",
     "UI_ORIGIN_URL",
     "VAULT_URL"
   ],
-  "pipeline": {
+  "tasks": {
     "audit": {
       "cache": false,
       "persistent": true,
-      "inputs": ["package.json", "pnpm-lock.yaml"]
+      "inputs": [
+        "package.json",
+        "pnpm-lock.yaml"
+      ]
     },
     "ci": {
       "inputs": [
@@ -48,19 +57,31 @@
       "persistent": true
     },
     "show-version": {
-      "inputs": ["package.json"]
+      "inputs": [
+        "package.json"
+      ]
     },
     "lint": {
-      "inputs": ["src/**"]
+      "inputs": [
+        "src/**"
+      ]
     },
     "build": {
-      "inputs": ["src/**"]
+      "inputs": [
+        "src/**"
+      ]
     },
     "fix": {
-      "inputs": ["src/**", "test/**"]
+      "inputs": [
+        "src/**",
+        "test/**"
+      ]
     },
     "test": {
-      "inputs": ["src/**", "test/**"]
+      "inputs": [
+        "src/**",
+        "test/**"
+      ]
     },
     "release": {
       "cache": false
@@ -69,16 +90,26 @@
       "cache": false
     },
     "tasenor-common#release": {
-      "dependsOn": ["tasenor-config#release"]
+      "dependsOn": [
+        "tasenor-config#release"
+      ]
     },
     "tasenor-common-node#release": {
-      "dependsOn": ["tasenor-config#release"]
+      "dependsOn": [
+        "tasenor-config#release"
+      ]
     },
     "tasenor-common-ui#release": {
-      "dependsOn": ["tasenor-config#release"]
+      "dependsOn": [
+        "tasenor-config#release"
+      ]
     },
     "tasenor-common-plugins#release": {
-      "dependsOn": ["tasenor-common#release", "tasenor-common-node#release", "tasenor-common-ui#release"]
+      "dependsOn": [
+        "tasenor-common#release",
+        "tasenor-common-node#release",
+        "tasenor-common-ui#release"
+      ]
     }
   }
 }

@@ -9,10 +9,12 @@
     "nightly": "pnpm audit"
   },
   "devDependencies": {
-    "turbo": "^1.12.4"
+    "turbo": "^2.4.4"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["bcrypt"],
+    "onlyBuiltDependencies": [
+      "bcrypt"
+    ],
     "overrides": {
       "postcss@<8.4.31": ">=8.4.31",
       "axios@>=0.8.1 <1.6.0": ">=1.6.0",
