@@ -132,7 +132,7 @@
           },
           "type": "'crypto'",
           "asset": "Asset",
-          "amount": "Quantity",
+          "amount": "-Quantity",
           "reason": "'trade'"
         },
         {
