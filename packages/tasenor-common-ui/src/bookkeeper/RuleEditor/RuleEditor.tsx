@@ -59,7 +59,7 @@ const Item = (props): JSX.Element => {
     padding: theme.spacing(1),
     textAlign: 'left',
     color: theme.palette.text.secondary
-   }}>
+  }}>
     {props.children}
   </Paper>
 }
