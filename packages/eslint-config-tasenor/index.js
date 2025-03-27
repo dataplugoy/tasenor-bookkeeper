@@ -12,7 +12,6 @@ module.exports = {
   ],
   extends: [
     "semistandard",
-    "turbo",
     "plugin:@typescript-eslint/recommended",
   ],
   rules: {
