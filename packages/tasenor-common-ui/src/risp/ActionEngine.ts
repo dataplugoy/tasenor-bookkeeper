@@ -150,6 +150,8 @@ async function axiosRequst(method: 'PATCH' | 'POST', action: PatchAction | PostA
           k1 = parts.slice(0, objectWrapLevel).join('.')
           k2 = parts.slice(objectWrapLevel).join('.')
         }
+        // TODO: This fails if we have segment id from numbers.
+        //       Setting answers.1234567890.vat = 9.00 assumes huge array.
         const old = getValue(requestValues, k1) || {}
         old[k2] = v
         setValue(requestValues, k1, old)

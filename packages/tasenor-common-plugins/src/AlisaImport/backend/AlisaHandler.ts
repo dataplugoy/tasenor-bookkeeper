@@ -52,7 +52,8 @@ export class AlisaHandler extends TransactionImportHandler {
   }
 
   segmentId(line: TextFileLine): SegmentId | typeof NO_SEGMENT {
-    return line && line.columns ? line.columns.TransactionNumber : NO_SEGMENT
+    // Note: pure number is bad as segment ID. See ActionEngine.ts
+    return line && line.columns ? 'tx' + line.columns.TransactionNumber : NO_SEGMENT
   }
 
   time(line: TextFileLine): Date | undefined {
