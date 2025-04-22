@@ -57,7 +57,7 @@ async function set(settings: Record<SystemSettingName, SystemSettingValue> | Sys
  * Get the value of a system setting.
  * @param name
  */
-async function get(name: SystemSettingName): Promise<SystemSettingValue> {
+async function get(name: SystemSettingName): Promise<SystemSettingValue | undefined> {
   const db = await knex.masterDb()
   const value = await db('settings').select('value').where({ name }).first()
   return value ? value.value : undefined
