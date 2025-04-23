@@ -1123,7 +1123,7 @@ export class TransferAnalyzer {
       if (transfer.text) lastText = transfer.text
       let description = lastText
       if (!description) description = await this.constructText(kind, { ...values, ...data }, transfers)
-      if (!description) {
+      if (!description && description !== '') {
         throw new SystemError(`Failed to construct description for ${JSON.stringify(transfer)}.`)
       }
 
