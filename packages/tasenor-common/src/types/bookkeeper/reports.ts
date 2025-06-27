@@ -13,9 +13,17 @@ export type ReportWidgetType = 'boolean'| 'boolean:true'| 'radio:1' | 'radio:1' 
  *
  * `byTags`- Split report to columns per configured tags.
  * `compact`- If available, use compact format.
+ * `month1`- Radio button for selecting Jan only.
+ * `month2`- Radio button for selecting Feb only.
  * `quarter1`- Radio button for selecting Q1 only.
+ * `month4`- Radio button for selecting Apr only.
+ * `month5`- Radio button for selecting May only.
  * `quarter2`- Radio button for selecting Q2 only.
+ * `month7`- Radio button for selecting Jul only.
+ * `month8`- Radio button for selecting Aug only.
  * `quarter3`-Radio button for selecting Q3 only.
+ * `month10`- Radio button for selecting Sep only.
+ * `month11`- Radio button for selecting Oct only.
  * `full`- Radio button for selecting Q4, i.e. full year.
  *
  */
@@ -26,6 +34,14 @@ export interface ReportOptions {
   quarter2?: 'radio:1',
   quarter3?: 'radio:1',
   full?: 'radio:1:default',
+  month1?: 'radio:1',
+  month2?: 'radio:1',
+  month4?: 'radio:1',
+  month5?: 'radio:1',
+  month7?: 'radio:1',
+  month8?: 'radio:1',
+  month10?: 'radio:1',
+  month11?: 'radio:1',
   periods?: PeriodModel[]
 }
 

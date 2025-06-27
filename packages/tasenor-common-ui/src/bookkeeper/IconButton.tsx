@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { IconButton as MuiIconButton } from '@mui/material'
-import { HelpOutline, AccountBalance, StarRate, AttachMoney, CreditCard, LocalGroceryStore, AddShoppingCart, PersonAdd, Print, CloudDownload, FormatIndentDecrease, Filter2, Filter3, Filter1, Filter4, LocalOffer, Lock, LockOpen, AttachFile, Functions, Event, Sort, Delete, Storage, CloudUpload, ZoomIn, ZoomOut, Visibility, VisibilityOff, PlaylistAdd, DeleteSweep, Build, Extension, Refresh, Add, AddCircleOutline, Settings, ShowChartTwoTone, Pageview, ExpandMore, ExpandLess, CloudUploadTwoTone, CloudDownloadTwoTone, Update, AddCardOutlined } from '@mui/icons-material'
+import { HelpOutline, AccountBalance, StarRate, AttachMoney, CreditCard, LocalGroceryStore, AddShoppingCart, PersonAdd, Print, CloudDownload, FormatIndentDecrease, Filter2, Filter3, Filter1, Filter4, LocalOffer, Lock, LockOpen, AttachFile, Functions, Event, Sort, Delete, Storage, CloudUpload, ZoomIn, ZoomOut, Visibility, VisibilityOff, PlaylistAdd, DeleteSweep, Build, Extension, Refresh, Add, AddCircleOutline, Settings, ShowChartTwoTone, Pageview, ExpandMore, ExpandLess, CloudUploadTwoTone, CloudDownloadTwoTone, Update, AddCardOutlined, FilterNone } from '@mui/icons-material'
 import { haveCursor, Cursor } from '@tasenor/common'
 
 const ICONS = {
@@ -33,9 +33,17 @@ const ICONS = {
   plugin: Extension,
   print: Print,
   profit: ShowChartTwoTone,
+  month1: FilterNone,
+  month2: FilterNone,
   quarter1: Filter1,
+  month4: FilterNone,
+  month5: FilterNone,
   quarter2: Filter2,
+  month7: FilterNone,
+  month8: FilterNone,
   quarter3: Filter3,
+  month10: FilterNone,
+  month11: FilterNone,
   quarter4: Filter4,
   refresh: Refresh,
   save: CloudUploadTwoTone,

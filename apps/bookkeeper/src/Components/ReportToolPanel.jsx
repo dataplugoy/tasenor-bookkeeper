@@ -11,9 +11,17 @@ import withStore from '../Hooks/withStore'
 
 const ICONS = {
   'option-compact': 'compact',
+  'option-month1': 'month1',
+  'option-month2': 'month2',
   'option-quarter1': 'quarter1',
+  'option-month4': 'month4',
+  'option-month5': 'month5',
   'option-quarter2': 'quarter2',
+  'option-month7': 'month7',
+  'option-month8': 'month8',
   'option-quarter3': 'quarter3',
+  'option-month10': 'month10',
+  'option-month11': 'month11',
   'option-full': 'quarter4',
   'option-byTags': 'tag'
 }
@@ -67,6 +75,18 @@ class ReportToolPanel extends Component {
 
   keyIcon9() {
     return this.handleRadio('9')
+  }
+
+  keyIcon0() {
+    return this.handleRadio('0')
+  }
+
+  keyIconQ() {
+    return this.handleRadio('Q')
+  }
+
+  keyIconW() {
+    return this.handleRadio('W')
   }
 
   keyIconE() {
@@ -158,8 +178,8 @@ class ReportToolPanel extends Component {
       let toggleKeys = 0
       let radioKeys = 0
       let shortcut
-      options.forEach((option, index) => {
-        const radioKey = '1234567890'
+      options.forEach((option) => {
+        const radioKey = '1234567890QW'
         const toggleKey = 'ERTYUIO'
         const [optionType, optionArg1] = store.report.options[option].split(':')
         const name = `option-${option}`

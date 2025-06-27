@@ -39,7 +39,7 @@ class ReportHeader extends Component {
       <TableRow key="3" className="columns">
         {report.columns.map((column) => <TableCell key={column.name} className={'ReportCell ' + column.type}>
           {
-            (column.title || '').split(' ').map(txt => <Box style={{ whiteSpace: 'nowrap', textAlign: 'center' }}>{txt}</Box>)
+            (column.title || '').split(' ').map((txt, index) => <Box key={index} style={{ whiteSpace: 'nowrap', textAlign: 'center' }}>{txt}</Box>)
           }
         </TableCell>)}
       </TableRow>

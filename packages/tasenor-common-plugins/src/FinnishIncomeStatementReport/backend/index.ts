@@ -45,9 +45,17 @@ class FinnishIncomeStatementReport extends ReportPlugin {
 
   getReportOptions(): ReportOptions {
     return {
+      month1: 'radio:1',
+      month2: 'radio:1',
       quarter1: 'radio:1',
+      month4: 'radio:1',
+      month5: 'radio:1',
       quarter2: 'radio:1',
+      month7: 'radio:1',
+      month8: 'radio:1',
       quarter3: 'radio:1',
+      month10: 'radio:1',
+      month11: 'radio:1',
       full: 'radio:1:default',
       byTags: 'boolean'
     }
