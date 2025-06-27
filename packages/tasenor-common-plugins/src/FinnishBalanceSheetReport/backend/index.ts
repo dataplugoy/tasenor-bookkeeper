@@ -44,22 +44,45 @@ class FinnishBalanceSheetReport extends ReportPlugin {
 
   getReportOptions(): ReportOptions {
     return {
+      month1: 'radio:1',
+      month2: 'radio:1',
       quarter1: 'radio:1',
+      month4: 'radio:1',
+      month5: 'radio:1',
       quarter2: 'radio:1',
+      month7: 'radio:1',
+      month8: 'radio:1',
       quarter3: 'radio:1',
-      full: 'radio:1:default'
+      month10: 'radio:1',
+      month11: 'radio:1',
+      full: 'radio:1:default',
     }
   }
 
   columnTitle(id, period, options) {
-    if (options.quarter1) {
-      const year = dayjs(period.start_date).year()
+    const year = dayjs(period.start_date).year()
+
+    if (options.month1) {
+      return `{${dayjs(`${year}-02-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
+    } else if (options.month2) {
+      return `{${dayjs(`${year}-03-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
+    } else if (options.month4) {
+      return `{${dayjs(`${year}-05-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
+    } else if (options.month5) {
+      return `{${dayjs(`${year}-06-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
+    } else if (options.month7) {
+      return `{${dayjs(`${year}-08-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
+    } else if (options.month8) {
+      return `{${dayjs(`${year}-09-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
+    } else if (options.month10) {
+      return `{${dayjs(`${year}-11-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
+    } else if (options.month11) {
+      return `{${dayjs(`${year}-12-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
+    } else if (options.quarter1) {
       return `{${dayjs(`${year}-04-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
     } else if (options.quarter2) {
-      const year = dayjs(period.start_date).year()
       return `{${dayjs(`${year}-07-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
     } else if (options.quarter3) {
-      const year = dayjs(period.start_date).year()
       return `{${dayjs(`${year}-10-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
     } else {
       return `{${this.time2str(period.end_date)}}`

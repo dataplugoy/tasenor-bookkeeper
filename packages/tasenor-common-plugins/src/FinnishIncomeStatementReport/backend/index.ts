@@ -69,18 +69,33 @@ class FinnishIncomeStatementReport extends ReportPlugin {
    */
   columnTitle(id, period, options) {
     const start = this.time2str(period.start_date)
+    const year = dayjs(period.start_date).year()
     let end
-    if (options.quarter1) {
-      const year = dayjs(period.start_date).year()
-      end = dayjs(`${year}-04-01`).subtract(1, 'day').format('YYYY-MM-DD')
+
+    if (options.month1) {
+      end = `{${dayjs(`${year}-02-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
+    } else if (options.month2) {
+      end = `{${dayjs(`${year}-03-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
+    } else if (options.month4) {
+      end = `{${dayjs(`${year}-05-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
+    } else if (options.month5) {
+      end = `{${dayjs(`${year}-06-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
+    } else if (options.month7) {
+      end = `{${dayjs(`${year}-08-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
+    } else if (options.month8) {
+      end = `{${dayjs(`${year}-09-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
+    } else if (options.month10) {
+      end = `{${dayjs(`${year}-11-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
+    } else if (options.month11) {
+      end = `{${dayjs(`${year}-12-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
+    } else if (options.quarter1) {
+      end = `{${dayjs(`${year}-04-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
     } else if (options.quarter2) {
-      const year = dayjs(period.start_date).year()
-      end = dayjs(`${year}-07-01`).subtract(1, 'day').format('YYYY-MM-DD')
+      end = `{${dayjs(`${year}-07-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
     } else if (options.quarter3) {
-      const year = dayjs(period.start_date).year()
-      end = dayjs(`${year}-10-01`).subtract(1, 'day').format('YYYY-MM-DD')
+      end = `{${dayjs(`${year}-10-01`).subtract(1, 'day').format('YYYY-MM-DD')}}`
     } else {
-      end = this.time2str(period.end_date)
+      end = `{${this.time2str(period.end_date)}}`
     }
 
     return '{' + start + '} — {' + end + '}'

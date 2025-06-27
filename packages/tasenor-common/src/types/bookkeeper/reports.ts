@@ -189,6 +189,14 @@ export interface ReportQueryParams {
   quarter1?: boolean
   quarter2?: boolean
   quarter3?: boolean
+  month1?: boolean,
+  month2?: boolean,
+  month4?: boolean,
+  month5?: boolean,
+  month7?: boolean,
+  month8?: boolean,
+  month10?: boolean,
+  month11?: boolean,
   compact?: boolean
   byTags?: boolean
   csv?: boolean
