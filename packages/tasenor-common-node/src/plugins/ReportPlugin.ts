@@ -354,10 +354,28 @@ export class ReportPlugin extends BackendPlugin {
 
     if (options.quarter1) {
       filter = (entry) => dayjs(entry.date).quarter() <= 1
-    } if (options.quarter2) {
+    } else if (options.quarter2) {
       filter = (entry) => dayjs(entry.date).quarter() <= 2
-    } if (options.quarter3) {
+    } else if (options.quarter3) {
       filter = (entry) => dayjs(entry.date).quarter() <= 3
+    } else if (options.month1) {
+      filter = (entry) => dayjs(entry.date).month() <= 0
+    } else if (options.month1) {
+      filter = (entry) => dayjs(entry.date).month() <= 0
+    } else if (options.month2) {
+      filter = (entry) => dayjs(entry.date).month() <= 1
+    } else if (options.month4) {
+      filter = (entry) => dayjs(entry.date).month() <= 3
+    } else if (options.month5) {
+      filter = (entry) => dayjs(entry.date).month() <= 4
+    } else if (options.month7) {
+      filter = (entry) => dayjs(entry.date).month() <= 6
+    } else if (options.month8) {
+      filter = (entry) => dayjs(entry.date).month() <= 7
+    } else if (options.month10) {
+      filter = (entry) => dayjs(entry.date).month() <= 9
+    } else if (options.month11) {
+      filter = (entry) => dayjs(entry.date).month() <= 10
     }
 
     return entries.filter(filter)
