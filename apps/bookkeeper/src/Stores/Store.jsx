@@ -1207,7 +1207,7 @@ export class Store {
    * Change user configuration.
    */
   async setConfig(variable, value) {
-    return this.request(`/user/config`, 'PATCH', { [variable]: value })
+    return this.request('/user/config', 'PATCH', { [variable]: value })
   }
 }
 

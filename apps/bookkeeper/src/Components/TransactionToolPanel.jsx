@@ -107,6 +107,35 @@ class TransactionToolPanel extends Component {
     return { preventDefault: true }
   }
 
+  keyIconM() {
+    const txs = this.props.store.transactions
+    const cursor = haveCursor()
+    const current = txs[cursor.index].parent
+    const prev = txs[cursor.index - 1].parent
+
+    cursor.leaveComponent()
+
+    runInAction(() => {
+      const tmp = current.number
+      current.number = -prev.number
+      prev.number = -tmp
+    })
+
+    current.save().then(() => {
+      prev.save().then(() => {
+        runInAction(() => {
+          current.number = -current.number
+          prev.number = -prev.number
+          current.save()
+          prev.save()
+          cursor.enterComponent()
+        })
+      })
+    })
+
+    return { preventDefault: true }
+  }
+
   render() {
     if (!this.props.store.isLoggedIn()) {
       return ''
@@ -129,6 +158,8 @@ class TransactionToolPanel extends Component {
       }
     }
 
+    const txs = this.props.store.transactions
+
     const hasTags = account && account.tags && account.tags.length > 0
     const canAddEntry = cursor.componentX > 0 && this.props.store.period && !this.props.store.period.locked && cursor.row !== null
     const canAddTx = this.props.store.period && !this.props.store.period.locked && cursor.row === null
@@ -136,6 +167,7 @@ class TransactionToolPanel extends Component {
     const canDeleteTx = cursor.componentX > 0 && cursor.index !== null && cursor.row === null
     const canAddStockChange = canDeleteEntry
     const canDownload = !!this.props.store.accountId
+    const canSwap = cursor.row === null && cursor.index > 0 && txs[cursor.index].parent.date === txs[cursor.index - 1].parent.date
     let last = null
 
     return (
@@ -153,6 +185,7 @@ class TransactionToolPanel extends Component {
           <IconButton id="Delete Transaction" shortcut="X" disabled={!canDeleteTx} pressKey="IconX" title="delete-tx" icon="delete-tx" />
           <IconButton id="Delete Row" shortcut="X" disabled={!canDeleteEntry} pressKey="IconX" title="delete-entry" icon="delete-entry" />
           <IconButton id="Add Stock Change" shortcut="N" disabled={!canAddStockChange} pressKey="IconN" title="add-stock-change" icon="add-data" />
+          <IconButton id="Swap Up" shortcut="M" disabled={!canSwap} pressKey="IconM" title="swap-up" icon="swap" />
         </div>
 
         <div style={{ marginBottom: '1rem', marginLeft: '1rem', marginRight: '1rem' }}>

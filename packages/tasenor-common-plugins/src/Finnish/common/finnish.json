@@ -147,6 +147,7 @@
   "icon-show-details": "Näytä osatapahtumat",
   "icon-sort-documents": "Järjestä tositenumerot päivämääräjän mukaan",
   "icon-summarize-vat-period": "Kerää ALV velat/saatavat",
+  "icon-swap-up": "Vaihda tosite yläpuolisen tositteen kanssa",
   "icon-unlock-period": "Poista tilikauden lukitus",
   "icon-upload-database": "Lähetä palvelimelle varmuuskopiotiedosto",
   "Import data from various sources.": "Tuo tietoja muista lähteistä.",
