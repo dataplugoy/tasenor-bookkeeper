@@ -167,7 +167,8 @@ class TransactionToolPanel extends Component {
     const canDeleteTx = cursor.componentX > 0 && cursor.index !== null && cursor.row === null
     const canAddStockChange = canDeleteEntry
     const canDownload = !!this.props.store.accountId
-    const canSwap = cursor.row === null && cursor.index > 0 && txs[cursor.index].parent.date === txs[cursor.index - 1].parent.date
+    const canSwap = cursor.row === null && cursor.index > 0 && txs[cursor.index] && txs[cursor.index - 1] && txs[cursor.index].parent.date === txs[cursor.index - 1].parent.date
+
     let last = null
 
     return (
