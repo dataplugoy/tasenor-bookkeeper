@@ -1,0 +1,146 @@
+# accounts	title	flags
+1000-2000	VASTAAVAA	HIDE_TOTAL REQUIRED BOLD
+1000-1500	_PYSYVÄT VASTAAVAT	HIDE_TOTAL REQUIRED BOLD
+1000-1100	__Aineettomat hyödykkeet	HIDE_TOTAL BOLD
+1020-1040	___Kehittämismenot	HIDE_TOTAL BOLD
+1020-1040	____Kehittämismenot	DETAILS
+1020-1040	___Kehittämismenot yhteensä	BOLD
+1040-1050	___Aineettomat oikeudet	HIDE_TOTAL BOLD
+1040-1050	____Aineettomat oikeudet	DETAILS
+1040-1050	___Aineettomat oikeudet yhteensä	BOLD
+1070-1090	___Muut pitkävaikutteiset menot	HIDE_TOTAL BOLD
+1070-1090	____Muut pitkävaikutteiset menot	DETAILS
+1070-1090	___Muut pitkävaikutteiset menot yhteensä	BOLD
+1090-1100	___Ennakkomaksut	HIDE_TOTAL BOLD
+1090-1100	____Ennakkomaksut	DETAILS
+1090-1100	___Ennakkomaksut yhteensä	BOLD
+1000-1100	__Aineettomat hyödykkeet yhteensä	BOLD
+1100-1400	__Aineelliset hyödykkeet	HIDE_TOTAL BOLD
+1100-1120	___Maa- ja vesialueet	HIDE_TOTAL BOLD
+1100-1120	____Maa- ja vesialueet	DETAILS
+1100-1120	___Maa- ja vesialueet yhteensä	BOLD
+1120-1200	___Rakennukset ja rakennelmat	HIDE_TOTAL BOLD
+1120-1200	____Rakennukset ja rakennelmat	DETAILS
+1120-1200	___Rakennukset ja rakennelmat yhteensä	BOLD
+1200-1300	___Koneet ja kalusto	HIDE_TOTAL BOLD
+1200-1300	____Koneet ja kalusto	DETAILS
+1200-1300	___Koneet ja kalusto yhteensä	BOLD
+1300-1350	___Muut aineelliset hyödykkeet	HIDE_TOTAL BOLD
+1300-1350	____Muut aineelliset hyödykkeet	DETAILS
+1300-1350	___Muut aineelliset hyödykkeet yhteensä	BOLD
+1350-1400	___Ennakkomaksut ja keskeneräiset hankinnat	HIDE_TOTAL BOLD
+1350-1400	____Ennakkomaksut ja keskeneräiset hankinnat	DETAILS
+1350-1400	___Ennakkomaksut ja keskeneräiset hankinnat yhteensä	BOLD
+1100-1400		BOLD
+1400-1500	__Sijoitukset	HIDE_TOTAL BOLD
+1400-1470	___Muut osakkeet ja osuudet	HIDE_TOTAL BOLD
+1400-1470	____Muut osakkeet ja osuudet	DETAILS
+1400-1470	___Muut osakkeet ja osuudet yhteensä	BOLD
+1470-1500	___Muut saamiset	HIDE_TOTAL BOLD
+1470-1500	____Muut saamiset	DETAILS
+1470-1500	___Muut saamiset yhteensä	BOLD
+1400-1500	__Sijoitukset yhteensä	BOLD
+1000-1500	_Pysyvät vastaavat yhteensä	REQUIRED BOLD
+1500-2000	_VAIHTUVAT VASTAAVAT	HIDE_TOTAL REQUIRED BOLD
+1500-1600	__Vaihto-omaisuus	HIDE_TOTAL BOLD
+1500-1520	___Aineet ja tarvikkeet	HIDE_TOTAL BOLD
+1500-1520	____Aineet ja tarvikkeet	DETAILS
+1500-1520	___Aineet ja tarvikkeet yhteensä	BOLD
+1520-1530	___Keskeneräiset tuotteet	HIDE_TOTAL BOLD
+1520-1530	____Keskeneräiset tuotteet	DETAILS
+1520-1530	___Keskeneräiset tuotteet yhteensä	BOLD
+1530-1550	___Valmiit tuotteet/tavarat	HIDE_TOTAL BOLD
+1530-1550	____Valmiit tuotteet/tavarat	DETAILS
+1530-1550	___Valmiit tuotteet/tavarat yhteensä	BOLD
+1550-1560	___Muu vaihto-omaisuus	HIDE_TOTAL BOLD
+1550-1560	____Muu vaihto-omaisuus	DETAILS
+1550-1560	___Muu vaihto-omaisuus yhteensä	BOLD
+1560-1570	___Ennakkomaksut	HIDE_TOTAL BOLD
+1560-1570	____Ennakkomaksut	DETAILS
+1560-1570	___Ennakkomaksut yhteensä	BOLD
+1500-1600	__Vaihto-omaisuus yhteensä	BOLD
+1600-1860	__Saamiset	HIDE_TOTAL BOLD
+1600-1640 1700-1730	___Myyntisaamiset	HIDE_TOTAL BOLD
+1600-1640 1700-1730	____Myyntisaamiset	DETAILS
+1600-1640 1700-1730	___Myyntisaamiset	BOLD
+1640-1650 1750-1770	___Lainasaamiset	HIDE_TOTAL BOLD
+1640-1650 1750-1770	____Lainasaamiset	DETAILS
+1640-1650 1750-1770	___Lainasaamiset yhteensä	BOLD
+1650-1660 1770-1780	___Muut saamiset	HIDE_TOTAL BOLD
+1650-1660 1770-1780	____Muut saamiset	DETAILS
+1650-1660 1770-1780	___Muut saamiset yhteensä	BOLD
+1660-1670 1780-1800	___Maksamattomat osakkeet/osuudet	HIDE_TOTAL BOLD
+1660-1670 1780-1800	____Maksamattomat osakkeet/osuudet	DETAILS
+1660-1670 1780-1800	___Maksamattomat osakkeet/osuudet yhteensä	BOLD
+1670-1690 1800-1850	___Siirtosaamiset	HIDE_TOTAL BOLD
+1670-1690 1800-1850	____Siirtosaamiset	DETAILS
+1670-1690 1800-1850	___Siirtosaamiset yhteensä	BOLD
+1600-1860	__Saamiset yhteensä	BOLD
+1860-1900	__Rahoitusarvopaperit	HIDE_TOTAL BOLD
+1860-1880	___Muut osakkeet ja osuudet	HIDE_TOTAL BOLD
+1860-1880	____Muut osakkeet ja osuudet	DETAILS
+1860-1880	___Muut osakkeet ja osuudet yhteensä	BOLD
+1880-1900	___Muut arvopaperit	HIDE_TOTAL BOLD
+1880-1900	____Muut arvopaperit	DETAILS
+1880-1900	___Muut arvopaperit yhteensä	BOLD
+1860-1900	__Rahoitusarvopaperit yhteensä	BOLD
+1900-2000	__Rahat ja pankkisaamiset	HIDE_TOTAL BOLD
+1900-2000	___Rahat ja pankkisaamiset	DETAILS
+1900-2000	__Rahat ja pankkisaamiset yhteensä	BOLD
+1500-2000	_Vaihtuvat vastaavat yhteensä	REQUIRED BOLD
+1000-2000	Vastaavaa yhteensä	REQUIRED BOLD
+		BREAK
+2000-9999	VASTATTAVAA	HIDE_TOTAL REQUIRED BOLD
+2000-2400	_OMA PÄÄOMA	HIDE_TOTAL REQUIRED BOLD
+		BREAK
+2000-2020	__Osake-, osuus- tai muu vastaava pääoma	HIDE_TOTAL BOLD
+2000-2020	___Osake-, osuus- tai muu vastaava pääoma	DETAILS
+2000-2020	__Osake-, osuus- tai muu vastaava pääoma yhteensä	BOLD
+2250-2260	__Edellisten tilikausien ylijäämä (alijäämä)	BOLD
+3000-9999	__Tilikauden ylijäämä (alijäämä)	REQUIRED BOLD
+2000-2400 3000-9999	_Oma pääoma yhteensä	REQUIRED BOLD
+2400-2500	_TILINPÄÄTÖSSIIRTOJEN KERTYMÄ	HIDE_TOTAL BOLD
+2400-2450	__Poistoero	HIDE_TOTAL BOLD
+2400-2450	___Poistoero	DETAILS
+2400-2450	__Poistoero yhteensä	BOLD
+2450-2500	__Vapaaehtoiset varaukset	HIDE_TOTAL BOLD
+2450-2500	___Vapaaehtoiset varaukset	DETAILS
+2450-2500	__Vapaaehtoiset varaukset yhteensä	BOLD
+2400-2500	_Tilinpäätössiirtojen kertymä yhteensä	BOLD
+2500-2600	_PAKOLLISET VARAUKSET	HIDE_TOTAL BOLD
+2500-2520	__Eläkevaraukset	HIDE_TOTAL BOLD
+2500-2520	___Eläkevaraukset	DETAILS
+2500-2520	__Eläkevaraukset yhteensä	BOLD
+2520-2530	__Verovaraukset	HIDE_TOTAL BOLD
+2520-2530	___Verovaraukset	DETAILS
+2520-2530	__Verovaraukset yhteensä	BOLD
+2530-2590	__Muut pakolliset varaukset	HIDE_TOTAL BOLD
+2530-2590	___Muut pakolliset varaukset	DETAILS
+2530-2590	__Muut pakolliset varaukset yhteensä	BOLD
+2500-2600	_Pakolliset varaukset yhteensä	BOLD
+		BREAK
+2600-3000	_VIERAS PÄÄOMA	HIDE_TOTAL REQUIRED BOLD
+		BREAK
+2620-2650 2820-2850	__Lainat rahoituslaitoksilta	HIDE_TOTAL BOLD
+2620-2650 2820-2850	___Lainat rahoituslaitoksilta	DETAILS
+2620-2650 2820-2850	__Lainat rahoituslaitoksilta yhteensä	BOLD
+2650-2660 2850-2860	__Eläkelainat	HIDE_TOTAL BOLD
+2650-2660 2850-2860	___Eläkelainat	DETAILS
+2650-2660 2850-2860	__Eläkelainat yhteensä	BOLD
+2660-2670 2860-2870	__Saadut ennakot	HIDE_TOTAL BOLD
+2660-2670 2860-2870	___Saadut ennakot	DETAILS
+2660-2670 2860-2870	__Saadut ennakot yhteensä	BOLD
+2670-2680 2870-2890	__Ostovelat	HIDE_TOTAL BOLD
+2670-2680 2870-2890	___Ostovelat	DETAILS
+2670-2680 2870-2890	__Ostovelat yhteensä	BOLD
+2680-2700 2890-2900	__Rahoitusvekselit	HIDE_TOTAL BOLD
+2680-2700 2890-2900	___Rahoitusvekselit	DETAILS
+2680-2700 2890-2900	__Rahoitusvekselit yhteensä	BOLD
+2720-2750 2920-2960	__Muut velat	HIDE_TOTAL BOLD
+2720-2750 2920-2960	___Muut velat	DETAILS
+2720-2750 2920-2960	__Muut velat yhteensä	BOLD
+2750-2800 2960-3000	__Siirtovelat	HIDE_TOTAL BOLD
+2750-2800 2960-3000	___Siirtovelat	DETAILS
+2750-2800 2960-3000	__Siirtovelat yhteensä	BOLD
+2600-3000	_Vieras pääoma yhteensä	REQUIRED BOLD
+2000-9999	Vastattavaa yhteensä	REQUIRED BOLD

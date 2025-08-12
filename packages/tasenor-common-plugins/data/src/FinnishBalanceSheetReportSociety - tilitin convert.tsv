@@ -1,0 +1,145 @@
+HB0;1000-2000;VASTAAVAA				HB0	1000-2000	VASTAAVAA		0	VASTAAVAA	HB	HIDE_TOTAL REQUIRED BOLD		HB	HIDE_TOTAL REQUIRED BOLD
+HB1;1000-1500;PYSYVÄT VASTAAVAT				HB1	1000-1500	PYSYVÄT VASTAAVAT		1	_PYSYVÄT VASTAAVAT	HB	HIDE_TOTAL REQUIRED BOLD		GP	HIDE_TOTAL
+GB2;1000-1100;Aineettomat hyödykkeet				GB2	1000-1100	Aineettomat hyödykkeet		2	__Aineettomat hyödykkeet	GB	HIDE_TOTAL BOLD		TP	
+GB3;1020-1040;Kehittämismenot				GB3	1020-1040	Kehittämismenot		3	___Kehittämismenot	GB	HIDE_TOTAL BOLD		TB	BOLD
+DP4;1020-1040;Kehittämismenot				DP4	1020-1040	Kehittämismenot		4	____Kehittämismenot	DP	DETAILS		--	NEW_PAGE
+TB3;1020-1040;Kehittämismenot yhteensä				TB3	1020-1040	Kehittämismenot yhteensä		3	___Kehittämismenot yhteensä	TB	BOLD		SB	REQUIRED BOLD
+GB3;1040-1050;Aineettomat oikeudet				GB3	1040-1050	Aineettomat oikeudet		3	___Aineettomat oikeudet	GB	HIDE_TOTAL BOLD		GB	HIDE_TOTAL BOLD
+DP4;1040-1050;Aineettomat oikeudet				DP4	1040-1050	Aineettomat oikeudet		4	____Aineettomat oikeudet	DP	DETAILS		DP	DETAILS
+TB3;1040-1050;Aineettomat oikeudet yhteensä				TB3	1040-1050	Aineettomat oikeudet yhteensä		3	___Aineettomat oikeudet yhteensä	TB	BOLD		BR	BREAK
+GB3;1070-1090;Muut pitkävaikutteiset menot				GB3	1070-1090	Muut pitkävaikutteiset menot		3	___Muut pitkävaikutteiset menot	GB	HIDE_TOTAL BOLD			
+DP4;1070-1090;Muut pitkävaikutteiset menot				DP4	1070-1090	Muut pitkävaikutteiset menot		4	____Muut pitkävaikutteiset menot	DP	DETAILS			
+TB3;1070-1090;Muut pitkävaikutteiset menot yhteensä				TB3	1070-1090	Muut pitkävaikutteiset menot yhteensä		3	___Muut pitkävaikutteiset menot yhteensä	TB	BOLD			
+GB3;1090-1100;Ennakkomaksut				GB3	1090-1100	Ennakkomaksut		3	___Ennakkomaksut	GB	HIDE_TOTAL BOLD			
+DP4;1090-1100;Ennakkomaksut				DP4	1090-1100	Ennakkomaksut		4	____Ennakkomaksut	DP	DETAILS			
+TB3;1090-1100;Ennakkomaksut yhteensä				TB3	1090-1100	Ennakkomaksut yhteensä		3	___Ennakkomaksut yhteensä	TB	BOLD			
+TB2;1000-1100;Aineettomat hyödykkeet yhteensä				TB2	1000-1100	Aineettomat hyödykkeet yhteensä		2	__Aineettomat hyödykkeet yhteensä	TB	BOLD			
+GB2;1100-1400;Aineelliset hyödykkeet				GB2	1100-1400	Aineelliset hyödykkeet		2	__Aineelliset hyödykkeet	GB	HIDE_TOTAL BOLD			
+GB3;1100-1120;Maa- ja vesialueet				GB3	1100-1120	Maa- ja vesialueet		3	___Maa- ja vesialueet	GB	HIDE_TOTAL BOLD			
+DP4;1100-1120;Maa- ja vesialueet				DP4	1100-1120	Maa- ja vesialueet		4	____Maa- ja vesialueet	DP	DETAILS			
+TB3;1100-1120;Maa- ja vesialueet yhteensä				TB3	1100-1120	Maa- ja vesialueet yhteensä		3	___Maa- ja vesialueet yhteensä	TB	BOLD			
+GB3;1120-1200;Rakennukset ja rakennelmat				GB3	1120-1200	Rakennukset ja rakennelmat		3	___Rakennukset ja rakennelmat	GB	HIDE_TOTAL BOLD			
+DP4;1120-1200;Rakennukset ja rakennelmat				DP4	1120-1200	Rakennukset ja rakennelmat		4	____Rakennukset ja rakennelmat	DP	DETAILS			
+TB3;1120-1200;Rakennukset ja rakennelmat yhteensä				TB3	1120-1200	Rakennukset ja rakennelmat yhteensä		3	___Rakennukset ja rakennelmat yhteensä	TB	BOLD			
+GB3;1200-1300;Koneet ja kalusto				GB3	1200-1300	Koneet ja kalusto		3	___Koneet ja kalusto	GB	HIDE_TOTAL BOLD			
+DP4;1200-1300;Koneet ja kalusto				DP4	1200-1300	Koneet ja kalusto		4	____Koneet ja kalusto	DP	DETAILS			
+TB3;1200-1300;Koneet ja kalusto yhteensä				TB3	1200-1300	Koneet ja kalusto yhteensä		3	___Koneet ja kalusto yhteensä	TB	BOLD			
+GB3;1300-1350;Muut aineelliset hyödykkeet				GB3	1300-1350	Muut aineelliset hyödykkeet		3	___Muut aineelliset hyödykkeet	GB	HIDE_TOTAL BOLD			
+DP4;1300-1350;Muut aineelliset hyödykkeet				DP4	1300-1350	Muut aineelliset hyödykkeet		4	____Muut aineelliset hyödykkeet	DP	DETAILS			
+TB3;1300-1350;Muut aineelliset hyödykkeet yhteensä				TB3	1300-1350	Muut aineelliset hyödykkeet yhteensä		3	___Muut aineelliset hyödykkeet yhteensä	TB	BOLD			
+GB3;1350-1400;Ennakkomaksut ja keskeneräiset hankinnat				GB3	1350-1400	Ennakkomaksut ja keskeneräiset hankinnat		3	___Ennakkomaksut ja keskeneräiset hankinnat	GB	HIDE_TOTAL BOLD			
+DP4;1350-1400;Ennakkomaksut ja keskeneräiset hankinnat				DP4	1350-1400	Ennakkomaksut ja keskeneräiset hankinnat		4	____Ennakkomaksut ja keskeneräiset hankinnat	DP	DETAILS			
+TB3;1350-1400;Ennakkomaksut ja keskeneräiset hankinnat yhteensä				TB3	1350-1400	Ennakkomaksut ja keskeneräiset hankinnat yhteensä		3	___Ennakkomaksut ja keskeneräiset hankinnat yhteensä	TB	BOLD			
+TB2;1100-1400;Aineelliset hyödykkeet yhteensä				TB2	1100-1400	Aineelliset hyödykkeet yhteensä				TB	BOLD			
+GB2;1400-1500;Sijoitukset				GB2	1400-1500	Sijoitukset		2	__Sijoitukset	GB	HIDE_TOTAL BOLD			
+GB3;1400-1470;Muut osakkeet ja osuudet				GB3	1400-1470	Muut osakkeet ja osuudet		3	___Muut osakkeet ja osuudet	GB	HIDE_TOTAL BOLD			
+DP4;1400-1470;Muut osakkeet ja osuudet				DP4	1400-1470	Muut osakkeet ja osuudet		4	____Muut osakkeet ja osuudet	DP	DETAILS			
+TB3;1400-1470;Muut osakkeet ja osuudet yhteensä				TB3	1400-1470	Muut osakkeet ja osuudet yhteensä		3	___Muut osakkeet ja osuudet yhteensä	TB	BOLD			
+GB3;1470-1500;Muut saamiset				GB3	1470-1500	Muut saamiset		3	___Muut saamiset	GB	HIDE_TOTAL BOLD			
+DP4;1470-1500;Muut saamiset				DP4	1470-1500	Muut saamiset		4	____Muut saamiset	DP	DETAILS			
+TB3;1470-1500;Muut saamiset yhteensä				TB3	1470-1500	Muut saamiset yhteensä		3	___Muut saamiset yhteensä	TB	BOLD			
+TB2;1400-1500;Sijoitukset yhteensä				TB2	1400-1500	Sijoitukset yhteensä		2	__Sijoitukset yhteensä	TB	BOLD			
+SB1;1000-1500;Pysyvät vastaavat yhteensä				SB1	1000-1500	Pysyvät vastaavat yhteensä		1	_Pysyvät vastaavat yhteensä	SB	REQUIRED BOLD			
+HB1;1500-2000;VAIHTUVAT VASTAAVAT				HB1	1500-2000	VAIHTUVAT VASTAAVAT		1	_VAIHTUVAT VASTAAVAT	HB	HIDE_TOTAL REQUIRED BOLD			
+GB2;1500-1600;Vaihto-omaisuus				GB2	1500-1600	Vaihto-omaisuus		2	__Vaihto-omaisuus	GB	HIDE_TOTAL BOLD			
+GB3;1500-1520;Aineet ja tarvikkeet				GB3	1500-1520	Aineet ja tarvikkeet		3	___Aineet ja tarvikkeet	GB	HIDE_TOTAL BOLD			
+DP4;1500-1520;Aineet ja tarvikkeet				DP4	1500-1520	Aineet ja tarvikkeet		4	____Aineet ja tarvikkeet	DP	DETAILS			
+TB3;1500-1520;Aineet ja tarvikkeet yhteensä				TB3	1500-1520	Aineet ja tarvikkeet yhteensä		3	___Aineet ja tarvikkeet yhteensä	TB	BOLD			
+GB3;1520-1530;Keskeneräiset tuotteet				GB3	1520-1530	Keskeneräiset tuotteet		3	___Keskeneräiset tuotteet	GB	HIDE_TOTAL BOLD			
+DP4;1520-1530;Keskeneräiset tuotteet				DP4	1520-1530	Keskeneräiset tuotteet		4	____Keskeneräiset tuotteet	DP	DETAILS			
+TB3;1520-1530;Keskeneräiset tuotteet yhteensä				TB3	1520-1530	Keskeneräiset tuotteet yhteensä		3	___Keskeneräiset tuotteet yhteensä	TB	BOLD			
+GB3;1530-1550;Valmiit tuotteet/tavarat				GB3	1530-1550	Valmiit tuotteet/tavarat		3	___Valmiit tuotteet/tavarat	GB	HIDE_TOTAL BOLD			
+DP4;1530-1550;Valmiit tuotteet/tavarat				DP4	1530-1550	Valmiit tuotteet/tavarat		4	____Valmiit tuotteet/tavarat	DP	DETAILS			
+TB3;1530-1550;Valmiit tuotteet/tavarat yhteensä				TB3	1530-1550	Valmiit tuotteet/tavarat yhteensä		3	___Valmiit tuotteet/tavarat yhteensä	TB	BOLD			
+GB3;1550-1560;Muu vaihto-omaisuus				GB3	1550-1560	Muu vaihto-omaisuus		3	___Muu vaihto-omaisuus	GB	HIDE_TOTAL BOLD			
+DP4;1550-1560;Muu vaihto-omaisuus				DP4	1550-1560	Muu vaihto-omaisuus		4	____Muu vaihto-omaisuus	DP	DETAILS			
+TB3;1550-1560;Muu vaihto-omaisuus yhteensä				TB3	1550-1560	Muu vaihto-omaisuus yhteensä		3	___Muu vaihto-omaisuus yhteensä	TB	BOLD			
+GB3;1560-1570;Ennakkomaksut				GB3	1560-1570	Ennakkomaksut		3	___Ennakkomaksut	GB	HIDE_TOTAL BOLD			
+DP4;1560-1570;Ennakkomaksut				DP4	1560-1570	Ennakkomaksut		4	____Ennakkomaksut	DP	DETAILS			
+TB3;1560-1570;Ennakkomaksut yhteensä				TB3	1560-1570	Ennakkomaksut yhteensä		3	___Ennakkomaksut yhteensä	TB	BOLD			
+TB2;1500-1600;Vaihto-omaisuus yhteensä				TB2	1500-1600	Vaihto-omaisuus yhteensä		2	__Vaihto-omaisuus yhteensä	TB	BOLD			
+GB2;1600-1860;Saamiset				GB2	1600-1860	Saamiset		2	__Saamiset	GB	HIDE_TOTAL BOLD			
+GB3;1600-1640 1700-1730;Myyntisaamiset				GB3	1600-1640 1700-1730	Myyntisaamiset		3	___Myyntisaamiset	GB	HIDE_TOTAL BOLD			
+DP4;1600-1640 1700-1730;Myyntisaamiset				DP4	1600-1640 1700-1730	Myyntisaamiset		4	____Myyntisaamiset	DP	DETAILS			
+TB3;1600-1640 1700-1730;Myyntisaamiset				TB3	1600-1640 1700-1730	Myyntisaamiset		3	___Myyntisaamiset	TB	BOLD			
+GB3;1640-1650 1750-1770;Lainasaamiset				GB3	1640-1650 1750-1770	Lainasaamiset		3	___Lainasaamiset	GB	HIDE_TOTAL BOLD			
+DP4;1640-1650 1750-1770;Lainasaamiset				DP4	1640-1650 1750-1770	Lainasaamiset		4	____Lainasaamiset	DP	DETAILS			
+TB3;1640-1650 1750-1770;Lainasaamiset yhteensä				TB3	1640-1650 1750-1770	Lainasaamiset yhteensä		3	___Lainasaamiset yhteensä	TB	BOLD			
+GB3;1650-1660 1770-1780;Muut saamiset				GB3	1650-1660 1770-1780	Muut saamiset		3	___Muut saamiset	GB	HIDE_TOTAL BOLD			
+DP4;1650-1660 1770-1780;Muut saamiset				DP4	1650-1660 1770-1780	Muut saamiset		4	____Muut saamiset	DP	DETAILS			
+TB3;1650-1660 1770-1780;Muut saamiset yhteensä				TB3	1650-1660 1770-1780	Muut saamiset yhteensä		3	___Muut saamiset yhteensä	TB	BOLD			
+GB3;1660-1670 1780-1800;Maksamattomat osakkeet/osuudet				GB3	1660-1670 1780-1800	Maksamattomat osakkeet/osuudet		3	___Maksamattomat osakkeet/osuudet	GB	HIDE_TOTAL BOLD			
+DP4;1660-1670 1780-1800;Maksamattomat osakkeet/osuudet				DP4	1660-1670 1780-1800	Maksamattomat osakkeet/osuudet		4	____Maksamattomat osakkeet/osuudet	DP	DETAILS			
+TB3;1660-1670 1780-1800;Maksamattomat osakkeet/osuudet yhteensä				TB3	1660-1670 1780-1800	Maksamattomat osakkeet/osuudet yhteensä		3	___Maksamattomat osakkeet/osuudet yhteensä	TB	BOLD			
+GB3;1670-1690 1800-1850;Siirtosaamiset				GB3	1670-1690 1800-1850	Siirtosaamiset		3	___Siirtosaamiset	GB	HIDE_TOTAL BOLD			
+DP4;1670-1690 1800-1850;Siirtosaamiset				DP4	1670-1690 1800-1850	Siirtosaamiset		4	____Siirtosaamiset	DP	DETAILS			
+TB3;1670-1690 1800-1850;Siirtosaamiset yhteensä				TB3	1670-1690 1800-1850	Siirtosaamiset yhteensä		3	___Siirtosaamiset yhteensä	TB	BOLD			
+TB2;1600-1860;Saamiset yhteensä				TB2	1600-1860	Saamiset yhteensä		2	__Saamiset yhteensä	TB	BOLD			
+GB2;1860-1900;Rahoitusarvopaperit				GB2	1860-1900	Rahoitusarvopaperit		2	__Rahoitusarvopaperit	GB	HIDE_TOTAL BOLD			
+GB3;1860-1880;Muut osakkeet ja osuudet				GB3	1860-1880	Muut osakkeet ja osuudet		3	___Muut osakkeet ja osuudet	GB	HIDE_TOTAL BOLD			
+DP4;1860-1880;Muut osakkeet ja osuudet				DP4	1860-1880	Muut osakkeet ja osuudet		4	____Muut osakkeet ja osuudet	DP	DETAILS			
+TB3;1860-1880;Muut osakkeet ja osuudet yhteensä				TB3	1860-1880	Muut osakkeet ja osuudet yhteensä		3	___Muut osakkeet ja osuudet yhteensä	TB	BOLD			
+GB3;1880-1900;Muut arvopaperit				GB3	1880-1900	Muut arvopaperit		3	___Muut arvopaperit	GB	HIDE_TOTAL BOLD			
+DP4;1880-1900;Muut arvopaperit				DP4	1880-1900	Muut arvopaperit		4	____Muut arvopaperit	DP	DETAILS			
+TB3;1880-1900;Muut arvopaperit yhteensä				TB3	1880-1900	Muut arvopaperit yhteensä		3	___Muut arvopaperit yhteensä	TB	BOLD			
+TB2;1860-1900;Rahoitusarvopaperit yhteensä				TB2	1860-1900	Rahoitusarvopaperit yhteensä		2	__Rahoitusarvopaperit yhteensä	TB	BOLD			
+GB2;1900-2000;Rahat ja pankkisaamiset				GB2	1900-2000	Rahat ja pankkisaamiset		2	__Rahat ja pankkisaamiset	GB	HIDE_TOTAL BOLD			
+DP3;1900-2000;Rahat ja pankkisaamiset				DP3	1900-2000	Rahat ja pankkisaamiset		3	___Rahat ja pankkisaamiset	DP	DETAILS			
+TB2;1900-2000;Rahat ja pankkisaamiset yhteensä				TB2	1900-2000	Rahat ja pankkisaamiset yhteensä		2	__Rahat ja pankkisaamiset yhteensä	TB	BOLD			
+SB1;1500-2000;Vaihtuvat vastaavat yhteensä				SB1	1500-2000	Vaihtuvat vastaavat yhteensä		1	_Vaihtuvat vastaavat yhteensä	SB	REQUIRED BOLD			
+SB0;1000-2000;Vastaavaa yhteensä				SB0	1000-2000	Vastaavaa yhteensä		0	Vastaavaa yhteensä	SB	REQUIRED BOLD			
+				BR0				0		BR	BREAK			
+HB0;2000-9999;VASTATTAVAA				HB0	2000-9999	VASTATTAVAA		0	VASTATTAVAA	HB	HIDE_TOTAL REQUIRED BOLD			
+HB1;2000-2400;OMA PÄÄOMA				HB1	2000-2400	OMA PÄÄOMA		1	_OMA PÄÄOMA	HB	HIDE_TOTAL REQUIRED BOLD			
+				BR0				0		BR	BREAK			
+GB2;2000-2020;Osake-, osuus- tai muu vastaava pääoma				GB2	2000-2020	Osake-, osuus- tai muu vastaava pääoma		2	__Osake-, osuus- tai muu vastaava pääoma	GB	HIDE_TOTAL BOLD			
+DP3;2000-2020;Osake-, osuus- tai muu vastaava pääoma				DP3	2000-2020	Osake-, osuus- tai muu vastaava pääoma		3	___Osake-, osuus- tai muu vastaava pääoma	DP	DETAILS			
+TB2;2000-2020;Osake-, osuus- tai muu vastaava pääoma yhteensä				TB2	2000-2020	Osake-, osuus- tai muu vastaava pääoma yhteensä		2	__Osake-, osuus- tai muu vastaava pääoma yhteensä	TB	BOLD			
+TB2;2250-2260;Edellisten tilikausien ylijäämä (alijäämä)				TB2	2250-2260	Edellisten tilikausien ylijäämä (alijäämä)		2	__Edellisten tilikausien ylijäämä (alijäämä)	TB	BOLD			
+SB2;3000-9999;Tilikauden ylijäämä (alijäämä)				SB2	3000-9999	Tilikauden ylijäämä (alijäämä)		2	__Tilikauden ylijäämä (alijäämä)	SB	REQUIRED BOLD			
+SB1;2000-2400 3000-9999;Oma pääoma yhteensä				SB1	2000-2400 3000-9999	Oma pääoma yhteensä		1	_Oma pääoma yhteensä	SB	REQUIRED BOLD			
+GB1;2400-2500;TILINPÄÄTÖSSIIRTOJEN KERTYMÄ				GB1	2400-2500	TILINPÄÄTÖSSIIRTOJEN KERTYMÄ		1	_TILINPÄÄTÖSSIIRTOJEN KERTYMÄ	GB	HIDE_TOTAL BOLD			
+GB2;2400-2450;Poistoero				GB2	2400-2450	Poistoero		2	__Poistoero	GB	HIDE_TOTAL BOLD			
+DP3;2400-2450;Poistoero				DP3	2400-2450	Poistoero		3	___Poistoero	DP	DETAILS			
+TB2;2400-2450;Poistoero yhteensä				TB2	2400-2450	Poistoero yhteensä		2	__Poistoero yhteensä	TB	BOLD			
+GB2;2450-2500;Vapaaehtoiset varaukset				GB2	2450-2500	Vapaaehtoiset varaukset		2	__Vapaaehtoiset varaukset	GB	HIDE_TOTAL BOLD			
+DP3;2450-2500;Vapaaehtoiset varaukset				DP3	2450-2500	Vapaaehtoiset varaukset		3	___Vapaaehtoiset varaukset	DP	DETAILS			
+TB2;2450-2500;Vapaaehtoiset varaukset yhteensä				TB2	2450-2500	Vapaaehtoiset varaukset yhteensä		2	__Vapaaehtoiset varaukset yhteensä	TB	BOLD			
+TB1;2400-2500;Tilinpäätössiirtojen kertymä yhteensä				TB1	2400-2500	Tilinpäätössiirtojen kertymä yhteensä		1	_Tilinpäätössiirtojen kertymä yhteensä	TB	BOLD			
+GB1;2500-2600;PAKOLLISET VARAUKSET				GB1	2500-2600	PAKOLLISET VARAUKSET		1	_PAKOLLISET VARAUKSET	GB	HIDE_TOTAL BOLD			
+GB2;2500-2520;Eläkevaraukset				GB2	2500-2520	Eläkevaraukset		2	__Eläkevaraukset	GB	HIDE_TOTAL BOLD			
+DP3;2500-2520;Eläkevaraukset				DP3	2500-2520	Eläkevaraukset		3	___Eläkevaraukset	DP	DETAILS			
+TB2;2500-2520;Eläkevaraukset yhteensä				TB2	2500-2520	Eläkevaraukset yhteensä		2	__Eläkevaraukset yhteensä	TB	BOLD			
+GB2;2520-2530;Verovaraukset				GB2	2520-2530	Verovaraukset		2	__Verovaraukset	GB	HIDE_TOTAL BOLD			
+DP3;2520-2530;Verovaraukset				DP3	2520-2530	Verovaraukset		3	___Verovaraukset	DP	DETAILS			
+TB2;2520-2530;Verovaraukset yhteensä				TB2	2520-2530	Verovaraukset yhteensä		2	__Verovaraukset yhteensä	TB	BOLD			
+GB2;2530-2590;Muut pakolliset varaukset				GB2	2530-2590	Muut pakolliset varaukset		2	__Muut pakolliset varaukset	GB	HIDE_TOTAL BOLD			
+DP3;2530-2590;Muut pakolliset varaukset				DP3	2530-2590	Muut pakolliset varaukset		3	___Muut pakolliset varaukset	DP	DETAILS			
+TB2;2530-2590;Muut pakolliset varaukset yhteensä				TB2	2530-2590	Muut pakolliset varaukset yhteensä		2	__Muut pakolliset varaukset yhteensä	TB	BOLD			
+TB1;2500-2600;Pakolliset varaukset yhteensä				TB1	2500-2600	Pakolliset varaukset yhteensä		1	_Pakolliset varaukset yhteensä	TB	BOLD			
+				BR0				0		BR	BREAK			
+HB1;2600-3000;VIERAS PÄÄOMA				HB1	2600-3000	VIERAS PÄÄOMA		1	_VIERAS PÄÄOMA	HB	HIDE_TOTAL REQUIRED BOLD			
+				BR0				0		BR	BREAK			
+GB2;2620-2650 2820-2850;Lainat rahoituslaitoksilta				GB2	2620-2650 2820-2850	Lainat rahoituslaitoksilta		2	__Lainat rahoituslaitoksilta	GB	HIDE_TOTAL BOLD			
+DP3;2620-2650 2820-2850;Lainat rahoituslaitoksilta				DP3	2620-2650 2820-2850	Lainat rahoituslaitoksilta		3	___Lainat rahoituslaitoksilta	DP	DETAILS			
+TB2;2620-2650 2820-2850;Lainat rahoituslaitoksilta yhteensä				TB2	2620-2650 2820-2850	Lainat rahoituslaitoksilta yhteensä		2	__Lainat rahoituslaitoksilta yhteensä	TB	BOLD			
+GB2;2650-2660 2850-2860;Eläkelainat				GB2	2650-2660 2850-2860	Eläkelainat		2	__Eläkelainat	GB	HIDE_TOTAL BOLD			
+DP3;2650-2660 2850-2860;Eläkelainat				DP3	2650-2660 2850-2860	Eläkelainat		3	___Eläkelainat	DP	DETAILS			
+TB2;2650-2660 2850-2860;Eläkelainat yhteensä				TB2	2650-2660 2850-2860	Eläkelainat yhteensä		2	__Eläkelainat yhteensä	TB	BOLD			
+GB2;2660-2670 2860-2870;Saadut ennakot				GB2	2660-2670 2860-2870	Saadut ennakot		2	__Saadut ennakot	GB	HIDE_TOTAL BOLD			
+DP3;2660-2670 2860-2870;Saadut ennakot				DP3	2660-2670 2860-2870	Saadut ennakot		3	___Saadut ennakot	DP	DETAILS			
+TB2;2660-2670 2860-2870;Saadut ennakot yhteensä				TB2	2660-2670 2860-2870	Saadut ennakot yhteensä		2	__Saadut ennakot yhteensä	TB	BOLD			
+GB2;2670-2680 2870-2890;Ostovelat				GB2	2670-2680 2870-2890	Ostovelat		2	__Ostovelat	GB	HIDE_TOTAL BOLD			
+DP3;2670-2680 2870-2890;Ostovelat				DP3	2670-2680 2870-2890	Ostovelat		3	___Ostovelat	DP	DETAILS			
+TB2;2670-2680 2870-2890;Ostovelat yhteensä				TB2	2670-2680 2870-2890	Ostovelat yhteensä		2	__Ostovelat yhteensä	TB	BOLD			
+GB2;2680-2700 2890-2900;Rahoitusvekselit				GB2	2680-2700 2890-2900	Rahoitusvekselit		2	__Rahoitusvekselit	GB	HIDE_TOTAL BOLD			
+DP3;2680-2700 2890-2900;Rahoitusvekselit				DP3	2680-2700 2890-2900	Rahoitusvekselit		3	___Rahoitusvekselit	DP	DETAILS			
+TB2;2680-2700 2890-2900;Rahoitusvekselit yhteensä				TB2	2680-2700 2890-2900	Rahoitusvekselit yhteensä		2	__Rahoitusvekselit yhteensä	TB	BOLD			
+GB2;2720-2750 2920-2960;Muut velat				GB2	2720-2750 2920-2960	Muut velat		2	__Muut velat	GB	HIDE_TOTAL BOLD			
+DP3;2720-2750 2920-2960;Muut velat				DP3	2720-2750 2920-2960	Muut velat		3	___Muut velat	DP	DETAILS			
+TB2;2720-2750 2920-2960;Muut velat yhteensä				TB2	2720-2750 2920-2960	Muut velat yhteensä		2	__Muut velat yhteensä	TB	BOLD			
+GB2;2750-2800 2960-3000;Siirtovelat				GB2	2750-2800 2960-3000	Siirtovelat		2	__Siirtovelat	GB	HIDE_TOTAL BOLD			
+DP3;2750-2800 2960-3000;Siirtovelat				DP3	2750-2800 2960-3000	Siirtovelat		3	___Siirtovelat	DP	DETAILS			
+TB2;2750-2800 2960-3000;Siirtovelat yhteensä				TB2	2750-2800 2960-3000	Siirtovelat yhteensä		2	__Siirtovelat yhteensä	TB	BOLD			
+SB1;2600-3000;Vieras pääoma yhteensä				SB1	2600-3000	Vieras pääoma yhteensä		1	_Vieras pääoma yhteensä	SB	REQUIRED BOLD			
+SB0;2000-9999;Vastattavaa yhteensä				SB0	2000-9999	Vastattavaa yhteensä		0	Vastattavaa yhteensä	SB	REQUIRED BOLD			
