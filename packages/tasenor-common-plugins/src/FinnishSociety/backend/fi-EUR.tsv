@@ -1,0 +1,215 @@
+# number / title	text	type	code	data
+Vastaavaa				
+_Pysyvät vastaavat				
+__Aineettomat hyödykkeet				
+1011	Perustamismenot	ASSET		{}
+1021	Tutkimusmenot	ASSET		{}
+1031	Kehittämismenot	ASSET		{}
+1041	Aineettomat oikeudet	ASSET		{}
+1081	Muut pitkävaikutteiset menot	ASSET		{}
+1091	Ennakkomaksut	ASSET		{}
+__Aineelliset hyödykkeet				
+1111	Maa- ja vesialueet	ASSET		{}
+1121	Maanvuokraoikeudet	ASSET		{}
+1151	Rakennukset ja rakennelmat	ASSET		{}
+1171	Rakennusten vuokraoikeudet	ASSET		{}
+1211	Koneet ja kalusto	ASSET		{}
+1311	Muut aineelliset hyödykkeet (poistokelpoiset)	ASSET		{}
+1351	Ennakkomaksut ja keskeneräiset hankinnat	ASSET		{}
+__Sijoitukset				
+1411	Osuudet ja osakkeet	ASSET		{}
+1451	Muut sijoitukset	ASSET		{}
+_Vaihtuvat vastaavat				
+__Vaihto-omaisuus				
+1511	Aineet ja tarvikkeet	ASSET		{}
+1521	Keskeneräiset tuotteet	ASSET		{}
+1531	Valmiit tuotteet	ASSET		{}
+1541	Tavarat	ASSET		{}
+1551	Muu vaihto-omaisuus	ASSET		{}
+1561	Ennakkomaksut	ASSET		{}
+__Pitkäaikaiset saamiset				
+1611	Myyntisaamiset (pitkäaikaiset)	ASSET		{}
+1641	Lainasaamiset (pitkäaikaiset)	ASSET		{}
+1651	Muut saamiset (pitkäaikaiset)	ASSET		{}
+1661	Maksamattomat osakkeet/osuudet (pitkäaikaiset)	ASSET		{}
+1671	Siirtosaamiset (pitkäaikaiset)	ASSET		{}
+1681	Laskennalliset verosaamiset (pitkäaikaiset)	ASSET		{}
+__Lyhytaikaiset saamiset				
+1711	Myyntisaamiset	ASSET		{}
+1761	Lainasaamiset	ASSET		{}
+1771	Muut saamiset	ASSET		{}
+1791	Maksamattomat osakkeet/osuudet	ASSET		{}
+1811	Siirtosaamiset	ASSET		{}
+1841	Laskennalliset verosaamiset	ASSET		{}
+__Rahoitusarvopaperit				
+1851	Osakkeet ja osuudet	ASSET		{}
+1881	Muut arvopaperit	ASSET		{}
+__Rahat ja pankkisaamiset				
+1901	Käteisvarat	ASSET		{}
+1911	Säästöpankki Optia	ASSET		{}
+1912	Osuuspankki	ASSET		{}
+Vastattavaa				
+_Oma pääoma				
+2011	Peruspääoma	EQUITY		{}
+2251	Edellisten tilikausien ylijäämät	PROFIT_PREV		{}
+_Tilinpäätössiirtojen kertymä				
+2411	Poistoero	LIABILITY		{}
+2451	Vapaaehtoiset varaukset	LIABILITY		{}
+_Pakolliset varaukset				
+2511	Eläkevaraukset	LIABILITY		{}
+2521	Verovaraukset	LIABILITY		{}
+2531	Muut pakolliset varaukset	LIABILITY		{}
+_Vieras pääoma				
+__Pitkäaikainen vieras pääoma				
+2631	Lainat rahoituslaitoksilta (pitkäaikaiset)	LIABILITY		{}
+2651	Eläkelainat (pitkäaikaiset)	LIABILITY		{}
+2661	Saadut ennakot (pitkäaikaiset)	LIABILITY		{}
+2671	Ostovelat (pitkäaikaiset)	LIABILITY		{}
+2681	Rahoitusvekselit (pitkäaikaiset)	LIABILITY		{}
+2731	Muut velat (pitkäaikaiset)	LIABILITY		{}
+2751	Siirtovelat (pitkäaikaiset)	LIABILITY		{}
+__Lyhytaikainen vieras pääoma				
+2831	Lainat rahoituslaitoksilta	LIABILITY		{}
+2851	Eläkelainat	LIABILITY		{}
+2861	Saadut ennakot	LIABILITY		{}
+2871	Ostovelat	LIABILITY		{}
+2891	Rahoitusvekselit	LIABILITY		{}
+2931	Ennakonpidätys- ja sosiaaliturvamaksuvelka	LIABILITY		{}
+2945	Arvonlisäverovelka	LIABILITY		{}
+2959	Muut velat	LIABILITY		{}
+2961	Siirtovelat	LIABILITY		{}
+Tuloslaskelma				
+_Varsinaisen toiminnan tuotot				
+3001	Osallistumismaksut	REVENUE		{}
+3101	Lahjoitukset	REVENUE		{}
+3901	Muut varsinaisen toiminnan tuotot	REVENUE		{}
+_Varsinaisen toiminnan kulut				
+__Henkilöstökulut				
+___Palkat ja palkkiot				
+4001	Palkat	EXPENSE		{}
+4011	Lisät ja korvaukset	EXPENSE		{}
+4021	Loma-ajan palkat	EXPENSE		{}
+4031	Palkkiot	EXPENSE		{}
+4041	Luontoisedut	EXPENSE		{}
+4049	Luontoisetujen vastatili	EXPENSE		{}
+4051	Saadut sairausvakuutuskorvaukset	EXPENSE		{}
+4061	Saadut tapaturmavakuutuskorvaukset	EXPENSE		{}
+___Henkilösivukulut				
+4101	Maksetut eläkkeet	EXPENSE		{}
+4111	Pakolliset eläkevakuutusmaksut	EXPENSE		{}
+4115	Vapaaehtoiset eläkevakuutusmaksut	EXPENSE		{}
+4121	Sosiaaliturvamaksut	EXPENSE		{}
+4131	Tapaturmavakuutusmaksut	EXPENSE		{}
+4135	Ryhmähenkivakuutusmaksut	EXPENSE		{}
+4141	Työttömyysvakuutusmaksut	EXPENSE		{}
+4151	Muut henkilöstön vakuutusmaksut	EXPENSE		{}
+__Muut kulut				
+___Toiminnan kulut				
+4201	Toiminnan kulut	EXPENSE		{}
+4291	Muut toiminnan kulut	EXPENSE		{}
+___Henkilökunnan kulut				
+4301	Henkilökunnan koulutus	EXPENSE		{}
+4311	Virkistys- ja harrastustoiminta	EXPENSE		{}
+4321	Työterveyshuolto	EXPENSE		{}
+4331	Henkilökunnan ruokailu	EXPENSE		{}
+4341	Työvaatteet ja suojavälineet	EXPENSE		{}
+4391	Muut henkilökunnan kulut	EXPENSE		{}
+___Toimitilakulut				
+4401	Toimitilavuokrat	EXPENSE		{}
+4411	Sähkö	EXPENSE		{}
+4413	Lämmitys	EXPENSE		{}
+4415	Vesi ja jätevesi	EXPENSE		{}
+4421	Rakennusten korjaus	EXPENSE		{}
+4423	Ulkoalueiden huolto	EXPENSE		{}
+4431	Siivous- ja puhtaanapito	EXPENSE		{}
+4433	Jätehuolto	EXPENSE		{}
+4441	Kiinteistövakuutukset	EXPENSE		{}
+4451	Kiinteistövero	EXPENSE		{}
+4461	Vartiointi- ja turvallisuuskulut	EXPENSE		{}
+4491	Muut toimitilakulut	EXPENSE		{}
+___Ajoneuvokulut				
+4501	Ajoneuvovuokrat	EXPENSE		{}
+4511	Ajoneuvojen polttoaine	EXPENSE		{}
+4521	Ajoneuvojen huolto ja korjaus	EXPENSE		{}
+4531	Ajoneuvojen julkiset maksut	EXPENSE		{}
+4541	Ajoneuvovakuutukset	EXPENSE		{}
+4591	Muut ajoneuvokulut	EXPENSE		{}
+___Kone- ja kalustokulut				
+4601	Kone- ja kalustohankinnat	EXPENSE		{}
+4611	Kone- ja kalustovuokrat	EXPENSE		{}
+4621	Koneiden ja kaluston korjaus	EXPENSE		{}
+4631	Koneiden ja kaluston vakuutukset	EXPENSE		{}
+4691	Muut kone- ja kalustokulut	EXPENSE		{}
+___Matkakulut				
+4701	Matkaliput	EXPENSE		{}
+4711	Taksikulut	EXPENSE		{}
+4721	Majoituskulut	EXPENSE		{}
+4731	Matkavakuutukset	EXPENSE		{}
+4741	Kilometrikorvaukset	EXPENSE		{}
+4751	Päivärahat	EXPENSE		{}
+4761	Ateriakorvaukset	EXPENSE		{}
+4791	Muut matkakulut	EXPENSE		{}
+___Markkinointikulut				
+4801	Mainoskulut	EXPENSE		{}
+4811	Messut ja näyttelyt	EXPENSE		{}
+4821	Lahjoitukset	EXPENSE		{}
+4841	Muut markkinointikulut	EXPENSE		{}
+___Hallintopalvelut				
+4851	Taloushallintopalvelut	EXPENSE		{}
+4861	Tilintarkastuspalvelut	EXPENSE		{}
+4871	Laki- ja konsultointipalvelut	EXPENSE		{}
+4891	Muut hallintopalvelut	EXPENSE		{}
+___Muut hallintokulut				
+4901	Kirjat	EXPENSE		{}
+4903	Lehdet	EXPENSE		{}
+4911	Puhelinkulut	EXPENSE		{}
+4913	Datasiirtokulut	EXPENSE		{}
+4915	Postikulut	EXPENSE		{}
+4921	Rahaliikenteen kulut	EXPENSE		{}
+4931	Vastuuvakuutukset	EXPENSE		{}
+4933	Esinevakuutukset	EXPENSE		{}
+4935	Muut vakuutukset	EXPENSE		{}
+4941	Toimistotarvikkeet	EXPENSE		{}
+4951	Kokous- ja neuvottelukulut	EXPENSE		{}
+4961	Edustuskulut	EXPENSE		{}
+4971	Viranomaismaksut	EXPENSE		{}
+4991	Muut hallintokulut	EXPENSE		{}
+_Varainhankinta				
+__Varainhankinnan tuotot				
+5001	Jäsenmaksutulot	REVENUE		{}
+5011	Kannatusmaksutulot	REVENUE		{}
+5021	Mainostulot	REVENUE		{}
+5031	Myyntitulot	REVENUE		{}
+5041	Muut varainhankinnan tuotot	REVENUE		{}
+__Varainhankinnan kulut				
+5051	Jäsenmaksukulut	EXPENSE		{}
+5061	Ostot (myytävät tuotteet)	EXPENSE		{}
+5071	Myyntikulut	EXPENSE		{}
+5081	Muut varainhankinnan kulut	EXPENSE		{}
+_Sijoitus- ja rahoitustoiminta				
+__Sijoitus- ja rahoitustoiminnan tuotot				
+6001	Osinkotuotot	REVENUE		{}
+6005	Osakkeiden arvonnousut	REVENUE		{}
+6011	Korkotuotot	REVENUE		{}
+6021	Vuokratuotot	REVENUE		{}
+6031	Muut sijoitustoiminnan tuotot	REVENUE		{}
+__Sijoitus- ja rahoitustoiminnan kulut				
+6101	Korkokulut	EXPENSE		{}
+6102	Pankin palvelumaksut	EXPENSE		{}
+6111	Muut sijoitustoiminnan kulut	EXPENSE		{}
+_Satunnaiset erät				
+__Satunnaiset tuotot				
+7001	Satunnaiset tuotot	REVENUE		{}
+__Satunnaiset kulut				
+7101	Satunnaiset kulut	EXPENSE		{}
+_Yleisavustukset				
+7501	Yleisavustukset	REVENUE		{}
+_Poistot				
+8001	Poistot koneista ja kalustosta	EXPENSE		{}
+8011	Poistot rakennuksista	EXPENSE		{}
+_Tilinpäätössiirrot				
+9001	Poistoeron muutos	EXPENSE		{}
+9011	Vapaaehtoisten varausten muutos	EXPENSE		{}
+_Tuloverot ja muut välittömät verot				
+9501	Tuloverot	EXPENSE		{}
+9511	Muut välittömät verot	EXPENSE		{}
