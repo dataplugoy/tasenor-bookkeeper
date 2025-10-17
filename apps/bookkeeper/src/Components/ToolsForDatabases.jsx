@@ -113,6 +113,7 @@ class ToolsForDatabases extends Component {
               <Trans>Deleting the database is irreversible!</Trans><br />
               <Trans>Please type in the database name</Trans> <b>{this.state.dbToDelete.name}</b>
               <TextField
+                autoComplete="off"
                 name="deleted-database-name"
                 fullWidth
                 label={<Trans>Name</Trans>}

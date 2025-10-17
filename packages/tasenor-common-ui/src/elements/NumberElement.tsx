@@ -26,6 +26,7 @@ export const NumberRenderer: Renderer = (props: RenderingProps) => {
     label={label}
     value={value}
     type="number"
+    autoComplete="off"
     error={false}
     autoFocus
     InputProps={{

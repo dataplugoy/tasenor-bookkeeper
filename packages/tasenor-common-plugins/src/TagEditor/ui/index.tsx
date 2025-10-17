@@ -160,6 +160,7 @@ const TagCard = observer((props: TagCardProps): JSX.Element => {
           edit && <>
             <TextField
               autoFocus
+              autoComplete="off"
               onFocus={() => cursor.disableHandler()}
               onBlur={() => cursor.enableHandler()}
               error={!!validateName()}
@@ -171,6 +172,7 @@ const TagCard = observer((props: TagCardProps): JSX.Element => {
             <IconButton title={t('Cancel')} onClick={onCancel} sx={{ color: red[800] }}><Cancel/></IconButton>
             <br />
             <TextField
+              autoComplete="off"
               onFocus={() => cursor.disableHandler()}
               onBlur={() => cursor.enableHandler()}
               value={tagTag}
@@ -392,6 +394,7 @@ const TagsEditor = observer((props: TagsEditorProps): JSX.Element => {
             ? t('Add Tag Type')
             : <TextField
               autoFocus
+              autoComplete="off"
               onFocus={() => cursor.disableHandler()}
               onBlur={() => cursor.enableHandler()}
               value={addingTab}

@@ -204,6 +204,7 @@ class ToolsToolPanel extends Component {
           onConfirm={() => this.createPeriod(this.state.periodStartDate, this.state.periodEndDate)}>
           <TextField
             name="startDate"
+            autoComplete="off"
             style={{ width: '50%' }}
             data-cy="text-Start Date"
             label={<Trans>Start Date</Trans>}
@@ -212,6 +213,7 @@ class ToolsToolPanel extends Component {
           />
           <TextField
             name="endDate"
+            autoComplete="off"
             style={{ width: '50%' }}
             data-cy="text-End Date"
             label={<Trans>End Date</Trans>}
@@ -244,6 +246,7 @@ class ToolsToolPanel extends Component {
           <div>
             <TextField
               fullWidth
+              autoComplete="off"
               name="scheme"
               data-cy="dropdown-Accounting Scheme"
               label={<Trans>Accounting Scheme</Trans>}
@@ -259,6 +262,7 @@ class ToolsToolPanel extends Component {
             <br/>
             <TextField
               fullWidth
+              autoComplete="off"
               name="company-name"
               data-cy="text-Company Name"
               label={<Trans>Company Name</Trans>}
@@ -270,6 +274,7 @@ class ToolsToolPanel extends Component {
             <br/>
             <TextField
               fullWidth
+              autoComplete="off"
               name="company-number"
               data-cy="text-Company Registration Number"
               label={<Trans>Company Registration Number</Trans>}
@@ -279,6 +284,7 @@ class ToolsToolPanel extends Component {
             <br/>
             <TextField
               fullWidth
+              autoComplete="off"
               select
               name="currency"
               data-cy="dropdown-Currency"
@@ -290,6 +296,7 @@ class ToolsToolPanel extends Component {
             </TextField>
             <TextField
               fullWidth
+              autoComplete="off"
               name="database-name"
               data-cy="text-Database Name"
               label={<Trans>Database Name</Trans>}

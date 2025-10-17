@@ -31,6 +31,7 @@ export const TextRenderer: Renderer = (props: RenderingProps) => {
     error={false}
     autoFocus
     fullWidth
+    autoComplete="off"
     onChange={(e) => {
       setValue(e.target.value)
       element.triggerHandler && element.triggerHandler({ type: 'onChange', name: element.name, value: e.target.value }, props)

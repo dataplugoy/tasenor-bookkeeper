@@ -135,6 +135,7 @@ const UserAdminToolPanel = withStore((props: UserAdminToolPanelProps): JSX.Eleme
           <TextField
             name="deleted-user-email"
             fullWidth
+            autoComplete="off"
             label={<Trans>Email</Trans>}
             value={emailInput}
             onChange={(event) => (setEmailInput(event.target.value))}

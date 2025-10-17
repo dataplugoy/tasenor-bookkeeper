@@ -131,6 +131,7 @@ class AccountsToolPanel extends Component {
           className="Search"
           label={<Trans>Search</Trans>}
           name="search"
+          autoComplete="off"
           style={{ height: '36px', width: '280px', fontSize: '20px' }}
           value={this.state.search}
           onChange={e => { this.setState({ search: e.target.value }) }}

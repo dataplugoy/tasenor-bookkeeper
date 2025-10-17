@@ -220,6 +220,7 @@ export const RuleEditor = observer((props: RuleEditorProps): JSX.Element => {
             />
             <TextField
               fullWidth
+              autoComplete="off"
               label={'Describe this transaction'}
               value={text}
               onFocus={() => RISPProvider.onFocus()}
@@ -293,6 +294,7 @@ export const RuleEditor = observer((props: RuleEditorProps): JSX.Element => {
             <Typography variant="h5"><Trans>Construct a Permanent Rule</Trans></Typography>
             <TextField
               fullWidth
+              autoComplete="off"
               label={'Name of the rule'}
               value={rule.name}
               onFocus={() => RISPProvider.onFocus()}

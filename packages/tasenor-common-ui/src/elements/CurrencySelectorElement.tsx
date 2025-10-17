@@ -16,6 +16,7 @@ export const CurrencySelectorRenderer: Renderer = (props: RenderingProps<Currenc
 
   return <TextField
     select
+    autoComplete="off"
     label={label}
     value={value}
     onChange={(e) => {

@@ -148,6 +148,7 @@ const ImportToolPanel = observer(withStore(withCatalog((props: ImportToolPanelPr
         <TextField
           select
           name="handler"
+          autoComplete="off"
           value={handler}
           label={<Trans>Select plugin for handling the import</Trans>}
           error={changed && !handler}
@@ -165,6 +166,7 @@ const ImportToolPanel = observer(withStore(withCatalog((props: ImportToolPanelPr
         <TextField
           name="name"
           fullWidth
+          autoComplete="off"
           error={changed && !name}
           helperText={changed && !name ? t('Name is required.') : ''}
           label={<Trans>Give name for the import process</Trans>}

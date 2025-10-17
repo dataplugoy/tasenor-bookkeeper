@@ -190,6 +190,7 @@ class TextEdit extends Component {
           size="small"
           autoFocus
           fullWidth
+          autoComplete="off"
           onChange={event => this.onChange(event)}
           onKeyPress={event => this.onKeyPress(event)}
           onKeyUp={event => this.onKeyUp(event)}

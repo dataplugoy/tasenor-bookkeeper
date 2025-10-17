@@ -118,6 +118,7 @@ export const RuleColumnEdit = observer((props: RuleColumnEditProps): JSX.Element
          <TableCell colSpan={3}>
            <TextField
                fullWidth
+               autoComplete="off"
                autoFocus
                onKeyUp={(event) => {
                  if (event.key === 'Enter') {

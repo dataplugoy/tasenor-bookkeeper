@@ -130,6 +130,7 @@ class Account extends Component {
       onConfirm={() => this.onSubmitAccount()}>
       <TextField
         fullWidth
+        autoComplete="off"
         label={<Trans>Account Number</Trans>}
         name="account_number"
         error={numberAlreadyExists || numberMissing}
@@ -139,6 +140,7 @@ class Account extends Component {
       />
       <TextField
         fullWidth
+        autoComplete="off"
         label={<Trans>Account Name</Trans>}
         name="account_name"
         error={nameMissing}
@@ -149,6 +151,7 @@ class Account extends Component {
       <TextField
         select
         fullWidth
+        autoComplete="off"
         label={<Trans>Account Type</Trans>}
         name="account_type"
         className="account-type-dropdown"
@@ -162,6 +165,7 @@ class Account extends Component {
       </TextField>
       <TextField
         select
+        autoComplete="off"
         fullWidth
         label={<Trans>Code</Trans>}
         name="code"
