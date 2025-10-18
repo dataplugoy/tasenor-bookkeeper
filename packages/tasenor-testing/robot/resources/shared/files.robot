@@ -13,7 +13,7 @@ Check for Downloaded File
     [Arguments]                         ${path}
     Log to Console                      Waiting for file ${path}
     File Should Exist                   ${path}
-    [Return]                            ${path}
+    Return                              ${path}
 
 Wait for Downloaded File
     [Arguments]                         ${path}

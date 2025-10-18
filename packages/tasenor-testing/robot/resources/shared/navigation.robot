@@ -6,7 +6,7 @@ Ensure Browser Is Open
     ${ret}                              Run Keyword And Return Status       Execute Javascript      return 1
     Return From Keyword If              ${ret}
     Open Browser                        ${TEST_BASE_URL}/      Chrome
-    Maximize Browser Window
+    Set Window Size                     1920    1080
     Wait Until Element is Visible       css:.logo
 
 Login As Superuser
