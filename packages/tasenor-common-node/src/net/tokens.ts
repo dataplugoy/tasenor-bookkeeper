@@ -69,7 +69,7 @@ function verify(token: Token, secret: Secret, audience: TokenAudience | TokenAud
   }
 
   try {
-    const decoded: jwt.JwtPayload = jwt.verify(token, secret, { audience, issuer: [TOKEN_ISSUER] }) as jwt.JwtPayload
+    const decoded: jwt.JwtPayload = jwt.verify(token, secret, { audience: audience as string, issuer: [TOKEN_ISSUER] }) as jwt.JwtPayload
     if (!decoded) {
       fail('Cannot decode the token.')
     } else if (!decoded.data) {
