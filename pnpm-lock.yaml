@@ -273,7 +273,7 @@ importers:
         specifier: 3.9.2
         version: 3.9.2(@docusaurus/plugin-content-docs@3.9.2)(@mdx-js/react@3.1.1)(react-dom@18.3.1)(react@18.3.1)(typescript@5.2.2)
       '@easyops-cn/docusaurus-search-local':
-        specifier: ^0.52.1
+        specifier: 0.52.1
         version: 0.52.1(@docusaurus/theme-common@3.9.2)(@mdx-js/react@3.1.1)(react-dom@18.3.1)(react@18.3.1)(typescript@5.2.2)
       '@mdx-js/react':
         specifier: ^3.0.1
@@ -282,16 +282,16 @@ importers:
         specifier: ^2.1.0
         version: 2.1.1
       docusaurus-plugin-openapi-docs:
-        specifier: ^4.5.1
+        specifier: 4.5.1
         version: 4.5.1(@docusaurus/plugin-content-docs@3.9.2)(@docusaurus/utils-validation@3.9.2)(@docusaurus/utils@3.9.2)(react@18.3.1)
       docusaurus-plugin-typedoc-api:
-        specifier: ^4.4.0
+        specifier: 4.4.0
         version: 4.4.0(@docusaurus/core@3.9.2)(@docusaurus/mdx-loader@3.9.2)(@mdx-js/react@3.1.1)(react-dom@18.3.1)(react@18.3.1)(typescript@5.2.2)
       docusaurus-theme-openapi-docs:
-        specifier: ^4.5.1
+        specifier: 4.5.1
         version: 4.5.1(@docusaurus/theme-common@3.9.2)(@types/react@17.0.89)(docusaurus-plugin-openapi-docs@4.5.1)(docusaurus-plugin-sass@0.2.6)(react-dom@18.3.1)(react@18.3.1)(webpack@5.102.1)
       prism-react-renderer:
-        specifier: ^2.4.1
+        specifier: 2.4.1
         version: 2.4.1(react@18.3.1)
       react:
         specifier: ^18.2.0
