@@ -1332,7 +1332,7 @@ export class TransferAnalyzer {
       const match = /(\{([a-zA-Z0-9]+)\})/.exec(text)
       if (!match) break
       if (values[match[2]] === undefined) {
-        throw new BadState(`Not able to find value '${match[2]}' needed by '${text}' from ${JSON.stringify(original)}`)
+        throw new BadState(`Not able to find value '${match[2]}' needed by '${text}' from values ${JSON.stringify(values)} extracted from ${JSON.stringify(original)}`)
       }
       const value = `${values[match[2]]}`
       text = text.replace(match[1], value)

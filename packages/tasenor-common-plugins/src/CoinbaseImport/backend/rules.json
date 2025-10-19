@@ -60,6 +60,45 @@
         }
       ]
     },
+    {
+      "name": "Trade (v4)",
+      "filter": "type == 'Advanced Convert'",
+      "result": [
+        {
+          "reason": "'trade'",
+          "type": "'crypto'",
+          "asset": "takeAsset",
+          "amount": "takeAmount",
+          "value": "Price",
+          "data": {
+            "text": "Notes",
+            "takeAsset": "takeAsset",
+            "takeAmount": "takeAmount",
+            "giveAsset": "giveAsset",
+            "giveAmount": "-giveAmount"
+          }
+        },
+        {
+          "reason": "'trade'",
+          "type": "'crypto'",
+          "asset": "giveAsset",
+          "amount": "-giveAmount",
+          "data": {
+            "text": "Notes",
+            "takeAsset": "takeAsset",
+            "takeAmount": "takeAmount",
+            "giveAsset": "giveAsset",
+            "giveAmount": "-giveAmount"
+          }
+        },
+        {
+          "reason": "'fee'",
+          "type": "'currency'",
+          "asset": "Currency",
+          "amount": "-Fees"
+        }
+      ]
+    },
 
     {
       "name": "Coinbase withdrawal (v2)",
