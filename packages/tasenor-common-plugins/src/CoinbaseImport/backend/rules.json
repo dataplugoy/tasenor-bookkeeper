@@ -67,13 +67,10 @@
         {
           "reason": "'trade'",
           "type": "'crypto'",
-          "asset": "takeAsset",
-          "amount": "takeAmount",
-          "value": "Price",
+          "asset": "giveAsset",
+          "amount": "-giveAmount",
           "data": {
             "text": "Notes",
-            "takeAsset": "takeAsset",
-            "takeAmount": "takeAmount",
             "giveAsset": "giveAsset",
             "giveAmount": "-giveAmount"
           }
@@ -81,14 +78,13 @@
         {
           "reason": "'trade'",
           "type": "'crypto'",
-          "asset": "giveAsset",
-          "amount": "-giveAmount",
+          "asset": "takeAsset",
+          "amount": "takeAmount",
+          "value": "abs(Subtotal) * 100",
           "data": {
             "text": "Notes",
             "takeAsset": "takeAsset",
-            "takeAmount": "takeAmount",
-            "giveAsset": "giveAsset",
-            "giveAmount": "-giveAmount"
+            "takeAmount": "takeAmount"
           }
         },
         {

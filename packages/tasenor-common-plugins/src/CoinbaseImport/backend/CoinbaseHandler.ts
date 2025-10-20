@@ -119,7 +119,7 @@ export class CoinbaseHandler extends TransactionImportHandler {
           throw new Error(`Unexpected format for notes: "${columns.Notes}".`)
         }
         if (match[2] !== match[5] || match[5] !== match[8] || match[4] !== match[6] || match[6] !== match[7]) {
-          throw new Error(`Coin currencies did not match as expected: "${columns.Notes}"`)
+          throw new Error(`Coin tickers did not match as expected: "${columns.Notes}"`)
         }
         columns.type = 'Advanced Convert'
         columns.takeAmount = parseFloat(match[1])
@@ -134,7 +134,7 @@ export class CoinbaseHandler extends TransactionImportHandler {
           throw new Error(`Unexpected format for notes: "${columns.Notes}".`)
         }
         if (match[2] !== match[5] || match[5] !== match[8] || match[4] !== match[6] || match[6] !== match[7]) {
-          throw new Error(`Coin currencies did not match as expected: "${columns.Notes}"`)
+          throw new Error(`Coin tickers did not match as expected: "${columns.Notes}"`)
         }
         columns.type = 'Advanced Convert'
         columns.giveAmount = parseFloat(match[1])
