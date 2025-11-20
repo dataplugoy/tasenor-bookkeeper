@@ -1,6 +1,6 @@
 {
   "name": "@tasenor/common",
-  "version": "1.16.5",
+  "version": "1.16.6",
   "description": "Common parts of Tasenor project",
   "main": "src/index.ts",
   "types": "src/index.ts",
