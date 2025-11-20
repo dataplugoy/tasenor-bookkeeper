@@ -232,7 +232,7 @@ class GitBackup extends ToolPlugin {
     // TODO: Check for pg_dump crash. What if that happens?
     const { host, port, database, user, password } = db.client.config.connection
     const url = `postgresql://${user}:${password}@${host}:${port}/${database}`
-    await systemPiped(`pg_dump -c ${url} > "${dir}/dump.sql"`)
+    await systemPiped(`pg_dump --restrict-key=salkjh21iuewy932hedsjewqeds -c ${url} > "${dir}/dump.sql"`)
 
     const exporter = new TasenorExporter()
     await exporter.dump(db, exportDir)
