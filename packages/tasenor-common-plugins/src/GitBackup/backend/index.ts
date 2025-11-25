@@ -42,7 +42,7 @@ class GitBackup extends ToolPlugin {
    * Create backup every night.
    */
   async nightly(db: KnexDatabase) {
-    await this.makeBackup(db, `Automatic nightly backup by ${this.code} ${this.version}`)
+    await this.makeBackup(db, `Automatic nightly backup of '${db.client.config.connection.database}' by ${this.code} ${this.version}`)
   }
 
   /**
