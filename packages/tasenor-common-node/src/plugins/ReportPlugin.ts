@@ -33,6 +33,8 @@ export class ReportPlugin extends BackendPlugin {
     const path = this.filePath(`${id}-${lang}.tsv`)
     if (fs.existsSync(path)) {
       return fs.readFileSync(path).toString('utf-8') as ReportFormat
+    } else {
+      throw new Error(`Cannot find report definition ${id}-${lang}.tsv`)
     }
   }
 

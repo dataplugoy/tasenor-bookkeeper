@@ -1,0 +1,73 @@
+# accounts	title	flags
+3000-5000 8000-9000	Varsinainen toiminta	HIDE_TOTAL REQUIRED BOLD
+3000-4000	_Varsinainen toiminnan tuotot	HIDE_TOTAL REQUIRED BOLD
+3000-4000	__Varsinainen toiminnan tuotot	DETAILS
+3000-4000	_Varsinainen toiminnan tuotot yhteensä	REQUIRED BOLD
+4000-5000	_Varsinainen toiminnan kulut	HIDE_TOTAL REQUIRED BOLD
+4000-4200	__Henkilöstökulut	HIDE_TOTAL BOLD
+4000-4200	___Henkilöstökulut	DETAILS
+4000-4200	__Henkilöstökulut yhteensä	BOLD
+8000-9000	__Poistot	HIDE_TOTAL BOLD
+8000-9000	___Poistot	DETAILS
+8000-9000	__Poistot yhteensä	BOLD
+4200-5000	__Muut kulut	HIDE_TOTAL BOLD
+4200-4300	___Toiminnan kulut	HIDE_TOTAL BOLD
+4200-4300	____Toiminnan kulut	DETAILS
+4200-4300	___Toiminnan kulut yhteensä	BOLD
+4300-4400	___Henkilökunnan kulut	HIDE_TOTAL BOLD
+4300-4400	____Henkilökunnan kulut	DETAILS
+4300-4400	___Henkilökunnan kulut yhteensä	BOLD
+4400-4500	___Toimitilakulut	HIDE_TOTAL BOLD
+4400-4500	____Toimitilakulut	DETAILS
+4400-4500	___Toimitilakulut yhteensä	BOLD
+4500-4600	___Ajoneuvokulut	HIDE_TOTAL BOLD
+4500-4600	____Ajoneuvokulut	DETAILS
+4500-4600	___Ajoneuvokulut yhteensä	BOLD
+4600-4700	___Kone- ja kalustokulut	HIDE_TOTAL BOLD
+4600-4700	____Kone- ja kalustokulut	DETAILS
+4600-4700	___Kone- ja kalustokulut yhteensä	BOLD
+4700-4800	___Matkakulut	HIDE_TOTAL BOLD
+4700-4800	____Matkakulut	DETAILS
+4700-4800	___Matkakulut yhteensä	BOLD
+4800-4850	___Markkinointikulut	HIDE_TOTAL BOLD
+4800-4850	____Markkinointikulut	DETAILS
+4800-4850	___Markkinointikulut yhteensä	BOLD
+4850-4900	___Hallintopalvelut	HIDE_TOTAL BOLD
+4850-4900	____Hallintopalvelut	DETAILS
+4850-4900	___Hallintopalvelut yhteensä	BOLD
+4900-5000	___Muut hallintokulut	HIDE_TOTAL BOLD
+4900-5000	____Muut hallintokulut	DETAILS
+4900-5000	___Muut hallintokulut yhteensä	BOLD
+4200-5000	__Muut kulut yhteensä	BOLD
+4000-5000 8000-9000	_Varsinainen toiminnan kulut yhteensä	REQUIRED BOLD
+3000-5000 8000-9000	Varsinainen toiminta yhteensä	REQUIRED BOLD
+3000-5000 8000-9000	Tuotto-/kulujäämä	REQUIRED BOLD
+5000-6000	Varainhankinta	HIDE_TOTAL REQUIRED BOLD
+5000-5050	_Varainhankinnan tuotot	HIDE_TOTAL REQUIRED BOLD
+5000-5050	__Varainhankinnan tuotot	DETAILS
+5000-5050	_Varainhankinnan tuotot yhteensä	REQUIRED BOLD
+5050-6000	_Varainhankinnan kulut	HIDE_TOTAL REQUIRED BOLD
+5050-6000	__Varainhankinnan kulut	DETAILS
+5050-6000	_Varainhankinnan kulut yhteensä	REQUIRED BOLD
+5000-6000	Varainhankinta yhteensä	REQUIRED BOLD
+3000-6000 8000-9000	Tuotto-/kulujäämä	REQUIRED BOLD
+6000-7000	Sijoitus- ja rahoitustoiminta	HIDE_TOTAL REQUIRED BOLD
+6000-7000	_Sijoitus- ja rahoitustoiminta	DETAILS
+6000-7000	Sijoitus- ja rahoitustoiminta yhteensä	REQUIRED BOLD
+3000-7000 8000-9000	Tuotto-/kulujäämä	REQUIRED BOLD
+7000-7500	Satunnaiset erät	HIDE_TOTAL REQUIRED BOLD
+7000-7500	_Satunnaiset erät	DETAILS
+7000-7500	Satunnaiset erät yhteensä	REQUIRED BOLD
+7500-8000	Yleisavustukset	HIDE_TOTAL REQUIRED BOLD
+7500-8000	_Yleisavustukset	DETAILS
+7500-8000	Yleisavustukset yhteensä	REQUIRED BOLD
+3000-9000	Tilikauden tulos	REQUIRED BOLD
+9000-9500	Tilinpäätössiirrot	HIDE_TOTAL REQUIRED BOLD
+9000-9010	_Poistoeron muutos	HIDE_TOTAL BOLD
+9000-9010	__Poistoeron muutos	DETAILS
+9000-9010	_Poistoeron muutos yhteensä	BOLD
+9010-9500	_Vapaaehtoisten varausten muutos	HIDE_TOTAL BOLD
+9010-9500	__Vapaaehtoisten varausten muutos	DETAILS
+9010-9500	_Vapaaehtoisten varausten muutos	BOLD
+9000-9500	Tilinpäätössiirrot yhteensä	REQUIRED BOLD
+3000-9999	Tilikauden ylijäämä (alijäämä)	REQUIRED BOLD

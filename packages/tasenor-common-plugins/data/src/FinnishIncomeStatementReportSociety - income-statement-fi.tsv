@@ -1,0 +1,25 @@
+# accounts	title	flags
+3000-5000 8000-9000	Varsinainen toiminta	HIDE_TOTAL REQUIRED BOLD
+3000-4000	_Tuotot	REQUIRED
+4000-5000 8000-9000	_Kulut	REQUIRED
+4000-4200	__Henkilöstökulut	
+8000-9000	__Poistot	
+4200-5000	__Muut kulut	
+3000-5000 8000-9000	Tuotto-/kulujäämä	REQUIRED BOLD
+5000-6000	Varainhankinta	HIDE_TOTAL REQUIRED BOLD
+5000-5050	_Tuotot	REQUIRED
+5050-6000	_Kulut	REQUIRED
+3000-6000 8000-9000	Tuotto-/kulujäämä	REQUIRED BOLD
+6000-7000	Sijoitus- ja rahoitustoiminta	HIDE_TOTAL REQUIRED BOLD
+6000-6100	_Tuotot	REQUIRED
+6100-7000	_Kulut	REQUIRED
+3000-7000 8000-9000	Tuotto-/kulujäämä	REQUIRED BOLD
+7000-7500	Satunnaiset erät	HIDE_TOTAL REQUIRED BOLD
+7000-7100	_Satunnaiset tuotot	REQUIRED
+7100-7500	_Satunnaiset kulut	REQUIRED
+7500-8000	Yleisavustukset	REQUIRED BOLD
+3000-9000	Tilikauden tulos	REQUIRED BOLD
+9000-9500	Tilinpäätössiirrot	REQUIRED BOLD
+9000-9010	_Poistoeron muutos	REQUIRED
+9010-9500	_Vapaaehtoisten varausten muutos	REQUIRED
+3000-9999	Tilikauden ylijäämä (alijäämä)	REQUIRED BOLD
