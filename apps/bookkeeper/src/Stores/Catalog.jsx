@@ -238,7 +238,7 @@ class Catalog extends Component {
   /**
    * Get a mapping from plugin codes to plugin versions.
    */
-  getPluginVersions(pluginCode) {
+  getPluginVersions() {
     const ret = {}
     this.index.forEach(p => (ret[p.code] = p.version))
     return ret
@@ -536,7 +536,7 @@ class Catalog extends Component {
     sample = sample ? new Date(sample) : new Date()
     const lang = this.language()
     if (this.pluginForLanguage[lang]) {
-      return this.pluginForLanguage[lang].str2date(str)
+      return this.pluginForLanguage[lang].str2date(str, sample)
     }
     let year, month, day
     if (!/^\d{1,4}(-\d{1,2}(-\d{1,2})?)?$/.test(str)) {
