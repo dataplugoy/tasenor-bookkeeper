@@ -14,10 +14,14 @@ const ReportPage = withStore(observer((props: ReportPageProps): JSX.Element => {
   const { store } = props
 
   const params = useParams()
-  const { db, periodId, format } = params
+  const { db, periodId, accountId, format } = params
 
   useEffect(() => {
-    store.fetchReport(db, periodId, format)
+    if (accountId) {
+      store.setAccount(db, periodId, accountId).then(() => store.fetchReport(db, periodId, format))
+    } else {
+      store.setPeriod(db, periodId).then(() => store.fetchReport(db, periodId, format))
+    }
   }, [params])
 
   if (!store.isLoggedIn()) {
