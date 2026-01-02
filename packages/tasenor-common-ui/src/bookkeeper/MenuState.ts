@@ -61,16 +61,16 @@ export class MenuState {
           this.main = isMainMenu(main) ? main : ''
           break
         case 'periodId':
-          this.periodId = periodId === '' || periodId === null ? null : parseInt(periodId)
+          this.periodId = periodId === '' || periodId === '_' || periodId === null ? null : parseInt(periodId)
           break
         case 'accountId':
-          this.accountId = accountId === '' || accountId === null ? null : parseInt(accountId)
+          this.accountId = accountId === '' || accountId === '_' || accountId === null ? null : parseInt(accountId)
           break
         case 'side':
-          this.side = side || ''
+          this.side = !side || side === '_' ? '' : side
           break
         default:
-          if (params[key] !== null) {
+          if (params[key] !== null && params[key] !== '_') {
             this.attrs[key] = params[key] || ''
           } else {
             delete this.attrs[key]
@@ -95,7 +95,7 @@ export class MenuState {
     this.side = ''
     this.attrs = {}
     this.indirectPath = false
-    this.navigator(this.url)
+    document.location = '/'
   }
 
   get(variable: string) {
@@ -107,14 +107,14 @@ export class MenuState {
       case 'periodId':
       case 'accountId':
       case 'side':
-        return this[variable]
+        return this[variable] === '_' ? undefined : this[variable]
       default:
         return this.attrs[variable]
     }
   }
 
   get url(): string {
-    let url = `/${this.db || '_'}/${this.main || '_'}/${this.periodId || ''}/${this.accountId || ''}/${this.side}`
+    let url = `/${this.db || '_'}/${this.main || '_'}/${this.periodId || '_'}/${this.accountId || '_'}/${this.side}`
     url = url.replace(/\/+$/, '')
     if (this.attrs.indirect === 'yes') {
       delete this.attrs.indirect
@@ -124,10 +124,12 @@ export class MenuState {
     if (this.indirectPath) {
       return `?path=${url}&${attrs.join('&')}`
     } else {
+      while (url.endsWith('/_')) {
+        url = url.substring(0, url.length - 2)
+      }
       if (attrs.length) {
         url += `?${attrs.join('&')}`
       }
-      if (url === '/_/_') return '/'
       return url
     }
   }
