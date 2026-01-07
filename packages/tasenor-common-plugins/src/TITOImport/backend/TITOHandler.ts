@@ -253,7 +253,27 @@ export class TITOHandler extends TransactionImportHandler {
                 })
               }
 
-            // Notification record.
+            // Withdrawal fix.
+            case '51':
+              return {
+                Tietuetunnus: code,
+                ...this.parseFixedLength(s.substring(6), {
+                  'Jakson tunnus': 1,
+                  Jaksopäivä: 6,
+                  'Panot Kappalemäärä': 8,
+                  'Panot Summa': 19,
+                  'Otot Kappalemäärä': 8,
+                  'Otot Summa': 19,
+                }, {
+                  Jaksopäivä: (s) => `20${s.substring(0, 2)}-${s.substring(2, 4)}-${s.substring(4, 6)}`,
+                  'Panot Summa': (s) => `${parseInt(s) / 100}`,
+                  'Panot Kappalemäärä': (s) => `${parseInt(s)}`,
+                  'Otot Summa': (s) => `${parseInt(s) / 100}`,
+                  'Otot Kappalemäärä': (s) => `${parseInt(s)}`,
+                })
+              }
+
+              // Notification record.
             case '70':
               return {
                 Tietuetunnus: code,
