@@ -63,6 +63,9 @@ export class NordnetHandler extends TransactionImportHandler {
           if (columns.Valuuttakurssi === '1' || columns.Vaihtokurssi === '1') {
             columns.Valuutta = process.config.currency as string
           }
+          if (columns.Valuuttakurssi === '' || columns.Vaihtokurssi === '') {
+            columns.Valuutta = process.config.currency as string
+          }
           if (columns.Tapahtumatyyppi === 'OSINKO') {
             const match = / ([A-Z]{3})\/OSAKE$/.exec(columns.Tapahtumateksti)
             if (match) {
