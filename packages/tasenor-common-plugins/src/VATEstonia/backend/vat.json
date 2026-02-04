@@ -1,0 +1,13 @@
+[
+  {
+    "from": "2025-07-01",
+    "to": null,
+    "percentage": {
+      "INCOME": 24,
+      "EXPENSE": 24,
+      "ACCOMMODATION": 13,
+      "BOOK": 9,
+      "NEWSPAPERS": 9
+    }
+  }
+]
