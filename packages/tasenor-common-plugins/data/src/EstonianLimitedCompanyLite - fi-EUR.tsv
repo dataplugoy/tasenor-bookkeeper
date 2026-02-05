@@ -1,0 +1,79 @@
+# number / title	text	type	code	data
+Vastaavaa				
+_Pysyvät vastaavat				
+_Aineettomat hyödykkeet				
+1000	Aineettomat hyödykkeet	ASSET		
+1010	Ohjelmistot	ASSET		
+1020	Kehittämismenot	ASSET		
+1110	Koneet ja laitteet	ASSET		
+1120	Kalusto	ASSET		
+1130	IT-laitteet	ASSET		
+1200	Kertyneet poistot	ASSET		
+1210	Poistot, aineettomat	ASSET		
+1220	Poistot, aineelliset	ASSET		
+_Vaihtuvat vastaavat				
+__Saamiset				
+2010	Myyntisaamiset	ASSET		
+2020	Siirtosaamiset	ASSET		
+2030	Ennakkosaamiset	ASSET		
+___Rahat ja pankkisaamiset				
+2110	Pankkitili	ASSET		
+2120	Käteinen	ASSET		
+2130	Maksunvälittäjä (Wise / PayPal)	ASSET		
+Vastattavaa				
+_Oma pääoma				
+__Osakepääoma				
+3010	Osakepääoma	EQUITY		
+__Edellisten tilikausien voitto (tappio)				
+3210	Tilikauden voitto/tappio	PROFIT_PREV		
+3220	Osingonjako	EQUITY		
+_Velat				
+__Lyhytaikaiset velat				
+4010	Ostovelat	LIABILITY		
+4020	Verovelat	LIABILITY		
+4030	Palkkavelat	LIABILITY		
+4040	Siirtovelat	LIABILITY		
+__Pitkäaikaiset velat				
+4110	Lainat omistajilta	LIABILITY		
+4120	Pankkilainat	LIABILITY		
+Tuloslaskelma				
+_Myyntituotot				
+5010	Palvelumyynti (Viro)	REVENUE		
+5020	Palvelumyynti (EU)	REVENUE		
+5030	Palvelumyynti (EU, ALV 0 %)	REVENUE		
+5040	Palvelumyynti (EU ulkopuoli)	REVENUE		
+_Muut tuotot				
+6010	Korkotuotot	REVENUE		
+6020	Valuuttakurssivoitot	REVENUE		
+_Liiketoiminnan kulut				
+__Ostot ja alihankinta				
+7010	Alihankintakulut	EXPENSE		
+7020	Konsulttipalvelut	EXPENSE		
+__Henkilöstökulut				
+7110	Palkat	EXPENSE		
+7120	Sosiaalivero	EXPENSE		
+7130	Työttömyysvakuutus	EXPENSE		
+7140	Eläkevakuutus	EXPENSE		
+__Hallintokulut				
+7210	Kirjanpito ja tilintarkastus	EXPENSE		
+7220	Toimistokulut	EXPENSE		
+7230	IT ja ohjelmistot	EXPENSE		
+7240	Puhelin ja internet	EXPENSE		
+__Markkinointi ja myynti				
+7310	Mainonta	EXPENSE		
+7320	Verkkopalvelut	EXPENSE		
+__Matkakulut				
+7410	Matkaliput	EXPENSE		
+7420	Majoitus	EXPENSE		
+7430	Päivärahat	EXPENSE		
+__Poistot				
+7510	Poistot, aineelliset	EXPENSE		
+7520	Poistot, aineettomat	EXPENSE		
+__Muut kulut				
+7610	Valuuttakurssitappiot	EXPENSE		
+7620	Pankkikulut	EXPENSE		
+_Tuloverot				
+8010	Jaetun voiton tulovero	EXPENSE		
+8020	Aiempiin vuosiin liittyvät verot	EXPENSE		
+_Erikoistilit				
+9999	Selvittelyä vaativat tapahtumat	EXPENSE	SUSPENSE_ACCOUNT	
