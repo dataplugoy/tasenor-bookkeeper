@@ -1,0 +1,25 @@
+# accounts	title	flags
+1000-2999	VASTAAVAA	HIDE_TOTAL REQUIRED BOLD
+1000-1299	_PYSYVÄT VASTAAVAT	
+1000-1099	__Aineettomat hyödykkeet	HIDE_TOTAL
+1100-1199	__Aineelliset hyödykkeet	HIDE_TOTAL
+1200-1299	__Kertyneet poistot	HIDE_TOTAL
+2000-2999	_VAIHTUVAT VASTAAVAT	HIDE_TOTAL REQUIRED BOLD
+2000-2099	__Saamiset	HIDE_TOTAL
+2010-2019	___Myyntisaamiset	
+2020-2029	___Siirtosaamiset	
+2000-2099	__Saamiset yhteensä	BOLD
+2100-2199	__Rahat ja pankkisaamiset	
+2000-2999	_Vaihtuvat vastaavat yhteensä	BOLD
+1000-2999	Vastaavaa yhteensä	REQUIRED BOLD
+		NEW_PAGE
+	VASTATTAVAA	HIDE_TOTAL REQUIRED BOLD
+3000-3199 5000-9999	_OMA PÄÄOMA	HIDE_TOTAL REQUIRED BOLD
+3000-3099	__Osakepääoma	
+3100-3199	__Edellisten tilikausien voitto (tappio)	
+5000-9999	__Tilikauden voitto (tappio)	
+3000-3199 5000-9999	_Oma pääoma yhteensä	BOLD
+4000-4999	_VIERAS PÄÄOMA	HIDE_TOTAL REQUIRED BOLD
+4000-4999	__Velat	
+4000-4999	_Vieras pääoma yhteensä	BOLD
+3000-3199 4000-4999 5000-9999	Vastattavaa yhteensä	REQUIRED BOLD
