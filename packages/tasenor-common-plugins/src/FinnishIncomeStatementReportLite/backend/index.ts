@@ -18,7 +18,7 @@ class FinnishIncomeStatementReportLite extends ReportPlugin {
     this.releaseDate = '2023-03-14'
     this.use = 'backend'
     this.type = 'report'
-    this.description = 'Compact version of income statement report translated in Finnish.'
+    this.description = 'Compact version of income statement report translated in Finnish or English.'
 
     this.languages = {
       en: {

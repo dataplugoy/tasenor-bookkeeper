@@ -17,7 +17,7 @@ class FinnishBalanceSheetReport extends ReportPlugin {
     this.releaseDate = '2023-03-14'
     this.use = 'backend'
     this.type = 'report'
-    this.description = 'Balance sheet report translated in Finnish.'
+    this.description = 'Balance sheet report translated in Finnish or English.'
 
     this.languages = {
       en: {
