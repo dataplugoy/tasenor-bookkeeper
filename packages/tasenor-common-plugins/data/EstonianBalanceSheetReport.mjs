@@ -3,7 +3,7 @@ import commonNode from '@tasenor/common-node'
 const { readFile, saveText, trimCRLF } = commonNode.dataUtils
 
 let tsv = trimCRLF(readFile('EstonianBalanceSheetReport - balance-sheet-fi.tsv'))
-saveText('FinnishBalanceSheetReport', 'balance-sheet-fi.tsv', tsv)
+saveText('EstonianBalanceSheetReport', 'balance-sheet-fi.tsv', tsv)
 
-tsv = trimCRLF(readFile('FinnishBalanceSheetReport - balance-sheet-detailed-fi.tsv'))
-saveText('FinnishBalanceSheetReport', 'balance-sheet-detailed-fi.tsv', tsv)
+tsv = trimCRLF(readFile('EstonianBalanceSheetReport - balance-sheet-detailed-fi.tsv'))
+saveText('EstonianBalanceSheetReport', 'balance-sheet-detailed-fi.tsv', tsv)
