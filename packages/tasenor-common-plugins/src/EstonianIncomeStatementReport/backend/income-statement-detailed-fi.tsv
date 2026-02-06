@@ -1,0 +1,42 @@
+# accounts	title	flags
+5000-5999	LIIKEVAIHTO	DETAILS
+		BREAK
+5000-5999	LIIKEVAIHTO	REQUIRED BOLD
+6000-6999	Liiketoiminnan muut tuotot	HIDE_TOTAL BOLD
+6000-6999	_Liiketoiminnan muut tuotot	DETAILS
+6000-6999	Liiketoiminnan muut tuotot yhteensä	BOLD
+		BREAK
+7000-7099	Ostot ja alihankinta	HIDE_TOTAL BOLD
+7000-7099	_Ostot ja alihankinta	DETAILS
+7000-7099	Ostot ja alihankinta yhteensä	BOLD
+		BREAK
+7100-7199	Henkilöstökulut	HIDE_TOTAL BOLD
+7100-7199	_Henkilöstökulut	DETAILS
+7100-7199	Henkilöstökulut yhteensä	BOLD
+		BREAK
+7200-7299	Hallintokulut	HIDE_TOTAL BOLD
+7200-7299	_Hallintokulut	DETAILS
+7200-7299	Hallintokulut yhteensä	BOLD
+		BREAK
+7300-7399	Markkinointi ja myynti	HIDE_TOTAL BOLD
+7300-7399	_Markkinointi ja myynti	DETAILS
+7300-7399	Markkinointi ja myynti yhteensä	BOLD
+		BREAK
+7400-7499	Matkakulut	HIDE_TOTAL BOLD
+7400-7499	_Matkakulut	DETAILS
+7400-7499	Matkakulut yhteensä	BOLD
+		BREAK
+7500-7599	Poistot ja arvonalentumiset	HIDE_TOTAL BOLD
+7500-7599	_Poistot ja arvonalentumiset	DETAILS
+7500-7599	Poistot ja arvonalentumiset yhteensä	BOLD
+		BREAK
+7600-7699	Liiketoiminnan muut kulut	HIDE_TOTAL BOLD
+7600-7699	_Liiketoiminnan muut kulut	DETAILS
+7600-7699	Liiketoiminnan muut kulut yhteensä	BOLD
+		BREAK
+5000-7999	VOITTO (TAPPIO) ENNEN VEROJA	REQUIRED BOLD
+8000-8999	Verot	HIDE_TOTAL BOLD
+8000-8999	_Verot	DETAILS
+8000-8999	Verot yhteensä	BOLD
+		BREAK
+5000-8999	TILIKAUDEN VOITTO (TAPPIO)	REQUIRED BOLD

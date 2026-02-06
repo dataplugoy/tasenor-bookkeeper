@@ -1,0 +1,13 @@
+# accounts	title	flags
+5000-5999	LIIKEVAIHTO	REQUIRED BOLD
+6000-6999	Liiketoiminnan muut tuotot	
+7000-7099	Ostot ja alihankinta	
+7100-7199	Henkilöstökulut	
+7200-7299	Hallintokulut	
+7300-7399	Markkinointi ja myynti	
+7400-7499	Matkakulut	
+7500-7599	Poistot ja arvonalentumiset	
+7600-7699	Liiketoiminnan muut kulut	
+5000-7999	VOITTO (TAPPIO) ENNEN VEROJA	REQUIRED BOLD
+8000-8999	Verot yhteensä	
+5000-8999	TILIKAUDEN VOITTO (TAPPIO)	REQUIRED BOLD
