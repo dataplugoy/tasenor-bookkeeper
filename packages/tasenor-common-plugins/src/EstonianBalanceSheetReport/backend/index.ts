@@ -6,8 +6,7 @@ dayjs.extend(quarterOfYear)
 
 class EstonianBalanceSheetReport extends ReportPlugin {
   constructor() {
-    // super('balance-sheet-detailed' as ReportID, 'balance-sheet' as ReportID)
-    super('balance-sheet' as ReportID)
+    super('balance-sheet-detailed' as ReportID, 'balance-sheet' as ReportID)
 
     this.schemes = new Set(['EstonianLimitedCompanyLite'])
 
@@ -40,7 +39,8 @@ class EstonianBalanceSheetReport extends ReportPlugin {
   }
 
   getLanguages(): Language[] {
-    return ['fi', 'en']
+    // return ['fi', 'en']
+    return ['fi']
   }
 
   getReportOptions(): ReportOptions {
