@@ -1,0 +1,13 @@
+# accounts	title	flags
+5000-5999	NET REVENUE	REQUIRED BOLD
+6000-6999	Other Operating Income	
+7000-7099	Purchases and Subcontracting	
+7100-7199	Personnel Expenses	
+7200-7299	Administrative Expenses	
+7300-7399	Marketing and Sales Expenses	
+7400-7499	Travel Expenses	
+7500-7599	Depreciation and Impairment Losses	
+7600-7699	Other Operating Expenses	
+5000-7999	PROFIT (LOSS) BEFORE TAXES	REQUIRED BOLD
+8000-8999	Income Taxes	
+5000-8999	PROFIT (LOSS) FOR THE FINANCIAL YEAR	REQUIRED BOLD

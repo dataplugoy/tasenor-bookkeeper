@@ -1,0 +1,40 @@
+# accounts	title	flags
+1000-2999	ASSETS	HIDE_TOTAL REQUIRED BOLD
+1000-1299	_FIXED ASSETS	
+1000-1099	__Intanglible Assets	HIDE_TOTAL BOLD
+1000-1099	___Intanglible Assets	DETAILS
+1000-1099	__Total Intanglible Assets	BOLD
+1100-1199	__Tanglible Assets	HIDE_TOTAL BOLD
+1100-1199	___Tanglible Assets	DETAILS
+1100-1199	__Total Tanglible Assets	BOLD
+1200-1299	__Accumulated Depreciation	HIDE_TOTAL BOLD
+1200-1299	___Accumulated Depreciation	DETAILS
+1200-1299	__Total Accumulated Depreciation	BOLD
+2000-2999	_CURRENT ASSETS	HIDE_TOTAL REQUIRED BOLD
+2000-2099	__Receivables	HIDE_TOTAL
+2010-2019	___Trade Receivables	HIDE_TOTAL BOLD
+2010-2019	____Trade Receivables	DETAILS
+2010-2019	___Total Trade Receivables	BOLD
+2020-2029	___Accrued Income	HIDE_TOTAL BOLD
+2020-2029	____Accrued Income	DETAILS
+2020-2029	___Total Accrued Income	BOLD
+2000-2099	__Total Receivables	BOLD
+2100-2199	__Disposable Assets	HIDE_TOTAL BOLD
+2100-2199	___Disposable Assets	DETAILS
+2100-2199	__Total Disposable Assets	BOLD
+2000-2999	_Total Variable Assets	BOLD
+1000-2999	Total Assets	REQUIRED BOLD
+		NEW_PAGE
+	CAPITAL, RESERVES & LIABILITIES	HIDE_TOTAL REQUIRED BOLD
+3000-3199 5000-9999	_CAPITAL & RESERVES	HIDE_TOTAL REQUIRED BOLD
+3000-3099	__Capital	HIDE_TOTAL BOLD
+3000-3099	__Capital	DETAILS
+3100-3199	__Retained Profits (Loss)	
+5000-9999	__Profit (Loss) for the financial year	
+3000-3199 5000-9999	_Total Equity	BOLD
+4000-4999	_CREDITORS	HIDE_TOTAL REQUIRED BOLD
+4000-4999	__Trade Creditors	HIDE_TOTAL BOLD
+4000-4999	___Trade Creditors	DETAILS
+4000-4999	__Total Trade Creditors	BOLD
+4000-4999	_Total Creditors	BOLD
+3000-3199 4000-9999	Total Liabilities	REQUIRED BOLD

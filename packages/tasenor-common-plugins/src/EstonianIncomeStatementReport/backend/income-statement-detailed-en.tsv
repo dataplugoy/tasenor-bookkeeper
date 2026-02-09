@@ -1,0 +1,42 @@
+# accounts	title	flags
+5000-5999	NET REVENUE	DETAILS
+		BREAK
+5000-5999	NET REVENUE	REQUIRED BOLD
+6000-6999	Other Operating Income	HIDE_TOTAL BOLD
+6000-6999	_Other Operating Income	DETAILS
+6000-6999	Total Other Operating Income	BOLD
+		BREAK
+7000-7099	Purchases and Subcontracting	HIDE_TOTAL BOLD
+7000-7099	_Purchases and Subcontracting	DETAILS
+7000-7099	Total Purchases and Subcontracting	BOLD
+		BREAK
+7100-7199	Personnel Expenses	HIDE_TOTAL BOLD
+7100-7199	_Personnel Expenses	DETAILS
+7100-7199	Total Personnel Expenses	BOLD
+		BREAK
+7200-7299	Administrative Expenses	HIDE_TOTAL BOLD
+7200-7299	_Administrative Expenses	DETAILS
+7200-7299	Total Administrative Expenses	BOLD
+		BREAK
+7300-7399	Marketing and Sales Expenses	HIDE_TOTAL BOLD
+7300-7399	_Marketing and Sales Expenses	DETAILS
+7300-7399	Total Marketing and Sales Expenses	BOLD
+		BREAK
+7400-7499	Travel Expenses	HIDE_TOTAL BOLD
+7400-7499	_Travel Expenses	DETAILS
+7400-7499	Total Travel Expenses	BOLD
+		BREAK
+7500-7599	Depreciation and Impairment Losses	HIDE_TOTAL BOLD
+7500-7599	_Depreciation and Impairment Losses	DETAILS
+7500-7599	Total Depreciation and Impairment Losses	BOLD
+		BREAK
+7600-7699	Other Operating Expenses	HIDE_TOTAL BOLD
+7600-7699	_Other Operating Expenses	DETAILS
+7600-7699	Total Other Operating Expenses	BOLD
+		BREAK
+5000-7999	PROFIT (LOSS) BEFORE TAXES	REQUIRED BOLD
+8000-8999	Taxes	HIDE_TOTAL BOLD
+8000-8999	_Taxes	DETAILS
+8000-8999	Total Taxes	BOLD
+		BREAK
+5000-8999	PROFIT (LOSS) FOR THE FINANCIAL YEAR	REQUIRED BOLD
