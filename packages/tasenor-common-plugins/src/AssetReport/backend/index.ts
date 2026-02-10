@@ -1,4 +1,4 @@
-import { AccountNumber, Language, PluginCode, ReportColumnDefinition, ReportData, ReportID, ReportLine, ReportMeta, ReportOptions, ReportQueryParams, StockBookkeeping, StockChangeData, Version, getBackendCatalog } from '@tasenor/common'
+import { AccountNumber, Language, PluginCode, ReportColumnDefinition, ReportData, ReportFormat, ReportID, ReportLine, ReportMeta, ReportOptions, ReportQueryParams, StockBookkeeping, StockChangeData, Version, getBackendCatalog } from '@tasenor/common'
 import { ReportPlugin } from '@tasenor/common-node'
 import dayjs from 'dayjs'
 import quarterOfYear from 'dayjs/plugin/quarterOfYear'
@@ -48,6 +48,10 @@ class AssetReport extends ReportPlugin {
       quarter3: 'radio:1',
       full: 'radio:1:default'
     }
+  }
+
+  getReportStructure(id: ReportID, lang: Language) : ReportFormat | undefined {
+    return undefined
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -136,7 +140,7 @@ class AssetReport extends ReportPlugin {
           const value = bookkeeping.value(asset)
           // TODO: This is a problematic. It assumes free plugin, since there is no verification.
           //       There should be mechanism to be passed accessibility to this function and ignore
-          //       Call if not subscribed to this plugin.
+          //       call if not subscribed to this plugin.
           const tickers = await getBackendCatalog().queryBackend('ticker', `${type}:${asset}`)
           // TODO: How to differentiate between multiple answers? Perhaps need to ask during the import and store somehow?
           //       If so, we need to query `${type}:${exchange}:${asset}` instead.
