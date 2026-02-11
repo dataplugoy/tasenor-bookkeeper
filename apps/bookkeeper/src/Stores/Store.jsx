@@ -482,6 +482,9 @@ export class Store {
       return
     }
     await this.setPeriod(db, periodId)
+    if (!accountId) {
+      return
+    }
     // Fetch additional data for an account.
     return this.request('/db/' + db + '/account/' + accountId)
       .then((account) => {

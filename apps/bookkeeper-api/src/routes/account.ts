@@ -15,6 +15,10 @@ router.get('/',
 
 router.get('/:id',
   async (req, res, next) => {
+    if (!req.params.id) {
+      res.sendStatus(404)
+      return
+    }
     const periods = await data.getAccountTransactionCountByPeriod(await knex.db(res.locals.user, res.locals.db), req.params.id)
     data.getOne(await knex.db(res.locals.user, res.locals.db), 'account', parseInt(req.params.id))
       .then(account => {
