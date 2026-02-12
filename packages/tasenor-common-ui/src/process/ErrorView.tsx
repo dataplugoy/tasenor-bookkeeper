@@ -15,7 +15,7 @@ export type ErrorViewProps = {
 export const ErrorView = (props: ErrorViewProps): JSX.Element => {
   const { palette } = useTheme()
   return (
-    <Card style={{ backgroundColor: 'rgba(0,0,0,0.05)' }}>
+    <Card sx={{ backgroundColor: 'action.hover' }}>
       <CardHeader style={{ color: palette.error.main }} title={<Trans>Error</Trans>}/>
       <CardContent sx={{ fontFamily: 'monospace' }}>
         <Typography>

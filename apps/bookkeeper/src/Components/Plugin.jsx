@@ -89,7 +89,7 @@ class Plugin extends Component {
     }
 
     return (
-      <Card id={plugin.code} data-cy={`plugin-${plugin.code}`} sx={{ backgroundColor:'rgba(0,0,0,0.02)', margin: '0.5rem', width: '28rem' }}>
+      <Card id={plugin.code} data-cy={`plugin-${plugin.code}`} sx={{ backgroundColor: 'action.hover', margin: '0.5rem', width: '28rem' }}>
         <CardHeader
           className="Plugin"
           avatar={<PluginIcon svg={plugin.icon}/>}

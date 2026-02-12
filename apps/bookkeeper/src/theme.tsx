@@ -35,7 +35,7 @@ export const light = createTheme({
 
 export const dark = createTheme({
   palette: {
-    mode: 'light',
+    mode: 'dark',
     primary: {
       light: teal[700],
       main: teal[800],

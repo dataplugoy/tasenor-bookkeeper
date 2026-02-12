@@ -188,7 +188,7 @@ export const ProcessView = (props: ProcessViewProps): JSX.Element => {
                 </Fab>
                 <Fab
                   disabled
-                  style={{ fontSize: '140%', color: 'black', fontWeight: 'bold' }}
+                  style={{ fontSize: '140%', color: 'inherit', fontWeight: 'bold' }}
                   >
                     {canChangeStep ? (currentStep || 0) + 1 : <>—</>}
                 </Fab>

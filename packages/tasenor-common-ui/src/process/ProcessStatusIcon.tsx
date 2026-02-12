@@ -33,7 +33,7 @@ export const ProcessStatusIcon = (props: ProcessStatusIconProps) => {
     case 'INCOMPLETE':
       return <Typography title={props.status} style={{ color: colors.blue }}><HourglassEmpty /></Typography>
     case 'ROLLEDBACK':
-      return <Typography title={props.status} style={{ color: 'black' }}><Restore /></Typography>
+      return <Typography title={props.status} sx={{ color: 'text.primary' }}><Restore /></Typography>
   }
   return <Typography title={props.status} style={{ color: colors.red }}><Help /></Typography>
 }

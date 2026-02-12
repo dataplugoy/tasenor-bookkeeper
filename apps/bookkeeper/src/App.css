@@ -101,4 +101,7 @@
   .MuiTableRow-root .MuiTableCell-body {
     border-color: rgba(255,255,255,0.2) !important;
   }
+  .ReportDisplayTable tr.columns {
+    border-top-color: rgba(255,255,255,0.5);
+  }
 }

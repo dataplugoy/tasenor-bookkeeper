@@ -32,7 +32,7 @@ export const TransactionLine = withStore(withCatalog(observer((props: Transactio
 
   const id = `tx${tx.document.id}-row${line}`
   const entry = tx.document.entries[line]
-  const sx = { borderLeft: 1, borderColor: '#e0e0e0' }
+  const sx = { borderLeft: 1, borderColor: 'divider' }
 
   // Select cell, when clicked.
   const onClickDetail = function(column, row) {
@@ -197,7 +197,7 @@ export const MainTransaction = withStore(withCatalog(observer((props: MainTransa
   let currencyValue = <></>
 
   if (tx.data && tx.data.currency && tx.data.currencyValue) {
-    currencyValue = <span style={{ color: 'rgba(0,0,0,0.5)' }}> | <Money cents={tx.data.currencyValue as number} currency={tx.data.currency as Currency}/></span>
+    currencyValue = <span style={{ opacity: 0.5 }}> | <Money cents={tx.data.currencyValue as number} currency={tx.data.currency as Currency}/></span>
   }
 
   // Move cursor to the transaction and toggle it.

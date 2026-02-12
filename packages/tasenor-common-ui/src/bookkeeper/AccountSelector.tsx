@@ -49,7 +49,7 @@ export const AccountSelector = observer((props: AccountSelectorProps) => {
     renderOption={(props, option) => (
       <Box component="li" {...props} id={`Account ${option.number}`} data-cy={`Account ${option.number}`}>
         {option.number} {option.name}
-        {preferredSet.has(option.number) && <StarOutlineIcon fontSize="small" sx={{ color: 'rgba(0,0,0,0.2)' }}/>}
+        {preferredSet.has(option.number) && <StarOutlineIcon fontSize="small" sx={{ color: 'text.disabled' }}/>}
       </Box>
     )}
     onFocus={() => RISPProvider.onFocus()}
