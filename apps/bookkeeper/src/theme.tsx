@@ -50,8 +50,8 @@ export const dark = createTheme({
       main: deepOrange.A400
     },
     text: {
-      primary: brown[200],
-      secondary: brown[300],
+      primary: brown[50],
+      secondary: brown[200],
     },
     background: {
       paper: grey[900],
