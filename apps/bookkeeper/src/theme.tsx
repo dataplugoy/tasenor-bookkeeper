@@ -5,25 +5,25 @@ export const light = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      light: brown[300],
-      main: brown[400],
-      dark: brown[500],
+      light: brown[400],
+      main: brown[700],
+      dark: brown[900],
     },
     secondary: {
       light: amber[700],
-      main: amber[800],
-      dark: amber[900],
+      main: amber[900],
+      dark: '#e65100',
     },
     error: {
       main: red[700]
     },
     text: {
-      primary: brown[500],
-      secondary: brown[700],
+      primary: grey[900],
+      secondary: grey[700],
     },
     background: {
-      paper: 'rgb(252,249,244)',
-      default: 'white',
+      paper: '#ffffff',
+      default: '#fafafa',
     },
   },
   typography: {
