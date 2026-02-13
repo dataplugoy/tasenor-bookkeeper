@@ -324,6 +324,27 @@ importers:
 
   databases/bookkeeper: {}
 
+  e2e:
+    devDependencies:
+      csv-parse:
+        specifier: ^5.5.3
+        version: 5.6.0
+      cypress:
+        specifier: ^13.6.5
+        version: 13.17.0
+      cypress-real-events:
+        specifier: ^1.12.0
+        version: 1.15.0(cypress@13.17.0)
+      cypress-xpath:
+        specifier: ^2.0.1
+        version: 2.0.1
+      dayjs:
+        specifier: ^1.11.10
+        version: 1.11.18
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+
   examples/ui-playground:
     dependencies:
       '@emotion/styled':
@@ -8781,7 +8802,7 @@ packages:
       cli-table3: 0.6.5
       commander: 6.2.1
       common-tags: 1.8.2
-      dayjs: 1.10.8
+      dayjs: 1.11.18
       debug: 4.4.3(supports-color@8.1.1)
       enquirer: 2.4.1
       eventemitter2: 6.4.7
@@ -9147,10 +9168,10 @@ packages:
 
   /dayjs@1.10.8:
     resolution: {integrity: sha512-wbNwDfBHHur9UOzNUjeKUOJ0fCb0a52Wx0xInmQ7Y8FstyajiV1NmK1e00cxsr9YrE9r7yAChE0VvpuY5Rnlow==}
+    dev: false
 
   /dayjs@1.11.18:
     resolution: {integrity: sha512-zFBQ7WFRvVRhKcWoUh+ZA1g2HVgUbsZm9sbddh8EC5iv93sui8DVVz1Npvz+r6meo9VKfa8NyLWBsQK1VvIKPA==}
-    dev: false
 
   /debounce@1.2.1:
     resolution: {integrity: sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug==}
