@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ReportColumnDefinition, ReportItem } from '@tasenor/common'
+import { Language, ReportColumnDefinition, ReportFormat, ReportID, ReportItem } from '@tasenor/common'
 import { ReportPlugin } from '@tasenor/common-node'
 import dayjs from 'dayjs'
 
@@ -54,5 +54,10 @@ export class AccountReport extends ReportPlugin {
       })
     })
     return data
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getReportStructure(id: ReportID, lang: Language) : ReportFormat | undefined {
+    return '' as ReportFormat
   }
 }

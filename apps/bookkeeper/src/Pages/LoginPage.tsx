@@ -60,7 +60,7 @@ const LoginPage = observer(withStore(withCatalog((props) => {
     } else {
       props.store.request('/status')
         .then((data) => {
-          if (data.hasAdminUser) {
+          if (data && data.hasAdminUser) {
             setState('NOT_LOGGED_IN')
             setIntroduction(data.introduction[props.catalog.language()] || data.introduction.en)
           } else {

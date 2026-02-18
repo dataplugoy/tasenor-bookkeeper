@@ -28,9 +28,10 @@ class TransactionToolPanel extends Component {
 
   keyIconD = () => {
     const store = this.props.store
-    const { db, periodId, accountId } = store
+    const { db, periodId, accountId, account } = store
     const lang = i18n.language
     const url = `${Configuration.UI_API_URL}/db/${db}/report/account/${periodId}/${accountId}?csv&lang=${lang}`
+    const accountNumber = account ? account.number : accountId
 
     fetch(url, {
       method: 'GET',
@@ -45,7 +46,7 @@ class TransactionToolPanel extends Component {
         const a = document.createElement('a')
         a.href = url
         a.target = '_blank'
-        a.download = `transactions-${periodId}-${accountId}.csv`
+        a.download = `transactions-${periodId}-${accountNumber}.csv`
         document.body.appendChild(a)
         a.click()
         a.remove()
