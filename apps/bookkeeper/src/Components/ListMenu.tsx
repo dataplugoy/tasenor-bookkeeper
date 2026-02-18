@@ -32,11 +32,8 @@ export const ListMenu = observer(withStore((props: ListMenuProps): JSX.Element =
   const nav = useNav()
   const cursor = haveCursor()
 
-  if (!store.isLoggedIn()) {
-    return <></>
-  }
-
   useEffect(() => {
+    if (!store.isLoggedIn()) return
     cursor.selectPage(title, {
       keyText: (cursor, key) => {
         if (key >= '0' && key <= '9') {
@@ -58,6 +55,10 @@ export const ListMenu = observer(withStore((props: ListMenuProps): JSX.Element =
       }
     })
   }, [title])
+
+  if (!store.isLoggedIn()) {
+    return <></>
+  }
 
   let idx = 0
 
