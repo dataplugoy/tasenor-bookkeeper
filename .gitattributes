@@ -1,0 +1,2 @@
+e2e/cypress/fixtures/dataplug/** filter=git-crypt diff=git-crypt
+e2e/cypress/fixtures/databases/** filter=git-crypt diff=git-crypt

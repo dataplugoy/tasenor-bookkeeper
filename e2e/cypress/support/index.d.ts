@@ -47,6 +47,8 @@ declare global {
       selectNamedTx(text: string): Chainable<void>
       selectPeriod(from: string, to: string): Chainable<void>
       selectReport(report: string): Chainable<void>
+      selectReportOption(option: string): Chainable<void>
+      toggleReportOption(option: string): Chainable<void>
       selectTool(tool: string): Chainable<void>
       selection(dropdown: string, item: string): Chainable<void>
       shouldHaveError(message: string): Chainable<void>
@@ -63,7 +65,7 @@ declare global {
   namespace Cypress {
     interface Chainer<Subject> {
       (chainer: 'cellEquals', row: number, col: number, text: string): Chainable<Subject>,
-      (chainer: 'matchReport', heading1: string, heading2: string, report: string): Chainable<Subject>,
+      (chainer: 'matchReport', heading1: string, heading2: string | RegExp, report: string): Chainable<Subject>,
     }
   }
 }

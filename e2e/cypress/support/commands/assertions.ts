@@ -15,16 +15,22 @@ chai.Assertion.addChainableMethod('cellEquals', function(row: number, col: numbe
 
 /**
  * Compare CSV report to the report found from the screen.
+ * heading2 can be a string (exact match) or RegExp (pattern match).
  */
-chai.Assertion.addChainableMethod('matchReport', function(heading1: string, heading2: string, report: string) {
+chai.Assertion.addChainableMethod('matchReport', function(heading1: string, heading2: string | RegExp, report: string) {
   const file = parse(report)
 
   // Check headings.
   if (this._obj[0].join(' ') !== heading1) {
     throw new Error(`First heading of the report '${this._obj[0].join(' ')}' does not match expected '${heading1}'.`)
   }
-  if (this._obj[1].join(' ') !== heading2) {
-    throw new Error(`Second heading of the report '${this._obj[1].join(' ')}' does not match expected '${heading2}'.`)
+  const h2 = this._obj[1].join(' ')
+  if (heading2 instanceof RegExp) {
+    if (!heading2.test(h2)) {
+      throw new Error(`Second heading of the report '${h2}' does not match pattern '${heading2}'.`)
+    }
+  } else if (h2 !== heading2) {
+    throw new Error(`Second heading of the report '${h2}' does not match expected '${heading2}'.`)
   }
 
   const remaining = this._obj.slice(2)

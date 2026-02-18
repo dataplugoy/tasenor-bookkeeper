@@ -1,5 +1,6 @@
 import { defineConfig } from 'cypress'
 import fs from 'fs'
+import http from 'http'
 import path from 'path'
 import { execSync } from 'child_process'
 
@@ -21,6 +22,62 @@ export default defineConfig({
     video: true,
     setupNodeEvents(on, config) {
       on('task', {
+        uploadDatabase({ filePath, apiUrl, user, password }: { filePath: string, apiUrl: string, user: string, password: string }) {
+          return new Promise((resolve, reject) => {
+            // Authenticate first.
+            const authUrl = new URL(`${apiUrl}/auth`)
+            const authData = JSON.stringify({ user, password })
+            const authReq = http.request(authUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(authData) },
+            }, (authRes) => {
+              let body = ''
+              authRes.on('data', (chunk: string) => { body += chunk })
+              authRes.on('end', () => {
+                const token = JSON.parse(body).token
+                if (!token) return reject(new Error(`Auth failed: ${body}`))
+
+                // Upload the file using multipart/form-data.
+                const fileData = fs.readFileSync(filePath)
+                const boundary = '----CypressUploadBoundary' + Date.now()
+                const fileName = path.basename(filePath)
+
+                const header = Buffer.from(
+                  `--${boundary}\r\n` +
+                  `Content-Disposition: form-data; name="file"; filename="${fileName}"\r\n` +
+                  'Content-Type: application/gzip\r\n\r\n'
+                )
+                const footer = Buffer.from(`\r\n--${boundary}--\r\n`)
+                const payload = Buffer.concat([header, fileData, footer])
+
+                const uploadUrl = new URL(`${apiUrl}/db/upload`)
+                const uploadReq = http.request(uploadUrl, {
+                  method: 'POST',
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': `multipart/form-data; boundary=${boundary}`,
+                    'Content-Length': payload.length,
+                  },
+                }, (uploadRes) => {
+                  if (uploadRes.statusCode === 204) {
+                    resolve(null)
+                  } else {
+                    let respBody = ''
+                    uploadRes.on('data', (chunk: string) => { respBody += chunk })
+                    uploadRes.on('end', () => reject(new Error(`Upload failed (${uploadRes.statusCode}): ${respBody}`)))
+                  }
+                })
+                uploadReq.on('error', reject)
+                uploadReq.write(payload)
+                uploadReq.end()
+              })
+            })
+            authReq.on('error', reject)
+            authReq.write(authData)
+            authReq.end()
+          })
+        },
+
         compareTarPackages({ actual, expected }) {
           const tmpDir = path.join(__dirname, 'cypress', 'tmp')
           const actualDir = path.join(tmpDir, 'actual')

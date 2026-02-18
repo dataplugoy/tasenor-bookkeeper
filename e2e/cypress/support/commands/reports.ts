@@ -50,6 +50,22 @@ Cypress.Commands.add('selectReport', (report: string) => {
 })
 
 /**
+ * Select a report option (e.g. quarter or full year).
+ */
+Cypress.Commands.add('selectReportOption', (option: string) => {
+  cy.get(`#${option}`).click()
+  cy.get('[class*="EndOfReport"]').should('exist')
+})
+
+/**
+ * Toggle a report option on or off (e.g. byTags).
+ */
+Cypress.Commands.add('toggleReportOption', (option: string) => {
+  cy.get(`#${option}`).click()
+  cy.get('[class*="EndOfReport"]').should('exist')
+})
+
+/**
  * Verify that a report line contains the given title and value.
  */
 Cypress.Commands.add('reportLine', (title: string, value: string) => {
