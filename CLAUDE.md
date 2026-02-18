@@ -42,10 +42,18 @@ cd apps/bookkeeper-api && pnpm run lint
 
 ### Cypress E2E tests
 
-From `packages/tasenor-testing/`:
-- `pnpm run cypress-localhost` — Opens Cypress against local dev servers
-- `pnpm run cypress-docker` — Opens Cypress against Docker services
+From `e2e/`:
+- `pnpm run cypress:open` — Opens Cypress against local dev servers
+- `pnpm run cypress:docker` — Opens Cypress against Docker services
 - `pnpm run cypress` — Headless run against localhost
+- `pnpm run cypress:nightly` — Headless run with nightly-only plugins
+
+Run a single spec:
+```sh
+cd e2e && CYPRESS_URL=http://localhost:7204 CYPRESS_API_URL=http://localhost:7205 npx cypress run --spec "cypress/e2e/1010-create-admin.cy.ts"
+```
+
+Tests use `Cypress.expose()` for public config (not `Cypress.env()`) and must run in numerical order since later tests depend on state created by earlier ones.
 
 ### Database
 
