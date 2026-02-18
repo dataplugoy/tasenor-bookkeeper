@@ -2,6 +2,19 @@ import '../support/commands'
 import 'cypress-xpath'
 
 describe('Account editing', () => {
+  before(() => {
+    cy.userLogin()
+    cy.selectDb('TEST_DATABASE')
+    cy.gotoAccounts()
+
+    // Clean up accounts from previous failed runs.
+    cy.deleteAccountIfExists('1915')
+    cy.deleteAccountIfExists('2625')
+    cy.deleteAccountIfExists('2626')
+    cy.deleteAccountIfExists('4005')
+    cy.deleteAccountIfExists('3005')
+  })
+
   it('Test creating accounts', () => {
 
     cy.userLogin()
@@ -47,6 +60,7 @@ describe('Account editing', () => {
     cy.userLogin()
     cy.selectDb('TEST_DATABASE')
     cy.gotoAccounts()
+    cy.get('#ShowAll').click()
 
     // Edit 1915 name
     cy.selectAccountFromList('1915')

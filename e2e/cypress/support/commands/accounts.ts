@@ -21,5 +21,19 @@ Cypress.Commands.add('createAccount', (number: string, name: string, type: strin
  * Select an account from the account list.
  */
 Cypress.Commands.add('selectAccountFromList', (number: string) => {
-  cy.get(`#Account${number}`).should('be.visible').click()
+  cy.get(`#Account${number}`).scrollIntoView().should('be.visible').click()
+})
+
+/**
+ * Delete an account if it exists. Must be on the accounts page.
+ */
+Cypress.Commands.add('deleteAccountIfExists', (number: string) => {
+  cy.get('body').then($body => {
+    if ($body.find(`#Account${number}`).length) {
+      cy.get(`#Account${number}`).scrollIntoView().should('be.visible').click()
+      cy.get('#DeleteAccount').click()
+      cy.get('#OK').click()
+      cy.get('.DeleteAccountDialog').should('not.exist')
+    }
+  })
 })

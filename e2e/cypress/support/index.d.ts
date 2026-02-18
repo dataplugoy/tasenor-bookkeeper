@@ -14,6 +14,7 @@ declare global {
       clearTransactionCell(): Chainable<void>
       clickToolIcon(icon: string): Chainable<void>
       createAccount(number: string, name: string, type: string): Chainable<void>
+      deleteAccountIfExists(number: string): Chainable<void>
       createPeriod(): Chainable<void>
       dialog(text: string): Chainable<JQuery<HTMLElement>>
       dropdown(text: string): Chainable<JQuery<HTMLElement>>
