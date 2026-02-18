@@ -11,7 +11,6 @@ export default defineConfig({
     chromeWebSecurity: false,
     defaultCommandTimeout: 10_000,
     testIsolation: false,
-    experimentalStudio: true,
     watchForFileChanges: true,
     taskTimeout: 10_000,
     video: true,

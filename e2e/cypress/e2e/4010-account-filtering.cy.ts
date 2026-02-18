@@ -54,17 +54,17 @@ describe('Account filtering', () => {
     cy.gotoAccounts()
 
     // Search by number
-    cy.get('#search').type('1900')
-    cy.get('#search').type('{enter}')
+    cy.get('[name="search"]').type('1900')
+    cy.get('[name="search"]').type('{enter}')
     cy.contains('1900 Käteisvarat')
 
     // Clear and search by name
-    cy.get('#search').type('{selectall}{backspace}')
-    cy.get('#search').type('Arvonlisäverovelka')
-    cy.get('#search').type('{enter}')
+    cy.get('[name="search"]').type('{selectall}{backspace}')
+    cy.get('[name="search"]').type('Arvonlisäverovelka')
+    cy.get('[name="search"]').type('{enter}')
     cy.contains('2939 Arvonlisäverovelka')
 
     // Clear search
-    cy.get('#search').type('{selectall}{backspace}{enter}')
+    cy.get('[name="search"]').type('{selectall}{backspace}{enter}')
   })
 })
