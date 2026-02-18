@@ -14,9 +14,13 @@ describe('Download database', () => {
         .should('be.visible')
         .click()
 
-      // Wait for .tasenor file download
+      // The API generates filenames as: CompanyName (spaces→_) + date + .tasenor
       const downloadsFolder = Cypress.config('downloadsFolder')
-      cy.readFile(`${downloadsFolder}/${config.TEST_COMPANY}.tasenor`, null, { timeout: 60_000 })
+      const today = new Date().toISOString().slice(0, 10)
+      const downloadedFile = `${config.TEST_COMPANY.replace(/[^-a-zA-Z0-9]/g, '_')}-${today}.tasenor`
+
+      // Wait for .tasenor file download
+      cy.readFile(`${downloadsFolder}/${downloadedFile}`, null, { timeout: 60_000 })
         .should('exist')
 
       // Compare tar contents
@@ -24,7 +28,7 @@ describe('Download database', () => {
         const expectedPath = `${downloadsFolder}/expected_Robot_Oy.tasenor`
         cy.writeFile(expectedPath, expectedBuffer, null)
         cy.task('compareTarPackages', {
-          actual: `${downloadsFolder}/${config.TEST_COMPANY}.tasenor`,
+          actual: `${downloadsFolder}/${downloadedFile}`,
           expected: expectedPath,
         }).should('be.null')
       })
