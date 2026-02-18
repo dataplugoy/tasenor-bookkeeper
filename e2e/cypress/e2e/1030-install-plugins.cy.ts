@@ -37,7 +37,7 @@ describe('Install plugins', () => {
     cy.plugin('VAT').should('contain.text', 'Remove')
     cy.plugin('VATFinland').should('contain.text', 'Remove')
 
-    if (Cypress.env('MODE') === 'nightly') {
+    if (Cypress.expose('MODE') === 'nightly') {
       cy.installPlugin('GitBackup')
       cy.installPlugin('KrakenImport')
       cy.installPlugin('LynxImport')

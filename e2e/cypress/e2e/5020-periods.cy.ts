@@ -6,7 +6,7 @@ describe('Period operations', () => {
   before(() => {
     // Clean up stale state from previous failed runs via API.
     cy.fixture('ci.json').then((config) => {
-      const apiUrl = Cypress.env('API_URL')
+      const apiUrl = Cypress.expose('API_URL')
 
       // Login to get a token.
       cy.request('POST', `${apiUrl}/auth`, {

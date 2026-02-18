@@ -5,7 +5,7 @@ describe('Remove users', () => {
   before(() => {
     // Ensure test users exist (may have been deleted by a previous run).
     cy.fixture('ci.json').then((config) => {
-      const apiUrl = Cypress.env('API_URL')
+      const apiUrl = Cypress.expose('API_URL')
       cy.request('POST', `${apiUrl}/auth`, {
         user: config.ADMIN_USER,
         password: config.ADMIN_PASSWORD

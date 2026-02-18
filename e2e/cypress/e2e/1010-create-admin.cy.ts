@@ -4,7 +4,7 @@ describe('Initialize admin', () => {
   it('Create admin user, if not yet done', () => {
     cy.fixture('ci.json').then((config) => {
       cy.visit('/')
-      cy.request(Cypress.env('API_URL') + '/status').then(res => {
+      cy.request(Cypress.expose('API_URL') + '/status').then(res => {
         if (!res.body.hasAdminUser) {
 
           cy.get('[name="full-name"]').type(config.ADMIN_USER)

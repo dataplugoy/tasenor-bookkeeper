@@ -6,6 +6,11 @@ import { execSync } from 'child_process'
 export default defineConfig({
   viewportHeight: 1080,
   viewportWidth: 1920,
+  allowCypressEnv: false,
+  expose: {
+    API_URL: process.env.CYPRESS_API_URL || '',
+    MODE: process.env.CYPRESS_MODE || '',
+  },
   e2e: {
     baseUrl: process.env.CYPRESS_URL,
     chromeWebSecurity: false,
