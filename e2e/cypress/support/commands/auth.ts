@@ -22,7 +22,7 @@ Cypress.Commands.add('login', (email: string, password: string, admin = undefine
       if (admin) {
         cy.get('.Page').should('contain', 'Admin Tools')
       } else {
-        cy.get('.Page').should('contain', 'Databases')
+        cy.get('.current-user').should('have.attr', 'data-cy', email)
       }
     }
   })
