@@ -34,7 +34,7 @@ class ToolsForPeriods extends Component {
       navigate(`/${store.database.name}/txs/${period.id}`)
     }
 
-    const periods = store.database.periods
+    const periods = [...store.database.periods].sort((a, b) => a.start_date.localeCompare(b.start_date))
 
     return (
       <TableContainer>
@@ -50,7 +50,7 @@ class ToolsForPeriods extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {periods.reverse().map((period) => (
+            {periods.map((period) => (
               <TableRow id={`Period ${period.start_date}`} key={period.id}>
                 <TableCell>{period.id}</TableCell>
                 <TableCell><Localize date={period.start_date} /></TableCell>

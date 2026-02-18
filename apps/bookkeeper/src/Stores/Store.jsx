@@ -785,6 +785,9 @@ export class Store {
       .then((balances) => {
         runInAction(() => {
           const period = this.dbsByName[db].getPeriod(periodId)
+          if (!period) {
+            return
+          }
           period.balances = {}
           balances.balances.forEach((data) => {
             period.addBalance(new BalanceModel(period, { account_id: data.id, ...data }))
@@ -809,6 +812,9 @@ export class Store {
     return this.request('/db/' + db + '/document?entries&period=' + periodId)
       .then((data) => {
         runInAction(() => {
+          if (!this.period) {
+            return
+          }
           let lastDate
           data.forEach((tx) => {
             const doc = new DocumentModel(this.period, tx)

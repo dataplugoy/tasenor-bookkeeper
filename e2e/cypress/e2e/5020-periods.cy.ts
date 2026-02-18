@@ -3,6 +3,66 @@ import 'cypress-xpath'
 import 'cypress-real-events'
 
 describe('Period operations', () => {
+  before(() => {
+    // Clean up stale state from previous failed runs via API.
+    cy.fixture('ci.json').then((config) => {
+      const apiUrl = Cypress.env('API_URL')
+
+      // Login to get a token.
+      cy.request('POST', `${apiUrl}/auth`, {
+        user: config.USER,
+        password: config.PASSWORD
+      }).then((authRes) => {
+        const token = authRes.body.token
+
+        // List all periods.
+        cy.request({
+          url: `${apiUrl}/db/${config.TEST_DATABASE}/period`,
+          headers: { Authorization: `Bearer ${token}` }
+        }).then((periodsRes) => {
+          const periods = periodsRes.body
+
+          // Unlock the YEAR period if locked.
+          const yearPeriod = periods.find((p: { start_date: string }) => p.start_date === `${config.YEAR}-01-01`)
+          if (yearPeriod && yearPeriod.locked) {
+            cy.request({
+              method: 'PATCH',
+              url: `${apiUrl}/db/${config.TEST_DATABASE}/period/${yearPeriod.id}`,
+              headers: { Authorization: `Bearer ${token}` },
+              body: { locked: false }
+            })
+          }
+
+          // Delete the NEXT_YEAR period if it exists.
+          const nextYearPeriod = periods.find((p: { start_date: string }) => p.start_date === `${config.NEXT_YEAR}-01-01`)
+          if (nextYearPeriod) {
+            // List documents in the period.
+            cy.request({
+              url: `${apiUrl}/db/${config.TEST_DATABASE}/document?period=${nextYearPeriod.id}`,
+              headers: { Authorization: `Bearer ${token}` }
+            }).then((docsRes) => {
+              const docs = docsRes.body
+              // Delete each document (cascades entries).
+              for (const doc of docs) {
+                cy.request({
+                  method: 'DELETE',
+                  url: `${apiUrl}/db/${config.TEST_DATABASE}/document/${doc.id}`,
+                  headers: { Authorization: `Bearer ${token}` }
+                })
+              }
+              // Delete the period.
+              cy.request({
+                method: 'DELETE',
+                url: `${apiUrl}/db/${config.TEST_DATABASE}/period/${nextYearPeriod.id}`,
+                headers: { Authorization: `Bearer ${token}` }
+              })
+            })
+          }
+        })
+      })
+    })
+  })
+
   it('Create new period', () => {
 
     cy.fixture('ci.json').then((config) => {
