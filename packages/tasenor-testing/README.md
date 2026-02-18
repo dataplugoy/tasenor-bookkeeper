@@ -12,25 +12,7 @@ If UI test fails and you want to inspect situation yourself, you can browse
 [http://localhost:7204/](http://localhost:7204/), since after failing test
 the system is left running.
 
-User accounts are
+## Cypress E2E Tests
 
-* root@localhost: passpass - super user
-* robot@localhost: pass_pass4 - normal user for UI tests
-
-To run test set visually
-```
-robot/bin/test-local-dev
-```
-
-## Cypress
-
-To run cypress tests, you need
-```
-apt install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2 libxtst6 xauth xvfb
-```
-
-In the root of the repository, launch the dev ennvironment.
-```
-cd ../..
-turbo dev --concurrency 14
-```
+Cypress E2E tests are located in the `e2e/` directory at the repository root.
+See the main `CLAUDE.md` or `e2e/README.md` for instructions.

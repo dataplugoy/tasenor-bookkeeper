@@ -76,7 +76,7 @@ cd apps/bookkeeper-api && pnpm run rollback   # Rollback last migration
 - **`packages/tasenor-common-node/`** — Node-specific libraries. Published as `@tasenor/common-node`.
 - **`packages/tasenor-common-ui/`** — Shared React components. Published as `@tasenor/common-ui`.
 - **`packages/tasenor-common-plugins/`** — Built-in plugin collection (importers, reports, company types).
-- **`packages/tasenor-testing/`** — Test utilities, Cypress E2E tests, and test robot framework.
+- **`packages/tasenor-testing/`** — Test utilities and shared test helpers.
 - **`packages/tasenor-config/`** — Shared Jest and TypeScript configs.
 - **`databases/bookkeeper/`** — Docker PostgreSQL setup and sample data.
 

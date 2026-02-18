@@ -1,6 +1,0 @@
-robotframework==7.3.2
-robotframework-seleniumlibrary==6.8.0
-robotframework-pythonlibcore==4.4.1
-robotframework-xvfb==1.2.2
-pyjwt==2.10.1
-selenium==4.37.0
