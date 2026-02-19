@@ -1,55 +1,40 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import { observer } from 'mobx-react'
-import { withTranslation } from 'react-i18next'
-import Store from '../Stores/Store'
-import Cursor from '../Stores/Cursor'
-import { Chip, List, ListItem, ListItemButton, ListItemText } from '@mui/material'
-import withRouter from '../Hooks/withRouter'
+import { useTranslation } from 'react-i18next'
+import { Chip, List, ListItemButton, ListItemText } from '@mui/material'
+import { useNav } from '@tasenor/common-ui'
 import withStore from '../Hooks/withStore'
 
-@withRouter
-@withTranslation('translations')
-@withStore
-@observer
-class UserList extends Component {
+const UserList = observer(withStore((props) => {
+  const { store } = props
+  const { t } = useTranslation()
+  const nav = useNav()
 
-  onClickUser(user) {
-    this.props.navigate(`/_/admin/_/_/users?user=${user.email}`)
+  if (!store.isLoggedIn()) {
+    return ''
   }
 
-  render() {
-    const { store, location } = this.props
-    if (!store.isLoggedIn()) {
-      return ''
-    }
-    const current = new URLSearchParams(location.search).get('user')
-    return (
-      <div>
-        <List className="UserList">
-          {
-            this.props.store.users.map((user) => {
-              const status = []
-              if (user.disabled) status.push((<Chip key="disabled" variant="outlined" label={this.props.t('Disabled')}/>))
-              if (user.config.admin) status.push(<Chip key="outlined" variant="outlined" label={this.props.t('Admin')}/>)
-              if (user.config.superuser) status.push((<Chip key="superuser" variant="outlined" label={this.props.t('Superuser')}/>))
-              return (
-              <ListItemButton id={`user-${user.email}`} key={user.email} selected={current === user.email} onClick={() => this.onClickUser(user)}>
-                <ListItemText primary={<>{user.name} {status}</>} secondary={user.email} />
-              </ListItemButton>
-              )
-            })
-          }
-        </List>
-      </div>
-    )
-  }
-}
+  const current = nav.get('user')
 
-UserList.propTypes = {
-  cursor: PropTypes.instanceOf(Cursor),
-  location: PropTypes.object,
-  store: PropTypes.instanceOf(Store)
-}
+  return (
+    <div>
+      <List className="UserList">
+        {
+          store.users.map((user) => {
+            const status = []
+            if (user.disabled) status.push((<Chip key="disabled" variant="outlined" label={t('Disabled')}/>))
+            if (user.config.admin) status.push(<Chip key="outlined" variant="outlined" label={t('Admin')}/>)
+            if (user.config.superuser) status.push((<Chip key="superuser" variant="outlined" label={t('Superuser')}/>))
+            return (
+            <ListItemButton id={`user-${user.email}`} key={user.email} selected={current === user.email} onClick={() => nav.go({ user: user.email })}>
+              <ListItemText primary={<>{user.name} {status}</>} secondary={user.email} />
+            </ListItemButton>
+            )
+          })
+        }
+      </List>
+    </div>
+  )
+}))
 
 export default UserList
