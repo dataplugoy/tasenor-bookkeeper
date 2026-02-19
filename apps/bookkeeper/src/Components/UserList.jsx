@@ -5,7 +5,7 @@ import { Chip, List, ListItemButton, ListItemText } from '@mui/material'
 import { useNav } from '@tasenor/common-ui'
 import withStore from '../Hooks/withStore'
 
-const UserList = observer(withStore((props) => {
+const UserList = withStore(observer((props) => {
   const { store } = props
   const { t } = useTranslation()
   const nav = useNav()
