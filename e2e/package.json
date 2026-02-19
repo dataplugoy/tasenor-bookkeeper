@@ -6,7 +6,8 @@
     "cypress": "CYPRESS_URL=http://localhost:7204 CYPRESS_API_URL=http://localhost:7205 cypress run",
     "cypress:open": "CYPRESS_URL=http://localhost:7204 CYPRESS_API_URL=http://localhost:7205 cypress open",
     "cypress:docker": "CYPRESS_URL=http://bookkeeper.localhost CYPRESS_API_URL=http://bookkeeper-api.localhost cypress open",
-    "cypress:nightly": "CYPRESS_URL=http://localhost:7204 CYPRESS_API_URL=http://localhost:7205 CYPRESS_MODE=nightly cypress run"
+    "cypress:nightly": "CYPRESS_URL=http://localhost:7204 CYPRESS_API_URL=http://localhost:7205 CYPRESS_MODE=nightly cypress run",
+    "nightly": "CYPRESS_URL=http://bookkeeper.localhost CYPRESS_API_URL=http://bookkeeper-api.localhost CYPRESS_MODE=nightly cypress run"
   },
   "devDependencies": {
     "csv-parse": "^5.6.0",
