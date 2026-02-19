@@ -15,6 +15,7 @@ describe('Create databases', () => {
       cy.selection('Currency', 'EUR')
       cy.button('OK').click()
 
+      cy.goto('Tools', 'Periods')
       cy.get('.Page').should('contain', 'Tilikaudet')
       cy.icon('create-period').click()
       cy.text('Start Date').type(`{selectall}1.1.${config.YEAR}`)
