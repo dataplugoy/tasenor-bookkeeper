@@ -6,6 +6,9 @@ describe('Install plugins', () => {
     cy.adminLogin()
     cy.goto('Admin', 'Plugins')
 
+    cy.icon('refresh-plugins').click()
+    cy.waitLoading()
+
     cy.installPlugin('CoinAPI')
     cy.installPlugin('CoinbaseImport')
     cy.installPlugin('DocumentCleaner')
