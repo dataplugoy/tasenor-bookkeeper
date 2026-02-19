@@ -15,7 +15,7 @@ import withStore from '../Hooks/withStore'
 class UserList extends Component {
 
   onClickUser(user) {
-    this.props.navigate(`/_/admin///users?user=${user.email}`)
+    this.props.navigate(`/_/admin/_/_/users?user=${user.email}`)
   }
 
   render() {
