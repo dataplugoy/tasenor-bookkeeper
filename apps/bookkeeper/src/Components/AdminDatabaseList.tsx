@@ -29,9 +29,16 @@ const AdminDatabaseList = withStore((props: AdminDatabaseListProps): React.React
         <ListItemText>
           <Typography variant="subtitle1">{db.name}</Typography>
           <Trans>Creation Date</Trans>: <Localize date={db.created}/><br/>
-          <Trans>Users</Trans>: {db.users.map(user => <Box key={user.user.id} component="span">
-            {user.user.email} {user.config.isCreator ? <Chip variant="outlined" label={t('Creator')}/> : ''}<> </>
-          </Box>)}
+          {
+            db.users && <>
+              <Trans>Users</Trans>: {db.users.map(user => <Box key={user.user.id} component="span">
+              {user.user.email} {user.config.isCreator ? <Chip variant="outlined" label={t('Creator')}/> : ''}<> </>
+              </Box>)}
+            </>
+          }
+          {
+            !db.users && <><Trans>No users</Trans></>
+          }
         </ListItemText>
       </ListItemButton>
     )}
