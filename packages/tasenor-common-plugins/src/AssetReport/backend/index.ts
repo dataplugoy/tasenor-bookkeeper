@@ -50,6 +50,7 @@ class AssetReport extends ReportPlugin {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getReportStructure(id: ReportID, lang: Language) : ReportFormat | undefined {
     return undefined
   }

@@ -1,4 +1,4 @@
-import { AccountElement, AccountAddress, FilterRule, Language, UIQuery, TasenorElement, Tag, AccountNumber, PluginCode, TransactionImportOptions, ButtonElement, MessageElement, ProcessConfig, TextFileLine, TextFileLineElement, AssetType, Asset, ImportSegment } from '@tasenor/common'
+import { AccountElement, AccountAddress, FilterRule, Language, UIQuery, TasenorElement, Tag, AccountNumber, TransactionImportOptions, ButtonElement, MessageElement, ProcessConfig, TextFileLine, TextFileLineElement, AssetType, Asset, ImportSegment } from '@tasenor/common'
 import { AskUI, SystemError } from '../error'
 
 /**

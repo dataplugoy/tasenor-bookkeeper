@@ -3,7 +3,7 @@ import knex from '../lib/knex'
 import catalog from '../lib/catalog'
 import { getImportSystem } from '../lib/importing'
 import { ImportPlugin, ProcessFileData } from '@tasenor/common-node'
-import { ID, ImportRule, PluginCode, ProcessStatus, log, validFileName } from '@tasenor/common'
+import { ID, ProcessStatus, log, validFileName } from '@tasenor/common'
 import deepEqual from 'fast-deep-equal'
 
 const router = express.Router()

@@ -1064,8 +1064,6 @@ export class TransferAnalyzer {
 
     // At this point, total should be in order.
     if (Math.abs(total) > ZERO_CENTS) {
-      const currency = this.getConfig('currency') as Currency
-
       const fix: AssetTransfer = {
         reason: total > 0 ? 'expense' : 'income',
         type: 'statement',

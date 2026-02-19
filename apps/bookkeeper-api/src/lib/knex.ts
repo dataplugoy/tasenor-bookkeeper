@@ -1,4 +1,4 @@
-import { DatabaseName, Hostname, log } from '@tasenor/common'
+import { DatabaseName, Hostname } from '@tasenor/common'
 import { DB, KnexConfig, KnexDatabase, nodeEnv } from '@tasenor/common-node'
 import knexfileMaster from '../knexfile-master'
 
