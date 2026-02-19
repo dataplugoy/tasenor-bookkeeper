@@ -60,7 +60,6 @@
   "GYD": "Guyana Dollar",
   "HKD": "Hong Kong Dollar",
   "HNL": "Lempira",
-  "HRK": "Kuna",
   "HTG": "Gourde",
   "HUF": "Forint",
   "IDR": "Rupiah",
@@ -128,7 +127,7 @@
   "SEK": "Swedish Krona",
   "SGD": "Singapore Dollar",
   "SHP": "Saint Helena Pound",
-  "SLL": "Leone",
+  "SLE": "Leone",
   "SOS": "Somali Shilling",
   "SRD": "Surinam Dollar",
   "SSP": "South Sudanese Pound",
@@ -153,6 +152,7 @@
   "UYU": "Peso Uruguayo",
   "UYW": "Unidad Previsional",
   "UZS": "Uzbekistan Sum",
+  "VED": "Bolívar Soberano",
   "VES": "Bolívar Soberano",
   "VND": "Dong",
   "VUV": "Vatu",
@@ -177,5 +177,5 @@
   "YER": "Yemeni Rial",
   "ZAR": "Rand",
   "ZMW": "Zambian Kwacha",
-  "ZWL": "Zimbabwe Dollar"
+  "ZWG": "Zimbabwe Gold"
 }
