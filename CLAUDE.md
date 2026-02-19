@@ -21,7 +21,7 @@ Tasenor Bookkeeper is a full-stack accounting/bookkeeping application with a plu
 
 ```sh
 cd packages/tasenor-common && pnpm test          # Jest tests for common
-cd packages/tasenor-testing && pnpm test          # Jest tests for testing utils
+cd unit-tests && pnpm test                        # Jest tests for testing utils
 cd packages/tasenor-common-node && pnpm test      # Jest tests for common-node
 ```
 
@@ -76,7 +76,7 @@ cd apps/bookkeeper-api && pnpm run rollback   # Rollback last migration
 - **`packages/tasenor-common-node/`** — Node-specific libraries. Published as `@tasenor/common-node`.
 - **`packages/tasenor-common-ui/`** — Shared React components. Published as `@tasenor/common-ui`.
 - **`packages/tasenor-common-plugins/`** — Built-in plugin collection (importers, reports, company types).
-- **`packages/tasenor-testing/`** — Test utilities and shared test helpers.
+- **`unit-tests/`** — Unit tests and testing utilities.
 - **`packages/tasenor-config/`** — Shared Jest and TypeScript configs.
 - **`databases/bookkeeper/`** — Docker PostgreSQL setup and sample data.
 

@@ -13,10 +13,6 @@ This is a monorepo for developing Tasenor Bookkeeper. For the latest published d
 * [Bookkeeper UI](./apps/bookkeeper/README.md) UI for Bookkeeper.
 * [CLI](./apps/cli/README.md) Command-line API access.
 
-### Demos
-
-* [Bookkeeper Component Works](./examples/ui-playground/README.md) An example app to test and develop UI components.
-
 ### Databases
 
 * [Databases](./databases/README.md) Development databases.
@@ -26,7 +22,7 @@ This is a monorepo for developing Tasenor Bookkeeper. For the latest published d
 * [Tasenor Common](./packages/tasenor-common/README.md) Type defintions and tools for both browser and Node.
 * [Tasenor Common UI](./packages/tasenor-common-ui/README.md) Shared components for browser.
 * [Tasenor Common Node](./packages/tasenor-common-node/README.md) Node libraries for mainly server use.
-* [Tasenor Testing](./packages/tasenor-testing/README.md) Testing helpers.
+* [Unit Tests](./unit-tests/README.md) Unit tests and testing utilities.
 
 ### Configurations
 

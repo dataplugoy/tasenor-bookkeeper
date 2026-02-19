@@ -2,5 +2,5 @@ packages:
   - "apps/*"
   - "databases/*"
   - "e2e"
-  - "examples/*"
   - "packages/*"
+  - "unit-tests"
