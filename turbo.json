@@ -48,6 +48,21 @@
         "**/data/**"
       ]
     },
+    "nightly": {
+      "inputs": [
+        "**"
+      ]
+    },
+    "nightly2": {
+      "inputs": [
+        "**"
+      ]
+    },
+    "nightly3": {
+      "inputs": [
+        "**"
+      ]
+    },
     "dev": {
       "cache": false,
       "persistent": true
