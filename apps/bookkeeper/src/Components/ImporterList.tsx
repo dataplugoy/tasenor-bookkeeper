@@ -15,7 +15,7 @@ export type ImporterListProps = {
   store: Store
 }
 
-const ImporterList = observer(withCatalog(withStore((props: ImporterListProps): JSX.Element => {
+const ImporterList = withCatalog(withStore(observer((props: ImporterListProps): JSX.Element => {
   const { store, catalog } = props
   const params = useParams()
   const [importers, setImporters] = useState<ImporterModelData[]>([])

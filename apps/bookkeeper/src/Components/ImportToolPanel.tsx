@@ -18,7 +18,7 @@ interface ImportToolPanelProps {
   store: Store
 }
 
-const ImportToolPanel = observer(withStore(withCatalog((props: ImportToolPanelProps): JSX.Element => {
+const ImportToolPanel = withStore(withCatalog(observer((props: ImportToolPanelProps): JSX.Element => {
 
   const { store, catalog } = props
   const params = useParams()

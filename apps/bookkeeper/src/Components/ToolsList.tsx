@@ -9,7 +9,7 @@ export type ToolsListProps = {
   catalog: Catalog
 }
 
-const ToolsList = observer(withCatalog((props: ToolsListProps): JSX.Element => {
+const ToolsList = withCatalog(observer((props: ToolsListProps): JSX.Element => {
   const { catalog } = props
   const nav = useNav()
   const menu = [{

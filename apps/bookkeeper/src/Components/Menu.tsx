@@ -38,7 +38,7 @@ export interface MenuProps {
   store: Store
 }
 
-export const Menu = observer(withStore((props: MenuProps): React.ReactNode => {
+export const Menu = withStore(observer((props: MenuProps): React.ReactNode => {
 
   const [, setRefresh] = useState(false)
   const location = useLocation()

@@ -10,7 +10,7 @@ export type ReportsListProps = {
   store: Store
 }
 
-const ReportsList = observer(withStore((props: ReportsListProps): JSX.Element => {
+const ReportsList = withStore(observer((props: ReportsListProps): JSX.Element => {
   const { store } = props
   const { t } = useTranslation()
   const params = useParams()

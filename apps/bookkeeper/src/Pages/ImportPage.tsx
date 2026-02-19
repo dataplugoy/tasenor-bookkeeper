@@ -15,7 +15,7 @@ export interface ImportProps {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const ImportPage = observer(withStore((props: ImportProps): JSX.Element => {
+export const ImportPage = withStore(observer((props: ImportProps): JSX.Element => {
   const { store } = props
   const catalog = haveCatalog()
   const { db, side } = useNav()

@@ -12,7 +12,7 @@ export type SettingsListProps = {
   catalog: Catalog
 }
 
-const SettingsList = observer(withCatalog(withStore((props: SettingsListProps): JSX.Element => {
+const SettingsList = withCatalog(withStore(observer((props: SettingsListProps): JSX.Element => {
 
   const { store, catalog } = props
 

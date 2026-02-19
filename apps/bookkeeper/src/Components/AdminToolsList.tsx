@@ -8,7 +8,7 @@ export type AdminToolsListProps = {
   store: Store
 }
 
-const AdminToolsList = observer(withStore((props: AdminToolsListProps): JSX.Element => {
+const AdminToolsList = withStore(observer((props: AdminToolsListProps): JSX.Element => {
   const { store } = props
   const menu = [{
     page: 'admin',

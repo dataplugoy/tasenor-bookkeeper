@@ -10,7 +10,7 @@ import withStore from '../Hooks/withStore'
 import withCatalog from '../Hooks/withCatalog'
 import { Link, useNavigate } from 'react-router-dom'
 
-const LoginPage = observer(withStore(withCatalog((props) => {
+const LoginPage = withStore(withCatalog(observer((props) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
 
