@@ -26,7 +26,7 @@ export type ListMenuProps = {
   store: Store
 }
 
-export const ListMenu = observer(withStore((props: ListMenuProps): JSX.Element => {
+export const ListMenu = withStore(observer((props: ListMenuProps): JSX.Element => {
   const { title, menu, matchVar, store, emptyMessage } = props
   const params = useParams()
   const nav = useNav()
