@@ -80,7 +80,7 @@ export class Catalog implements BackendCatalog {
       throw new Error(`Cannot load plugin '${plugin.code}' with '${plugin.use}'-usage on backend.`)
     }
     log(`Loading ${plugin.title} v${plugin.version}`)
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const imported = require(path.join(plugin.path, 'backend', 'index.ts'))
     const Class = imported.default || imported
     const instance = BackendPlugin.create(Class, plugin.id, plugin.path, this)

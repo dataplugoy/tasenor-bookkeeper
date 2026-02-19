@@ -6,6 +6,7 @@ function getCrypto() {
   try {
     return window.crypto
   } catch {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     return require('crypto')
   }
 }

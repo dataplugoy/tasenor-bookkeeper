@@ -57,7 +57,7 @@ function masterDb(): KnexDatabase {
     return masterDbCache
   }
   const masterConf = knexfileMaster[nodeEnv()]
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const knex = require('knex')
 
   masterDbCache = knex(masterConf)
