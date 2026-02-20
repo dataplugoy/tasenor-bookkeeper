@@ -2,6 +2,7 @@
 // import path from 'path'
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
+import { uiPluginsPlugin } from './src/plugin-server/vite-plugin-ui-plugins'
 import 'dotenv/config'
 
 // https://vitejs.dev/config/
@@ -26,6 +27,7 @@ export default defineConfig(async ({ mode }) => {
           ]
         }
       }),
+      uiPluginsPlugin(),
     ],
     base: '/',
     define: {
@@ -35,12 +37,6 @@ export default defineConfig(async ({ mode }) => {
     server: {
       host: '0.0.0.0',
       port: parseInt(env.PORT || '7204'),
-      proxy: {
-        '/internal/plugins': {
-          target: 'http://localhost:' + (parseInt(env.PORT || '7204') + 2),
-          secure: false,
-        }
-      },
       watch: {
         // In theory this would be good idea but does not work too well, since we lose the track of plugins.
         // ignored: [path.join(__dirname, 'src/Plugins/index.json'), path.join(__dirname, 'src/Plugins/index.jsx')]

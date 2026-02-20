@@ -42,16 +42,10 @@ If starting from the root of the repository, launching each component of the sys
   cd apps/bookkeeper-api/
   pnpm run dev
   ```
-3. Plugin server for UI
+3. UI (includes the plugin server)
   ```sh
   cd apps/bookkeeper/
-  pnpm run dev-ui-plugin-server
+  pnpm run dev
   ```
-4. UI itself
-  ```sh
-  cd apps/bookkeeper/
-  pnpm run dev-vite
-  ```
-  It is also possible to run #3 (Plugin server for UI) and #4 (UI) together using `pnpm run dev`.
 
 Now, create an admin user and start exploring the system at [http://localhost:7204/](http://localhost:7204/).

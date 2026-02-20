@@ -68,7 +68,7 @@ cd apps/bookkeeper-api && pnpm run rollback   # Rollback last migration
 
 ### Workspace Structure
 
-- **`apps/bookkeeper/`** — React 17 + Vite frontend. MobX for state, MUI 5 for components, React Router 6 for routing. Also runs a UI plugin server (port+2).
+- **`apps/bookkeeper/`** — React 17 + Vite frontend. MobX for state, MUI 5 for components, React Router 6 for routing. Plugin management is embedded in the Vite dev server.
 - **`apps/bookkeeper-api/`** — Express.js REST API. Knex for PostgreSQL queries and migrations. JWT auth. Routes in `src/routes/`, business logic in `src/lib/`.
 - **`apps/cli/`** — Command-line utilities for API access.
 - **`apps/docs/`** — Docusaurus documentation site.
@@ -108,5 +108,4 @@ Heavy use of TypeScript with opaque types via `ts-opaque` (e.g., `AccountNumber`
 | PostgreSQL      | 7202 |
 | Bookkeeper UI   | 7204 |
 | Bookkeeper API  | 7205 |
-| UI Plugin Server | 7206 |
 | Documentation   | 7207 |
