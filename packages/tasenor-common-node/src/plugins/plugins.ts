@@ -1,9 +1,8 @@
 import fs from 'fs'
 import glob, { globSync } from 'fast-glob'
 import path from 'path'
-import { TasenorPlugin, PluginCatalog, FilePath, Url, note, log, DirectoryPath, error, GET, warning, isFilePath } from '@tasenor/common'
+import { TasenorPlugin, PluginCatalog, FilePath, note, log, DirectoryPath, error, warning, isFilePath } from '@tasenor/common'
 import { create } from 'ts-opaque'
-import { vault } from '../net'
 import { systemPiped } from '..'
 
 const PLUGIN_FIELDS = ['code', 'title', 'version', 'icon', 'releaseDate', 'use', 'type', 'description']
@@ -133,21 +132,6 @@ function findPluginFromIndex(code: string, plugins: TasenorPlugin[] | undefined 
   const index = plugins || loadPluginIndex()
   const plugin = index.find(plugin => plugin.code === code)
   return plugin || null
-}
-
-/**
- * Get the current plugin list maintained by some master API.
- * @returns The latest list.
- */
-async function fetchOfficialPluginList(): Promise<TasenorPlugin[]> {
-  const url = vault.get('TASENOR_API_URL', '')
-  if (url) {
-    const plugins = await GET(`${url}/plugins` as Url)
-    if (plugins.success) {
-      return plugins.data as unknown as TasenorPlugin[]
-    }
-  }
-  return []
 }
 
 /**
@@ -289,11 +273,6 @@ function isInstalled(plugin: TasenorPlugin): boolean {
  */
 async function updatePluginList() {
   let current: TasenorPlugin[] = []
-
-  // Get the official list if any.
-  for (const plugin of await fetchOfficialPluginList()) {
-    current[plugin.code] = plugin
-  }
 
   // Collect and add local plugins.
   let localId = -1
@@ -504,7 +483,6 @@ function verifyPluginDir(): boolean {
  */
 export const plugins = {
   findPluginFromIndex,
-  fetchOfficialPluginList,
   getConfig,
   isInstalled,
   loadPluginIndex,

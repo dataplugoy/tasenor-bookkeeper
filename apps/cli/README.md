@@ -8,7 +8,6 @@ This is a command-line tool collection.
 
 ## Development
 
-* `plugins.mjs` A plugin tool to for example increase plugin versions or register them to other service.
 * `token-sign.mjs` A token signing tool.
 * `token-show.mjs` A token display tool.
 
