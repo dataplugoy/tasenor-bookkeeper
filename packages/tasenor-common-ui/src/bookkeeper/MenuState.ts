@@ -35,14 +35,14 @@ export class MenuState {
   refresh(loc: Location) {
     if (loc.search.startsWith('?path=')) {
       this.indirectPath = true
-      const search: Record<string, string> = loc.search.substr(1).split('&').map(s => s.split('=')).reduce((prev, cur) => ({ [cur[0]]: cur[1], ...prev }), {})
+      const search: Record<string, string> = loc.search.substr(1).split('&').map(s => s.split('=')).reduce((prev, cur) => ({ [cur[0]]: cur[1] === undefined ? '' : decodeURIComponent(cur[1]), ...prev }), {})
       const [, db, main, periodId, accountId, side] = search.path.split('/')
       this.parse({ db, main, periodId, accountId, side, ...search })
       delete this.attrs.path
       delete this.attrs.indirect
     } else {
       const [, db, main, periodId, accountId, side] = loc.pathname.split('/')
-      const search = loc.search.length ? loc.search.substr(1).split('&').map(s => s.split('=')).reduce((prev, cur) => ({ [cur[0]]: cur[1], ...prev }), {}) : {}
+      const search = loc.search.length ? loc.search.substr(1).split('&').map(s => s.split('=')).reduce((prev, cur) => ({ [cur[0]]: cur[1] === undefined ? '' : decodeURIComponent(cur[1]), ...prev }), {}) : {}
       this.parse({ db, main, periodId, accountId, side, ...search })
     }
   }
