@@ -26,8 +26,6 @@
     "NODE_ENV",
     "PORT",
     "SECRET",
-    "TASENOR_API_URL",
-    "TASENOR_SITE_TOKEN",
     "UI_ORIGIN_URL",
     "VAULT_URL"
   ],

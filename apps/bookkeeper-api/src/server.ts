@@ -11,8 +11,6 @@ import pkg from '../package.json'
 import routes from './routes'
 
 async function main() {
-  server.register()
-
   log('Checking default plugin repos...')
   const src = path.join(__dirname, '..', '..', '..') as DirectoryPath
   plugins.setConfig('INITIAL_PLUGIN_REPOS', process.env.INITIAL_PLUGIN_REPOS || '')

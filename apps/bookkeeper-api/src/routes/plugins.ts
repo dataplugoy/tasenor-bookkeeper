@@ -5,7 +5,7 @@ import server from '../lib/server'
 import catalog from '../lib/catalog'
 import { tasenor } from '../lib/middleware'
 import path from 'path'
-import { DirectoryPath, LocalUrl, POST, Value, warning } from '@tasenor/common'
+import { DirectoryPath, warning } from '@tasenor/common'
 
 const { findPluginFromIndex, loadPluginIndex, updatePluginList } = plugins
 const router = express.Router()
@@ -31,12 +31,7 @@ router.get('/rebuild',
 router.get('/publish',
   ...tasenor({ superuser: true, audience: ['bookkeeping', 'ui'] }),
   async (req, res) => {
-    if (process.env.TASENOR_API_URL) {
-      const list = await loadPluginIndex()
-      for (const plugin of list) {
-        await POST('/plugins/publish' as LocalUrl, plugin as unknown as Value)
-      }
-    }
+    // Plugins are local only; nothing to publish to an external registry.
     res.status(204).send()
   }
 )

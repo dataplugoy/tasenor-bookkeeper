@@ -1,10 +1,10 @@
-import { Email, EncryptedUserData, ID, LoginPluginData, POST, PluginCode, TokenPair, Url, error } from '@tasenor/common'
+import { Email, EncryptedUserData, LoginPluginData, PluginCode, TokenPair, error } from '@tasenor/common'
 import { Response } from 'express'
 import catalog from './catalog'
 import knex from '../lib/knex'
 import { defaultLoginData } from './plugins'
 import users from './users'
-import { encryptdata, vault } from '@tasenor/common-node'
+import { encryptdata } from '@tasenor/common-node'
 
 /**
  * Check if the request contains valid subscription to the plugin and return reason if not.
@@ -52,18 +52,7 @@ export function checkSubscription(res: Response, code: PluginCode): Response | n
  * Sign the token and add plugin information as well.
  */
 export async function signTokenWithPlugins(email: Email): Promise<TokenPair & EncryptedUserData | TokenPair & LoginPluginData> {
-  // Call API if available.
-  if (process.env.TASENOR_API_URL) {
-    const res = await POST(`${vault.get('TASENOR_API_URL')}/auth/site/login` as Url, { user: email })
-    if (res.success && res.data) {
-      const loginData = res.data as unknown as LoginPluginData
-      const tokens = await users.signToken(email, loginData.plugins as unknown as ID[])
-      return { ...tokens, ...await encryptdata(loginData) }
-    }
-    throw new Error('Fetchig subscription info failed.')
-  }
-
-  // Otherwise handle locally.
+  // All subscription data is local.
   const db = await knex.masterDb()
   const user = await db('users').select('config').where({ email }).first()
   const loginData = defaultLoginData(user.config.subscriptions || [], catalog.getInstalledPluginsIDs())

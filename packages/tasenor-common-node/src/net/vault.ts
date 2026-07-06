@@ -2,13 +2,11 @@ import { Secret } from '@tasenor/common'
 import { randomString } from './crypto'
 
 export const ALLOWED_VAULT_VARIABLES = [
-  'TASENOR_API_URL',
   'API_SITE_TOKEN',
   'DATABASE_ROOT_PASSWORD',
   'DATABASE_ROOT_USER',
   'DATABASE_URL',
-  'SECRET',
-  'TASENOR_SITE_TOKEN'
+  'SECRET'
 ]
 const validVariables = new Set(ALLOWED_VAULT_VARIABLES)
 
