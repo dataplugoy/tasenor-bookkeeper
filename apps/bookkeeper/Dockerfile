@@ -1,39 +1,25 @@
+# Build context is the repository root (see docker-compose-common.yml).
+# The whole monorepo is built from source; no @tasenor/* packages are pulled from npm.
 FROM node:18-alpine
 
 WORKDIR /var/app
 
-RUN apk update
-RUN apk upgrade
-RUN apk add nano curl bash jq
-RUN apk add python3 make gcc g++ libc-dev
-RUN apk add git openssh-client
+RUN apk update && apk upgrade
+RUN apk add nano curl bash jq python3 make gcc g++ libc-dev
 RUN ln -sf /usr/bin/python3 /usr/bin/python
 
-RUN npm install -g pnpm
+# Use the pnpm version pinned in the root package.json (packageManager field).
+RUN corepack enable
 
-ADD package.json original-package.json
-RUN jq '{"dependencies": [.dependencies | to_entries | .[] | select(.value != "workspace:*")] | from_entries} + {"devDependecies": [.devDependencies | to_entries | .[] | select(.value != "workspace:*")] | from_entries} + ([to_entries | .[] | select(.key != "dependencies" and .key != "devDependencies")] | from_entries)' original-package.json > package.json
+# Copy the whole workspace from source. .dockerignore trims node_modules/dist/.git.
+COPY . .
 
-RUN pnpm install
-RUN pnpm add @tasenor/common
-RUN pnpm add @tasenor/common-node
-RUN pnpm add @tasenor/common-ui
-RUN pnpm add @tasenor/config
+# Install the full workspace. @tasenor/* (and the bundled plugins) resolve to
+# packages/* source, so the Vite build below compiles everything from the repo.
+RUN pnpm install --frozen-lockfile
 
-ADD tsconfig.json .
-ADD bin/ bin/
-ADD public/ public/
-ADD src/ src/
-ADD .env.docker .env.local
-ADD index.html .
-ADD vite.config.mts .
+RUN cp apps/bookkeeper/.env.docker apps/bookkeeper/.env.local
 
-RUN mkdir /root/.ssh
-RUN chmod 700 /root/.ssh
-RUN cp node_modules/@tasenor/config/ssh/known_hosts /root/.ssh/
-
-RUN echo '[]' > src/Plugins/index.json
-RUN echo 'const index = []' > src/Plugins/index.jsx
-RUN echo 'export default index' >> src/Plugins/index.jsx
+WORKDIR /var/app/apps/bookkeeper
 
 CMD ["pnpm", "run", "docker"]

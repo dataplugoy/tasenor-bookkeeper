@@ -22,7 +22,8 @@ services:
   tasenor-bookkeeper:
     container_name: tasenor-bookkeeper
     build:
-      context: apps/bookkeeper
+      context: .
+      dockerfile: apps/bookkeeper/Dockerfile
     depends_on:
       - tasenor-bookkeeper-api
     ports:
@@ -32,9 +33,6 @@ services:
       PORT: ${BOOKKEEPER_PORT:-7204}
       VIRTUAL_HOST: bookkeeper.localhost
       VIRTUAL_PORT: ${BOOKKEEPER_PORT:-7204}
-      INITIAL_PLUGIN_REPOS: ${INITIAL_PLUGIN_REPOS:-npm://@tasenor/common-plugins}
-      ID_RSA: ${ID_RSA:-}
-      ID_RSA_PUB: ${ID_RSA_PUB:-}
     command: pnpm run docker
     networks:
       - tasenor
@@ -42,7 +40,8 @@ services:
   tasenor-bookkeeper-api:
     container_name: tasenor-bookkeeper-api
     build:
-      context: apps/bookkeeper-api
+      context: .
+      dockerfile: apps/bookkeeper-api/Dockerfile
     ports:
       - ${BOOKKEEPER_API_PORT:-7205}:${BOOKKEEPER_API_PORT:-7205}
     environment:
@@ -53,9 +52,6 @@ services:
       PORT: ${BOOKKEEPER_API_PORT:-7205}
       VIRTUAL_HOST: bookkeeper-api.localhost
       VIRTUAL_PORT: ${BOOKKEEPER_API_PORT:-7205}
-      INITIAL_PLUGIN_REPOS: ${INITIAL_PLUGIN_REPOS:-npm://@tasenor/common-plugins}
-      ID_RSA: ${ID_RSA:-}
-      ID_RSA_PUB: ${ID_RSA_PUB:-}
     command: pnpm run docker
     networks:
       - tasenor
@@ -63,7 +59,8 @@ services:
   tasenor-docs:
     container_name: tasenor-docs
     build:
-      context: apps/docs
+      context: .
+      dockerfile: apps/docs/Dockerfile
     ports:
       - ${DOC_PORT:-7207}:${DOC_PORT:-7207}
     environment:

@@ -1,0 +1,18 @@
+# Build context is the repository root. Keep the image lean and reproducible:
+# copy source only, never host build artifacts — pnpm reinstalls inside the image.
+**/node_modules
+**/dist
+**/.turbo
+.git
+.github
+**/*.log
+
+# Generated plugin catalogs (regenerated at build/boot from the bundled source).
+apps/bookkeeper/src/Plugins/index.json
+apps/bookkeeper/src/Plugins/index.jsx
+apps/bookkeeper-api/src/plugins/index.json
+apps/bookkeeper-api/src/plugins/workspace
+
+# Test/CI outputs.
+e2e/cypress/screenshots
+e2e/cypress/videos

@@ -12,7 +12,7 @@
     "dev-initialize-plugins": "DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx -r dotenv/config bin/initialize-plugins.mjs",
     "dev-vite": "PORT=${BOOKKEEPER_PORT:-7204} UI_API_URL=http://localhost:${BOOKKEEPER_API_PORT:-7205} API_URL=http://localhost:${BOOKKEEPER_API_PORT:-7205} DOTENV_CONFIG_PATH=`pwd`/.env.local npx vite --port ${BOOKKEEPER_PORT:=7204}",
     "dev": "pnpm run dev-initialize-plugins && pnpm run dev-vite",
-    "docker": "pnpm run ssh-keys && pnpm run build && pnpm run optimize && pnpm run wait && while true; do pnpm run prod; done",
+    "docker": "pnpm run build && pnpm run optimize && pnpm run wait && while true; do pnpm run prod; done",
     "fix": "eslint --fix 'src/**/*.ts{,x}'",
     "lint": "eslint 'src/**/*.ts{,x}'",
     "nightly": "pnpm run ci",
@@ -21,7 +21,6 @@
     "release": "pnpm version patch",
     "release-minor": "pnpm version minor",
     "show-version": "jq .version < package.json",
-    "ssh-keys": "bin/make-file-from-env ID_RSA /root/.ssh/id_rsa 600 && bin/make-file-from-env ID_RSA_PUB /root/.ssh/id_rsa.pub",
     "wait": "./bin/wait-for-it.sh -t 120 -h tasenor-bookkeeper-api -p 7205"
   },
   "dependencies": {
