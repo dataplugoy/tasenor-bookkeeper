@@ -1,27 +1,19 @@
 import fs from 'fs'
-import glob, { globSync } from 'fast-glob'
+import glob from 'fast-glob'
 import path from 'path'
-import { TasenorPlugin, PluginCatalog, FilePath, note, log, DirectoryPath, error, warning, isFilePath } from '@tasenor/common'
+import { TasenorPlugin, PluginCatalog, FilePath, note, log, error } from '@tasenor/common'
 import { create } from 'ts-opaque'
-import { systemPiped } from '..'
 
 const PLUGIN_FIELDS = ['code', 'title', 'version', 'icon', 'releaseDate', 'use', 'type', 'description']
-const SAFE_PLUGIN_FILES = ['.gitkeep', 'index.json', 'index.jsx', 'workspace', '.keep']
 
 interface PluginConfig {
   PLUGIN_PATH?: string
-  INITIAL_PLUGIN_REPOS?: string
 }
 type ConfigVariable = keyof PluginConfig
 
 // Internal configuration for the module.
 const config: PluginConfig = {
-  PLUGIN_PATH: undefined,
-  INITIAL_PLUGIN_REPOS: undefined
-}
-
-interface PluginState {
-  installed: boolean
+  PLUGIN_PATH: undefined
 }
 
 /**
@@ -107,6 +99,27 @@ function savePluginIndex(plugins) {
   const indexPath = path.join(getConfig('PLUGIN_PATH'), 'index.json')
   note(`Saving plugin index to '${indexPath}'.`)
   fs.writeFileSync(indexPath, JSON.stringify(plugins, null, 2) + '\n')
+}
+
+/**
+ * Write new `index.jsx` file based on the plugin data.
+ * @param plugins
+ */
+function savePluginIndexJsx(plugins: TasenorPlugin[]): void {
+  plugins = sortPlugins(plugins)
+  const root = getConfig('PLUGIN_PATH')
+  const installed = plugins.filter(p => p.installedVersion && p.use !== 'backend')
+  const imports = installed.map(p => `import ${p.code} from '${p.path.replace(root, '.')}/ui'`).join('\n')
+  const index = `const index = [
+${installed.map(p => '  ' + p.code).join(',\n')}
+]
+`
+  const js = `${imports}
+
+${index}
+export default index
+`
+  fs.writeFileSync(path.join(root, 'index.jsx'), js)
 }
 
 /**
@@ -241,31 +254,14 @@ function readBackendPlugin(indexPath: FilePath): TasenorPlugin {
 }
 
 /**
- * Read the local plugin state.
- */
-function loadPluginState(plugin: TasenorPlugin | FilePath): PluginState {
-  const stateFile = isFilePath(plugin) ? plugin : plugin.path && path.join(plugin.path, '.state')
-  if (stateFile && fs.existsSync(stateFile)) {
-    return JSON.parse(fs.readFileSync(stateFile).toString('utf-8'))
-  }
-  return {
-    installed: false
-  }
-}
-
-/**
- * Save local plugin state.
- */
-function savePluginState(plugin: TasenorPlugin | FilePath, state: PluginState): void {
-  const stateFile = isFilePath(plugin) ? plugin : path.join(plugin.path, '.state')
-  fs.writeFileSync(stateFile, JSON.stringify(state, null, 2) + '\n')
-}
-
-/**
  * Check if plugin is marked as installed.
+ *
+ * All bundled plugins are permanently part of the repository, so they are always
+ * considered installed and available on the server. Per-company activation is
+ * handled separately via subscriptions.
  */
-function isInstalled(plugin: TasenorPlugin): boolean {
-  return loadPluginState(plugin).installed
+function isInstalled(): boolean {
+  return true
 }
 
 /**
@@ -285,7 +281,7 @@ async function updatePluginList() {
     current[plugin.code].path = plugin.path
     current[plugin.code].version = plugin.version
     current[plugin.code].availableVersion = plugin.version
-    if (isInstalled(plugin)) {
+    if (isInstalled()) {
       current[plugin.code].installedVersion = plugin.version
     }
   }
@@ -311,192 +307,20 @@ function pluginLocalPath(indexFilePath: FilePath): string | undefined {
 }
 
 /**
- * Calculate target directory for the repository.
- */
-function targetDir(repo: string): DirectoryPath {
-  if (!config.PLUGIN_PATH) throw new Error('config.PLUGIN_PATH not set.')
-  if (repo.startsWith('file://')) {
-    return path.join(config.PLUGIN_PATH, path.basename(repo)) as DirectoryPath
-  } else if (repo.startsWith('npm://')) {
-    const npm = repo.substring(6)
-    return path.join(config.PLUGIN_PATH, npm.replace(/@/g, '').replace(/[^a-zA-Z0-9]/g, '-')) as DirectoryPath
-  } else {
-    return path.join(config.PLUGIN_PATH, repo.replace(/.*\//, '').replace(/\.git$/, '')) as DirectoryPath
-  }
-}
-
-/**
- * Go through repository URLs and install all missing plugin repositories.
- */
-async function fetchRepositories(srcRoot: DirectoryPath): Promise<boolean> {
-  let changes = false
-  if (!config.INITIAL_PLUGIN_REPOS) {
-    warning('Cannot fetch plugin repos, since none defined in INITIAL_PLUGIN_REPOS.')
-    return false
-  }
-  if (!config.PLUGIN_PATH) {
-    warning('Cannot fetch plugin repos, since PLUGIN_PATH not defined.')
-    return false
-  }
-  for (const repo of config.INITIAL_PLUGIN_REPOS?.split(' ')) {
-    const target = targetDir(repo)
-    if (fs.existsSync(target)) {
-      continue
-    }
-    log(`Fetching plugin repo ${repo}.`)
-    if (repo.startsWith('file://')) {
-      // Handle local file.
-      const source = path.join(srcRoot, repo.substring(7))
-      if (fs.existsSync(srcRoot)) {
-        if (!fs.existsSync(target)) {
-          log(`  Linking repo ${source} => ${target}.`)
-          const cmd = `ln -sf "${source}" "${target}"`
-          await systemPiped(cmd)
-          changes = true
-        }
-      } else {
-        error(`A plugin repository ${repo} not found.`)
-      }
-    } else if (repo.startsWith('npm://')) {
-      const npm = repo.substring(6)
-      const source = path.join(config.PLUGIN_PATH, 'package')
-      log(`  Downloading NPM ${npm}.`)
-      const cmd = `cd "${config.PLUGIN_PATH}" && rm -fr "${source}" && npm view ${npm} dist.tarball | xargs curl -s | tar xz && mv "${source}" "${target}"`
-      await systemPiped(cmd)
-      changes = true
-    } else {
-      // By default, assume git repo.
-      log(`  Fetching plugin repo ${repo} to ${target}.`)
-      const cmd = `cd "${config.PLUGIN_PATH}" && git clone "${repo}"`
-      await systemPiped(cmd)
-      changes = true
-    }
-  }
-
-  return changes
-}
-
-/**
- * Find all state files from a directory and load them.
- */
-function collectPluginStates(dir: DirectoryPath): Record<DirectoryPath, PluginState> {
-  const states: Record<DirectoryPath, PluginState> = {}
-  for (const statePath of globSync(`${dir}/**/.state`)) {
-    states[statePath] = loadPluginState(statePath as FilePath)
-  }
-  return states
-}
-
-/**
- * Save state files from the collection.
- */
-function savePluginStates(states: Record<DirectoryPath, PluginState>): void {
-  Object.keys(states).forEach(statePath => {
-    savePluginState(statePath as FilePath, states[statePath])
-  })
-}
-
-/**
- * Go through repository URLs and install all missing plugin repositories.
- */
-async function upgradeRepositories(srcRoot: DirectoryPath): Promise<boolean> {
-  let changes = false
-  if (!config.INITIAL_PLUGIN_REPOS) {
-    warning('Cannot fetch plugin repos, since none defined in INITIAL_PLUGIN_REPOS.')
-    return false
-  }
-  if (!config.PLUGIN_PATH) {
-    warning('Cannot fetch plugin repos, since PLUGIN_PATH not defined.')
-    return false
-  }
-
-  changes = await fetchRepositories(srcRoot)
-
-  for (const repo of config.INITIAL_PLUGIN_REPOS?.split(' ')) {
-    log(`Upgrading plugin repo '${repo}'...`)
-    const target = targetDir(repo)
-    if (repo.startsWith('file://')) {
-      log('  Nothing to do for symlink.')
-    } else if (repo.startsWith('npm://')) {
-      const npm = repo.substring(6)
-      const cmd = `npm view ${npm} version`
-      const newVersion = (await systemPiped(cmd, true))?.trim()
-      const oldVersion = JSON.parse(fs.readFileSync(path.join(target, 'package.json')).toString('utf-8')).version
-      if (newVersion === oldVersion) {
-        log(`  The latest version ${newVersion} already installed.`)
-      } else {
-        log(`  Upgrading ${npm} from version ${oldVersion} to ${newVersion}.`)
-        const states = collectPluginStates(target)
-        const source = path.join(config.PLUGIN_PATH, 'package')
-        const cmd = `cd "${config.PLUGIN_PATH}" && rm -fr "${source}" "${target}" && npm view ${npm} dist.tarball | xargs curl -s | tar xz && mv "${source}" "${target}"`
-        await systemPiped(cmd)
-        changes = true
-        savePluginStates(states)
-      }
-    } else {
-      const cmd = `cd "${target}" && git pull`
-      await systemPiped(cmd)
-      // Note, too lazy to detect changes. Is the return value even used?
-    }
-  }
-
-  return changes
-}
-
-/**
- * Check that plugin directory does not have any extra files or that there are no missing plugin repositories.
- */
-function verifyPluginDir(): boolean {
-  if (!config.INITIAL_PLUGIN_REPOS) {
-    warning('No plugin repositories to verify.')
-    return true
-  }
-  let fail = false
-  const okayFiles = new Set(SAFE_PLUGIN_FILES)
-  for (const repo of config.INITIAL_PLUGIN_REPOS?.split(' ')) {
-    const dir = targetDir(repo)
-    okayFiles.add(path.basename(dir))
-    if (!fs.existsSync(dir)) {
-      error(`Requiered repository ${repo} does not exist.`)
-      fail = true
-    }
-  }
-  if (config.PLUGIN_PATH) {
-    const reported = new Set<string>()
-    for (const fullPath of globSync(config.PLUGIN_PATH + '/**', { dot: true, deep: 2 })) {
-      const localPath = fullPath.replace(config.PLUGIN_PATH + '/', '')
-      const file = localPath.indexOf('/') < 0 ? localPath : path.dirname(localPath)
-      if (!okayFiles.has(file) && !reported.has(file)) {
-        error(`Plugin directory has unrecognized file/dir '${file}'.`)
-        reported.add(file)
-      }
-    }
-  }
-
-  if (!fail) log('Plugin directory verified as correct.')
-
-  return fail
-}
-
-/**
- * Collection of file system and API related plugin handling functions for fetching, building and scanning.
+ * Collection of file system and API related plugin handling functions for scanning and indexing.
  */
 export const plugins = {
   findPluginFromIndex,
   getConfig,
   isInstalled,
   loadPluginIndex,
-  loadPluginState,
   pluginLocalPath,
   samePlugins,
   savePluginIndex,
-  savePluginState,
+  savePluginIndexJsx,
   scanPlugins,
   setConfig,
   sortPlugins,
   updatePluginIndex,
   updatePluginList,
-  upgradeRepositories,
-  fetchRepositories,
-  verifyPluginDir,
 }

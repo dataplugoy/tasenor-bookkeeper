@@ -1,3 +1,4 @@
 .state
-src/plugins/
+src/plugins/index.json
+src/plugins/workspace/
 *.tasenor

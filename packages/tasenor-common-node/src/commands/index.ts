@@ -493,7 +493,7 @@ export class Command {
    */
   async plugin(pluginArg: CommandArgument): Promise<TasenorPlugin|TasenorPlugin[]> {
     if (!this.plugins) {
-      this.plugins = await this.getUi('/internal/plugins')
+      this.plugins = await this.get('/plugins')
     }
     if (pluginArg instanceof Array) {
       const result: TasenorPlugin[] = []

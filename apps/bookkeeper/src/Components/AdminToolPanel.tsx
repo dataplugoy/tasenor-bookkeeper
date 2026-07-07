@@ -2,46 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { Dialog, IconButton, RISPProvider, Title, useNav } from '@tasenor/common-ui'
 import Store from '../Stores/Store'
-import Catalog from '../Stores/Catalog'
 import RegisterForm from './RegisterForm'
 import { Autocomplete, Box, TextField } from '@mui/material'
 import { Email, ID, UserDataModel, haveCursor } from '@tasenor/common'
 import withStore from '../Hooks/withStore'
-import withCatalog from '../Hooks/withCatalog'
-
-interface PluginAdminToolPanelProps {
-  catalog: Catalog
-}
-
-const PluginAdminToolPanel = withCatalog((props: PluginAdminToolPanelProps): JSX.Element => {
-  const { catalog } = props
-  const loadPlugins = async () => {
-    await catalog.updatePluginList()
-  }
-
-  const rebuildPlugins = async () => {
-    await catalog.rebuildPluginList()
-    document.location.reload()
-  }
-
-  const upgradePlugins = async () => {
-    await catalog.upgradePlugins()
-    document.location.reload()
-  }
-
-  const resetPlugins = async () => {
-    await catalog.resetPluginList()
-    document.location.reload()
-  }
-
-  return <Box>
-    <Title><Trans>Plugin Tools</Trans></Title>
-    <IconButton id="refresh-plugins" onClick={() => loadPlugins()} title="refresh-plugins" icon="refresh"></IconButton>
-    <IconButton id="upgrade-plugins" onClick={() => upgradePlugins()} title="upgrade-plugins" icon="update"></IconButton>
-    <IconButton id="rebuild-plugins" onClick={() => rebuildPlugins()} title="rebuild-plugins" icon="build"></IconButton>
-    <IconButton id="reset-plugins" onClick={() => resetPlugins()} title="reset-plugins" icon="trash"></IconButton>
-  </Box>
-})
 
 interface UserAdminToolPanelProps {
   store: Store
@@ -238,7 +202,6 @@ const AdminToolPanel = withStore((props: AdminToolPanelProps): React.ReactNode =
 
   if (side === 'users') return <Box className="ToolPanel AdminToolPanel"><UserAdminToolPanel selected={nav.get('user') as Email}/></Box>
   if (side === 'databases') return <Box className="ToolPanel AdminToolPanel"><DatabaseAdminToolPanel selected={nav.get('database')}/></Box>
-  if (side === 'plugins') return <Box className="ToolPanel AdminToolPanel"><PluginAdminToolPanel/></Box>
 
   return <Title><Trans>No Tools</Trans></Title>
 })

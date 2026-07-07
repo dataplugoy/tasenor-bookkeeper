@@ -318,10 +318,7 @@ export class Store {
     while (this.busy) {
       await waitPromise(100)
     }
-    let url = Configuration.UI_API_URL + path
-    if (/^ui:\//i.test(path)) {
-      url = new URL(document.location).origin + new URL(path).pathname
-    }
+    const url = Configuration.UI_API_URL + path
     let headers = {
       Accept: 'application/json',
       'Content-Type': 'application/json'

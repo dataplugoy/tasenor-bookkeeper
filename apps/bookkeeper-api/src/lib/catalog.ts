@@ -116,7 +116,7 @@ export class Catalog implements BackendCatalog {
     log('Loading plugins...')
     for (const plugin of await loadPluginIndex()) {
       this.available.push(plugin)
-      if ((plugin.use === 'backend' || plugin.use === 'both') && isInstalled(plugin)) {
+      if ((plugin.use === 'backend' || plugin.use === 'both') && isInstalled()) {
         this.load(plugin)
       }
     }

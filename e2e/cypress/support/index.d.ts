@@ -28,7 +28,6 @@ declare global {
       gotoAccounts(): Chainable<void>
       gotoTools(): Chainable<void>
       icon(text: string): Chainable<JQuery<HTMLElement>>
-      installPlugin(code: string): Chainable<void>
       language(lang: string): Chainable<void>
       list(text: string): Chainable<JQuery<HTMLElement>>
       lockPeriod(period: string): Chainable<void>

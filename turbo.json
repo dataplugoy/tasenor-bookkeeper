@@ -22,7 +22,6 @@
     "DOC_PORT",
     "HTTP_PORT",
     "HTTPS_PORT",
-    "INITIAL_PLUGIN_REPOS",
     "NODE_ENV",
     "PORT",
     "SECRET",

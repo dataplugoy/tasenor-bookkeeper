@@ -1,4 +1,3 @@
-import { latestVersion } from '@tasenor/common'
 import { UiPlugin, Title } from '@tasenor/common-ui'
 import { observable, makeObservable, runInAction } from 'mobx'
 import dayjs from 'dayjs'
@@ -187,47 +186,6 @@ class Catalog extends Component {
   }
 
   /**
-   * Fetch the latest plugin list.
-   */
-  async updatePluginList() {
-    const plugins = await this.store.request('ui:/internal/plugins', 'GET')
-    runInAction(() => {
-      debugPlugins('Received update for plugins', plugins)
-      this.index.replace(plugins)
-    })
-  }
-
-  /**
-   * Upgrade plugins to their latest versions.
-   */
-  async upgradePlugins() {
-    const plugins = await this.store.request('ui:/internal/plugins/upgrade', 'GET')
-    runInAction(() => {
-      debugPlugins('Received upgrade for plugins', plugins)
-      this.index.replace(plugins)
-    })
-  }
-
-  /**
-   * Fetch the latest plugin list forcing the recompilation of the client.
-   */
-  async rebuildPluginList() {
-    const plugins = await this.store.request('ui:/internal/plugins/rebuild', 'GET')
-    runInAction(() => {
-      debugPlugins('Received update after rebuild', plugins)
-      this.index.replace(plugins)
-    })
-  }
-
-  /**
-   * Remove all plugins.
-   */
-  async resetPluginList() {
-    await this.store.request('ui:/internal/plugins/reset', 'GET')
-    await this.updatePluginList()
-  }
-
-  /**
    * Check if we have subscribed to plugin.
    * @param pluginCode
    */
@@ -242,55 +200,6 @@ class Catalog extends Component {
     const ret = {}
     this.index.forEach(p => (ret[p.code] = p.version))
     return ret
-  }
-
-  /**
-   * Install plugin.
-   * @param {Object} plugin
-   */
-  async install(plugin) {
-    const { code } = plugin
-    const res = await this.store.request('ui:/internal/plugins', 'POST', { code, version: plugin.availableVersion })
-    if (res) {
-      runInAction(() => {
-        const pos = this.index.findIndex(p => p.code === code)
-        this.index[pos] = res
-      })
-      this.store.addMessage('Plugin installed successfully.')
-    }
-  }
-
-  /**
-   * Update plugin.
-   * @param {Object} plugin
-   */
-  async update(plugin) {
-    const { code } = plugin
-    const availableVersion = latestVersion(plugin.versions.map(v => v.version))
-    const res = await this.store.request('ui:/internal/plugins', 'PATCH', { code, version: availableVersion })
-    if (res) {
-      runInAction(() => {
-        const pos = this.index.findIndex(p => p.code === code)
-        this.index[pos] = res
-      })
-      this.store.addMessage('Plugin update successfully.')
-    }
-  }
-
-  /**
-   * Remove plugin.
-   * @param {Object} plugin
-   */
-  async uninstall(plugin) {
-    const { code } = plugin
-    const res = await this.store.request('ui:/internal/plugins', 'DELETE', { code })
-    if (res) {
-      runInAction(() => {
-        const pos = this.index.findIndex(p => p.code === code)
-        this.index[pos] = res
-      })
-      this.store.addMessage('Plugin deleted successfully.')
-    }
   }
 
   /**

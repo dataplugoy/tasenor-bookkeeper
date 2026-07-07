@@ -75,15 +75,6 @@ paths:
   /plugins:
     $ref: paths/plugins/index.yaml
 
-  /plugins/development:
-    $ref: paths/plugins/development.yaml
-
-  /plugins/installed:
-    $ref: paths/plugins/installed.yaml
-
-  /plugins/rebuild:
-    $ref: paths/plugins/rebuild.yaml
-
   /db/{databaseName}/report:
     $ref: paths/report/index.yaml
 

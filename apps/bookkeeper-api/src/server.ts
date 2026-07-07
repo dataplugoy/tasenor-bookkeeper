@@ -1,8 +1,9 @@
 import path from 'path'
 import express, { Express } from 'express'
 import config from './config'
-import { log, Url, DirectoryPath, setServerRoot } from '@tasenor/common'
+import { log, Url, setServerRoot } from '@tasenor/common'
 import { vault, tasenorInitialStack, tasenorFinalStack, plugins, listen } from '@tasenor/common-node'
+import './lib/plugins' // Side effect: configures PLUGIN_PATH for the bundled plugins.
 import db from './lib/db'
 import server from './lib/server'
 import catalog from './lib/catalog'
@@ -11,15 +12,8 @@ import pkg from '../package.json'
 import routes from './routes'
 
 async function main() {
-  log('Checking default plugin repos...')
-  const src = path.join(__dirname, '..', '..', '..') as DirectoryPath
-  plugins.setConfig('INITIAL_PLUGIN_REPOS', process.env.INITIAL_PLUGIN_REPOS || '')
-  const changes = await plugins.fetchRepositories(src)
-
-  // Rebuild plugin index if changes.
-  if (changes) {
-    await plugins.updatePluginList()
-  }
+  log('Building bundled plugin index...')
+  await plugins.updatePluginList()
 
   await catalog.reload()
 

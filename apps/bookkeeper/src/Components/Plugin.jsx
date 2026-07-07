@@ -75,17 +75,15 @@ PluginType.propTypes = {
 class Plugin extends Component {
 
   render() {
-    const { plugin, t, admin, compact, subscribed, price, catalog, store } = this.props
+    const { plugin, t, admin, compact, subscribed, price, store } = this.props
     const settings = haveSettings()
-    const isAvailable = !!plugin.availableVersion
-    const isInstalled = !!plugin.installedVersion
     const canSubscribe = !!price
     const lastVersion = plugin.availableVersion
 
     let subheader = this.props.subheader
 
     if (admin) {
-      subheader = `${t('Available')}: ${lastVersion ? `v${lastVersion}` : '—'} ${plugin.installedVersion ? t('Installed') + ': v' + plugin.installedVersion : ''}`
+      subheader = `${t('Version')}: ${lastVersion ? `v${lastVersion}` : '—'}`
     }
 
     return (
@@ -108,12 +106,6 @@ class Plugin extends Component {
         {
           !compact &&
           <CardActions>
-            {admin && !isInstalled && isAvailable && <Button className="InstallPlugin" data-cy="button-Install" color="primary" size="small" onClick={() => catalog.install(plugin)}>
-              <Trans>Install</Trans>
-            </Button>}
-            {admin && isInstalled && <Button className="RemovePlugin" data-cy="button-Remove" variant="outlined" color="secondary" size="small" onClick={() => catalog.uninstall(plugin)}>
-              <Trans>Remove</Trans>
-            </Button>}
             {!admin && !subscribed && canSubscribe && <Button className="Subscribe" data-cy="button-Subscribe" variant="outlined" color="primary" size="small" onClick={() => store.subscribe(plugin.code)}>
               <Trans>Subscribe</Trans>
             </Button>}

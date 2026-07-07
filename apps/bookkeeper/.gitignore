@@ -1,1 +1,2 @@
-src/Plugins/*
+src/Plugins/index.json
+src/Plugins/index.jsx
