@@ -278,21 +278,32 @@ export class Catalog implements BackendCatalog {
 
   /**
    * Get the report plugin by its report ID.
+   *
+   * A report format (e.g. 'balance-sheet') can be provided by several report plugins that
+   * differ only by accounting scheme (Finnish vs Estonian vs Society vs...). When a scheme
+   * is given, prefer the plugin whose scheme restriction matches it; otherwise fall back to
+   * any plugin providing the format.
    */
-  getReportPlugin(id: ReportID): ReportPlugin | null {
+  getReportPlugin(id: ReportID, scheme: string | undefined = undefined): ReportPlugin | null {
+    let fallback: ReportPlugin | null = null
     for (const plugin of this.reportPlugins) {
       if (plugin.hasReport(id)) {
-        return plugin
+        if (scheme !== undefined && plugin.getFormats(scheme).includes(id)) {
+          return plugin
+        }
+        if (!fallback) {
+          fallback = plugin
+        }
       }
     }
-    return null
+    return fallback
   }
 
   /**
    * Get UI options for the report.
    */
-  getReportOptions(id: ReportID): ReportOptions {
-    const plugin = this.getReportPlugin(id)
+  getReportOptions(id: ReportID, scheme: string | undefined = undefined): ReportOptions {
+    const plugin = this.getReportPlugin(id, scheme)
     return plugin ? plugin.getReportOptions(id) : {}
   }
 

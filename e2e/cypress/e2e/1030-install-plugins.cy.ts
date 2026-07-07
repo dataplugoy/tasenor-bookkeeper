@@ -5,10 +5,10 @@ describe('Bundled plugins', () => {
 
     cy.adminLogin()
     cy.goto('Admin', 'Plugins')
-    cy.waitLoading()
 
     // Plugins are a permanent part of the application. They are always available on the
-    // admin plugin listing without any install step.
+    // admin plugin listing without any install step. The list renders from the committed
+    // static catalog (no server fetch / loading backdrop), so assert the cards directly.
     const common = [
       'CoinAPI',
       'CoinbaseImport',

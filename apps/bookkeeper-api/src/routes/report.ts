@@ -15,11 +15,12 @@ router.get('/',
   async (req, res) => {
     const db: KnexDatabase = await knex.db(res.locals.user, res.locals.db)
     const scheme = await db('settings').select('value').where({ name: 'scheme' }).pluck('value')
+    const schemeName = scheme.length ? scheme[0] : undefined
     const options: ReportOptions = {}
-    for (const id of Array.from(await catalog.getReportIDs(scheme.length ? scheme[0] : undefined))) {
-      const plugin = catalog.getReportPlugin(id)
+    for (const id of Array.from(await catalog.getReportIDs(schemeName))) {
+      const plugin = catalog.getReportPlugin(id, schemeName)
       if (plugin && hasSubscription(res, plugin.code)) {
-        options[id as string] = catalog.getReportOptions(id)
+        options[id as string] = catalog.getReportOptions(id, schemeName)
       }
     }
     res.send({ options })
@@ -30,7 +31,9 @@ router.get('/:format/:period',
   async (req, res) => {
     const format = req.params.format as ReportID
     const periodId: PK = parseInt(req.params.period) as PK
-    const plugin = catalog.getReportPlugin(format)
+    const db: KnexDatabase = await knex.db(res.locals.user, res.locals.db)
+    const scheme = await db('settings').select('value').where({ name: 'scheme' }).pluck('value')
+    const plugin = catalog.getReportPlugin(format, scheme.length ? scheme[0] : undefined)
     if (!plugin) {
       return res.status(404).send({ message: 'No such report format.' })
     }
@@ -74,7 +77,6 @@ router.get('/:format/:period',
       params.lang = languages[0]
     }
 
-    const db: KnexDatabase = await knex.db(res.locals.user, res.locals.db)
     const data = await plugin.renderReport(db, format, params)
 
     if (params.csv) {
