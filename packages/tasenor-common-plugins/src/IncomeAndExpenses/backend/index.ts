@@ -1,11 +1,12 @@
 import { DataPlugin } from '@tasenor/common-node'
-import { PluginCode, Version } from '@tasenor/common'
+import { PluginCode, Version, ID } from '@tasenor/common'
 
 class IncomeAndExpenses extends DataPlugin {
   constructor() {
     super({ common: ['income', 'expense', 'taxTypes', 'assetCodes'], backend: [] })
 
     this.code = 'IncomeAndExpenses'as PluginCode
+    this.id = 20 as ID
     this.title = 'Income and Expense Classification'
     this.version = '1.0.71' as Version
     this.icon = '<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><rect fill="none" height="24" width="24"/><g opacity=".3"><path d="M10,5h4v14h-4V5z M4,11h4v8H4V11z M20,19h-4v-6h4V19z"/></g><g><path d="M16,11V3H8v6H2v12h20V11H16z M10,5h4v14h-4V5z M4,11h4v8H4V11z M20,19h-4v-6h4V19z"/></g></svg>'

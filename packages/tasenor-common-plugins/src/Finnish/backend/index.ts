@@ -1,4 +1,4 @@
-import { PluginCode, Version } from '@tasenor/common'
+import { PluginCode, Version, ID } from '@tasenor/common'
 import FinnishHandler from '../common/FinnishHandler'
 import { LanguageBackendPlugin } from '@tasenor/common-node'
 
@@ -8,6 +8,7 @@ class Finnish extends LanguageBackendPlugin {
     super(new FinnishHandler())
 
     this.code = 'Finnish' as PluginCode
+    this.id = 2 as ID
     this.title = 'Finnish'
     this.version = '1.0.66' as Version
     this.releaseDate = '2023-06-10'

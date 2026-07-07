@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Title, ToolPlugin, QuestionMarkInline, FileUploadData, FileUploader } from '@tasenor/common-ui'
-import { DatabaseModel, haveCursor, isTag, Tag, TagModel, TagType, Url } from '@tasenor/common'
+import { DatabaseModel, haveCursor, isTag, Tag, TagModel, TagType, Url, ID } from '@tasenor/common'
 import { Trans, useTranslation } from 'react-i18next'
 import { Box, Button, Card, CardContent, CardMedia, Grid, IconButton, Tab, Tabs, TextField, Typography } from '@mui/material'
 import { Add, Cancel, CheckCircle } from '@mui/icons-material'
@@ -428,6 +428,7 @@ const TagsEditor = observer((props: TagsEditorProps): JSX.Element => {
 class TagEditor extends ToolPlugin {
 
   static code = 'TagEditor'
+  static id = 19 as ID
   static title = 'Tag Editor'
   static version = '1.0.33'
   static icon = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M16 7H5v10h11l3.55-5z" opacity=".3"/><path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16zM16 17H5V7h11l3.55 5L16 17z"/></svg>'

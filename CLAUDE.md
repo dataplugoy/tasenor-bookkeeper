@@ -92,7 +92,7 @@ Two catalog representations exist:
   PLUGIN_PATH="$(pwd)/src/Plugins" npx tsx -e 'import { plugins } from "@tasenor/common-node"; (async () => { plugins.setConfig("PLUGIN_PATH", process.env.PLUGIN_PATH); const l = await plugins.updatePluginList(); plugins.savePluginIndexJsx(l) })()'
   # then strip the machine-absolute `path` field from src/Plugins/index.json (it is unused by the UI)
   ```
-  The frontend `id` values must stay consistent with the backend's boot-time scan (subscriptions are gated by plugin `id`); regenerating both from the same bundled source keeps them in sync.
+Each plugin declares its own stable `id` in source next to `code` (backend `this.id = N as ID`, UI `static id = N as ID`; the same value in both files for "both" plugins). These ids are the canonical Tasenor plugin ids (subscriptions are gated by `id`), so the scanner reads them directly rather than assigning by scan order — the frontend catalog and the backend boot scan therefore always produce identical ids. When adding a new plugin, give it a fresh unused id.
 
 ### Database Architecture
 

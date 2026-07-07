@@ -8,7 +8,7 @@
     "use": "backend",
     "type": "import",
     "description": "Import plugin for importing transaction data in CSV format provided by Alisa Bank.",
-    "id": -14,
+    "id": 38,
     "availableVersion": "1.0.1",
     "installedVersion": "1.0.1"
   },
@@ -21,7 +21,7 @@
     "use": "backend",
     "type": "report",
     "description": "List of tradable assets in all accounts.",
-    "id": -15,
+    "id": 33,
     "availableVersion": "1.0.1",
     "installedVersion": "1.0.1"
   },
@@ -34,7 +34,7 @@
     "use": "backend",
     "type": "service",
     "description": "This service provides historical rates from https://coinapi.io/. Currently it has a service `historical-crypto-rate`, which can be used to fetch historical crypto currency rates.",
-    "id": -16,
+    "id": 16,
     "availableVersion": "1.0.5",
     "installedVersion": "1.0.5"
   },
@@ -47,7 +47,7 @@
     "use": "backend",
     "type": "import",
     "description": "Import plugin for importing transaction data in CSV format provided by Coinbase crypto exchange.",
-    "id": -17,
+    "id": 10,
     "availableVersion": "1.0.30",
     "installedVersion": "1.0.30"
   },
@@ -60,7 +60,7 @@
     "use": "ui",
     "type": "tool",
     "description": "Tools for renumbering documents by their date. You can also remove all documents that have no entries.",
-    "id": -1,
+    "id": 1,
     "availableVersion": "1.0.18",
     "installedVersion": "1.0.18"
   },
@@ -73,7 +73,7 @@
     "use": "backend",
     "type": "report",
     "description": "Balance sheet report translated in Finnish or English.",
-    "id": -18,
+    "id": 41,
     "availableVersion": "1.0.1",
     "installedVersion": "1.0.1"
   },
@@ -86,7 +86,7 @@
     "use": "backend",
     "type": "report",
     "description": "Income statement report translated in Finnish and English.",
-    "id": -19,
+    "id": 42,
     "availableVersion": "1.0.1",
     "installedVersion": "1.0.1"
   },
@@ -99,7 +99,7 @@
     "use": "both",
     "type": "scheme",
     "description": "Small accounting scheme for Estonian private limited company (OÜ). Finnish version only.",
-    "id": -2,
+    "id": 43,
     "availableVersion": "1.0.0",
     "installedVersion": "1.0.0"
   },
@@ -112,7 +112,7 @@
     "use": "ui",
     "type": "currency",
     "description": "Support for euro currency.",
-    "id": -3,
+    "id": 8,
     "availableVersion": "1.0.11",
     "installedVersion": "1.0.11"
   },
@@ -125,7 +125,7 @@
     "use": "both",
     "type": "language",
     "description": "Finnish translation of the application.",
-    "id": -4,
+    "id": 2,
     "availableVersion": "1.0.66",
     "installedVersion": "1.0.66"
   },
@@ -138,7 +138,7 @@
     "use": "backend",
     "type": "report",
     "description": "Balance sheet report translated in Finnish or English.",
-    "id": -20,
+    "id": 4,
     "availableVersion": "1.0.14",
     "installedVersion": "1.0.14"
   },
@@ -151,7 +151,7 @@
     "use": "backend",
     "type": "report",
     "description": "Investment company balance sheet report translated in Finnish.",
-    "id": -21,
+    "id": 29,
     "availableVersion": "1.0.1",
     "installedVersion": "1.0.1"
   },
@@ -164,7 +164,7 @@
     "use": "backend",
     "type": "report",
     "description": "Compact version of balance sheet report translated in Finnish or English.",
-    "id": -22,
+    "id": 11,
     "availableVersion": "1.0.13",
     "installedVersion": "1.0.13"
   },
@@ -177,7 +177,7 @@
     "use": "backend",
     "type": "report",
     "description": "Balance sheet report for Finnish societies, i.e. rekisteröity yhdistys.",
-    "id": -23,
+    "id": 39,
     "availableVersion": "1.0.0",
     "installedVersion": "1.0.0"
   },
@@ -190,7 +190,7 @@
     "use": "backend",
     "type": "report",
     "description": "Income statement report translated in Finnish.",
-    "id": -24,
+    "id": 5,
     "availableVersion": "1.0.18",
     "installedVersion": "1.0.18"
   },
@@ -203,7 +203,7 @@
     "use": "backend",
     "type": "report",
     "description": "Investment company income statement report translated in Finnish.",
-    "id": -25,
+    "id": 30,
     "availableVersion": "1.0.1",
     "installedVersion": "1.0.1"
   },
@@ -216,7 +216,7 @@
     "use": "backend",
     "type": "report",
     "description": "Compact version of income statement report translated in Finnish or English.",
-    "id": -26,
+    "id": 12,
     "availableVersion": "1.0.17",
     "installedVersion": "1.0.17"
   },
@@ -229,7 +229,7 @@
     "use": "backend",
     "type": "report",
     "description": "Income statement report for Finnish societies, i.e. rekisteröity yhdistys.",
-    "id": -27,
+    "id": 44,
     "availableVersion": "1.0.0",
     "installedVersion": "1.0.0"
   },
@@ -242,7 +242,7 @@
     "use": "both",
     "type": "scheme",
     "description": "An accounting scheme for Finnish limited company investing in various financial instruments like stocks and bonds.",
-    "id": -5,
+    "id": 26,
     "availableVersion": "1.0.21",
     "installedVersion": "1.0.21"
   },
@@ -255,7 +255,7 @@
     "use": "both",
     "type": "scheme",
     "description": "Complete accounting scheme for Finnish limited company.",
-    "id": -6,
+    "id": 24,
     "availableVersion": "1.0.35",
     "installedVersion": "1.0.35"
   },
@@ -268,7 +268,7 @@
     "use": "both",
     "type": "scheme",
     "description": "Small accounting scheme for Finnish limited company. English and Finnish version.",
-    "id": -7,
+    "id": 25,
     "availableVersion": "1.0.27",
     "installedVersion": "1.0.27"
   },
@@ -281,7 +281,7 @@
     "use": "both",
     "type": "scheme",
     "description": "Small accounting scheme for Finnish societies i.e. rekisteröity yhdistys.",
-    "id": -8,
+    "id": 40,
     "availableVersion": "1.0.0",
     "installedVersion": "1.0.0"
   },
@@ -294,7 +294,7 @@
     "use": "both",
     "type": "tool",
     "description": "Tool for backing up database to the git repository.",
-    "id": -9,
+    "id": 28,
     "availableVersion": "1.0.4",
     "installedVersion": "1.0.4"
   },
@@ -307,7 +307,7 @@
     "use": "backend",
     "type": "data",
     "description": "This plugin provides complete catalog for all income and expense types as well as asset codes. The catalog is tree-like structure which can be used by other plugins for classifying various things.",
-    "id": -28,
+    "id": 20,
     "availableVersion": "1.0.71",
     "installedVersion": "1.0.71"
   },
@@ -320,7 +320,7 @@
     "use": "backend",
     "type": "report",
     "description": "General purpose journal report listing all entries in chornological order.",
-    "id": -29,
+    "id": 13,
     "availableVersion": "1.0.11",
     "installedVersion": "1.0.11"
   },
@@ -333,7 +333,7 @@
     "use": "backend",
     "type": "import",
     "description": "Import plugin for importing transaction data in CSV format provided by Kraken.",
-    "id": -30,
+    "id": 27,
     "availableVersion": "1.0.38",
     "installedVersion": "1.0.38"
   },
@@ -346,7 +346,7 @@
     "use": "backend",
     "type": "report",
     "description": "General purpose ledger report listing all entries in each account. Each account has also running total for balance.",
-    "id": -31,
+    "id": 14,
     "availableVersion": "1.0.13",
     "installedVersion": "1.0.13"
   },
@@ -359,7 +359,7 @@
     "use": "backend",
     "type": "import",
     "description": "Import plugin for importing transaction data in CSV format provided by Lynx.",
-    "id": -32,
+    "id": 23,
     "availableVersion": "1.0.37",
     "installedVersion": "1.0.37"
   },
@@ -372,7 +372,7 @@
     "use": "backend",
     "type": "import",
     "description": "Import plugin for importing transaction data in CSV format provided by Nordea bank.",
-    "id": -33,
+    "id": 17,
     "availableVersion": "1.0.27",
     "installedVersion": "1.0.27"
   },
@@ -385,7 +385,7 @@
     "use": "backend",
     "type": "import",
     "description": "Import plugin for importing transaction data in CSV format provided by Nordnet.",
-    "id": -34,
+    "id": 18,
     "availableVersion": "1.0.48",
     "installedVersion": "1.0.48"
   },
@@ -398,7 +398,7 @@
     "use": "ui",
     "type": "currency",
     "description": "Support for South African Rand currency.",
-    "id": -10,
+    "id": 9,
     "availableVersion": "1.0.10",
     "installedVersion": "1.0.10"
   },
@@ -411,7 +411,7 @@
     "use": "backend",
     "type": "service",
     "description": "This service provides services from https://rapidapi.com/. Currently it has a service `historical-currency-rate`, which can be used to fetch historical currency rates.",
-    "id": -35,
+    "id": 6,
     "availableVersion": "1.0.14",
     "installedVersion": "1.0.14"
   },
@@ -424,7 +424,7 @@
     "use": "backend",
     "type": "import",
     "description": "Import plugin for importing transaction data in CSV format provided by S-Pankki bank.",
-    "id": -36,
+    "id": 35,
     "availableVersion": "1.0.0",
     "installedVersion": "1.0.0"
   },
@@ -437,7 +437,7 @@
     "use": "backend",
     "type": "import",
     "description": "Import plugin for importing transaction data from old fixed length field TITO format.",
-    "id": -37,
+    "id": 31,
     "availableVersion": "1.0.31",
     "installedVersion": "1.0.31"
   },
@@ -450,7 +450,7 @@
     "use": "ui",
     "type": "tool",
     "description": "Allows creating, deleting and editing tags and tag groups. Tags are useful for example for filtering transaction lists and combining reports by customizable groups.",
-    "id": -11,
+    "id": 19,
     "availableVersion": "1.0.33",
     "installedVersion": "1.0.33"
   },
@@ -463,7 +463,7 @@
     "use": "backend",
     "type": "data",
     "description": "List of stock tickers and exchanges and their names. Lookup services for those.",
-    "id": -38,
+    "id": 34,
     "availableVersion": "1.0.1",
     "installedVersion": "1.0.1"
   },
@@ -476,7 +476,7 @@
     "use": "ui",
     "type": "currency",
     "description": "Support for US dollar currency.",
-    "id": -12,
+    "id": 22,
     "availableVersion": "1.0.9",
     "installedVersion": "1.0.9"
   },
@@ -489,7 +489,7 @@
     "use": "ui",
     "type": "tool",
     "description": "General purpose VAT handling. You can configure accounts that automatically inserts either purchase or sales VAT entry. In addition, a tool for paying (receiving) VAT is provided. You need also VAT data plugin for your area.",
-    "id": -13,
+    "id": 3,
     "availableVersion": "1.0.45",
     "installedVersion": "1.0.45"
   },
@@ -502,7 +502,7 @@
     "use": "backend",
     "type": "data",
     "description": "This plugin provides data needed for VAT handling in Estonia.",
-    "id": -39,
+    "id": 45,
     "availableVersion": "1.0.1",
     "installedVersion": "1.0.1"
   },
@@ -515,7 +515,7 @@
     "use": "backend",
     "type": "data",
     "description": "This plugin provides data needed for VAT handling in Finland.",
-    "id": -40,
+    "id": 21,
     "availableVersion": "1.0.13",
     "installedVersion": "1.0.13"
   }

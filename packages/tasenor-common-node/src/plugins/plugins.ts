@@ -192,6 +192,9 @@ function scanPlugin(pluginPath: FilePath): TasenorPlugin {
         throw new Error(`A field '${field}' have contradicting values ${JSON.stringify(ui[field])} and ${JSON.stringify(backend[field])} for index files '${uiPath}' and '${backendPath}'.`)
       }
     }
+    if (ui.id !== backend.id) {
+      throw new Error(`Plugin id differs between ui (${ui.id}) and backend (${backend.id}) for index files '${uiPath}' and '${backendPath}'.`)
+    }
   }
   if (ui === null && backend === null) {
     throw new Error(`Cannot find any plugins in '${pluginPath}'.`)
@@ -205,6 +208,7 @@ function scanPlugin(pluginPath: FilePath): TasenorPlugin {
  */
 function readUIPlugin(indexPath: FilePath): TasenorPlugin {
   const regex = new RegExp(`^\\s*static\\s+(${PLUGIN_FIELDS.join('|')})\\s*=\\s*(?:'([^']*)'|"([^"]*)")`)
+  const idRegex = /^\s*static\s+id\s*=\s*(-?\d+)/
 
   const data: TasenorPlugin = {
     code: create('Unknown'),
@@ -222,6 +226,11 @@ function readUIPlugin(indexPath: FilePath): TasenorPlugin {
     const match = regex.exec(line)
     if (match) {
       data[match[1]] = match[2]
+      continue
+    }
+    const idMatch = idRegex.exec(line)
+    if (idMatch) {
+      data.id = parseInt(idMatch[1], 10)
     }
   }
 
@@ -230,6 +239,7 @@ function readUIPlugin(indexPath: FilePath): TasenorPlugin {
 
 function readBackendPlugin(indexPath: FilePath): TasenorPlugin {
   const regex = new RegExp(`^\\s*this\\.(${PLUGIN_FIELDS.join('|')})\\s*=\\s*(?:'([^']*)'|"([^"]*)")`)
+  const idRegex = /^\s*this\.id\s*=\s*(-?\d+)/
 
   const data: TasenorPlugin = {
     code: create('Unknown'),
@@ -247,6 +257,11 @@ function readBackendPlugin(indexPath: FilePath): TasenorPlugin {
     const match = regex.exec(line)
     if (match) {
       data[match[1]] = match[2]
+      continue
+    }
+    const idMatch = idRegex.exec(line)
+    if (idMatch) {
+      data.id = parseInt(idMatch[1], 10)
     }
   }
 
@@ -270,14 +285,16 @@ function isInstalled(): boolean {
 async function updatePluginList() {
   let current: TasenorPlugin[] = []
 
-  // Collect and add local plugins.
-  let localId = -1
-
+  // Collect bundled plugins. Each plugin declares its own stable `id` in its source
+  // (next to `code`), so ids never depend on scan order.
   for (const plugin of await scanPlugins()) {
+    if (plugin.id === undefined) {
+      throw new Error(`Plugin '${plugin.code}' does not declare a numeric id in its source.`)
+    }
     if (!current[plugin.code]) {
       current[plugin.code] = plugin
-      current[plugin.code].id = localId--
     }
+    current[plugin.code].id = plugin.id
     current[plugin.code].path = plugin.path
     current[plugin.code].version = plugin.version
     current[plugin.code].availableVersion = plugin.version
