@@ -7,9 +7,7 @@
 .github
 **/*.log
 
-# Generated plugin catalogs (regenerated at build/boot from the bundled source).
-apps/bookkeeper/src/Plugins/index.json
-apps/bookkeeper/src/Plugins/index.jsx
+# The backend catalog is regenerated at boot; the frontend catalog is committed source.
 apps/bookkeeper-api/src/plugins/index.json
 apps/bookkeeper-api/src/plugins/workspace
 
