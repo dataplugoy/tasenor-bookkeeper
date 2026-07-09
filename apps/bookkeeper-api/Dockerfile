@@ -5,7 +5,9 @@ FROM node:18-alpine
 WORKDIR /var/app
 
 RUN apk update && apk upgrade
-RUN apk add nano curl bash jq postgresql-client python3 make gcc g++ libc-dev
+# git + openssh-client are required by the GitBackup plugin (simple-git shells out to
+# `git`, and ssh-based remotes/keys need the `ssh` binary).
+RUN apk add nano curl bash jq postgresql-client python3 make gcc g++ libc-dev git openssh-client
 RUN ln -sf /usr/bin/python3 /usr/bin/python
 
 # Use the pnpm version pinned in the root package.json (packageManager field).
