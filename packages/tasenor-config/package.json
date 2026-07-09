@@ -6,8 +6,8 @@
   "license": "MIT",
   "main": "./index.js",
   "scripts": {
-    "release": "pnpm version patch && pnpm publish --force --access public --no-git-checks",
-    "release-minor": "pnpm version minor && pnpm publish --force --access public --no-git-checks",
+    "release": "pnpm version patch",
+    "release-minor": "pnpm version minor",
     "show-version": "jq .version < package.json"
   }
 }
