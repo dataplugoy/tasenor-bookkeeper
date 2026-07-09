@@ -190,7 +190,7 @@ class GitBackup extends ToolPlugin {
       if (success) {
         this.store.addMessage(this.t('Backup created successfully.'))
       } else {
-        this.store.addError(this.t('Restoring backup failed.'))
+        this.store.addError(this.t('Creating backup failed.'))
       }
     })
   }
