@@ -37,10 +37,14 @@ export class GitRepo {
    */
   configure(conf: { name: string, email: Email, sshPrivateKey: FilePath | null }) {
     this.git.addConfig('user.name', conf.name).addConfig('user.email', conf.email)
+    // Trust the remote host on first use (accept-new) and keep known_hosts next to the
+    // private key in the writable workspace. Without this a fresh container has no
+    // known_hosts entry, so every push/pull fails with "Host key verification failed".
     if (conf.sshPrivateKey) {
-      this.git.env('GIT_SSH_COMMAND', `ssh -i "${conf.sshPrivateKey}"`)
+      const knownHosts = path.join(path.dirname(conf.sshPrivateKey), 'known_hosts')
+      this.git.env('GIT_SSH_COMMAND', `ssh -i "${conf.sshPrivateKey}" -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile="${knownHosts}"`)
     } else {
-      this.git.env('GIT_SSH_COMMAND', 'ssh')
+      this.git.env('GIT_SSH_COMMAND', 'ssh -o StrictHostKeyChecking=accept-new')
     }
   }
 
