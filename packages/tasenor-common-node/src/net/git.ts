@@ -7,6 +7,16 @@ import path from 'path'
 import { systemPiped } from '../system'
 
 /**
+ * Outcome of a {@link GitRepo.put}. `reason` distinguishes the non-fatal `unchanged`
+ * (nothing to commit) from failures like `too-large` (a blob exceeds the remote's file
+ * size limit) so callers can report each case separately.
+ */
+export type GitPutResult = {
+  success: boolean
+  reason?: 'unchanged' | 'update-failed' | 'add-failed' | 'commit-failed' | 'push-failed' | 'too-large'
+}
+
+/**
  * A git repo storage.
  */
 export class GitRepo {
@@ -105,28 +115,51 @@ export class GitRepo {
    * Add, commit and push the given files and/or directories.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async put(message: string, ...subPaths: (FilePath | DirectoryPath)[]): Promise<boolean> {
-    let fail = !await this.update()
-    if (!fail) {
-      await this.git.add('.').catch(err => {
-        error(`Git add failed: ${err}`)
-        fail = true
-      })
-    }
-    if (!fail) {
-      await this.git.commit(message).catch(err => {
-        error(`Git commit failed: ${err}`)
-        fail = true
-      })
-    }
-    if (!fail) {
-      await this.git.push().catch(err => {
-        error(`Git push failed: ${err}`)
-        fail = true
-      })
+  async put(message: string, ...subPaths: (FilePath | DirectoryPath)[]): Promise<GitPutResult> {
+    if (!await this.update()) {
+      return { success: false, reason: 'update-failed' }
     }
 
-    return !fail
+    let addFailed = false
+    await this.git.add('.').catch(err => {
+      error(`Git add failed: ${err}`)
+      addFailed = true
+    })
+    if (addFailed) {
+      return { success: false, reason: 'add-failed' }
+    }
+
+    // Only commit if something is actually staged; otherwise this is a no-op backup and we
+    // must not call `git commit` (it would fail with "nothing to commit").
+    const staged = await this.git.diff(['--cached', '--name-only']).catch(() => '')
+    const hasChanges = staged.trim().length > 0
+    if (hasChanges) {
+      let commitFailed = false
+      await this.git.commit(message).catch(err => {
+        error(`Git commit failed: ${err}`)
+        commitFailed = true
+      })
+      if (commitFailed) {
+        return { success: false, reason: 'commit-failed' }
+      }
+    }
+
+    // Push regardless, to flush this commit plus any earlier commits not yet on the remote.
+    let pushError: unknown = null
+    await this.git.push().catch(err => {
+      pushError = err
+      error(`Git push failed: ${err}`)
+    })
+    if (pushError) {
+      const msg = `${pushError}`
+      // GitHub (and similar hosts) reject any blob over a hard per-file size limit.
+      if (/GH001|file size limit|exceeds .*size|large files? detected/i.test(msg)) {
+        return { success: false, reason: 'too-large' }
+      }
+      return { success: false, reason: 'push-failed' }
+    }
+
+    return hasChanges ? { success: true } : { success: true, reason: 'unchanged' }
   }
 
   /**

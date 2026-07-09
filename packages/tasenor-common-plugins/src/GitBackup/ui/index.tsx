@@ -158,7 +158,9 @@ class GitBackup extends ToolPlugin {
         'Backup for Git': 'Git-pohjainen Varmuuskopiointi',
         'Manual backup by GitBackup {version}': 'Ylimääräinen varmuuskopio GitBackup {version}',
         'Backup created successfully.': 'Varmuuskopion luominen onnistui.',
+        'No changes since the last backup.': 'Ei muutoksia edellisen varmuuskopion jälkeen.',
         'Creating backup failed.': 'Varmuuskopion luominen ei onnistunut.',
+        'Backup failed: a file is too large for the remote repository.': 'Varmuuskopiointi epäonnistui: tiedosto on liian suuri etäsäilöä varten.',
         'Not able to find any commits from the repository.': 'Varmuuskopio vaikuttaisi olevan tyhjä.',
         'This tool takes every night automatically one backup.': 'Tämä työkalu tekee yhden varmuuskopion joka yö.',
         'You can also make immediately backup from the icon above.': 'Lisäksi voit tehdä ylimääräisen varmuuskopion halutessasi ylläolevasta ikonista.',
@@ -180,15 +182,21 @@ class GitBackup extends ToolPlugin {
 
   async onMakeBackup(message: string) {
     runInAction(() => (this.busy = true))
-    const { success } = await this.POST({ makeBackup: message || this.t('Manual backup by GitBackup {version}').replace('{version}', GitBackup.version) }) as { success: boolean }
+    const res = await this.POST({ makeBackup: message || this.t('Manual backup by GitBackup {version}').replace('{version}', GitBackup.version) }) as { success: boolean, reason?: string }
     runInAction(() => {
       this.busy = false
       runInAction(() => {
         // Trigger refresh.
         this.backups = this.backups + 1
       })
-      if (success) {
-        this.store.addMessage(this.t('Backup created successfully.'))
+      if (res.success) {
+        if (res.reason === 'unchanged') {
+          this.store.addMessage(this.t('No changes since the last backup.'))
+        } else {
+          this.store.addMessage(this.t('Backup created successfully.'))
+        }
+      } else if (res.reason === 'too-large') {
+        this.store.addError(this.t('Backup failed: a file is too large for the remote repository.'))
       } else {
         this.store.addError(this.t('Creating backup failed.'))
       }

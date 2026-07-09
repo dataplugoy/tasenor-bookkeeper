@@ -1,4 +1,4 @@
-import { BookkeeperImporter, GitRepo, KnexDatabase, systemPiped, TasenorExporter, ToolPlugin } from '@tasenor/common-node'
+import { BookkeeperImporter, GitPutResult, GitRepo, KnexDatabase, systemPiped, TasenorExporter, ToolPlugin } from '@tasenor/common-node'
 import { DirectoryPath, Email, error, FilePath, log, note, PluginCode, Timestring, Url, validGitRepoName, Version, ID } from '@tasenor/common'
 import fs from 'fs'
 import path from 'path'
@@ -51,8 +51,7 @@ class GitBackup extends ToolPlugin {
    */
   async POST(db: KnexDatabase, data): Promise<unknown> {
     if (typeof data === 'object' && data !== null && data.makeBackup) {
-      const success = await this.makeBackup(db, `${data.makeBackup}`)
-      return { success }
+      return this.makeBackup(db, `${data.makeBackup}`)
     }
     return { success: false }
   }
@@ -175,11 +174,11 @@ class GitBackup extends ToolPlugin {
   /**
    * Execute backup making for a database.
    */
-  async makeBackup(db: KnexDatabase, message: string): Promise<boolean> {
+  async makeBackup(db: KnexDatabase, message: string): Promise<GitPutResult> {
 
     const setup = await this.setupRepository(db)
     if (!setup) {
-      return false
+      return { success: false }
     }
     const { subDirectory, repo, backupDir } = setup
 
@@ -227,13 +226,16 @@ class GitBackup extends ToolPlugin {
     const exportDir = path.join(dir, 'export') as DirectoryPath
     fs.mkdirSync(exportDir, { recursive: true })
 
-    // This dump.sql is not really needed, but it is kind of safety net for failures
+    // This dump.sql.gz is not really needed, but it is kind of safety net for failures
     // in export and import code. It helps to rebuild database manually, if all else
-    // fails.
+    // fails. It is gzip-compressed because the raw dump grows past hosts' per-file size
+    // limits (e.g. GitHub's 100 MB), which would otherwise block the whole backup push.
+    // `gzip -n` omits the name/timestamp header so an unchanged database yields an
+    // identical file and produces a genuine "nothing to commit" backup.
     // TODO: Check for pg_dump crash. What if that happens?
     const { host, port, database, user, password } = db.client.config.connection
     const url = `postgresql://${user}:${password}@${host}:${port}/${database}`
-    await systemPiped(`pg_dump --restrict-key=salkjh21iuewy932hedsjewqeds -c ${url} > "${dir}/dump.sql"`)
+    await systemPiped(`pg_dump --restrict-key=salkjh21iuewy932hedsjewqeds -c ${url} | gzip -n > "${dir}/dump.sql.gz"`)
 
     const exporter = new TasenorExporter()
     await exporter.dump(db, exportDir)
