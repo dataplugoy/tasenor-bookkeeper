@@ -13,8 +13,8 @@
     "fix": "eslint --fix 'src/**/*.{ts,tsx}'",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "nightly": "pnpm run ci",
-    "release": "pnpm version patch",
-    "release-minor": "pnpm version minor",
+    "release": "pnpm version patch --no-git-tag-version",
+    "release-minor": "pnpm version minor --no-git-tag-version",
     "show-version": "jq .version < package.json"
   },
   "dependencies": {

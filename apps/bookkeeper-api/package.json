@@ -12,8 +12,8 @@
     "lint": "eslint 'src/**/*.ts'",
     "migrate": "DATABASE_URL=postgresql://bookkeeper:Biure80s2rt832@localhost:${DB_PORT:-7202}/bookkeeper DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx -r dotenv/config bin/migrate.mjs",
     "nightly": "pnpm run ci",
-    "release": "pnpm version patch",
-    "release-minor": "pnpm version minor",
+    "release": "pnpm version patch --no-git-tag-version",
+    "release-minor": "pnpm version minor --no-git-tag-version",
     "rollback": "DATABASE_URL=postgresql://bookkeeper:Biure80s2rt832@localhost:${DB_PORT:-7202}/bookkeeper DOTENV_CONFIG_PATH=`pwd`/.env.local npx tsx -r dotenv/config bin/rollback.mjs",
     "show-version": "jq .version < package.json",
     "wait": "true"

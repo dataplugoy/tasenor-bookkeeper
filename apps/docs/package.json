@@ -16,8 +16,8 @@
     "docker": "echo TODO: Build produces broken class reference && pnpm run build && docusaurus serve --port ${PORT:=7207} --no-open",
     "lint": "swagger-cli validate api/openapi.yaml",
     "nightly": "pnpm run lint && pnpm run build",
-    "release": "pnpm version patch",
-    "release-minor": "pnpm version minor",
+    "release": "pnpm version patch --no-git-tag-version",
+    "release-minor": "pnpm version minor --no-git-tag-version",
     "show-version": "jq .version < package.json"
   },
   "dependencies": {
