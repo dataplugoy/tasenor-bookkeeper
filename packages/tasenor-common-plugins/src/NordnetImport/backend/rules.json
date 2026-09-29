@@ -195,6 +195,16 @@
         {
           "data": {
             "text": "Tapahtumateksti",
+            "currency": "Valuutta"
+          },
+          "type": "'currency'",
+          "asset": "Valuutta",
+          "amount": "Summa",
+          "reason": "'dividend'"
+        },
+        {
+          "data": {
+            "text": "Tapahtumateksti",
             "currency": "Valuutta",
             "currencyValue": "-Summa * 100"
           },
