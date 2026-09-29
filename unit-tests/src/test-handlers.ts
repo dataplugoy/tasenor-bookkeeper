@@ -1,4 +1,4 @@
-import { CoinbaseHandler, KrakenHandler, LynxHandler, NordeaHandler, NordnetHandler, TITOHandler, AlisaHandler } from '@tasenor/common-plugins'
+import { CoinbaseHandler, KrakenHandler, LynxHandler, NordeaHandler, TITOHandler, AlisaHandler } from '@tasenor/common-plugins'
 import { TransactionImportHandler } from '@tasenor/common-node'
 
 /**
@@ -8,7 +8,6 @@ const handlers: Record<string, TransactionImportHandler> = {
   Alisa: new AlisaHandler(),
   Coinbase: new CoinbaseHandler(),
   Nordea: new NordeaHandler(),
-  Nordnet: new NordnetHandler(),
   Lynx: new LynxHandler(),
   Kraken: new KrakenHandler(),
   TITO: new TITOHandler(),

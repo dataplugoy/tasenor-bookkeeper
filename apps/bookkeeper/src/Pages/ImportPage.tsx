@@ -21,6 +21,7 @@ export const ImportPage = withStore(observer((props: ImportProps): JSX.Element =
   const { db, side } = useNav()
   const { t } = useTranslation()
   const [alert, setAlert] = useState('')
+  const [pluginMissing, setPluginMissing] = useState(false)
   const [importer, setImporter] = useState<ImporterModel|null>(null)
 
   const importerId = side ? parseInt(side) : null
@@ -29,6 +30,7 @@ export const ImportPage = withStore(observer((props: ImportProps): JSX.Element =
 
   useEffect(() => {
     setAlert('')
+    setPluginMissing(false)
 
     if (!side) return
 
@@ -36,7 +38,10 @@ export const ImportPage = withStore(observer((props: ImportProps): JSX.Element =
       setImporter(res)
       const version = res.config.version || '0.0.0'
       const pluginCode = res.config.handler
-      if (versions[pluginCode] !== version) {
+      if (versions[pluginCode] === undefined) {
+        setPluginMissing(true)
+        setAlert(t('The import plugin {plugin} is no longer available.').replace('{plugin}', pluginCode))
+      } else if (versions[pluginCode] !== version) {
         setAlert(
           t('Import rules have been created with version {old}. The import plugin has now version {new}.').replace('{old}', version).replace('{new}', versions[pluginCode]) +
           t('You may keep the old rules (and possible create separate importer for new rules) or update the rules of this importer.')
@@ -74,8 +79,12 @@ export const ImportPage = withStore(observer((props: ImportProps): JSX.Element =
           <Box>
             <Note>
               {alert}
-              &nbsp;<Button variant="outlined" onClick={onKeep}>Keep</Button>
-              &nbsp;<Button variant="outlined" onClick={onUpgrade}>Upgrade</Button>
+              {
+                !pluginMissing && <>
+                  &nbsp;<Button variant="outlined" onClick={onKeep}>Keep</Button>
+                  &nbsp;<Button variant="outlined" onClick={onUpgrade}>Upgrade</Button>
+                </>
+              }
             </Note>
           </Box>
         )

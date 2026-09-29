@@ -27,7 +27,7 @@ const ImporterList = withCatalog(withStore(observer((props: ImporterListProps): 
       importers.forEach(importer => {
         const oldVersion = importer.config.version || '0.0.0'
         const newVersion = versions[importer.config.handler]
-        if (oldVersion !== newVersion) {
+        if (newVersion !== undefined && oldVersion !== newVersion) {
           importer.config.needUpdate = true
         }
       })

@@ -33,7 +33,6 @@ describe('Bundled plugins', () => {
         'KrakenImport',
         'LynxImport',
         'NordeaImport',
-        'NordnetImport',
         'Rand',
         'TagEditor',
         'TITOImport',
