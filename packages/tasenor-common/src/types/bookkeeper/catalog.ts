@@ -24,7 +24,7 @@ export declare class TransactionImportHandler {}
  */
 export declare class Catalog {
 
-  history: unknown // History component. Redefine where used.
+  navigate: (url: string) => void
 
   getCurrencies(): Currency[]
   language(): Language

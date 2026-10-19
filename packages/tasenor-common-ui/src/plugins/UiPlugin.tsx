@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Catalog, Store, Settings, PluginCode, Version, ShortDate, PluginUse, PluginType, ID, Language } from '@tasenor/common'
-import { History } from 'history'
 
 export class UiPlugin extends Component {
 
@@ -77,7 +76,7 @@ export class UiPlugin extends Component {
     if (!this.catalog) {
       throw new Error('Cannot use goto() when there is no catalog connected in plugin.')
     }
-    (this.catalog.history as History).push(url)
+    this.catalog.navigate(url)
   }
 
   /**
