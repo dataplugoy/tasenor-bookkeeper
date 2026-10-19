@@ -150,6 +150,7 @@ const constructUrl = (url: string): Url => {
 
 // Helper to refresh token.
 async function refreshToken(url: Url): Promise<boolean | Error> {
+  const oldToken = getNetConf(url, 'token')
   setNetConf(url, 'token', null)
   if (getNetConf(url, 'refreshToken') && getNetConf(url, 'refreshUrl')) {
     const refreshUrl = `${new URL(url).origin}${getNetConf(url, 'refreshUrl')}` as Url
@@ -164,15 +165,7 @@ async function refreshToken(url: Url): Promise<boolean | Error> {
       method: 'GET',
       url: refreshUrl,
       headers
-    }).catch(err => {
-      const logout = getNetConf(url, 'logout') as () => void
-      if (logout) {
-        logout()
-        return false
-      }
-      error(`Fetching token for ${url} failed: ${err}`)
-      return err
-    })
+    }).catch(err => err)
     if (refreshed.status === 200 && refreshed.data && refreshed.data.token) {
       setNetConf(url, 'token', refreshed.data.token)
       if (refreshed.data.refresh) {
@@ -181,6 +174,14 @@ async function refreshToken(url: Url): Promise<boolean | Error> {
       debug('NET', `Received new token from ${url}.`)
       return true
     }
+    // Temporary failure like network down or server restarting. Keep the tokens and try again later.
+    const status = refreshed.response ? refreshed.response.status : refreshed.status
+    if (!status || status >= 500) {
+      setNetConf(url, 'token', oldToken)
+      error(`Fetching token for ${url} failed temporarily: ${refreshed}`)
+      return new Error(`Temporary failure when refreshing token for ${url}.`)
+    }
+    // Refresh token was rejected.
     const logout = getNetConf(url, 'logout') as () => void
     if (logout) {
       logout()

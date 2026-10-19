@@ -191,10 +191,9 @@ export class Store {
     if (this.isLoggedIn() && !this.busy) {
       this.busy = true
       const resp = await netRefresh(Configuration.UI_API_URL)
+      // On failure, the net library has already logged out if the refresh token was rejected.
       if (resp) {
         this.setTokens(resp.token, resp.refresh)
-      } else {
-        this.setTokens(null, null, true)
       }
       this.busy = false
     }
