@@ -66,12 +66,13 @@ export const TransactionLine = withStore(withCatalog(observer((props: Transactio
     const entry = document.entries[row]
     const account = entry.account
 
-    // If the selected row is the same than the currently selected account, copy text to all entries.
+    // If the selected row is the same than the currently selected account, copy text and tags to all entries.
     if (props.store.account.id === account.id && column === 1) {
       runInAction(async () => {
         for (const other of document.entries) {
           if (other.account_id !== account.id) {
             other.description = entry.description
+            other.tagNames = [...entry.tagNames]
             await other.save()
           }
         }
