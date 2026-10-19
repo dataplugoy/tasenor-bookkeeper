@@ -46,7 +46,7 @@ ReactDOM.render(
     onFocus={() => cursor.disableHandler()}
   >
     <Provider store={store} cursor={cursor} settings={settings} catalog={catalog}>
-      <BrowserRouter>
+      <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <AppRenderer />
       </BrowserRouter>
     </Provider>
