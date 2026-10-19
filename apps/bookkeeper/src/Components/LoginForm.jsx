@@ -69,26 +69,30 @@ class LoginForm extends Component {
 
     return (
       <Panel>
-        <TextField
-          name="username"
-          style={{ width: '50%' }}
-          data-cy="text-Email"
-          label={<Trans>Email</Trans>}
-          onChange={(event) => (this.setState({ user: event.target.value }))}
-        />
-        <br/>
-        <br/>
-        <TextField
-          name="password"
-          type="password"
-          style={{ width: '50%' }}
-          data-cy="text-Password"
-          label={<Trans>Password</Trans>}
-          onChange={(event) => (this.setState({ password: event.target.value }))}
-        />
-        <br/>
-        <br/>
-        <Button id="login" data-cy="button-Login" variant="outlined" onClick={() => this.onLogin()}><Trans>Login</Trans></Button>
+        <form onSubmit={(event) => { event.preventDefault(); this.onLogin() }}>
+          <TextField
+            name="username"
+            autoComplete="username"
+            style={{ width: '50%' }}
+            data-cy="text-Email"
+            label={<Trans>Email</Trans>}
+            onChange={(event) => (this.setState({ user: event.target.value }))}
+          />
+          <br/>
+          <br/>
+          <TextField
+            name="password"
+            type="password"
+            autoComplete="current-password"
+            style={{ width: '50%' }}
+            data-cy="text-Password"
+            label={<Trans>Password</Trans>}
+            onChange={(event) => (this.setState({ password: event.target.value }))}
+          />
+          <br/>
+          <br/>
+          <Button id="login" data-cy="button-Login" variant="outlined" type="submit"><Trans>Login</Trans></Button>
+        </form>
         <br />
         <br />
         {
