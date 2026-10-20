@@ -185,6 +185,39 @@ export class Store {
     }
     document.addEventListener('visibilitychange', refreshIfStale)
     window.addEventListener('focus', refreshIfStale)
+    // Keep the refresh token in sync with other tabs and guard it against stale tabs running old code.
+    this.logoutMark = window.localStorage.getItem('logout')
+    window.addEventListener('storage', (event) => this.onStorageChange(event))
+  }
+
+  /**
+   * Handle a local storage change made by another tab.
+   *
+   * A deliberate logout updates the `logout` mark before removing the token, so that other tabs follow it.
+   * If the token disappears without the mark, it was removed by something else (e.g. an old version of the
+   * app left running in a forgotten tab) and we put back our own refresh token.
+   */
+  onStorageChange(event) {
+    if (event.storageArea !== window.localStorage || event.key !== 'token') {
+      return
+    }
+    const ourRefresh = getNetConf(Configuration.UI_API_URL, 'refreshToken')
+    if (!ourRefresh) {
+      return
+    }
+    if (event.newValue) {
+      netConfigure({ sites: { [Configuration.UI_API_URL]: { refreshToken: event.newValue } } })
+      return
+    }
+    const mark = window.localStorage.getItem('logout')
+    if (mark !== this.logoutMark) {
+      this.logoutMark = mark
+      this.logout(false)
+      document.location = '/'
+      return
+    }
+    error('Login token was removed by another tab without logging out. Restoring it.')
+    window.localStorage.setItem('token', ourRefresh)
   }
 
   /**
@@ -874,8 +907,13 @@ export class Store {
 
   /**
   * Log out the current user.
+  * @param broadcast If set, tell other tabs to log out too.
   */
-  logout() {
+  logout(broadcast = true) {
+    if (broadcast) {
+      this.logoutMark = `${Date.now()}`
+      window.localStorage.setItem('logout', this.logoutMark)
+    }
     this.setTokens(null, null, true)
     this.setClientData(null, null)
     this.motd = null
