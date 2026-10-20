@@ -1,7 +1,7 @@
 /**
  * Type definitions related to networking.
  */
-import { MINUTES } from './time'
+import { HOURS, MINUTES } from './time'
 import Opaque from 'ts-opaque'
 import { ID } from '..'
 
@@ -23,8 +23,10 @@ export function isLocalUrl(s: unknown): s is LocalUrl {
 
 // Default expiry time for token.
 export const TOKEN_EXPIRY_TIME = 30 * MINUTES
-// Default expiry time for refresh.
-export const REFRESH_TOKEN_EXPIRY_TIME = TOKEN_EXPIRY_TIME + 10 * MINUTES
+// Default expiry time for refresh. Long enough to survive a sleeping computer or a frozen browser tab.
+export const REFRESH_TOKEN_EXPIRY_TIME = 12 * HOURS
+// Maximum time to wait for a token refresh response in milliseconds.
+export const TOKEN_REFRESH_TIMEOUT = 30 * 1000
 // Name of the token issuer.
 export const TOKEN_ISSUER = 'Tasenor'
 

@@ -2,7 +2,7 @@ import FormData from 'form-data'
 import jwtDecode from 'jwt-decode'
 import axios from 'axios'
 import { debug, error, note, warning } from '../logging'
-import { isLocalUrl, LocalUrl, Token, TokenPair, Url, UUID, Value } from '../types'
+import { isLocalUrl, LocalUrl, Token, TOKEN_REFRESH_TIMEOUT, TokenPair, Url, UUID, Value } from '../types'
 
 /**
  * HTTP methods in use on the system.
@@ -164,7 +164,8 @@ async function refreshToken(url: Url): Promise<boolean | Error> {
     const refreshed = await axios({
       method: 'GET',
       url: refreshUrl,
-      headers
+      headers,
+      timeout: TOKEN_REFRESH_TIMEOUT
     }).catch(err => err)
     if (refreshed.status === 200 && refreshed.data && refreshed.data.token) {
       setNetConf(url, 'token', refreshed.data.token)

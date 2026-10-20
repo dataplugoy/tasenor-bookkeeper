@@ -104,6 +104,8 @@ export class Store {
   entryDescriptions = {}
   // We are busy refreshing token.
   busy = false
+  // Time of the last successful token refresh.
+  lastRefresh = 0
 
   constructor(settings) {
     this.settings = settings
@@ -175,6 +177,14 @@ export class Store {
     })
     this.refreshToken()
     setInterval(async () => this.refreshToken(), 1000 * TOKEN_EXPIRY_TIME / 2)
+    // Timers do not run while computer sleeps or browser freezes the tab, so check also when coming back.
+    const refreshIfStale = () => {
+      if (document.visibilityState === 'visible' && Date.now() - this.lastRefresh > 1000 * TOKEN_EXPIRY_TIME / 2) {
+        this.refreshToken()
+      }
+    }
+    document.addEventListener('visibilitychange', refreshIfStale)
+    window.addEventListener('focus', refreshIfStale)
   }
 
   /**
@@ -190,12 +200,16 @@ export class Store {
   async refreshToken() {
     if (this.isLoggedIn() && !this.busy) {
       this.busy = true
-      const resp = await netRefresh(Configuration.UI_API_URL)
-      // On failure, the net library has already logged out if the refresh token was rejected.
-      if (resp) {
-        this.setTokens(resp.token, resp.refresh)
+      try {
+        const resp = await netRefresh(Configuration.UI_API_URL)
+        // On failure, the net library has already logged out if the refresh token was rejected.
+        if (resp) {
+          this.setTokens(resp.token, resp.refresh)
+          this.lastRefresh = Date.now()
+        }
+      } finally {
+        this.busy = false
       }
-      this.busy = false
     }
   }
 
