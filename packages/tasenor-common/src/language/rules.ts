@@ -345,6 +345,7 @@ export class RulesEngine {
    * ```typescript
    * regex("[0-9]+", "Foo 123 Bar") // => true
    * regex("([0-9]+)", "Foo 123 Bar") // => ["123"]
+   * regex("(x)?([0-9]+)", "Foo 123 Bar") // => ["", "123"]
    * ```
    * @param re
    * @param compare
@@ -356,12 +357,11 @@ export class RulesEngine {
 
     if (!match) return false
 
-    const groups: string[] = []
-    for (let i = 1; match[i] !== undefined; i++) {
-      groups.push(match[i])
-    }
+    // Optional groups that did not participate in the match are returned as empty strings.
+    const captured = match.slice(1)
+    if (captured.every(g => g === undefined)) return true
 
-    return groups.length ? groups : true
+    return captured.map(g => g === undefined ? '' : g)
   }
 
   /**
