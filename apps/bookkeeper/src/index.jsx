@@ -5,8 +5,8 @@ import { Provider } from 'mobx-react'
 import App from './App'
 import { BrowserRouter, useNavigate } from 'react-router-dom'
 import i18n, { initializeI18n } from './i18n'
-import { CssBaseline, ThemeProvider, useMediaQuery } from '@mui/material'
-import { light, dark } from './theme'
+import { CssBaseline, ThemeProvider } from '@mui/material'
+import { theme } from './theme'
 import { RISPProvider } from '@tasenor/common-ui'
 import Loading from './Components/Loading'
 import withStore from './Hooks/withStore'
@@ -17,7 +17,6 @@ import { store, cursor, settings, catalog, knowledge } from './globals'
 const AppRenderer = withCatalog(withStore((props) => {
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
 
   useEffect(async () => {
     await props.store.fetchSettings()
@@ -33,7 +32,7 @@ const AppRenderer = withCatalog(withStore((props) => {
     return <Loading visible={true}/>
   }
   return (
-    <ThemeProvider theme={prefersDarkMode ? dark : light}>
+    <ThemeProvider theme={theme}>
       <CssBaseline/>
       <I18nextProvider i18n={ i18n }><App /></I18nextProvider>
     </ThemeProvider>
