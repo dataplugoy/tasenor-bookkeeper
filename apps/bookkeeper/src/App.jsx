@@ -54,6 +54,7 @@ class App extends Component {
         <div className="LoginFooter">
           <LanguageSelector/>
           <span className="Version not-logged-in">v{Configuration.VERSION}</span>
+          <div className="current-user" data-cy=""/>
         </div>
       </div>
     )
