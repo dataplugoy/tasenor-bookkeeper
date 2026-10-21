@@ -292,8 +292,10 @@ export class TransactionRules {
           debug('RULES', `  ${name} =`, JSON.stringify(transfer[name]))
         }
       }
-      // Verify condition before adding.
-      if (transfer.if === undefined || engine.eval(transfer.if, { ...values, ...answers })) {
+      // Verify condition before adding. A string result is evaluated once more as an expression.
+      const condition = transfer.if
+      const accepted = condition === undefined || (typeof condition === 'string' ? engine.eval(condition, { ...values, ...answers }) : !!condition)
+      if (accepted) {
         // Catch bad results from formulas. Hit two jokers as well.
         if (isAssetTransfer(transfer) && transfer.asset !== 'undefined' && transfer.asset !== 'null') {
           transfers.push(transfer as AssetTransfer)

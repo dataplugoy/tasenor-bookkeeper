@@ -70,4 +70,58 @@ describe('TransactionRules', () => {
 
   })
 
+  test('conditional results', async () => {
+    const handler = new TransactionImportHandler('Test')
+
+    const lines: TextFileLine[] = [
+      {
+        line: 0,
+        text: 'ABC',
+        columns: {
+          fee: '0'
+        }
+      }
+    ]
+
+    const segment: ImportSegment = {
+      id: 'ABCDE',
+      time: new Date(),
+      lines: [
+        {
+          file: 'test.csv',
+          number: 0
+        }
+      ]
+    }
+
+    const transfer = (amount: string, cond: string) => ({
+      reason: "'transfer'",
+      type: "'currency'",
+      asset: 'config.currency',
+      amount,
+      if: cond
+    })
+
+    const config: ProcessConfig = {
+      currency: 'USD',
+      rules: [
+        {
+          name: 'Condition test',
+          filter: 'true',
+          result: [
+            transfer('1', 'true'),
+            transfer('2', 'false'),
+            transfer('3', "$('missing', null)"),
+            transfer('4', 'fee'),
+            transfer('5', 'num(fee) == 0')
+          ]
+        }
+      ]
+    }
+
+    const result = await handler.classifyLines(lines, config, segment)
+
+    expect(result.transfers.map(t => t.amount)).toStrictEqual([1, 5])
+  })
+
 })
