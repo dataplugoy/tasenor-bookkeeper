@@ -96,7 +96,7 @@ class ToolsForDatabases extends Component {
               <CardActions>
                 <Button className="ViewDatabase" variant="outlined" color="primary" size="small" onClick={() => goto(db)}><Trans>View</Trans></Button>
                 <Button className="DownloadDatabase" variant="outlined" color="primary" size="small" onClick={() => download(db)}><Trans>Download</Trans></Button>
-                <Button className="DeleteDatabase" style={{ color: 'red' }} size="small" onClick={() => this.setState({ showDeleteDialog: true, dbToDelete: db, nameInput: '' })}><Trans>Delete</Trans></Button>
+                <Button className="DeleteDatabase" color="error" size="small" onClick={() => this.setState({ showDeleteDialog: true, dbToDelete: db, nameInput: '' })}><Trans>Delete</Trans></Button>
               </CardActions>
             </Card>
           ))}

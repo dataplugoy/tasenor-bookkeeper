@@ -3,9 +3,9 @@ import { Card, CardContent, CardHeader, Typography } from '@mui/material'
 import { PropTypes } from 'prop-types'
 
 const Panel = ({ children, title }) => (
-  <Card style={{ margin: '1rem' }}>
+  <Card className="Panel-card" sx={{ m: 2 }}>
     {
-      title && <CardHeader title={<Typography variant="h5" color="textSecondary">{title}</Typography>} />
+      title && <CardHeader title={<Typography variant="h6">{title}</Typography>} />
     }
     <CardContent>
       {children}

@@ -4,12 +4,12 @@ import React from 'react'
 export const IconSpacer = () => {
   return <Box sx={{
     display: 'inline-block',
-    height: '2rem',
-    marginLeft: '1.5rem',
-    marginRight: '1.5rem',
-    borderWidth: '1px',
-    borderStyle: 'solid',
+    height: '1.6rem',
+    marginLeft: '0.75rem',
+    marginRight: '0.75rem',
+    borderLeftWidth: '1px',
+    borderLeftStyle: 'solid',
     borderColor: (theme) => theme.palette.divider,
-    transform: 'translateY(0.5rem)'
+    verticalAlign: 'middle'
   }} />
 }

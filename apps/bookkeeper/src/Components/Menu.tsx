@@ -8,8 +8,7 @@ import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import { Avatar, ButtonGroup } from '@mui/material'
-import { AccountCircle, CalendarToday, NavigateBefore, NavigateNext, Storage } from '@mui/icons-material'
+import { AccountCircle, CalendarToday, Home, NavigateBefore, NavigateNext, Storage } from '@mui/icons-material'
 import Configuration from '../Configuration'
 import { error, haveCursor } from '@tasenor/common'
 import withStore from '../Hooks/withStore'
@@ -211,18 +210,20 @@ export const Menu = withStore(observer((props: MenuProps): React.ReactNode => {
     if (!current) {
       current = 'dashboard'
     }
+    const isCurrent = current === entry.path && entry.path !== ''
     return <Button
       key={entry.title}
       id={`${entry.title}Menu`}
       data-cy={`menu-${entry.title}`}
-      className="button"
+      className={`button${isCurrent ? ' current' : ''}${entry.path === 'dashboard' ? ' home' : ''}`}
       disabled={!isEnabled(entry)}
-      color={current === entry.path ? 'secondary' : 'primary'}
-      variant="contained"
+      color="inherit"
+      aria-current={isCurrent ? 'page' : undefined}
+      aria-label={entry.path === 'dashboard' ? t(entry.help) : undefined}
       onClick={() => entry.action()}
       title={t(entry.help) + (entry.shortcut ? ` (${Configuration.COMMAND_KEY} + ${entry.shortcut})` : '')}
     >
-      <Trans>menu-{entry.title}</Trans>
+      {entry.path === 'dashboard' ? <Home fontSize="small"/> : <Trans>menu-{entry.title}</Trans>}
     </Button>
   }
 
@@ -269,53 +270,64 @@ export const Menu = withStore(observer((props: MenuProps): React.ReactNode => {
     }
   }
 
+  const visible = menu.filter(entry => isVisible(entry))
+  const navigation = visible.filter(entry => entry.path !== '')
+  const logout = visible.find(entry => entry.title === 'Logout')
+
   return (
     <div className="Menu">
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" title={`${t('Go to Dashboard.')} (${Configuration.COMMAND_KEY} + 1)`} className="icon" color="inherit" aria-label="menu" onClick={() => (document.location = '/')}>
-            <img className="logo" alt="logo" src="/logo.png"/>
-          </IconButton>
-          <span className="database">
-            <Storage/> {store.db || <>&nbsp;&nbsp;&mdash;</>}
-          </span>
-          <span className="period">
-            <CalendarToday/>
-            {
-              store.period &&
-              <>
-                &nbsp;
-                <Localize date={store.period.start_date}/>
-                &nbsp;
-                <ButtonGroup variant="contained" color="primary">
-                  <Button onClick={() => handleSelect('previous-period')}><NavigateBefore/></Button>
-                  <Button onClick={() => handleSelect('next-period')}><NavigateNext/></Button>
-                </ButtonGroup>
-              </>
-            }
-            {
-              !store.period &&
-              <>
-                &nbsp;&nbsp;&mdash;
-              </>
-            }
-          </span>
-          {
-            menu.filter(entry => isVisible(entry)).map(entry => renderMenu(entry, tool as string))
-          }
-          <div className="language">
-            <LanguageSelector />
+      <AppBar position="static" elevation={0}>
+        <Toolbar className="toolbar" disableGutters>
+          <button type="button" className="brand" title={`${t('Go to Dashboard.')} (${Configuration.COMMAND_KEY} + 1)`} aria-label={t('Go to Dashboard.')} onClick={() => (document.location = '/')}>
+            <img className="logo" alt="" src="/logo.png"/>
+            <span className="wordmark">Tasenor</span>
+          </button>
+
+          <div className="context" aria-label={t('Database')}>
+            <span className="database" title={t('Database')}>
+              <Storage fontSize="small"/>
+              <span className="value">{store.db || '—'}</span>
+            </span>
+            <span className="period" title={t('Period')}>
+              <CalendarToday fontSize="small"/>
+              {
+                store.period &&
+                <>
+                  <span className="value">
+                    <Localize date={store.period.start_date}/>
+                    <span className="dash">–</span>
+                    <Localize date={store.period.end_date}/>
+                  </span>
+                  <span className="stepper">
+                    <IconButton size="small" color="inherit" aria-label={t('Previous period')} title={t('Previous period')} onClick={() => handleSelect('previous-period')}><NavigateBefore fontSize="small"/></IconButton>
+                    <IconButton size="small" color="inherit" aria-label={t('Next period')} title={t('Next period')} onClick={() => handleSelect('next-period')}><NavigateNext fontSize="small"/></IconButton>
+                  </span>
+                </>
+              }
+              {
+                !store.period && <span className="value">—</span>
+              }
+            </span>
           </div>
-          {
-            store.isLoggedIn() &&
-            <div style={{ marginLeft: '1rem' }}>
-              <Avatar alt={t('Edit Settings')}>
-                <IconButton id="Edit Settings" title={`${t('Edit Settings')} (${Configuration.COMMAND_KEY} + 0)`} color="inherit" onClick={() => handleSelect('settings')}>
-                  <AccountCircle fontSize="large"/>
-                </IconButton>
-              </Avatar>
-            </div>
-          }
+
+          <nav className="navigation">
+            {
+              navigation.map(entry => renderMenu(entry, tool as string))
+            }
+          </nav>
+
+          <div className="end">
+            <span className="language" title={t('Change language')}>
+              <LanguageSelector />
+            </span>
+            {
+              store.isLoggedIn() &&
+              <IconButton id="Edit Settings" className="settings" title={`${t('Edit Settings')} (${Configuration.COMMAND_KEY} + 0)`} aria-label={t('Edit Settings')} color="inherit" onClick={() => handleSelect('settings')}>
+                <AccountCircle/>
+              </IconButton>
+            }
+            {logout && renderMenu(logout, tool as string)}
+          </div>
         </Toolbar>
       </AppBar>
     </div>

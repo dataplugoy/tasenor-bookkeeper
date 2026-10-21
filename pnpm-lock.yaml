@@ -36,6 +36,9 @@ importers:
       '@emotion/styled':
         specifier: ^11.11.0
         version: 11.14.1(@emotion/react@11.14.0)(@types/react@17.0.89)(react@17.0.2)
+      '@fontsource-variable/libre-franklin':
+        specifier: ^5.3.0
+        version: 5.3.0
       '@mui/icons-material':
         specifier: ^5.15.10
         version: 5.18.0(@mui/material@5.18.0)(@types/react@17.0.89)(react@17.0.2)
@@ -4816,6 +4819,10 @@ packages:
   /@faker-js/faker@5.5.3:
     resolution: {integrity: sha512-R11tGE6yIFwqpaIqcfkcg7AICXzFg14+5h5v0TfF/9+RMDL6jhzCy/pxHVOfbALGdtVYdt6JdR21tuxEgl34dw==}
     deprecated: Please update to a newer version.
+    dev: false
+
+  /@fontsource-variable/libre-franklin@5.3.0:
+    resolution: {integrity: sha512-PEQemCKVRtkLZJNpfvR4wG7x87c8iG05XJuEaX59ogMcAQpdtCZz/NXZUrXLJyvyx3/HD70W4LUppWLBdEdU2g==}
     dev: false
 
   /@gar/promisify@1.1.3:

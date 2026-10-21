@@ -1,25 +1,210 @@
-.Menu .logo {
-  height: 40px;
-  border: 1px solid rgba(255,255,255,0.3);
-  border-radius: 5px;
+.Menu .MuiAppBar-root {
+  background: var(--ledger-binding);
+  color: #eef3f0;
+  border-bottom: 1px solid var(--ledger-binding-deep);
 }
 
-.Menu .database, .Menu .period {
-  display: inline-block;
-  margin-left: 2rem;
-  padding: 0.2rem 1rem;
-  font-stretch: extra-condensed;
-  font-family: Times;
-  font-size: 2rem;
-  border-radius: 4px;
-  border: 1px solid rgba(255,255,255,0.5);
-  background-color: rgba(0,0,0,0.2);;
+.Menu .toolbar {
+  min-height: var(--top-height, 60px);
+  height: var(--top-height, 60px);
+  padding: 0 12px 0 10px;
+  gap: 6px;
+}
+
+.Menu .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 10px 4px 4px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+
+.Menu .brand:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.Menu .logo {
+  height: 36px;
+  width: 36px;
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.Menu .wordmark {
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+}
+
+/* Where am I: database and period, as one recessed plate. */
+.Menu .context {
+  display: flex;
+  align-items: stretch;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--ledger-binding-deep);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.Menu .context > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  white-space: nowrap;
+}
+
+.Menu .context > span + span {
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.Menu .context .MuiSvgIcon-root {
+  color: var(--ledger-brass);
+}
+
+.Menu .context .value {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.Menu .context .dash {
+  margin: 0 0.35em;
+  opacity: 0.6;
+}
+
+.Menu .context .period {
+  padding-right: 4px;
+}
+
+.Menu .context .stepper {
+  display: flex;
+  margin-left: 2px;
+}
+
+.Menu .context .stepper .MuiIconButton-root {
+  color: rgba(238, 243, 240, 0.8);
+  padding: 4px;
+}
+
+.Menu .context .stepper .MuiIconButton-root:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.Menu .navigation {
+  display: flex;
+  align-self: stretch;
+  align-items: stretch;
+  margin-left: 14px;
+  gap: 2px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
 .Menu .button {
-  margin-left: 1rem;
+  position: relative;
+  border-radius: 0;
+  padding: 0 12px;
+  min-width: 0;
+  color: rgba(238, 243, 240, 0.78);
+  font-weight: 550;
+  font-size: 0.92rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.Menu .button:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.Menu .button.Mui-disabled {
+  color: rgba(238, 243, 240, 0.32);
+}
+
+/* Current page: brass bar along the bottom edge, like a ribbon bookmark. */
+.Menu .button.current {
+  color: #fff;
+  font-weight: 650;
+}
+
+.Menu .button.current::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--ledger-brass);
+}
+
+.Menu .button.home {
+  padding: 0 10px;
+}
+
+.Menu .end {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 4px;
+  padding-left: 12px;
+}
+
+.Menu .end .button {
+  align-self: stretch;
+  border-radius: 6px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  margin-left: 6px;
 }
 
 .Menu .language {
-  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.Menu .language:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.Menu .language img {
+  display: block;
+  height: 16px;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+.Menu .settings {
+  color: rgba(238, 243, 240, 0.85);
+}
+
+@media (max-width: 1280px) {
+  .Menu .wordmark {
+    display: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .Menu .context .database {
+    display: none !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .Menu .context .period .value {
+    display: none;
+  }
 }

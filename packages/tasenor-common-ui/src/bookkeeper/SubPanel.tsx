@@ -8,7 +8,7 @@ export interface SubPanelProps {
 
 export const SubPanel = (props: SubPanelProps) => {
   return (
-    <Card className={props.className || 'SubPanel'} variant="outlined" style={{ margin: '1rem' }}>
+    <Card className={props.className || 'SubPanel'} variant="outlined" sx={{ m: 2 }}>
       <CardContent>
         <Typography variant="body1" component="div">
           {props.children}

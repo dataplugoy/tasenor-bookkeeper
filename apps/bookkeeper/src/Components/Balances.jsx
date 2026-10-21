@@ -18,7 +18,7 @@ class Balances extends Component {
     }
 
     return (
-      <div style={{ margin: '1rem' }}>
+      <div>
         <Title className="TransactionsPage"><Trans>Account Balances</Trans></Title>
         <BalanceTable balances={this.props.store.balances}/>
       </div>

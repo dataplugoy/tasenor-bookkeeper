@@ -4,8 +4,8 @@ import { Box } from '@mui/material'
 
 const LoginSidePanel = () => {
   return (
-    <Box>
-      <img style={{ width: '100%' }} alt="Tasenor" src="/tasenor.png"/>
+    <Box className="LoginSidePanel">
+      <img alt="Tasenor" src="/tasenor.png"/>
     </Box>
   )
 }

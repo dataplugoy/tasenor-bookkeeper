@@ -108,7 +108,7 @@ export const IconButton = (props: IconButtonProps) => {
       title={t('icon-' + title) + (shortcut ? ` (Ctrl + ${shortcut})` : '')}
       disabled={disabled}
       onClick={(e) => handleClick(e)}>
-        <Icon style={{ fontSize: 30 }}/>
+        <Icon style={{ fontSize: 24 }}/>
     </MuiIconButton>
   )
 }

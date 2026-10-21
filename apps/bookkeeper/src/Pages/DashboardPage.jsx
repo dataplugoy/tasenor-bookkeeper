@@ -4,8 +4,8 @@ import { Localize, Title } from '@tasenor/common-ui'
 import { observer } from 'mobx-react'
 import { withTranslation, Trans } from 'react-i18next'
 import Store from '../Stores/Store'
-import { Button, Typography, Avatar, List, ListItem } from '@mui/material'
-import Panel from '../Components/Panel'
+import { Box, Button, Typography, Avatar, List, ListItem } from '@mui/material'
+import { Lock, NavigateNext } from '@mui/icons-material'
 import { action } from 'mobx'
 import { haveCursor } from '@tasenor/common'
 import withStore from '../Hooks/withStore'
@@ -83,28 +83,36 @@ class DashboardPage extends Component {
     return (
       <div className="Dashboard">
         <Title><Trans>Database</Trans>: {store.db}</Title>
-        <Panel title={<Trans>Company Info</Trans>}>
-          <Trans>Business name</Trans>: {store.settings.get('companyName')}<br />
-          <Trans>Business ID</Trans>: {store.settings.get('companyCode')}<br />
-          <br />
-          <Typography variant="h5" color="textSecondary"><Trans>Periods</Trans></Typography>
-          <List className="PeriodList">
+        <Box className="DashboardCompany">
+          <Typography className="CompanyName" variant="h4" component="h2">{store.settings.get('companyName')}</Typography>
+          <Typography className="CompanyCode" color="text.secondary">
+            <Trans>Business ID</Trans>: {store.settings.get('companyCode')}
+          </Typography>
+        </Box>
+        <Box className="DashboardPeriods">
+          <Typography variant="h6" component="h3" className="DashboardHeading"><Trans>Periods</Trans></Typography>
+          <List className="PeriodList" disablePadding>
           {store.database && store.database.periods.reverse().map((period, index) => {
             const letter = 'ABCDEFGHIJKLMNOPQRSTUVWZ'[index]
             return (
                 <ListItem
                   id={`period-${period.start_date}-${period.end_date}`}
                   key={period.id}
+                  disablePadding
                   selected={parseInt(periodId) === period.id}>
-                  <Button id={letter} onClick={() => this.selectPeriod(period)}>
-                    <Avatar>{letter}</Avatar>&nbsp;
-                    <Localize date={period.start_date} /> &mdash; <Localize date={period.end_date} />
+                  <Button id={letter} className="PeriodButton" color="inherit" onClick={() => this.selectPeriod(period)}>
+                    <Avatar>{letter}</Avatar>
+                    <span className="PeriodRange">
+                      <Localize date={period.start_date} /><span className="dash">–</span><Localize date={period.end_date} />
+                    </span>
+                    {period.locked && <Lock className="PeriodLocked" fontSize="small" titleAccess={this.props.t('Locked')}/>}
+                    <NavigateNext className="PeriodGo" fontSize="small"/>
                   </Button>
                 </ListItem>
             )
           })}
           </List>
-        </Panel>
+        </Box>
       </div>
     )
   }

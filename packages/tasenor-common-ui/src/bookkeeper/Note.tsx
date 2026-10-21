@@ -1,5 +1,6 @@
 import React from 'react'
-import { Typography } from '@mui/material'
+import { Box } from '@mui/material'
+import { InfoOutlined } from '@mui/icons-material'
 
 export interface NoteProps {
   children: React.ReactNode
@@ -13,8 +14,27 @@ export const Note = (props: NoteProps) => {
     return <></>
   }
   return (
-    <Typography className={className || 'Note'} sx={{ m: 2 }} color="error" align="center" variant="h6">
-      {children}
-    </Typography>
+    <Box
+      className={className || 'Note'}
+      sx={{
+        m: 2,
+        px: 2,
+        py: 1.5,
+        display: 'flex',
+        alignItems: 'flex-start',
+        gap: 1.5,
+        borderRadius: 1,
+        border: 1,
+        borderColor: 'divider',
+        borderLeft: 3,
+        borderLeftColor: 'secondary.main',
+        color: 'text.secondary',
+        fontSize: '0.95rem',
+        lineHeight: 1.5,
+      }}
+    >
+      <InfoOutlined fontSize="small" sx={{ color: 'secondary.main', mt: '2px' }}/>
+      <Box>{children}</Box>
+    </Box>
   )
 }

@@ -1,4 +1,7 @@
 @media print {
+  body {
+    background: white !important;
+  }
   .Page {
     display: block;
   }
@@ -20,11 +23,8 @@
     overflow-y: initial !important;
   }
   .Panel {
-    background-color: white;
-    border-top: none !important;
-    border-left: none !important;
-    border-bottom: none !important;
-    border-right: none !important;
+    background-color: white !important;
+    border: none !important;
   }
   .MuiPaper-elevation4 {
     box-shadow: none !important;
@@ -38,33 +38,76 @@
 }
 
 @media screen {
+  :root {
+    --top-height: 60px;
+    --gap: 10px;
+  }
+
+  .App {
+    min-height: 100vh;
+    background: var(--ledger-canvas);
+  }
+
   .Page {
     display: grid;
-    height: calc(100vh - 90px);
-    grid-template-columns: 450px auto;
+    gap: var(--gap);
+    padding: var(--gap);
+    height: calc(100vh - var(--top-height));
+    grid-template-columns: minmax(340px, 420px) minmax(0, 1fr);
   }
 
   .Panel {
-    margin: 3px;
+    border: 1px solid var(--ledger-rule);
+    border-radius: 8px !important;
+    box-shadow: 0 1px 2px rgba(15, 40, 32, 0.05) !important;
+  }
+
+  .TopPanel.Panel {
+    border: none;
+    border-radius: 0 !important;
+    box-shadow: none !important;
   }
 
   .SidePanel {
     overflow-y: auto;
-    max-height: calc(100vh - 90px);
+    min-height: 0;
   }
 
   .MainArea {
     display: grid;
-    grid-template-rows: fit-content(100%) auto;
-    height: calc(100vh - 90px);
+    gap: var(--gap);
+    grid-template-rows: fit-content(100%) minmax(0, 1fr);
+    min-height: 0;
+    position: relative;
   }
 
   .MainTopPanel {
     height: fit-content;
+    padding: 0 4px;
+  }
+
+  /* Hide the tool strip entirely when the page has nothing to put there. */
+  .MainTopPanel:empty {
+    display: none;
+  }
+
+  .MainArea:has(> .MainTopPanel:empty) {
+    grid-template-rows: minmax(0, 1fr);
   }
 
   .MainPanel {
     overflow-y: auto;
+    min-height: 0;
+  }
+
+  .Version {
+    position: absolute;
+    right: 12px;
+    bottom: 6px;
+    font-size: 0.65rem;
+    color: var(--ledger-ink-soft);
+    opacity: 0.7;
+    pointer-events: none;
   }
 
   .TransactionDetails {
@@ -72,42 +115,322 @@
   }
 
   .current {
-    font-weight: bold;
+    font-weight: 600;
   }
 
   .sub-selected {
-    outline: 1px black solid !important;
+    outline: 2px solid var(--ledger-brass) !important;
     outline-offset: 1px;
+    border-radius: 3px;
   }
 
   .hide-overflow {
     white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .MuiTableCell-body {
     cursor: pointer;
   }
+
+  /* Figures line up in columns everywhere. */
+  .Money, .MuiTableCell-root {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Thin, quiet scrollbars inside the panels. */
+  .SidePanel, .MainPanel {
+    scrollbar-width: thin;
+    scrollbar-color: var(--ledger-rule) transparent;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .Page {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .SidePanel {
+    max-height: 40vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation-duration: 0s !important;
+  }
+}
+
+/* Account balances in the side panel. */
+.BalanceTableContainer {
+  padding: 0 8px 12px;
+  overflow: visible !important;
+}
+
+.BalanceTable .MuiTableCell-root {
+  padding: 5px 8px;
+}
+
+.BalanceTable .number {
+  width: 1%;
+  white-space: nowrap;
+  color: var(--ledger-ink-soft);
+}
+
+.BalanceTable .balance {
+  white-space: nowrap;
+}
+
+.BalanceTable .BalanceLine.Mui-selected .number {
+  color: inherit;
+  font-weight: 600;
+}
+
+.BalanceTable {
+  table-layout: auto;
+}
+
+.BalanceTable .account {
+  max-width: 0;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Sign-in screen: one sheet on the canvas, with ledger ruling as backdrop. */
+.LoginScreen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  background-color: var(--ledger-binding);
+  background-image:
+    repeating-linear-gradient(to bottom, transparent 0, transparent 31px, rgba(255, 255, 255, 0.045) 31px, rgba(255, 255, 255, 0.045) 32px);
+}
+
+.LoginCard {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  width: min(940px, 100%);
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5) !important;
+}
+
+.LoginBrand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 32px;
+  border-right: 1px solid var(--ledger-rule);
+  /* Faint green ruling with a red margin line, like a ledger page. */
+  background-image:
+    linear-gradient(to right, transparent 46px, rgba(179, 38, 30, 0.22) 46px, rgba(179, 38, 30, 0.22) 47px, transparent 47px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 27px, var(--ledger-rule) 27px, var(--ledger-rule) 28px);
+}
+
+.LoginSidePanel img {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  padding: 18px 20px;
+  background: var(--ledger-paper);
+  border: 1px solid var(--ledger-rule);
+  border-radius: 4px;
+  outline: 1px solid var(--ledger-rule);
+  outline-offset: 4px;
+}
+
+.LoginMain {
+  padding: 48px 44px 40px;
+}
+
+.LoginIntroduction {
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--ledger-rule);
+}
+
+.LoginFooter {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 18px;
+  color: rgba(238, 243, 240, 0.6);
+  font-size: 0.75rem;
+}
+
+.LoginFooter img {
+  display: block;
+  height: 16px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.LoginFooter .Version {
+  position: static;
+  color: inherit;
+  opacity: 1;
+}
+
+@media (max-width: 760px) {
+  .LoginCard {
+    grid-template-columns: 1fr;
+  }
+  .LoginBrand {
+    border-right: none;
+    border-bottom: 1px solid var(--ledger-rule);
+    padding: 28px;
+  }
+  .LoginMain {
+    padding: 28px 24px;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
-  .sub-selected {
-    outline: 2px whitesmoke solid !important;
-    outline-offset: 1px;
+  .LoginSidePanel img {
+    filter: brightness(1.6) saturate(0.8);
+    background: transparent;
   }
-  .Mui-selected {
-    background-color: rgba(255,0,200,0.3) !important;
+}
+
+/* Dashboard */
+.DashboardCompany {
+  padding: 8px 20px 24px;
+}
+
+.DashboardCompany .CompanyName {
+  font-size: 1.9rem;
+  margin-bottom: 4px;
+}
+
+.DashboardPeriods {
+  padding: 0 20px 24px;
+  max-width: 720px;
+}
+
+.DashboardHeading {
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--ledger-rule);
+}
+
+.PeriodList .MuiListItem-root {
+  border-bottom: 1px solid var(--ledger-rule);
+}
+
+.PeriodList .MuiListItem-root.Mui-selected {
+  box-shadow: inset 3px 0 0 var(--ledger-brass);
+}
+
+.PeriodButton {
+  width: 100%;
+  justify-content: flex-start;
+  gap: 14px;
+  padding: 10px 12px;
+  border-radius: 0;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.PeriodButton .dash {
+  margin: 0 0.4em;
+  color: var(--ledger-ink-soft);
+}
+
+.PeriodButton .PeriodLocked {
+  color: var(--ledger-ink-soft);
+}
+
+.PeriodButton .PeriodGo {
+  margin-left: auto;
+  color: var(--ledger-ink-soft);
+  opacity: 0;
+}
+
+.PeriodButton:hover .PeriodGo,
+.PeriodButton:focus-visible .PeriodGo {
+  opacity: 1;
+}
+
+/* Transactions */
+.TransactionTableContainer {
+  overflow: visible !important;
+  padding: 0 12px 16px;
+}
+
+.TransactionTable {
+  table-layout: fixed;
+}
+
+.TransactionTable .MuiTableCell-root {
+  padding: 6px 8px;
+  vertical-align: top;
+  line-height: 1.45;
+}
+
+.TransactionTable .MuiTableCell-head {
+  top: 0;
+  padding-top: 12px;
+  vertical-align: bottom;
+}
+
+.TransactionTable .Transaction .number {
+  color: var(--ledger-ink-soft);
+}
+
+.TransactionTable .description .MuiTypography-root {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.TransactionTable .debit,
+.TransactionTable .credit,
+.TransactionTable .total {
+  white-space: nowrap;
+}
+
+.TransactionTable .Transaction .total {
+  color: var(--ledger-ink-soft);
+}
+
+/* Totals are closed with a double rule, as in a paper ledger. */
+.TransactionTable .totals .MuiTableCell-root {
+  border-top: 3px double var(--ledger-ink-soft);
+  border-bottom: none;
+  padding-top: 8px;
+  font-size: 0.85rem;
+}
+
+.TransactionTable .tags img {
+  border-radius: 3px;
+}
+
+/* Remove decorations from navigational links in tables and lists. */
+.MainPanel a, .SidePanel a {
+  text-decoration: none;
+}
+
+.MainPanel a:hover, .SidePanel a:hover {
+  text-decoration: underline;
+}
+
+/* Entry lines of an opened document wrap instead of being cut. */
+.TransactionTable .TransactionDetails.hide-overflow {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media screen and (max-width: 900px) {
+  .TransactionTableContainer {
+    overflow-x: auto !important;
   }
-  .MuiTableRow-root .MuiTableCell-body {
-    border-color: rgba(255,255,255,0.2) !important;
-  }
-  .ReportDisplayTable tr.columns {
-    border-top-color: rgba(255,255,255,0.5);
-  }
-  a {
-    color: #4fc3f7;
-  }
-  a:visited {
-    color: #b39ddb;
+  .TransactionTable {
+    table-layout: auto;
+    min-width: 760px;
   }
 }

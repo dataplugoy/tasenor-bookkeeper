@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import { Trans, withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
-import { TextField, Button } from '@mui/material'
+import { TextField, Button, Stack } from '@mui/material'
 import { haveCursor } from '@tasenor/common'
 import withStore from '../Hooks/withStore'
 
@@ -61,6 +61,7 @@ class RegisterForm extends Component {
   render() {
 
     return <form>
+      <Stack spacing={2}>
         <TextField
           fullWidth
           name="full-name"
@@ -68,7 +69,6 @@ class RegisterForm extends Component {
           label={<Trans>Full Name</Trans>}
           onChange={(event) => (this.setState({ name: event.target.value }))}
         />
-        <br/>
         <TextField
           fullWidth
           name="email"
@@ -76,7 +76,6 @@ class RegisterForm extends Component {
           label={<Trans>Email</Trans>}
           onChange={(event) => (this.setState({ email: event.target.value }))}
         />
-        <br/>
         <TextField
           type="password"
           name="password"
@@ -85,7 +84,6 @@ class RegisterForm extends Component {
           label={<Trans>Password</Trans>}
           onChange={(event) => (this.setState({ password: event.target.value }))}
         />
-        <br/>
         <TextField
           type="password"
           name="password-again"
@@ -94,8 +92,7 @@ class RegisterForm extends Component {
           label={<Trans>Password Again</Trans>}
           onChange={(event) => (this.setState({ passwordAgain: event.target.value }))}
         />
-        <br/>
-        <br/>
+        <Stack direction="row" spacing={1} justifyContent="flex-end">
         <Button
           id="cancel"
           data-cy="button-Cancel"
@@ -105,15 +102,16 @@ class RegisterForm extends Component {
         >
             <Trans>Cancel</Trans>
           </Button>
-        &nbsp;
         <Button
           id="submit"
           data-cy="button-Submit"
-          variant="outlined"
+          variant="contained"
           onClick={() => this.onRegister()}
         >
           <Trans>Submit</Trans>
         </Button>
+        </Stack>
+      </Stack>
     </form>
   }
 }

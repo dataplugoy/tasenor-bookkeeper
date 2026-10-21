@@ -423,8 +423,8 @@ class TransactionTable extends Component {
     }
 
     ret.push(
-      <TableContainer key="totals">
-        <Table className="TransactionTable" size="medium" padding="none">
+      <TableContainer key="totals" className="TransactionTableContainer">
+        <Table className="TransactionTable" size="medium" padding="none" stickyHeader>
           <TableHead>
             <TableRow>
               <TableCell style={{ width: '3rem' }} variant="head" align="left"><Trans>#</Trans></TableCell>

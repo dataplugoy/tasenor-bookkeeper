@@ -4,7 +4,7 @@ import { observer, inject } from 'mobx-react'
 import BalanceModel from '../Models/BalanceModel'
 import Cursor from '../Stores/Cursor'
 import { Money } from '@tasenor/common-ui'
-import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material'
+import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material'
 import { Trans, withTranslation } from 'react-i18next'
 import withRouter from '../Hooks/withRouter'
 
@@ -54,8 +54,8 @@ class BalanceTable extends Component {
   render() {
 
     return (
-      <TableContainer component={Paper}>
-        <Table className="BalanceTable" data-cy="box-Balance" size="medium" padding="none">
+      <TableContainer className="BalanceTableContainer">
+        <Table className="BalanceTable" data-cy="box-Balance" size="small" stickyHeader>
           <TableHead>
             <TableRow>
               <TableCell variant="head" align="center"><Trans>#</Trans></TableCell>

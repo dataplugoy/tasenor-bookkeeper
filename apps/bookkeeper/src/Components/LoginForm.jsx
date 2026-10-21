@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Trans, withTranslation } from 'react-i18next'
 import Store from '../Stores/Store'
-import Panel from './Panel'
-import { TextField, Button, Typography } from '@mui/material'
+import { Box, Stack, TextField, Button, Typography } from '@mui/material'
 import RegisterForm from './RegisterForm'
 import SubTitle from './SubTitle'
 import { haveCursor, haveSettings } from '@tasenor/common'
@@ -57,54 +56,51 @@ class LoginForm extends Component {
   render() {
     if (this.state.showRegistration) {
       return (
-        <Panel>
+        <Box className="LoginForm">
           <SubTitle><Trans>Register New Account</Trans></SubTitle>
           <RegisterForm
             onCancel={() => this.setState({ showRegistration: false })}
             onRegister={({ user, name, password, email }) => this.onRegister({ user, name, password, email })}
           />
-        </Panel>
+        </Box>
       )
     }
 
     return (
-      <Panel>
+      <Box className="LoginForm">
         <form onSubmit={(event) => { event.preventDefault(); this.onLogin() }}>
-          <TextField
-            name="username"
-            autoComplete="username"
-            style={{ width: '50%' }}
-            data-cy="text-Email"
-            label={<Trans>Email</Trans>}
-            onChange={(event) => (this.setState({ user: event.target.value }))}
-          />
-          <br/>
-          <br/>
-          <TextField
-            name="password"
-            type="password"
-            autoComplete="current-password"
-            style={{ width: '50%' }}
-            data-cy="text-Password"
-            label={<Trans>Password</Trans>}
-            onChange={(event) => (this.setState({ password: event.target.value }))}
-          />
-          <br/>
-          <br/>
-          <Button id="login" data-cy="button-Login" variant="outlined" type="submit"><Trans>Login</Trans></Button>
+          <Stack spacing={2}>
+            <TextField
+              name="username"
+              autoComplete="username"
+              fullWidth
+              autoFocus
+              data-cy="text-Email"
+              label={<Trans>Email</Trans>}
+              onChange={(event) => (this.setState({ user: event.target.value }))}
+            />
+            <TextField
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              fullWidth
+              data-cy="text-Password"
+              label={<Trans>Password</Trans>}
+              onChange={(event) => (this.setState({ password: event.target.value }))}
+            />
+            <Button id="login" data-cy="button-Login" variant="contained" size="large" type="submit" fullWidth><Trans>Login</Trans></Button>
+          </Stack>
         </form>
-        <br />
-        <br />
         {
           this.state.allowRegistration &&
-            <Typography color="secondary">
+            <Typography color="text.secondary" sx={{ mt: 2 }}>
               <Trans>No account yet?</Trans>
               <Button id="Register an account" onClick={() => this.setState({ showRegistration: true })} color="secondary">
                 <Trans>Register an account!</Trans>
               </Button>
             </Typography>
         }
-      </Panel>
+      </Box>
     )
   }
 }

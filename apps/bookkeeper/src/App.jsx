@@ -19,6 +19,7 @@ import ImportPage from './Pages/ImportPage'
 import ImportToolPanel from './Components/ImportToolPanel'
 import LoginPage from './Pages/LoginPage'
 import LoginSidePanel from './Components/LoginSidePanel'
+import LanguageSelector from './Components/LanguageSelector'
 import Menu from './Components/Menu'
 import Messages from './Components/Messages'
 import ReportPage from './Pages/ReportPage'
@@ -39,12 +40,44 @@ import jwtDecode from 'jwt-decode'
 @observer
 class App extends Component {
 
+  renderLoginScreen() {
+    return (
+      <div className="LoginScreen">
+        <Paper className="LoginCard" elevation={0}>
+          <div className="LoginBrand">
+            <LoginSidePanel/>
+          </div>
+          <div className="LoginMain">
+            <LoginPage/>
+          </div>
+        </Paper>
+        <div className="LoginFooter">
+          <LanguageSelector/>
+          <span className="Version not-logged-in">v{Configuration.VERSION}</span>
+        </div>
+      </div>
+    )
+  }
+
   render() {
     const store = haveStore()
 
     return (
       <div className="App">
         <Messages />
+        <Routes>
+          <Route exact path="/" element={store.isLoggedIn() ? this.renderShell() : this.renderLoginScreen()}/>
+          <Route path="*" element={this.renderShell()}/>
+        </Routes>
+      </div>
+    )
+  }
+
+  renderShell() {
+    const store = haveStore()
+
+    return (
+      <>
         <div className="TopPanel Panel">
           <Routes>
             <Route exact path="/:db" element={<Menu/>}/>
@@ -87,7 +120,7 @@ class App extends Component {
           </Routes>
         </div>
         <div className="Page">
-          <Paper className="SidePanel Panel" elevation={4}>
+          <Paper className="SidePanel Panel" elevation={0}>
             <Routes>
               <Route exact path="/:db" element={<DatabaseList/>}/>
               <Route exact path="/:db/admin" element={<AdminToolsList/>}/>
@@ -119,14 +152,13 @@ class App extends Component {
               <Route exact path="/:db/tools/:periodId//:tool?" element={<ToolsList/>}/>
               <Route exact path="/:db/tools//:accountId/:tool?" element={<ToolsList/>}/>
               <Route exact path="/:db/tools///:tool?" element={<ToolsList/>}/>
-              <Route exact path="/" element={<>{ !store.isLoggedIn() && <LoginSidePanel/>}</>}/>
               <Route exact path="/" element={<DatabaseList/>}/>
               <Route path="/:db/account/:periodId?/:accountId?" element={<Account/>}/>
               <Route path="/:db/txs/:periodId/:accountId?" element={<Balances/>}/>
             </Routes>
           </Paper>
           <div className="MainArea">
-            <Paper className="MainTopPanel Panel" elevation={4}>
+            <Paper className="MainTopPanel Panel" elevation={0}>
               {store.motd && <Alert variant="filled" severity="error"><b>{store.motd}</b></Alert>}
               <Routes>
                 <Route exact path="/:db" element={<></>}/>
@@ -164,7 +196,7 @@ class App extends Component {
                 <Route path="/:db/txs/:periodId/:accountId?" element={<TransactionToolPanel/>}/>
               </Routes>
             </Paper>
-            <Paper className="MainPanel Panel" elevation={4}>
+            <Paper className="MainPanel Panel" elevation={0}>
               <Routes>
                 <Route exact path="/" element={<LoginPage/>}/>
                 <Route path="/:db/txs/:periodId/:accountId?" element={<TransactionsPage/>}/>
@@ -201,13 +233,13 @@ class App extends Component {
                 <Route exact path="/:db/shop///:plugin?" element={<ShopPage/>}/>
               </Routes>
             </Paper>
-            <div className={`Version ${store.token ? 'logged-in' : 'not-logged-in'}`} style={{ color: 'inherit', opacity: 0.5, fontSize: '0.6rem', position: 'absolute', right: '2px', bottom: '2px' }}>
+            <div className={`Version ${store.token ? 'logged-in' : 'not-logged-in'}`}>
               v{Configuration.VERSION}
               <div className="current-user" data-cy={store.token ? jwtDecode(store.token).data.owner : ''}/>
             </div>
           </div>
         </div>
-      </div>
+      </>
     )
   }
 }
