@@ -245,6 +245,8 @@ test('Rules: sum()', () => {
   expect(e.eval("sum([{a: 3}, {b: -4}, {a: 1, b: 5}], 'b')")).toBe(1)
   expect(e.eval("sum([{a: 3}, {b: -4}, {a: 1, b: 5}], 'c')")).toBe(0)
   expect(e.eval("sum([], 'c')")).toBe(0)
+  expect(e.eval("sum([1.5, '2.25', 0.25])")).toBe(4)
+  expect(e.eval("sum([{a: 1.5}, {a: '-0.25'}], 'a')")).toBe(1.25)
 })
 
 test('Rules: collect()', () => {
