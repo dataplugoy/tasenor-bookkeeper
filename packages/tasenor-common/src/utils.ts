@@ -132,7 +132,7 @@ export function strRound(n: number): string {
   const neg = (n < 0)
   const s = neg ? `${n}`.substring(1) : `${n}`
 
-  const re = new RegExp(`9{${ROUND_NINES}}$`)
+  const re = new RegExp(`\\.\\d*9{${ROUND_NINES}}$`)
   if (re.test(s)) {
     const body = s.replace(/9+$/, '')
     if (body[body.length - 1] === '.') {

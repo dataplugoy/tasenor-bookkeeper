@@ -30,4 +30,7 @@ test('string rounding', () => {
   expect(strRound(0.009999)).toBe('0.01')
   expect(strRound(-2.08999999)).toBe('-2.09')
   expect(strRound(119.999999)).toBe('120')
+  expect(strRound(9999)).toBe('9999')
+  expect(strRound(19999)).toBe('19999')
+  expect(strRound(-29999)).toBe('-29999')
 })
