@@ -24,4 +24,7 @@ test('Filtering: EqualityRuleShortcut', async () => {
   expect(filter2function({ a: [1, 2] })({ a: 2, b: 1 })).toBeTruthy()
   expect(filter2function({ a: [1, 2] })({ a: 3, b: 1 })).toBeFalsy()
   expect(filter2function({ a: [] })({ a: 1 })).toBeFalsy()
+  expect(filter2function<unknown>({ a: 2 })(null)).toBeFalsy()
+  expect(filter2function<unknown>({ a: 2 })(undefined)).toBeFalsy()
+  expect(filter2function<unknown>({ a: 2 })(2)).toBeFalsy()
 })

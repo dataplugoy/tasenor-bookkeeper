@@ -29,7 +29,7 @@ export function filter2function<TargetType=Record<string, unknown> >(rule: Filte
   }
 
   // Function to verify that the argument is valid for comparison.
-  const isValid = (arg: TargetType) => typeof arg === 'object' || arg !== null
+  const isValid = (arg: TargetType) => typeof arg === 'object' && arg !== null
 
   // Helper to create function for matching.
   const makeRule = (k, v): FilterFunction<TargetType> => {
