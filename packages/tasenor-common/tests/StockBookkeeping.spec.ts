@@ -110,3 +110,13 @@ test('StockBookkeeping applying stock data', async () => {
     NAKD: 10
   })
 })
+
+test('StockBookkeeping summary does not modify stored records', async () => {
+  const stock = new StockBookkeeping()
+  stock.change(new Date('2023-01-01'), 'stock', 'GME' as StockTicker, 2, 100)
+
+  expect(stock.summary(null, false, false)).toStrictEqual({ GME: { amount: 2, value: 100 } })
+  expect(stock.summary(null, true, false)).toStrictEqual({ 'stock.GME': { amount: 2, value: 100 } })
+  expect(stock.last('stock', 'GME' as StockTicker).time).toStrictEqual(new Date('2023-01-01'))
+  expect(stock.get(new Date('2022-12-31'), 'stock', 'GME' as StockTicker).amount).toBe(0)
+})

@@ -280,7 +280,7 @@ export class StockBookkeeping {
     if (addType) {
       // With type.
       for (const [type, asset] of this.assets()) {
-        result[`${type}.${asset}`] = this.last(type, asset)
+        result[`${type}.${asset}`] = { ...this.last(type, asset) }
         if (!addTime) {
           delete result[`${type}.${asset}`].time
         }
@@ -293,7 +293,7 @@ export class StockBookkeeping {
     } else {
       // Without type.
       for (const [type, asset] of this.assets()) {
-        result[asset] = this.last(type, asset)
+        result[asset] = { ...this.last(type, asset) }
         if (!addTime) {
           delete result[asset].time
         }
