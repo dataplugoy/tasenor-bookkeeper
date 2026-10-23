@@ -28,7 +28,7 @@ export async function collectAssets(db: KnexDatabase, id: ID) {
     .join('account', 'entry.account_id', 'account.id')
     .whereRaw("entry.data->'stock' IS NOT NULL")
     .andWhere({ period_id: id })
-    .orderBy('document.date', 'document.number')
+    .orderBy(['document.date', 'document.number'])
   )
   // Collect per account.
   const stock: Record<AccountNumber, StockBookkeeping> = {}

@@ -258,7 +258,7 @@ export class ImportConnector implements TransactionImportConnector {
       .andWhere('document.period_id', '=', period.id)
       .andWhere('document.date', '<', time)
       .andWhere('account.number', '=', account)
-      .orderBy('document.date', 'document.number'))
+      .orderBy(['document.date', 'document.number']))
 
     const stock = new StockBookkeeping('Historical stock')
     stock.applyAll(data)

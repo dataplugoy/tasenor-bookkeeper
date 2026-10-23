@@ -98,7 +98,7 @@ export class TilitinExporter extends Exporter {
     let n = 1
     for (const period of await db('period').select('*').orderBy('start_date')) {
       lines.push([`Period ${n}`, '', '', '', ''])
-      for (const doc of await db('document').select('*').where({ period_id: period.id }).orderBy('period_id', 'number')) {
+      for (const doc of await db('document').select('*').where({ period_id: period.id }).orderBy('number')) {
         lines.push([doc.number, dateFromDb(doc.date), '', '', ''])
         for (const entry of await db('entry').join('account', 'entry.account_id', 'account.id').select('entry.*', 'account.number').where({ document_id: doc.id }).orderBy('row_number')) {
 
