@@ -281,7 +281,7 @@ export class BookkeeperImporter {
       const ret = {}
       Object.keys(config).forEach(k => {
         if (config[k] !== null && typeof config[k] === 'object' && config[k].length === undefined) {
-          Object.assign(ret, transform(config[k], `${k}.`))
+          Object.assign(ret, transform(config[k], `${prefix}${k}.`))
         } else {
           ret[`${prefix}${k}`] = config[k]
         }

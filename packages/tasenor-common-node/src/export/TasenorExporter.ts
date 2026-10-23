@@ -134,7 +134,7 @@ export class TasenorExporter extends Exporter {
     }
     for (const tag of await db('tags').select('*').orderBy('order')) {
       const ext = tag.mime.split('/')[1]
-      const file = `${tag.type}-${tag.order}.${ext}`
+      const file = `${tag.tag}.${ext}`
       fs.writeFileSync(path.join(picDir, file), tag.picture)
       lines.push([tag.tag, tag.name, tag.mime, path.join('pictures', file), tag.type, tag.order])
     }
