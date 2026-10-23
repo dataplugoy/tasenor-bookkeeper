@@ -49,7 +49,17 @@ router.post('/',
 
 router.patch('/:id',
   async (req, res) => {
-    const message: HttpResponse = await update(await knex.db(res.locals.user, res.locals.db), req.body)
+    const db = await knex.db(res.locals.user, res.locals.db)
+    const id = parseInt(req.params.id)
+    const doc = await data.getOne(db, 'document', id)
+    if (!doc) {
+      return res.status(404).send({ message: 'No such document.' })
+    }
+    if (await data.isLocked(db, 'document', id)) {
+      return res.status(400).send({ message: 'Period is locked.' })
+    }
+    Object.assign(doc, req.body, { id })
+    const message: HttpResponse = await update(db, doc)
     return isHttpSuccessResponse(message) ? res.status(message.status).send(message.data) : res.status(message.status).send({ message: message.message })
   }
 )

@@ -44,12 +44,16 @@ router.get('/:id',
 
 router.patch('/:id',
   async (req, res) => {
-    const entry = await data.getOne(await knex.db(res.locals.user, res.locals.db), 'entry', parseInt(req.params.id))
+    const id = parseInt(req.params.id)
+    const entry = await data.getOne(await knex.db(res.locals.user, res.locals.db), 'entry', id)
     if (!entry) {
       return res.status(404).send({ message: 'Entry not found.' })
     }
+    if (await data.isLocked(await knex.db(res.locals.user, res.locals.db), 'entry', id)) {
+      return res.status(400).send({ message: 'Period is locked.' })
+    }
     entry.amount = Math.round(entry.amount * 100)
-    Object.assign(entry, req.body)
+    Object.assign(entry, req.body, { id })
     const message: HttpResponse = await update(await knex.db(res.locals.user, res.locals.db), entry)
     return isHttpSuccessResponse(message) ? res.status(message.status).send(message.data) : res.status(message.status).send({ message: message.message })
   })
