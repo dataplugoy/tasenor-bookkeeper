@@ -353,6 +353,9 @@ export class TestImportConnector implements TransactionImportConnector {
         if (new Date(target.date).getTime() !== new Date(txs[i].date).getTime()) {
           return this.failExit('Dates are different.', target, txs[i])
         }
+        if (target.entries.length !== txs[i].entries.length) {
+          return this.failExit(`Number of entries is ${txs[i].entries.length} instead of ${target.entries.length}.`, target, txs[i])
+        }
         for (let j = 0; j < target.entries.length; j++) {
           if (target.entries[j].account !== txs[i].entries[j].account) {
             return this.failExit(`Entry #${j + 1} is has different account.`, target, txs[i])
@@ -380,6 +383,9 @@ export class TestImportConnector implements TransactionImportConnector {
             }
           }
         }
+      }
+      if (next < transactions.length) {
+        return this.failExit('Fewer transactions than expected.', transactions.slice(next), [])
       }
     } else {
       this.printLedger(txs)
