@@ -180,6 +180,9 @@ test('Convert account address to account default', async () => {
   expect(addr2sql('withdrawal.currency.EUR', {})).toBe(
     "(data->>'code' = 'CASH') AND (data->>'plugin' = 'SomeImport') AND (data->>'currency' = 'EUR' OR data->>'currency' IS NULL) AND (type = 'ASSET')"
   )
+  expect(addr2sql("deposit.currency.X' OR '1'='1", {})).toBe(
+    "(data->>'code' = 'CASH') AND (data->>'currency' = 'X'' OR ''1''=''1') AND (data->>'plugin' = 'SomeImport') AND (type = 'ASSET')"
+  )
   expect(addr2sql('withdrawal.external.EUR', {})).toBe(
     "(data->>'code' = 'CASH') AND (data->>'plugin' IS NULL OR data->>'plugin' != 'SomeImport') AND (data->>'currency' = 'EUR' OR data->>'currency' IS NULL) AND (type = 'ASSET')"
   )

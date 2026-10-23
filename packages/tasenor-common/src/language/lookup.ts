@@ -165,18 +165,21 @@ export function address2sql(addr: AccountAddress, options: AccountLookupOption, 
 
   const addSql: string[] = []
 
+  // Quote a value as SQL string literal.
+  const str = (value: unknown): string => `'${String(value).replace(/'/g, "''")}'`
+
   // If looking for default currency, it can be also unset.
   if (cond.currency === options.defaultCurrency) {
-    addSql.push(`(data->>'currency' = '${cond.currency}' OR data->>'currency' IS NULL)`)
+    addSql.push(`(data->>'currency' = ${str(cond.currency)} OR data->>'currency' IS NULL)`)
     delete cond.currency
   }
 
   // Add condition for type(s).
   if (cond.type) {
     if (typeof cond.type === 'string') {
-      addSql.push(`(type = '${cond.type}')`)
+      addSql.push(`(type = ${str(cond.type)})`)
     } else {
-      addSql.push('(' + cond.type.map(t => `type = '${t}'`).join(' OR ') + ')')
+      addSql.push('(' + cond.type.map(t => `type = ${str(t)}`).join(' OR ') + ')')
     }
     delete cond.type
   }
@@ -190,16 +193,16 @@ export function address2sql(addr: AccountAddress, options: AccountLookupOption, 
   // Helper to handle other conditions.
   const key2sql = (key: string): string => {
     if (key[0] === '!') {
-      return `(data->>'${key.substring(1)}' IS NULL OR data->>'${key.substring(1)}' != '${cond[key]}')`
+      return `(data->>'${key.substring(1)}' IS NULL OR data->>'${key.substring(1)}' != ${str(cond[key])})`
     }
     let values = cond[key]
     if (values instanceof Array) {
       if (values.length > 1) {
-        return `(data->>'${key}' IN (${values.map(k => "'" + k + "'").join(', ')}))`
+        return `(data->>'${key}' IN (${values.map(k => str(k)).join(', ')}))`
       }
       values = values[0]
     }
-    return `(data->>'${key}' = '${values}')`
+    return `(data->>'${key}' = ${str(values)})`
   }
 
   const sql = Object.keys(cond).map(key => key2sql(key))
