@@ -231,7 +231,7 @@ export class TestImportConnector implements TransactionImportConnector {
         console.log(`\u001b[31mRate not defined for ${asset} at ${stamp} in ${ratesPath}.`)
         console.log(`Update rates file: \u001b[32m${ratesPath}`)
         console.log()
-        process.exit()
+        process.exit(1)
       }
     }
     return rates[stamp][asset]
