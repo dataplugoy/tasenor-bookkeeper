@@ -55,16 +55,19 @@ export async function collectAssets(db: KnexDatabase, id: ID) {
  */
 export async function create(db: KnexDatabase, period: PeriodModelData, initText: string | undefined): Promise<HttpResponse | null> {
   const last = await db('period').orderBy('end_date', 'desc').limit(1).first()
+  const profitAcc = last ? await db('account').where({ type: 'PROFIT_PREV' }).first() : null
+  if (last && !profitAcc) {
+    return { success: false, status: 400, message: 'Cannot find profit account' }
+  }
   const newPeriod = await data.createOne(db, 'period', period)
+  if (!newPeriod) {
+    return { success: false, status: 400, message: 'Error when writing database.' }
+  }
   const records: { id: ID, number: string, balance: number }[] = []
   let assets: Record<AccountNumber, StockChangeData> = {}
 
   if (last) {
     // Preparations.
-    const profitAcc = await db('account').where({ type: 'PROFIT_PREV' }).first()
-    if (!profitAcc) {
-      return { success: false, status: 400, message: 'Cannot find profit account' }
-    }
     const balances = await data.getPeriodBalances(db, last.id)
     assets = await collectAssets(db, last.id)
 

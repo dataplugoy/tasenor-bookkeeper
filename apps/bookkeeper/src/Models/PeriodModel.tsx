@@ -49,7 +49,7 @@ class PeriodModel extends Model {
     return this.store.request('/db/' + this.db + '/period/' + (this.id || ''), this.id ? 'PATCH' : 'POST', data)
       .then((res) => {
         runInAction(() => {
-          if (!this.id) {
+          if (!this.id && res) {
             this.id = res.id
           }
         })

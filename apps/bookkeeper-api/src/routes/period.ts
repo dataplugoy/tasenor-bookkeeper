@@ -1,4 +1,5 @@
 import express from 'express'
+import { isHttpSuccessResponse } from '@tasenor/common'
 import data from '../lib/data'
 import knex from '../lib/knex'
 import { create, collectAssets } from '../lib/period'
@@ -54,8 +55,11 @@ router.post('/', async (req, res, next) => {
   const text = req.body.text
   delete req.body.text
   return create(db, req.body, text)
-    .then(async (data) => {
-      res.send(data)
+    .then((message) => {
+      if (!message) {
+        return res.status(500).send({ message: 'Failed to create period.' })
+      }
+      return isHttpSuccessResponse(message) ? res.status(message.status).send(message.data) : res.status(message.status).send({ message: message.message })
     })
     .catch(next)
 })
