@@ -23,49 +23,42 @@ const checkPlugin = (req, res): ToolPlugin | undefined => {
 /**
  * Helper to run request.
  */
-const runPlugin = async (req, res, args) => {
+const runPlugin = async (req, res, next, args) => {
   const plugin = checkPlugin(req, res)
+  if (!plugin) {
+    return
+  }
   const method = req.method
-  if (plugin) {
+  try {
     const db = await knex.db(res.locals.user, res.locals.db)
     const out = await plugin[method](db, args)
     if (out === undefined) {
       return res.status(400).send({ message: `Plugin does not implement ${method} query.` })
     }
     res.send(out)
-  } else {
-    res.status(404).send({ message: 'Plugin not found.' })
+  } catch (err) {
+    next(err)
   }
 }
 
 router.get('/:code',
-  async (req, res) => {
-    runPlugin(req, res, req.query)
-  }
+  async (req, res, next) => runPlugin(req, res, next, req.query)
 )
 
 router.delete('/:code',
-  async (req, res) => {
-    runPlugin(req, res, req.query)
-  }
+  async (req, res, next) => runPlugin(req, res, next, req.query)
 )
 
 router.put('/:code',
-  async (req, res) => {
-    runPlugin(req, res, req.body)
-  }
+  async (req, res, next) => runPlugin(req, res, next, req.body)
 )
 
 router.patch('/:code',
-  async (req, res) => {
-    runPlugin(req, res, req.body)
-  }
+  async (req, res, next) => runPlugin(req, res, next, req.body)
 )
 
 router.post('/:code',
-  async (req, res) => {
-    runPlugin(req, res, req.body)
-  }
+  async (req, res, next) => runPlugin(req, res, next, req.body)
 )
 
 export default router
