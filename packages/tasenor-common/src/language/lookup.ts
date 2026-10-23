@@ -190,7 +190,7 @@ export function address2sql(addr: AccountAddress, options: AccountLookupOption, 
   // Helper to handle other conditions.
   const key2sql = (key: string): string => {
     if (key[0] === '!') {
-      return `(data->>'${key.substring(1)}' != '${cond[key]}')`
+      return `(data->>'${key.substring(1)}' IS NULL OR data->>'${key.substring(1)}' != '${cond[key]}')`
     }
     let values = cond[key]
     if (values instanceof Array) {

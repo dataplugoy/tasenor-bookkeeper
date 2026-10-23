@@ -22,7 +22,7 @@ test('Convert account address to account default', async () => {
     "(data->>'code' = 'CASH') AND (data->>'plugin' = 'SomeImport') AND (data->>'currency' = 'EUR' OR data->>'currency' IS NULL) AND (type = 'ASSET')"
   )
   expect(addr2sql('deposit.external.EUR', {})).toBe(
-    "(data->>'code' = 'CASH') AND (data->>'plugin' != 'SomeImport') AND (data->>'currency' = 'EUR' OR data->>'currency' IS NULL) AND (type = 'ASSET')"
+    "(data->>'code' = 'CASH') AND (data->>'plugin' IS NULL OR data->>'plugin' != 'SomeImport') AND (data->>'currency' = 'EUR' OR data->>'currency' IS NULL) AND (type = 'ASSET')"
   )
   expect(addr2sql('distribution.currency.EUR', {})).toBe(
     null
@@ -179,6 +179,9 @@ test('Convert account address to account default', async () => {
   )
   expect(addr2sql('withdrawal.currency.EUR', {})).toBe(
     "(data->>'code' = 'CASH') AND (data->>'plugin' = 'SomeImport') AND (data->>'currency' = 'EUR' OR data->>'currency' IS NULL) AND (type = 'ASSET')"
+  )
+  expect(addr2sql('withdrawal.external.EUR', {})).toBe(
+    "(data->>'code' = 'CASH') AND (data->>'plugin' IS NULL OR data->>'plugin' != 'SomeImport') AND (data->>'currency' = 'EUR' OR data->>'currency' IS NULL) AND (type = 'ASSET')"
   )
 })
 
