@@ -462,7 +462,10 @@ class EntryModel extends NavigationTargetModel {
     const symbol = this.store.catalog.getCurrencySymbol(this.account && this.account.currency)
 
     function str2num(str, variables = {}) {
-      str = str.replace(',', '.').replace(symbol, '').replace(/\s/g, '')
+      str = str.replace(/,/g, '.').replace(/\s/g, '')
+      if (symbol) {
+        str = str.split(symbol).join('')
+      }
       for (const [k, v] of Object.entries(variables)) {
         str = str.replace(new RegExp(k, 'g'), v)
       }
