@@ -40,16 +40,17 @@ router.get('/:id/process/:processId',
     }
     const db = await knex.db(res.locals.user, res.locals.db)
     const data = await db('processes').select('*').where({ id: processId }).first()
+    if (!data) {
+      return res.status(404).send({ message: 'Process not found.' })
+    }
     // Hide stack.
     if (isProduction() && !res.locals.auth.feats.SUPERUSER) {
       if (data.error) {
         data.error = data.error.split('\n')[0]
       }
     }
-    if (data) {
-      const steps = await db('process_steps').select('id', 'action', 'directions', 'number', 'started', 'finished').where({ processId }).orderBy('number')
-      data.steps = steps || []
-    }
+    const steps = await db('process_steps').select('id', 'action', 'directions', 'number', 'started', 'finished').where({ processId }).orderBy('number')
+    data.steps = steps || []
     res.send(data)
   }
 )
