@@ -116,6 +116,10 @@ export function num(str: string): number | typeof NaN {
       str = str.replace(/,/g, '')
     } else if (/\.\d+,/.test(str)) {
       str = str.replace(/\./g, '').replace(/,/, '.')
+    } else if (/,.*,/.test(str)) {
+      str = str.replace(/,/g, '')
+    } else if (/\..*\./.test(str)) {
+      str = str.replace(/\./g, '')
     } else {
       str = str.replace(',', '.')
     }
