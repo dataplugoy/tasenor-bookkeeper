@@ -27,7 +27,7 @@ router.get('/',
 router.post('/',
   async (req, res) => {
     const message: HttpResponse = await create(await knex.db(res.locals.user, res.locals.db), req.body)
-    return isHttpSuccessResponse(message) ? res.status(message.status).send(message.data) : res.status(message.status).send({ messae: message.message })
+    return isHttpSuccessResponse(message) ? res.status(message.status).send(message.data) : res.status(message.status).send({ message: message.message })
   })
 
 router.get('/:id',
@@ -51,7 +51,7 @@ router.patch('/:id',
     entry.amount = Math.round(entry.amount * 100)
     Object.assign(entry, req.body)
     const message: HttpResponse = await update(await knex.db(res.locals.user, res.locals.db), entry)
-    return isHttpSuccessResponse(message) ? res.status(message.status).send(message.data) : res.status(message.status).send({ messae: message.message })
+    return isHttpSuccessResponse(message) ? res.status(message.status).send(message.data) : res.status(message.status).send({ message: message.message })
   })
 
 router.delete('/:id',
