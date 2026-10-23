@@ -112,7 +112,7 @@ export class Process {
     const handler = this.system.handler
     current.action = action
     current.finished = new Date()
-    current.save()
+    await current.save()
     const nextStep = new ProcessStep({
       number: current.number + 1,
       state,
@@ -121,7 +121,7 @@ export class Process {
     this.addStep(nextStep)
     this.currentStep = (this.currentStep || 0) + 1
     this.system.logger.info(`Proceeding ${this} to new step ${this.currentStep}.`)
-    this.save()
+    await this.save()
     await nextStep.save()
     await this.system.checkFinishAndFindDirections(handler, nextStep)
   }
@@ -354,13 +354,10 @@ export class Process {
     const current = await this.getCurrentStep()
     current.action = { rollback: true }
     current.finished = new Date()
-    current.save()
-
-    this.system.logger.info(`Proceeding ${this} to new step ${this.currentStep}.`)
-    this.save()
+    await current.save()
 
     this.status = 'ROLLEDBACK'
-    await this.db('processes').update({ status: this.status }).where({ id: this.id })
+    await this.save()
     this.system.logger.info(`Roll back of '${this}' successful.`)
 
     return true
