@@ -4,8 +4,10 @@ import catalog from '../lib/catalog'
 const router = express.Router()
 
 router.get('/',
-  async (req, res) => {
-    res.send(await catalog.getCommonKnowledge())
+  async (req, res, next) => {
+    catalog.getCommonKnowledge()
+      .then(knowledge => res.send(knowledge))
+      .catch(next)
   }
 )
 

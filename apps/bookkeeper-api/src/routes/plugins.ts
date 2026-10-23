@@ -7,10 +7,14 @@ const router = express.Router()
 
 router.get('/',
   ...tasenor({ superuser: true, audience: ['bookkeeping', 'ui'] }),
-  async (req, res) => {
-    await updatePluginList()
-    const list = await loadPluginIndex()
-    res.send(list.map(p => ({ ...p, path: null })))
+  async (req, res, next) => {
+    try {
+      await updatePluginList()
+      const list = await loadPluginIndex()
+      res.send(list.map(p => ({ ...p, path: null })))
+    } catch (err) {
+      next(err)
+    }
   }
 )
 

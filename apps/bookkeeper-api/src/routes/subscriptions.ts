@@ -31,6 +31,9 @@ router.post('/',
     // Handle with default handling, i.e. mark into user's config.
     const db = await knex.masterDb()
     const user = await db('users').select('config').where({ email: res.locals.user }).first()
+    if (!user) {
+      return res.status(404).send({ message: 'User not found.' })
+    }
 
     user.config.subscriptions = user.config.subscriptions || []
 
@@ -67,6 +70,9 @@ router.delete('/:code',
     // Handle with default handling, i.e. mark into user's config.
     const db = await knex.masterDb()
     const user = await db('users').select('config').where({ email: res.locals.user }).first()
+    if (!user) {
+      return res.status(404).send({ message: 'User not found.' })
+    }
 
     if (plugin && user.config.subscriptions && user.config.subscriptions.indexOf(plugin.id) >= 0) {
       log(`Unsubscribing plugin '${plugin.code}' from '${res.locals.user}'.`)
