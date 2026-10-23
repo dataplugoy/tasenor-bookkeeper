@@ -37,10 +37,10 @@ export function tasenorInitialStack(args: InitialMiddlewareStackDefinition): Req
         const parsed = tokens.parse(token)
         if (parsed && parsed.payload) {
           const payload = parsed.payload as JwtPayload
-          owner = payload.data.owner
+          owner = payload.data?.owner
           let aud = payload.aud
           if (payload.aud === 'refresh') {
-            aud = payload.data.audience
+            aud = payload.data?.audience
           }
           switch (aud) {
             case 'sites':
