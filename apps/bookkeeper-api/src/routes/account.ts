@@ -44,23 +44,26 @@ router.patch('/:id',
 
 router.post('/',
   async (req, res, next) => {
-    const obj = req.body
-    const conf: Record<string, unknown> = await knex.dbSettings(res.locals.user, res.locals.db).catch(next) as KnexConfig
-    if (!obj.currency) {
-      obj.currency = conf.currency
+    try {
+      const obj = req.body
+      const conf: Record<string, unknown> = await knex.dbSettings(res.locals.user, res.locals.db) as KnexConfig
+      if (!obj.currency) {
+        obj.currency = conf.currency
+      }
+      if (!obj.language) {
+        obj.language = conf.language
+      }
+      if (!obj.currency) {
+        return res.status(400).send({ message: `Currency is not configured for db ${res.locals.db}.` })
+      }
+      if (!obj.language) {
+        return res.status(400).send({ message: `Language is not configured for db ${res.locals.db}.` })
+      }
+      const entry = await data.createOne(await knex.db(res.locals.user, res.locals.db), 'account', obj)
+      return entry ? res.send(entry) : res.sendStatus(400)
+    } catch (err) {
+      next(err)
     }
-    if (!obj.language) {
-      obj.language = conf.language
-    }
-    if (!conf.currency) {
-      throw new Error(`Currency is not configured for db ${res.locals.db}.`)
-    }
-    if (!conf.language) {
-      throw new Error(`Language is not configured for db ${res.locals.db}.`)
-    }
-    data.createOne(await knex.db(res.locals.user, res.locals.db), 'account', obj)
-      .then(entry => entry ? res.send(entry) : res.sendStatus(400))
-      .catch(next)
   }
 )
 
