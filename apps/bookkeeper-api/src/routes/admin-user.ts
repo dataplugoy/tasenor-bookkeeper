@@ -67,26 +67,30 @@ router.post('/:user/databases',
 router.post('/',
   async (req, res, next) => {
     const { name, password, email } = req.body
-    if (!await system.get('canRegister').catch(next)) {
-      if (!await users.verifyToken(tokens.get(req), true)) {
-        return res.status(403).send({ message: 'Unauthorized.' })
+    try {
+      if (!await system.get('canRegister')) {
+        if (!await users.verifyToken(tokens.get(req), true)) {
+          return res.status(403).send({ message: 'Unauthorized.' })
+        }
       }
-    }
-    const err = await users.validateUser(name, password, email).catch(next)
-    if (err !== true) {
-      error(err)
-      return res.status(400).send({ message: err })
-    }
+      const err = await users.validateUser(name, password, email)
+      if (err !== true) {
+        error(err)
+        return res.status(400).send({ message: err })
+      }
 
-    if (await system.get('isEmailConfirmationRequired').catch(next)) {
-      return res.status(400).send({ message: 'Email confirmation is not yet implemented.' })
-    }
+      if (await system.get('isEmailConfirmationRequired')) {
+        return res.status(400).send({ message: 'Email confirmation is not yet implemented.' })
+      }
 
-    const result = await users.registerUser({ name, password, email, admin: false, superuser: false }).catch(next)
-    if (result) {
-      return res.send(result)
+      const result = await users.registerUser({ name, password, email, admin: false, superuser: false })
+      if (result) {
+        return res.send(result)
+      }
+      return res.status(500).send({ message: 'Registration failed.' })
+    } catch (err) {
+      next(err)
     }
-    return res.status(500).send({ message: 'Registration failed.' })
   }
 )
 

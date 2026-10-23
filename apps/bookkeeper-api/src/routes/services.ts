@@ -25,7 +25,11 @@ router.get('/:service',
       } else {
         db = knex.masterDb()
       }
-      await plugin.executeQuery(best, db, service as PluginService, req.query).catch(next)
+      try {
+        await plugin.executeQuery(best, db, service as PluginService, req.query)
+      } catch (err) {
+        return next(err)
+      }
     }
 
     res.status(best.status).send(best)

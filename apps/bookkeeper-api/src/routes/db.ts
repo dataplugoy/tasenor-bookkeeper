@@ -50,7 +50,13 @@ router.post('/',
     }
 
     const masterDb = knex.masterDb()
-    if (await DB.exists(masterDb, databaseName).catch(next)) {
+    let exists
+    try {
+      exists = await DB.exists(masterDb, databaseName)
+    } catch (err) {
+      return next(err)
+    }
+    if (exists) {
       error(`Database ${databaseName} exists.`)
       return res.status(400).send({ message: 'Database already exists.' })
     }

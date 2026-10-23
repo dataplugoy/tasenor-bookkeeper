@@ -8,7 +8,12 @@ const router = express.Router()
 router.get('/settings/plugins',
   ...tasenor({ admin: true }),
   async (req, res, next) => {
-    const settings = await system.settings().catch(next)
+    let settings
+    try {
+      settings = await system.settings()
+    } catch (err) {
+      return next(err)
+    }
     if (!settings) {
       return res.status(500).send({ message: 'Getting settings failed.' })
     }
@@ -36,7 +41,12 @@ router.get('/settings/plugins',
 
 router.get('/settings',
   async (req, res, next) => {
-    const settings = await system.settings().catch(next)
+    let settings
+    try {
+      settings = await system.settings()
+    } catch (err) {
+      return next(err)
+    }
     if (!settings) {
       return res.status(500).send({ message: 'Getting settings failed.' })
     }
@@ -52,16 +62,18 @@ router.get('/settings',
 router.patch('/settings/plugins',
   ...tasenor({ admin: true }),
   async (req, res, next) => {
-    await system.set(req.body).catch(next)
-    res.sendStatus(204)
+    system.set(req.body)
+      .then(() => res.sendStatus(204))
+      .catch(next)
   }
 )
 
 router.patch('/settings',
   ...tasenor({ admin: true }),
   async (req, res, next) => {
-    await system.set(req.body).catch(next)
-    res.sendStatus(204)
+    system.set(req.body)
+      .then(() => res.sendStatus(204))
+      .catch(next)
   }
 )
 
