@@ -10,22 +10,24 @@ const router = express.Router()
 router.post('/',
   async (req, res, next) => {
     const { name, email, password, admin } = req.body
-    if (admin) {
+    if (!admin) {
+      return res.sendStatus(400)
+    }
+    try {
       if (await users.hasAdminUser()) {
-        res.sendStatus(400)
-      } else {
-        const err = await users.validateUser(name, password, email).catch(next)
-        if (err !== true) {
-          error(err)
-          res.sendStatus(400)
-        } else if (!await users.registerUser({ name, email, password, admin, superuser: true }).catch(next)) {
-          res.sendStatus(500)
-        } else {
-          res.sendStatus(204)
-        }
+        return res.sendStatus(400)
       }
-    } else {
-      res.sendStatus(400)
+      const err = await users.validateUser(name, password, email)
+      if (err !== true) {
+        error(err)
+        return res.sendStatus(400)
+      }
+      if (!await users.registerUser({ name, email, password, admin, superuser: true })) {
+        return res.sendStatus(500)
+      }
+      res.sendStatus(204)
+    } catch (err) {
+      next(err)
     }
   }
 )

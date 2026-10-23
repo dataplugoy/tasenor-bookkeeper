@@ -1,5 +1,5 @@
 import express from 'express'
-import { DAYS, HOURS, error } from '@tasenor/common'
+import { DAYS, Email, HOURS, error } from '@tasenor/common'
 import { tokens, tasenorStack, isDevelopment } from '@tasenor/common-node'
 import users from '../lib/users'
 import { signTokenWithPlugins } from '../lib/subscriptions'
@@ -13,9 +13,15 @@ router.post('/',
   tasenorStack({ json: true, url: true }),
   async (req, res, next) => {
     const { user, password } = req.body
-    const valid = await users.verifyPassword(user, password).catch(next)
-    if (valid) {
-      return res.send(await signTokenWithPlugins(user))
+    if (typeof user !== 'string' || typeof password !== 'string' || !user || !password) {
+      return res.status(401).send({ message: 'Invalid user or password.' })
+    }
+    try {
+      if (await users.verifyPassword(user, password)) {
+        return res.send(await signTokenWithPlugins(user as Email))
+      }
+    } catch (err) {
+      return next(err)
     }
 
     res.status(401).send({ message: 'Invalid user or password.' })
@@ -31,7 +37,7 @@ router.get('/refresh',
       return res.status(403).send({ message: 'User is disabled or does not exist.' })
     }
     if (audience === 'bookkeeping') {
-      return res.send(await signTokenWithPlugins(owner).catch(next))
+      return signTokenWithPlugins(owner).then(pair => res.send(pair)).catch(next)
     }
     return res.status(403).send({ message: 'Not allowed to refresh that audience.' })
   }
@@ -42,8 +48,7 @@ router.get('/refresh/ui',
   async (req, res, next) => {
     const { audience, owner, feats } = res.locals.auth
     if (audience === 'ui') {
-      const pair = await tokens.sign2({ owner, feats }, 'ui', isDevelopment() ? DAYS * 365 : HOURS * 1).catch(next)
-      return res.send(pair)
+      return tokens.sign2({ owner, feats }, 'ui', isDevelopment() ? DAYS * 365 : HOURS * 1).then(pair => res.send(pair)).catch(next)
     }
     return res.status(403).send({ message: 'Not allowed to refresh that audience.' })
   }
