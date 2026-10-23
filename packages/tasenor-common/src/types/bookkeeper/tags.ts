@@ -12,12 +12,12 @@ export function isTag(s: unknown): s is Tag {
  * A labels collected to the string in the format "[Tag1][Tag2][Tag3]".
  */
 export type TagString = Opaque<string, 'TagString'>
-export function isTagString(s: unknown): s is Tag {
-  if (typeof s !== 'string' || !/^\[\]$/.test(s)) {
+export function isTagString(s: unknown): s is TagString {
+  if (typeof s !== 'string' || !/^\[.*\]$/.test(s)) {
     return false
   }
   const tags = s.substr(1, s.length - 2).split('][')
-  return tags.filter(tag => !isTag(tag)).length > 0
+  return tags.every(tag => isTag(tag))
 }
 
 /**

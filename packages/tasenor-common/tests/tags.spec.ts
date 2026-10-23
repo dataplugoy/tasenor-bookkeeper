@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { Tag, mergeTags } from '../src/types/bookkeeper/tags'
+import { Tag, isTagString, mergeTags } from '../src/types/bookkeeper/tags'
 
 test('Tags', () => {
   expect(mergeTags('[A] Hello', ['A' as Tag])).toBe('[A] Hello')
@@ -15,4 +15,16 @@ test('Tags', () => {
   expect(mergeTags('Hello', '[A] ')).toBe('[A] Hello')
   expect(mergeTags('[A] Hello', '[B]')).toBe('[A][B] Hello')
   expect(mergeTags('[A] Hello', '[A][C][B]')).toBe('[A][B][C] Hello')
+})
+
+test('Tag strings', () => {
+  expect(isTagString('[A]')).toBe(true)
+  expect(isTagString('[A][B2][Cc]')).toBe(true)
+  expect(isTagString('[]')).toBe(false)
+  expect(isTagString('[A][]')).toBe(false)
+  expect(isTagString('[A B]')).toBe(false)
+  expect(isTagString('[A] Hello')).toBe(false)
+  expect(isTagString('A')).toBe(false)
+  expect(isTagString('')).toBe(false)
+  expect(isTagString(null)).toBe(false)
 })
