@@ -39,7 +39,7 @@ router.post('/',
       tag = { ...tag, ...placeholder() }
     }
     return data.createOne(await knex.db(res.locals.user, res.locals.db), 'tags', tag)
-      .then(data => res.send(data))
+      .then(data => data ? res.send(data) : res.status(400).send({ message: 'Error when writing database.' }))
       .catch(next)
   }
 )
@@ -76,8 +76,9 @@ router.delete('/:id',
   ...tasenor({ json: true, url: true }),
   async (req, res, next) => {
     const id = parseInt(req.params.id)
-    await data.deleteOne(await knex.db(res.locals.user, res.locals.db), 'tags', id).catch(next)
-    res.sendStatus(204)
+    data.deleteOne(await knex.db(res.locals.user, res.locals.db), 'tags', id)
+      .then(() => res.sendStatus(204))
+      .catch(next)
   }
 )
 
@@ -89,6 +90,9 @@ router.get('/:id/view',
     }
     data.getOne(await knex.db(res.locals.user, res.locals.db), 'tags', id)
       .then(tag => {
+        if (!tag) {
+          return res.status(404).send({ message: 'No such tag.' })
+        }
         res.header('Content-Type', tag.mime)
         res.send(tag.picture)
       })
