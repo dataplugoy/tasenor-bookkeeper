@@ -46,13 +46,14 @@ export async function create(db: KnexDatabase, doc: DocumentModelData): Promise<
 
   const document = { }
   Object.assign(document, doc, { number })
-  const result = await data.createOne(db, 'document', document).catch(
-    () => ({
+  const result = await data.createOne(db, 'document', document)
+  if (!result) {
+    return {
       success: false,
       status: 400,
       message: 'Error when writing database.'
-    })
-  )
+    }
+  }
   return ({ success: true, data: result, status: 200 })
 }
 

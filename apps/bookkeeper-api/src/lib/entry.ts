@@ -46,9 +46,15 @@ export async function create(db: KnexDatabase, entry: EntryModelData): Promise<H
 
   entry.amount /= 100
 
-  return data.createOne(db, 'entry', entry).then(
-    data => ({ success: true, status: 200, data })
-  )
+  const result = await data.createOne(db, 'entry', entry)
+  if (!result) {
+    return {
+      success: false,
+      status: 400,
+      message: 'Error when writing database.'
+    }
+  }
+  return { success: true, status: 200, data: result }
 }
 
 /**
