@@ -27,6 +27,15 @@ export class Exporter {
   }
 
   /**
+   * Collect account TSV-data for each account file named as `<language>-<currency>`.
+   * @param db Knex connection to use.
+   * @returns
+   */
+  async getAccountFiles(db: KnexDatabase): Promise<Record<string, ParsedTsvFileData>> {
+    return { 'fi-EUR': await this.getAccounts(db) }
+  }
+
+  /**
    * Read all periods from the database and generate TSV-data.
    * @param db Knex connection to use.
    * @returns
@@ -121,8 +130,10 @@ export class Exporter {
     this.writeJson(create(path.join(out, 'VERSION')), this.VERSION)
     const conf = await this.getConfig(db)
     this.writeJson(create(path.join(out, 'settings.json')), conf)
-    const accounts = await this.getAccounts(db)
-    this.writeTsv(create(path.join(accountDir, 'fi-EUR.tsv')), accounts)
+    const accountFiles = await this.getAccountFiles(db)
+    for (const [name, accounts] of Object.entries(accountFiles)) {
+      this.writeTsv(create(path.join(accountDir, `${name}.tsv`)), accounts)
+    }
     const periods = await this.getPeriods(db)
     this.writeTsv(create(path.join(out, 'periods.tsv')), periods)
     const entries = await this.getEntries(db)

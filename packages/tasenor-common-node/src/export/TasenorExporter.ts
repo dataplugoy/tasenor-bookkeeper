@@ -37,6 +37,15 @@ export class TasenorExporter extends Exporter {
    * @returns
    */
   async getAccounts(db: KnexDatabase): Promise<ParsedTsvFileData> {
+    return Object.values(await this.getAccountFiles(db)).reduce((all, lines) => all.concat(lines.slice(1)), [['# number / title', 'text', 'type', 'code', 'data']])
+  }
+
+  /**
+   * Read accounts from the database and generate TSV-data separately for each language and currency.
+   * @param db Knex connection to use.
+   * @returns
+   */
+  async getAccountFiles(db: KnexDatabase): Promise<Record<string, ParsedTsvFileData>> {
     const headings = {}
     for (const heading of await db('heading').select('*').orderBy('level')) {
       headings[heading.number] = headings[heading.number] || []
@@ -48,20 +57,31 @@ export class TasenorExporter extends Exporter {
       headings[heading.number].push(heading)
     }
 
-    const lines = [['# number / title', 'text', 'type', 'code', 'data']]
-    for (const account of await db('account').select('*').orderBy('number')) {
-      if (headings[account.number]) {
+    // Headings are not language specific, so write them only once.
+    const headingsWritten = new Set<string>()
+    const files: Record<string, ParsedTsvFileData> = {}
+    let count = 0
+    for (const account of await db('account').select('*').orderBy(['language', 'currency', 'number'])) {
+      const name = `${account.language}-${account.currency}`
+      if (!files[name]) {
+        files[name] = [['# number / title', 'text', 'type', 'code', 'data']]
+      }
+      const lines = files[name]
+      if (headings[account.number] && !headingsWritten.has(account.number)) {
         for (const heading of headings[account.number]) {
           lines.push([heading.text, '', '', '', '', ''])
+          count++
         }
+        headingsWritten.add(account.number)
       }
       const code = account.data.code || ''
       delete account.data.code
       lines.push([account.number, account.name, account.type, code, JSON.stringify(account.data)])
+      count++
     }
-    log(`Found ${lines.length} lines of data for headings and accounts.`)
+    log(`Found ${count} lines of data for headings and accounts in ${Object.keys(files).length} file(s).`)
 
-    return lines
+    return files
   }
 
   /**
