@@ -68,6 +68,9 @@ router.get('/:id',
   async (req, res) => {
     const db = await knex.db(res.locals.user, res.locals.db)
     const importer = await db('importers').where({ id: parseInt(req.params.id) }).first()
+    if (!importer) {
+      return res.status(404).send({ message: 'Importer not found.' })
+    }
     res.send(importer)
   }
 )
@@ -80,12 +83,19 @@ router.patch('/:id',
     const db = await knex.db(res.locals.user, res.locals.db)
     const id = parseInt(req.params.id)
     const update: Record<string, unknown> = {}
-    const config = (await db('importers').select('config').where({ id }).first()).config
+    const importer = await db('importers').select('config').where({ id }).first()
+    if (!importer) {
+      return res.status(404).send({ message: 'Importer not found.' })
+    }
+    const config = importer.config
     if ('config' in req.body) {
       Object.assign(config, req.body.config)
       update.config = config
     }
     if ('name' in req.body) {
+      if (!req.body.name || !validFileName(req.body.name)) {
+        return res.status(400).send({ message: 'Invalid characters in the name.' })
+      }
       update.name = req.body.name
     }
     if ('version' in req.body) {
@@ -105,7 +115,11 @@ router.put('/:id/upgrade',
     const db = await knex.db(res.locals.user, res.locals.db)
     const id = parseInt(req.params.id)
     const version = req.body.version
-    const config = (await db('importers').select('config').where({ id }).first()).config
+    const importer = await db('importers').select('config').where({ id }).first()
+    if (!importer) {
+      return res.status(404).send({ message: 'Importer not found.' })
+    }
+    const config = importer.config
     const code = config.handler
     const plugin = catalog.find(code) as ImportPlugin
     if (!plugin) {
@@ -157,6 +171,9 @@ router.post('/:id',
     }
     if (!firstDate || !lastDate) {
       return res.status(400).send({ message: 'Please select the period before importing.' })
+    }
+    if (!(files instanceof Array) || files.length === 0) {
+      return res.status(400).send({ message: 'No files given.' })
     }
 
     const system = await getImportSystem(db, parseInt(importerId))

@@ -5,15 +5,17 @@ const router = express.Router()
 
 router.get('/',
   async (req, res, next) => {
-    const settings = await knex.dbSettings(res.locals.user, res.locals.db).catch(next)
-    res.send(settings)
+    knex.dbSettings(res.locals.user, res.locals.db)
+      .then(settings => res.send(settings))
+      .catch(next)
   }
 )
 
 router.patch('/',
   async (req, res, next) => {
-    await knex.changeDbSettings(res.locals.user, res.locals.db, req.body).catch(next)
-    res.sendStatus(204)
+    knex.changeDbSettings(res.locals.user, res.locals.db, req.body)
+      .then(() => res.sendStatus(204))
+      .catch(next)
   }
 )
 
