@@ -276,7 +276,7 @@ export type TransactionKind =
  */
 export type AccountAddress = Opaque<string, 'AccountAddress'>
 export function isAccountAddress(obj: unknown): obj is AccountAddress {
-  if (typeof obj !== 'string' || !/^[a-z]+\.[a-z]+\.[*a-z]+$/.test(obj)) return false
+  if (typeof obj !== 'string' || !/^[a-z]+\.[a-z]+\.[^.]+$/.test(obj)) return false
   const [reason, type] = obj.split('.')
   return isAssetTransferReason(reason) && isAssetType(type)
 }

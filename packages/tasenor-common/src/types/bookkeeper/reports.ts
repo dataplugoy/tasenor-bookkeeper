@@ -120,7 +120,7 @@ export interface ReportItem {
 }
 
 export function isReportItem(obj: unknown): obj is ReportItem {
-  if (typeof obj !== 'object' && obj === null) return false
+  if (typeof obj !== 'object' || obj === null) return false
   if ('pageBreak' in (obj as Record<string, unknown>)) return false
   if ('paragraphBreak' in (obj as Record<string, unknown>)) return false
   return true
