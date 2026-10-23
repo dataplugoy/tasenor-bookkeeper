@@ -192,11 +192,17 @@ export class ReportPlugin extends BackendPlugin {
     // Find periods.
     const periodIds = [options.periodId]
     if (options.addPreviousPeriod) {
-      const recentPeriods = await db.select('*').from('period').where('id', '<=', options.periodId + '').orderBy('end_date', 'desc').limit(2)
-      if (recentPeriods.length > 1) {
-        periodIds.push(recentPeriods[1].id)
+      const recentPeriods: PeriodModel[] = []
+      const current = await db.select('*').from('period').where({ id: options.periodId }).first()
+      if (current) {
+        recentPeriods.push(current)
+        const previous = await db.select('*').from('period').where('end_date', '<', current.start_date).orderBy('end_date', 'desc').first()
+        if (previous) {
+          recentPeriods.push(previous)
+          periodIds.push(previous.id)
+        }
       }
-      options.periods = recentPeriods // Save periods for further reference.
+      options.periods = recentPeriods as unknown as PK[] // Save periods for further reference.
     }
 
     // Build a query basics.
