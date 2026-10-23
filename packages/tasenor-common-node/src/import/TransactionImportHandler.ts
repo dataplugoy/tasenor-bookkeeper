@@ -189,7 +189,7 @@ export class TransactionImportHandler extends TextFileProcessHandler {
       // Build standard fields.
       const { textField, totalAmountField } = this.importOptions
       for (let n = 0; n < state.files[fileName].lines.length; n++) {
-        let { columns, segmentId } = state.files[fileName].lines[n]
+        const { columns, segmentId } = state.files[fileName].lines[n]
         for (const name of this.importOptions.requiredFields) {
           if (columns[name] === undefined) {
             columns[name] = ''
@@ -219,7 +219,7 @@ export class TransactionImportHandler extends TextFileProcessHandler {
         if (totalAmountField) {
           columns._totalAmountField = columns[totalAmountField]
         }
-        columns = await this.segmentationColumnPostProcess(columns) as Record<string, string>
+        state.files[fileName].lines[n].columns = await this.segmentationColumnPostProcess(columns) as Record<string, string>
       }
     }
 
