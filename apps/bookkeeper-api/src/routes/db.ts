@@ -123,21 +123,38 @@ router.post('/upload',
     const out = fs.mkdtempSync('/tmp/bookkeeper-upload-extract-')
     const upload = multer({ dest: PATH })
     upload.single('file')(req, res, async function (err) {
-      if (err) {
-        log(err)
-        res.sendStatus(500)
-      } else if (!req.file || !req.file.originalname) {
-        res.status(400).send({ message: 'File missing.' })
-      } else {
-        let dbName = req.file.originalname.replace(/^([A-Za-z]+).*/, '$1').toLowerCase()
-        if (!dbName) dbName = 'unknown'
-        const masterDb = knex.masterDb()
-        dbName = await DB.findName(masterDb, dbName)
-        await createNewDatabase(dbName, res.locals.user, { isCreator: true })
-        const importer = new BookkeeperImporter()
-        await importer.run(masterDb, dbName, req.file.path as FilePath, out as DirectoryPath)
-        fs.rmSync(PATH, { recursive: true })
-        res.sendStatus(204)
+      try {
+        if (err) {
+          log(err)
+          res.sendStatus(500)
+        } else if (!req.file || !req.file.originalname) {
+          res.status(400).send({ message: 'File missing.' })
+        } else {
+          let dbName = req.file.originalname.replace(/^([A-Za-z]+).*/, '$1').toLowerCase()
+          if (!dbName) dbName = 'unknown'
+          const masterDb = knex.masterDb()
+          dbName = await DB.findName(masterDb, dbName)
+          if (!await createNewDatabase(dbName, res.locals.user, { isCreator: true })) {
+            return res.status(400).send({ message: 'Creating database failed.' })
+          }
+          const importer = new BookkeeperImporter()
+          try {
+            await importer.run(masterDb, dbName, req.file.path as FilePath, out as DirectoryPath)
+          } catch (importErr) {
+            error(`Importing ${req.file.originalname} failed:`, importErr)
+            await DB.destroy(masterDb, dbName as DatabaseName, process.env.DB_HOST_OVERRIDE as Hostname).catch(destroyErr => error(destroyErr))
+            return res.status(400).send({ message: 'Importing the file failed.' })
+          }
+          res.sendStatus(204)
+        }
+      } catch (unexpected) {
+        error(unexpected)
+        if (!res.headersSent) {
+          res.sendStatus(500)
+        }
+      } finally {
+        fs.rmSync(PATH, { recursive: true, force: true })
+        fs.rmSync(out, { recursive: true, force: true })
       }
     })
   }
