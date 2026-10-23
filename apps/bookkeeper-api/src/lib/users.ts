@@ -38,7 +38,7 @@ async function registerUser({ name, email, password, admin, superuser }) {
   const success = await catalog.registerUser(name, email)
   if (success) {
     await db('users').insert({ name, email, password: hash, config: { admin: !!admin, superuser: !!superuser } })
-    return await db('users').where({ email }).first()
+    return await db('users').select(ALLOWED_USER_FIELDS).where({ email }).first()
   }
   return null
 }
