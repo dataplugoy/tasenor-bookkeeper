@@ -15,6 +15,12 @@ export class BookkeeperImporter {
   // Mapping from document numbers to database ID resulting from import.
   documentIdMap: Record<number, ID>
 
+  // Mapping from period IDs and document numbers to database ID, since numbers repeat in each period.
+  documentIdMapByPeriod: Record<number, Record<number, ID>> = {}
+
+  // Date ranges of the imported periods.
+  periodRanges: { id: ID, start: string, end: string }[] = []
+
   /**
    * Read in a TSV-file and construct list of objects.
    * @param file Path to the TSV-file.
@@ -183,7 +189,8 @@ export class BookkeeperImporter {
   async setEntries(db: KnexDatabase, file: TsvFilePath, conf: BookkeeperConfig): Promise<void> {
     log(`Reading entry file ${file}.`)
     let count = 0
-    const periods = await db('period').select('id').orderBy('start_date')
+    const periods = await db('period').select('id', 'start_date', 'end_date').orderBy('start_date')
+    this.periodRanges = periods.map(p => ({ id: p.id, start: this.dateStr(p.start_date), end: this.dateStr(p.end_date) }))
     const periodMap = {}
     const accounts = await db('account').select('id', 'number').where({ language: conf.language })
     const accountMap = accounts.reduce((prev, cur) => ({ [cur.number]: cur.id, ...prev }), {})
@@ -213,6 +220,8 @@ export class BookkeeperImporter {
         }
         docId = (await db('document').insert(entry).returning('id'))[0].id
         this.documentIdMap[entry.number] = docId
+        this.documentIdMapByPeriod[periodId] = this.documentIdMapByPeriod[periodId] || {}
+        this.documentIdMapByPeriod[periodId][entry.number] = docId
         count++
         rowNumber = 1
         continue
@@ -351,11 +360,35 @@ export class BookkeeperImporter {
             segment_id: segmentId,
             process_id: processId,
             importer_id: importerId,
-            document_id: this.documentIdMap[segmentData[segmentId]]
+            document_id: this.documentId(segmentData[segmentId], process.config?.firstDate as string | undefined)
           })
         }
       }
     }
+  }
+
+  /**
+   * Convert a date from the database to YYYY-MM-DD string.
+   */
+  dateStr(date: string | Date): string {
+    return date instanceof Date ? date.toISOString().substring(0, 10) : `${date}`.substring(0, 10)
+  }
+
+  /**
+   * Find the database ID of an imported document.
+   * @param number Document number.
+   * @param date A date within the period of the document, if known.
+   */
+  documentId(number: number, date: string | undefined = undefined): ID | undefined {
+    if (date) {
+      const day = this.dateStr(date)
+      const period = this.periodRanges.find(p => p.start <= day && day <= p.end)
+      const ids = period ? this.documentIdMapByPeriod[period.id as number] : undefined
+      if (ids && ids[number] !== undefined) {
+        return ids[number]
+      }
+    }
+    return this.documentIdMap[number]
   }
 
   /**
@@ -364,6 +397,8 @@ export class BookkeeperImporter {
    */
   async clearEverything(db: KnexDatabase): Promise<void> {
     this.documentIdMap = {}
+    this.documentIdMapByPeriod = {}
+    this.periodRanges = []
 
     log('Deleting all existing data.')
     await db('entry').del()
