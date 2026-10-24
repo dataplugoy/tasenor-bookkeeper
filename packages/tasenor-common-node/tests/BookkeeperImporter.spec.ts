@@ -64,6 +64,11 @@ describe('BookkeeperImporter', () => {
     await expect(importer.setTags(db as never, path.join(dir, 'tags.tsv') as never)).rejects.toThrow('Invalid picture path')
     expect(inserted.length).toBe(1)
 
+    fs.symlinkSync(secret, path.join(dir, 'pictures', 'C.png'))
+    fs.writeFileSync(path.join(dir, 'tags.tsv'), header + 'C\tC\timage/png\tpictures/C.png\tT\t3\n')
+    await expect(importer.setTags(db as never, path.join(dir, 'tags.tsv') as never)).rejects.toThrow('Invalid picture path')
+    expect(inserted.length).toBe(1)
+
     fs.rmSync(dir, { recursive: true })
     fs.rmSync(secret)
   })
