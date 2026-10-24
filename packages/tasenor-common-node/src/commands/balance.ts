@@ -52,7 +52,7 @@ class BalanceCommand extends Command {
     const dataArg: Record<AccountNumber, number> = await this.jsonData(data) as Record<AccountNumber, number>
     const mapArg: Record<AccountNumber, AccountNumber> = (map ? await this.jsonData(map) : {}) as Record<AccountNumber, AccountNumber>
     const period: PeriodModelData = await this.singlePeriod(db)
-    const stockArg: Record<AccountNumber, Partial<Record<Asset, StockValueData>>> = await this.jsonData(stock) as Record<AccountNumber, Partial<Record<Asset, StockValueData>>>
+    const stockArg: Record<AccountNumber, Partial<Record<Asset, StockValueData>>> = (stock ? await this.jsonData(stock) : {}) as Record<AccountNumber, Partial<Record<Asset, StockValueData>>>
 
     // Check if the DB is clean.
     const docs: DocumentModelData[] = await this.get(`/db/${db}/document`)
@@ -78,14 +78,13 @@ class BalanceCommand extends Command {
       await this.accountId(db, mapArg[account] || account)
     }
 
-    // Create initial doc.
-    const document: DocumentModelData = (docs.length > 0)
-      ? docs[0]
-      : await this.post(`/db/${db}/document`, {
-        period_id: period.id,
-        date: this.date(period.start_date),
-        number: 0
-      })
+    // Create initial doc unless it exists.
+    const initial = docs.find(d => d.number === 0)
+    const document: DocumentModelData = initial || await this.post(`/db/${db}/document`, {
+      period_id: period.id,
+      date: this.date(period.start_date),
+      number: 0
+    })
     log(`Created a document #${document.id} on ${period.start_date}.`)
     // Create entries.
     const description = this.str(text) || 'Initial balance'
