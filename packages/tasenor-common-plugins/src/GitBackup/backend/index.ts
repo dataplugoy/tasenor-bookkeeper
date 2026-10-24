@@ -33,10 +33,13 @@ class GitBackup extends ToolPlugin {
    * Check if the resulting concatenation of paths points to the allowed working area of file system.
    */
   isValidWritePath(db: KnexDatabase, ...parts: string[]) {
+    // The last part is the sub directory, which must stay strictly inside the rest of the path.
+    // The backup directory is removed before writing, so it may not be the repository root or a sibling.
     const resolved = path.resolve(...parts)
+    const base = path.resolve(...parts.slice(0, -1))
     const dir = path.resolve(this.getWorkSpace(db))
 
-    return resolved.substring(0, dir.length) === dir
+    return base.startsWith(dir + path.sep) && resolved.startsWith(base + path.sep)
   }
 
   /**
