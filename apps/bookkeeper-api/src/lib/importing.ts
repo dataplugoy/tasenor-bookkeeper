@@ -65,35 +65,35 @@ export async function createTransaction(db: KnexDatabase, tx: Transaction, proce
   // eslint-disable-next-line camelcase
   const document_id = (res.data as unknown as DocumentModel).id
 
-  // Create entries.
-  // eslint-disable-next-line camelcase
-  let row_number = 1
-  for (const e of tx.entries) {
-    const account = await db('account').select('id').where({ number: e.account }).first()
-    if (!account) {
-      throw new Error(`Cannot find account number '${e.account}' for transaction ${JSON.stringify(res.data)} entry ${JSON.stringify(e)}.`)
-    }
-    const entry: EntryModelData = {
-      account_id: account.id,
-      amount: Math.abs(e.amount),
-      data: e.data,
-      debit: e.amount < 0 ? 0 : 1,
-      description: e.description,
-      document_id,
-      row_number
-    }
-    const res2 = await createEntry(db, entry).catch(async (err) => {
-      // Transaction did not catch this properly. Doing manual.
-      await db('entry').where({ document_id }).delete()
-      await db('document').where({ id: document_id }).delete()
-      throw err
-    })
-    if (isHttpFailureResponse(res2)) {
-      throw new Error(`Creation of transaction entry ${JSON.stringify(entry)} failed: ${res2.message}`)
-    }
-    doc.entries.push(res2.data as unknown as EntryModel)
+  // Create entries. If any of them fails, remove the partially created transaction.
+  try {
     // eslint-disable-next-line camelcase
-    row_number++
+    let row_number = 1
+    for (const e of tx.entries) {
+      const account = await db('account').select('id').where({ number: e.account }).first()
+      if (!account) {
+        throw new Error(`Cannot find account number '${e.account}' for transaction ${JSON.stringify(res.data)} entry ${JSON.stringify(e)}.`)
+      }
+      const entry: EntryModelData = {
+        account_id: account.id,
+        amount: Math.abs(e.amount),
+        data: e.data,
+        debit: e.amount < 0 ? 0 : 1,
+        description: e.description,
+        document_id,
+        row_number
+      }
+      const res2 = await createEntry(db, entry)
+      if (isHttpFailureResponse(res2)) {
+        throw new Error(`Creation of transaction entry ${JSON.stringify(entry)} failed: ${res2.message}`)
+      }
+      doc.entries.push(res2.data as unknown as EntryModel)
+      // eslint-disable-next-line camelcase
+      row_number++
+    }
+  } catch (err) {
+    await deleteTransaction(db, document_id as ID)
+    throw err
   }
 
   // Save import info.
