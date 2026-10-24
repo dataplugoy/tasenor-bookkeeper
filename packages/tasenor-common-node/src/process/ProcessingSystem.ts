@@ -114,14 +114,26 @@ export class ProcessingSystem {
     // Check if the handler accepts the rest of the files.
     for (let i = 1; i < files.length; i++) {
       const processFile = new ProcessFile(files[i])
-      if (!selectedHandler.canAppend(processFile)) {
+      let canAppend
+      try {
+        canAppend = selectedHandler.canAppend(processFile)
+      } catch (err) {
+        await process.crashed(err)
+        return process
+      }
+      if (!canAppend) {
         await process.crashed(new InvalidArgument(`The file ${files[i].name} of type ${files[i].type} cannot be appended to handler.`))
         return process
       }
       process.addFile(processFile)
       await processFile.save(this.db)
     }
-    process.files = await selectedHandler.init(process.files)
+    try {
+      process.files = await selectedHandler.init(process.files)
+    } catch (err) {
+      await process.crashed(err)
+      return process
+    }
 
     // Create initial step using the handler.
     let state
