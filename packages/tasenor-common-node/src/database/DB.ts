@@ -250,20 +250,27 @@ const migrateMaster = async (migrations: string): Promise<void> => {
   const conf = await getMasterConfig()
   conf.migrations = { directory: migrations }
   const db = knex(conf)
-  for (let i = 0; i < MIGRATION_RETRY; i++) {
-    try {
-      await db.migrate.latest()
-      log('Migrating master database successful.')
-      break
-    } catch (err) {
-      if (i < MIGRATION_RETRY - 1) {
-        error('Migration failed. Retrying...')
-        await delay(1000)
+  try {
+    for (let i = 0; i < MIGRATION_RETRY; i++) {
+      try {
+        await db.migrate.latest()
+        log('Migrating master database successful.')
+        break
+      } catch (err) {
+        if (i < MIGRATION_RETRY - 1) {
+          error('Migration failed. Retrying...')
+          await delay(1000)
+        } else {
+          // Do not let the server run against an unmigrated database.
+          error('Migrating master database failed:', err)
+          throw err
+        }
       }
     }
+  } finally {
+    // Do not leave hanging connections.
+    await db.destroy()
   }
-  // Do not leave hanging connections.
-  await db.destroy()
 }
 
 /**
