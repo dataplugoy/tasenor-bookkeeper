@@ -145,7 +145,7 @@ class ReportToolPanel extends Component {
   keyIconD() {
     const store = this.props.store
     const url = `${Configuration.UI_API_URL}${store.report.getUrl()}&csv`
-    downloadUrl(url, store.token, store.report.fileName())
+    downloadUrl(url, store.token, store.report.fileName()).catch(err => store.addError(err.message))
     return { preventDefault: true }
   }
 

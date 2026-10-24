@@ -63,9 +63,9 @@ class ToolsForDatabases extends Component {
     const download = (db) => {
       const token = getNetConf(Configuration.UI_API_URL, 'token')
       store.setLoadingOn()
-      downloadUrl(`${Configuration.UI_API_URL}/db/${db.name}/download`, token).then(() => {
-        store.setLoadingOff()
-      })
+      downloadUrl(`${Configuration.UI_API_URL}/db/${db.name}/download`, token)
+        .catch(err => store.addError(err.message))
+        .finally(() => store.setLoadingOff())
     }
 
     const noScheme = Object.keys(this.props.catalog.getAccountingSchemes()).length === 0

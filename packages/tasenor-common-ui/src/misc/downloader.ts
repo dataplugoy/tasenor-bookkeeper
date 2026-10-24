@@ -9,7 +9,11 @@ export const downloadUrl = async (url: string, token?: string, fileName?: string
     method: 'GET',
     headers: new Headers(headers)
   })
-    .then(response => {
+    .then(async response => {
+      if (!response.ok) {
+        const data = await response.json().catch(() => null)
+        throw new Error(data && data.message ? data.message : `Download failed with HTTP ${response.status}.`)
+      }
       const disposition = response.headers.get('Content-Disposition')
       if (disposition && !fileName) {
         const match = /^.*?filename="(.*)"$/.exec(disposition)
@@ -28,5 +32,6 @@ export const downloadUrl = async (url: string, token?: string, fileName?: string
       document.body.appendChild(a)
       a.click()
       a.remove()
+      setTimeout(() => window.URL.revokeObjectURL(url), 1000)
     })
 }
