@@ -287,14 +287,24 @@ router.post('/:id/process/:processId/rollback',
       return res.status(404).send({ message: 'Importer not found.' })
     }
 
-    // Try to continue with new rules.
     const system = await getImportSystem(db, importerId)
-    const process = await system.loadProcess(processId)
+    let process
+    try {
+      process = await system.loadProcess(processId)
+    } catch (err) {
+      error(err)
+      return res.status(404).send({ message: 'Process not found.' })
+    }
     if (process.status !== 'SUCCEEDED') {
       return res.status(400).send({ message: 'Process must be succeeded state in order to rollback.' })
     }
 
-    if (!await process.rollback()) {
+    try {
+      if (!await process.rollback()) {
+        return res.status(400).send({ message: 'Process rollback failed.' })
+      }
+    } catch (err) {
+      error(err)
       return res.status(400).send({ message: 'Process rollback failed.' })
     }
 

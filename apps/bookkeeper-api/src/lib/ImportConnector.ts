@@ -162,6 +162,12 @@ export class ImportConnector implements TransactionImportConnector {
 
   async rollback(processId: ID): Promise<boolean> {
     const docs = await this.db('segment_document').select('document_id').where({ process_id: processId }).pluck(('document_id'))
+    // Refuse to touch anything if some of the documents are in a locked period.
+    const locked = await this.db('document').join('period', 'period.id', 'document.period_id').whereIn('document.id', docs).andWhere('period.locked', true).pluck('document.id')
+    if (locked.length) {
+      log(`Cannot roll back process #${processId}, since ${locked.length} of its documents are in locked periods.`)
+      return false
+    }
     for (const id of docs) {
       await deleteTransaction(this.db, id)
       await this.db('segment_document').where({ process_id: processId }).where({ document_id: id }).delete()
