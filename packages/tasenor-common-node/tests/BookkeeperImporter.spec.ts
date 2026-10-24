@@ -72,4 +72,15 @@ describe('BookkeeperImporter', () => {
     fs.rmSync(dir, { recursive: true })
     fs.rmSync(secret)
   })
+
+  test('extracted backups may not contain symbolic links', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'links-'))
+    fs.mkdirSync(path.join(dir, 'importers', 'X'), { recursive: true })
+    fs.writeFileSync(path.join(dir, 'VERSION'), '3')
+    const importer = new BookkeeperImporter()
+    expect(() => importer.checkNoLinks(dir)).not.toThrow()
+    fs.symlinkSync('/etc/hostname', path.join(dir, 'importers', 'X', 'config.json'))
+    expect(() => importer.checkNoLinks(dir)).toThrow('symbolic link')
+    fs.rmSync(dir, { recursive: true })
+  })
 })

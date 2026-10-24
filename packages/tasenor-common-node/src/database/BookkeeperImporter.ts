@@ -374,6 +374,22 @@ export class BookkeeperImporter {
   }
 
   /**
+   * Ensure that an extracted backup has no symbolic links, which could point to files outside of the backup.
+   * @param dir Directory to check recursively.
+   */
+  checkNoLinks(dir: string): void {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const entryPath = path.join(dir, entry.name)
+      if (entry.isSymbolicLink()) {
+        throw new Error(`Backup contains a symbolic link ${entry.name}, which is not allowed.`)
+      }
+      if (entry.isDirectory()) {
+        this.checkNoLinks(entryPath)
+      }
+    }
+  }
+
+  /**
    * Convert a date from the database to YYYY-MM-DD string.
    */
   dateStr(date: string | Date): string {
@@ -475,6 +491,7 @@ export class BookkeeperImporter {
       throw new Error(`Backup ${tarPath} does not exist.`)
     }
     await system(`cd "${out}" && tar xf "${tarPath}"`)
+    this.checkNoLinks(out)
     await this.restore(masterDb, dbName, out, hostOverride)
     await system(`rm -fr "${out}"`)
   }
