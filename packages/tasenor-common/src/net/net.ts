@@ -375,8 +375,8 @@ function createRequestHandler<T>(method: HttpMethod): HttpRequestFunction<T> {
       return handleError(err)
     })
     if (!finalResult.success) {
-      if (finalResult.status === 403 || finalResult.status === 401) {
-        // Check if we can still fix the problem.
+      if ((finalResult.status === 403 || finalResult.status === 401) && getNetConf(url, 'refreshToken') && getNetConf(url, 'refreshUrl')) {
+        // Check if we can still fix the problem. Otherwise keep the response with the server's message.
         return handleError({ response: finalResult })
       }
     }
