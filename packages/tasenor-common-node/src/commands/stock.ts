@@ -32,16 +32,15 @@ class StockCommand extends Command {
     }
     // Get map of indexes in entry list for existing accounts.
     const entryIndex: Record<number, number> = {}
-    let i = 0
-    for (const entry of zeroTx[0].entries) {
+    zeroTx[0].entries.forEach((entry, i) => {
       if (entry.account_id) {
-        entryIndex[entry.account_id] = i++
+        entryIndex[entry.account_id] = i
       }
-    }
+    })
     // Prepare and create missing entries for stock data upates.
     for (const account of Object.keys(dataArg)) {
       const accountId = await this.accountId(db, account)
-      if (accountId && !entryIndex[accountId]) {
+      if (accountId && !(accountId in entryIndex)) {
         const newEntry: EntryModelData = await this.post(`/db/${db}/entry`, {
           document_id: zeroTx[0].id,
           account_id: accountId,
