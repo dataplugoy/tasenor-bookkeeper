@@ -40,7 +40,9 @@ router.delete('/:id',
         if (!balances) {
           return res.status(404).send({ message: 'Period not found.' })
         }
-        if (balances.balances.length !== 0) {
+        // Also documents without entries refer to the period and prevent deleting it.
+        const documents = await db('document').where({ period_id: id }).count('* as count').first()
+        if (balances.balances.length !== 0 || (documents && parseInt(`${documents.count}`) > 0)) {
           return res.status(400).send({ message: 'Period must have no transactions before deleting it.' })
         }
         await data.deleteOne(db, 'period', id)
