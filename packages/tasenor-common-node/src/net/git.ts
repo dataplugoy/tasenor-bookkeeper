@@ -1,5 +1,5 @@
 import { DirectoryPath, Email, error, FilePath, log, Url, warning } from '@tasenor/common'
-import simpleGit, { SimpleGit } from 'simple-git'
+import simpleGit, { RemoteWithRefs, SimpleGit } from 'simple-git'
 import gitUrlParse from 'git-url-parse'
 import fs from 'fs'
 import glob from 'fast-glob'
@@ -85,7 +85,14 @@ export class GitRepo {
    */
   async fetch(): Promise<boolean> {
     if (fs.existsSync(this.fullPath)) {
-      return true
+      // An earlier clone of a different repository with the same name must not be used.
+      const origin = (await this.git.getRemotes(true).catch((): RemoteWithRefs[] => [])).find(r => r.name === 'origin')
+      if (origin && origin.refs.fetch === this.url) {
+        return true
+      }
+      warning(`Existing clone in ${this.fullPath} is not from ${this.url}. Cloning again.`)
+      await this.clean()
+      this.setDir(this.rootDir)
     }
     return this.git.clone(this.url, this.fullPath)
       .then(() => {
