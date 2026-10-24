@@ -141,34 +141,23 @@ async function getAll(): Promise<UserDataModel[]> {
  * Get one user data.
  */
 async function getOne(user): Promise<UserDataModel | null> {
-  return new Promise((resolve) => {
-    const db = knex.masterDb()
-    db('users').select(ALLOWED_USER_FIELDS).where({ email: user }).first().then(data => {
-      if (!data) {
-        resolve(null)
-      } else {
-        resolve(data)
-      }
-    })
-  })
+  const db = knex.masterDb()
+  const data = await db('users').select(ALLOWED_USER_FIELDS).where({ email: user }).first()
+  return data || null
 }
 
 /**
  * Delete a user.
  */
-async function deleteOne(email) {
-  return new Promise((resolve, reject) => {
-    const db = knex.masterDb()
-    db('users').select('id').where({ email }).first().then(async (user) => {
-      if (!user) {
-        reject(new Error(`User ${email} does not exist.`))
-      } else {
-        await db('database_users').where({ user_id: user.id }).delete()
-        await db('users').where({ id: user.id }).delete()
-        resolve(true)
-      }
-    })
-  })
+async function deleteOne(email): Promise<boolean> {
+  const db = knex.masterDb()
+  const user = await db('users').select('id').where({ email }).first()
+  if (!user) {
+    throw new Error(`User ${email} does not exist.`)
+  }
+  await db('database_users').where({ user_id: user.id }).delete()
+  await db('users').where({ id: user.id }).delete()
+  return true
 }
 
 /**
