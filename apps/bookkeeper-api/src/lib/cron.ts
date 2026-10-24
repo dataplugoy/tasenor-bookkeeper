@@ -1,4 +1,4 @@
-import { DatabaseName, Hostname, log } from '@tasenor/common'
+import { DatabaseName, Hostname, error, log } from '@tasenor/common'
 import { DB } from '@tasenor/common-node'
 import dayjs from 'dayjs'
 import cron, { ScheduledTask } from 'node-cron'
@@ -15,7 +15,14 @@ async function hourly(): Promise<void> {
   log('Running hourly cron.')
   const start = new Date().getTime()
 
-  await catalog.forEach(async plugin => await plugin.hourly(dayjs().hour()))
+  const hour = dayjs().hour()
+  await catalog.forEach(async plugin => {
+    try {
+      await plugin.hourly(hour)
+    } catch (err) {
+      error(`Hourly cron of plugin ${plugin.code} failed:`, err)
+    }
+  })
 
   const stop = new Date().getTime()
   log(`Hourly cron executed in ${(stop - start) / 1000} seconds.`)
@@ -28,10 +35,23 @@ async function nightly(): Promise<void> {
   log('Running nightly cron.')
   const start = new Date().getTime()
 
+  // A failure in one database or plugin must not prevent running the rest.
   for (const name of await knex.allDbs()) {
-    const db = await DB.get(knex.masterDb(), name as DatabaseName, process.env.DB_HOST_OVERRIDE as Hostname)
+    let db
+    try {
+      db = await DB.get(knex.masterDb(), name as DatabaseName, process.env.DB_HOST_OVERRIDE as Hostname)
+    } catch (err) {
+      error(`Nightly cron cannot connect database ${name}:`, err)
+      continue
+    }
     // TODO: Check subscription validity first.
-    await catalog.forEach(async plugin => await plugin.nightly(db))
+    await catalog.forEach(async plugin => {
+      try {
+        await plugin.nightly(db)
+      } catch (err) {
+        error(`Nightly cron of plugin ${plugin.code} failed for database ${name}:`, err)
+      }
+    })
   }
 
   const stop = new Date().getTime()
