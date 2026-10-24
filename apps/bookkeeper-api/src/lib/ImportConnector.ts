@@ -66,7 +66,10 @@ export class ImportConnector implements TransactionImportConnector {
    * Check the result if there is suspiciously identical transaction (that is not marked as imported yet).
    */
   async resultExists(processId: ID, result: TransactionDescription): Promise<boolean> {
-    for (const tx of result.transactions || []) {
+    if (!result.transactions || result.transactions.length === 0) {
+      return false
+    }
+    for (const tx of result.transactions) {
 
       // Quick check for segment.
       const old = await this.db('segment_document').select('document_id').where({ segment_id: tx.segmentId, importer_id: this.importer.id }).pluck('document_id')
@@ -78,33 +81,35 @@ export class ImportConnector implements TransactionImportConnector {
       }
 
       // Find all document IDs for every entry matching and ensure there is one ID having them all.
+      // A transaction outside of all periods cannot exist yet. Date range check handles it later.
       const period = await periodOf(this.db, tx.date)
-      if (period) {
-        let sharedIds: Set<number> | null = null
-        for (const entry of tx.entries) {
-          const docs = await this.db('document')
-            .join('entry', 'document.id', '=', 'entry.document_id')
-            .join('account', 'entry.account_id', 'account.id')
-            .where({ period_id: period.id, date: tx.date })
-            .andWhere('entry.description', '=', entry.description)
-            .andWhere('account.number', '=', entry.account)
-            .andWhere('entry.data', '=', entry.data || {})
-            .andWhere('entry.debit', '=', entry.amount >= 0)
-            .andWhereRaw(`entry.amount * 100 = ${Math.abs(entry.amount)}`)
-            .pluck('document.id')
+      if (!period) {
+        return false
+      }
+      let sharedIds: Set<number> | null = null
+      for (const entry of tx.entries) {
+        const docs = await this.db('document')
+          .join('entry', 'document.id', '=', 'entry.document_id')
+          .join('account', 'entry.account_id', 'account.id')
+          .where({ period_id: period.id, date: tx.date })
+          .andWhere('entry.description', '=', entry.description)
+          .andWhere('account.number', '=', entry.account)
+          .andWhere('entry.data', '=', entry.data || {})
+          .andWhere('entry.debit', '=', entry.amount >= 0)
+          .andWhereRaw(`entry.amount * 100 = ${Math.abs(entry.amount)}`)
+          .pluck('document.id')
 
-          if (docs.length) {
-            if (sharedIds === null) {
-              sharedIds = new Set(docs as number[])
-            } else {
-              sharedIds = setIntersect(sharedIds, new Set(docs as number[]))
-              if (sharedIds.size === 0) {
-                return false
-              }
-            }
+        if (docs.length) {
+          if (sharedIds === null) {
+            sharedIds = new Set(docs as number[])
           } else {
-            return false
+            sharedIds = setIntersect(sharedIds, new Set(docs as number[]))
+            if (sharedIds.size === 0) {
+              return false
+            }
           }
+        } else {
+          return false
         }
       }
     }
