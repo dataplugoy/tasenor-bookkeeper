@@ -185,8 +185,9 @@ export function validFileName(name: string): boolean {
  * Test a git repo name for bad characters.
  */
 export function validGitRepoName(name: string): boolean {
+  // Anchored, so that nothing else (like command line options) can be added around a valid address.
   // eslint-disable-next-line prefer-regex-literals
-  const re = new RegExp('((git|ssh|http(s)?)|(git@[\\w\\.]+))(:(//)?)([\\w\\.@\\:/\\-~]+)(\\.git)(/)?', 'i')
+  const re = new RegExp('^((git|ssh|http(s)?)|(git@[\\w\\.]+))(:(//)?)([\\w\\.@\\:/\\-~]+)(\\.git)(/)?$', 'i')
   return re.test(name)
 }
 
