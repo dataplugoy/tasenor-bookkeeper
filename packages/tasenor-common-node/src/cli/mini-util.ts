@@ -111,7 +111,7 @@ export function runMiniUtil(name: string | undefined = undefined) {
     throw new Error(`There is no mini util called '${name}'.`)
   }
   const parser: ArgumentParser = new ArgumentParser({
-    description: utils.title
+    description: utils[name].title
   })
   for (const arg of utils[name].args) {
     parser.add_argument(...arg)
