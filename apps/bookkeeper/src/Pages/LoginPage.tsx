@@ -17,8 +17,11 @@ const LoginPage = withStore(withCatalog(observer((props) => {
 
   const onRegisterAdmin = ({ name, password, email }) => {
     return props.store.request('/register', 'POST', { admin: true, name, password, email })
-      .then(() => {
-        props.store.login(email, password)
+      .then((success) => {
+        if (!success) {
+          return
+        }
+        return props.store.login(email, password)
           .then(() => {
             navigate('/_/admin')
           })

@@ -38,7 +38,7 @@ class RegisterForm extends Component {
     const { name, email, password, passwordAgain } = this.state
     store.clearMessages()
 
-    if (password.length < 4) {
+    if (password.length < 8) {
       store.addError(this.props.t('Password is too short.'))
     }
     if (password !== passwordAgain) {

@@ -20,7 +20,7 @@ router.post('/',
       const err = await users.validateUser(name, password, email)
       if (err !== true) {
         error(err)
-        return res.sendStatus(400)
+        return res.status(400).send({ message: err })
       }
       if (!await users.registerUser({ name, email, password, admin, superuser: true })) {
         return res.sendStatus(500)
