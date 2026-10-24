@@ -531,6 +531,9 @@ export class Store {
     // Fetch additional data for an account.
     return this.request('/db/' + db + '/account/' + accountId)
       .then((account) => {
+        if (!account) {
+          return
+        }
         runInAction(() => {
           this.accountId = accountId
           this.account.periods.replace(account.periods)
@@ -624,6 +627,9 @@ export class Store {
     }
     return this.request('/db/' + db + '/period')
       .then((periods) => {
+        if (!periods) {
+          return
+        }
         runInAction(() => {
           periods.forEach((data) => {
             this.dbsByName[db].addPeriod(new PeriodModel(this.dbsByName[db], data))
@@ -668,6 +674,9 @@ export class Store {
     }
     return this.request('/db/' + db + '/account')
       .then((accounts) => {
+        if (!accounts) {
+          return
+        }
         runInAction(() => {
           this.dbsByName[db].deleteAccounts()
           accounts.forEach((data) => {
@@ -693,6 +702,9 @@ export class Store {
     }
     return this.request('/db/' + db + '/entry?account_id=' + accountId, 'GET', null, null, true)
       .then((res) => {
+        if (!res) {
+          return []
+        }
         const ret = res.map(e => ({
           documentId: e.document_id,
           description: e.description,
@@ -715,6 +727,9 @@ export class Store {
     }
     return this.request('/db/' + db + '/heading')
       .then((headings) => {
+        if (!headings) {
+          return
+        }
         runInAction(() => {
           headings.forEach((heading) => {
             this.dbsByName[db].addHeading(new HeadingModel(this.dbsByName[db], heading))
@@ -771,6 +786,9 @@ export class Store {
     }
     return this.request('/db/' + db + '/report')
       .then((reports) => {
+        if (!reports) {
+          return
+        }
         runInAction(() => {
           this.dbsByName[db].periods.forEach((period) => period.clearReports())
           Object.keys(reports.options).forEach((format, idx) => {
@@ -1013,6 +1031,9 @@ export class Store {
   async getUsers() {
     return this.request('/admin/user')
       .then((users) => {
+        if (!users) {
+          return
+        }
         runInAction(() => this.users.replace(users))
       })
   }
