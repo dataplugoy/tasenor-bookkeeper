@@ -164,7 +164,7 @@ export class TasenorExporter extends Exporter {
     const processes: ProcessModelData[] = await db('processes').orderBy('id')
     const steps: Partial<ProcessStepModelData>[] = await db('process_steps').orderBy('id')
     const files: Partial<ProcessFileModelData>[] = await db('process_files').orderBy('id')
-    const segments: Partial<SegmentModelData & { number: number}>[] = await db('segment_document').join('document', 'document.id', '=', 'segment_document.document_id').select('segment_document.*', 'document.number')
+    const segments: Partial<SegmentModelData & { number: number, date: string }>[] = await db('segment_document').join('document', 'document.id', '=', 'segment_document.document_id').select('segment_document.*', 'document.number', 'document.date')
 
     const result: Record<number, ProcessModelDetailedData> = {}
     processes.forEach(p => {
@@ -192,7 +192,8 @@ export class TasenorExporter extends Exporter {
       if (result[segment.process_id || ''].segments[segment.segment_id]) {
         throw new Error(`Duplicates not yet handled for segment '${segment.segment_id}'.`)
       }
-      result[segment.process_id || ''].segments[segment.segment_id] = segment.number
+      // Document numbers repeat in every period, so store the date to find the right period on restore.
+      result[segment.process_id || ''].segments[segment.segment_id] = { number: segment.number as number, date: `${segment.date}`.substring(0, 10) }
     })
 
     return Object.values(result)

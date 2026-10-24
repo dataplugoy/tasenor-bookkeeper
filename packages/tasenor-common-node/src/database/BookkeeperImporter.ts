@@ -362,11 +362,16 @@ export class BookkeeperImporter {
 
       if (segmentData) {
         for (const segmentId of Object.keys(segmentData)) {
+          // Newer backups have the document date, older ones only the number.
+          const doc = segmentData[segmentId]
+          const documentId = typeof doc === 'object'
+            ? this.documentId(doc.number, doc.date)
+            : this.documentId(doc, process.config?.firstDate as string | undefined)
           await db('segment_document').insert({
             segment_id: segmentId,
             process_id: processId,
             importer_id: importerId,
-            document_id: this.documentId(segmentData[segmentId], process.config?.firstDate as string | undefined)
+            document_id: documentId
           })
         }
       }

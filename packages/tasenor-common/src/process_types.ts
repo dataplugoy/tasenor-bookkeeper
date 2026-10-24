@@ -108,7 +108,7 @@ export type ProcessModelDetailedData = {
   currentStep: number
   steps: ProcessStepModelData[]
   files: ProcessFileModelData[]
-  segments?: Record<SegmentId, number>
+  segments?: Record<SegmentId, number | { number: number, date: string }>
   status: ProcessStatus
   error?: string
   created: Date
