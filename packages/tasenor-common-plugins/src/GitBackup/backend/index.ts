@@ -235,10 +235,11 @@ class GitBackup extends ToolPlugin {
     // limits (e.g. GitHub's 100 MB), which would otherwise block the whole backup push.
     // `gzip -n` omits the name/timestamp header so an unchanged database yields an
     // identical file and produces a genuine "nothing to commit" backup.
-    // TODO: Check for pg_dump crash. What if that happens?
+    // The dump is written to a file before compressing, since in a pipe a failing pg_dump would go
+    // unnoticed and a truncated dump would be committed as a successful backup.
     // The password goes in the environment, since the command line is logged and visible in process listings.
     const { host, port, database, user, password } = db.client.config.connection
-    await systemPiped(`pg_dump --restrict-key=salkjh21iuewy932hedsjewqeds -c -h "${host}" -p "${port}" -U "${user}" "${database}" | gzip -n > "${dir}/dump.sql.gz"`, false, false, { PGPASSWORD: `${password}` })
+    await systemPiped(`pg_dump --restrict-key=salkjh21iuewy932hedsjewqeds -c -h "${host}" -p "${port}" -U "${user}" -f "${dir}/dump.sql" "${database}" && gzip -n -f "${dir}/dump.sql"`, false, false, { PGPASSWORD: `${password}` })
 
     const exporter = new TasenorExporter()
     await exporter.dump(db, exportDir)
