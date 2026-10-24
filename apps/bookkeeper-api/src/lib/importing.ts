@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { DocumentModel, DocumentModelData, EntryModel, EntryModelData, isHttpFailureResponse, Transaction, ID } from '@tasenor/common'
+import { DocumentModel, DocumentModelData, EntryModel, EntryModelData, isHttpFailureResponse, Transaction, ID, Language } from '@tasenor/common'
 import catalog from './catalog'
 import { ImportConnector } from './ImportConnector'
 import { create as createDocument } from './document'
@@ -28,7 +28,7 @@ export async function getImportSystem(db: KnexDatabase, importerId: ID): Promise
 /**
  * Create complete transaction including document and entries.
  */
-export async function createTransaction(db: KnexDatabase, tx: Transaction, processId: ID, importerId: ID, ignoreExisting: boolean): Promise<DocumentModelData> {
+export async function createTransaction(db: KnexDatabase, tx: Transaction, processId: ID, importerId: ID, ignoreExisting: boolean, language: Language | undefined = undefined): Promise<DocumentModelData> {
 
   // Check the existing import.
   const segmentId = tx.segmentId
@@ -70,7 +70,9 @@ export async function createTransaction(db: KnexDatabase, tx: Transaction, proce
     // eslint-disable-next-line camelcase
     let row_number = 1
     for (const e of tx.entries) {
-      const account = await db('account').select('id').where({ number: e.account }).first()
+      // Account numbers are unique only within a language, so prefer the language of the import.
+      const accounts = await db('account').select('id', 'language').where({ number: e.account })
+      const account = accounts.find(a => a.language === language) || accounts[0]
       if (!account) {
         throw new Error(`Cannot find account number '${e.account}' for transaction ${JSON.stringify(res.data)} entry ${JSON.stringify(e)}.`)
       }

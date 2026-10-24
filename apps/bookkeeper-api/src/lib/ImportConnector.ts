@@ -149,7 +149,7 @@ export class ImportConnector implements TransactionImportConnector {
         }
 
         // All good, let's create the transaction.
-        const doc = await createTransaction(this.db, tx, processId, this.importer.id, n > 0)
+        const doc = await createTransaction(this.db, tx, processId, this.importer.id, n > 0, config.language as Language)
         tx.id = doc.id
         tx.executionResult = 'created'
         output.create(tx)
