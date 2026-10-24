@@ -54,6 +54,14 @@ export async function collectAssets(db: KnexDatabase, id: ID) {
  * @param period
  */
 export async function create(db: KnexDatabase, period: PeriodModelData, initText: string | undefined): Promise<HttpResponse | null> {
+  // Periods must be proper ranges and must not overlap, since a date has to belong to exactly one period.
+  if (!period.start_date || !period.end_date || period.start_date > period.end_date) {
+    return { success: false, status: 400, message: 'Invalid period dates.' }
+  }
+  const overlapping = await db('period').where('start_date', '<=', period.end_date).andWhere('end_date', '>=', period.start_date).first()
+  if (overlapping) {
+    return { success: false, status: 400, message: 'Period overlaps with an existing period.' }
+  }
   const last = await db('period').orderBy('end_date', 'desc').limit(1).first()
   const profitAcc = last ? await db('account').where({ type: 'PROFIT_PREV' }).first() : null
   if (last && !profitAcc) {
