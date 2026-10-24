@@ -67,7 +67,25 @@ router.post('/', async (req, res, next) => {
 router.patch('/:id',
   async (req, res, next) => {
     const obj = req.body
-    data.updateOne(await knex.db(res.locals.user, res.locals.db), 'period', parseInt(req.params.id), obj)
+    const db = await knex.db(res.locals.user, res.locals.db)
+    const id = parseInt(req.params.id)
+    // Changed dates must still form a proper range not overlapping other periods.
+    if ('start_date' in obj || 'end_date' in obj) {
+      const old = await db('period').where({ id }).first()
+      if (!old) {
+        return res.status(404).send({ message: 'Period not found.' })
+      }
+      const start = obj.start_date ?? old.start_date
+      const end = obj.end_date ?? old.end_date
+      if (!start || !end || start > end) {
+        return res.status(400).send({ message: 'Invalid period dates.' })
+      }
+      const overlapping = await db('period').whereNot({ id }).andWhere('start_date', '<=', end).andWhere('end_date', '>=', start).first()
+      if (overlapping) {
+        return res.status(400).send({ message: 'Period overlaps with an existing period.' })
+      }
+    }
+    data.updateOne(db, 'period', id, obj)
       .then(() => res.status(204).send())
       .catch(next)
   }
