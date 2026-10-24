@@ -78,7 +78,8 @@ router.delete('/:id',
       }
     })
     if (locked) {
-      res.sendStatus(403)
+      // Not 403, since the UI handles that as an invalid session and logs out.
+      res.status(400).send({ message: 'Cannot delete an account having transactions or belonging to a locked period.' })
     } else {
       await data.deleteOne(await knex.db(res.locals.user, res.locals.db), 'account', id)
       res.sendStatus(204)

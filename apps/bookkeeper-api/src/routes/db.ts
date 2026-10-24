@@ -112,7 +112,8 @@ router.delete('/:name',
     const masterDb = knex.masterDb()
     const conf = await knex.dbSettings(res.locals.user, name)
     if (!conf || !conf.isCreator) {
-      return res.status(403).send({ message: 'You are not allowed to delete this database.' })
+      // Not 403, since the UI handles that as an invalid session and logs out.
+      return res.status(400).send({ message: 'You are not allowed to delete this database.' })
     }
     const message = await DB.destroy(masterDb, name as DatabaseName, process.env.DB_HOST_OVERRIDE as Hostname)
     if (message === null) {
