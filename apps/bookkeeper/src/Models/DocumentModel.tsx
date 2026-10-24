@@ -68,7 +68,11 @@ class DocumentModel extends NavigationTargetModel {
   async delete() {
     const path = '/db/' + this.db + '/document/' + this.id
     return this.store.request(path, 'DELETE')
-      .then(() => {
+      .then((res) => {
+        // A failed request has already shown the error and resolves without a result.
+        if (!res) {
+          return
+        }
         runInAction(() => {
           this.period.deleteDocument(this)
         })

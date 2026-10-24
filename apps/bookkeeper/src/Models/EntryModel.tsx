@@ -136,7 +136,11 @@ class EntryModel extends NavigationTargetModel {
     }
     const path = '/db/' + this.db + '/entry/' + this.id
     return this.store.request(path, 'DELETE')
-      .then(() => {
+      .then((res) => {
+        // A failed request has already shown the error and resolves without a result.
+        if (!res) {
+          return
+        }
         runInAction(() => {
           this.period.deleteEntry(this)
         })

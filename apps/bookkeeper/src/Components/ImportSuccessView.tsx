@@ -32,8 +32,10 @@ export const ImportSuccessView = observer((props: ImportSuccessViewProps): JSX.E
   const onRollback = () => {
     setReverting(false)
     const url = `/db/${store.db}/import/${process.ownerId}/process/${process.id}/rollback`
-    store.request(url, 'POST').then(() => {
-      nav.go({ side: `${process.ownerId}`, step: null, processId: null })
+    store.request(url, 'POST').then((res) => {
+      if (res) {
+        nav.go({ side: `${process.ownerId}`, step: null, processId: null })
+      }
     })
   }
 
