@@ -98,6 +98,7 @@ export async function create(db: KnexDatabase, period: PeriodModelData, initText
           break
         case 'REVENUE':
         case 'EXPENSE':
+        case 'PROFIT':
         case 'PROFIT_PREV':
           profit += balance.total || 0
           break
