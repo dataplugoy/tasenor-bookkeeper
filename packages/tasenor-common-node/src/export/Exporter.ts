@@ -168,7 +168,8 @@ export class Exporter {
    */
   async makeTar(conf: BookkeeperConfig, out: DirectoryPath, destPath: DirectoryPath | undefined): Promise<TarFilePath> {
     const name = conf.companyName || 'unknown'
-    const tar = `${name.replace(/[^-a-zA-Z0-9]/, '_')}-${dayjs().format('YYYY-MM-DD')}.tasenor`
+    // The name ends up in a shell command, so allow only safe characters.
+    const tar = `${name.replace(/[^-a-zA-Z0-9]/g, '_')}-${dayjs().format('YYYY-MM-DD')}.tasenor`
     const tarPath = `${out}/../${tar}`
     const dest = process.cwd()
     if (!destPath) {
@@ -177,7 +178,7 @@ export class Exporter {
     if (path.dirname(destPath) === '.') {
       destPath = create<DirectoryPath>(path.join(dest, path.basename(destPath)))
     }
-    await system(`cd "${out}" && tar cjf "${tarPath}" . && mv "${tarPath}" "${destPath}" && rm -fr ${out}`)
+    await system(`cd "${out}" && tar cjf "${tarPath}" . && mv "${tarPath}" "${destPath}" && rm -fr "${out}"`)
     log(`Package ready ${destPath}`)
     return destPath as unknown as TarFilePath
   }
