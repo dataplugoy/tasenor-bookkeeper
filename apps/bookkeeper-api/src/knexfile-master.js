@@ -18,9 +18,9 @@ module.exports = {
     connection: {
       host: url.hostname,
       port: parseInt(url.port),
-      database: url.pathname.replace(/\//, ''),
-      user: url.username,
-      password: url.password
+      database: decodeURIComponent(url.pathname.replace(/\//, '')),
+      user: decodeURIComponent(url.username),
+      password: decodeURIComponent(url.password)
     },
     pool: {
       min: 1,
@@ -39,9 +39,9 @@ module.exports = {
     connection: {
       host: url.hostname,
       port: parseInt(url.port),
-      database: url.pathname.replace(/\//, ''),
-      user: url.username,
-      password: url.password
+      database: decodeURIComponent(url.pathname.replace(/\//, '')),
+      user: decodeURIComponent(url.username),
+      password: decodeURIComponent(url.password)
     },
     pool: {
       min: 2,
@@ -60,9 +60,9 @@ module.exports = {
     connection: {
       host: url.hostname,
       port: parseInt(url.port),
-      database: url.pathname.replace(/\//, ''),
-      user: url.username,
-      password: url.password
+      database: decodeURIComponent(url.pathname.replace(/\//, '')),
+      user: decodeURIComponent(url.username),
+      password: decodeURIComponent(url.password)
     },
     pool: {
       min: 2,

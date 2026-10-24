@@ -137,9 +137,10 @@ const getKnexConfig = (knexUrl: Url): KnexConfig => {
     connection: {
       host: url.hostname,
       port: parseInt(url.port) || 5432,
-      database: url.pathname.replace(/^\//, ''),
-      user: url.username,
-      password: url.password
+      // URL keeps these percent-encoded, but the database needs the actual values.
+      database: decodeURIComponent(url.pathname.replace(/^\//, '')),
+      user: decodeURIComponent(url.username),
+      password: decodeURIComponent(url.password)
     },
     pool: {
       min: 1,
