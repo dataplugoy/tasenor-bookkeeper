@@ -136,8 +136,9 @@ router.post('/upload',
         } else if (!req.file || !req.file.originalname) {
           res.status(400).send({ message: 'File missing.' })
         } else {
-          let dbName = req.file.originalname.replace(/^([A-Za-z]+).*/, '$1').toLowerCase()
-          if (!dbName) dbName = 'unknown'
+          // Name the database by the leading letters of the file name, if there are any.
+          const nameMatch = /^([A-Za-z]+)/.exec(req.file.originalname)
+          let dbName = nameMatch ? nameMatch[1].toLowerCase() : 'unknown'
           const masterDb = knex.masterDb()
           dbName = await DB.findName(masterDb, dbName)
           if (!await createNewDatabase(dbName, res.locals.user, { isCreator: true })) {
