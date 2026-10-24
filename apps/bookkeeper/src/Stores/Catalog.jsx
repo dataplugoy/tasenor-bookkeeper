@@ -459,7 +459,11 @@ class Catalog extends Component {
       year += 2000
     }
     const date = dayjs(sprintf('%04d-%02d-%02d 00:00:00', year, month, day))
-    return date.isValid() ? date.format('YYYY-MM-DD') : undefined
+    // Reject dates like 2024-02-31 that dayjs would silently roll over to the next month.
+    if (!date.isValid() || date.date() !== day || date.month() + 1 !== month) {
+      return undefined
+    }
+    return date.format('YYYY-MM-DD')
   }
 
   /**
