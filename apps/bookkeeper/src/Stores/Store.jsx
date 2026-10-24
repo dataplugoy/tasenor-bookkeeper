@@ -459,17 +459,23 @@ export class Store {
     if (!db) {
       return
     }
+    // Let a fetch of another database finish first and then fetch this one.
+    if (this.dbFetch && this.dbFetchName !== db) {
+      await this.dbFetch.catch(() => undefined)
+      return this.setDb(db)
+    }
     if (!this.dbFetch) {
       debug('SetDb', db, 'fetching...')
+      this.dbFetchName = db
       this.dbFetch = this.fetchSettings(db)
         .then(() => this.fetchPeriods(db))
         .then(() => this.fetchReports(db))
         .then(() => this.fetchTags(db))
         .then(() => this.fetchHeadings(db))
         .then(() => this.fetchAccounts(db))
-        .then(() => runInAction(() => (this.dbFetch = null)))
         .then(() => runInAction(() => (this.db = db)))
         .then(() => debug('SetDb', db, 'Done'))
+        .finally(() => runInAction(() => (this.dbFetch = null)))
     } else {
       debug('SetDb', db, 'sharing...')
     }
@@ -493,15 +499,21 @@ export class Store {
       runInAction(() => (this.periodId = null))
       return
     }
+    // Let a fetch of another period finish first and then fetch this one.
+    if (this.periodFetch && this.periodFetchName !== `${db}/${periodId}`) {
+      await this.periodFetch.catch(() => undefined)
+      return this.setPeriod(db, periodId)
+    }
     if (!this.periodFetch) {
       debug('SetPeriod:', db, periodId, 'fetching...')
       this.invalidateReport()
       // Pass though and share the same promise.
+      this.periodFetchName = `${db}/${periodId}`
       this.periodFetch = this.fetchBalances(db, periodId)
         .then(() => runInAction(() => (this.periodId = periodId)))
         .then(() => this.fetchDocuments(db, periodId))
-        .then(() => runInAction(() => (this.periodFetch = null)))
         .then(() => debug('SetPeriod', db, periodId, 'Done'))
+        .finally(() => runInAction(() => (this.periodFetch = null)))
     } else {
       debug('SetPeriod:', db, periodId, 'sharing...')
     }
