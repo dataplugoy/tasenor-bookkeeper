@@ -178,8 +178,15 @@ router.get('/:name/download',
     }
     const outDir: DirectoryPath = fs.mkdtempSync('/tmp/bookkeeper-download-') as DirectoryPath
     const exporter = new TasenorExporter()
-    const tarPath = await exporter.runDb(db, outDir)
-    await res.sendFile(tarPath, {
+    let tarPath
+    try {
+      tarPath = await exporter.runDb(db, outDir)
+    } catch (err) {
+      error(err)
+      fs.rmSync(outDir, { recursive: true, force: true })
+      return res.status(500).send({ message: 'Creating the backup failed.' })
+    }
+    res.sendFile(tarPath, {
       headers: {
         'Content-Type': 'application/gzip',
         'Content-Disposition': `attachment; filename="${path.basename(tarPath)}"`,
@@ -187,6 +194,8 @@ router.get('/:name/download',
       }
     }, function(err) {
       if (err) error(err)
+      // The backup is created only for this download, so do not leave it on the server.
+      fs.rmSync(tarPath, { force: true })
     })
   }
 )
