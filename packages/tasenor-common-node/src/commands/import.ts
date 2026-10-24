@@ -119,7 +119,8 @@ class ImportCommand extends Command {
     })
     this.out('import', resp)
 
-    if (answersArg) {
+    // Answers are only for a process waiting for them. A finished process does not accept input.
+    if (answersArg && resp.status === 'WAITING') {
       log(`Uploading answers to process #${resp.processId}`)
       const resp2 = await this.post(`/db/${db}/import/${importer.id}/process/${resp.processId}`, {
         answer: answersArg

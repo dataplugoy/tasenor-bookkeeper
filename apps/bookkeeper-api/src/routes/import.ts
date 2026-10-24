@@ -92,9 +92,13 @@ router.post('/:id/process/:processId',
       return res.status(400).send({ message: 'Invalid process ID.' })
     }
     const db = await knex.db(res.locals.user, res.locals.db)
-    const processData = await db('processes').select('ownerId', 'config').where({ id: processId }).first()
+    const processData = await db('processes').select('ownerId', 'config', 'status').where({ id: processId }).first()
     if (!processData) {
       return res.status(404).send({ message: 'Process not found.' })
+    }
+    // A finished process would be pushed to the next step and marked succeeded again, even after a rollback.
+    if (processData.status === 'SUCCEEDED' || processData.status === 'ROLLEDBACK') {
+      return res.status(400).send({ message: 'The process is already finished.' })
     }
 
     const system = await getImportSystem(db, processData.ownerId)
