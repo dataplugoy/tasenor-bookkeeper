@@ -303,8 +303,8 @@ export class Process {
         await this.system.connector.fail(this.state)
         break
       default:
-        directions = this.currentStep ? this.steps[this.currentStep].directions : null
-        state = this.currentStep ? this.steps[this.currentStep].state : null
+        directions = this.currentStep !== undefined && this.currentStep !== null ? this.steps[this.currentStep].directions : null
+        state = this.currentStep !== undefined && this.currentStep !== null ? this.steps[this.currentStep].state : null
         await this.system.connector.waiting(state, directions)
     }
   }

@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals'
-import { ProcessStatus } from '@tasenor/common'
+import { Directions, ProcessStatus } from '@tasenor/common'
 import { Process } from '../src/process/Process'
 import { ProcessStep } from '../src/process/ProcessStep'
 
@@ -36,5 +36,22 @@ describe('Process', () => {
 
     expect(process.status).toBe('ROLLEDBACK')
     expect(statuses[statuses.length - 1]).toBe('ROLLEDBACK')
+  })
+
+  test('waiting on the first step passes its state and directions to the connector', async () => {
+    const db = () => ({ update: () => ({ where: async () => undefined }) })
+    const waiting: unknown[][] = []
+    const system = { db, logger: { info: () => undefined }, connector: { waiting: async (...args: unknown[]) => { waiting.push(args) } } }
+    const process = new Process(system as never, 'Test')
+    process.id = 1
+    const step = new ProcessStep({ number: 0, state: { stage: 'initial' }, handler: 'Test' } as never)
+    step.directions = new Directions({ type: 'ui', element: { type: 'text', name: 'answer.1.question' } as never })
+    process.addStep(step)
+    process.currentStep = 0
+
+    await process.updateStatus()
+
+    expect(process.status).toBe('WAITING')
+    expect(waiting).toEqual([[{ stage: 'initial' }, step.directions]])
   })
 })
