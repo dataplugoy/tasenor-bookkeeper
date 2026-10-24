@@ -1,5 +1,5 @@
 import { Language, PK, ReportQueryParams, ReportID, ReportOptions, error, warning } from '@tasenor/common'
-import express from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import knex from '../lib/knex'
 import catalog from '../lib/catalog'
 import { KnexDatabase } from '@tasenor/common-node'
@@ -9,10 +9,17 @@ import { checkSubscription, hasSubscription } from '../lib/subscriptions'
 const router = express.Router()
 
 /**
+ * Pass errors of an async handler to the error handler instead of leaving them unhandled.
+ */
+const handle = (fn: (req: Request, res: Response) => Promise<unknown>) => (req: Request, res: Response, next: NextFunction) => {
+  fn(req, res).catch(next)
+}
+
+/**
  * Get a list of available report option specifications.
  */
 router.get('/',
-  async (req, res) => {
+  handle(async (req, res) => {
     const db: KnexDatabase = await knex.db(res.locals.user, res.locals.db)
     const scheme = await db('settings').select('value').where({ name: 'scheme' }).pluck('value')
     const schemeName = scheme.length ? scheme[0] : undefined
@@ -24,13 +31,16 @@ router.get('/',
       }
     }
     res.send({ options })
-  }
+  })
 )
 
 router.get('/:format/:period',
-  async (req, res) => {
+  handle(async (req, res) => {
     const format = req.params.format as ReportID
     const periodId: PK = parseInt(req.params.period) as PK
+    if (isNaN(periodId)) {
+      return res.status(400).send({ message: 'Invalid period ID.' })
+    }
     const db: KnexDatabase = await knex.db(res.locals.user, res.locals.db)
     const scheme = await db('settings').select('value').where({ name: 'scheme' }).pluck('value')
     const plugin = catalog.getReportPlugin(format, scheme.length ? scheme[0] : undefined)
@@ -85,13 +95,16 @@ router.get('/:format/:period',
     }
 
     return res.send(data)
-  })
+  }))
 
 router.get('/:format/:period/:account',
-  async (req, res) => {
+  handle(async (req, res) => {
     const format = req.params.format as ReportID
     const periodId: PK = parseInt(req.params.period) as PK
     const accountId: PK = parseInt(req.params.account) as PK
+    if (isNaN(periodId) || isNaN(accountId)) {
+      return res.status(400).send({ message: 'Invalid period or account ID.' })
+    }
     const params: ReportQueryParams = {
       accountId,
       periodId,
@@ -109,7 +122,7 @@ router.get('/:format/:period/:account',
     }
 
     return res.send(data)
-  }
+  })
 )
 
 export default router
