@@ -143,7 +143,7 @@ export class Process {
     } else {
       this.id = (await this.db('processes').insert(this.toJSON()).returning('id'))[0].id
       if (this.id) return this.id
-      throw new DatabaseError(`Saving process ${JSON.stringify(this.toJSON)} failed.`)
+      throw new DatabaseError(`Saving process ${JSON.stringify(this.toJSON())} failed.`)
     }
   }
 

@@ -1,6 +1,8 @@
 import { describe, expect, test } from '@jest/globals'
 import { ProcessingSystem } from '../src/process/ProcessingSystem'
 import { ProcessHandler } from '../src/process/ProcessHandler'
+import { Process } from '../src/process/Process'
+import { ProcessStep } from '../src/process/ProcessStep'
 
 /**
  * A database recording the latest status written for each process.
@@ -45,5 +47,17 @@ describe('ProcessingSystem', () => {
     expect(process.status).toBe('CRASHED')
     expect(statuses[process.id as number]).toBe('CRASHED')
     expect(failed.length).toBe(1)
+  })
+})
+
+describe('Process saving', () => {
+
+  test('reports the data of a process and a step that failed to save', async () => {
+    const db = () => ({ insert: () => ({ returning: async () => [{ id: null }] }) })
+    const process = new Process({ db } as never, 'Failing')
+    await expect(process.save()).rejects.toThrow('Saving process {"name":"Failing"')
+    const step = new ProcessStep({ number: 0, state: {}, handler: 'Test' } as never)
+    step.process = process
+    await expect(step.save()).rejects.toThrow('Saving process step {"processId":null,"number":0')
   })
 })
