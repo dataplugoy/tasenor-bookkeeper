@@ -66,7 +66,10 @@ class Account extends Component {
       })
     }
     model.save()
-      .then(() => {
+      .then((res) => {
+        if (!res) {
+          return
+        }
         this.setState({ editDialogIsOpen: false, accountName: '', accountNumber: '', accountType: '', accountCode: '' })
         this.props.store.fetchAccounts(this.props.store.database.name)
       })
@@ -76,7 +79,7 @@ class Account extends Component {
   onDeleteAccount() {
     const { db, periodId } = this.props.params
     this.props.store.account.delete()
-      .then(() => this.props.navigate(`/${db}/account/${periodId || ''}`))
+      .then((success) => success && this.props.navigate(`/${db}/account/${periodId || ''}`))
   }
 
   renderDeleteDialog() {

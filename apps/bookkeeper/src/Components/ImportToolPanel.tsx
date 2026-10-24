@@ -111,7 +111,9 @@ const ImportToolPanel = withStore(withCatalog(observer((props: ImportToolPanelPr
         language: i18n.language
       }
     })
-    await importer.save()
+    if (!await importer.save()) {
+      return
+    }
     setShowCreateImportDialog(false)
     setChanged(false)
     setName('')

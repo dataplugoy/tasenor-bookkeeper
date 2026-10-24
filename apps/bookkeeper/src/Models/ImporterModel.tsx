@@ -25,6 +25,9 @@ class ImporterModel extends Model {
   async save() {
     return this.store.request('/db/' + this.db + '/importer/' + (this.id || ''), this.id ? 'PATCH' : 'POST', this.toJSON())
       .then((res) => {
+        if (!res) {
+          return res
+        }
         runInAction(() => {
           if (!this.id) {
             this.id = res.id

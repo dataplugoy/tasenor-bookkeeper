@@ -71,6 +71,9 @@ class AccountModel extends Model {
     }
     return this.store.request('/db/' + this.db + '/account/' + (this.id || ''), this.id ? 'PATCH' : 'POST', this.toJSON())
       .then((res) => {
+        if (!res) {
+          return res
+        }
         runInAction(() => {
           if (!this.id) {
             this.id = res.id
@@ -84,9 +87,13 @@ class AccountModel extends Model {
   async delete() {
     const path = '/db/' + this.db + '/account/' + this.id
     return this.store.request(path, 'DELETE')
-      .then(() => {
+      .then(async (res) => {
+        if (!res) {
+          return false
+        }
         this.store.invalidateReport()
-        return this.store.fetchAccounts(this.db)
+        await this.store.fetchAccounts(this.db)
+        return true
       })
   }
 
