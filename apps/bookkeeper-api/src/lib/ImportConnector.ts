@@ -66,10 +66,12 @@ export class ImportConnector implements TransactionImportConnector {
    * Check the result if there is suspiciously identical transaction (that is not marked as imported yet).
    */
   async resultExists(processId: ID, result: TransactionDescription): Promise<boolean> {
-    if (!result.transactions || result.transactions.length === 0) {
+    // Skipped or ignored transactions and those without entries cannot duplicate anything.
+    const transactions = (result.transactions || []).filter(tx => tx.entries.length > 0 && tx.executionResult !== 'skipped' && tx.executionResult !== 'ignored')
+    if (transactions.length === 0) {
       return false
     }
-    for (const tx of result.transactions) {
+    for (const tx of transactions) {
 
       // Quick check for segment.
       const old = await this.db('segment_document').select('document_id').where({ segment_id: tx.segmentId, importer_id: this.importer.id }).pluck('document_id')
