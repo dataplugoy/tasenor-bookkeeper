@@ -33,8 +33,12 @@ class EntryCommand extends Command {
     rm.add_argument('db', { help: 'Name of the database' })
   }
 
-  async filter(): Promise<EntryModelData[]> {
+  async filter(requireFilter = false): Promise<EntryModelData[]> {
     const { db, account, text, period } = this.args
+    // Without any filter all entries of the database would match.
+    if (requireFilter && !account && !text && !period) {
+      throw new Error('At least one of --account, --text or --period is required.')
+    }
     await this.readAccounts(db)
     const query: string[] = []
     if (account) {
@@ -83,7 +87,7 @@ class EntryCommand extends Command {
           throw new Error(`No handler yet for entry data '${key}'.`)
       }
     }
-    const resp: EntryModelData[] = await this.filter()
+    const resp: EntryModelData[] = await this.filter(true)
     for (const entry of resp) {
       const newParams = { ...params, data: Object.assign({}, entry.data, params.data) }
       log(`Changing entry #${entry.id} to have ${JSON.stringify(newParams)}`)
@@ -93,7 +97,7 @@ class EntryCommand extends Command {
 
   async rm() {
     const { db } = this.args
-    const resp: EntryModelData[] = await this.filter()
+    const resp: EntryModelData[] = await this.filter(true)
     if (this.args.all) {
       const docIds = new Set()
       for (const entry of resp) {
