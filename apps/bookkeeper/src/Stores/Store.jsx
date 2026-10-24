@@ -585,7 +585,9 @@ export class Store {
     const system = await this.request('/system/settings')
     if (this.isAdmin) {
       const plugins = await this.request('/system/settings/plugins')
-      this.settings.updatePlugins(plugins)
+      if (plugins) {
+        this.settings.updatePlugins(plugins)
+      }
     }
     runInAction(() => {
       this.settings.updateSystem(system)
@@ -603,7 +605,10 @@ export class Store {
     if (!db) {
       // Backend plugins.
       return this.request('/system/settings/plugins', 'PATCH', values)
-        .then(() => {
+        .then((success) => {
+          if (!success) {
+            return
+          }
           runInAction(() => {
             this.settings.updatePlugin(values)
           })
@@ -611,7 +616,10 @@ export class Store {
     }
     // UI plugins.
     return this.request('/db/' + db + '/settings', 'PATCH', values)
-      .then(() => {
+      .then((success) => {
+        if (!success) {
+          return
+        }
         runInAction(() => {
           this.settings.update(values)
         })
@@ -657,6 +665,9 @@ export class Store {
     }
     return this.request('/db/' + db + '/tags')
       .then((tags) => {
+        if (!tags) {
+          return
+        }
         runInAction(async () => {
           for (const tag of tags) {
             await this.dbsByName[db].addTag(new TagModel(this.dbsByName[db], tag))
@@ -819,6 +830,9 @@ export class Store {
 
     return this.request(url)
       .then((data) => {
+        if (!data) {
+          return
+        }
         runInAction(() => {
           report.setData(url, data)
           this.report = report
@@ -844,6 +858,9 @@ export class Store {
     }
     return this.request('/db/' + db + '/period/' + periodId)
       .then((balances) => {
+        if (!balances) {
+          return
+        }
         runInAction(() => {
           const period = this.dbsByName[db].getPeriod(periodId)
           if (!period) {
@@ -872,6 +889,9 @@ export class Store {
     }
     return this.request('/db/' + db + '/document?entries&period=' + periodId)
       .then((data) => {
+        if (!data) {
+          return
+        }
         runInAction(() => {
           if (!this.period) {
             return
