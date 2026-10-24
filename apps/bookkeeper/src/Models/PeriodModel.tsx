@@ -282,10 +282,13 @@ class PeriodModel extends Model {
    */
   lock() {
     this.store.request(`/db/${this.database.name}/period/${this.id}`, 'PATCH', { locked: 1 })
-      .then(() => {
-        runInAction(() => {
-          this.locked = true
-        })
+      .then((res) => {
+        // A failed request has already shown the error and resolves without a result.
+        if (res) {
+          runInAction(() => {
+            this.locked = true
+          })
+        }
       })
   }
 
@@ -294,10 +297,13 @@ class PeriodModel extends Model {
    */
   unlock() {
     this.store.request(`/db/${this.database.name}/period/${this.id}`, 'PATCH', { locked: 0 })
-      .then(() => {
-        runInAction(() => {
-          this.locked = false
-        })
+      .then((res) => {
+        // A failed request has already shown the error and resolves without a result.
+        if (res) {
+          runInAction(() => {
+            this.locked = false
+          })
+        }
       })
   }
 
