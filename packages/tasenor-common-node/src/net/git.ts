@@ -153,7 +153,8 @@ export class GitRepo {
 
     // Push regardless, to flush this commit plus any earlier commits not yet on the remote.
     let pushError: unknown = null
-    await this.git.push().catch(err => {
+    // Name the branch explicitly, since the first push to an empty repository has no upstream yet.
+    await this.git.push('origin', this.branch, ['--set-upstream']).catch(err => {
       pushError = err
       error(`Git push failed: ${err}`)
     })
@@ -174,6 +175,13 @@ export class GitRepo {
    */
   async update(): Promise<boolean> {
     let fail = false
+
+    // A clone of an empty repository has no commits and no branch to check out or pull yet.
+    const head = await this.git.raw(['rev-parse', '--verify', '--quiet', 'HEAD']).catch(() => '')
+    if (!head.trim()) {
+      await this.git.raw(['symbolic-ref', 'HEAD', `refs/heads/${this.branch}`])
+      return true
+    }
 
     await this.git.checkout(this.branch).catch(err => {
       error(`Git pull failed: ${err}`)
