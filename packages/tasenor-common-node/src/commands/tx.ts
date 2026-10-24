@@ -63,7 +63,8 @@ class TxCommand extends Command {
     let entries = await this.entries(db, entry)
     if (data) {
       const extras = await this.jsonData(data)
-      entries = entries.map(e => ({ ...e, data: extras }))
+      // Entry specific data takes precedence over common additional data.
+      entries = entries.map(e => ({ ...e, data: { ...extras, ...(e.data || {}) } }))
     }
     const sum = entries.reduce((prev, cur) => prev + cur.amount, 0)
     if (sum && !force) {
