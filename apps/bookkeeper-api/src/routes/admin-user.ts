@@ -96,10 +96,13 @@ router.post('/',
 
 router.delete('/:email',
   ...tasenor({ admin: true }),
-  async (req, res) => {
+  async (req, res, next) => {
+    if (!await users.hasUser(req.params.email)) {
+      return res.status(404).send({ message: 'No such user.' })
+    }
     await users.deleteOne(req.params.email)
       .then(() => res.sendStatus(204))
-      .catch(() => res.status(404).send({ message: 'No such user.' }))
+      .catch(next)
   }
 )
 

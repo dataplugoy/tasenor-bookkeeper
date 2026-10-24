@@ -190,6 +190,7 @@ export default {
   getOne,
   deleteOne,
   hasAdminUser,
+  hasUser,
   registerUser,
   setConfig,
   signToken,
