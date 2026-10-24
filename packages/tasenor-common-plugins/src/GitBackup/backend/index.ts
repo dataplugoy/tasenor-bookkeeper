@@ -233,9 +233,9 @@ class GitBackup extends ToolPlugin {
     // `gzip -n` omits the name/timestamp header so an unchanged database yields an
     // identical file and produces a genuine "nothing to commit" backup.
     // TODO: Check for pg_dump crash. What if that happens?
+    // The password goes in the environment, since the command line is logged and visible in process listings.
     const { host, port, database, user, password } = db.client.config.connection
-    const url = `postgresql://${user}:${password}@${host}:${port}/${database}`
-    await systemPiped(`pg_dump --restrict-key=salkjh21iuewy932hedsjewqeds -c ${url} | gzip -n > "${dir}/dump.sql.gz"`)
+    await systemPiped(`pg_dump --restrict-key=salkjh21iuewy932hedsjewqeds -c -h "${host}" -p "${port}" -U "${user}" "${database}" | gzip -n > "${dir}/dump.sql.gz"`, false, false, { PGPASSWORD: `${password}` })
 
     const exporter = new TasenorExporter()
     await exporter.dump(db, exportDir)

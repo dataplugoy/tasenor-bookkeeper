@@ -36,15 +36,18 @@ export async function system(command: string, quiet = false, ignoreError = false
  * A system call showing real time output of stdout.
  * @param command
  * @param quiet
+ * @param ignoreError
+ * @param env Additional environment variables for the command.
  * @returns
  */
-export async function systemPiped(command: string, quiet = false, ignoreError = false): Promise<string | null> {
+export async function systemPiped(command: string, quiet = false, ignoreError = false, env: Record<string, string> | undefined = undefined): Promise<string | null> {
   if (!quiet) {
     log(`Running system command: ${command}`)
   }
   return new Promise((resolve, reject) => {
     let out = ''
-    const proc = spawn(command, { shell: true })
+    // Additional environment allows passing secrets without putting them on the logged command line.
+    const proc = spawn(command, { shell: true, env: env ? { ...process.env, ...env } : process.env })
     proc.stdout.on('data', (data) => {
       out += data
       if (!quiet) process.stdout.write(data)
