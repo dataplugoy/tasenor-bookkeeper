@@ -22,6 +22,17 @@ async function check(db: KnexDatabase, doc: DocumentModelData): Promise<HttpResp
       message: 'Period is locked.'
     }
   }
+  if (doc.date) {
+    const period = await db('period').select('start_date', 'end_date').where({ id: doc.period_id }).first()
+    const date = `${doc.date}`.substring(0, 10)
+    if (period && (date < `${period.start_date}`.substring(0, 10) || date > `${period.end_date}`.substring(0, 10))) {
+      return {
+        success: false,
+        status: 400,
+        message: 'Date is outside of the period.'
+      }
+    }
+  }
   return null
 }
 
