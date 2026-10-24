@@ -22,7 +22,7 @@
   },
   {
     "from": "2024-09-01",
-    "to": null,
+    "to": "2024-12-31",
     "percentage": {
       "INCOME": 25.5,
       "EXPENSE": 25.5,
@@ -31,6 +31,48 @@
       "TAXI": 10,
       "ACCOMMODATION": 10,
       "BOOK": 10,
+      "NEWSPAPERS": 10,
+      "POSTAGE_STAMPS": 0,
+      "BANKING_FEE": 0,
+      "CAPITAL": 0,
+      "SPECIAL_EXPENSE_CASES": 0,
+      "SPECIAL_INCOME_CASES": 0,
+      "INVEST": 0,
+      "NON_EU_SALES": 0
+    }
+  },
+  {
+    "from": "2025-01-01",
+    "to": "2025-12-31",
+    "percentage": {
+      "INCOME": 25.5,
+      "EXPENSE": 25.5,
+      "PERSONNEL_MEALS": 14,
+      "TICKET": 14,
+      "TAXI": 14,
+      "ACCOMMODATION": 14,
+      "BOOK": 14,
+      "NEWSPAPERS": 10,
+      "POSTAGE_STAMPS": 0,
+      "BANKING_FEE": 0,
+      "CAPITAL": 0,
+      "SPECIAL_EXPENSE_CASES": 0,
+      "SPECIAL_INCOME_CASES": 0,
+      "INVEST": 0,
+      "NON_EU_SALES": 0
+    }
+  },
+  {
+    "from": "2026-01-01",
+    "to": null,
+    "percentage": {
+      "INCOME": 25.5,
+      "EXPENSE": 25.5,
+      "PERSONNEL_MEALS": 13.5,
+      "TICKET": 13.5,
+      "TAXI": 13.5,
+      "ACCOMMODATION": 13.5,
+      "BOOK": 13.5,
       "NEWSPAPERS": 10,
       "POSTAGE_STAMPS": 0,
       "BANKING_FEE": 0,
