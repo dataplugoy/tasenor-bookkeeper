@@ -1,3 +1,4 @@
+import './lib/async-errors' // Side effect: async route handler errors go to the error handler.
 import path from 'path'
 import express, { Express } from 'express'
 import config from './config'
