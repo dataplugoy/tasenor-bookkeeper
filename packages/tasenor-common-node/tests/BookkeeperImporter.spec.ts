@@ -44,4 +44,27 @@ describe('BookkeeperImporter', () => {
     expect(files.map(f => fs.readFileSync(path.join(out, f as string)).toString())).toStrictEqual(['a', 'b'])
     fs.rmSync(out, { recursive: true })
   })
+
+  test('tag pictures must stay inside the backup directory', async () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'restore-'))
+    const secret = path.join(os.tmpdir(), `secret-${path.basename(dir)}.txt`)
+    fs.writeFileSync(secret, 'secret')
+    fs.mkdirSync(path.join(dir, 'pictures'))
+    fs.writeFileSync(path.join(dir, 'pictures', 'A.png'), 'picture')
+    const inserted: Record<string, unknown>[] = []
+    const db = () => ({ insert: async (entry) => { inserted.push(entry) } })
+    const importer = new BookkeeperImporter()
+
+    const header = '# tag\tname\tmime\tpicture\ttype\torder\n'
+    fs.writeFileSync(path.join(dir, 'tags.tsv'), header + 'A\tA\timage/png\tpictures/A.png\tT\t1\n')
+    await importer.setTags(db as never, path.join(dir, 'tags.tsv') as never)
+    expect(inserted.map(e => `${e.picture}`)).toStrictEqual(['picture'])
+
+    fs.writeFileSync(path.join(dir, 'tags.tsv'), header + `B\tB\timage/png\t../${path.basename(secret)}\tT\t2\n`)
+    await expect(importer.setTags(db as never, path.join(dir, 'tags.tsv') as never)).rejects.toThrow('Invalid picture path')
+    expect(inserted.length).toBe(1)
+
+    fs.rmSync(dir, { recursive: true })
+    fs.rmSync(secret)
+  })
 })

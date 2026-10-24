@@ -305,7 +305,12 @@ export class BookkeeperImporter {
     let count = 0
     const tags = await this.readTsv(file)
     for (const tag of tags) {
-      const pic = fs.readFileSync(path.join(picPath, tag.picture))
+      // Picture paths come from the backup file, so do not let them point outside of it.
+      const picFile = path.resolve(picPath, tag.picture)
+      if (!picFile.startsWith(path.resolve(picPath) + path.sep)) {
+        throw new Error(`Invalid picture path ${JSON.stringify(tag.picture)} for tag ${tag.tag}.`)
+      }
+      const pic = fs.readFileSync(picFile)
       const entry = {
         tag: tag.tag,
         name: tag.name,
