@@ -40,7 +40,8 @@ export class NordeaHandler extends TransactionImportHandler {
   time(line: TextFileLine): Date | undefined {
     const match = /(\d+)\.(\d+)\.(\d+)/.exec(line.columns['Maksupäivä'])
     if (match) {
-      const stamp = match[3] + '-' + match[2] + '-' + match[1] + 'T12:00:00.000Z'
+      // Pad day and month, since an unpadded ISO date like 2023-2-1 is not valid.
+      const stamp = match[3] + '-' + match[2].padStart(2, '0') + '-' + match[1].padStart(2, '0') + 'T12:00:00.000Z'
       return new Date(stamp)
     }
     return undefined
