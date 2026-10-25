@@ -273,7 +273,7 @@ export type TagsEditorProps = {
   database: DatabaseModel
   onSave: (tag: TagModel) => Promise<void>
   onDelete: (tag: TagModel) => Promise<void>
-  onCreate: (tag: Partial<TagModel>) => Promise<TagModel>
+  onCreate: (tag: Partial<TagModel>) => Promise<TagModel | null>
 }
 
 const TagsEditor = observer((props: TagsEditorProps): JSX.Element => {
@@ -363,7 +363,9 @@ const TagsEditor = observer((props: TagsEditorProps): JSX.Element => {
         type,
         order
       })
-      setGroups({ ...groups, [type]: groups[type].concat([model]) })
+      if (model) {
+        setGroups({ ...groups, [type]: groups[type].concat([model]) })
+      }
     }
   }
 
@@ -494,10 +496,11 @@ class TagEditor extends ToolPlugin {
       await tag.delete()
     }
 
-    const onCreate = async (tag: Partial<TagModel>): Promise<TagModel> => {
+    const onCreate = async (tag: Partial<TagModel>): Promise<TagModel | null> => {
       const model = await store.database.addTag(tag)
       await model.save()
-      return model
+      // The ID is set only when the server accepted the new tag.
+      return model.id ? model : null
     }
 
     return (
