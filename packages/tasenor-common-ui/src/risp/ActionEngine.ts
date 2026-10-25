@@ -183,7 +183,7 @@ async function axiosRequst(method: 'PATCH' | 'POST', action: PatchAction | PostA
       if (setup.errorMessage && action.errorMessage) {
         setup.errorMessage(action.errorMessage)
       }
-      return { success: false, message: `PATCH ${url} failed: ${error}.` }
+      return { success: false, message: `${method} ${url} failed: ${error}.` }
     } else {
       if (setup.successMessage && action.successMessage) {
         setup.successMessage(action.successMessage)
