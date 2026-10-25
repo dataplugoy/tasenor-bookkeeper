@@ -47,7 +47,8 @@ class DashboardPage extends Component {
     }
     let period
     if (typeof num === 'number') {
-      const periods = this.props.store.database.periods.reverse()
+      // Newest first by date, as shown in the list. Raw periods are in the order of their IDs.
+      const periods = this.props.store.periods
       period = periods[num - 1]
     } else {
       this.props.store.setConfig('periodId', num.id)
@@ -92,7 +93,7 @@ class DashboardPage extends Component {
         <Box className="DashboardPeriods">
           <Typography variant="h6" component="h3" className="DashboardHeading"><Trans>Periods</Trans></Typography>
           <List className="PeriodList" disablePadding>
-          {store.database && store.database.periods.reverse().map((period, index) => {
+          {store.database && store.periods.map((period, index) => {
             const letter = 'ABCDEFGHIJKLMNOPQRSTUVWZ'[index]
             return (
                 <ListItem
