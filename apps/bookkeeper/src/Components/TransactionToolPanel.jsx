@@ -102,6 +102,10 @@ class TransactionToolPanel extends Component {
     }
     const current = txs[cursor.index].parent
     const prev = txs[cursor.index - 1].parent
+    // The initial balance document 0 keeps its number. Swapping through -0 would also collide.
+    if (!current.number || !prev.number) {
+      return { preventDefault: true }
+    }
 
     cursor.leaveComponent()
 
