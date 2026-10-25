@@ -247,8 +247,9 @@ class PeriodModel extends Model {
           if (entry.account.number === null) {
             throw new Error(`Cannot use account ${JSON.stringify(entry.account)} without number.`)
           }
-          if (accounts.includes(entry.account.number)) {
-            return filter === null ? true : filter(entry)
+          // Any matching entry is enough, not just the first one on the accounts.
+          if (accounts.includes(entry.account.number) && (filter === null || filter(entry))) {
+            return true
           }
         }
         return false
