@@ -1,7 +1,5 @@
 import { runInAction } from 'mobx'
 import axios from 'axios'
-import setValue from 'set-value'
-import getValue from 'get-value'
 import { ActionHandler, ActionName, ActionResult, isActiveElement, PatchAction, PostAction, RenderingProps, TasenorAction } from '@tasenor/common'
 
 /**
@@ -150,11 +148,16 @@ async function axiosRequst(method: 'PATCH' | 'POST', action: PatchAction | PostA
           k1 = parts.slice(0, objectWrapLevel).join('.')
           k2 = parts.slice(objectWrapLevel).join('.')
         }
-        // TODO: This fails if we have segment id from numbers.
-        //       Setting answers.1234567890.vat = 9.00 assumes huge array.
-        const old = getValue(requestValues, k1) || {}
-        old[k2] = v
-        setValue(requestValues, k1, old)
+        // Build plain objects, since a numeric key like a segment ID in 'answers.1234567890' would
+        // otherwise create a huge array.
+        let target = requestValues
+        for (const key of k1.split('.')) {
+          if (typeof target[key] !== 'object' || target[key] === null) {
+            target[key] = {}
+          }
+          target = target[key]
+        }
+        target[k2] = v
       })
     } else {
       requestValues = values
