@@ -43,7 +43,7 @@ const TagCard = observer((props: TagCardProps): JSX.Element => {
   if (tagPicture) {
     url = `data:${tagMime};base64,${tagPicture}` as Url
   } else if (props.tag && props.tag.picture) {
-    url = `data:image/png;base64,${props.tag.picture}` as Url
+    url = `data:${mime || 'image/png'};base64,${props.tag.picture}` as Url
   }
   if (!url) {
     url = QuestionMarkInline as Url
@@ -234,8 +234,11 @@ const GroupPanel = observer((props: GroupPanelProps): JSX.Element => {
     runInAction(() => {
       tag.name = changes.name || ''
       tag.tag = changes.tag as Tag
-      tag.picture = changes.picture || null
-      tag.mime = changes.mime || null
+      // Keep the current picture unless a new one was uploaded.
+      if (changes.picture) {
+        tag.picture = changes.picture
+        tag.mime = changes.mime || null
+      }
       tag.type = props.group
     })
     await props.onSave(tag)
