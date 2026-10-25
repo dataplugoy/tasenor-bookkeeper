@@ -242,6 +242,9 @@ test('Rules: sum()', () => {
   expect(e.eval('sum([1,2,3])')).toBe(6)
   expect(e.eval("sum([1,null,'',3, 'xx'])")).toBe(4)
   expect(e.eval("sum([{a: 3}, {b: -4}, {a: 1, b: 5}], 'a')")).toBe(4)
+  // Decimal commas and thousand separators used in bank exports.
+  expect(e.eval("sum(['12,30', '1 234,50', '-0,80'])")).toBeCloseTo(1246)
+  expect(e.eval("sum([{a: '2,25'}, {a: '1.000,75'}], 'a')")).toBeCloseTo(1003)
   expect(e.eval("sum([{a: 3}, {b: -4}, {a: 1, b: 5}], 'b')")).toBe(1)
   expect(e.eval("sum([{a: 3}, {b: -4}, {a: 1, b: 5}], 'c')")).toBe(0)
   expect(e.eval("sum([], 'c')")).toBe(0)

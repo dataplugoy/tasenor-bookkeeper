@@ -558,7 +558,7 @@ export class RulesEngine {
       vector.forEach(function (value) {
         if (value) {
           try {
-            const add = parseFloat(value as string)
+            const add = typeof value === 'number' ? value : num(`${value}`)
             if (!isNaN(add)) {
               total += add
             }
@@ -569,7 +569,7 @@ export class RulesEngine {
       vector.forEach(function (value: Record<string, unknown>) {
         if (value[field]) {
           try {
-            const add = parseFloat(value[field] as string)
+            const add = typeof value[field] === 'number' ? value[field] as number : num(`${value[field]}`)
             if (!isNaN(add)) {
               total += add
             }
