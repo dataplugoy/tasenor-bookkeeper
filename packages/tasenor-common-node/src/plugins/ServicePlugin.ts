@@ -164,13 +164,11 @@ export class ServicePlugin extends BackendPlugin {
     const keyParams = this.cacheParamsKey(service, params)
     const keyHeaders = this.cacheHeadersKey(service, headers)
 
-    // Check if cached.
-    const cached = db ? await db('cached_requests').select('status', 'result').where({ method, url, query: keyParams, headers: keyHeaders }).first() : null
+    // Check if cached. Only successful results are used, so look only for those.
+    const cached = db ? await db('cached_requests').select('status', 'result').where({ method, url, query: keyParams, headers: keyHeaders }).whereBetween('status', [200, 299]).first() : null
     if (cached) {
-      if (cached.status >= 200 && cached.status < 300) {
-        log(`Using cached service ${service} result for ${method} ${url}`)
-        return cached.result
-      }
+      log(`Using cached service ${service} result for ${method} ${url}`)
+      return cached.result
     }
 
     // Add delay if needed.
@@ -180,8 +178,8 @@ export class ServicePlugin extends BackendPlugin {
 
     // Do the request and cache the result.
     const result = await this.request(service, method, url, params, headers)
-    if (db) {
-      await db('cached_requests').insert({ method, url, query: keyParams, headers: keyHeaders, status: result.status || null, result })
+    if (db && result.status >= 200 && result.status < 300) {
+      await db('cached_requests').insert({ method, url, query: keyParams, headers: keyHeaders, status: result.status, result })
     }
     return result
   }
