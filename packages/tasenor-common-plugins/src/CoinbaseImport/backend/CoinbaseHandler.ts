@@ -1,6 +1,9 @@
 import { DirectoryPath, NO_SEGMENT, SegmentId, TextFileLine } from '@tasenor/common'
 import { ProcessFile, TransactionImportHandler } from '@tasenor/common-node'
 
+// Notes use English number format with comma as thousand separator, e.g. 'Sold 1,452.5900 ADA'.
+const amount = (s: string): number => parseFloat(s.replace(/,/g, ''))
+
 /**
  * Import implementation for Coinbase CSV format.
  */
@@ -102,11 +105,11 @@ export class CoinbaseHandler extends TransactionImportHandler {
 
   async segmentationColumnPostProcess(columns: Record<string, unknown>): Promise<Record<string, unknown>> {
     if (columns.type === 'Convert') {
-      const match = /Converted ([0-9.]+) (\w+) to ([0-9.]+) (\w+)/.exec(columns.Notes as string)
+      const match = /Converted ([0-9.,]+) (\w+) to ([0-9.,]+) (\w+)/.exec(columns.Notes as string)
       if (match) {
-        columns.giveAmount = parseFloat(match[1])
+        columns.giveAmount = amount(match[1])
         columns.giveAsset = match[2]
-        columns.takeAmount = parseFloat(match[3])
+        columns.takeAmount = amount(match[3])
         columns.takeAsset = match[4]
       }
     }
@@ -114,7 +117,7 @@ export class CoinbaseHandler extends TransactionImportHandler {
       if (columns.type === 'Advanced Trade Buy') {
         //        1          2       3                 4      5   6              7   8
         // Bought 0.33694052 ETH for 0.012835268969159 BTC on ETH-BTC at 0.03781 BTC/ETH
-        const match = /Bought ([0-9.]+) ([A-Z]+) for ([0-9.]+) ([A-Z]+) on ([A-Z]+)-([A-Z]+) at [0-9.]+ ([A-Z]+)\/([A-Z]+)/.exec(`${columns.Notes}`)
+        const match = /Bought ([0-9.,]+) ([A-Z]+) for ([0-9.,]+) ([A-Z]+) on ([A-Z]+)-([A-Z]+) at [0-9.]+ ([A-Z]+)\/([A-Z]+)/.exec(`${columns.Notes}`)
         if (!match) {
           throw new Error(`Unexpected format for notes: "${columns.Notes}".`)
         }
@@ -122,14 +125,14 @@ export class CoinbaseHandler extends TransactionImportHandler {
           throw new Error(`Coin tickers did not match as expected: "${columns.Notes}"`)
         }
         columns.type = 'Advanced Convert'
-        columns.takeAmount = parseFloat(match[1])
+        columns.takeAmount = amount(match[1])
         columns.takeAsset = match[2]
-        columns.giveAmount = parseFloat(match[3])
+        columns.giveAmount = amount(match[3])
         columns.giveAsset = match[4]
       } else if (columns.type === 'Advanced Trade Sell') {
         //      1          2       3                  4      5   6              7   8
         // Sold 0.41459303 ETH for 0.0128917806326757 BTC on ETH-BTC at 0.03133 BTC/ETH
-        const match = /Sold ([0-9.]+) ([A-Z]+) for ([0-9.]+) ([A-Z]+) on ([A-Z]+)-([A-Z]+) at [0-9.]+ ([A-Z]+)\/([A-Z]+)/.exec(`${columns.Notes}`)
+        const match = /Sold ([0-9.,]+) ([A-Z]+) for ([0-9.,]+) ([A-Z]+) on ([A-Z]+)-([A-Z]+) at [0-9.]+ ([A-Z]+)\/([A-Z]+)/.exec(`${columns.Notes}`)
         if (!match) {
           throw new Error(`Unexpected format for notes: "${columns.Notes}".`)
         }
@@ -137,9 +140,9 @@ export class CoinbaseHandler extends TransactionImportHandler {
           throw new Error(`Coin tickers did not match as expected: "${columns.Notes}"`)
         }
         columns.type = 'Advanced Convert'
-        columns.giveAmount = parseFloat(match[1])
+        columns.giveAmount = amount(match[1])
         columns.giveAsset = match[2]
-        columns.takeAmount = parseFloat(match[3])
+        columns.takeAmount = amount(match[3])
         columns.takeAsset = match[4]
       }
     }
