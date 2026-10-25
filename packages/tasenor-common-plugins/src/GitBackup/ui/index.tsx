@@ -56,7 +56,7 @@ function BackupCommitList(props: BackupCommitListProps): React.ReactNode {
     }
     store.request<{ commits: GitBackupCommit[] }>(`/db/${store.db}/tools/${GitBackup.code}`, 'GET', { type: 'commits', count: 20 }).then((res) => {
       setFetched(true)
-      if (res.success) {
+      if (res && res.success) {
         setCommits(res.data.commits)
       }
     })
@@ -66,10 +66,11 @@ function BackupCommitList(props: BackupCommitListProps): React.ReactNode {
     store.request<{ commits: GitBackupCommit[] }>(`/db/${store.db}/tools/${GitBackup.code}`, 'PUT', { commit: commit.hash }).then((res) => {
       if (res && res.success) {
         store.addMessage(t('Backup restored successfully.'))
-        runInAction(() => {
-          store.setDb(null).then(() => {
-            navigate(`/${store.db}`)
-          })
+        // Forget the loaded data of the database, so that restored content is fetched again.
+        const db = store.db
+        runInAction(() => store.clearDb())
+        store.setDb(db).then(() => {
+          navigate(`/${db}`)
         })
       } else {
         store.addError(t('Restoring backup failed.'))
@@ -189,13 +190,13 @@ class GitBackup extends ToolPlugin {
         // Trigger refresh.
         this.backups = this.backups + 1
       })
-      if (res.success) {
+      if (res && res.success) {
         if (res.reason === 'unchanged') {
           this.store.addMessage(this.t('No changes since the last backup.'))
         } else {
           this.store.addMessage(this.t('Backup created successfully.'))
         }
-      } else if (res.reason === 'too-large') {
+      } else if (res && res.reason === 'too-large') {
         this.store.addError(this.t('Backup failed: a file is too large for the remote repository.'))
       } else {
         this.store.addError(this.t('Creating backup failed.'))

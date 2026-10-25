@@ -26,6 +26,7 @@ export declare class Store {
   rispSetup(baseUrl: string): TasenorSetup
   setLoadingOn(): void
   setLoadingOff(): void
+  clearDb(): void
   setDb(db): Promise<void>
   setPeriod(db, periodId): Promise<void>
 }
