@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { AdditionalTransferInfo, Asset, Currency, StockBookkeeping, StockChangeData, StockChangeDelta, StockValueData, haveCursor, isStockChangeDelta, isStockChangeFixed, strRound } from '@tasenor/common'
+import { AdditionalTransferInfo, Asset, Currency, StockBookkeeping, StockChangeData, StockChangeDelta, StockValueData, haveCursor, isStockChangeDelta, isStockChangeFixed, strRound, num } from '@tasenor/common'
 import { Money } from '@tasenor/common-ui'
 import { Box, TableCell, TableRow } from '@mui/material'
 import React, { Fragment } from 'react'
@@ -156,12 +156,8 @@ export const TransactionStockEdit = observer((props: TransactionStockEditProps):
     onCancel={() => tx.turnEditorOff(cursor)}
     validate={(value: string) => {
       if (selectedColumn === 2 || selectedColumn === 3) {
-        let out
-        try {
-          out = parseFloat(value)
-        } catch (err) {
-          return t('Bad value')
-        }
+        // Allow decimal comma and thousand separators like elsewhere in the UI.
+        const out = num(value)
         if (isNaN(out)) {
           return t('Bad value')
         }
@@ -178,10 +174,10 @@ export const TransactionStockEdit = observer((props: TransactionStockEditProps):
             delta.stock.change[newValue] = change
             break
           case 2:
-            change.amount = parseFloat(newValue)
+            change.amount = num(newValue)
             break
           case 3:
-            change.value = Math.round(parseFloat(newValue) * 100)
+            change.value = Math.round(num(newValue) * 100)
             break
         }
       })
