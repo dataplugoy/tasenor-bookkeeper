@@ -1,5 +1,5 @@
 import { getNetConf, haveCursor } from '@tasenor/common'
-import { TagChip, IconButton, Title } from '@tasenor/common-ui'
+import { TagChip, IconButton, Title, downloadUrl } from '@tasenor/common-ui'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Configuration from '../Configuration'
@@ -33,24 +33,9 @@ class TransactionToolPanel extends Component {
     const url = `${Configuration.UI_API_URL}/db/${db}/report/account/${periodId}/${accountId}?csv&lang=${lang}`
     const accountNumber = account ? account.number : accountId
 
-    fetch(url, {
-      method: 'GET',
-      headers: new Headers({
-        Authorization: 'Bearer ' + getNetConf(Configuration.UI_API_URL, 'token')
-
-      })
-    })
-      .then(response => response.blob())
-      .then(blob => {
-        const url = window.URL.createObjectURL(blob)
-        const a = document.createElement('a')
-        a.href = url
-        a.target = '_blank'
-        a.download = `transactions-${periodId}-${accountNumber}.csv`
-        document.body.appendChild(a)
-        a.click()
-        a.remove()
-      })
+    // Shared downloader checks the response, so that an error message is not saved as the file.
+    downloadUrl(url, getNetConf(Configuration.UI_API_URL, 'token'), `transactions-${periodId}-${accountNumber}.csv`)
+      .catch(err => store.addError(err.message))
     return { preventDefault: true }
   }
 
@@ -111,6 +96,10 @@ class TransactionToolPanel extends Component {
   keyIconM() {
     const txs = this.props.store.transactions
     const cursor = haveCursor()
+    // Nothing to swap with on the first transaction.
+    if (cursor.index === null || cursor.index < 1 || !txs[cursor.index]) {
+      return { preventDefault: true }
+    }
     const current = txs[cursor.index].parent
     const prev = txs[cursor.index - 1].parent
 
