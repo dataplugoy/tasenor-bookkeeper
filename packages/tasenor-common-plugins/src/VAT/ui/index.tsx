@@ -97,7 +97,17 @@ class VAT extends ToolPlugin {
   openVATDocuments() {
     const VAT_SALES_ACCOUNT = this.settings.get('VAT.salesAccount') as AccountNumber
     const VAT_PURCHASES_ACCOUNT = this.settings.get('VAT.purchasesAccount') as AccountNumber
-    return this.store.getDocuments([VAT_SALES_ACCOUNT, VAT_PURCHASES_ACCOUNT], (entry) => !entry.data || !entry.data.VAT || (!entry.data.VAT.reconciled && !entry.data.VAT.ignore))
+    // Check every entry, since a document may have both open and already handled VAT entries.
+    return this.store.getDocuments().filter((doc) => doc.entries.some((entry) =>
+      [VAT_SALES_ACCOUNT, VAT_PURCHASES_ACCOUNT].includes(entry.account.number as AccountNumber) && this.isOpenVATEntry(entry)
+    ))
+  }
+
+  /**
+   * Check if the entry has VAT not yet handled by VAT summary.
+   */
+  isOpenVATEntry(entry: EntryModel): boolean {
+    return !entry.data || !entry.data.VAT || (!entry.data.VAT.reconciled && !entry.data.VAT.ignore)
   }
 
   /**
@@ -112,7 +122,7 @@ class VAT extends ToolPlugin {
     const VAT_PURCHASES_ACCOUNT = this.settings.get('VAT.purchasesAccount')
 
     this.openVATDocuments().forEach((doc) => {
-      doc.entries.forEach((entry) => {
+      doc.entries.filter((entry) => this.isOpenVATEntry(entry)).forEach((entry) => {
         const acc = entry.account.number
         if (acc === VAT_SALES_ACCOUNT) {
           sales += entry.total
@@ -255,7 +265,7 @@ class VAT extends ToolPlugin {
 
     for (const doc of openVATDocuments) {
       for (const entry of doc.entries) {
-        if (entry.account_id === vatSalesAccount.id || entry.account_id === vatPurchasesAccount.id) {
+        if ((entry.account_id === vatSalesAccount.id || entry.account_id === vatPurchasesAccount.id) && this.isOpenVATEntry(entry)) {
           addVatByTags(entry.tagNames, entry.total)
         }
       }
@@ -362,7 +372,7 @@ class VAT extends ToolPlugin {
     let purchases = 0
     const entries: EntryModel[] = []
     for (const doc of this.openVATDocuments()) {
-      for (const entry of doc.entries) {
+      for (const entry of doc.entries.filter((entry) => this.isOpenVATEntry(entry))) {
         const acc = entry.account.number
         if (acc === VAT_SALES_ACCOUNT) {
           sales += entry.total
