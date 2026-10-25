@@ -344,8 +344,13 @@ class TransactionTable extends Component {
    */
   deleteDocument(tx) {
     const cursor = haveCursor()
-    tx.document.delete()
+    const { document } = tx
+    document.delete()
       .then(() => {
+        // A successful delete removes the document from the period.
+        if (document.period && document.period.documents[document.id]) {
+          return
+        }
         cursor.topologyChanged()
         cursor.changeIndexBy(-1)
       })
@@ -376,7 +381,7 @@ class TransactionTable extends Component {
           title={<Trans>Please select an account</Trans>}
           isVisible={this.state.showAccountDropdown}
           onClose={() => this.setState({ showAccountDropdown: false })}
-          onConfirm={() => this.onSelectAccount(this.state.account.id)}
+          onConfirm={() => this.onSelectAccount(this.state.account && this.state.account.id)}
         >
           <AccountSelector
             autoFocus
