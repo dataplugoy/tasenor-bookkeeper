@@ -307,10 +307,9 @@ export class RulesEngine {
    * Test if a list has a member.
    */
   has(list: unknown[], item: unknown): boolean {
-    for (const e of list) {
-      if (item === (e as { value: unknown, index: number }).value) return true
-    }
-    return false
+    // List literals in expressions are matrices, but lists given as variables are plain arrays.
+    const values = isDenseMatrix(list) ? (list as unknown as Matrix).toArray() as unknown[] : list
+    return values.includes(item)
   }
 
   /**

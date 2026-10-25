@@ -281,6 +281,8 @@ test('Rules: has()', () => {
   expect(e.eval("has([1, null, 'x'], null)")).toBe(true)
   expect(e.eval("has([1, null, 'x'], 'x')")).toBe(true)
   expect(e.eval('has([], 1)')).toBe(false)
+  expect(e.eval("has(list, 'b')", { list: ['a', 'b'] })).toBe(true)
+  expect(e.eval("has(list, 'c')", { list: ['a', 'b'] })).toBe(false)
   expect(e.eval('has([], null)')).toBe(false)
   expect(e.eval("has([], 'x')")).toBe(false)
   expect(e.eval("has([0, '', false], 1)")).toBe(false)
