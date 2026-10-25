@@ -100,12 +100,15 @@ class Account extends Component {
 
     const t = this.props.t
     const database = this.props.store.database
+    // The number is taken, if some other account has it. This applies also when renumbering an existing account.
+    const numberTaken = () => !!(database && this.state.accountNumber && database.hasAccount(this.state.accountNumber) &&
+      (this.state.new || !this.props.store.account || this.props.store.account.number !== this.state.accountNumber))
     const isValid = () => this.state.accountNumber &&
       this.state.accountName &&
       this.state.accountType &&
-      (!this.state.new || (database && !database.hasAccount(this.state.accountNumber)))
+      !numberTaken()
 
-    const numberAlreadyExists = !!(this.state.changed && this.state.new && this.state.accountNumber && database.hasAccount(this.state.accountNumber))
+    const numberAlreadyExists = !!(this.state.changed && numberTaken())
     const numberMissing = (this.state.changed && !this.state.accountNumber)
     const nameMissing = (this.state.changed && !this.state.accountName)
     const typeMissing = (this.state.changed && !this.state.accountType)
