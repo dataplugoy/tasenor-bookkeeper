@@ -41,7 +41,8 @@ class ToolsForDatabases extends Component {
         await store.setConfig('db', null)
         await store.setConfig('periodId', null)
         if (deletingCurrent) {
-          store.setDb(null)
+          // Note that setDb(null) would keep the deleted database selected.
+          store.clearDb()
           this.props.navigate('/_/tools///databases')
         }
       }
