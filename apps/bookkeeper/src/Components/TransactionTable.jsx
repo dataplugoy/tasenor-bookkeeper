@@ -259,7 +259,8 @@ class TransactionTable extends Component {
     // Copy entire document with entries.
     let text = `${doc.number}\t${doc.date}\n`
     doc.entries.forEach(e => {
-      text += [e.account.toString(), e.description, e.debit ? e.amount : '', e.debit ? '' : e.amount].join('\t') + '\n'
+      // Tabs and newlines in description would break the format when pasting back.
+      text += [e.account.toString(), (e.description || '').replace(/[\t\n\r]+/g, ' '), e.debit ? e.amount : '', e.debit ? '' : e.amount].join('\t') + '\n'
     })
     navigator.clipboard.writeText(text)
   }
@@ -312,7 +313,8 @@ class TransactionTable extends Component {
               if (/^\d+ /.test(acc) && (/^\d+$/.test(debit) || /^\d+$/.test(credit))) {
                 entries.push({
                   description,
-                  number: parseInt(acc),
+                  // Keep as string, since account numbers may have leading zeros.
+                  number: acc.split(' ')[0],
                   amount: debit === '' ? -parseInt(credit) : parseInt(debit)
                 })
               } else {
