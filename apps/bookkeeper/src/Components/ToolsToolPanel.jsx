@@ -158,8 +158,10 @@ class ToolsToolPanel extends Component {
       case 'periods':
         label = 'Periods'
         if (store.database && store.database.periods.length) {
-          startDate = dayjs(store.database.periods[store.database.periods.length - 1].end_date).add(1, 'day').format('YYYY-MM-DD')
-          endDate = dayjs(store.database.periods[store.database.periods.length - 1].end_date).add(1, 'year').format('YYYY-MM-DD')
+          // Continue from the latest period. Periods are in the order of their IDs, not dates.
+          const lastEnd = store.database.periods.map(p => p.end_date).sort().pop()
+          startDate = dayjs(lastEnd).add(1, 'day').format('YYYY-MM-DD')
+          endDate = dayjs(lastEnd).add(1, 'year').format('YYYY-MM-DD')
         } else {
           startDate = dayjs().startOf('year').format('YYYY-MM-DD')
           endDate = dayjs().startOf('year').add(1, 'year').add(-1, 'day').format('YYYY-MM-DD')
