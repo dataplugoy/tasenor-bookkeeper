@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SegmentId, TextFileLine, AccountNumber, Expression, filterView2name, ImportRule, RuleResultView, Store, Tag, TagModel, TransactionImportOptions, Value, ProcessConfig, filterView2rule, filterView2results, isValues, isValue, RuleView } from '@tasenor/common'
+import { SegmentId, TextFileLine, AccountNumber, Expression, filterView2name, ImportRule, RuleResultView, Store, Tag, TagModel, TransactionImportOptions, Value, ProcessConfig, filterView2rule, filterView2results, isValues, isValue, RuleView, num } from '@tasenor/common'
 import { Box, Button, Divider, Grid, Stack, TextField, Typography, Paper, Link, useTheme } from '@mui/material'
 import { TagGroup } from '../TagGroups'
 import { AccountSelector } from '../AccountSelector'
@@ -96,7 +96,8 @@ export const RuleEditor = observer((props: RuleEditorProps): JSX.Element => {
 
   // Helper to construct transfers from the known facts, if possible.
   const transfers = ({ text, account, tags }): Value[] => {
-    const _totalAmountField = parseFloat(lines[0].columns._totalAmountField)
+    // Bank files may use decimal comma, e.g. '-322,60'.
+    const _totalAmountField = num(`${lines[0].columns._totalAmountField}`)
 
     const transfers: Value[] = []
     if (cashAccount) {
@@ -127,7 +128,8 @@ export const RuleEditor = observer((props: RuleEditorProps): JSX.Element => {
 
   // Helper to construct result views from the known facts, if possible.
   const resultViews = ({ account, tags }): RuleResultView[] => {
-    const _totalAmountField = parseFloat(lines[0].columns._totalAmountField)
+    // Bank files may use decimal comma, e.g. '-322,60'.
+    const _totalAmountField = num(`${lines[0].columns._totalAmountField}`)
 
     const results: RuleResultView[] = []
 
