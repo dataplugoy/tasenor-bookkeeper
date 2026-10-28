@@ -2,10 +2,12 @@
 import React from 'react'
 import dayjs from 'dayjs'
 import { Trans } from 'react-i18next'
-import { AccountNumber, Currency, DocumentModelData, EntryModel, haveKnowledge, ID, Tag, TagType } from '@tasenor/common'
+import { AccountNumber, Currency, DocumentModel, DocumentModelData, EntryModel, haveKnowledge, ID, Tag, TagType } from '@tasenor/common'
 import { Localize, SubPanel, IconButton, IconSpacer, ToolPlugin, Money, TagChip, Dialog, Note } from '@tasenor/common-ui'
 import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import { makeObservable, observable, runInAction } from 'mobx'
+
+type TagSplit = { byTag: Record<Tag, number>, noTag: number, hasTags: boolean }
 
 class VAT extends ToolPlugin {
 
@@ -17,7 +19,7 @@ class VAT extends ToolPlugin {
   static code = 'VAT'
   static id = 3 as ID
   static title = 'Value Added Tax'
-  static version = '1.0.46'
+  static version = '1.0.47'
   static icon = '<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24"/></g><g><g><g><path d="M7.5,4C5.57,4,4,5.57,4,7.5S5.57,11,7.5,11S11,9.43,11,7.5S9.43,4,7.5,4z M7.5,9C6.67,9,6,8.33,6,7.5S6.67,6,7.5,6 S9,6.67,9,7.5S8.33,9,7.5,9z M16.5,13c-1.93,0-3.5,1.57-3.5,3.5s1.57,3.5,3.5,3.5s3.5-1.57,3.5-3.5S18.43,13,16.5,13z M16.5,18 c-0.83,0-1.5-0.67-1.5-1.5s0.67-1.5,1.5-1.5s1.5,0.67,1.5,1.5S17.33,18,16.5,18z M5.41,20L4,18.59L18.59,4L20,5.41L5.41,20z"/></g></g></g></svg>'
   static releaseDate = '2022-07-10'
   static use = 'ui'
@@ -64,7 +66,8 @@ class VAT extends ToolPlugin {
         'Description missing': 'Kuvaus puuttuu',
         'Entries that has no tags': 'Tapahtumat, joissa ei ole yhtään tägiä',
         'Payable to add': 'Lisättävä velkaa',
-        'Summarized VAT by tags': 'Jo kootut ALV-summat tägeittäin',
+        'Summarized VAT without known summary document': 'Koottu ALV, jonka koontitositetta ei tunnistettu',
+        'Summary document has different amount': 'Koontitositteella eri summa',
         Total: 'Yhteensä',
         'Receivable to add': 'Lisättävä saatavia',
         'This database does not have configured VAT accounts.': 'Tässä tietokannassa ei ole konfiguroituna ALV-tilejä.',
@@ -73,6 +76,7 @@ class VAT extends ToolPlugin {
         'VAT %': 'ALV %',
         'VAT from purchases': 'ALV ostoista',
         'VAT from sales': 'ALV myynnistä',
+        'VAT summary by tags': 'ALV-koonti tägeittäin',
         'VAT update': 'ALV päivitys',
         'No VAT data found. Please add VAT data plugin.': 'Tietoa ALV:stä ei löydy. Ole hyvä ja lisää lisäosa, josta ALV tiedot löytyvät.',
         'No income and expense knowledge base found. Please install a plugin for it.': 'Tulojen ja menojen tietämyskanta puuttuu. Ole hyvä ja lisää lisäosa, josta tiedot löytyvät.'
@@ -246,8 +250,11 @@ class VAT extends ToolPlugin {
         .map(tag => tag.tag)
     )
 
-    // Split VAT entries by tags, either open ones or already summarized ones.
-    const splitByTags = (filter: (entry: EntryModel) => boolean) => {
+    const isVatEntry = (entry: EntryModel) => entry.account_id === vatSalesAccount.id || entry.account_id === vatPurchasesAccount.id
+    const vatEntries = store.getDocuments().reduce((all: EntryModel[], doc) => all.concat(doc.entries.filter(isVatEntry)), [])
+
+    // Split VAT entries by tags.
+    const splitByTags = (entries: EntryModel[]): TagSplit => {
       const byTag: Record<Tag, number> = {}
       let noTag = 0
       let hasTags = false
@@ -265,18 +272,12 @@ class VAT extends ToolPlugin {
           amount -= delta
         })
       }
-      for (const doc of store.getDocuments()) {
-        for (const entry of doc.entries) {
-          if ((entry.account_id === vatSalesAccount.id || entry.account_id === vatPurchasesAccount.id) && filter(entry)) {
-            add(entry.tagNames as Tag[], entry.total)
-          }
-        }
-      }
+      entries.forEach(entry => add(entry.tagNames as Tag[], entry.total))
       return { byTag, noTag, hasTags }
     }
 
-    const openByTags = splitByTags(entry => this.isOpenVATEntry(entry))
-    const reconciledByTags = splitByTags(entry => !!(entry.data && entry.data.VAT && entry.data.VAT.reconciled))
+    const openByTags = splitByTags(vatEntries.filter(entry => this.isOpenVATEntry(entry)))
+    const summaries = this.VATSummaries(vatEntries).map(summary => ({ ...summary, split: splitByTags(summary.entries) }))
 
     const currency: Currency = this.settings.get('currency') as Currency
 
@@ -318,8 +319,16 @@ class VAT extends ToolPlugin {
             <Trans>{VAT.sales + VAT.purchases < 0 ? 'Payable to add' : 'Receivable to add'}</Trans>: <Money currency={currency} cents={VAT.sales + VAT.purchases}></Money><br/>
           </b>
         </SubPanel>
-        {this.renderTagSplit('Cumulated VAT by tags', openByTags, currency)}
-        {this.renderTagSplit('Summarized VAT by tags', reconciledByTags, currency)}
+        {this.renderTagSplit(<Trans>Cumulated VAT by tags</Trans>, openByTags, currency)}
+        {summaries.map(({ doc, entries, split, amount }) => this.renderTagSplit(
+          doc
+            ? <><Trans>VAT summary by tags</Trans> <Localize date={doc.date} /> #{doc.number}</>
+            : <Trans>Summarized VAT without known summary document</Trans>,
+          split,
+          currency,
+          doc ? doc.id : 'unknown',
+          doc && amount !== entries.reduce((sum, entry) => sum + entry.total, 0) ? amount : null
+        ))}
         { openVATDocuments.length > 0 &&
           <SubPanel>
             {openVATDocuments.map((doc) => {
@@ -344,16 +353,58 @@ class VAT extends ToolPlugin {
   }
 
   /**
-   * Render a table of VAT amounts split by tags.
+   * Find VAT summary documents of the period and the VAT entries reconciled by each of them.
+   *
+   * Entries reconciled before the summary id was stored are linked to the first summary created after
+   * the entry, since a summary reconciles all VAT entries open at the time.
+   * @param vatEntries All entries on VAT sales and purchases accounts.
+   * @returns Summaries in creation order, with the total of VAT moved away from VAT accounts.
    */
-  renderTagSplit(title: string, split: { byTag: Record<Tag, number>, noTag: number, hasTags: boolean }, currency: Currency) {
+  VATSummaries(vatEntries: EntryModel[]): { doc: DocumentModel | null, entries: EntryModel[], amount: number }[] {
+    const summaryEntries = vatEntries.filter(entry => entry.data && entry.data.VAT && entry.data.VAT.ignore)
+    const summaries: Record<number, { doc: DocumentModel, entries: EntryModel[], amount: number, firstEntryId: number }> = {}
+    for (const entry of summaryEntries) {
+      const id = entry.document_id as number
+      if (!summaries[id]) {
+        summaries[id] = { doc: entry.document, entries: [], amount: 0, firstEntryId: entry.id as number }
+      }
+      summaries[id].amount -= entry.total
+      summaries[id].firstEntryId = Math.min(summaries[id].firstEntryId, entry.id as number)
+    }
+    const sorted = Object.values(summaries).sort((a, b) => a.firstEntryId - b.firstEntryId)
+    const unknown: EntryModel[] = []
+    for (const entry of vatEntries) {
+      if (!entry.data || !entry.data.VAT || !entry.data.VAT.reconciled) {
+        continue
+      }
+      const summary = entry.data.VAT.summary
+        ? summaries[entry.data.VAT.summary as number]
+        : sorted.find(s => s.firstEntryId > (entry.id as number))
+      if (summary) {
+        summary.entries.push(entry)
+      } else {
+        unknown.push(entry)
+      }
+    }
+    const result: { doc: DocumentModel | null, entries: EntryModel[], amount: number }[] = sorted.map(({ doc, entries, amount }) => ({ doc, entries, amount }))
+    if (unknown.length) {
+      result.push({ doc: null, entries: unknown, amount: unknown.reduce((sum, entry) => sum + entry.total, 0) })
+    }
+    return result
+  }
+
+  /**
+   * Render a table of VAT amounts split by tags.
+   * @param mismatch If set, the amount booked in the summary document, which differs from the total.
+   */
+  renderTagSplit(title: React.ReactNode, split: TagSplit, currency: Currency, key: string | ID = 'open', mismatch: number | null = null) {
     if (!split.hasTags) {
       return null
     }
     const total = Object.values(split.byTag).reduce((sum, amount) => sum + amount, split.noTag)
     return (
-      <SubPanel>
-        <b><Trans>{title}</Trans>:</b>
+      <SubPanel key={key}>
+        <b>{title}:</b>
         <table>
           <tbody>
             {Object.entries(split.byTag).map(([tag, amount]) => <tr key={tag}>
@@ -374,6 +425,12 @@ class VAT extends ToolPlugin {
               <td><b><Trans>Total</Trans></b></td>
               <td><b><Money currency={currency} cents={total}></Money></b></td>
             </tr>
+            {mismatch !== null && <tr>
+              <td></td>
+              <td></td>
+              <td style={{ color: 'red' }}><Trans>Summary document has different amount</Trans></td>
+              <td style={{ color: 'red' }}><Money currency={currency} cents={mismatch}></Money></td>
+            </tr>}
           </tbody>
         </table>
       </SubPanel>
@@ -467,7 +524,7 @@ class VAT extends ToolPlugin {
       })
     }
 
-    await this.store.period.createDocument(doc)
+    const summary = await this.store.period.createDocument(doc)
 
     // Mark entries as reconciled.
     runInAction(async () => {
@@ -475,6 +532,7 @@ class VAT extends ToolPlugin {
         if (entry.data) {
           entry.data.VAT = entry.data.VAT || {}
           entry.data.VAT.reconciled = true
+          entry.data.VAT.summary = summary.id as ID
         }
         await entry.save()
       }

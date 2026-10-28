@@ -87,6 +87,8 @@ export interface AdditionalEntryModelData {
   VAT?: {
     reconciled?: boolean
     ignore?: boolean
+    // ID of the VAT summary document, which reconciled this entry.
+    summary?: ID
   }
 }
 
@@ -118,6 +120,10 @@ export declare class EntryModel extends BaseModel implements EntryModelData {
   row_number: number | null
   tagNames?: string[]
   data?: AdditionalEntryModelData
+  // Signed amount, debit positive.
+  total: number
+  // eslint-disable-next-line no-use-before-define
+  document: DocumentModel
 
   save(): Promise<void>
   delete(): Promise<void>
@@ -169,7 +175,7 @@ export declare class PeriodModel extends BaseModel implements PeriodModelData {
   save(): Promise<void>
   delete(): Promise<void>
   getDocument(id: ID): DocumentModel
-  createDocument(data: DocumentModelData): Promise<void>
+  createDocument(data: DocumentModelData): Promise<DocumentModel>
   getBalanceByNumber(number: AccountNumber): BalanceModel
 }
 
