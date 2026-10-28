@@ -17,7 +17,7 @@ class VAT extends ToolPlugin {
   static code = 'VAT'
   static id = 3 as ID
   static title = 'Value Added Tax'
-  static version = '1.0.45'
+  static version = '1.0.46'
   static icon = '<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24"/></g><g><g><g><path d="M7.5,4C5.57,4,4,5.57,4,7.5S5.57,11,7.5,11S11,9.43,11,7.5S9.43,4,7.5,4z M7.5,9C6.67,9,6,8.33,6,7.5S6.67,6,7.5,6 S9,6.67,9,7.5S8.33,9,7.5,9z M16.5,13c-1.93,0-3.5,1.57-3.5,3.5s1.57,3.5,3.5,3.5s3.5-1.57,3.5-3.5S18.43,13,16.5,13z M16.5,18 c-0.83,0-1.5-0.67-1.5-1.5s0.67-1.5,1.5-1.5s1.5,0.67,1.5,1.5S17.33,18,16.5,18z M5.41,20L4,18.59L18.59,4L20,5.41L5.41,20z"/></g></g></g></svg>'
   static releaseDate = '2022-07-10'
   static use = 'ui'
@@ -64,6 +64,8 @@ class VAT extends ToolPlugin {
         'Description missing': 'Kuvaus puuttuu',
         'Entries that has no tags': 'Tapahtumat, joissa ei ole yhtään tägiä',
         'Payable to add': 'Lisättävä velkaa',
+        'Summarized VAT by tags': 'Jo kootut ALV-summat tägeittäin',
+        Total: 'Yhteensä',
         'Receivable to add': 'Lisättävä saatavia',
         'This database does not have configured VAT accounts.': 'Tässä tietokannassa ei ole konfiguroituna ALV-tilejä.',
         'Value Added Tax': 'Arvonlisävero',
@@ -244,32 +246,37 @@ class VAT extends ToolPlugin {
         .map(tag => tag.tag)
     )
 
-    const vatByTag: Record<Tag, number> = {}
-    let vatByNoTag = null
-    let hasTags = false
-
-    const addVatByTags = (tags, amount) => {
-      tags = tags.filter(tag => validTags.has(tag))
-      if (!tags.length) {
-        vatByNoTag = (vatByNoTag || 0) + amount
-        return
+    // Split VAT entries by tags, either open ones or already summarized ones.
+    const splitByTags = (filter: (entry: EntryModel) => boolean) => {
+      const byTag: Record<Tag, number> = {}
+      let noTag = 0
+      let hasTags = false
+      const add = (tags: Tag[], amount: number) => {
+        tags = tags.filter(tag => validTags.has(tag))
+        if (!tags.length) {
+          noTag += amount
+          return
+        }
+        hasTags = true
+        const share = (amount >= 0 ? Math.ceil(amount / tags.length) : Math.floor(amount / tags.length))
+        tags.forEach((tag) => {
+          const delta = (amount >= 0 ? Math.min(amount, share) : Math.max(amount, share))
+          byTag[tag] = (byTag[tag] || 0) + delta
+          amount -= delta
+        })
       }
-      hasTags = true
-      const share = (amount >= 0 ? Math.ceil(amount / tags.length) : Math.floor(amount / tags.length))
-      tags.forEach((tag) => {
-        const delta = (amount >= 0 ? Math.min(amount, share) : Math.max(amount, share))
-        vatByTag[tag] = (vatByTag[tag] || 0) + delta
-        amount -= delta
-      })
-    }
-
-    for (const doc of openVATDocuments) {
-      for (const entry of doc.entries) {
-        if ((entry.account_id === vatSalesAccount.id || entry.account_id === vatPurchasesAccount.id) && this.isOpenVATEntry(entry)) {
-          addVatByTags(entry.tagNames, entry.total)
+      for (const doc of store.getDocuments()) {
+        for (const entry of doc.entries) {
+          if ((entry.account_id === vatSalesAccount.id || entry.account_id === vatPurchasesAccount.id) && filter(entry)) {
+            add(entry.tagNames as Tag[], entry.total)
+          }
         }
       }
+      return { byTag, noTag, hasTags }
     }
+
+    const openByTags = splitByTags(entry => this.isOpenVATEntry(entry))
+    const reconciledByTags = splitByTags(entry => !!(entry.data && entry.data.VAT && entry.data.VAT.reconciled))
 
     const currency: Currency = this.settings.get('currency') as Currency
 
@@ -311,27 +318,8 @@ class VAT extends ToolPlugin {
             <Trans>{VAT.sales + VAT.purchases < 0 ? 'Payable to add' : 'Receivable to add'}</Trans>: <Money currency={currency} cents={VAT.sales + VAT.purchases}></Money><br/>
           </b>
         </SubPanel>
-        { hasTags &&
-          <SubPanel>
-            <b><Trans>Cumulated VAT by tags</Trans>:</b>
-            <table>
-              <tbody>
-                {Object.entries(vatByTag).map(([tag, amount]) => <tr key={tag}>
-                  <td width="48px"><TagChip tag={this.store.database.getTag(tag as Tag)} /></td>
-                  <td width="48px">{tag}</td>
-                  <td>{this.store.database.getTag(tag as Tag).name}</td>
-                  <td><Money currency={currency} cents={amount}></Money></td>
-                </tr>)}
-                {vatByNoTag && <tr>
-                  <td></td>
-                  <td></td>
-                  <td><Trans>Entries that has no tags</Trans></td>
-                  <td><Money currency={currency} cents={vatByNoTag}></Money></td>
-                </tr>}
-              </tbody>
-            </table>
-          </SubPanel>
-        }
+        {this.renderTagSplit('Cumulated VAT by tags', openByTags, currency)}
+        {this.renderTagSplit('Summarized VAT by tags', reconciledByTags, currency)}
         { openVATDocuments.length > 0 &&
           <SubPanel>
             {openVATDocuments.map((doc) => {
@@ -352,6 +340,43 @@ class VAT extends ToolPlugin {
           </SubPanel>
         }
       </div>
+    )
+  }
+
+  /**
+   * Render a table of VAT amounts split by tags.
+   */
+  renderTagSplit(title: string, split: { byTag: Record<Tag, number>, noTag: number, hasTags: boolean }, currency: Currency) {
+    if (!split.hasTags) {
+      return null
+    }
+    const total = Object.values(split.byTag).reduce((sum, amount) => sum + amount, split.noTag)
+    return (
+      <SubPanel>
+        <b><Trans>{title}</Trans>:</b>
+        <table>
+          <tbody>
+            {Object.entries(split.byTag).map(([tag, amount]) => <tr key={tag}>
+              <td width="48px"><TagChip tag={this.store.database.getTag(tag as Tag)} /></td>
+              <td width="48px">{tag}</td>
+              <td>{this.store.database.getTag(tag as Tag).name}</td>
+              <td><Money currency={currency} cents={amount}></Money></td>
+            </tr>)}
+            {split.noTag !== 0 && <tr>
+              <td></td>
+              <td></td>
+              <td><Trans>Entries that has no tags</Trans></td>
+              <td><Money currency={currency} cents={split.noTag}></Money></td>
+            </tr>}
+            <tr>
+              <td></td>
+              <td></td>
+              <td><b><Trans>Total</Trans></b></td>
+              <td><b><Money currency={currency} cents={total}></Money></b></td>
+            </tr>
+          </tbody>
+        </table>
+      </SubPanel>
     )
   }
 
