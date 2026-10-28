@@ -14,3 +14,10 @@ apps/bookkeeper-api/src/plugins/workspace
 # Test/CI outputs.
 e2e/cypress/screenshots
 e2e/cypress/videos
+e2e/cypress/downloads
+
+# Local state and settings, never part of an image. The server's .state holds the
+# key that signs access tokens; without it the server generates a new one at start.
+apps/bookkeeper-api/.state
+apps/bookkeeper-api/*.tasenor
+.claude
