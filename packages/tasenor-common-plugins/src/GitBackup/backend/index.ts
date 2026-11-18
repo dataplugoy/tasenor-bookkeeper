@@ -46,6 +46,11 @@ class GitBackup extends ToolPlugin {
    * Create backup every night.
    */
   async nightly(db: KnexDatabase) {
+    // A database that does not use GitBackup has no repository set: nothing to do, and nothing
+    // to report. A manual backup or restore still reports the missing settings as an error.
+    if (await this.getSetting(db, 'repository') === undefined || await this.getSetting(db, 'subDirectory') === undefined) {
+      return
+    }
     await this.makeBackup(db, `Automatic nightly backup of '${db.client.config.connection.database}' by ${this.code} ${this.version}`)
   }
 
