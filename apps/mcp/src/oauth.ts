@@ -125,7 +125,11 @@ export class TasenorOAuthProvider implements OAuthServerProvider {
   }
 
   private sendLogin (res: Response, id: string, pending: Pending, error?: string, user?: string): void {
-    res.setHeader('Content-Security-Policy', "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'")
+    // Browsers apply form-action to the redirect that follows a submit too, so the client's
+    // redirect target must be allowed, or the browser silently stops after a successful login.
+    const target = new URL(pending.params.redirectUri)
+    const back = target.protocol === 'http:' || target.protocol === 'https:' ? target.origin : target.protocol
+    res.setHeader('Content-Security-Policy', `default-src 'none'; style-src 'unsafe-inline'; form-action 'self' ${back}; frame-ancestors 'none'`)
     res.setHeader('Cache-Control', 'no-store')
     res.status(error ? 401 : 200).type('html').send(loginPage({
       request: id,
