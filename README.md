@@ -5,6 +5,23 @@ This is a monorepo for developing Tasenor Bookkeeper. For the latest published d
 
 ![apps/docs/public/transaction-page.png](apps/docs/public/transaction-page.png)
 
+## AI assistants (MCP)
+
+Bookkeeper can be used from AI assistants such as Claude through the [MCP](https://modelcontextprotocol.io)
+server in [apps/mcp](./apps/mcp/README.md). The assistant can read the books (periods, accounts, balances,
+reports, ledgers, entry search, documents) and propose new documents as drafts. It cannot book anything
+itself: drafts are listed at the top of the Transactions page, and a person confirms or rejects them there.
+The assistant sees exactly what its user sees, since every call goes through the API with that user's token.
+
+The production server is at `https://mcp.tasenor.com/mcp`. Add it as a remote MCP server and log in with
+your Bookkeeper email and password when asked; the login lasts 30 days.
+
+* claude.ai: Settings → Connectors → Add custom connector, URL `https://mcp.tasenor.com/mcp`.
+* Claude Code: `claude mcp add --transport http tasenor https://mcp.tasenor.com/mcp`, then `/mcp` to log in.
+
+It also runs locally over stdio with a token, for one user. See [apps/mcp/README.md](./apps/mcp/README.md)
+for the tools, both modes, and deployment.
+
 ## Content
 
 ### Applications
