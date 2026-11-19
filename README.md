@@ -12,6 +12,7 @@ This is a monorepo for developing Tasenor Bookkeeper. For the latest published d
 * [Bookkeeper Backend](./apps/bookkeeper-api/README.md) API for Bookkeeper.
 * [Bookkeeper UI](./apps/bookkeeper/README.md) UI for Bookkeeper.
 * [CLI](./apps/cli/README.md) Command-line API access.
+* [MCP](./apps/mcp/README.md) Read-only MCP server for AI assistants.
 
 ### Databases
 
