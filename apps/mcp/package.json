@@ -1,6 +1,6 @@
 {
   "name": "@tasenor/mcp",
-  "version": "1.17.29",
+  "version": "1.17.30",
   "description": "MCP server giving AI assistants access to Tasenor Bookkeeper.",
   "main": "src/server.ts",
   "bin": {
