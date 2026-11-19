@@ -1,0 +1,4 @@
+#!/bin/sh
+# Launch the Tasenor Bookkeeper MCP server over stdio from any working directory.
+DIR="$(cd "$(dirname "$0")/.." && pwd)"
+exec "$DIR/node_modules/.bin/tsx" "$DIR/src/server.ts"

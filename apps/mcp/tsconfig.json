@@ -1,0 +1,9 @@
+{
+  "extends": "@tasenor/config/base",
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}

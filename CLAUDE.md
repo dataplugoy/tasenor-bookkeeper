@@ -71,6 +71,7 @@ cd apps/bookkeeper-api && pnpm run rollback   # Rollback last migration
 - **`apps/bookkeeper/`** — React 17 + Vite frontend. MobX for state, MUI 5 for components, React Router 6 for routing. The bundled-plugin catalog (`src/Plugins/index.json` + `index.jsx`) is committed static source; regenerate it only when plugins change (see the Plugin System section).
 - **`apps/bookkeeper-api/`** — Express.js REST API. Knex for PostgreSQL queries and migrations. JWT auth. Routes in `src/routes/`, business logic in `src/lib/`.
 - **`apps/cli/`** — Command-line utilities for API access.
+- **`apps/mcp/`** — Read-only MCP server (stdio, `@modelcontextprotocol/sdk`). A pure client of the REST API using the user's own token, never the database, so access rules stay the API's. The API returns money as integer cents everywhere; `src/format.ts` converts to euros. Tests: `pnpm test` (node:test).
 - **`apps/docs/`** — Docusaurus documentation site.
 - **`packages/tasenor-common/`** — Shared types and utilities (browser + Node). Published as `@tasenor/common`.
 - **`packages/tasenor-common-node/`** — Node-specific libraries. Published as `@tasenor/common-node`.
