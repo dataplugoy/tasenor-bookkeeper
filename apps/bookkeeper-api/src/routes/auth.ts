@@ -28,6 +28,33 @@ router.post('/',
   }
 )
 
+/**
+ * Authenticate and construct a long-lived bookkeeping refresh token for a connector, such as the
+ * MCP server's OAuth login, so that an assistant need not ask for the password every 12 hours.
+ * The token only ever refreshes into an ordinary bookkeeping token, and a disabled user is
+ * refused at every refresh.
+ */
+router.post('/connector',
+  tasenorStack({ json: true, url: true }),
+  async (req, res, next) => {
+    const { user, password } = req.body
+    if (typeof user !== 'string' || typeof password !== 'string' || !user || !password) {
+      return res.status(401).send({ message: 'Invalid user or password.' })
+    }
+    try {
+      if (await users.verifyPassword(user, password)) {
+        const days = Math.max(1, parseInt(process.env.CONNECTOR_TOKEN_DAYS || '30') || 30)
+        const refresh = await tokens.sign({ audience: 'bookkeeping', owner: user as Email, feats: {} }, 'refresh', days * DAYS)
+        return res.send({ refresh, expires: Math.floor(Date.now() / 1000) + days * DAYS })
+      }
+    } catch (err) {
+      return next(err)
+    }
+
+    res.status(401).send({ message: 'Invalid user or password.' })
+  }
+)
+
 router.get('/refresh',
   tasenorStack({ json: true, url: true, audience: 'refresh' }),
   async (req, res, next) => {

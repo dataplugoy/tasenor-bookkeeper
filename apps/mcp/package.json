@@ -1,7 +1,7 @@
 {
   "name": "@tasenor/mcp",
   "version": "1.17.29",
-  "description": "MCP server giving AI assistants read access to Tasenor Bookkeeper.",
+  "description": "MCP server giving AI assistants access to Tasenor Bookkeeper.",
   "main": "src/server.ts",
   "bin": {
     "tasenor-mcp": "bin/tasenor-mcp"
@@ -16,19 +16,23 @@
     "release-minor": "pnpm version minor --no-git-tag-version",
     "show-version": "jq .version < package.json",
     "start": "tsx src/server.ts",
-    "test": "node --import tsx --test src/*.test.ts"
+    "test": "node --import tsx --test src/*.test.ts",
+    "start-http": "tsx src/http.ts"
   },
   "keywords": [],
   "author": "Tommi Ronkainen <tommi.ronkainen@gmail.com>",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@tasenor/config": "workspace:*",
+    "@types/express": "^4.17.23",
     "@types/node": "^20.11.19",
     "eslint-config-tasenor": "workspace:*",
     "typescript": "^5.3.3"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
     "tsx": "^4.23.15",
     "zod": "^4.6.7"
   }

@@ -1,0 +1,21 @@
+type: object
+description: One proposed entry of a draft.
+properties:
+  account_id:
+    $ref: ../types/id.yaml
+  debit:
+    type: boolean
+    description: True for a debit, false for a credit.
+  amount:
+    type: integer
+    minimum: 1
+    description: Amount in cents, always positive.
+    example: 12345
+  description:
+    type: string
+    maxLength: 256
+    description: Entry description. Defaults to the draft's description.
+required:
+  - account_id
+  - debit
+  - amount

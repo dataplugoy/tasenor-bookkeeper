@@ -3,6 +3,9 @@
 # use in staging and production servers. Development should be done using
 # directly `turbo` or `pnpm` scripts.
 #
+volumes:
+  mcp_data:
+
 services:
   tasenor-nginx-proxy:
     container_name: tasenor-nginx-proxy
@@ -34,6 +37,26 @@ services:
       VIRTUAL_HOST: bookkeeper.localhost
       VIRTUAL_PORT: ${BOOKKEEPER_PORT:-7204}
     command: pnpm run docker
+    networks:
+      - tasenor
+
+  tasenor-mcp:
+    container_name: tasenor-mcp
+    build:
+      context: .
+      dockerfile: apps/mcp/Dockerfile
+    depends_on:
+      - tasenor-bookkeeper-api
+    ports:
+      - ${MCP_PORT:-7206}:7206
+    environment:
+      MCP_PUBLIC_URL: ${MCP_PUBLIC_URL:-http://localhost:7206}
+      MCP_SECRET: ${MCP_SECRET:-development-only-secret-0123456789abcdef}
+      TASENOR_API: http://tasenor-bookkeeper-api:7205
+      VIRTUAL_HOST: mcp.localhost
+      VIRTUAL_PORT: 7206
+    volumes:
+      - mcp_data:/var/app/data
     networks:
       - tasenor
 

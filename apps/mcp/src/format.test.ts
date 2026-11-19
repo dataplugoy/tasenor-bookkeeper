@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { Account, Document, accountMatches, euros, findEntries, renderDocument, renderReport, totals } from './format'
+import { Account, Document, accountMatches, buildDraftEntries, euros, findEntries, renderDocument, renderReport, totals } from './format'
 
 const accounts = new Map<number, Account>([
   [1, { id: 1, number: '1910', name: 'Nordea', type: 'ASSET' }],
@@ -87,4 +87,26 @@ test('renderReport indents rows, converts currency and cleans titles', () => {
     'LIIKEVAIHTO | 1000.00',
     '    Heading only'
   ])
+})
+
+test('buildDraftEntries converts euros to cents and resolves accounts', () => {
+  assert.deepEqual(buildDraftEntries([
+    { account: '4000', debit: 100.1, description: 'Hosting' },
+    { account: '2939', debit: 24.02 },
+    { account: '1910', credit: 124.12 }
+  ], accounts), [
+    { account_id: 2, debit: true, amount: 10010, description: 'Hosting' },
+    { account_id: 3, debit: true, amount: 2402 },
+    { account_id: 1, debit: false, amount: 12412 }
+  ])
+})
+
+test('buildDraftEntries explains what is wrong', () => {
+  assert.throws(() => buildDraftEntries([{ account: '4000', debit: 10 }, { account: '1910', credit: 9.99 }], accounts), /do not match \(difference 0.01\)/)
+  assert.throws(() => buildDraftEntries([{ account: '9999', debit: 10 }, { account: '1910', credit: 10 }], accounts), /Entry 1: no account number 9999/)
+  assert.throws(() => buildDraftEntries([{ account: '4000', debit: 10, credit: 10 }, { account: '1910', credit: 10 }], accounts), /Entry 1: give exactly one/)
+  assert.throws(() => buildDraftEntries([{ account: '4000' }, { account: '1910', credit: 10 }], accounts), /Entry 1: give exactly one/)
+  assert.throws(() => buildDraftEntries([{ account: '4000', debit: 10.005 }, { account: '1910', credit: 10.005 }], accounts), /at most two decimals/)
+  assert.throws(() => buildDraftEntries([{ account: '4000', debit: -10 }, { account: '1910', credit: -10 }], accounts), /positive euros/)
+  assert.throws(() => buildDraftEntries([{ account: '4000', debit: 0 }], accounts), /positive euros/)
 })

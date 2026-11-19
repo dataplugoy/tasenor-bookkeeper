@@ -1,0 +1,31 @@
+type: object
+description: |
+  A proposed document. It must be bookable as it stands: the period open, the date inside it,
+  the accounts existing and debits equal to credits.
+properties:
+  period_id:
+    $ref: ../types/id.yaml
+  date:
+    type: string
+    format: date
+    example: '2025-06-01'
+  description:
+    type: string
+    maxLength: 256
+    example: Hosting, June
+  entries:
+    type: array
+    minItems: 2
+    items:
+      $ref: DraftEntry.yaml
+  data:
+    type: object
+    description: Free-form context, e.g. `source` (who proposed it) and `note` (explanation for the reviewer).
+    example:
+      source: 'mcp: Claude'
+      note: From invoice 2025-123.
+required:
+  - period_id
+  - date
+  - description
+  - entries

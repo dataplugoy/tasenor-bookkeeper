@@ -178,3 +178,78 @@ export function renderDocument (document: Document, accounts: Map<number, Accoun
   lines.push(`  Total debit ${euros(sum.debit)}, credit ${euros(sum.credit)}${sum.net === 0 ? '' : ' — NOT BALANCED'}`)
   return lines.join('\n')
 }
+
+export interface Draft {
+  id: number
+  period_id: number
+  date: string
+  description: string
+  entries: { account_id: number, debit: boolean, amount: number, description?: string }[]
+  data?: { source?: string, note?: string, [key: string]: unknown }
+  created_by: string
+  created: string
+}
+
+/**
+ * An entry as the model proposes it: an account number and exactly one of debit or credit in euros.
+ */
+export interface ProposedEntry {
+  account: string
+  debit?: number
+  credit?: number
+  description?: string
+}
+
+/**
+ * Turn proposed entries into the API's form (account ids, cents), checking everything the model
+ * is likely to get wrong so it gets a precise message back instead of a generic API refusal.
+ */
+export function buildDraftEntries (entries: ProposedEntry[], accounts: Map<number, Account>): Draft['entries'] {
+  const byNumber = new Map(Array.from(accounts.values()).map(a => [a.number, a]))
+  const result: Draft['entries'] = []
+  let debit = 0
+  let credit = 0
+  entries.forEach((entry, index) => {
+    const row = `Entry ${index + 1}`
+    const account = byNumber.get(`${entry.account}`.trim())
+    if (!account) {
+      throw new Error(`${row}: no account number ${entry.account}. Use list_accounts to find it.`)
+    }
+    const hasDebit = entry.debit !== undefined && entry.debit !== null
+    const hasCredit = entry.credit !== undefined && entry.credit !== null
+    if (hasDebit === hasCredit) {
+      throw new Error(`${row}: give exactly one of debit or credit.`)
+    }
+    const euros = (hasDebit ? entry.debit : entry.credit) as number
+    const cents = Math.round(euros * 100)
+    if (!(cents > 0) || Math.abs(euros * 100 - cents) > 1e-6) {
+      throw new Error(`${row}: the amount must be positive euros with at most two decimals, not ${euros}.`)
+    }
+    if (hasDebit) {
+      debit += cents
+    } else {
+      credit += cents
+    }
+    result.push({ account_id: account.id, debit: hasDebit, amount: cents, ...(entry.description ? { description: entry.description } : {}) })
+  })
+  if (result.length < 2) {
+    throw new Error('A document needs at least two entries.')
+  }
+  if (debit !== credit) {
+    throw new Error(`Debits ${(debit / 100).toFixed(2)} and credits ${(credit / 100).toFixed(2)} do not match (difference ${((debit - credit) / 100).toFixed(2)}).`)
+  }
+  return result
+}
+
+export function renderDraft (draft: Draft, accounts: Map<number, Account>): string {
+  const lines = [`Draft ${draft.id}: ${`${draft.date}`.substring(0, 10)} ${draft.description} (period id ${draft.period_id}, by ${draft.created_by}${draft.data?.source ? ` via ${draft.data.source}` : ''})`]
+  if (draft.data?.note) {
+    lines.push(`  Note: ${draft.data.note}`)
+  }
+  for (const entry of draft.entries) {
+    const account = accounts.get(entry.account_id)
+    const acc = account ? `${account.number} ${account.name}` : `account id ${entry.account_id}`
+    lines.push(`  ${acc} | ${entry.debit ? 'debit' : 'credit'} ${euros(entry.amount)} | ${entry.description || draft.description}`)
+  }
+  return lines.join('\n')
+}

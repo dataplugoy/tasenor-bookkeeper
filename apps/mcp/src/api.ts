@@ -46,29 +46,41 @@ export class BookkeeperApi {
    * Make a GET request, authenticating first if needed and once more if the token has expired.
    */
   async get<T = unknown> (path: string, query: Record<string, string | boolean | undefined> = {}): Promise<T> {
+    return this.request<T>('GET', path, query)
+  }
+
+  async post<T = unknown> (path: string, body: unknown = {}): Promise<T> {
+    return this.request<T>('POST', path, {}, body)
+  }
+
+  async delete (path: string): Promise<void> {
+    await this.request('DELETE', path)
+  }
+
+  private async request<T> (method: string, path: string, query: Record<string, string | boolean | undefined> = {}, body?: unknown): Promise<T> {
     if (!this.token) {
       await this.authenticate()
     }
-    let resp = await this.fetch(path, query)
+    let resp = await this.fetch(method, path, query, body)
     if (resp.status === 401 || resp.status === 403) {
       this.token = null
       await this.authenticate()
-      resp = await this.fetch(path, query)
+      resp = await this.fetch(method, path, query, body)
     }
-    const body = await resp.text()
+    const text = await resp.text()
     if (!resp.ok) {
-      let message = body
+      let message = text
       try {
-        message = JSON.parse(body).message || body
+        message = JSON.parse(text).message || text
       } catch {
         // Not JSON, keep the raw text.
       }
       throw new ApiError(resp.status, `${resp.status} ${message}`.trim())
     }
-    return JSON.parse(body) as T
+    return (text ? JSON.parse(text) : null) as T
   }
 
-  private async fetch (path: string, query: Record<string, string | boolean | undefined>): Promise<Response> {
+  private async fetch (method: string, path: string, query: Record<string, string | boolean | undefined>, body?: unknown): Promise<Response> {
     const params = new URLSearchParams()
     for (const [key, value] of Object.entries(query)) {
       if (value === true) {
@@ -78,8 +90,14 @@ export class BookkeeperApi {
       }
     }
     const qs = params.toString()
+    const headers: Record<string, string> = { Authorization: `Bearer ${this.token}`, Accept: 'application/json' }
+    if (body !== undefined) {
+      headers['Content-Type'] = 'application/json'
+    }
     return fetch(`${this.config.url}${path}${qs ? '?' + qs : ''}`, {
-      headers: { Authorization: `Bearer ${this.token}`, Accept: 'application/json' }
+      method,
+      headers,
+      body: body === undefined ? undefined : JSON.stringify(body)
     })
   }
 
