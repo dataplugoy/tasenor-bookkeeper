@@ -41,6 +41,67 @@ All amounts going out are euros with two decimals (the API itself works in cents
 takes euros too. Account filters: digits are a number prefix (`"4"` is every expense account),
 anything else is part of the account name.
 
+### Arguments
+
+`db` is a database name from `list_databases`, and `period` a period id from `list_periods`.
+Arguments marked ? are optional.
+
+| Tool | Arguments |
+|---|---|
+| `list_databases` | none |
+| `list_periods` | `db` |
+| `list_accounts` | `db`, `search`? |
+| `get_balances` | `db`, `period` |
+| `get_report` | `db`, `period`, `format`, `column`?, `by_tags`?, `lang`? |
+| `get_account_ledger` | `db`, `period`, `account` |
+| `search_entries` | `db`, `period`, `text`?, `account`?, `date_from`?, `date_to`?, `min_amount`?, `max_amount`?, `limit`? |
+| `get_document` | `db`, then either `id`, or `period` and `number` |
+| `create_draft` | `db`, `period`, `date`, `description`, `entries`, `note`? |
+| `list_drafts` | `db`, `period`? |
+| `delete_draft` | `db`, `id` |
+
+| Argument | Type | Meaning |
+|---|---|---|
+| `db` | string | Database name. |
+| `period` | integer | Period id. Optional in `list_drafts`, where leaving it out lists the drafts of every period. |
+| `search` (`list_accounts`) | string | Digits are an account number prefix (`"19"` is cash and bank); anything else matches part of the account name, case-insensitive. Without it, the whole chart, which can be hundreds of accounts. |
+| `format` (`get_report`) | string | Report format, e.g. `income-statement`, `balance-sheet`, `general-journal`, `general-ledger`. An unknown format answers with the list of formats the database has. |
+| `column` (`get_report`) | enum | `full` (default), `quarter1`–`quarter3`, or `month1`, `month2`, `month4`, `month5`, `month7`, `month8`, `month10`, `month11`: from the start of the period to the end of that quarter or month. |
+| `by_tags` (`get_report`) | boolean | Split the income statement by tags (cost centres), where the report supports it. |
+| `lang` (`get_report`) | enum | `en` (default), `fi` or `sv`. |
+| `account` (`get_account_ledger`) | string | One account number, e.g. `"1910"`. |
+| `text` (`search_entries`) | string | Part of the entry description, case-insensitive. |
+| `account` (`search_entries`) | string | As `search` above: a number prefix (`"4"` is every expense account) or part of a name. |
+| `date_from`, `date_to` | string | `YYYY-MM-DD`, both inclusive. |
+| `min_amount`, `max_amount` | number | Bounds on the absolute entry amount, in euros. |
+| `limit` | integer | 1–1000, default 100. Only limits the entries listed: the debit, credit and net totals always cover every match. |
+| `id` (`get_document`) | integer | Document id, as search results show it (`document id 12715`). |
+| `number` (`get_document`) | integer | Document number within the period, as the UI and reports show it (`#149`). |
+| `date` (`create_draft`) | string | `YYYY-MM-DD`, inside the period. |
+| `description` (`create_draft`) | string | At most 256 characters. Used for entries that have no description of their own. |
+| `entries` (`create_draft`) | array | At least two, each `{ account, debit?, credit?, description? }`: `account` an account number string, exactly one of `debit` or `credit` in euros (positive, at most two decimals), and `description` at most 256 characters. Debits and credits must balance. |
+| `note` (`create_draft`) | string | At most 2000 characters, for the person reviewing the draft: the source document, the reasoning, anything uncertain. |
+| `id` (`delete_draft`) | integer | Draft id, from `list_drafts` or `create_draft`. |
+
+For example, the Q1 income statement in Finnish:
+
+```json
+{ "name": "get_report", "arguments": { "db": "dataplug", "period": 23, "format": "income-statement", "column": "quarter1", "lang": "fi" } }
+```
+
+and a draft:
+
+```json
+{ "name": "create_draft", "arguments": {
+  "db": "dataplug", "period": 23, "date": "2026-11-19", "description": "Hetzner invoice 11/2026",
+  "entries": [
+    { "account": "7695", "debit": 40.00 },
+    { "account": "2785", "debit": 10.20, "description": "VAT 25.5 %" },
+    { "account": "3020", "credit": 50.20 }
+  ],
+  "note": "From the invoice PDF of 2026-11-18." } }
+```
+
 ## stdio
 
 Environment:
