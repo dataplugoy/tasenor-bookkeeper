@@ -1,16 +1,15 @@
 /**
- * Tasenor Bookkeeper MCP server over stdio.
+ * Tasenor Bookkeeper MCP server over stdio, for a single user on their own machine.
  *
  * Configuration is by environment:
  * - `TASENOR_API` the API base URL (default `http://localhost:7205`)
  * - `TASENOR_REFRESH_TOKEN` a long-lived bookkeeping refresh token, or
  * - `TASENOR_USERNAME` and `TASENOR_PASSWORD` login credentials.
+ * - `TASENOR_MCP_READ_ONLY` set to anything leaves out the draft tools.
  */
-import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { BookkeeperApi } from './api'
-import { registerTools } from './tools'
-import pkg from '../package.json'
+import { createMcpServer } from './mcp'
 
 async function main (): Promise<void> {
   const api = new BookkeeperApi({
@@ -19,12 +18,7 @@ async function main (): Promise<void> {
     user: process.env.TASENOR_USERNAME,
     password: process.env.TASENOR_PASSWORD
   })
-  const server = new McpServer({ name: 'tasenor-bookkeeper', version: pkg.version }, {
-    instructions: 'Read-only access to Tasenor Bookkeeper, a Finnish double-entry bookkeeping system. ' +
-      'Start with list_databases and list_periods; most tools need a database name and a period id. ' +
-      'All amounts are euros. Account names and entry descriptions are usually in Finnish.'
-  })
-  registerTools(server, api)
+  const server = createMcpServer(api, { readOnly: !!process.env.TASENOR_MCP_READ_ONLY, source: 'mcp' })
   await server.connect(new StdioServerTransport())
 }
 

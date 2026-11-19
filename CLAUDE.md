@@ -71,7 +71,7 @@ cd apps/bookkeeper-api && pnpm run rollback   # Rollback last migration
 - **`apps/bookkeeper/`** — React 17 + Vite frontend. MobX for state, MUI 5 for components, React Router 6 for routing. The bundled-plugin catalog (`src/Plugins/index.json` + `index.jsx`) is committed static source; regenerate it only when plugins change (see the Plugin System section).
 - **`apps/bookkeeper-api/`** — Express.js REST API. Knex for PostgreSQL queries and migrations. JWT auth. Routes in `src/routes/`, business logic in `src/lib/`.
 - **`apps/cli/`** — Command-line utilities for API access.
-- **`apps/mcp/`** — Read-only MCP server (stdio, `@modelcontextprotocol/sdk`). A pure client of the REST API using the user's own token, never the database, so access rules stay the API's. The API returns money as integer cents everywhere; `src/format.ts` converts to euros. Tests: `pnpm test` (node:test).
+- **`apps/mcp/`** — MCP server for AI assistants, over stdio (`src/server.ts`) or Streamable HTTP with its own OAuth 2.1 server (`src/http.ts`, `src/oauth.ts`, Docker image). A pure client of the REST API using the user's own token, never the database, so access rules stay the API's. The API returns money as integer cents everywhere; `src/format.ts` converts to euros. Writes only drafts: there is deliberately no confirm tool. Tests: `pnpm test` (node:test). Its Docker image needs Node 20+ (the SDK uses global Web Crypto).
 - **`apps/docs/`** — Docusaurus documentation site.
 - **`packages/tasenor-common/`** — Shared types and utilities (browser + Node). Published as `@tasenor/common`.
 - **`packages/tasenor-common-node/`** — Node-specific libraries. Published as `@tasenor/common-node`.
@@ -94,6 +94,10 @@ Two catalog representations exist:
   # then strip the machine-absolute `path` field from src/Plugins/index.json (it is unused by the UI)
   ```
 Each plugin declares its own stable `id` in source next to `code` (backend `this.id = N as ID`, UI `static id = N as ID`; the same value in both files for "both" plugins). These ids are the canonical Tasenor plugin ids (subscriptions are gated by `id`), so the scanner reads them directly rather than assigning by scan order — the frontend catalog and the backend boot scan therefore always produce identical ids. When adding a new plugin, give it a fresh unused id. Ids of removed plugins are retired and must not be reused: 18 (NordnetImport, Nordnet importing moved to Tasenor Data Exchange).
+
+### Drafts
+
+Proposed documents (e.g. from the MCP server) live in the per-company `draft` table (migration `0010_add_drafts`), never in `document`, so no report or balance can count one. `apps/bookkeeper-api/src/lib/draft.ts` validates a draft as bookable (open period, date inside it, known accounts, debits = credits, amounts in cents) both on create and again on confirm; `POST /db/:db/draft/:id/confirm` creates the document and entries and deletes the draft in one transaction. The UI lists a period's drafts at the top of its Transactions page (`apps/bookkeeper/src/Components/Drafts.tsx`). `POST /auth/connector` gives a long-lived (`CONNECTOR_TOKEN_DAYS`, default 30) bookkeeping refresh token after a password check, for the MCP OAuth login.
 
 ### Database Architecture
 

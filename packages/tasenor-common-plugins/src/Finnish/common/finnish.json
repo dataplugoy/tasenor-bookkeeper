@@ -1,4 +1,11 @@
 {
+  "Draft booked as transaction #{{number}}.": "Luonnos kirjattiin tapahtumaksi #{{number}}.",
+  "Draft rejected.": "Luonnos hylättiin.",
+  "Drafts are proposed transactions. They are not in the books until confirmed.": "Luonnokset ovat ehdotettuja tapahtumia. Ne eivät ole kirjanpidossa ennen vahvistamista.",
+  "Drafts waiting for confirmation": "Vahvistusta odottavat luonnokset",
+  "Proposed by": "Ehdottaja",
+  "Reject": "Hylkää",
+  "Reject this draft?": "Hylätäänkö tämä luonnos?",
   "{{count}} transactions": "{{count}} tapahtumaa",
   "#": "#",
   "1 transaction": "1 tapahtuma",

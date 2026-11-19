@@ -1,0 +1,36 @@
+post:
+  operationId: confirmDraft
+  tags:
+    - Drafts
+  summary: Book a draft
+  description: |
+    Check the draft again, then in one transaction create the document (with the next number of
+    the period) and its entries, and delete the draft. The document's `data.draft` records who
+    proposed and who confirmed it.
+  parameters:
+  - in: path
+    name: databaseName
+    schema:
+      $ref: ../../components/types/databaseName.yaml
+    required: true
+  - in: path
+    name: id
+    schema:
+      $ref: ../../components/types/id.yaml
+    required: true
+    description: The ID of the draft.
+  responses:
+    '200':
+      description: The booked document.
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/GetDocument.yaml
+    '400':
+      $ref: ../../components/responses/400.yaml
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      $ref: ../../components/responses/403.yaml
+    '404':
+      $ref: ../../components/responses/404.yaml

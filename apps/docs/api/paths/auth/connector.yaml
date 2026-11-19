@@ -1,0 +1,43 @@
+post:
+  security: []
+  operationId: loginConnector
+  tags:
+    - Login
+  summary: Log in a connector with a password
+  description: |
+    Like `/auth`, but returns only a long-lived refresh token (`CONNECTOR_TOKEN_DAYS`, default 30)
+    for the bookkeeping audience. Used by the MCP server's OAuth login, so that an assistant need
+    not ask for the password every 12 hours. A disabled user is refused at every refresh.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            user:
+              type: string
+              example: my.name@gmail.com
+            password:
+              type: string
+          required:
+            - user
+            - password
+  responses:
+    '200':
+      description: Login successful.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              refresh:
+                type: string
+                description: Refresh token for `GET /auth/refresh`.
+              expires:
+                type: integer
+                description: Expiry time of the token in seconds since the epoch.
+            required:
+              - refresh
+              - expires
+    '401':
+      description: Login failed.

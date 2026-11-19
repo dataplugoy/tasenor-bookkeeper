@@ -1,0 +1,62 @@
+get:
+  operationId: getDrafts
+  tags:
+    - Drafts
+  summary: List drafts waiting for confirmation
+  parameters:
+  - in: path
+    name: databaseName
+    schema:
+      $ref: ../../components/types/databaseName.yaml
+    required: true
+  - in: query
+    name: period
+    schema:
+      $ref: ../../components/types/id.yaml
+    description: If given, limit to the drafts of the period with this ID.
+  responses:
+    '200':
+      description: Drafts, oldest date first.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../../components/schemas/Draft.yaml
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      $ref: ../../components/responses/403.yaml
+
+post:
+  operationId: createDraft
+  tags:
+    - Drafts
+  summary: Propose a new document
+  description: |
+    Store a proposed document without booking it. Drafts are kept apart from documents, so no
+    report or balance includes them; a person books one with `POST .../draft/{id}/confirm`.
+  parameters:
+  - in: path
+    name: databaseName
+    schema:
+      $ref: ../../components/types/databaseName.yaml
+    required: true
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/CreateDraft.yaml
+  responses:
+    '200':
+      description: The new draft.
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/Draft.yaml
+    '400':
+      $ref: ../../components/responses/400.yaml
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      $ref: ../../components/responses/403.yaml

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import TransactionTable from '../Components/TransactionTable'
+import Drafts from '../Components/Drafts'
 import Store from '../Stores/Store'
 import withStore from '../Hooks/withStore'
 import withRouter from '../Hooks/withRouter'
@@ -33,8 +34,10 @@ class TransactionsPage extends Component {
     if (!this.props.store.isLoggedIn()) {
       return ''
     }
+    const { db, periodId } = this.props.params
     return (
       <div style={{ margin: '1rem' }}>
+        <Drafts db={db} periodId={parseInt(periodId)}/>
         <TransactionTable/>
       </div>
     )

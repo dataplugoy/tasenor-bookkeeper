@@ -1,0 +1,16 @@
+allOf:
+  - $ref: CreateDraft.yaml
+  - type: object
+    properties:
+      id:
+        $ref: ../types/id.yaml
+      created_by:
+        type: string
+        description: Email of the user whose token created the draft.
+      created:
+        type: string
+        format: date-time
+    required:
+      - id
+      - created_by
+      - created

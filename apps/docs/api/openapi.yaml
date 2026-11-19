@@ -33,6 +33,9 @@ paths:
   /auth/refresh/ui:
     $ref: paths/auth/ui.yaml
 
+  /auth/connector:
+    $ref: paths/auth/connector.yaml
+
   /db:
     $ref: paths/db/index.yaml
 
@@ -56,6 +59,15 @@ paths:
 
   /db/{databaseName}/document/{id}:
     $ref: paths/document/id.yaml
+
+  /db/{databaseName}/draft:
+    $ref: paths/draft/index.yaml
+
+  /db/{databaseName}/draft/{id}:
+    $ref: paths/draft/id.yaml
+
+  /db/{databaseName}/draft/{id}/confirm:
+    $ref: paths/draft/confirm.yaml
 
   /db/{databaseName}/entry:
     $ref: paths/entry/index.yaml

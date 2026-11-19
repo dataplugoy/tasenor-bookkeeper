@@ -1,10 +1,12 @@
 /**
- * The MCP tools. All of them are read-only.
+ * The MCP tools. All are read-only except the draft tools, and a draft is never booked by this
+ * server: there is deliberately no confirm tool, so a person has to confirm every draft in
+ * Bookkeeper's own UI.
  */
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { z } from 'zod'
 import { ApiError, BookkeeperApi } from './api'
-import { Account, Document, Report, accountMatches, euros, findEntries, renderDocument, renderEntry, renderReport, totals } from './format'
+import { Account, Document, Draft, Report, accountMatches, buildDraftEntries, euros, findEntries, renderDocument, renderDraft, renderEntry, renderReport, totals } from './format'
 
 interface Period {
   id: number
@@ -51,7 +53,14 @@ function safe<A> (fn: (args: A) => Promise<string>) {
   }
 }
 
-export function registerTools (server: McpServer, api: BookkeeperApi): void {
+export interface ToolOptions {
+  // Leave out the draft tools entirely.
+  readOnly?: boolean
+  // Recorded on drafts as their source, e.g. the OAuth client's name.
+  source?: string
+}
+
+export function registerTools (server: McpServer, api: BookkeeperApi, options: ToolOptions = {}): void {
   // Accounts rarely change and are needed to label every entry, so keep them for a minute.
   const accountCache = new Map<string, { at: number, accounts: Map<number, Account> }>()
   async function accounts (dbName: string): Promise<Map<number, Account>> {
@@ -220,5 +229,62 @@ export function registerTools (server: McpServer, api: BookkeeperApi): void {
       throw new Error(`No document #${number} in period ${period}.`)
     }
     return renderDocument(doc, accs)
+  }))
+
+  if (options.readOnly) {
+    return
+  }
+
+  server.registerTool('create_draft', {
+    title: 'Propose a document',
+    description: 'Propose a new transaction document as a draft. It is NOT booked: it waits in Bookkeeper\'s Drafts view until a person confirms or rejects it, and you cannot confirm it yourself. ' +
+      'Entries must balance (debits = credits). Look up account numbers with list_accounts first, and check similar earlier documents with search_entries to follow the company\'s usual accounts and VAT treatment.',
+    inputSchema: {
+      db,
+      period,
+      date: z.string().describe('Document date, YYYY-MM-DD, inside the period.'),
+      description: z.string().max(256).describe('Document description, used for entries that have none of their own.'),
+      entries: z.array(z.object({
+        account: z.string().describe('Account number, e.g. "4000".'),
+        debit: z.number().optional().describe('Debit amount in euros.'),
+        credit: z.number().optional().describe('Credit amount in euros.'),
+        description: z.string().max(256).optional().describe('Entry description.')
+      })).min(2).describe('Entries, each with exactly one of debit or credit.'),
+      note: z.string().max(2000).optional().describe('Explanation for the person reviewing the draft: the source document, reasoning, anything uncertain.')
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: false }
+  }, safe(async ({ db, period, date, description, entries, note }) => {
+    const accs = await accounts(db)
+    const draft = await api.post<Draft>(`/db/${encodeURIComponent(db)}/draft`, {
+      period_id: period,
+      date,
+      description,
+      entries: buildDraftEntries(entries, accs),
+      data: { source: options.source || 'mcp', ...(note ? { note } : {}) }
+    })
+    return `${renderDraft(draft, accs)}\nSaved as a draft. A person must confirm it in Bookkeeper before it is booked.`
+  }))
+
+  server.registerTool('list_drafts', {
+    title: 'List drafts',
+    description: 'List documents proposed but not yet confirmed or rejected.',
+    inputSchema: { db, period: period.optional() },
+    annotations: READ_ONLY
+  }, safe(async ({ db, period }) => {
+    const [drafts, accs] = await Promise.all([
+      api.get<Draft[]>(`/db/${encodeURIComponent(db)}/draft`, { period: period === undefined ? undefined : `${period}` }),
+      accounts(db)
+    ])
+    return drafts.length ? drafts.map(d => renderDraft(d, accs)).join('\n\n') : 'No drafts.'
+  }))
+
+  server.registerTool('delete_draft', {
+    title: 'Delete a draft',
+    description: 'Withdraw a draft that has not been confirmed, e.g. one you made by mistake. Booked documents cannot be changed with this.',
+    inputSchema: { db, id: z.number().int().describe('Draft id.') },
+    annotations: { readOnlyHint: false, destructiveHint: true, idempotentHint: true, openWorldHint: false }
+  }, safe(async ({ db, id }) => {
+    await api.delete(`/db/${encodeURIComponent(db)}/draft/${id}`)
+    return `Draft ${id} deleted.`
   }))
 }

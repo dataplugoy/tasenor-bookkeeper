@@ -1,0 +1,57 @@
+get:
+  operationId: getDraft
+  tags:
+    - Drafts
+  summary: Get one draft
+  parameters:
+  - in: path
+    name: databaseName
+    schema:
+      $ref: ../../components/types/databaseName.yaml
+    required: true
+  - in: path
+    name: id
+    schema:
+      $ref: ../../components/types/id.yaml
+    required: true
+    description: The ID of the draft.
+  responses:
+    '200':
+      description: The draft.
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/Draft.yaml
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      $ref: ../../components/responses/403.yaml
+    '404':
+      $ref: ../../components/responses/404.yaml
+
+delete:
+  operationId: deleteDraft
+  tags:
+    - Drafts
+  summary: Reject a draft
+  parameters:
+  - in: path
+    name: databaseName
+    schema:
+      $ref: ../../components/types/databaseName.yaml
+    required: true
+  - in: path
+    name: id
+    schema:
+      $ref: ../../components/types/id.yaml
+    required: true
+    description: The ID of the draft.
+  responses:
+    '204':
+      description: Draft deleted.
+    '401':
+      $ref: ../../components/responses/401.yaml
+    '403':
+      $ref: ../../components/responses/403.yaml
+    '404':
+      $ref: ../../components/responses/404.yaml

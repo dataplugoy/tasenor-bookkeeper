@@ -5,6 +5,7 @@ import accountRoute from './account'
 import authRoute from './auth'
 import dbRoute from './db'
 import documentRoute from './document'
+import draftRoute from './draft'
 import entryRoute from './entry'
 import headingRoute from './heading'
 import importerRoute from './importer'
@@ -33,6 +34,7 @@ router.use('/admin/user', ...tasenor({ url: true, json: true }), adminUserRoute)
 router.use('/auth', authRoute)
 router.use('/db/:db/account', ...tasenor({ url: true, json: true, user: true, db: true }), accountRoute)
 router.use('/db/:db/document', ...tasenor({ url: true, json: true, user: true, db: true }), documentRoute)
+router.use('/db/:db/draft', ...tasenor({ url: true, json: true, user: true, db: true }), draftRoute)
 router.use('/db/:db/entry', ...tasenor({ url: true, json: true, user: true, db: true }), entryRoute)
 router.use('/db/:db/heading', ...tasenor({ url: true, json: true, user: true, db: true }), headingRoute)
 router.use('/db/:db/import', ...tasenor({ url: true, json: true, user: true, db: true }), importRoute)
