@@ -4,11 +4,30 @@ import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import 'dotenv/config'
 
+// Umami web analytics: the tracker tag goes into index.html only when UMAMI_WEBSITE_ID is set (the
+// hosted instance sets it; other installations send nothing anywhere).
+function umami(env: Record<string, string>) {
+  return {
+    name: 'umami',
+    transformIndexHtml() {
+      if (!env.UMAMI_WEBSITE_ID) return []
+      const attrs: Record<string, string | boolean> = {
+        defer: true,
+        src: env.UMAMI_SCRIPT_URL || 'https://stats.dataplug-oy.com/dp.js',
+        'data-website-id': env.UMAMI_WEBSITE_ID,
+      }
+      if (env.UMAMI_DOMAINS) attrs['data-domains'] = env.UMAMI_DOMAINS
+      return [{ tag: 'script', attrs, injectTo: 'head' as const }]
+    }
+  }
+}
+
 // https://vitejs.dev/config/
 export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   console.log(`Vite Bookkeeper: PORT = ${JSON.stringify(env.PORT)}`)
   console.log(`Vite Bookkeeper: UI_API_URL = ${JSON.stringify(env.UI_API_URL)}`)
+  console.log(`Vite Bookkeeper: UMAMI_WEBSITE_ID = ${JSON.stringify(env.UMAMI_WEBSITE_ID || null)}`)
   return {
     appType: 'spa',
     clearScreen: false,
@@ -24,6 +43,7 @@ export default defineConfig(async ({ mode }) => {
       dedupe: ['i18next', 'react-i18next', 'react', 'react-dom'],
     },
     plugins: [
+      umami(env),
       react({
         babel: {
           plugins: [
